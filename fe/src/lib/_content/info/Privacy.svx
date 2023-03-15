@@ -1,0 +1,7 @@
+<script>
+	import PrivacyBanner from './PrivacyBanner.svx';
+</script>
+
+## Cookies and data privacy policy
+
+<PrivacyBanner />
