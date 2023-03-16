@@ -20,7 +20,7 @@ const start = async () => {
 		await server.listen({ host: 'localhost', port: 3000 });
 		server.io.on('connection', socket => {
 			socket.on('data', integer => {
-				server.io.to(socket.id).emit('result', integer * 2);
+				server.io.to(socket.id).emit('result', integer * 4);
 			});
 		});
 	} catch (err) {

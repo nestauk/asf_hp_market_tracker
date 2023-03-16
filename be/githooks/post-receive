@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Change this to staging on the staging server
+branch="dev"
+
+while read oldrev newrev ref
+do
+    if [[ $ref =~ .*/$branch$ ]]; then
+        echo "$branch ref received. Deploying $branch branch..."
+        git --work-tree=$HOME/asf_hp_market_tracker --git-dir=$HOME/asf_hp_market_tracker.git checkout $branch -f
+        cd $HOME/asf_hp_market_tracker/be
+        npm install
+    else
+        echo "Ref $ref successfully received.  Doing nothing: only the $branch branch may be deployed on this server."
+    fi
+done
