@@ -1,0 +1,20 @@
+{
+	"dependencies": {
+		"@fastify/cors": "^8.2.1",
+		"fastify": "^4.14.1",
+		"fastify-socket.io": "^4.0.0",
+		"lamb": "^0.61.0",
+		"nodemon": "^2.0.21"
+	},
+	"description": "Backend for Nestas Heat Pump Market Tracker app",
+	"devDependencies": {
+		"eslint": "^8.36.0"
+	},
+	"license": "MIT",
+	"name": "hpmt_backend",
+	"scripts": {
+		"dev": "nodemon src/server.js",
+		"lint": "eslint ."
+	},
+	"type": "module"
+}

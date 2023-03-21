@@ -1,5 +1,10 @@
-import {PUBLIC_BACKEND_BASE} from '$env/static/public';
-
 export const isDev = import.meta.env.DEV;
 
-export const backendBase = PUBLIC_BACKEND_BASE;
+
+const backendEnv = import.meta.env?.VITE_BE_ENV || 'dev'; // local, dev, prod
+const beURLs = {
+	dev: 'wss://hpmt.be.dev.dap-tools.uk',
+	local: 'ws://localhost:3000',
+	staging: 'wss://hpmt.be.staging.dap-tools.uk'
+};
+export const selectedBeURL = beURLs[backendEnv];
