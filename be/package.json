@@ -2,7 +2,6 @@
 	"dependencies": {
 		"@fastify/cors": "^8.2.1",
 		"fastify": "^4.14.1",
-		"fastify-socket.io": "^4.0.0",
 		"lamb": "^0.61.0",
 		"nodemon": "^2.0.21"
 	},
