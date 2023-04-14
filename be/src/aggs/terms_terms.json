@@ -1,0 +1,19 @@
+{
+	"size": 0,
+	"aggs": {
+		"agg1": {
+			"terms": {
+				"field": null,
+				"size": 1000000
+			},
+			"aggs": {
+				"agg2": {
+					"terms": {
+						"field": null,
+						"size": 1000000
+					}
+				}
+			}
+		}
+	}
+}
