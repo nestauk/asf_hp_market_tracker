@@ -1,18 +1,7 @@
-import cors from '@fastify/cors';
-import fastify from 'fastify';
-
-import { routes } from './routes.js';
+import { build } from './app.js';
 
 const start = async () => {
-	const server = fastify({
-		logger: true
-	});
-
-	await server.register(cors, {
-		origin: '*'
-	});
-
-	server.register(routes);
+	const server = await build({ logger: true });
 
 	try {
 		await server.listen({ host: 'localhost', port: 3000 });

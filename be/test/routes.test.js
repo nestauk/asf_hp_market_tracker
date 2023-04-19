@@ -1,36 +1,27 @@
-import assert from 'assert';
-import querystring from 'querystring';
+import { readDirFiles } from '@svizzle/file';
+import * as _ from 'lamb';
+import { test } from 'tap';
 
-import compare from 'just-compare'
+import { build } from '../src/app.js';
 
-import terms_terms_response from './api/terms_terms/response.json' assert { type: 'json' }
+const build_ = () => build({
+	disableRequestLogging: true,
+	logger: {
+		level: 'info',
+		transport: {
+			target: 'pino-pretty'
+		}
+	}
+});
 
-const endpoint = 'http://localhost:3000'
-
-describe('routes', function () {
-	describe('terms_terms', async function () {
-		let response;
-		before(async function () {
-			const route = 'terms_terms'
-			let requestOptions = {
-				method: 'GET',
-			};
-			const query = querystring.stringify({
-				field1: 'property_geo_region_country.keyword',
-				field2: 'property_feature_type.keyword'
-
-			})
-			const url = `${endpoint}/${route}?${query}`
-			response = await fetch(url, requestOptions)
-		});
-
-		it('should return a 2xx http response code', function () {
-			assert.equal(response.status, 200)
-		});
-		it('should have the correct response body', async function () {
-			const body = await response.json();
-
-			assert(compare(body.aggregations, terms_terms_response.aggregations))
-		})
-	});
+test('/terms_terms', async t => {
+	const server = await build_();
+	t.teardown(() => server.close());
+	const tests = await readDirFiles('test/api/terms_terms', '', JSON.parse);
+	for await (const { query, response: expectedResponse } of tests) {
+		const response = await server.inject(query);
+		t.equal(response.statusCode, 200, 'returns a 200 status code');
+		t.same(response.json(), expectedResponse, 'returns the expected response body');
+	}
+	t.end();
 });

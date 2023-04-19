@@ -47,7 +47,7 @@ export const routes = (fastify, options, done) => {
 			body: q
 		});
 
-		reply.send(result);
+		reply.send(result.aggregations);
 	});
 
 	done();
