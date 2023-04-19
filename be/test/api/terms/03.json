@@ -1,0 +1,26 @@
+{
+	"query": {
+		"method": "GET",
+		"url": "terms",
+		"query": {
+			"field": "property_geo_region_country.keyword",
+			"size": 2
+		}
+	},
+	"response": {
+		"agg1": {
+			"doc_count_error_upper_bound": 0,
+			"sum_other_doc_count": 9469,
+			"buckets": [
+				{
+					"key": "England",
+					"doc_count": 155955
+				},
+				{
+					"key": "Scotland",
+					"doc_count": 33812
+				}
+			]
+		}
+	}
+}

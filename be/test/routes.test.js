@@ -14,14 +14,19 @@ const build_ = () => build({
 	}
 });
 
-test('/terms_terms', async t => {
-	const server = await build_();
-	t.teardown(() => server.close());
-	const tests = await readDirFiles('test/api/terms_terms', '', JSON.parse);
-	for await (const { query, response: expectedResponse } of tests) {
-		const response = await server.inject(query);
-		t.equal(response.statusCode, 200, 'returns a 200 status code');
-		t.same(response.json(), expectedResponse, 'returns the expected response body');
-	}
-	t.end();
-});
+const testRoute = async route => {
+	test(`/${route}`, async t => {
+		const server = await build_();
+		t.teardown(() => server.close());
+		const tests = await readDirFiles(`test/api/${route}`, '', JSON.parse);
+		for await (const { query, response: expectedResponse } of tests) {
+			const response = await server.inject(query);
+			t.equal(response.statusCode, 200, 'returns a 200 status code');
+			t.same(response.json(), expectedResponse, 'returns the expected response body');
+		}
+		t.end();
+	});
+};
+
+testRoute('terms');
+testRoute('terms_terms');
