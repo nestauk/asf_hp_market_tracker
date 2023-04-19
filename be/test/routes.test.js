@@ -1,6 +1,8 @@
 import assert from 'assert';
 import querystring from 'querystring';
 
+import compare from 'just-compare'
+
 import terms_terms_response from './api/terms_terms/response.json' assert { type: 'json' }
 
 const endpoint = 'http://localhost:3000'
@@ -27,7 +29,8 @@ describe('routes', function () {
 		});
 		it('should have the correct response body', async function () {
 			const body = await response.json();
-			assert.deepEqual(body.hits, terms_terms_response.hits)
+
+			assert(compare(body.aggregations, terms_terms_response.aggregations))
 		})
 	});
 });

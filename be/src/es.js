@@ -1,11 +1,11 @@
-import { Client } from '@elastic/elasticsearch'
+import { Client } from '@elastic/elasticsearch';
 
-import { domain, fingerprint } from './conf.js'
+import { domain, fingerprint } from './conf.js';
 
 // eslint-disable-next-line no-process-env
-const password = process.env.ELASTICSEARCH_PASSWORD || false
+const password = process.env.ELASTICSEARCH_PASSWORD || false;
 if (!password) {
-	throw new Error('Elasticsearch password environment variable not set')
+	throw new Error('Elasticsearch password environment variable not set');
 }
 
 export const client = new Client({
@@ -18,4 +18,4 @@ export const client = new Client({
 		caFingerprint: fingerprint,
 		rejectUnauthorized: false
 	}
-})
+});

@@ -238,7 +238,9 @@ rules:
   rest-spread-spacing:
     - error
     - never
-  semi: off
+  semi: 
+    - error
+    - always
   semi-spacing: error
   semi-style:
     - error
