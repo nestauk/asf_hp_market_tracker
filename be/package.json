@@ -10,6 +10,7 @@
 	"description": "Backend for Nestas Heat Pump Market Tracker app",
 	"devDependencies": {
 		"eslint": "^8.36.0",
+		"just-compare": "^2.3.0",
 		"mocha": "^10.2.0"
 	},
 	"license": "MIT",
