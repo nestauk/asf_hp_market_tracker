@@ -21,7 +21,7 @@
 	"scripts": {
 		"dev": "nodemon src/server.js | pino-pretty",
 		"lint": "eslint .",
-		"test": "tap"
+		"test": "tap --no-coverage"
 	},
 	"type": "module"
 }

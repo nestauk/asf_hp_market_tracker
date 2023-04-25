@@ -1,3 +1,5 @@
+import { maxBuckets } from '../conf.js'
+
 export const schema = {
 	schema: {
 		querystring: {
@@ -9,12 +11,12 @@ export const schema = {
 				size1: {
 					type: 'number',
 					minimum: 1,
-					maximum: 1000000
+					maximum: maxBuckets
 				},
 				size2: {
 					type: 'number',
 					minimum: 1,
-					maximum: 1000000
+					maximum: maxBuckets
 				},
 				missing1: { type: 'string' },
 				missing2: { type: 'string' }
