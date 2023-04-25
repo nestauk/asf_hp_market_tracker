@@ -2,6 +2,7 @@
 	"dependencies": {
 		"@elastic/elasticsearch": "^8.7.0",
 		"@fastify/cors": "^8.2.1",
+		"@svizzle/file": "^0.14.1",
 		"dap_dv_backends_utils": "github:nestauk/dap_dv_backends_utils#v0.0.9",
 		"fastify": "^4.14.1",
 		"lamb": "^0.61.0",
@@ -11,14 +12,16 @@
 	"devDependencies": {
 		"eslint": "^8.36.0",
 		"just-compare": "^2.3.0",
-		"mocha": "^10.2.0"
+		"mocha": "^10.2.0",
+		"pino-pretty": "^10.0.0",
+		"tap": "^16.3.4"
 	},
 	"license": "MIT",
 	"name": "hpmt_backend",
 	"scripts": {
-		"dev": "nodemon src/server.js",
+		"dev": "nodemon src/server.js | pino-pretty",
 		"lint": "eslint .",
-		"test": "mocha"
+		"test": "tap"
 	},
 	"type": "module"
 }
