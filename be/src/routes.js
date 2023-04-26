@@ -1,9 +1,42 @@
 import { index, maxBuckets } from './conf.js';
 import { client } from './es.js';
+import { schema as histogramSchema } from './schemas/histogram.js';
 import { schema as termsSchema } from './schemas/terms.js';
 import { schema as termsTermsSchema } from './schemas/terms_terms.js';
+import { getIntervalForBins } from './util.js';
 
 export const routes = (fastify, options, done) => {
+
+	fastify.get('/histogram', histogramSchema, async (request, reply) => {
+		const {
+			field,
+			bins = null,
+			missing = null
+		} = request.query;
+
+		const interval = await getIntervalForBins(index, field, bins);
+
+		const q = {
+			size: 0,
+			aggs: {
+				agg1: {
+					histogram: {
+						field,
+						interval,
+						...missing && { missing }
+					}
+				}
+			}
+		};
+
+		const result = await client.search({
+			index,
+			body: q
+		});
+
+		reply.send(result.aggregations);
+
+	});
 
 	fastify.get('/terms', termsSchema, async (request, reply) => {
 		const {
