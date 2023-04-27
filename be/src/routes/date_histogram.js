@@ -1,10 +1,10 @@
-import { index, maxBuckets } from '../conf.js';
+import { index } from '../conf.js';
 import { client } from '../es.js';
 
-export const getTerms = async (request, reply) => {
+export const getDateHistogram = async (request, reply) => {
 	const {
 		field,
-		size = maxBuckets,
+		calendar_interval,
 		missing = null
 	} = request.query;
 
@@ -12,10 +12,11 @@ export const getTerms = async (request, reply) => {
 		size: 0,
 		aggs: {
 			agg1: {
-				terms: {
+				date_histogram: {
 					field,
-					size,
-					...missing && { missing }
+					calendar_interval,
+					...missing && { missing },
+					format: 'yyyy-MM'
 				}
 			}
 		}
