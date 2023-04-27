@@ -1,7 +1,7 @@
-import { build } from './app.js';
+import { buildServer } from './app.js';
 
 const start = async () => {
-	const server = await build({ logger: true });
+	const server = await buildServer({ logger: true });
 
 	try {
 		await server.listen({ host: 'localhost', port: 3000 });

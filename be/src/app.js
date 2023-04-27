@@ -4,7 +4,7 @@ import fastify from 'fastify';
 import { onRequest, formatPayload } from './hooks.js';
 import { routes } from './routes.js';
 
-export const build = async (opts = {}) => {
+export const buildServer = async (opts = {}) => {
 	const server = fastify(opts);
 	await server.register(cors, { origin: '*' });
 	server.addHook('onRequest', onRequest);
@@ -12,13 +12,3 @@ export const build = async (opts = {}) => {
 	server.register(routes);
 	return server;
 };
-
-export const testBuild = () => build({
-	disableRequestLogging: true,
-	logger: {
-		level: 'info',
-		transport: {
-			target: 'pino-pretty'
-		}
-	}
-});
