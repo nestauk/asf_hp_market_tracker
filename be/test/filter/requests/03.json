@@ -1,0 +1,24 @@
+{
+    "request": {
+        "hp_feature_flow_temperature": {
+            "gt": 10,
+            "lt": 50
+        }
+    },
+    "query": {
+        "query": {
+            "bool": {
+                "filter": [
+                    {
+                        "range": {
+                            "hp_feature_flow_temperature": {
+                                "gt": 10,
+                                "lt": 50
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}

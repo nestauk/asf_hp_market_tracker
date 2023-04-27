@@ -19,3 +19,8 @@ export const client = new Client({
 		rejectUnauthorized: false
 	}
 });
+
+export const getDocumentCount = async filter => {
+	const { count } = await client.count({ body: filter });
+	return count;
+};

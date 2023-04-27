@@ -1,0 +1,46 @@
+{
+    "request": {
+        "property_feature_type": [
+            "House"
+        ],
+        "hp_feature_power_generation": {
+            "gt": 12000,
+            "lt": 15000
+        },
+        "installation_date": {
+            "gt": "2016-01-01T00:00:00.000Z",
+            "lt": "2018-01-01T00:00:00.000Z"
+        }
+    },
+    "query": {
+        "query": {
+            "bool": {
+                "filter": [
+                    {
+                        "terms": {
+                            "property_feature_type.keyword": [
+                                "House"
+                            ]
+                        }
+                    },
+                    {
+                        "range": {
+                            "hp_feature_power_generation": {
+                                "gt": 12000,
+                                "lt": 15000
+                            }
+                        }
+                    },
+                    {
+                        "range": {
+                            "installation_date": {
+                                "gt": "2016-01-01T00:00:00.000Z",
+                                "lt": "2018-01-01T00:00:00.000Z"
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}

@@ -1,0 +1,30 @@
+{
+    "query": {
+        "method": "GET",
+        "url": "terms",
+        "query": {
+            "field": "hp_feature_heat_system.keyword",
+            "size": 2
+        }
+    },
+    "response": {
+        "code": 200,
+        "data": {
+            "agg1": {
+                "doc_count_error_upper_bound": 0,
+                "sum_other_doc_count": 1457,
+                "buckets": [
+                    {
+                        "key": "Air Source Heat Pump",
+                        "doc_count": 207891
+                    },
+                    {
+                        "key": "Ground/Water Source Heat Pump",
+                        "doc_count": 31161
+                    }
+                ]
+            }
+        },
+        "message": "aggregation succesful"
+    }
+}

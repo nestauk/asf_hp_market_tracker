@@ -5,3 +5,4 @@ export const fingerprint = '8D:AC:F2:E3:92:C9:59:FB:E5:77:3A:82:3B:2E:11:C9:68:4
 
 export const maxBuckets = 65536;
 export const maxBins = 50;
+export const minDocCount = 5;

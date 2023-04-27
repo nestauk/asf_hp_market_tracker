@@ -1,0 +1,32 @@
+{
+    "request": {
+        "property_feature_type": [
+            "House"
+        ],
+        "property_supply_heating_system": [
+            "heat pump"
+        ]
+    },
+    "query": {
+        "query": {
+            "bool": {
+                "filter": [
+                    {
+                        "terms": {
+                            "property_feature_type.keyword": [
+                                "House"
+                            ]
+                        }
+                    },
+                    {
+                        "terms": {
+                            "property_supply_heating_system.keyword": [
+                                "heat pump"
+                            ]
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}
