@@ -1,47 +1,26 @@
 <script>
-
-	import { selectedBeURL } from '$lib/env';
-	import {io} from 'socket.io-client';
-
+	import View from '$lib/components/viewports/View.svelte';
+	import ViewsXor from '$lib/components/viewports/ViewsXor.svelte';
 	import {toolName} from '$lib/config';
+	import {_screenId} from '$lib/stores/layout';
 
-	let result = '';
-	let value;
+	import ExplorerMedium from './ExplorerMedium.svelte';
 
-	const socket = io(selectedBeURL);
-
-	socket.on('result', data => {
-		result = data
-	});
-
-	const handleClick = () => {
-		socket.emit('data', value);
-	}
 </script>
 
 <svelte:head>
 	<title>Explorer - {toolName}</title>
 	<meta
-		name='description'
 		content='The {toolName} data explorer'
+		name='description'
 	>
 </svelte:head>
 
-<div class='content'>
-	<input type=number bind:value={value}>
-	<button on:click={handleClick}>Send</button>
-	<div id='result'>Result: {result}</div>
-</div>
-
-<style>
-	.content {
-		height: 100%;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-	}
-	.content > * {
-		margin: 5px 0;
-	}
-</style>
+<ViewsXor viewId={$_screenId}>
+	<View id='medium'>
+		<ExplorerMedium/>
+	</View>
+	<View id='small'>
+		TODO
+	</View>
+</ViewsXor>
