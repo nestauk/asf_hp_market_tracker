@@ -2,13 +2,13 @@
 import { readDir, readJson, saveObj } from '@svizzle/file';
 import * as _ from 'lamb';
 
-import { build } from '../src/app.js';
+import { buildServer } from '../app.js';
 
 const path = 'test/routes/api';
 
 const update = async route => {
 
-	const server = await build();
+	const server = await buildServer();
 
 	const testPath = `${path}/${route}`;
 	const tests = await readDir(testPath);

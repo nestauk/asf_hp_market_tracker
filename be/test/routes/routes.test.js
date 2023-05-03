@@ -1,13 +1,13 @@
 import { readDir, readJson } from '@svizzle/file';
 import { test } from 'tap';
 
-import { testBuild } from '../../src/app.js';
+import { buildTestServer } from '../utils.js';
 
 const path = 'test/routes/api';
 
 const testRoute = async route => {
 	test(`/${route}`, async t => {
-		const server = await testBuild();
+		const server = await buildTestServer();
 		t.teardown(() => server.close());
 
 		const testPath = `${path}/${route}`;

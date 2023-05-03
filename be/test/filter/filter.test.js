@@ -2,7 +2,7 @@ import { readDirFiles } from '@svizzle/file';
 import rison from 'rison';
 import { test } from 'tap';
 
-import { testBuild } from '../../src/app.js';
+import { buildTestServer } from '../utils.js';
 import { index } from '../../src/conf.js';
 import { client } from '../../src/es.js';
 import { makeQuery } from '../../src/filter.js';
@@ -19,7 +19,7 @@ const buildQuery = request => {
 };
 
 test('#makeQuery', async tap => {
-	const server = await testBuild();
+	const server = await buildTestServer();
 	tap.teardown(() => server.close());
 	const tests = await readDirFiles('test/filter/requests', '', JSON.parse);
 	for await (const { request, query } of tests) {
