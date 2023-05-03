@@ -1,0 +1,22 @@
+{
+    "request": {
+        "property_feature_type": [
+            "House"
+        ]
+    },
+    "query": {
+        "query": {
+            "bool": {
+                "filter": [
+                    {
+                        "terms": {
+                            "property_feature_type.keyword": [
+                                "House"
+                            ]
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}

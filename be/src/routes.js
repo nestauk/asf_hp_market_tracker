@@ -46,6 +46,7 @@ export const routes = (fastify, options, done) => {
 		} = request.query;
 
 		const q = {
+			...request.filter,
 			size: 0,
 			aggs: {
 				agg1: {
