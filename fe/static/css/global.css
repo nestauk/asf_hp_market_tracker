@@ -87,7 +87,7 @@ a {
 	--colorBarchartHoveredItemBackground: peachpuff;
 	--colorBarchartHoveredItemBar: #333;
 	--colorBarchartHoveredItemText: #333;
-	--colorBarchartItemBar: black;
+	--colorBarchartItemBar: #333;
 	--colorBarchartSelectedItemBackground: #fff4e5;
 	--colorBarchartSelectedItemText: #333;
 	--colorBorder: #ccc;
@@ -144,7 +144,7 @@ a {
 	--colorBorder: #444; /* FIXME needed by a11y menu */
 	--colorBorderAux: #ccc; /* FIXME needed by a11y menu */
 	--colorIcon: #ccc;
-	--colorIconSelected: black;
+	--colorIconSelected: #333;
 	--colorLink: #7FA6CC;
 	--colorNavLink: #ccc;
 	--colorNavLinkActive: #7FA6CC;
@@ -165,10 +165,10 @@ a {
 	--colorTagH4: #6785a0;
 	--colorText: #ccc;
 	--colorTextDisabled: #666;
-	--colorTextInverted: black;
+	--colorTextInverted: #333;
 	--colorWarningBackground: rgb(117, 76, 0);
 	--colorWarningBorder: rgb(109, 60, 1);
-	--colorWarningText: black;
+	--colorWarningText: #333;
 
 	/* views */
 

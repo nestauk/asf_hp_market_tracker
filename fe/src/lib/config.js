@@ -1,3 +1,8 @@
+/* backend */
+
+// https://hpmt.be.dev.dap-tools.uk/terms?field=hp_feature_heat_system.keyword
+export const backendURL = 'https://hpmt.be.dev.dap-tools.uk';
+
 /* tool */
 
 export const toolName = 'Nesta HPMT';

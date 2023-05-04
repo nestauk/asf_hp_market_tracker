@@ -5,7 +5,6 @@ export const counts = [
 	{
 		entity: 'Installation',
 		id: 'installations',
-		field: 'installation_date',
 		label: 'Count',
 		title: 'Amount of installations',
 		type: 'count',
@@ -16,9 +15,16 @@ export const counts = [
 	{
 		entity: 'Installer',
 		id: 'installers',
-		field: 'installer_certificate_date_start',
+		field: 'installer_id',
 		label: 'Count',
 		title: 'Amount of installers',
+		type: 'count',
+	},
+	{
+		entity: 'Installer',
+		id: 'installations_per_installer',
+		label: 'Installations',
+		title: 'Amount of installations per installer',
 		type: 'count',
 	},
 ];

@@ -4,11 +4,11 @@
 </script>
 
 <div class='ExplorerMedium'>
-	<nav class='filters'>Filters</nav>
+	<nav class='filters'>filters</nav>
 	<nav class='metrics'>
 		<MetricSelector />
 	</nav>
-	<nav class='timeline' />
+	<nav class='timeline'>timeline</nav>
 	<section class='view'>
 		<ViewMedium>
 			<slot />
@@ -45,8 +45,11 @@
 		border-left: thin solid var(--colorBorder);
 	}
 	.timeline {
-		grid-area: timeline;
+		align-items: center;
 		border-top: thin solid var(--colorBorder);
+		display: flex;
+		grid-area: timeline;
+		justify-content: center;
 	}
 	.view {
 		grid-area: view;

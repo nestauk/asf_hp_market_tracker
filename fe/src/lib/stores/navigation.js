@@ -6,6 +6,7 @@ import {
 	metricById,
 	metricTitleById,
 } from '$lib/data/metrics.js';
+import {context} from '$lib/statechart/context.js';
 
 export const _activeViewType = writable('stats');
 export const _currentMetricId = writable(defaultMetric.id);
@@ -17,7 +18,14 @@ export const _currentMetricTitle = derived(
 export const _expectedRoute = derived(
 	[_activeViewType, _currentMetric],
 	([activeViewType, currentMetric]) => {
-		const {type, id} = currentMetric;
+		const {id, type} = currentMetric;
 		return `/explorer/${type}/${activeViewType}/${id}`;
 	}
+);
+
+export const _selection = writable(context.selection);
+
+export const _searchParams = derived(
+	_selection,
+	selection => new URLSearchParams(selection)
 );

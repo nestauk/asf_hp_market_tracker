@@ -1,10 +1,11 @@
 <script>
-	import {
-		_activeViewType,
-		_currentMetric,
-		_currentMetricId
-	} from '$lib/stores/navigation.js';
+	import DevView from '$lib/components/explorer/DevView.svelte';
+	import RegionLevelSelector
+		from '$lib/components/explorer/medium/RegionTypeSelector.svelte';
+	import Grid2Rows from '$lib/components/svizzle/Grid2Rows.svelte';
 </script>
 
-<div>{$_currentMetric.type}: {$_activeViewType}</div>
-<div>{$_currentMetricId}</div>
+<Grid2Rows percents={[10, 90]}>
+	<RegionLevelSelector />
+	<DevView/>
+</Grid2Rows>

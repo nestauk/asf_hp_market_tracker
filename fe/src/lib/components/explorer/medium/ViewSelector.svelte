@@ -2,7 +2,11 @@
 	import {Link} from '@svizzle/ui';
 
 	import {_activeViewType, _currentMetric} from '$lib/stores/navigation.js';
+
+	$: ({id, type} = $_currentMetric);
 </script>
+
+<!-- FIXME isUnderlined isn't working -->
 
 <nav class='ViewSelector'>
 	<div
@@ -11,7 +15,7 @@
 	>
 		<div class='dot stats'></div>
 		<Link
-			href='/explorer/{$_currentMetric.type}/stats/{$_currentMetric.id}'
+			href='/explorer/{type}/stats/{id}'
 			isBold={$_activeViewType === 'stats'}
 		>
 			Stats
@@ -23,7 +27,7 @@
 	>
 		<div class='dot region'></div>
 		<Link
-			href='/explorer/{$_currentMetric.type}/geo/{$_currentMetric.id}'
+			href='/explorer/{type}/geo/{id}'
 			isBold={$_activeViewType === 'geo'}
 		>
 			Geo
@@ -35,7 +39,7 @@
 	>
 		<div class='dot date'></div>
 		<Link
-			href='/explorer/{$_currentMetric.type}/time/{$_currentMetric.id}'
+			href='/explorer/{type}/time/{id}'
 			isBold={$_activeViewType === 'time'}
 		>
 			Time

@@ -2,7 +2,11 @@
 	import {Link, Scroller} from '@svizzle/ui';
 
 	import {metricGroups} from '$lib/data/metrics.js';
-	import {_activeViewType, _currentMetricId} from '$lib/stores/navigation.js';
+	import {
+		_activeViewType,
+		_currentMetricId,
+		_searchParams,
+	} from '$lib/stores/navigation.js';
 </script>
 
 <Scroller>
@@ -11,7 +15,7 @@
 		<ul>
 			{#each value as {id, label, type}}
 				<li>
-					<Link href='/explorer/{type}/{$_activeViewType}/{id}'>
+					<Link href='/explorer/{type}/{$_activeViewType}/{id}?{$_searchParams}'>
 						<div
 							class:selected={id === $_currentMetricId}
 							class='item'

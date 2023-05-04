@@ -1,10 +1,5 @@
 <script>
-	import {
-		_activeViewType,
-		_currentMetric,
-		_currentMetricId
-	} from '$lib/stores/navigation.js';
+	import DevView from '$lib/components/explorer/DevView.svelte';
 </script>
 
-<div>{$_currentMetric.type}: {$_activeViewType}</div>
-<div>{$_currentMetricId}</div>
+<DevView/>
