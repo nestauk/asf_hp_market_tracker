@@ -19,7 +19,6 @@ html, body, #app {
 
 h1, h2, h3, h4, h5, h6 {
 	font-weight: 400;
-	margin: 0 0 0.7em 0;
 }
 
 h1 {
@@ -81,7 +80,8 @@ a {
 	--colorAccentText: orange;
 	--colorActiveBackground: #333; /* not found */
 	--colorActiveText: #ccc; /* not found */
-	--colorAux: #f5f5f5; /* not found */
+	--colorAux: #eee;
+	--colorAuxText: #222;
 	--colorBackdropSensor: rgba(0, 0, 0, 0.25);
 	--colorBackground: white; /* back to --colorMain? */
 	--colorBarchartHoveredItemBackground: peachpuff;
@@ -102,7 +102,7 @@ a {
 	--colorScrollbarThumb: #ddd; /* windows */
 	--colorScrollbarTrack: #f5f5f5; /* windows */
 	--colorScrollbarTrackBorder: #ddd; /* windows */
-	--colorSelectedBackground: #00645f;
+	--colorSelectedBackground: #555;
 	--colorSelectedText: white;
 	--colorShadow: rgba(0, 0, 0, 0.5);
 	--colorSwitchKnob: lightgray;
@@ -118,6 +118,12 @@ a {
 	--colorWarningBackground: orange;
 	--colorWarningBorder: darkorange;
 	--colorWarningText: white;
+
+	/* views */
+
+	--colorView1: rgb(36, 175, 217);
+	--colorView2: rgb(240, 176, 58);
+	--colorView3: rgb(113, 231, 144);
 }
 
 .themeDark {
@@ -125,7 +131,8 @@ a {
 	--colorAccentText: rgb(117, 76, 0);
 	--colorActiveBackground: #ccc;
 	--colorActiveText: #333;
-	--colorAux: #222;
+	--colorAux: #444;
+	--colorAuxText: #eee;
 	--colorBackdropSensor: rgba(255, 255, 255, 0.25);
 	--colorBackground: #111; /* back to --colorMain? */
 	--colorBarchartHoveredItemBackground: cornflowerblue;
@@ -146,7 +153,7 @@ a {
 	--colorScrollbarThumb: #666; /* windows */
 	--colorScrollbarTrack: #222; /* windows */
 	--colorScrollbarTrackBorder: #666; /* windows */
-	--colorSelectedBackground: #83b8b5;
+	--colorSelectedBackground: #eee;
 	--colorSelectedText: black;
 	--colorShadow: rgba(0, 0, 0, 0.5);
 	--colorSwitchKnob: gray;
@@ -162,4 +169,10 @@ a {
 	--colorWarningBackground: rgb(117, 76, 0);
 	--colorWarningBorder: rgb(109, 60, 1);
 	--colorWarningText: black;
+
+	/* views */
+
+	--colorView1: rgb(36, 175, 217);
+	--colorView2: rgb(240, 176, 58);
+	--colorView3: rgb(113, 231, 144);
 }

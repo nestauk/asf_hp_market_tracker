@@ -1,8 +1,19 @@
+<script>
+	import MetricSelector from '$lib/components/explorer/MetricSelector.svelte';
+	import ViewMedium from '$lib/components/explorer/medium/ViewMedium.svelte';
+</script>
+
 <div class='ExplorerMedium'>
-	<div class='filters' />
-	<div class='metrics' />
-	<div class='timeline' />
-	<div class='view' />
+	<nav class='filters'>Filters</nav>
+	<nav class='metrics'>
+		<MetricSelector />
+	</nav>
+	<nav class='timeline' />
+	<section class='view'>
+		<ViewMedium>
+			<slot />
+		</ViewMedium>
+	</section>
 </div>
 
 <style>
@@ -23,8 +34,11 @@
 	}
 
 	.filters {
-		grid-area: filters;
+		align-items: center;
 		border-right: thin solid var(--colorBorder);
+		display: flex;
+		grid-area: filters;
+		justify-content: center;
 	}
 	.metrics {
 		grid-area: metrics;

@@ -1,11 +1,10 @@
 <script>
-	import { page } from '$app/stores';
+	import {page as _page} from '$app/stores';
 	import {toolName} from '$lib/config';
 	import {isDev} from '$lib/env';
 
-
-	$: status = $page.status;
-	$: error = $page.error;
+	$: status = $_page.status;
+	$: error = $_page.error;
 </script>
 
 <svelte:head>
