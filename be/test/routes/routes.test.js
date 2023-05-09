@@ -23,12 +23,13 @@ const testRoute = async route => {
 	});
 };
 
-testRoute('terms');
-testRoute('terms_terms');
-
 const histogramTests = async (tap, query, result) => {
 	const q = query.query;
 	const expectedBins = 'missing' in q ? q.bins + 1 : q.bins;
 	tap.equal(expectedBins, result.data.agg1.buckets.length);
 };
+
+testRoute('date_histogram');
 testRoute('histogram', histogramTests);
+testRoute('terms_terms');
+testRoute('terms');

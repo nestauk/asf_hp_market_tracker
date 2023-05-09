@@ -1,4 +1,3 @@
-
 import { index, maxBuckets } from '../conf.js';
 import { client } from '../es.js';
 
@@ -12,7 +11,7 @@ export const getTermsTerms = async (request, reply) => {
 		missing2 = null
 	} = request.query;
 
-	const q = {
+	const body = {
 		size: 0,
 		aggs: {
 			agg1: {
@@ -35,8 +34,8 @@ export const getTermsTerms = async (request, reply) => {
 	};
 
 	const result = await client.search({
-		index,
-		body: q
+		body,
+		index
 	});
 
 	reply.send(result.aggregations);
