@@ -1,6 +1,6 @@
 import { Client } from '@elastic/elasticsearch';
 
-import { domain, fingerprint } from './conf.js';
+import { domain, index, fingerprint } from './conf.js';
 
 // eslint-disable-next-line no-process-env
 const password = process.env.ELASTICSEARCH_PASSWORD || false;
@@ -21,6 +21,6 @@ export const client = new Client({
 });
 
 export const getDocumentCount = async filter => {
-	const { count } = await client.count({ body: filter });
+	const { count } = await client.count({ index, body: filter });
 	return count;
 };
