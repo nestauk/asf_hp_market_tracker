@@ -1,0 +1,153 @@
+{
+    "query": {
+        "method": "GET",
+        "url": "terms_stats",
+        "query": {
+            "field1": "property_energy_efficiency_walls.keyword",
+            "field2": "installation_cost",
+            "use_extended_stats": "true"
+        }
+    },
+    "response": {
+        "code": 200,
+        "data": {
+            "agg1": {
+                "doc_count_error_upper_bound": 0,
+                "sum_other_doc_count": 0,
+                "buckets": [
+                    {
+                        "key": "Very Good",
+                        "doc_count": 101487,
+                        "agg2": {
+                            "count": 24936,
+                            "min": 1,
+                            "max": 200000,
+                            "avg": 11678.729104266322,
+                            "sum": 291220788.943985,
+                            "sum_of_squares": 5429944983941.708,
+                            "variance": 81362539.31401153,
+                            "variance_population": 81362539.31401153,
+                            "variance_sampling": 81365802.29934596,
+                            "std_deviation": 9020.118586471663,
+                            "std_deviation_population": 9020.118586471663,
+                            "std_deviation_sampling": 9020.299457298852,
+                            "std_deviation_bounds": {
+                                "upper": 29718.96627720965,
+                                "lower": -6361.508068677003,
+                                "upper_population": 29718.96627720965,
+                                "lower_population": -6361.508068677003,
+                                "upper_sampling": 29719.328018864027,
+                                "lower_sampling": -6361.869810331382
+                            }
+                        }
+                    },
+                    {
+                        "key": "Good",
+                        "doc_count": 78915,
+                        "agg2": {
+                            "count": 45254,
+                            "min": 1,
+                            "max": 200000,
+                            "avg": 11138.48231488005,
+                            "sum": 504060878.6775818,
+                            "sum_of_squares": 8219042292417.213,
+                            "variance": 57554450.6484304,
+                            "variance_population": 57554450.6484304,
+                            "variance_sampling": 57555722.48567099,
+                            "std_deviation": 7586.464963896584,
+                            "std_deviation_population": 7586.464963896584,
+                            "std_deviation_sampling": 7586.548786218342,
+                            "std_deviation_bounds": {
+                                "upper": 26311.412242673217,
+                                "lower": -4034.447612913118,
+                                "upper_population": 26311.412242673217,
+                                "lower_population": -4034.447612913118,
+                                "upper_sampling": 26311.579887316733,
+                                "lower_sampling": -4034.615257556634
+                            }
+                        }
+                    },
+                    {
+                        "key": "Average",
+                        "doc_count": 28782,
+                        "agg2": {
+                            "count": 23138,
+                            "min": 1,
+                            "max": 167139.765625,
+                            "avg": 10907.402371311839,
+                            "sum": 252375476.06741333,
+                            "sum_of_squares": 3518974635477.931,
+                            "variance": 33114952.431466524,
+                            "variance_population": 33114952.431466524,
+                            "variance_sampling": 33116383.686704088,
+                            "std_deviation": 5754.559273434111,
+                            "std_deviation_population": 5754.559273434111,
+                            "std_deviation_sampling": 5754.683630461721,
+                            "std_deviation_bounds": {
+                                "upper": 22416.52091818006,
+                                "lower": -601.716175556383,
+                                "upper_population": 22416.52091818006,
+                                "lower_population": -601.716175556383,
+                                "upper_sampling": 22416.76963223528,
+                                "lower_sampling": -601.9648896116032
+                            }
+                        }
+                    },
+                    {
+                        "key": "Very Poor",
+                        "doc_count": 18685,
+                        "agg2": {
+                            "count": 14352,
+                            "min": 1,
+                            "max": 200000,
+                            "avg": 15334.702359703473,
+                            "sum": 220083648.26646423,
+                            "sum_of_squares": 5326664261525.468,
+                            "variance": 135991291.88416734,
+                            "variance_population": 135991291.88416734,
+                            "variance_sampling": 136000767.96889204,
+                            "std_deviation": 11661.530426327727,
+                            "std_deviation_population": 11661.530426327727,
+                            "std_deviation_sampling": 11661.936716038723,
+                            "std_deviation_bounds": {
+                                "upper": 38657.76321235893,
+                                "lower": -7988.35849295198,
+                                "upper_population": 38657.76321235893,
+                                "lower_population": -7988.35849295198,
+                                "upper_sampling": 38658.57579178092,
+                                "lower_sampling": -7989.1710723739725
+                            }
+                        }
+                    },
+                    {
+                        "key": "Poor",
+                        "doc_count": 12615,
+                        "agg2": {
+                            "count": 8518,
+                            "min": 1,
+                            "max": 150000,
+                            "avg": 13111.904694406045,
+                            "sum": 111687204.18695068,
+                            "sum_of_squares": 2151577917141.8035,
+                            "variance": 80669868.54400544,
+                            "variance_population": 80669868.54400544,
+                            "variance_sampling": 80679340.1735163,
+                            "std_deviation": 8981.640637656656,
+                            "std_deviation_population": 8981.640637656656,
+                            "std_deviation_sampling": 8982.167899428083,
+                            "std_deviation_bounds": {
+                                "upper": 31075.185969719358,
+                                "lower": -4851.3765809072665,
+                                "upper_population": 31075.185969719358,
+                                "lower_population": -4851.3765809072665,
+                                "upper_sampling": 31076.24049326221,
+                                "lower_sampling": -4852.431104450121
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "message": "aggregation successful"
+    }
+}
