@@ -15,7 +15,6 @@ const testRoute = async route => {
 
 		for await (const testFile of tests) {
 			const { query, response: expectedResponse } = await readJson(`${testPath}/${testFile}`);
-			console.log('QUERY', query);
 			const response = await server.inject(query);
 			t.equal(response.statusCode, 200, `${route} ${testFile} returns a 200 status code`);
 			t.same(response.json(), expectedResponse, `${route} ${testFile} returns the expected response body`);
