@@ -15,6 +15,7 @@ const testRoute = async route => {
 
 		for await (const testFile of tests) {
 			const { query, response: expectedResponse } = await readJson(`${testPath}/${testFile}`);
+			console.log('QUERY', query);
 			const response = await server.inject(query);
 			t.equal(response.statusCode, 200, `${route} ${testFile} returns a 200 status code`);
 			t.same(response.json(), expectedResponse, `${route} ${testFile} returns the expected response body`);
@@ -31,5 +32,6 @@ const histogramTests = async (tap, query, result) => {
 
 testRoute('date_histogram');
 testRoute('histogram', histogramTests);
-testRoute('terms_terms');
 testRoute('terms');
+testRoute('terms_histogram');
+testRoute('terms_terms');

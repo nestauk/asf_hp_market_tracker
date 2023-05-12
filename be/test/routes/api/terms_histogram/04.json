@@ -1,0 +1,108 @@
+{
+    "query": {
+        "method": "GET",
+        "url": "terms_histogram",
+        "query": {
+            "field1": "hp_feature_heat_system.keyword",
+            "field2": "property_feature_total_floor_area",
+            "bins": 5,
+            "missing2": -1
+        }
+    },
+    "response": {
+        "code": 200,
+        "data": {
+            "agg1": {
+                "doc_count_error_upper_bound": 0,
+                "sum_other_doc_count": 0,
+                "buckets": [
+                    {
+                        "key": "Air Source Heat Pump",
+                        "doc_count": 207891,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 207471
+                                },
+                                {
+                                    "key": 700,
+                                    "doc_count": 392
+                                },
+                                {
+                                    "key": 1400,
+                                    "doc_count": 26
+                                },
+                                {
+                                    "key": 2100,
+                                    "doc_count": 2
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Ground/Water Source Heat Pump",
+                        "doc_count": 31161,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": -700,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 0,
+                                    "doc_count": 30659
+                                },
+                                {
+                                    "key": 700,
+                                    "doc_count": 444
+                                },
+                                {
+                                    "key": 1400,
+                                    "doc_count": 47
+                                },
+                                {
+                                    "key": 2100,
+                                    "doc_count": 10
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Undefined or Other Heat Pump Type",
+                        "doc_count": 1409,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 1407
+                                },
+                                {
+                                    "key": 700,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 1400,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "No HP",
+                        "doc_count": 48,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 48
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        "message": "aggregation successful"
+    }
+}

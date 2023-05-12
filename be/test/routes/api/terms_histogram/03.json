@@ -1,0 +1,3072 @@
+{
+    "query": {
+        "method": "GET",
+        "url": "terms_histogram",
+        "query": {
+            "field1": "hp_id_brand.keyword",
+            "field2": "installation_cost",
+            "bins": 20,
+            "missing1": "missing"
+        }
+    },
+    "response": {
+        "code": 200,
+        "data": {
+            "agg1": {
+                "doc_count_error_upper_bound": 0,
+                "sum_other_doc_count": 0,
+                "buckets": [
+                    {
+                        "key": "missing",
+                        "doc_count": 100593,
+                        "agg2": {
+                            "buckets": []
+                        }
+                    },
+                    {
+                        "key": "Mitsubishi Electric Europe B.V.",
+                        "doc_count": 33979,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 17592
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 6886
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 180
+                                },
+                                {
+                                    "key": 31578,
+                                    "doc_count": 14
+                                },
+                                {
+                                    "key": 42104,
+                                    "doc_count": 5
+                                },
+                                {
+                                    "key": 52630,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 63156,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 73682,
+                                    "doc_count": 3
+                                },
+                                {
+                                    "key": 84208,
+                                    "doc_count": 5
+                                },
+                                {
+                                    "key": 94734,
+                                    "doc_count": 20
+                                },
+                                {
+                                    "key": 105260,
+                                    "doc_count": 3
+                                },
+                                {
+                                    "key": 115786,
+                                    "doc_count": 2
+                                },
+                                {
+                                    "key": 126312,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 136838,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 147364,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 157890,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 168416,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 178942,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Daikin Europe N. V.",
+                        "doc_count": 23368,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 13694
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 5130
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 187
+                                },
+                                {
+                                    "key": 31578,
+                                    "doc_count": 30
+                                },
+                                {
+                                    "key": 42104,
+                                    "doc_count": 9
+                                },
+                                {
+                                    "key": 52630,
+                                    "doc_count": 7
+                                },
+                                {
+                                    "key": 63156,
+                                    "doc_count": 2
+                                },
+                                {
+                                    "key": 73682,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 84208,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 94734,
+                                    "doc_count": 3
+                                },
+                                {
+                                    "key": 105260,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 115786,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 126312,
+                                    "doc_count": 2
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Mitsubishi",
+                        "doc_count": 11647,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 4656
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 6740
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 213
+                                },
+                                {
+                                    "key": 31578,
+                                    "doc_count": 15
+                                },
+                                {
+                                    "key": 42104,
+                                    "doc_count": 4
+                                },
+                                {
+                                    "key": 52630,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 63156,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 73682,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 84208,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 94734,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 105260,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 115786,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 126312,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 136838,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "NIBE AB",
+                        "doc_count": 10558,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 3861
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 3878
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 881
+                                },
+                                {
+                                    "key": 31578,
+                                    "doc_count": 333
+                                },
+                                {
+                                    "key": 42104,
+                                    "doc_count": 127
+                                },
+                                {
+                                    "key": 52630,
+                                    "doc_count": 43
+                                },
+                                {
+                                    "key": 63156,
+                                    "doc_count": 28
+                                },
+                                {
+                                    "key": 73682,
+                                    "doc_count": 13
+                                },
+                                {
+                                    "key": 84208,
+                                    "doc_count": 6
+                                },
+                                {
+                                    "key": 94734,
+                                    "doc_count": 5
+                                },
+                                {
+                                    "key": 105260,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 115786,
+                                    "doc_count": 3
+                                },
+                                {
+                                    "key": 126312,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 136838,
+                                    "doc_count": 5
+                                },
+                                {
+                                    "key": 147364,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 157890,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 168416,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 178942,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Vaillant Group UK Ltd",
+                        "doc_count": 10449,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 4833
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 5133
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 320
+                                },
+                                {
+                                    "key": 31578,
+                                    "doc_count": 85
+                                },
+                                {
+                                    "key": 42104,
+                                    "doc_count": 38
+                                },
+                                {
+                                    "key": 52630,
+                                    "doc_count": 9
+                                },
+                                {
+                                    "key": 63156,
+                                    "doc_count": 2
+                                },
+                                {
+                                    "key": 73682,
+                                    "doc_count": 2
+                                },
+                                {
+                                    "key": 84208,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 94734,
+                                    "doc_count": 2
+                                },
+                                {
+                                    "key": 105260,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 115786,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 126312,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 136838,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 147364,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Samsung Electronics",
+                        "doc_count": 7651,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 3219
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 4017
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 146
+                                },
+                                {
+                                    "key": 31578,
+                                    "doc_count": 19
+                                },
+                                {
+                                    "key": 42104,
+                                    "doc_count": 5
+                                },
+                                {
+                                    "key": 52630,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 63156,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 73682,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 84208,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 94734,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 105260,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 115786,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 126312,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 136838,
+                                    "doc_count": 2
+                                },
+                                {
+                                    "key": 147364,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 157890,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 168416,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 178942,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 189468,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 199994,
+                                    "doc_count": 5
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "LG Electronics Inc.",
+                        "doc_count": 5592,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 1697
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 3803
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 75
+                                },
+                                {
+                                    "key": 31578,
+                                    "doc_count": 5
+                                },
+                                {
+                                    "key": 42104,
+                                    "doc_count": 3
+                                },
+                                {
+                                    "key": 52630,
+                                    "doc_count": 2
+                                },
+                                {
+                                    "key": 63156,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 73682,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 84208,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 94734,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 105260,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 115786,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Grant Engineering (UK) Ltd",
+                        "doc_count": 5553,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 1683
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 3652
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 193
+                                },
+                                {
+                                    "key": 31578,
+                                    "doc_count": 19
+                                },
+                                {
+                                    "key": 42104,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 52630,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 63156,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 73682,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 84208,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 94734,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 105260,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Kensa Heat Pumps",
+                        "doc_count": 4494,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 1406
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 1558
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 377
+                                },
+                                {
+                                    "key": 31578,
+                                    "doc_count": 189
+                                },
+                                {
+                                    "key": 42104,
+                                    "doc_count": 92
+                                },
+                                {
+                                    "key": 52630,
+                                    "doc_count": 23
+                                },
+                                {
+                                    "key": 63156,
+                                    "doc_count": 15
+                                },
+                                {
+                                    "key": 73682,
+                                    "doc_count": 9
+                                },
+                                {
+                                    "key": 84208,
+                                    "doc_count": 6
+                                },
+                                {
+                                    "key": 94734,
+                                    "doc_count": 3
+                                },
+                                {
+                                    "key": 105260,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 115786,
+                                    "doc_count": 6
+                                },
+                                {
+                                    "key": 126312,
+                                    "doc_count": 2
+                                },
+                                {
+                                    "key": 136838,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 147364,
+                                    "doc_count": 5
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Bosch Thermotechnik GmbH",
+                        "doc_count": 2975,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 294
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 331
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 34
+                                },
+                                {
+                                    "key": 31578,
+                                    "doc_count": 5
+                                },
+                                {
+                                    "key": 42104,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Panasonic Marketing Europe GmbH t/a Panasonic Appliances Air-Conditioning Europe",
+                        "doc_count": 2889,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 1628
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 1020
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 33
+                                },
+                                {
+                                    "key": 31578,
+                                    "doc_count": 2
+                                },
+                                {
+                                    "key": 42104,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 52630,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 63156,
+                                    "doc_count": 3
+                                },
+                                {
+                                    "key": 73682,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 84208,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 94734,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Johnson Controls-Hitachi Air Conditioning Spain, S.A.U.",
+                        "doc_count": 1826,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 1063
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 552
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 33
+                                },
+                                {
+                                    "key": 31578,
+                                    "doc_count": 3
+                                },
+                                {
+                                    "key": 42104,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 52630,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 63156,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 73682,
+                                    "doc_count": 2
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "GDC Group Ltd (Dimplex)",
+                        "doc_count": 1714,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 563
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 277
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 46
+                                },
+                                {
+                                    "key": 31578,
+                                    "doc_count": 26
+                                },
+                                {
+                                    "key": 42104,
+                                    "doc_count": 5
+                                },
+                                {
+                                    "key": 52630,
+                                    "doc_count": 4
+                                },
+                                {
+                                    "key": 63156,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 73682,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 84208,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 94734,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 105260,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 115786,
+                                    "doc_count": 2
+                                },
+                                {
+                                    "key": 126312,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 136838,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 147364,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 157890,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 168416,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 178942,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Stiebel Eltron AG",
+                        "doc_count": 1447,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 164
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 760
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 250
+                                },
+                                {
+                                    "key": 31578,
+                                    "doc_count": 92
+                                },
+                                {
+                                    "key": 42104,
+                                    "doc_count": 35
+                                },
+                                {
+                                    "key": 52630,
+                                    "doc_count": 12
+                                },
+                                {
+                                    "key": 63156,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 73682,
+                                    "doc_count": 2
+                                },
+                                {
+                                    "key": 84208,
+                                    "doc_count": 2
+                                },
+                                {
+                                    "key": 94734,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 105260,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 115786,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 126312,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 136838,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 147364,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 157890,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 168416,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 178942,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 189468,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "GD MIDEA Heating & Ventilating Equipment Co., Ltd",
+                        "doc_count": 1426,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 341
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 1019
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 56
+                                },
+                                {
+                                    "key": 31578,
+                                    "doc_count": 4
+                                },
+                                {
+                                    "key": 42104,
+                                    "doc_count": 5
+                                },
+                                {
+                                    "key": 52630,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 63156,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 73682,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 84208,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 94734,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 105260,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 115786,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Kensa Engineering Ltd",
+                        "doc_count": 1356,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 261
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 410
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 92
+                                },
+                                {
+                                    "key": 31578,
+                                    "doc_count": 28
+                                },
+                                {
+                                    "key": 42104,
+                                    "doc_count": 8
+                                },
+                                {
+                                    "key": 52630,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 63156,
+                                    "doc_count": 2
+                                },
+                                {
+                                    "key": 73682,
+                                    "doc_count": 2
+                                },
+                                {
+                                    "key": 84208,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Vaillant GmbH",
+                        "doc_count": 1281,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 640
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 184
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 43
+                                },
+                                {
+                                    "key": 31578,
+                                    "doc_count": 17
+                                },
+                                {
+                                    "key": 42104,
+                                    "doc_count": 18
+                                },
+                                {
+                                    "key": 52630,
+                                    "doc_count": 4
+                                },
+                                {
+                                    "key": 63156,
+                                    "doc_count": 2
+                                },
+                                {
+                                    "key": 73682,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 84208,
+                                    "doc_count": 2
+                                },
+                                {
+                                    "key": 94734,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 105260,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 115786,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 126312,
+                                    "doc_count": 2
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Thermal Earth Ltd",
+                        "doc_count": 1144,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 124
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 527
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 236
+                                },
+                                {
+                                    "key": 31578,
+                                    "doc_count": 111
+                                },
+                                {
+                                    "key": 42104,
+                                    "doc_count": 50
+                                },
+                                {
+                                    "key": 52630,
+                                    "doc_count": 3
+                                },
+                                {
+                                    "key": 63156,
+                                    "doc_count": 4
+                                },
+                                {
+                                    "key": 73682,
+                                    "doc_count": 5
+                                },
+                                {
+                                    "key": 84208,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 94734,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 105260,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 115786,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Danfoss Ltd",
+                        "doc_count": 1058,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 129
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 255
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 37
+                                },
+                                {
+                                    "key": 31578,
+                                    "doc_count": 13
+                                },
+                                {
+                                    "key": 42104,
+                                    "doc_count": 5
+                                },
+                                {
+                                    "key": 52630,
+                                    "doc_count": 2
+                                },
+                                {
+                                    "key": 63156,
+                                    "doc_count": 3
+                                },
+                                {
+                                    "key": 73682,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 84208,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 94734,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 105260,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 115786,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 126312,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 136838,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 147364,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Go Geothermal Limited",
+                        "doc_count": 874,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 92
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 282
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 163
+                                },
+                                {
+                                    "key": 31578,
+                                    "doc_count": 90
+                                },
+                                {
+                                    "key": 42104,
+                                    "doc_count": 60
+                                },
+                                {
+                                    "key": 52630,
+                                    "doc_count": 33
+                                },
+                                {
+                                    "key": 63156,
+                                    "doc_count": 17
+                                },
+                                {
+                                    "key": 73682,
+                                    "doc_count": 10
+                                },
+                                {
+                                    "key": 84208,
+                                    "doc_count": 7
+                                },
+                                {
+                                    "key": 94734,
+                                    "doc_count": 4
+                                },
+                                {
+                                    "key": 105260,
+                                    "doc_count": 8
+                                },
+                                {
+                                    "key": 115786,
+                                    "doc_count": 2
+                                },
+                                {
+                                    "key": 126312,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 136838,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 147364,
+                                    "doc_count": 4
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Stiebel Eltron",
+                        "doc_count": 816,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 29
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 451
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 197
+                                },
+                                {
+                                    "key": 31578,
+                                    "doc_count": 75
+                                },
+                                {
+                                    "key": 42104,
+                                    "doc_count": 43
+                                },
+                                {
+                                    "key": 52630,
+                                    "doc_count": 5
+                                },
+                                {
+                                    "key": 63156,
+                                    "doc_count": 8
+                                },
+                                {
+                                    "key": 73682,
+                                    "doc_count": 4
+                                },
+                                {
+                                    "key": 84208,
+                                    "doc_count": 2
+                                },
+                                {
+                                    "key": 94734,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 105260,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Ecoforest Geotermia, S.L.",
+                        "doc_count": 739,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 15
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 151
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 246
+                                },
+                                {
+                                    "key": 31578,
+                                    "doc_count": 136
+                                },
+                                {
+                                    "key": 42104,
+                                    "doc_count": 84
+                                },
+                                {
+                                    "key": 52630,
+                                    "doc_count": 17
+                                },
+                                {
+                                    "key": 63156,
+                                    "doc_count": 17
+                                },
+                                {
+                                    "key": 73682,
+                                    "doc_count": 17
+                                },
+                                {
+                                    "key": 84208,
+                                    "doc_count": 3
+                                },
+                                {
+                                    "key": 94734,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 105260,
+                                    "doc_count": 3
+                                },
+                                {
+                                    "key": 115786,
+                                    "doc_count": 3
+                                },
+                                {
+                                    "key": 126312,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 136838,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 147364,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 157890,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 168416,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 178942,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Husky Heat Pumps",
+                        "doc_count": 566,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 50
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 4
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Viessmann Ltd",
+                        "doc_count": 566,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 98
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 245
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 52
+                                },
+                                {
+                                    "key": 31578,
+                                    "doc_count": 42
+                                },
+                                {
+                                    "key": 42104,
+                                    "doc_count": 30
+                                },
+                                {
+                                    "key": 52630,
+                                    "doc_count": 12
+                                },
+                                {
+                                    "key": 63156,
+                                    "doc_count": 6
+                                },
+                                {
+                                    "key": 73682,
+                                    "doc_count": 2
+                                },
+                                {
+                                    "key": 84208,
+                                    "doc_count": 2
+                                },
+                                {
+                                    "key": 94734,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 105260,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 115786,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 126312,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 136838,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 147364,
+                                    "doc_count": 2
+                                },
+                                {
+                                    "key": 157890,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 168416,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 178942,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 189468,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 199994,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Heliotherm WÃ¤rmepumpentechnik Ges.m.b.H",
+                        "doc_count": 530,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 17
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 404
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 52
+                                },
+                                {
+                                    "key": 31578,
+                                    "doc_count": 34
+                                },
+                                {
+                                    "key": 42104,
+                                    "doc_count": 14
+                                },
+                                {
+                                    "key": 52630,
+                                    "doc_count": 3
+                                },
+                                {
+                                    "key": 63156,
+                                    "doc_count": 3
+                                },
+                                {
+                                    "key": 73682,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Earth Save Products Limited",
+                        "doc_count": 467,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 217
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 72
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 7
+                                },
+                                {
+                                    "key": 31578,
+                                    "doc_count": 3
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Calorex Heat Pumps",
+                        "doc_count": 382,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 40
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 8
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 31578,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Grant Engineering Ltd",
+                        "doc_count": 338,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 97
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 25
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 31578,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Neura AG",
+                        "doc_count": 327,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 22
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "CEO2 Green S.L.",
+                        "doc_count": 308,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 6
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 49
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 145
+                                },
+                                {
+                                    "key": 31578,
+                                    "doc_count": 79
+                                },
+                                {
+                                    "key": 42104,
+                                    "doc_count": 22
+                                },
+                                {
+                                    "key": 52630,
+                                    "doc_count": 5
+                                },
+                                {
+                                    "key": 63156,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Global Energy Systems and Technology Ltd",
+                        "doc_count": 307,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 163
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 81
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 2
+                                },
+                                {
+                                    "key": 31578,
+                                    "doc_count": 2
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Thermia (BioenergyTechnology Ltd)",
+                        "doc_count": 299,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 40
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 171
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 52
+                                },
+                                {
+                                    "key": 31578,
+                                    "doc_count": 14
+                                },
+                                {
+                                    "key": 42104,
+                                    "doc_count": 12
+                                },
+                                {
+                                    "key": 52630,
+                                    "doc_count": 2
+                                },
+                                {
+                                    "key": 63156,
+                                    "doc_count": 3
+                                },
+                                {
+                                    "key": 73682,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Warmflow Engineering Co Ltd",
+                        "doc_count": 255,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 37
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 158
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 30
+                                },
+                                {
+                                    "key": 31578,
+                                    "doc_count": 16
+                                },
+                                {
+                                    "key": 42104,
+                                    "doc_count": 9
+                                },
+                                {
+                                    "key": 52630,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 63156,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 73682,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 84208,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 94734,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 105260,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 115786,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 126312,
+                                    "doc_count": 2
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Kingspan Environmental Ltd",
+                        "doc_count": 238,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 83
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 11
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 2
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Suomen Lampopumpputekniikka OY Ltd",
+                        "doc_count": 200,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 2
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 58
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 62
+                                },
+                                {
+                                    "key": 31578,
+                                    "doc_count": 15
+                                },
+                                {
+                                    "key": 42104,
+                                    "doc_count": 10
+                                },
+                                {
+                                    "key": 52630,
+                                    "doc_count": 8
+                                },
+                                {
+                                    "key": 63156,
+                                    "doc_count": 5
+                                },
+                                {
+                                    "key": 73682,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 84208,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 94734,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 105260,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 115786,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 126312,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 136838,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 147364,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 157890,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Grant Engineering (Ireland) ULC",
+                        "doc_count": 191,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 73
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 109
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 6
+                                },
+                                {
+                                    "key": 31578,
+                                    "doc_count": 2
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Ideal Heating",
+                        "doc_count": 163,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 133
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 9
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 7
+                                },
+                                {
+                                    "key": 31578,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "OCHSNER Warmepumpen",
+                        "doc_count": 157,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 14
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 58
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 46
+                                },
+                                {
+                                    "key": 31578,
+                                    "doc_count": 20
+                                },
+                                {
+                                    "key": 42104,
+                                    "doc_count": 5
+                                },
+                                {
+                                    "key": 52630,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 63156,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 73682,
+                                    "doc_count": 2
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Glow Worm",
+                        "doc_count": 149,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 77
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 7
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 2
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "IDM Energie",
+                        "doc_count": 149,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 11
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 45
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 26
+                                },
+                                {
+                                    "key": 31578,
+                                    "doc_count": 23
+                                },
+                                {
+                                    "key": 42104,
+                                    "doc_count": 6
+                                },
+                                {
+                                    "key": 52630,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 63156,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 73682,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 84208,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 94734,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Climaveneta S.p.A.",
+                        "doc_count": 141,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 30
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 16
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 2
+                                },
+                                {
+                                    "key": 31578,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 42104,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Heat and Save Ltd",
+                        "doc_count": 139,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 54
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 53
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Viessmann Werke GmbH & Co.KG",
+                        "doc_count": 109,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 48
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 57
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 4
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "SAHP Limited",
+                        "doc_count": 105,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 105
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "ait-deutschland GmbH",
+                        "doc_count": 100,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 31
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 57
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 7
+                                },
+                                {
+                                    "key": 31578,
+                                    "doc_count": 2
+                                },
+                                {
+                                    "key": 42104,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Cool Energy Holding Ltd",
+                        "doc_count": 72,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 53
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 19
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "PicoEnergy GmbH & Co.",
+                        "doc_count": 65,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 4
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 23
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 21
+                                },
+                                {
+                                    "key": 31578,
+                                    "doc_count": 13
+                                },
+                                {
+                                    "key": 42104,
+                                    "doc_count": 2
+                                },
+                                {
+                                    "key": 52630,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 63156,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Lailey and Coates Ltd",
+                        "doc_count": 47,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 28
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 17
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "TEV Limited",
+                        "doc_count": 46,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 12
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Master Therm tepelnÃ¡ cerpadla s.r.o",
+                        "doc_count": 41,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 10526,
+                                    "doc_count": 32
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 5
+                                },
+                                {
+                                    "key": 31578,
+                                    "doc_count": 4
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Dimplex UK Ltd",
+                        "doc_count": 40,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 5
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 15
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 3
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Peak Energy Products Limited",
+                        "doc_count": 38,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 20
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 17
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 31578,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "LG Air Conditioning",
+                        "doc_count": 36,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 9
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 23
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Aermec S.p.A.",
+                        "doc_count": 34,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 5
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 9
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Renewable Energy Devices Limited",
+                        "doc_count": 31,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 22
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 7
+                                },
+                                {
+                                    "key": 31578,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Clivet S.p.A.",
+                        "doc_count": 26,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 20
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 5
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Lampoassa",
+                        "doc_count": 26,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 3
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Northern Gas Heating Ltd",
+                        "doc_count": 26,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 15
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 10
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Carbon Reduction Products Ltd",
+                        "doc_count": 25,
+                        "agg2": {
+                            "buckets": []
+                        }
+                    },
+                    {
+                        "key": "Firebird",
+                        "doc_count": 24,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 20
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 4
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Vokera Ltd",
+                        "doc_count": 23,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 17
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 2
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "A Shade Warmer Ltd",
+                        "doc_count": 22,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Refcool Manufacturing Limited",
+                        "doc_count": 22,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 6
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 4
+                                },
+                                {
+                                    "key": 31578,
+                                    "doc_count": 9
+                                },
+                                {
+                                    "key": 42104,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 52630,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 63156,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Hautec GmbH",
+                        "doc_count": 18,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 10526,
+                                    "doc_count": 12
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 3
+                                },
+                                {
+                                    "key": 31578,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "ACOND a.s.",
+                        "doc_count": 16,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 2
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 13
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Baxi Heating UK Limited",
+                        "doc_count": 16,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 10526,
+                                    "doc_count": 15
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Domusa Calefaccion S. Coop",
+                        "doc_count": 14,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 2
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 12
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Hunan Harnitek Technology Co., Ltd",
+                        "doc_count": 14,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 4
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 10
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Sanderling Warmth",
+                        "doc_count": 14,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Thermal Engineering Systems Ltd",
+                        "doc_count": 13,
+                        "agg2": {
+                            "buckets": []
+                        }
+                    },
+                    {
+                        "key": "Waterkotte GmbH",
+                        "doc_count": 12,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 2
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 5
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 2
+                                },
+                                {
+                                    "key": 31578,
+                                    "doc_count": 2
+                                },
+                                {
+                                    "key": 42104,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 52630,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 63156,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 73682,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 84208,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 94734,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 105260,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "TR Engineering Ltd",
+                        "doc_count": 11,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Anglian Green Deal Limited",
+                        "doc_count": 10,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Toshiba Air Conditioning",
+                        "doc_count": 10,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 4
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 2
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Worcester (BBT Thermotechnology UK Ltd)",
+                        "doc_count": 10,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 7
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 3
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Keston Boilers",
+                        "doc_count": 9,
+                        "agg2": {
+                            "buckets": []
+                        }
+                    },
+                    {
+                        "key": "Nutherm Ltd",
+                        "doc_count": 9,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 10526,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Smiths Environmental Products Ltd",
+                        "doc_count": 9,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 2
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "TR Engineering Ltd.",
+                        "doc_count": 9,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 4
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 5
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Water Furnace International Inc.",
+                        "doc_count": 8,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 2
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 31578,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 42104,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 52630,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 63156,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 73682,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 84208,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "GD Midea Air-Conditioning Equipment Co., Ltd, T/A Midea",
+                        "doc_count": 6,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 10526,
+                                    "doc_count": 6
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Ebac Ltd",
+                        "doc_count": 5,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Green Energy Engineering Ltd",
+                        "doc_count": 5,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 3
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "KUFI INT, s.r.o.",
+                        "doc_count": 4,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 3
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Samsung Electronics Air Conditioner Europe B.V",
+                        "doc_count": 4,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 2
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 2
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Zehnder Comfosystems",
+                        "doc_count": 4,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 10526,
+                                    "doc_count": 2
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 31578,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 42104,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 52630,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Airwell Residential S.A.S",
+                        "doc_count": 3,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 1
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 2
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Innasol Ltd.",
+                        "doc_count": 3,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 2
+                                },
+                                {
+                                    "key": 10526,
+                                    "doc_count": 0
+                                },
+                                {
+                                    "key": 21052,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Carrier S.p.A",
+                        "doc_count": 2,
+                        "agg2": {
+                            "buckets": []
+                        }
+                    },
+                    {
+                        "key": "Ethx Energy (Glasgow) Ltd",
+                        "doc_count": 2,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 2
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Enertech AB",
+                        "doc_count": 1,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 10526,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "FG Eurofred Ltd",
+                        "doc_count": 1,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Foshan City Shunde Fairland Electric Co., Ltd.",
+                        "doc_count": 1,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "IVT GmbH & Co. KG",
+                        "doc_count": 1,
+                        "agg2": {
+                            "buckets": []
+                        }
+                    },
+                    {
+                        "key": "Mitsubishi Heavy Industries Air-Conditioning Europe Ltd",
+                        "doc_count": 1,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 42104,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "SOLARFOCUS GmbH",
+                        "doc_count": 1,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 10526,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Solfex Limited",
+                        "doc_count": 1,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 0,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Thermia AB",
+                        "doc_count": 1,
+                        "agg2": {
+                            "buckets": [
+                                {
+                                    "key": 10526,
+                                    "doc_count": 1
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "key": "Thoren Energi produkter AB (Better Planet Ltd)",
+                        "doc_count": 1,
+                        "agg2": {
+                            "buckets": []
+                        }
+                    },
+                    {
+                        "key": "Transen Sustainable Energy Systems Limited",
+                        "doc_count": 1,
+                        "agg2": {
+                            "buckets": []
+                        }
+                    }
+                ]
+            }
+        },
+        "message": "aggregation successful"
+    }
+}

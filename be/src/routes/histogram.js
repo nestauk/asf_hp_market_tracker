@@ -5,7 +5,7 @@ import { getIntervalForBins } from '../util.js';
 export const getHistogram = async (request, reply) => {
 	const {
 		field,
-		bins = null,
+		bins,
 		missing = null
 	} = request.query;
 
