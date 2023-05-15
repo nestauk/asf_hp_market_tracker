@@ -18,7 +18,8 @@ export const getDateHistogram_terms = async (request, reply) => {
 				date_histogram: {
 					field: field1,
 					calendar_interval: calendar_interval1,
-					...missing1 && { missing: missing1 }
+					...missing1 && { missing: missing1 },
+					format: 'yyyy-MM'
 				},
 				aggs: {
 					agg2: {

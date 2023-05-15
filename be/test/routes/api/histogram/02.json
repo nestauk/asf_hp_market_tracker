@@ -60,6 +60,9 @@
                 ]
             }
         },
-        "message": "aggregation successful"
+        "message": "aggregation successful",
+        "meta": {
+            "interval": 22222
+        }
     }
 }
