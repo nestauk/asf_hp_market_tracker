@@ -1,7 +1,13 @@
 {
 	"author": "nestauk",
-	"description": "Nesta HP Market tracker",
+	"description": "Nesta Heat Pump Market tracker",
 	"license": "MIT",
 	"name": "nesta_hpmt",
-	"version": "0.0.1"
+	"private": true,
+	"version": "0.0.1",
+	"workspaces": [
+		"be",
+		"fe",
+		"shared"
+	]
 }

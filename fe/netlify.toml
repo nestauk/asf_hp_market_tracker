@@ -1,8 +1,10 @@
 [build]
-	# don't provide `base`
-	command = "npm run build"
-	environment = { NODE_VERSION = "18.13.0" }
+	command = "cd .. && npm install && cd fe && npm run build"
 	publish = ".svelte-kit/netlify"
+
+[build.environment]
+	NODE_VERSION = "18.13.0"
+	ADAPTER = "netlify"
 
 [functions]
 	# temporary workaround for https://github.com/sveltejs/kit/issues/6462

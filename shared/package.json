@@ -1,0 +1,7 @@
+{
+	"description": "App shared modules",
+	"main": "index.js",
+	"name": "nesta_hpmt_shared",
+	"type": "module"
+}
+	

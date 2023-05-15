@@ -9,7 +9,7 @@
 		"nodemon": "^2.0.21",
 		"rison": "^0.1.1"
 	},
-	"description": "Backend for Nestas Heat Pump Market Tracker app",
+	"description": "Nesta HPMT backend",
 	"devDependencies": {
 		"eslint": "^8.36.0",
 		"just-compare": "^2.3.0",
@@ -18,7 +18,7 @@
 		"tap": "^16.3.4"
 	},
 	"license": "MIT",
-	"name": "hpmt_backend",
+	"name": "nesta_hpmt_backend",
 	"scripts": {
 		"dev": "nodemon src/server.js | pino-pretty",
 		"lint": "eslint .",
