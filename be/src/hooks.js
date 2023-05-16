@@ -41,5 +41,6 @@ export const formatPayload = async (request, reply, payload) => {
 			code: 200,
 			data: payload,
 			message: 'aggregation successful',
+			...request.meta && { meta: request.meta }
 		};
 };

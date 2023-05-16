@@ -150,6 +150,9 @@
                 ]
             }
         },
-        "message": "aggregation successful"
+        "message": "aggregation successful",
+        "meta": {
+            "interval2": 311
+        }
     }
 }

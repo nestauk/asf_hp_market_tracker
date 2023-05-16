@@ -12,6 +12,7 @@ export const getDateHistogram_histogram = async (request, reply) => {
 	} = request.query;
 
 	const interval = await getIntervalForBins(index, field2, bins);
+	request.meta = { interval2: interval };
 
 	const body = {
 		size: 0,
