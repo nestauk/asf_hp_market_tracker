@@ -12,9 +12,13 @@ export const _activeViewType = writable('stats');
 export const _currentMetricId = writable(defaultMetric.id);
 export const _currentMetric = derived(_currentMetricId, id => metricById[id]);
 export const _currentMetricTitle = derived(
-	_currentMetricId,
-	id => metricTitleById[id]
+	_currentMetric,
+	({id, unitOfMeasure}) => {
+		const unitOfMeasureLabel = unitOfMeasure ? ` [${unitOfMeasure}]` : '';
+		return `${metricTitleById[id]}${unitOfMeasureLabel}`
+	}
 );
+
 export const _expectedRoute = derived(
 	[_activeViewType, _currentMetric],
 	([activeViewType, currentMetric]) => {

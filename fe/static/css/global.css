@@ -84,9 +84,9 @@ a {
 	--colorAuxText: #222;
 	--colorBackdropSensor: rgba(0, 0, 0, 0.25);
 	--colorBackground: white; /* back to --colorMain? */
-	--colorBarchartHoveredItemBackground: peachpuff;
+	--colorBarchartHoveredItemBackground: var(--colorAux);
 	--colorBarchartHoveredItemBar: #333;
-	--colorBarchartHoveredItemText: #333;
+	--colorBarchartHoveredItemText: var(--colorAuxText);
 	--colorBarchartItemBar: #333;
 	--colorBarchartSelectedItemBackground: #fff4e5;
 	--colorBarchartSelectedItemText: #333;
@@ -135,9 +135,9 @@ a {
 	--colorAuxText: #eee;
 	--colorBackdropSensor: rgba(255, 255, 255, 0.25);
 	--colorBackground: #111; /* back to --colorMain? */
-	--colorBarchartHoveredItemBackground: cornflowerblue;
+	--colorBarchartHoveredItemBackground: var(--colorAux);
 	--colorBarchartHoveredItemBar: white;
-	--colorBarchartHoveredItemText: white;
+	--colorBarchartHoveredItemText: var(--colorAuxText);
 	--colorBarchartItemBar: white;
 	--colorBarchartSelectedItemBackground: #002c66;
 	--colorBarchartSelectedItemText: white;

@@ -9,12 +9,12 @@
 	});
 </script>
 
-<div class='GridRows' {style}>
-	<slot></slot>
+<div class='Grid2Rows' {style}>
+	<slot />
 </div>
 
 <style>
-	.GridRows {
+	.Grid2Rows {
 		display: grid;
 		grid-template-rows: var(--p0) var(--p1);
 		height: 100%;

@@ -37,6 +37,8 @@ export const _currThemeVars = derived(
 	([themeName, themeVars]) => themeVars?.[`.${themeName}`] || {}
 );
 
+/* components */
+
 export const _barchartsTheme = derived(
 	_currThemeVars,
 	currThemeVars => ({
@@ -66,6 +68,18 @@ export const _bannersTheme = derived(
 	})
 );
 
+export const _legendsTheme = derived(
+	_currThemeVars,
+	currThemeVars => ({
+		backgroundColor: currThemeVars['--colorBackground'],
+		binFill: currThemeVars['--colorBackground'], // 'white',
+		messageColor: currThemeVars['--colorText'],
+		textColor: currThemeVars['--colorText'],
+	})
+);
+
+/* icons */
+
 export const _getIconColor = derived(
 	_currThemeVars,
 	currThemeVars => makeSegmentToCssVar(
@@ -75,6 +89,8 @@ export const _getIconColor = derived(
 	)
 );
 
+/* links */
+
 export const _getNavLinkColor = derived(
 	_currThemeVars,
 	currThemeVars => makeSegmentToCssVar(
@@ -83,8 +99,6 @@ export const _getNavLinkColor = derived(
 		'--colorNavLink'
 	)
 );
-
-/* links */
 
 export const _linkTheme0 = derived(
 	_currThemeVars,
