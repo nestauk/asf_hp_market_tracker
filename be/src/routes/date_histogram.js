@@ -3,9 +3,8 @@ import { client } from '../es.js';
 
 export const getDateHistogram = async (request, reply) => {
 	const {
+		calendar_interval = '1y',
 		field,
-		calendar_interval,
-		missing = null
 	} = request.query;
 
 	const body = {
@@ -15,7 +14,6 @@ export const getDateHistogram = async (request, reply) => {
 				date_histogram: {
 					field,
 					calendar_interval,
-					...missing && { missing },
 					format: 'yyyy-MM'
 				}
 			}

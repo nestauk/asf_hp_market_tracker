@@ -1,0 +1,225 @@
+{
+	"query": {
+		"method": "GET",
+		"url": "terms1_histogram2",
+		"query": {
+			"field1": "hp_feature_heat_system.keyword",
+			"field2": "installation_cost",
+			"bins2": 20
+		}
+	},
+	"response": {
+		"code": 200,
+		"data": {
+			"agg1": {
+				"doc_count_error_upper_bound": 0,
+				"sum_other_doc_count": 0,
+				"buckets": [
+					{
+						"key": "Air Source Heat Pump",
+						"doc_count": 207891,
+						"agg2": {
+							"buckets": [
+								{
+									"key": 0,
+									"doc_count": 56442
+								},
+								{
+									"key": 10526,
+									"doc_count": 42799
+								},
+								{
+									"key": 21052,
+									"doc_count": 1773
+								},
+								{
+									"key": 31578,
+									"doc_count": 218
+								},
+								{
+									"key": 42104,
+									"doc_count": 68
+								},
+								{
+									"key": 52630,
+									"doc_count": 16
+								},
+								{
+									"key": 63156,
+									"doc_count": 12
+								},
+								{
+									"key": 73682,
+									"doc_count": 8
+								},
+								{
+									"key": 84208,
+									"doc_count": 11
+								},
+								{
+									"key": 94734,
+									"doc_count": 26
+								},
+								{
+									"key": 105260,
+									"doc_count": 6
+								},
+								{
+									"key": 115786,
+									"doc_count": 8
+								},
+								{
+									"key": 126312,
+									"doc_count": 4
+								},
+								{
+									"key": 136838,
+									"doc_count": 5
+								},
+								{
+									"key": 147364,
+									"doc_count": 3
+								},
+								{
+									"key": 157890,
+									"doc_count": 0
+								},
+								{
+									"key": 168416,
+									"doc_count": 0
+								},
+								{
+									"key": 178942,
+									"doc_count": 2
+								},
+								{
+									"key": 189468,
+									"doc_count": 1
+								},
+								{
+									"key": 199994,
+									"doc_count": 5
+								}
+							]
+						}
+					},
+					{
+						"key": "Ground/Water Source Heat Pump",
+						"doc_count": 31161,
+						"agg2": {
+							"buckets": [
+								{
+									"key": 0,
+									"doc_count": 3245
+								},
+								{
+									"key": 10526,
+									"doc_count": 6218
+								},
+								{
+									"key": 21052,
+									"doc_count": 2824
+								},
+								{
+									"key": 31578,
+									"doc_count": 1380
+								},
+								{
+									"key": 42104,
+									"doc_count": 645
+								},
+								{
+									"key": 52630,
+									"doc_count": 182
+								},
+								{
+									"key": 63156,
+									"doc_count": 117
+								},
+								{
+									"key": 73682,
+									"doc_count": 71
+								},
+								{
+									"key": 84208,
+									"doc_count": 33
+								},
+								{
+									"key": 94734,
+									"doc_count": 18
+								},
+								{
+									"key": 105260,
+									"doc_count": 15
+								},
+								{
+									"key": 115786,
+									"doc_count": 17
+								},
+								{
+									"key": 126312,
+									"doc_count": 10
+								},
+								{
+									"key": 136838,
+									"doc_count": 10
+								},
+								{
+									"key": 147364,
+									"doc_count": 14
+								},
+								{
+									"key": 157890,
+									"doc_count": 3
+								},
+								{
+									"key": 168416,
+									"doc_count": 0
+								},
+								{
+									"key": 178942,
+									"doc_count": 2
+								},
+								{
+									"key": 189468,
+									"doc_count": 1
+								},
+								{
+									"key": 199994,
+									"doc_count": 1
+								}
+							]
+						}
+					},
+					{
+						"key": "Undefined or Other Heat Pump Type",
+						"doc_count": 1409,
+						"agg2": {
+							"buckets": [
+								{
+									"key": 0,
+									"doc_count": 4
+								},
+								{
+									"key": 10526,
+									"doc_count": 1
+								}
+							]
+						}
+					},
+					{
+						"key": "No HP",
+						"doc_count": 48,
+						"agg2": {
+							"buckets": []
+						}
+					}
+				]
+			}
+		},
+		"message": "aggregation successful",
+		"meta": {
+			"interval2": 10526
+		}
+	}
+}

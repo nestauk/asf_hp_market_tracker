@@ -1,0 +1,132 @@
+{
+	"query": {
+		"method": "GET",
+		"url": "terms1_terms2",
+		"query": {
+			"field1": "hp_feature_heat_system.keyword",
+			"field2": "property_feature_type.keyword",
+			"missing1": "missing",
+			"missing2": "missing"
+		}
+	},
+	"response": {
+		"code": 200,
+		"data": {
+			"agg1": {
+				"doc_count_error_upper_bound": 0,
+				"sum_other_doc_count": 0,
+				"buckets": [
+					{
+						"key": "Air Source Heat Pump",
+						"doc_count": 207891,
+						"agg2": {
+							"doc_count_error_upper_bound": 0,
+							"sum_other_doc_count": 0,
+							"buckets": [
+								{
+									"key": "House",
+									"doc_count": 136387
+								},
+								{
+									"key": "Bungalow",
+									"doc_count": 41345
+								},
+								{
+									"key": "Flat",
+									"doc_count": 28929
+								},
+								{
+									"key": "Maisonette",
+									"doc_count": 1167
+								},
+								{
+									"key": "Park home",
+									"doc_count": 63
+								}
+							]
+						}
+					},
+					{
+						"key": "Ground/Water Source Heat Pump",
+						"doc_count": 31161,
+						"agg2": {
+							"doc_count_error_upper_bound": 0,
+							"sum_other_doc_count": 0,
+							"buckets": [
+								{
+									"key": "House",
+									"doc_count": 21520
+								},
+								{
+									"key": "Flat",
+									"doc_count": 4910
+								},
+								{
+									"key": "Bungalow",
+									"doc_count": 4577
+								},
+								{
+									"key": "Maisonette",
+									"doc_count": 152
+								},
+								{
+									"key": "Park home",
+									"doc_count": 1
+								},
+								{
+									"key": "missing",
+									"doc_count": 1
+								}
+							]
+						}
+					},
+					{
+						"key": "Undefined or Other Heat Pump Type",
+						"doc_count": 1409,
+						"agg2": {
+							"doc_count_error_upper_bound": 0,
+							"sum_other_doc_count": 0,
+							"buckets": [
+								{
+									"key": "Flat",
+									"doc_count": 994
+								},
+								{
+									"key": "House",
+									"doc_count": 344
+								},
+								{
+									"key": "Bungalow",
+									"doc_count": 54
+								},
+								{
+									"key": "Maisonette",
+									"doc_count": 17
+								}
+							]
+						}
+					},
+					{
+						"key": "No HP",
+						"doc_count": 48,
+						"agg2": {
+							"doc_count_error_upper_bound": 0,
+							"sum_other_doc_count": 0,
+							"buckets": [
+								{
+									"key": "Flat",
+									"doc_count": 44
+								},
+								{
+									"key": "House",
+									"doc_count": 4
+								}
+							]
+						}
+					}
+				]
+			}
+		},
+		"message": "aggregation successful"
+	}
+}

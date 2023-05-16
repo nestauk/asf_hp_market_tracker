@@ -1,0 +1,89 @@
+{
+	"query": {
+		"method": "GET",
+		"url": "terms1_stats2",
+		"query": {
+			"field1": "property_energy_efficiency_walls.keyword",
+			"field2": "installation_cost",
+			"missing1": "missing"
+		}
+	},
+	"response": {
+		"code": 200,
+		"data": {
+			"agg1": {
+				"doc_count_error_upper_bound": 0,
+				"sum_other_doc_count": 0,
+				"buckets": [
+					{
+						"key": "Very Good",
+						"doc_count": 101487,
+						"agg2": {
+							"count": 24936,
+							"min": 1,
+							"max": 200000,
+							"avg": 11678.729104266322,
+							"sum": 291220788.943985
+						}
+					},
+					{
+						"key": "Good",
+						"doc_count": 78915,
+						"agg2": {
+							"count": 45254,
+							"min": 1,
+							"max": 200000,
+							"avg": 11138.48231488005,
+							"sum": 504060878.6775818
+						}
+					},
+					{
+						"key": "Average",
+						"doc_count": 28782,
+						"agg2": {
+							"count": 23138,
+							"min": 1,
+							"max": 167139.765625,
+							"avg": 10907.402371311839,
+							"sum": 252375476.06741333
+						}
+					},
+					{
+						"key": "Very Poor",
+						"doc_count": 18685,
+						"agg2": {
+							"count": 14352,
+							"min": 1,
+							"max": 200000,
+							"avg": 15334.702359703473,
+							"sum": 220083648.26646423
+						}
+					},
+					{
+						"key": "Poor",
+						"doc_count": 12615,
+						"agg2": {
+							"count": 8518,
+							"min": 1,
+							"max": 150000,
+							"avg": 13111.904694406045,
+							"sum": 111687204.18695068
+						}
+					},
+					{
+						"key": "missing",
+						"doc_count": 25,
+						"agg2": {
+							"count": 20,
+							"min": 7848.31982421875,
+							"max": 18387.69921875,
+							"avg": 11036.851928710938,
+							"sum": 220737.03857421875
+						}
+					}
+				]
+			}
+		},
+		"message": "aggregation successful"
+	}
+}

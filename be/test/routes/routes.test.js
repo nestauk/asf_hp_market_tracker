@@ -30,9 +30,11 @@ const histogramTests = async (tap, query, result) => {
 };
 
 testRoute('date_histogram');
-testRoute('datehistogram_stats');
-testRoute('datehistogram_histogram');
+testRoute('date_histogram1_terms2');
+testRoute('date_histogram1_stats2');
+testRoute('date_histogram1_histogram2');
 testRoute('histogram', histogramTests);
 testRoute('terms');
-testRoute('terms_histogram');
-testRoute('terms_terms');
+testRoute('terms1_histogram2');
+testRoute('terms1_terms2');
+testRoute('terms1_stats2');
