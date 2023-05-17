@@ -1,36 +1,36 @@
 import {
 	getDateHistogram,
-	getDateHistogram_stats,
-	getDateHistogram_histogram,
-	getDateHistogram_terms,
+	getDateHistogram1Histogram2,
+	getDateHistogram1Stats2,
+	getDateHistogram1Terms2,
 	getHistogram,
 	getTerms,
-	getTermsTerms,
-	getTerms_Histogram,
-	getTerms_Stats,
+	getTerms1Histogram2,
+	getTerms1Stats2,
+	getTerms1Terms2,
 } from './routes/index.js';
 import {
+	dateHistogram1Histogram2Schema,
+	dateHistogram1Stats2Schema,
+	dateHistogram1Terms2Schema,
 	dateHistogramSchema,
-	dateHistogram_statsSchema,
-	dateHistogram_histogramSchema,
-	dateHistogram_termsSchema,
 	histogramSchema,
-	termsHistogramSchema,
-	termsSchema,
-	termsTermsSchema,
-	terms_StatsSchema
+	terms1Histogram2Schema,
+	terms1Stats2Schema,
+	terms1Terms2Schema,
+	termsSchema
 } from './schemas/index.js';
 
 export const routes = (fastify, options, done) => {
 
 	fastify.get('/date_histogram', dateHistogramSchema, getDateHistogram);
-	fastify.get('/datehistogram_histogram', dateHistogram_histogramSchema, getDateHistogram_histogram);
-	fastify.get('/datehistogram_stats', dateHistogram_statsSchema, getDateHistogram_stats);
-	fastify.get('/datehistogram_terms', dateHistogram_termsSchema, getDateHistogram_terms);
+	fastify.get('/date_histogram1_histogram2', dateHistogram1Histogram2Schema, getDateHistogram1Histogram2);
+	fastify.get('/date_histogram1_stats2', dateHistogram1Stats2Schema, getDateHistogram1Stats2);
+	fastify.get('/date_histogram1_terms2', dateHistogram1Terms2Schema, getDateHistogram1Terms2);
 	fastify.get('/histogram', histogramSchema, getHistogram);
-	fastify.get('/terms_histogram', termsHistogramSchema, getTerms_Histogram);
-	fastify.get('/terms_stats', terms_StatsSchema, getTerms_Stats);
-	fastify.get('/terms_terms', termsTermsSchema, getTermsTerms);
 	fastify.get('/terms', termsSchema, getTerms);
+	fastify.get('/terms1_histogram2', terms1Histogram2Schema, getTerms1Histogram2);
+	fastify.get('/terms1_stats2', terms1Stats2Schema, getTerms1Stats2);
+	fastify.get('/terms1_terms2', terms1Terms2Schema, getTerms1Terms2);
 	done();
 };

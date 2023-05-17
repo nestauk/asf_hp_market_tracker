@@ -4,8 +4,8 @@ import { client } from '../es.js';
 export const getTerms = async (request, reply) => {
 	const {
 		field,
+		missing = null,
 		size = maxBuckets,
-		missing = null
 	} = request.query;
 
 	const body = {

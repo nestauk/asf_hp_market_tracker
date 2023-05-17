@@ -1,9 +1,9 @@
-export { schema as dateHistogram_histogramSchema } from './dateHistogram_histogram.js';
-export { schema as dateHistogram_statsSchema } from './dateHistogram_stats.js';
-export { schema as dateHistogram_termsSchema } from './dateHistogram_terms.js';
+export { schema as dateHistogram1Histogram2Schema } from './date_histogram1_histogram2.js';
+export { schema as dateHistogram1Stats2Schema } from './date_histogram1_stats2.js';
+export { schema as dateHistogram1Terms2Schema } from './date_histogram1_terms2.js';
 export { schema as dateHistogramSchema } from './date_histogram.js';
 export { schema as histogramSchema } from './histogram.js';
-export { schema as terms_StatsSchema } from './terms_stats.js';
-export { schema as termsHistogramSchema } from './terms_histogram.js';
+export { schema as terms1Histogram2Schema } from './terms1_histogram2.js';
+export { schema as terms1Stats2Schema } from './terms1_stats2.js';
+export { schema as terms1Terms2Schema } from './terms1_terms2.js';
 export { schema as termsSchema } from './terms.js';
-export { schema as termsTermsSchema } from './terms_terms.js';

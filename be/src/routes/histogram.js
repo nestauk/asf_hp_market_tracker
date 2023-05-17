@@ -4,9 +4,8 @@ import { getIntervalForBins } from '../util.js';
 
 export const getHistogram = async (request, reply) => {
 	const {
+		bins = 10,
 		field,
-		bins,
-		missing = null
 	} = request.query;
 
 	const interval = await getIntervalForBins(index, field, bins);
@@ -19,7 +18,6 @@ export const getHistogram = async (request, reply) => {
 				histogram: {
 					field,
 					interval,
-					...missing && { missing }
 				}
 			}
 		}

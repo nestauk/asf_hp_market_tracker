@@ -4,16 +4,23 @@ export const schema = {
 	schema: {
 		querystring: {
 			type: 'object',
-			required: ['field'],
+			required: ['field1', 'field2'],
 			properties: {
-				field: { type: 'string' },
-				missing: { type: 'string' },
-				size: {
+				// 1
+				field1: { type: 'string' },
+				missing1: { type: 'string' },
+				size1: {
 					default: maxBuckets,
 					type: 'integer',
 					minimum: 1,
 					maximum: maxBuckets
 				},
+				// 2
+				field2: { type: 'string' },
+				use_extended_stats2: {
+					default: false,
+					type: 'boolean'
+				}
 			}
 		}
 	}

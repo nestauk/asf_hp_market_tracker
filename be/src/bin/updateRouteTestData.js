@@ -16,7 +16,7 @@ const update = async route => {
 	for await (const testFile of tests) {
 		const { query } = await readJson(`${testPath}/${testFile}`);
 		const response = await server.inject(query);
-		const save = saveObj(`${testPath}/${testFile}`, 4);
+		const save = saveObj(`${testPath}/${testFile}`, '\t');
 		save({ query, response: response.json() });
 	}
 };

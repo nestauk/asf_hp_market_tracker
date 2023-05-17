@@ -1,37 +1,37 @@
 {
-    "query": {
-        "method": "GET",
-        "url": "terms",
-        "query": {
-            "field": "hp_feature_heat_system.keyword"
-        }
-    },
-    "response": {
-        "code": 200,
-        "data": {
-            "agg1": {
-                "doc_count_error_upper_bound": 0,
-                "sum_other_doc_count": 0,
-                "buckets": [
-                    {
-                        "key": "Air Source Heat Pump",
-                        "doc_count": 207891
-                    },
-                    {
-                        "key": "Ground/Water Source Heat Pump",
-                        "doc_count": 31161
-                    },
-                    {
-                        "key": "Undefined or Other Heat Pump Type",
-                        "doc_count": 1409
-                    },
-                    {
-                        "key": "No HP",
-                        "doc_count": 48
-                    }
-                ]
-            }
-        },
-        "message": "aggregation successful"
-    }
+	"query": {
+		"method": "GET",
+		"url": "terms",
+		"query": {
+			"field": "hp_feature_heat_system.keyword"
+		}
+	},
+	"response": {
+		"code": 200,
+		"data": {
+			"agg1": {
+				"doc_count_error_upper_bound": 0,
+				"sum_other_doc_count": 0,
+				"buckets": [
+					{
+						"key": "Air Source Heat Pump",
+						"doc_count": 207891
+					},
+					{
+						"key": "Ground/Water Source Heat Pump",
+						"doc_count": 31161
+					},
+					{
+						"key": "Undefined or Other Heat Pump Type",
+						"doc_count": 1409
+					},
+					{
+						"key": "No HP",
+						"doc_count": 48
+					}
+				]
+			}
+		},
+		"message": "aggregation successful"
+	}
 }

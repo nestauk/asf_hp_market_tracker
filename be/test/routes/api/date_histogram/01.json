@@ -1,95 +1,95 @@
 {
-    "query": {
-        "method": "GET",
-        "url": "date_histogram",
-        "query": {
-            "field": "installation_date",
-            "calendar_interval": "1y"
-        }
-    },
-    "response": {
-        "code": 200,
-        "data": {
-            "agg1": {
-                "buckets": [
-                    {
-                        "key_as_string": "2008-01",
-                        "key": 1199145600000,
-                        "doc_count": 727
-                    },
-                    {
-                        "key_as_string": "2009-01",
-                        "key": 1230768000000,
-                        "doc_count": 5300
-                    },
-                    {
-                        "key_as_string": "2010-01",
-                        "key": 1262304000000,
-                        "doc_count": 8863
-                    },
-                    {
-                        "key_as_string": "2011-01",
-                        "key": 1293840000000,
-                        "doc_count": 11876
-                    },
-                    {
-                        "key_as_string": "2012-01",
-                        "key": 1325376000000,
-                        "doc_count": 13041
-                    },
-                    {
-                        "key_as_string": "2013-01",
-                        "key": 1356998400000,
-                        "doc_count": 13777
-                    },
-                    {
-                        "key_as_string": "2014-01",
-                        "key": 1388534400000,
-                        "doc_count": 14882
-                    },
-                    {
-                        "key_as_string": "2015-01",
-                        "key": 1420070400000,
-                        "doc_count": 15304
-                    },
-                    {
-                        "key_as_string": "2016-01",
-                        "key": 1451606400000,
-                        "doc_count": 12889
-                    },
-                    {
-                        "key_as_string": "2017-01",
-                        "key": 1483228800000,
-                        "doc_count": 14022
-                    },
-                    {
-                        "key_as_string": "2018-01",
-                        "key": 1514764800000,
-                        "doc_count": 16108
-                    },
-                    {
-                        "key_as_string": "2019-01",
-                        "key": 1546300800000,
-                        "doc_count": 19685
-                    },
-                    {
-                        "key_as_string": "2020-01",
-                        "key": 1577836800000,
-                        "doc_count": 20869
-                    },
-                    {
-                        "key_as_string": "2021-01",
-                        "key": 1609459200000,
-                        "doc_count": 35994
-                    },
-                    {
-                        "key_as_string": "2022-01",
-                        "key": 1640995200000,
-                        "doc_count": 37172
-                    }
-                ]
-            }
-        },
-        "message": "aggregation successful"
-    }
+	"query": {
+		"method": "GET",
+		"url": "date_histogram",
+		"query": {
+			"field": "installation_date",
+			"calendar_interval": "1y"
+		}
+	},
+	"response": {
+		"code": 200,
+		"data": {
+			"agg1": {
+				"buckets": [
+					{
+						"key_as_string": "2008-01",
+						"key": 1199145600000,
+						"doc_count": 727
+					},
+					{
+						"key_as_string": "2009-01",
+						"key": 1230768000000,
+						"doc_count": 5300
+					},
+					{
+						"key_as_string": "2010-01",
+						"key": 1262304000000,
+						"doc_count": 8863
+					},
+					{
+						"key_as_string": "2011-01",
+						"key": 1293840000000,
+						"doc_count": 11876
+					},
+					{
+						"key_as_string": "2012-01",
+						"key": 1325376000000,
+						"doc_count": 13041
+					},
+					{
+						"key_as_string": "2013-01",
+						"key": 1356998400000,
+						"doc_count": 13777
+					},
+					{
+						"key_as_string": "2014-01",
+						"key": 1388534400000,
+						"doc_count": 14882
+					},
+					{
+						"key_as_string": "2015-01",
+						"key": 1420070400000,
+						"doc_count": 15304
+					},
+					{
+						"key_as_string": "2016-01",
+						"key": 1451606400000,
+						"doc_count": 12889
+					},
+					{
+						"key_as_string": "2017-01",
+						"key": 1483228800000,
+						"doc_count": 14022
+					},
+					{
+						"key_as_string": "2018-01",
+						"key": 1514764800000,
+						"doc_count": 16108
+					},
+					{
+						"key_as_string": "2019-01",
+						"key": 1546300800000,
+						"doc_count": 19685
+					},
+					{
+						"key_as_string": "2020-01",
+						"key": 1577836800000,
+						"doc_count": 20869
+					},
+					{
+						"key_as_string": "2021-01",
+						"key": 1609459200000,
+						"doc_count": 35994
+					},
+					{
+						"key_as_string": "2022-01",
+						"key": 1640995200000,
+						"doc_count": 37172
+					}
+				]
+			}
+		},
+		"message": "aggregation successful"
+	}
 }
