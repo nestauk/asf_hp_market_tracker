@@ -8,7 +8,11 @@ export const getDateHistogram1Terms2 = async (request, reply) => {
 		field2,
 		missing2 = null,
 		size2 = maxBuckets,
+		use_extended_stats2 = false,
+		with_stats2 = false,
 	} = request.query;
+
+	const stats_type2 = use_extended_stats2 ? 'extended_stats_bucket' : 'stats_bucket';
 
 	const body = {
 		size: 0,
@@ -25,6 +29,13 @@ export const getDateHistogram1Terms2 = async (request, reply) => {
 							field: field2,
 							size: size2,
 							...missing2 && { missing: missing2 }
+						}
+					},
+					...with_stats2 && {
+						stats2: {
+							[stats_type2]: {
+								buckets_path: 'agg2>_count'
+							}
 						}
 					}
 				}

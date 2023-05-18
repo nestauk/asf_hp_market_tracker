@@ -1,0 +1,244 @@
+{
+	"query": {
+		"method": "GET",
+		"url": "terms1_terms2",
+		"query": {
+			"field1": "hp_feature_heat_system.keyword",
+			"field2": "property_feature_type.keyword",
+			"use_extended_stats2": true,
+			"with_stats1": true,
+			"with_stats2": true
+		}
+	},
+	"response": {
+		"code": 200,
+		"data": {
+			"agg1": {
+				"doc_count_error_upper_bound": 0,
+				"sum_other_doc_count": 0,
+				"buckets": [
+					{
+						"key": "Air Source Heat Pump",
+						"doc_count": 207891,
+						"agg2": {
+							"doc_count_error_upper_bound": 0,
+							"sum_other_doc_count": 0,
+							"buckets": [
+								{
+									"key": "House",
+									"doc_count": 136387
+								},
+								{
+									"key": "Bungalow",
+									"doc_count": 41345
+								},
+								{
+									"key": "Flat",
+									"doc_count": 28929
+								},
+								{
+									"key": "Maisonette",
+									"doc_count": 1167
+								},
+								{
+									"key": "Park home",
+									"doc_count": 63
+								}
+							]
+						},
+						"stats2": {
+							"count": 5,
+							"min": 63,
+							"max": 136387,
+							"avg": 41578.2,
+							"sum": 207891,
+							"sum_of_squares": 21149075693,
+							"variance": 2501068423.3599997,
+							"variance_population": 2501068423.3599997,
+							"variance_sampling": 3126335529.2,
+							"std_deviation": 50010.68309231538,
+							"std_deviation_population": 50010.68309231538,
+							"std_deviation_sampling": 55913.6434978083,
+							"std_deviation_bounds": {
+								"upper": 141599.56618463076,
+								"lower": -58443.16618463077,
+								"upper_population": 141599.56618463076,
+								"lower_population": -58443.16618463077,
+								"upper_sampling": 153405.48699561658,
+								"lower_sampling": -70249.0869956166
+							}
+						}
+					},
+					{
+						"key": "Ground/Water Source Heat Pump",
+						"doc_count": 31161,
+						"agg2": {
+							"doc_count_error_upper_bound": 0,
+							"sum_other_doc_count": 0,
+							"buckets": [
+								{
+									"key": "House",
+									"doc_count": 21520
+								},
+								{
+									"key": "Flat",
+									"doc_count": 4910
+								},
+								{
+									"key": "Bungalow",
+									"doc_count": 4577
+								},
+								{
+									"key": "Maisonette",
+									"doc_count": 152
+								},
+								{
+									"key": "Park home",
+									"doc_count": 1
+								}
+							]
+						},
+						"stats2": {
+							"count": 5,
+							"min": 1,
+							"max": 21520,
+							"avg": 6232,
+							"sum": 31160,
+							"sum_of_squares": 508190534,
+							"variance": 62800282.8,
+							"variance_population": 62800282.8,
+							"variance_sampling": 78500353.5,
+							"std_deviation": 7924.6629455138345,
+							"std_deviation_population": 7924.6629455138345,
+							"std_deviation_sampling": 8860.042522471324,
+							"std_deviation_bounds": {
+								"upper": 22081.32589102767,
+								"lower": -9617.325891027669,
+								"upper_population": 22081.32589102767,
+								"lower_population": -9617.325891027669,
+								"upper_sampling": 23952.085044942647,
+								"lower_sampling": -11488.085044942647
+							}
+						}
+					},
+					{
+						"key": "Undefined or Other Heat Pump Type",
+						"doc_count": 1409,
+						"agg2": {
+							"doc_count_error_upper_bound": 0,
+							"sum_other_doc_count": 0,
+							"buckets": [
+								{
+									"key": "Flat",
+									"doc_count": 994
+								},
+								{
+									"key": "House",
+									"doc_count": 344
+								},
+								{
+									"key": "Bungalow",
+									"doc_count": 54
+								},
+								{
+									"key": "Maisonette",
+									"doc_count": 17
+								}
+							]
+						},
+						"stats2": {
+							"count": 4,
+							"min": 17,
+							"max": 994,
+							"avg": 352.25,
+							"sum": 1409,
+							"sum_of_squares": 1109577,
+							"variance": 153314.1875,
+							"variance_population": 153314.1875,
+							"variance_sampling": 204418.91666666666,
+							"std_deviation": 391.5535563623449,
+							"std_deviation_population": 391.5535563623449,
+							"std_deviation_sampling": 452.12710233591025,
+							"std_deviation_bounds": {
+								"upper": 1135.3571127246898,
+								"lower": -430.85711272468984,
+								"upper_population": 1135.3571127246898,
+								"lower_population": -430.85711272468984,
+								"upper_sampling": 1256.5042046718204,
+								"lower_sampling": -552.0042046718205
+							}
+						}
+					},
+					{
+						"key": "No HP",
+						"doc_count": 48,
+						"agg2": {
+							"doc_count_error_upper_bound": 0,
+							"sum_other_doc_count": 0,
+							"buckets": [
+								{
+									"key": "Flat",
+									"doc_count": 44
+								},
+								{
+									"key": "House",
+									"doc_count": 4
+								}
+							]
+						},
+						"stats2": {
+							"count": 2,
+							"min": 4,
+							"max": 44,
+							"avg": 24,
+							"sum": 48,
+							"sum_of_squares": 1952,
+							"variance": 400,
+							"variance_population": 400,
+							"variance_sampling": 800,
+							"std_deviation": 20,
+							"std_deviation_population": 20,
+							"std_deviation_sampling": 28.284271247461902,
+							"std_deviation_bounds": {
+								"upper": 64,
+								"lower": -16,
+								"upper_population": 64,
+								"lower_population": -16,
+								"upper_sampling": 80.5685424949238,
+								"lower_sampling": -32.568542494923804
+							}
+						}
+					}
+				]
+			},
+			"stats1": {
+				"count": 4,
+				"min": 48,
+				"max": 207891,
+				"avg": 60127.25,
+				"sum": 240509
+			}
+		},
+		"message": "aggregation successful",
+		"request": {
+			"agg": {
+				"id": "terms1_terms2",
+				"params": {
+					"field1": "hp_feature_heat_system.keyword",
+					"field2": "property_feature_type.keyword",
+					"use_extended_stats2": true,
+					"with_stats1": true,
+					"with_stats2": true,
+					"size1": 65536,
+					"use_extended_stats1": false,
+					"size2": 65536
+				}
+			},
+			"filter": {
+				"query": {
+					"match_all": {}
+				}
+			}
+		}
+	}
+}

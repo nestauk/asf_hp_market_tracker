@@ -5,8 +5,7 @@
 		"query": {
 			"field1": "installation_date",
 			"field2": "property_feature_type.keyword",
-			"calendar_interval1": "1y",
-			"size2": 2
+			"with_stats2": true
 		}
 	},
 	"response": {
@@ -20,7 +19,7 @@
 						"doc_count": 727,
 						"agg2": {
 							"doc_count_error_upper_bound": 0,
-							"sum_other_doc_count": 64,
+							"sum_other_doc_count": 0,
 							"buckets": [
 								{
 									"key": "House",
@@ -29,8 +28,23 @@
 								{
 									"key": "Flat",
 									"doc_count": 306
+								},
+								{
+									"key": "Bungalow",
+									"doc_count": 52
+								},
+								{
+									"key": "Maisonette",
+									"doc_count": 12
 								}
 							]
+						},
+						"stats2": {
+							"count": 4,
+							"min": 12,
+							"max": 357,
+							"avg": 181.75,
+							"sum": 727
 						}
 					},
 					{
@@ -39,7 +53,7 @@
 						"doc_count": 5300,
 						"agg2": {
 							"doc_count_error_upper_bound": 0,
-							"sum_other_doc_count": 406,
+							"sum_other_doc_count": 0,
 							"buckets": [
 								{
 									"key": "House",
@@ -48,8 +62,23 @@
 								{
 									"key": "Flat",
 									"doc_count": 1685
+								},
+								{
+									"key": "Bungalow",
+									"doc_count": 361
+								},
+								{
+									"key": "Maisonette",
+									"doc_count": 45
 								}
 							]
+						},
+						"stats2": {
+							"count": 4,
+							"min": 45,
+							"max": 3209,
+							"avg": 1325,
+							"sum": 5300
 						}
 					},
 					{
@@ -58,7 +87,7 @@
 						"doc_count": 8863,
 						"agg2": {
 							"doc_count_error_upper_bound": 0,
-							"sum_other_doc_count": 1059,
+							"sum_other_doc_count": 0,
 							"buckets": [
 								{
 									"key": "House",
@@ -67,8 +96,23 @@
 								{
 									"key": "Flat",
 									"doc_count": 2333
+								},
+								{
+									"key": "Bungalow",
+									"doc_count": 1011
+								},
+								{
+									"key": "Maisonette",
+									"doc_count": 48
 								}
 							]
+						},
+						"stats2": {
+							"count": 4,
+							"min": 48,
+							"max": 5471,
+							"avg": 2215.75,
+							"sum": 8863
 						}
 					},
 					{
@@ -77,7 +121,7 @@
 						"doc_count": 11876,
 						"agg2": {
 							"doc_count_error_upper_bound": 0,
-							"sum_other_doc_count": 1538,
+							"sum_other_doc_count": 0,
 							"buckets": [
 								{
 									"key": "House",
@@ -86,8 +130,23 @@
 								{
 									"key": "Flat",
 									"doc_count": 3708
+								},
+								{
+									"key": "Bungalow",
+									"doc_count": 1386
+								},
+								{
+									"key": "Maisonette",
+									"doc_count": 152
 								}
 							]
+						},
+						"stats2": {
+							"count": 4,
+							"min": 152,
+							"max": 6630,
+							"avg": 2969,
+							"sum": 11876
 						}
 					},
 					{
@@ -96,7 +155,7 @@
 						"doc_count": 13041,
 						"agg2": {
 							"doc_count_error_upper_bound": 0,
-							"sum_other_doc_count": 2374,
+							"sum_other_doc_count": 0,
 							"buckets": [
 								{
 									"key": "House",
@@ -105,8 +164,23 @@
 								{
 									"key": "Bungalow",
 									"doc_count": 3060
+								},
+								{
+									"key": "Flat",
+									"doc_count": 2282
+								},
+								{
+									"key": "Maisonette",
+									"doc_count": 92
 								}
 							]
+						},
+						"stats2": {
+							"count": 4,
+							"min": 92,
+							"max": 7607,
+							"avg": 3260.25,
+							"sum": 13041
 						}
 					},
 					{
@@ -115,7 +189,7 @@
 						"doc_count": 13777,
 						"agg2": {
 							"doc_count_error_upper_bound": 0,
-							"sum_other_doc_count": 2284,
+							"sum_other_doc_count": 0,
 							"buckets": [
 								{
 									"key": "House",
@@ -124,8 +198,27 @@
 								{
 									"key": "Bungalow",
 									"doc_count": 3404
+								},
+								{
+									"key": "Flat",
+									"doc_count": 2217
+								},
+								{
+									"key": "Maisonette",
+									"doc_count": 63
+								},
+								{
+									"key": "Park home",
+									"doc_count": 4
 								}
 							]
+						},
+						"stats2": {
+							"count": 5,
+							"min": 4,
+							"max": 8089,
+							"avg": 2755.4,
+							"sum": 13777
 						}
 					},
 					{
@@ -134,7 +227,7 @@
 						"doc_count": 14882,
 						"agg2": {
 							"doc_count_error_upper_bound": 0,
-							"sum_other_doc_count": 2283,
+							"sum_other_doc_count": 0,
 							"buckets": [
 								{
 									"key": "House",
@@ -143,8 +236,27 @@
 								{
 									"key": "Bungalow",
 									"doc_count": 3323
+								},
+								{
+									"key": "Flat",
+									"doc_count": 2203
+								},
+								{
+									"key": "Maisonette",
+									"doc_count": 79
+								},
+								{
+									"key": "Park home",
+									"doc_count": 1
 								}
 							]
+						},
+						"stats2": {
+							"count": 5,
+							"min": 1,
+							"max": 9275,
+							"avg": 2976.2,
+							"sum": 14881
 						}
 					},
 					{
@@ -153,7 +265,7 @@
 						"doc_count": 15304,
 						"agg2": {
 							"doc_count_error_upper_bound": 0,
-							"sum_other_doc_count": 2516,
+							"sum_other_doc_count": 0,
 							"buckets": [
 								{
 									"key": "House",
@@ -162,8 +274,27 @@
 								{
 									"key": "Bungalow",
 									"doc_count": 3254
+								},
+								{
+									"key": "Flat",
+									"doc_count": 2436
+								},
+								{
+									"key": "Maisonette",
+									"doc_count": 73
+								},
+								{
+									"key": "Park home",
+									"doc_count": 7
 								}
 							]
+						},
+						"stats2": {
+							"count": 5,
+							"min": 7,
+							"max": 9534,
+							"avg": 3060.8,
+							"sum": 15304
 						}
 					},
 					{
@@ -172,7 +303,7 @@
 						"doc_count": 12889,
 						"agg2": {
 							"doc_count_error_upper_bound": 0,
-							"sum_other_doc_count": 2349,
+							"sum_other_doc_count": 0,
 							"buckets": [
 								{
 									"key": "House",
@@ -181,8 +312,23 @@
 								{
 									"key": "Bungalow",
 									"doc_count": 2279
+								},
+								{
+									"key": "Flat",
+									"doc_count": 2265
+								},
+								{
+									"key": "Maisonette",
+									"doc_count": 84
 								}
 							]
+						},
+						"stats2": {
+							"count": 4,
+							"min": 84,
+							"max": 8261,
+							"avg": 3222.25,
+							"sum": 12889
 						}
 					},
 					{
@@ -191,7 +337,7 @@
 						"doc_count": 14022,
 						"agg2": {
 							"doc_count_error_upper_bound": 0,
-							"sum_other_doc_count": 1830,
+							"sum_other_doc_count": 0,
 							"buckets": [
 								{
 									"key": "House",
@@ -200,8 +346,27 @@
 								{
 									"key": "Bungalow",
 									"doc_count": 2538
+								},
+								{
+									"key": "Flat",
+									"doc_count": 1765
+								},
+								{
+									"key": "Maisonette",
+									"doc_count": 61
+								},
+								{
+									"key": "Park home",
+									"doc_count": 4
 								}
 							]
+						},
+						"stats2": {
+							"count": 5,
+							"min": 4,
+							"max": 9654,
+							"avg": 2804.4,
+							"sum": 14022
 						}
 					},
 					{
@@ -210,7 +375,7 @@
 						"doc_count": 16108,
 						"agg2": {
 							"doc_count_error_upper_bound": 0,
-							"sum_other_doc_count": 2466,
+							"sum_other_doc_count": 0,
 							"buckets": [
 								{
 									"key": "House",
@@ -219,8 +384,27 @@
 								{
 									"key": "Bungalow",
 									"doc_count": 2965
+								},
+								{
+									"key": "Flat",
+									"doc_count": 2376
+								},
+								{
+									"key": "Maisonette",
+									"doc_count": 87
+								},
+								{
+									"key": "Park home",
+									"doc_count": 3
 								}
 							]
+						},
+						"stats2": {
+							"count": 5,
+							"min": 3,
+							"max": 10677,
+							"avg": 3221.6,
+							"sum": 16108
 						}
 					},
 					{
@@ -229,7 +413,7 @@
 						"doc_count": 19685,
 						"agg2": {
 							"doc_count_error_upper_bound": 0,
-							"sum_other_doc_count": 2498,
+							"sum_other_doc_count": 0,
 							"buckets": [
 								{
 									"key": "House",
@@ -238,8 +422,27 @@
 								{
 									"key": "Bungalow",
 									"doc_count": 3924
+								},
+								{
+									"key": "Flat",
+									"doc_count": 2431
+								},
+								{
+									"key": "Maisonette",
+									"doc_count": 63
+								},
+								{
+									"key": "Park home",
+									"doc_count": 4
 								}
 							]
+						},
+						"stats2": {
+							"count": 5,
+							"min": 4,
+							"max": 13263,
+							"avg": 3937,
+							"sum": 19685
 						}
 					},
 					{
@@ -248,7 +451,7 @@
 						"doc_count": 20869,
 						"agg2": {
 							"doc_count_error_upper_bound": 0,
-							"sum_other_doc_count": 2388,
+							"sum_other_doc_count": 0,
 							"buckets": [
 								{
 									"key": "House",
@@ -257,8 +460,27 @@
 								{
 									"key": "Bungalow",
 									"doc_count": 3960
+								},
+								{
+									"key": "Flat",
+									"doc_count": 2307
+								},
+								{
+									"key": "Maisonette",
+									"doc_count": 74
+								},
+								{
+									"key": "Park home",
+									"doc_count": 7
 								}
 							]
+						},
+						"stats2": {
+							"count": 5,
+							"min": 7,
+							"max": 14521,
+							"avg": 4173.8,
+							"sum": 20869
 						}
 					},
 					{
@@ -267,7 +489,7 @@
 						"doc_count": 35994,
 						"agg2": {
 							"doc_count_error_upper_bound": 0,
-							"sum_other_doc_count": 3815,
+							"sum_other_doc_count": 0,
 							"buckets": [
 								{
 									"key": "House",
@@ -276,8 +498,27 @@
 								{
 									"key": "Bungalow",
 									"doc_count": 7247
+								},
+								{
+									"key": "Flat",
+									"doc_count": 3600
+								},
+								{
+									"key": "Maisonette",
+									"doc_count": 191
+								},
+								{
+									"key": "Park home",
+									"doc_count": 24
 								}
 							]
+						},
+						"stats2": {
+							"count": 5,
+							"min": 24,
+							"max": 24932,
+							"avg": 7198.8,
+							"sum": 35994
 						}
 					},
 					{
@@ -286,7 +527,7 @@
 						"doc_count": 37172,
 						"agg2": {
 							"doc_count_error_upper_bound": 0,
-							"sum_other_doc_count": 3185,
+							"sum_other_doc_count": 0,
 							"buckets": [
 								{
 									"key": "House",
@@ -295,8 +536,27 @@
 								{
 									"key": "Bungalow",
 									"doc_count": 7212
+								},
+								{
+									"key": "Flat",
+									"doc_count": 2963
+								},
+								{
+									"key": "Maisonette",
+									"doc_count": 212
+								},
+								{
+									"key": "Park home",
+									"doc_count": 10
 								}
 							]
+						},
+						"stats2": {
+							"count": 5,
+							"min": 10,
+							"max": 26775,
+							"avg": 7434.4,
+							"sum": 37172
 						}
 					}
 				]
@@ -309,10 +569,9 @@
 				"params": {
 					"field1": "installation_date",
 					"field2": "property_feature_type.keyword",
+					"with_stats2": true,
 					"calendar_interval1": "1y",
-					"size2": 2,
-					"use_extended_stats2": false,
-					"with_stats2": false
+					"use_extended_stats2": false
 				}
 			},
 			"filter": {

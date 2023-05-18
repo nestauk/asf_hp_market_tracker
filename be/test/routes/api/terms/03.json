@@ -31,7 +31,9 @@
 				"id": "terms",
 				"params": {
 					"field": "hp_feature_heat_system.keyword",
-					"size": 2
+					"size": 2,
+					"use_extended_stats": false,
+					"with_stats": false
 				}
 			},
 			"filter": {

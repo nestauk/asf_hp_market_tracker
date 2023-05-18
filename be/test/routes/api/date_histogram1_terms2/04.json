@@ -1,0 +1,810 @@
+{
+	"query": {
+		"method": "GET",
+		"url": "date_histogram1_terms2",
+		"query": {
+			"field1": "installation_date",
+			"field2": "property_feature_type.keyword",
+			"with_stats2": true,
+			"use_extended_stats2": true
+		}
+	},
+	"response": {
+		"code": 200,
+		"data": {
+			"agg1": {
+				"buckets": [
+					{
+						"key_as_string": "2008-01",
+						"key": 1199145600000,
+						"doc_count": 727,
+						"agg2": {
+							"doc_count_error_upper_bound": 0,
+							"sum_other_doc_count": 0,
+							"buckets": [
+								{
+									"key": "House",
+									"doc_count": 357
+								},
+								{
+									"key": "Flat",
+									"doc_count": 306
+								},
+								{
+									"key": "Bungalow",
+									"doc_count": 52
+								},
+								{
+									"key": "Maisonette",
+									"doc_count": 12
+								}
+							]
+						},
+						"stats2": {
+							"count": 4,
+							"min": 12,
+							"max": 357,
+							"avg": 181.75,
+							"sum": 727,
+							"sum_of_squares": 223933,
+							"variance": 22950.1875,
+							"variance_population": 22950.1875,
+							"variance_sampling": 30600.25,
+							"std_deviation": 151.49319291638156,
+							"std_deviation_population": 151.49319291638156,
+							"std_deviation_sampling": 174.9292714213376,
+							"std_deviation_bounds": {
+								"upper": 484.7363858327631,
+								"lower": -121.23638583276312,
+								"upper_population": 484.7363858327631,
+								"lower_population": -121.23638583276312,
+								"upper_sampling": 531.6085428426752,
+								"lower_sampling": -168.1085428426752
+							}
+						}
+					},
+					{
+						"key_as_string": "2009-01",
+						"key": 1230768000000,
+						"doc_count": 5300,
+						"agg2": {
+							"doc_count_error_upper_bound": 0,
+							"sum_other_doc_count": 0,
+							"buckets": [
+								{
+									"key": "House",
+									"doc_count": 3209
+								},
+								{
+									"key": "Flat",
+									"doc_count": 1685
+								},
+								{
+									"key": "Bungalow",
+									"doc_count": 361
+								},
+								{
+									"key": "Maisonette",
+									"doc_count": 45
+								}
+							]
+						},
+						"stats2": {
+							"count": 4,
+							"min": 45,
+							"max": 3209,
+							"avg": 1325,
+							"sum": 5300,
+							"sum_of_squares": 13269252,
+							"variance": 1561688,
+							"variance_population": 1561688,
+							"variance_sampling": 2082250.6666666667,
+							"std_deviation": 1249.6751577910156,
+							"std_deviation_population": 1249.6751577910156,
+							"std_deviation_sampling": 1443.000577500462,
+							"std_deviation_bounds": {
+								"upper": 3824.3503155820313,
+								"lower": -1174.3503155820313,
+								"upper_population": 3824.3503155820313,
+								"lower_population": -1174.3503155820313,
+								"upper_sampling": 4211.001155000924,
+								"lower_sampling": -1561.001155000924
+							}
+						}
+					},
+					{
+						"key_as_string": "2010-01",
+						"key": 1262304000000,
+						"doc_count": 8863,
+						"agg2": {
+							"doc_count_error_upper_bound": 0,
+							"sum_other_doc_count": 0,
+							"buckets": [
+								{
+									"key": "House",
+									"doc_count": 5471
+								},
+								{
+									"key": "Flat",
+									"doc_count": 2333
+								},
+								{
+									"key": "Bungalow",
+									"doc_count": 1011
+								},
+								{
+									"key": "Maisonette",
+									"doc_count": 48
+								}
+							]
+						},
+						"stats2": {
+							"count": 4,
+							"min": 48,
+							"max": 5471,
+							"avg": 2215.75,
+							"sum": 8863,
+							"sum_of_squares": 36399155,
+							"variance": 4190240.6875,
+							"variance_population": 4190240.6875,
+							"variance_sampling": 5586987.583333333,
+							"std_deviation": 2047.0077399707116,
+							"std_deviation_population": 2047.0077399707116,
+							"std_deviation_sampling": 2363.6809394106754,
+							"std_deviation_bounds": {
+								"upper": 6309.765479941423,
+								"lower": -1878.265479941423,
+								"upper_population": 6309.765479941423,
+								"lower_population": -1878.265479941423,
+								"upper_sampling": 6943.111878821351,
+								"lower_sampling": -2511.6118788213507
+							}
+						}
+					},
+					{
+						"key_as_string": "2011-01",
+						"key": 1293840000000,
+						"doc_count": 11876,
+						"agg2": {
+							"doc_count_error_upper_bound": 0,
+							"sum_other_doc_count": 0,
+							"buckets": [
+								{
+									"key": "House",
+									"doc_count": 6630
+								},
+								{
+									"key": "Flat",
+									"doc_count": 3708
+								},
+								{
+									"key": "Bungalow",
+									"doc_count": 1386
+								},
+								{
+									"key": "Maisonette",
+									"doc_count": 152
+								}
+							]
+						},
+						"stats2": {
+							"count": 4,
+							"min": 152,
+							"max": 6630,
+							"avg": 2969,
+							"sum": 11876,
+							"sum_of_squares": 59650264,
+							"variance": 6097605,
+							"variance_population": 6097605,
+							"variance_sampling": 8130140,
+							"std_deviation": 2469.3329058674935,
+							"std_deviation_population": 2469.3329058674935,
+							"std_deviation_sampling": 2851.3400358427966,
+							"std_deviation_bounds": {
+								"upper": 7907.665811734987,
+								"lower": -1969.665811734987,
+								"upper_population": 7907.665811734987,
+								"lower_population": -1969.665811734987,
+								"upper_sampling": 8671.680071685594,
+								"lower_sampling": -2733.6800716855932
+							}
+						}
+					},
+					{
+						"key_as_string": "2012-01",
+						"key": 1325376000000,
+						"doc_count": 13041,
+						"agg2": {
+							"doc_count_error_upper_bound": 0,
+							"sum_other_doc_count": 0,
+							"buckets": [
+								{
+									"key": "House",
+									"doc_count": 7607
+								},
+								{
+									"key": "Bungalow",
+									"doc_count": 3060
+								},
+								{
+									"key": "Flat",
+									"doc_count": 2282
+								},
+								{
+									"key": "Maisonette",
+									"doc_count": 92
+								}
+							]
+						},
+						"stats2": {
+							"count": 4,
+							"min": 92,
+							"max": 7607,
+							"avg": 3260.25,
+							"sum": 13041,
+							"sum_of_squares": 72446037,
+							"variance": 7482279.1875,
+							"variance_population": 7482279.1875,
+							"variance_sampling": 9976372.25,
+							"std_deviation": 2735.375511241555,
+							"std_deviation_population": 2735.375511241555,
+							"std_deviation_sampling": 3158.539575500044,
+							"std_deviation_bounds": {
+								"upper": 8731.00102248311,
+								"lower": -2210.5010224831103,
+								"upper_population": 8731.00102248311,
+								"lower_population": -2210.5010224831103,
+								"upper_sampling": 9577.329151000089,
+								"lower_sampling": -3056.829151000088
+							}
+						}
+					},
+					{
+						"key_as_string": "2013-01",
+						"key": 1356998400000,
+						"doc_count": 13777,
+						"agg2": {
+							"doc_count_error_upper_bound": 0,
+							"sum_other_doc_count": 0,
+							"buckets": [
+								{
+									"key": "House",
+									"doc_count": 8089
+								},
+								{
+									"key": "Bungalow",
+									"doc_count": 3404
+								},
+								{
+									"key": "Flat",
+									"doc_count": 2217
+								},
+								{
+									"key": "Maisonette",
+									"doc_count": 63
+								},
+								{
+									"key": "Park home",
+									"doc_count": 4
+								}
+							]
+						},
+						"stats2": {
+							"count": 5,
+							"min": 4,
+							"max": 8089,
+							"avg": 2755.4,
+							"sum": 13777,
+							"sum_of_squares": 81938211,
+							"variance": 8795413.040000001,
+							"variance_population": 8795413.040000001,
+							"variance_sampling": 10994266.3,
+							"std_deviation": 2965.7061621138396,
+							"std_deviation_population": 2965.7061621138396,
+							"std_deviation_sampling": 3315.7602898882783,
+							"std_deviation_bounds": {
+								"upper": 8686.81232422768,
+								"lower": -3176.012324227679,
+								"upper_population": 8686.81232422768,
+								"lower_population": -3176.012324227679,
+								"upper_sampling": 9386.920579776557,
+								"lower_sampling": -3876.1205797765565
+							}
+						}
+					},
+					{
+						"key_as_string": "2014-01",
+						"key": 1388534400000,
+						"doc_count": 14882,
+						"agg2": {
+							"doc_count_error_upper_bound": 0,
+							"sum_other_doc_count": 0,
+							"buckets": [
+								{
+									"key": "House",
+									"doc_count": 9275
+								},
+								{
+									"key": "Bungalow",
+									"doc_count": 3323
+								},
+								{
+									"key": "Flat",
+									"doc_count": 2203
+								},
+								{
+									"key": "Maisonette",
+									"doc_count": 79
+								},
+								{
+									"key": "Park home",
+									"doc_count": 1
+								}
+							]
+						},
+						"stats2": {
+							"count": 5,
+							"min": 1,
+							"max": 9275,
+							"avg": 2976.2,
+							"sum": 14881,
+							"sum_of_squares": 101927405,
+							"variance": 11527714.559999999,
+							"variance_population": 11527714.559999999,
+							"variance_sampling": 14409643.2,
+							"std_deviation": 3395.2488215151475,
+							"std_deviation_population": 3395.2488215151475,
+							"std_deviation_sampling": 3796.0035827169604,
+							"std_deviation_bounds": {
+								"upper": 9766.697643030295,
+								"lower": -3814.297643030295,
+								"upper_population": 9766.697643030295,
+								"lower_population": -3814.297643030295,
+								"upper_sampling": 10568.20716543392,
+								"lower_sampling": -4615.807165433921
+							}
+						}
+					},
+					{
+						"key_as_string": "2015-01",
+						"key": 1420070400000,
+						"doc_count": 15304,
+						"agg2": {
+							"doc_count_error_upper_bound": 0,
+							"sum_other_doc_count": 0,
+							"buckets": [
+								{
+									"key": "House",
+									"doc_count": 9534
+								},
+								{
+									"key": "Bungalow",
+									"doc_count": 3254
+								},
+								{
+									"key": "Flat",
+									"doc_count": 2436
+								},
+								{
+									"key": "Maisonette",
+									"doc_count": 73
+								},
+								{
+									"key": "Park home",
+									"doc_count": 7
+								}
+							]
+						},
+						"stats2": {
+							"count": 5,
+							"min": 7,
+							"max": 9534,
+							"avg": 3060.8,
+							"sum": 15304,
+							"sum_of_squares": 107425146,
+							"variance": 12116532.559999999,
+							"variance_population": 12116532.559999999,
+							"variance_sampling": 15145665.7,
+							"std_deviation": 3480.8810034242765,
+							"std_deviation_population": 3480.8810034242765,
+							"std_deviation_sampling": 3891.7432726221805,
+							"std_deviation_bounds": {
+								"upper": 10022.562006848553,
+								"lower": -3900.962006848553,
+								"upper_population": 10022.562006848553,
+								"lower_population": -3900.962006848553,
+								"upper_sampling": 10844.286545244362,
+								"lower_sampling": -4722.686545244361
+							}
+						}
+					},
+					{
+						"key_as_string": "2016-01",
+						"key": 1451606400000,
+						"doc_count": 12889,
+						"agg2": {
+							"doc_count_error_upper_bound": 0,
+							"sum_other_doc_count": 0,
+							"buckets": [
+								{
+									"key": "House",
+									"doc_count": 8261
+								},
+								{
+									"key": "Bungalow",
+									"doc_count": 2279
+								},
+								{
+									"key": "Flat",
+									"doc_count": 2265
+								},
+								{
+									"key": "Maisonette",
+									"doc_count": 84
+								}
+							]
+						},
+						"stats2": {
+							"count": 4,
+							"min": 84,
+							"max": 8261,
+							"avg": 3222.25,
+							"sum": 12889,
+							"sum_of_squares": 78575243,
+							"variance": 9260915.6875,
+							"variance_population": 9260915.6875,
+							"variance_sampling": 12347887.583333334,
+							"std_deviation": 3043.1752640129025,
+							"std_deviation_population": 3043.1752640129025,
+							"std_deviation_sampling": 3513.95611573812,
+							"std_deviation_bounds": {
+								"upper": 9308.600528025805,
+								"lower": -2864.100528025805,
+								"upper_population": 9308.600528025805,
+								"lower_population": -2864.100528025805,
+								"upper_sampling": 10250.162231476239,
+								"lower_sampling": -3805.66223147624
+							}
+						}
+					},
+					{
+						"key_as_string": "2017-01",
+						"key": 1483228800000,
+						"doc_count": 14022,
+						"agg2": {
+							"doc_count_error_upper_bound": 0,
+							"sum_other_doc_count": 0,
+							"buckets": [
+								{
+									"key": "House",
+									"doc_count": 9654
+								},
+								{
+									"key": "Bungalow",
+									"doc_count": 2538
+								},
+								{
+									"key": "Flat",
+									"doc_count": 1765
+								},
+								{
+									"key": "Maisonette",
+									"doc_count": 61
+								},
+								{
+									"key": "Park home",
+									"doc_count": 4
+								}
+							]
+						},
+						"stats2": {
+							"count": 5,
+							"min": 4,
+							"max": 9654,
+							"avg": 2804.4,
+							"sum": 14022,
+							"sum_of_squares": 102760122,
+							"variance": 12687365.040000001,
+							"variance_population": 12687365.040000001,
+							"variance_sampling": 15859206.3,
+							"std_deviation": 3561.9327674733,
+							"std_deviation_population": 3561.9327674733,
+							"std_deviation_sampling": 3982.361899677125,
+							"std_deviation_bounds": {
+								"upper": 9928.2655349466,
+								"lower": -4319.465534946599,
+								"upper_population": 9928.2655349466,
+								"lower_population": -4319.465534946599,
+								"upper_sampling": 10769.12379935425,
+								"lower_sampling": -5160.32379935425
+							}
+						}
+					},
+					{
+						"key_as_string": "2018-01",
+						"key": 1514764800000,
+						"doc_count": 16108,
+						"agg2": {
+							"doc_count_error_upper_bound": 0,
+							"sum_other_doc_count": 0,
+							"buckets": [
+								{
+									"key": "House",
+									"doc_count": 10677
+								},
+								{
+									"key": "Bungalow",
+									"doc_count": 2965
+								},
+								{
+									"key": "Flat",
+									"doc_count": 2376
+								},
+								{
+									"key": "Maisonette",
+									"doc_count": 87
+								},
+								{
+									"key": "Park home",
+									"doc_count": 3
+								}
+							]
+						},
+						"stats2": {
+							"count": 5,
+							"min": 3,
+							"max": 10677,
+							"avg": 3221.6,
+							"sum": 16108,
+							"sum_of_squares": 128442508,
+							"variance": 15309795.040000001,
+							"variance_population": 15309795.040000001,
+							"variance_sampling": 19137243.8,
+							"std_deviation": 3912.773318248835,
+							"std_deviation_population": 3912.773318248835,
+							"std_deviation_sampling": 4374.613560075907,
+							"std_deviation_bounds": {
+								"upper": 11047.14663649767,
+								"lower": -4603.946636497671,
+								"upper_population": 11047.14663649767,
+								"lower_population": -4603.946636497671,
+								"upper_sampling": 11970.827120151815,
+								"lower_sampling": -5527.627120151814
+							}
+						}
+					},
+					{
+						"key_as_string": "2019-01",
+						"key": 1546300800000,
+						"doc_count": 19685,
+						"agg2": {
+							"doc_count_error_upper_bound": 0,
+							"sum_other_doc_count": 0,
+							"buckets": [
+								{
+									"key": "House",
+									"doc_count": 13263
+								},
+								{
+									"key": "Bungalow",
+									"doc_count": 3924
+								},
+								{
+									"key": "Flat",
+									"doc_count": 2431
+								},
+								{
+									"key": "Maisonette",
+									"doc_count": 63
+								},
+								{
+									"key": "Park home",
+									"doc_count": 4
+								}
+							]
+						},
+						"stats2": {
+							"count": 5,
+							"min": 4,
+							"max": 13263,
+							"avg": 3937,
+							"sum": 19685,
+							"sum_of_squares": 197218691,
+							"variance": 23943769.2,
+							"variance_population": 23943769.2,
+							"variance_sampling": 29929711.5,
+							"std_deviation": 4893.2370880634835,
+							"std_deviation_population": 4893.2370880634835,
+							"std_deviation_sampling": 5470.805379466537,
+							"std_deviation_bounds": {
+								"upper": 13723.474176126967,
+								"lower": -5849.474176126967,
+								"upper_population": 13723.474176126967,
+								"lower_population": -5849.474176126967,
+								"upper_sampling": 14878.610758933073,
+								"lower_sampling": -7004.610758933073
+							}
+						}
+					},
+					{
+						"key_as_string": "2020-01",
+						"key": 1577836800000,
+						"doc_count": 20869,
+						"agg2": {
+							"doc_count_error_upper_bound": 0,
+							"sum_other_doc_count": 0,
+							"buckets": [
+								{
+									"key": "House",
+									"doc_count": 14521
+								},
+								{
+									"key": "Bungalow",
+									"doc_count": 3960
+								},
+								{
+									"key": "Flat",
+									"doc_count": 2307
+								},
+								{
+									"key": "Maisonette",
+									"doc_count": 74
+								},
+								{
+									"key": "Park home",
+									"doc_count": 7
+								}
+							]
+						},
+						"stats2": {
+							"count": 5,
+							"min": 7,
+							"max": 14521,
+							"avg": 4173.8,
+							"sum": 20869,
+							"sum_of_squares": 231868815,
+							"variance": 28953156.560000002,
+							"variance_population": 28953156.560000002,
+							"variance_sampling": 36191445.7,
+							"std_deviation": 5380.813745150449,
+							"std_deviation_population": 5380.813745150449,
+							"std_deviation_sampling": 6015.9326542108165,
+							"std_deviation_bounds": {
+								"upper": 14935.427490300899,
+								"lower": -6587.827490300898,
+								"upper_population": 14935.427490300899,
+								"lower_population": -6587.827490300898,
+								"upper_sampling": 16205.665308421634,
+								"lower_sampling": -7858.065308421633
+							}
+						}
+					},
+					{
+						"key_as_string": "2021-01",
+						"key": 1609459200000,
+						"doc_count": 35994,
+						"agg2": {
+							"doc_count_error_upper_bound": 0,
+							"sum_other_doc_count": 0,
+							"buckets": [
+								{
+									"key": "House",
+									"doc_count": 24932
+								},
+								{
+									"key": "Bungalow",
+									"doc_count": 7247
+								},
+								{
+									"key": "Flat",
+									"doc_count": 3600
+								},
+								{
+									"key": "Maisonette",
+									"doc_count": 191
+								},
+								{
+									"key": "Park home",
+									"doc_count": 24
+								}
+							]
+						},
+						"stats2": {
+							"count": 5,
+							"min": 24,
+							"max": 24932,
+							"avg": 7198.8,
+							"sum": 35994,
+							"sum_of_squares": 687120690,
+							"variance": 85601416.56,
+							"variance_population": 85601416.56,
+							"variance_sampling": 107001770.7,
+							"std_deviation": 9252.103358696335,
+							"std_deviation_population": 9252.103358696335,
+							"std_deviation_sampling": 10344.166022449563,
+							"std_deviation_bounds": {
+								"upper": 25703.00671739267,
+								"lower": -11305.40671739267,
+								"upper_population": 25703.00671739267,
+								"lower_population": -11305.40671739267,
+								"upper_sampling": 27887.132044899125,
+								"lower_sampling": -13489.532044899126
+							}
+						}
+					},
+					{
+						"key_as_string": "2022-01",
+						"key": 1640995200000,
+						"doc_count": 37172,
+						"agg2": {
+							"doc_count_error_upper_bound": 0,
+							"sum_other_doc_count": 0,
+							"buckets": [
+								{
+									"key": "House",
+									"doc_count": 26775
+								},
+								{
+									"key": "Bungalow",
+									"doc_count": 7212
+								},
+								{
+									"key": "Flat",
+									"doc_count": 2963
+								},
+								{
+									"key": "Maisonette",
+									"doc_count": 212
+								},
+								{
+									"key": "Park home",
+									"doc_count": 10
+								}
+							]
+						},
+						"stats2": {
+							"count": 5,
+							"min": 10,
+							"max": 26775,
+							"avg": 7434.4,
+							"sum": 37172,
+							"sum_of_squares": 777737982,
+							"variance": 100277293.03999999,
+							"variance_population": 100277293.03999999,
+							"variance_sampling": 125346616.3,
+							"std_deviation": 10013.855053874107,
+							"std_deviation_population": 10013.855053874107,
+							"std_deviation_sampling": 11195.830308646162,
+							"std_deviation_bounds": {
+								"upper": 27462.110107748216,
+								"lower": -12593.310107748215,
+								"upper_population": 27462.110107748216,
+								"lower_population": -12593.310107748215,
+								"upper_sampling": 29826.06061729232,
+								"lower_sampling": -14957.260617292324
+							}
+						}
+					}
+				]
+			}
+		},
+		"message": "aggregation successful",
+		"request": {
+			"agg": {
+				"id": "date_histogram1_terms2",
+				"params": {
+					"field1": "installation_date",
+					"field2": "property_feature_type.keyword",
+					"with_stats2": true,
+					"use_extended_stats2": true,
+					"calendar_interval1": "1y"
+				}
+			},
+			"filter": {
+				"query": {
+					"match_all": {}
+				}
+			}
+		}
+	}
+}
