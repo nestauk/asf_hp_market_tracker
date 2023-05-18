@@ -70,21 +70,20 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 							};
 							break;
 						case 'installers':
-							aggId = 'terms1_terms2'; // BE TBD: terms1_cardinality2?
+							aggId = 'terms1_cardinality2';
 							params = {
-								field1: `property_geo_region_${ctx.selection.regionType}_name.keyword`,
+								field1: `installer_geo_region_${ctx.selection.regionType}_name.keyword`,
 								field2: `hp_id_brand.keyword`,
-								// field2: `installer_id.keyword`,
-								// we need the length of the nested array
+								// field2: `installer_id.keyword`, TODO
 							};
 							break;
 						case 'installations_per_installer':
-							aggId = 'terms1_terms2'; // TBD terms1_terms2_pipeline3?
+							aggId = 'terms1_terms2';
 							params = {
 								field1: `property_geo_region_${ctx.selection.regionType}_name.keyword`,
+								// field2: `installer_id.keyword`, TODO
 								field2: `hp_id_brand.keyword`,
-								// field2: `installer_id.keyword`,
-								// we need to return the array `doc_count`s to run stats / histogram
+								with_stats2: true
 							};
 							break;
 						default:
