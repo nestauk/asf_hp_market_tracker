@@ -1,0 +1,18 @@
+{
+	"query": {
+		"method": "GET",
+		"url": "cardinality",
+		"query": {
+			"field": "property_energy_efficiency_windows.keyword"
+		}
+	},
+	"response": {
+		"code": 200,
+		"data": {
+			"agg1": {
+				"value": 5
+			}
+		},
+		"message": "aggregation successful"
+	}
+}

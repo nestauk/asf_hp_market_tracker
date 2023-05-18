@@ -29,12 +29,15 @@ const histogramTests = async (tap, query, result) => {
 	tap.equal(expectedBins, result.data.agg1.buckets.length);
 };
 
+testRoute('cardinality');
 testRoute('date_histogram');
+testRoute('date_histogram1_cardinality2');
 testRoute('date_histogram1_terms2');
 testRoute('date_histogram1_stats2');
 testRoute('date_histogram1_histogram2');
 testRoute('histogram', histogramTests);
 testRoute('terms');
+testRoute('terms1_cardinality2');
 testRoute('terms1_histogram2');
 testRoute('terms1_terms2');
 testRoute('terms1_stats2');
