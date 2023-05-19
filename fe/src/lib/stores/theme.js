@@ -68,6 +68,18 @@ export const _bannersTheme = derived(
 	})
 );
 
+export const _histogramsTheme = derived(
+	_currThemeVars,
+	currThemeVars => ({
+		backgroundColor: currThemeVars['--colorBackground'],
+		binFill: currThemeVars['--colorBackground'],
+		binStroke: currThemeVars['--colorIcon'],
+		messageColor: currThemeVars['--colorText'],
+		originColor: currThemeVars['--colorIcon'],
+		textColor: currThemeVars['--colorText'],
+	})
+);
+
 export const _legendsTheme = derived(
 	_currThemeVars,
 	currThemeVars => ({

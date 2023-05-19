@@ -9,12 +9,12 @@
 	import {_viewData} from '$lib/stores/view.js';
 	import {roundTo1} from '$lib/utils/numbers.js';
 
-	const accessor = _.getPath('agg2.avg');
-	const filter = _.filterWith(_.pipe([accessor, isNotNil]));
-	const makeDomain = _.pipe([filter, arr => extent(arr, accessor)]);
+	const valueAccessor = _.getPath('agg2.avg');
+	const filter = _.filterWith(_.pipe([valueAccessor, isNotNil]));
+	const makeDomain = _.pipe([filter, arr => extent(arr, valueAccessor)]);
 	const makeBarchartItems = _.pipe([
 		filter,
-		_.mapWith(applyFnMap({key: getKey, value: accessor})),
+		_.mapWith(applyFnMap({key: getKey, value: valueAccessor})),
 		_.sortWith([_.sorterDesc(getValue)])
 	]);
 	$: items = $_viewData?.code === 200 && $_viewData?.data.agg1.buckets || [];

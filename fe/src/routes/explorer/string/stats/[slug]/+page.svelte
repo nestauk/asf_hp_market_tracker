@@ -21,7 +21,7 @@
 
 	const valueAccessor = _.getKey('doc_count');
 	const filter = _.filterWith(_.pipe([valueAccessor, isNotNil]));
-	const makeDomain = _.pipe([_.mapWith(getKey), _.sortWith([]), ]);
+	const makeDomain = _.pipe([_.mapWith(getKey), _.sortWith([])]);
 
 	/* barchart */
 
