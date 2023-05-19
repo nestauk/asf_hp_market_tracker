@@ -1,33 +1,40 @@
 <script>
 	import {BarchartVDiv} from '@svizzle/barchart';
 	import {applyFnMap, getKey, getValue, isNotNil} from '@svizzle/utils';
+	import {hsl} from 'd3-color';
 	import {scaleOrdinal} from 'd3-scale';
 	import {interpolateSpectral as interpolateColor} from 'd3-scale-chromatic';
 	import * as _ from 'lamb';
 
-	import DevView from '$lib/components/explorer/DevView.svelte';
 	import Grid2Columns from '$lib/components/svizzle/Grid2Columns.svelte';
+	import Treemap from '$lib/components/svizzle/Treemap.svelte';
 	import {_barchartsTheme} from '$lib/stores/theme.js';
 	import {_viewData} from '$lib/stores/view.js';
 	import {_currentMetric, _selection} from '$lib/stores/navigation.js';
 
 	let barchartItems;
-	let keyToColorFn;
 	let doDraw = false;
 	let domain;
 	let items;
+	let keyToColorFn;
+	let keyToColorLabelFn;
 
-	const accessor = _.getKey('doc_count');
-	const filter = _.filterWith(_.pipe([accessor, isNotNil]));
+	const valueAccessor = _.getKey('doc_count');
+	const filter = _.filterWith(_.pipe([valueAccessor, isNotNil]));
 	const makeDomain = _.pipe([_.mapWith(getKey), _.sortWith([]), ]);
+
+	/* barchart */
+
 	const makeBarchartItems = _.pipe([
 		filter,
-		_.mapWith(applyFnMap({key: getKey, value: accessor})),
+		_.mapWith(applyFnMap({key: getKey, value: valueAccessor})),
 		_.sortWith([_.sorterDesc(getValue)])
 	]);
 
 	$: if ($_viewData?.code === 200) {
 		items = $_viewData?.data.agg1.buckets;
+
+		/* colors */
 
 		domain = makeDomain(items);
 		const colorScheme = _.map(
@@ -35,6 +42,14 @@
 			(v, index) => interpolateColor(index / (domain.length - 1))
 		);
 		keyToColorFn = scaleOrdinal().domain(domain).range(colorScheme);
+
+		const colorSchemeLabel = _.map(
+			colorScheme,
+			color => hsl(color).l > 0.5 ? 'black' : 'white'
+		);
+		keyToColorLabelFn = scaleOrdinal().domain(domain).range(colorSchemeLabel);
+
+		/* barchart */
 
 		barchartItems = makeBarchartItems(items) || [];
 
@@ -49,9 +64,18 @@
 {#if doDraw}
 	<Grid2Columns
 		percents={[70, 30]}
-		gap='0.25em'
+		gap='0.5em'
 	>
-		<DevView slot='col0' /> <!-- TODO treemap -->
+		<div slot='col0' class='col'>
+			<div class='treemap'>
+				<Treemap
+					{items}
+					{keyToColorFn}
+					{keyToColorLabelFn}
+					{valueAccessor}
+				/>
+			</div>
+		</div>
 		<div slot='col1' class='col'>
 			<div class='barchart'>
 				<BarchartVDiv
@@ -77,6 +101,10 @@
 	}
 	.barchart {
 		height: 100%;
+		width: 100%;
+	}
+	.treemap {
+		height: 95%;
 		width: 100%;
 	}
 </style>

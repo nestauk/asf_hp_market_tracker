@@ -36,15 +36,17 @@
 		/* colors */
 
 		domain = makeDomain(items);
+
 		const colorScheme = _.map(
 			domain,
 			(v, index) => interpolateColor(index / (domain.length - 1))
 		);
+		keyToColorFn = scaleOrdinal().domain(domain).range(colorScheme);
+
 		const colorSchemeLabel = _.map(
 			colorScheme,
 			color => hsl(color).l > 0.5 ? 'black' : 'white'
 		);
-		keyToColorFn = scaleOrdinal().domain(domain).range(colorScheme);
 		keyToColorLabelFn = scaleOrdinal().domain(domain).range(colorSchemeLabel);
 
 		/* barchart */
@@ -96,7 +98,7 @@
 		width: 100%;
 	}
 	.treemap {
-		height: 75%;
+		height: 95%;
 		width: 100%;
 	}
 </style>
