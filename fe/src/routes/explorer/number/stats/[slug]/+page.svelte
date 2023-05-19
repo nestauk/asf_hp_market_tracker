@@ -2,12 +2,13 @@
 	import {HistogramDiv} from '@svizzle/histogram';
 	import {getKey} from '@svizzle/utils';
 	import {extent, pairs} from 'd3-array';
-	import {scaleLinear} from 'd3-scale';
+	import {hsl} from 'd3-color';
+	import {scaleLinear, scaleOrdinal} from 'd3-scale';
 	import {interpolateGnBu as interpolateColor} from 'd3-scale-chromatic';
 	import * as _ from 'lamb';
 
-	import DevView from '$lib/components/explorer/DevView.svelte';
 	import Grid2Columns from '$lib/components/svizzle/Grid2Columns.svelte';
+	import Treemap from '$lib/components/svizzle/Treemap.svelte';
 	import {_viewData} from '$lib/stores/view.js';
 	import {_histogramsTheme} from '$lib/stores/theme.js';
 
@@ -15,44 +16,70 @@
 	let binsFill;
 	let doDraw = false;
 	let items;
+	let keyToColorFn;
+	let keyToColorLabelFn;
 
 	const valueAccessor = _.getKey('doc_count');
+
+	/* histogram */
+
 	const getBins = ({items, interval, valueAccessor}) => {
 		let itemsPairs = pairs(items);
-		const [, lastPair2] = _.last(itemsPairs);
+		const lastItem = _.last(items);
 		let bins = _.map(
 			itemsPairs,
-			([pair1, pair2]) => ({
-				range: [pair1.key, pair2.key],
-				value: valueAccessor(pair1)
+			([item1, item2]) => ({
+				range: [item1.key, item2.key],
+				value: valueAccessor(item1)
 			})
 		).concat({
-			range: [lastPair2.key, lastPair2.key + interval],
-			value: valueAccessor(lastPair2)
+			range: [lastItem.key, lastItem.key + interval],
+			value: valueAccessor(lastItem)
 		});
 
 		return bins;
 	}
 
-	const makeDomain = _.pipe([arr => extent(arr, getKey)]);
+	const makeHistogramDomain = _.pipe([arr => extent(arr, getKey)]);
+	const treemapKeyAccessor = _.pipe([
+		_.getKey('range'),
+		([a, b]) => `${a}-${b}`
+	]);
+	const makeTreemapDomain = _.mapWith(treemapKeyAccessor);
 
 	$: if ($_viewData?.code === 200 && $_viewData?.meta) {
 		items = $_viewData?.data.agg1.buckets;
 
 		const {interval} = $_viewData?.meta;
-		console.log('items, interval', items, interval);
 
 		/* colors */
 
-		const domain = makeDomain(items);
-		const tScale = scaleLinear().domain(domain).range([0, 1]);
+		const histogramDomain = makeHistogramDomain(items);
+		const tScale = scaleLinear().domain(histogramDomain).range([0, 1]);
 		const colorScale = num => interpolateColor(tScale(num));
 
 		/* histogram */
 
 		bins = getBins({items, interval, valueAccessor});
 		binsFill = _.map(bins, ({range}) => colorScale(range[0]));
-		console.log(bins)
+
+		/* treemap */
+
+		const treemapDomain = makeTreemapDomain(bins);
+		const colorScheme = _.map(
+			treemapDomain,
+			(v, index) => interpolateColor(index / (treemapDomain.length - 1))
+		);
+		keyToColorFn = scaleOrdinal().domain(treemapDomain).range(colorScheme);
+
+		const colorSchemeLabel = _.map(
+			colorScheme,
+			color => hsl(color).l > 0.5 ? 'black' : 'white'
+		);
+		keyToColorLabelFn =
+			scaleOrdinal()
+			.domain(treemapDomain)
+			.range(colorSchemeLabel);
 
 		doDraw = true;
 	}
@@ -64,9 +91,14 @@
 		gap='0.5em'
 	>
 		<div slot='col0' class='col'>
-			<!-- <div class='treemap'> -->
-				<DevView/>
-			<!-- </div> -->
+			<div class='treemap'>
+				<Treemap
+					{keyToColorFn}
+					{keyToColorLabelFn}
+					items={bins}
+					keyAccessor={treemapKeyAccessor}
+				/>
+			</div>
 		</div>
 		<div slot='col1' class='col'>
 			<div class='histogram'>
@@ -74,7 +106,8 @@
 					{bins}
 					{binsFill}
 					geometry={{
-						safetyXTicks: 100,
+						safetyXTicks: 100, // TODO calc based on order of magn of ticks
+						safetyXValues: 50, // TODO calc based on order of magn of values
 					}}
 					theme={$_histogramsTheme}
 				/>
@@ -94,6 +127,10 @@
 	}
 	.histogram {
 		height: 100%;
+		width: 100%;
+	}
+	.treemap {
+		height: 95%;
 		width: 100%;
 	}
 </style>

@@ -8,6 +8,7 @@
 	export let keyToColorFn;
 	export let keyToColorLabelFn;
 	export let paddingInner = 5;
+	export let paddingOuter = 2;
 	export let valueAccessor = getValue;
 
 	let treemapHeight;
@@ -22,6 +23,7 @@
 	$: getTreemap =
 		treemap()
 		.size([treemapWidth, treemapHeight])
+		.paddingOuter(paddingOuter)
 		.paddingInner(paddingInner);
 	$: treeRoot = getTreeRoot(items);
 	$: treemapLeaves = getTreemap(treeRoot).leaves();
@@ -37,13 +39,15 @@
 		width={treemapWidth}
 	>
 		{#each treemapLeaves
-			as {x0, x1, y0, y1, data: {data}}}
+			as {x0, x1, y0, y1, data: {data}}
 		}
 			<g transform='translate({x0},{y0})'>
 				<rect
 					height={y1-y0}
 					width={x1-x0}
 					fill={keyToColorFn(keyAccessor(data))}
+					stroke='var(--colorBorderAux)'
+					stroke-width={0.5}
 				/>
 				<text
 					dx={5}
