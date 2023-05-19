@@ -134,7 +134,7 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 					params = {
 						field: `${id}.keyword`,
 						missing: 'Unknown',
-						size: 10
+						size: ctx.selection.stringsTopCount
 					};
 					break;
 				case 'geo':
@@ -143,7 +143,7 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 						field1: `property_geo_region_${ctx.selection.regionType}_name.keyword`,
 						field2: `${id}.keyword`,
 						missing2: 'Unknown',
-						size2: 10
+						size: ctx.selection.stringsTopCount
 					};
 					break;
 				case 'time':
@@ -152,7 +152,7 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 						calendar_interval1: ctx.selection.interval,
 						field1: `installation_date`,
 						field2: `${id}.keyword`,
-						size2: 10
+						size: ctx.selection.stringsTopCount
 					};
 					break;
 				default:
