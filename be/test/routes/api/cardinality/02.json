@@ -14,6 +14,20 @@
 				"value": 6
 			}
 		},
-		"message": "aggregation successful"
+		"message": "aggregation successful",
+		"request": {
+			"agg": {
+				"id": "cardinality",
+				"params": {
+					"field": "property_energy_efficiency_windows.keyword",
+					"missing": "missing"
+				}
+			},
+			"filter": {
+				"query": {
+					"match_all": {}
+				}
+			}
+		}
 	}
 }

@@ -196,6 +196,22 @@
 				]
 			}
 		},
-		"message": "aggregation successful"
+		"message": "aggregation successful",
+		"request": {
+			"agg": {
+				"id": "date_histogram1_stats2",
+				"params": {
+					"field1": "installation_date",
+					"field2": "installation_cost",
+					"calendar_interval1": "1y",
+					"use_extended_stats2": false
+				}
+			},
+			"filter": {
+				"query": {
+					"match_all": {}
+				}
+			}
+		}
 	}
 }

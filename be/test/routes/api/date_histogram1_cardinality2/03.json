@@ -136,6 +136,22 @@
 				]
 			}
 		},
-		"message": "aggregation successful"
+		"message": "aggregation successful",
+		"request": {
+			"agg": {
+				"id": "date_histogram1_cardinality2",
+				"params": {
+					"field1": "installation_date",
+					"field2": "property_energy_efficiency_windows.keyword",
+					"missing2": "missing",
+					"calendar_interval1": "1y"
+				}
+			},
+			"filter": {
+				"query": {
+					"match_all": {}
+				}
+			}
+		}
 	}
 }

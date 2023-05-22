@@ -56,6 +56,20 @@
 			}
 		},
 		"message": "aggregation successful",
+		"request": {
+			"agg": {
+				"id": "histogram",
+				"params": {
+					"field": "installation_cost",
+					"bins": 10
+				}
+			},
+			"filter": {
+				"query": {
+					"match_all": {}
+				}
+			}
+		},
 		"meta": {
 			"interval": 22222
 		}

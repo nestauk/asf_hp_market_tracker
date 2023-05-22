@@ -3068,6 +3068,23 @@
 			}
 		},
 		"message": "aggregation successful",
+		"request": {
+			"agg": {
+				"id": "terms1_histogram2",
+				"params": {
+					"field1": "hp_id_brand.keyword",
+					"field2": "installation_cost",
+					"bins2": 20,
+					"missing1": "missing",
+					"size1": 65536
+				}
+			},
+			"filter": {
+				"query": {
+					"match_all": {}
+				}
+			}
+		},
 		"meta": {
 			"interval2": 10526
 		}

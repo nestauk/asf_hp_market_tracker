@@ -41,6 +41,13 @@ export const formatPayload = async (request, reply, payload) => {
 			code: 200,
 			data: payload,
 			message: 'aggregation successful',
+			request: {
+				agg: {
+					id: request.routerPath.slice(1),
+					params: request.query
+				},
+				filter: request.filter
+			},
 			...request.meta && { meta: request.meta }
 		};
 };

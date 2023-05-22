@@ -72,6 +72,22 @@
 				]
 			}
 		},
-		"message": "aggregation successful"
+		"message": "aggregation successful",
+		"request": {
+			"agg": {
+				"id": "terms1_stats2",
+				"params": {
+					"field1": "property_energy_efficiency_walls.keyword",
+					"field2": "installation_cost",
+					"size1": 65536,
+					"use_extended_stats2": false
+				}
+			},
+			"filter": {
+				"query": {
+					"match_all": {}
+				}
+			}
+		}
 	}
 }
