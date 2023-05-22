@@ -4,7 +4,10 @@
 		"url": "terms1_terms2",
 		"query": {
 			"field1": "hp_feature_heat_system.keyword",
-			"field2": "property_feature_type.keyword"
+			"field2": "property_feature_type.keyword",
+			"use_extended_stats1": true,
+			"with_stats1": true,
+			"with_stats2": true
 		}
 	},
 	"response": {
@@ -42,6 +45,13 @@
 									"doc_count": 63
 								}
 							]
+						},
+						"stats2": {
+							"count": 5,
+							"min": 63,
+							"max": 136387,
+							"avg": 41578.2,
+							"sum": 207891
 						}
 					},
 					{
@@ -72,6 +82,13 @@
 									"doc_count": 1
 								}
 							]
+						},
+						"stats2": {
+							"count": 5,
+							"min": 1,
+							"max": 21520,
+							"avg": 6232,
+							"sum": 31160
 						}
 					},
 					{
@@ -98,6 +115,13 @@
 									"doc_count": 17
 								}
 							]
+						},
+						"stats2": {
+							"count": 4,
+							"min": 17,
+							"max": 994,
+							"avg": 352.25,
+							"sum": 1409
 						}
 					},
 					{
@@ -116,9 +140,38 @@
 									"doc_count": 4
 								}
 							]
+						},
+						"stats2": {
+							"count": 2,
+							"min": 4,
+							"max": 44,
+							"avg": 24,
+							"sum": 48
 						}
 					}
 				]
+			},
+			"stats1": {
+				"count": 4,
+				"min": 48,
+				"max": 207891,
+				"avg": 60127.25,
+				"sum": 240509,
+				"sum_of_squares": 44191663387,
+				"variance": 7432629654.1875,
+				"variance_population": 7432629654.1875,
+				"variance_sampling": 9910172872.25,
+				"std_deviation": 86212.70007480046,
+				"std_deviation_population": 86212.70007480046,
+				"std_deviation_sampling": 99549.85119150103,
+				"std_deviation_bounds": {
+					"upper": 232552.65014960093,
+					"lower": -112298.15014960093,
+					"upper_population": 232552.65014960093,
+					"lower_population": -112298.15014960093,
+					"upper_sampling": 259226.95238300206,
+					"lower_sampling": -138972.45238300206
+				}
 			}
 		},
 		"message": "aggregation successful",
@@ -128,12 +181,12 @@
 				"params": {
 					"field1": "hp_feature_heat_system.keyword",
 					"field2": "property_feature_type.keyword",
+					"use_extended_stats1": true,
+					"with_stats1": true,
+					"with_stats2": true,
 					"size1": 65536,
-					"use_extended_stats1": false,
-					"with_stats1": false,
 					"size2": 65536,
-					"use_extended_stats2": false,
-					"with_stats2": false
+					"use_extended_stats2": false
 				}
 			},
 			"filter": {

@@ -137,7 +137,11 @@
 					"missing1": "missing",
 					"missing2": "missing",
 					"size1": 65536,
-					"size2": 65536
+					"use_extended_stats1": false,
+					"with_stats1": false,
+					"size2": 65536,
+					"use_extended_stats2": false,
+					"with_stats2": false
 				}
 			},
 			"filter": {

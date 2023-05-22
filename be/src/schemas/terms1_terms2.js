@@ -15,6 +15,14 @@ export const schema = {
 					minimum: 1,
 					maximum: maxBuckets
 				},
+				use_extended_stats1: {
+					default: false,
+					type: 'boolean'
+				},
+				with_stats1: {
+					default: false,
+					type: 'boolean'
+				},
 				// 2
 				field2: { type: 'string' },
 				missing2: { type: 'string' },
@@ -23,6 +31,14 @@ export const schema = {
 					type: 'integer',
 					minimum: 1,
 					maximum: maxBuckets
+				},
+				use_extended_stats2: {
+					default: false,
+					type: 'boolean'
+				},
+				with_stats2: {
+					default: false,
+					type: 'boolean'
 				},
 			}
 		}

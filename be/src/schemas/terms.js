@@ -14,6 +14,14 @@ export const schema = {
 					minimum: 1,
 					maximum: maxBuckets
 				},
+				use_extended_stats: {
+					default: false,
+					type: 'boolean'
+				},
+				with_stats: {
+					default: false,
+					type: 'boolean'
+				},
 			}
 		}
 	}

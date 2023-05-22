@@ -464,7 +464,9 @@
 				"params": {
 					"field1": "installation_date",
 					"field2": "property_feature_type.keyword",
-					"calendar_interval1": "1y"
+					"calendar_interval1": "1y",
+					"use_extended_stats2": false,
+					"with_stats2": false
 				}
 			},
 			"filter": {

@@ -4,7 +4,8 @@
 		"url": "terms1_terms2",
 		"query": {
 			"field1": "hp_feature_heat_system.keyword",
-			"field2": "property_feature_type.keyword"
+			"field2": "property_feature_type.keyword",
+			"with_stats1": true
 		}
 	},
 	"response": {
@@ -119,6 +120,13 @@
 						}
 					}
 				]
+			},
+			"stats1": {
+				"count": 4,
+				"min": 48,
+				"max": 207891,
+				"avg": 60127.25,
+				"sum": 240509
 			}
 		},
 		"message": "aggregation successful",
@@ -128,9 +136,9 @@
 				"params": {
 					"field1": "hp_feature_heat_system.keyword",
 					"field2": "property_feature_type.keyword",
+					"with_stats1": true,
 					"size1": 65536,
 					"use_extended_stats1": false,
-					"with_stats1": false,
 					"size2": 65536,
 					"use_extended_stats2": false,
 					"with_stats2": false
