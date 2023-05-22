@@ -32,6 +32,20 @@
 				]
 			}
 		},
-		"message": "aggregation successful"
+		"message": "aggregation successful",
+		"request": {
+			"agg": {
+				"id": "terms",
+				"params": {
+					"field": "hp_feature_heat_system.keyword",
+					"size": 65536
+				}
+			},
+			"filter": {
+				"query": {
+					"match_all": {}
+				}
+			}
+		}
 	}
 }

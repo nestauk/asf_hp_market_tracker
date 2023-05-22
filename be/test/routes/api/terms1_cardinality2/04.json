@@ -103,6 +103,23 @@
 				]
 			}
 		},
-		"message": "aggregation successful"
+		"message": "aggregation successful",
+		"request": {
+			"agg": {
+				"id": "terms1_cardinality2",
+				"params": {
+					"field1": "property_geo_region_itl21_1_id.keyword",
+					"field2": "property_energy_efficiency_windows.keyword",
+					"missing1": "missing",
+					"missing2": "missing",
+					"size1": 65536
+				}
+			},
+			"filter": {
+				"query": {
+					"match_all": {}
+				}
+			}
+		}
 	}
 }

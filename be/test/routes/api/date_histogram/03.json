@@ -315,6 +315,20 @@
 				]
 			}
 		},
-		"message": "aggregation successful"
+		"message": "aggregation successful",
+		"request": {
+			"agg": {
+				"id": "date_histogram",
+				"params": {
+					"field": "installation_date",
+					"calendar_interval": "1q"
+				}
+			},
+			"filter": {
+				"query": {
+					"match_all": {}
+				}
+			}
+		}
 	}
 }

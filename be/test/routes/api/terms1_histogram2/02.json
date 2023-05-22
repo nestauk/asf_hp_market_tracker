@@ -218,6 +218,22 @@
 			}
 		},
 		"message": "aggregation successful",
+		"request": {
+			"agg": {
+				"id": "terms1_histogram2",
+				"params": {
+					"field1": "hp_feature_heat_system.keyword",
+					"field2": "installation_cost",
+					"bins2": 20,
+					"size1": 65536
+				}
+			},
+			"filter": {
+				"query": {
+					"match_all": {}
+				}
+			}
+		},
 		"meta": {
 			"interval2": 10526
 		}
