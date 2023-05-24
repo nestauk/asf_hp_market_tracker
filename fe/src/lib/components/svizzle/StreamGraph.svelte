@@ -5,6 +5,7 @@
 		getKey,
 		getValue,
 		getValues,
+		inclusiveRange,
 		keyValueArrayToObject,
 		makeKeyedZeroes,
 		objectToKeyValueArray,
@@ -32,43 +33,47 @@
 	}
 
 	export let categories;
-	export let categoriesFilterFn = _.identity;
-	export let categoriesFormatFn;
 	export let categoryToColorFn;
 	export let geometry;
 	export let items = [];
+	export let keyFilterFn;
+	export let keyFormatFn;
 	export let sorting = 'off';
 	export let theme;
 	export let valueFormatFn;
+	export let yTicksCount = 10;
 
 	let height;
 	let width;
 
-	/* geometry */
+	$: yTicksCount = yTicksCount ?? 10;
 
-	const labelsDx = 20;
+	/* theme */
+
 	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
 	$: style = makeStyleVars(theme);
 
 	/* geometry */
 
+	const labelsDx = 20;
 	$: geometry = geometry ? {...defaultGeometry, ...geometry} : defaultGeometry;
 	$: labelsDy = Math.min(geometry.safetyBottom, geometry.safetyTop) / 2;
 
 	/* items based */
 
 	$: items = items ?? [];
-	$: categoriesFilterFn = categoriesFilterFn || _.identity;
 
 	const getSortedKeys = _.pipe([_.mapWith(getKey), _.sortWith([])]);
-	$: allKeys = getSortedKeys(items).concat();
-	$: keyTicks = _.filter(allKeys, categoriesFilterFn);
+	$: allKeys = getSortedKeys(items)
+	$: keyTicks = keyFilterFn
+		? _.filter(allKeys, keyFilterFn)
+		: allKeys;
 
 	const getMaxSum = arrayMaxWith(
 		_.pipe([getValues, arraySumWith(getValue)])
 	);
 	$: maxSum = getMaxSum(items);
-	$: yTicks = _.range(0, 1.1 * maxSum, 0.1 * maxSum);
+	$: yTicks = inclusiveRange([0, maxSum, maxSum / yTicksCount]);
 
 	$: zeroedCategoriesMap = makeKeyedZeroes(categories);
 	$: sortingFn = sorting === 'off'
@@ -204,7 +209,6 @@
 		</g>
 
 		<!-- x-ticks -->
-
 		<g class='x-ticks'>
 			{#each keyTicks as key}
 				<g class='ticks'>
@@ -214,7 +218,7 @@
 						x={xScale(key)}
 						y={bbox.bly}
 					>
-						{categoriesFormatFn(key)}
+						{keyFormatFn(key)}
 					</text>
 					<text
 						class='centered'
@@ -222,7 +226,7 @@
 						x={xScale(key)}
 						y={bbox.try}
 					>
-						{categoriesFormatFn(key)}
+						{keyFormatFn(key)}
 					</text>
 				</g>
 			{/each}
@@ -255,8 +259,9 @@
 		<!-- paths -->
 		{#each paths as p (p.id)}
 			<path
-				fill={p.fill}
 				d={p.path}
+				fill={p.fill}
+				stroke={p.fill}
 			/>
 		{/each}
 

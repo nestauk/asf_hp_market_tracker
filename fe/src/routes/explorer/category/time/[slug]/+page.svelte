@@ -48,10 +48,10 @@
 	]);
 
 	let categories;
-	let categoriesFilterFn;
-	let categoriesFormatFn;
 	let categoryToColorFn;
 	let items;
+	let keyFilterFn;
+	let keyFormatFn;
 
 	$: if ($_viewData?.code === 200) {
 		const rawItems = $_viewData?.data.agg1.buckets;
@@ -67,21 +67,21 @@
 
 		switch ($_selection.interval) {
 			case '1y':
-				categoriesFormatFn = _.pipe([
+				keyFormatFn = _.pipe([
 					makeSplitBy('-'),
 					_.getAt(0),
 					sliceStringAt([2, 4])
 				]);
-				categoriesFilterFn = null;
+				keyFilterFn = null;
 				break;
 			case '1q':
 			case '1M':
-				categoriesFormatFn = _.pipe([
+				keyFormatFn = _.pipe([
 					makeSplitBy('-'),
 					_.getAt(0),
 					sliceStringAt([2, 4])
 				]);
-				categoriesFilterFn = _.pipe([
+				keyFilterFn = _.pipe([
 					makeSplitBy('-'),
 					_.getAt(1),
 					_.is('01')
@@ -120,10 +120,10 @@
 			</div>
 			<StreamGraph
 				{categories}
-				{categoriesFilterFn}
-				{categoriesFormatFn}
 				{categoryToColorFn}
 				{items}
+				{keyFilterFn}
+				{keyFormatFn}
 				valueFormatFn={roundTo0}
 				geometry={{
 					safetyBottom: 50,
