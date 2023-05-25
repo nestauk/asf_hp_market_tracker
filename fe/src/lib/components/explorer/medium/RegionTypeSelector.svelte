@@ -3,6 +3,7 @@
 
 	import {explorerActor} from '$lib/statechart/index.js';
 	import {_selection} from '$lib/stores/navigation.js';
+	import {_xorSelectorTheme} from '$lib/stores/theme.js';
 
 	const selectionChanged = ({detail: regionType}) =>
 		explorerActor.send({
@@ -14,12 +15,7 @@
 <div class='centered'>
 	<XorSelector
 		on:changed={selectionChanged}
-		theme={{
-			borderColor: 'var(--colorBorder)',
-			selectedColor: 'var(--colorSelectedBackground)',
-			selectedTextColor: 'var(--colorSelectedText)',
-			textColor: 'var(--colorText)',
-		}}
+		theme={$_xorSelectorTheme}
 		value={$_selection.regionType}
 		values={['itl21_1', 'itl21_2', 'itl21_3', 'lau21_1']}
 	/>

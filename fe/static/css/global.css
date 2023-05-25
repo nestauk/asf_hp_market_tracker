@@ -55,6 +55,10 @@ a {
 	--borderAux: var(--borderLine) var(--colorBorderAux);
 	--outline: var(--outlineWidth) var(--outlineStyle) var(--colorOutline);
 	--boxShadowY: var(--boxShadowGeom) var(--colorShadow);
+
+	/* grids */
+
+	--gridStrokeDasharray: 4 8;
 }
 
 .themeDark {
@@ -72,6 +76,10 @@ a {
 	--borderAux: var(--borderLine) var(--colorBorderAux);
 	--outline: var(--outlineWidth) var(--outlineStyle) var(--colorOutline);
 	--boxShadowY: var(--boxShadowGeom) var(--colorShadow);
+
+	/* grids */
+
+	--gridStrokeDasharray: 4 8;
 }
 /* theme: colors */
 

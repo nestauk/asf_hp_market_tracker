@@ -90,6 +90,26 @@ export const _legendsTheme = derived(
 	})
 );
 
+export const _xorSelectorTheme = derived(
+	_currThemeVars,
+	currThemeVars => ({
+		borderColor: currThemeVars['--colorBorder'],
+		selectedColor: currThemeVars['--colorSelectedBackground'],
+		selectedTextColor: currThemeVars['--colorSelectedText'],
+		textColor: currThemeVars['--colorText'],
+	})
+);
+
+export const _framesTheme = derived(
+	_currThemeVars,
+	currThemeVars => ({
+		frameStroke: currThemeVars['--colorBorder'],
+		gridStroke: currThemeVars['--colorBorder'],
+		gridStrokeDasharray: currThemeVars['--gridStrokeDasharray'],
+		textColor: currThemeVars['--colorText'],
+	})
+);
+
 /* icons */
 
 export const _getIconColor = derived(
