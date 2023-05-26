@@ -17,7 +17,14 @@
 		on:changed={selectionChanged}
 		theme={$_xorSelectorTheme}
 		value={$_selection.regionType}
-		values={['itl21_1', 'itl21_2', 'itl21_3', 'lau21_1']}
+		values={[
+			'itl21_1',
+			'itl21_2',
+			'itl21_3',
+			'lau21_1',
+			// 'lsoa11',
+			// 'msoa11',
+		]}
 	/>
 </div>
 

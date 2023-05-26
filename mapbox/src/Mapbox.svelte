@@ -6,14 +6,19 @@
 
 	const isMapboxGLSupported = mapboxgl.supported();
 
-	export let _bbox_WS_EN = null; // store
-	export let _bbox_WSEN = null; // store
-	export let _zoom = null; // store
+	export let _bbox_WS_EN = null;
+	export let _bbox_WSEN = null;
+	export let _zoom = null;
 	export let accessToken;
 	export let bounds;
-	export let styleURL;
+	export let getFeatureState;
+	export let isAnimated = true;
+	export let isInteractive = true;
+	export let style;
+	export let visibleLayers;
 	export let withScaleControl = true;
 	export let withZoomControl = true;
+
 </script>
 
 {#if isMapboxGLSupported}
@@ -23,7 +28,11 @@
 		{_zoom}
 		{accessToken}
 		{bounds}
-		{styleURL}
+		{getFeatureState}
+		{isAnimated}
+		{isInteractive}
+		{style}
+		{visibleLayers}
 		{withScaleControl}
 		{withZoomControl}
 		on:bboxChanged

@@ -2,6 +2,7 @@
 	import 'mapbox-gl/dist/mapbox-gl.css';
 
 	import geoViewport from '@mapbox/geo-viewport';
+	import {getId} from '@svizzle/utils';
 	import mapboxgl from 'mapbox-gl';
 	import {createEventDispatcher, onMount, setContext} from 'svelte';
 	import {derived, writable} from 'svelte/store';
@@ -21,21 +22,27 @@
 	export let _zoom = null; // store
 	export let accessToken = null;
 	export let bounds;
-	export let styleURL;
+	export let getFeatureState;
+	export let isAnimated = true;
+	export let isInteractive = true;
+	export let style;
+	export let visibleLayers = [];
 	export let withScaleControl = true;
 	export let withZoomControl = true;
 
 	/* props sanitisation */
 
+	$: isAnimated = isAnimated ?? true;
+	$: isInteractive = isInteractive ?? true;
 	$: _bbox_WS_EN = _bbox_WS_EN || writable([[-180, -90], [180, 90]]);
 	$: _bbox_WSEN = _bbox_WSEN || derived(_bbox_WS_EN, bbox_WS_EN => bbox_WS_EN.length ?? ws_en_to_wsen(bbox_WS_EN));
 	$: _zoom = _zoom || writable(0);
+	$: visibleLayers = visibleLayers || [];
 
 	/* props */
 
-	let map;
 	let height = 0;
-	let isInteractive = true; // has to be true initially
+	let map;
 	let mapcontainer;
 	let width = 0;
 
@@ -48,7 +55,32 @@
 		_map,
 		_projectFn
 	});
-	
+
+	/* updating layers */
+
+	$: map?.setStyle(style);
+	$: layers = $_map && style && $_map?.getStyle().layers;
+	$: layers?.forEach(layer => {
+		if (visibleLayers.includes(layer.id)) {
+			map
+			.querySourceFeatures(layer.source, {sourceLayer: layer.id})
+			.forEach(feature => {
+				const state = getFeatureState(feature);
+				state && map.setFeatureState({
+					id: feature.id,
+					source: layer.source,
+					sourceLayer: layer.id,
+				}, state);
+			});
+		}
+
+		map?.setLayoutProperty(
+			layer.id,
+			'visibility',
+			visibleLayers.includes(layer.id) ? 'visible' : 'none'
+		);
+	});
+
 	/* bbox */
 
 	$: $_bbox = $_bbox_WS_EN
@@ -105,6 +137,7 @@
 
 	const fitToBbox = bbox_WSEN => {
 		map?.fitBounds(bbox_WSEN, {
+			animate: isAnimated,
 			linear: true,
 			padding: {
 				bottom: FIT_PADDING,
@@ -175,10 +208,11 @@
 			maxZoom: MAPBOXGL_MAX_ZOOM,
 			minZoom: MAPBOXGL_MIN_ZOOM,
 			renderWorldCopies: true,
-			style: styleURL,
+			style,
 			zoom,
 
 			// interactions
+			interactive: isInteractive,
 			attributionControl: false, // we add this later to have it compact
 			doubleClickZoom: isInteractive,
 			dragPan: isInteractive,
@@ -197,7 +231,7 @@
 
 			$_map = map;
 			$_projectFn = map.project.bind(map);
-		})
+		});
 
 		map.touchZoomRotate.disableRotation();
 
@@ -218,7 +252,6 @@
 	}
 
 	$: bounds && fitToBbox(bounds);
-	$: map?.setStyle(styleURL);
 </script>
 
 <svelte:window on:resize={onResize} />

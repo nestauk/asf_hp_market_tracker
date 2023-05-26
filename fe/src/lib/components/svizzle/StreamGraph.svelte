@@ -58,7 +58,6 @@
 	/* items based */
 
 	$: items = items ?? [];
-	$: console.log(items);
 	$: categoriesFilterFn = categoriesFilterFn || _.identity;
 
 	const getSortedKeys = _.pipe([_.mapWith(getKey), _.sortWith([])]);

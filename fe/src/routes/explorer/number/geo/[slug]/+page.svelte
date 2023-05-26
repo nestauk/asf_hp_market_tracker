@@ -1,7 +1,7 @@
 <script>
 	import {applyFnMap, getKey, getValue, isNotNil} from '@svizzle/utils';
 	import {extent} from 'd3-array';
-	import {schemeTableau10 as colorScheme} from 'd3-scale-chromatic';
+	import {interpolateYlGnBu as interpolateColor} from 'd3-scale-chromatic';
 	import * as _ from 'lamb';
 
 	import {page as _page} from '$app/stores';
@@ -21,9 +21,11 @@
 </script>
 
 <NumGeoView
-	{colorScheme}
+	{interpolateColor}
 	{items}
 	{makeBarchartItems}
 	{makeDomain}
+	{valueAccessor}
+	amountOfBins={5}
 	formatFn={roundTo1}
 />

@@ -1,14 +1,14 @@
 <script>
 	import {applyFnMap, getKey, getValue, isNotNil} from '@svizzle/utils';
 	import {extent} from 'd3-array';
-	import {schemeTableau10 as colorScheme} from 'd3-scale-chromatic';
+	import {interpolateYlGnBu as interpolateColor} from 'd3-scale-chromatic';
 	import * as _ from 'lamb';
 
 	import {page as _page} from '$app/stores';
 	import {roundTo1} from '$lib/utils/numbers.js';
 
 	import NumGeoView from '$lib/components/explorer/medium/NumGeoView.svelte';
-	// import {_currentMetricId} from '$lib/stores/navigation.js';
+	// import {_currentMetricId} from '$lib/stores/navigation.js'; // FIXME
 	import {_viewData} from '$lib/stores/view.js';
 
 	const valueAccessors = {
@@ -34,10 +34,11 @@
 </script>
 
 <NumGeoView
-	{colorScheme}
 	{formatFn}
+	{interpolateColor}
 	{items}
 	{makeBarchartItems}
 	{makeDomain}
 	{title}
+	{valueAccessor}
 />

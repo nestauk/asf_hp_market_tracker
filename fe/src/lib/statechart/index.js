@@ -16,9 +16,9 @@ export const explorerActor = interpret(machine).start();
 
 if (browser) {
 	// const {unsubscribe} =
-	explorerActor.subscribe((state) => {
-		console.log(state);
-	});
+	// explorerActor.subscribe((state) => {
+	// 	// console.log(state);
+	// });
 
 	explorerActor.send({type: 'CLIENT_DETECTED'});
 }

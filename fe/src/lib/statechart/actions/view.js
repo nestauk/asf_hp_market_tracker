@@ -18,9 +18,10 @@ export const hideViewLoadingIcon = ctx => {
 /* view data */
 
 export const logViewData = (ctx, {data}) => {
-	console.log('>>>>', data);
+	console.log('viewData:', data);
 }
 
+// eslint-disable-next-line complexity
 export const generateQueryPathFromSelectionStores = assign(ctx => {
 	const activeViewType = get(_activeViewType);
 	const {id, type} = get(_currentMetric);
@@ -193,7 +194,7 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 
 	const viewQueryPath = `${aggId}?${new URLSearchParams(params)}`;
 
-	console.log('🟥 viewQueryPath', viewQueryPath);
+	// console.log('viewQueryPath', viewQueryPath);
 
 	return {...ctx, viewQueryPath}
 });

@@ -64,7 +64,7 @@ export const setCxtNextValues = assign((ctx, {newValues}) => {
 export const navigateToNextParams = ctx => {
 	const url = `${window.location.origin}${window.location.pathname}?${ctx.nextSearchParams}`;
 
-	console.log('next url:', url)
+	// console.log('next url:', url)
 
 	goto(url, {
 		keepFocus: true,
