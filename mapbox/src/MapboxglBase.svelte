@@ -2,7 +2,6 @@
 	import 'mapbox-gl/dist/mapbox-gl.css';
 
 	import geoViewport from '@mapbox/geo-viewport';
-	import {getId} from '@svizzle/utils';
 	import mapboxgl from 'mapbox-gl';
 	import {createEventDispatcher, onMount, setContext} from 'svelte';
 	import {derived, writable} from 'svelte/store';
@@ -64,6 +63,7 @@
 		if (visibleLayers.includes(layer.id)) {
 			map
 			.querySourceFeatures(layer.source, {sourceLayer: layer.id})
+			.filter(feature => feature.id)
 			.forEach(feature => {
 				const state = getFeatureState(feature);
 				state && map.setFeatureState({

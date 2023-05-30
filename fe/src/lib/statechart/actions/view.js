@@ -45,8 +45,8 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 				case 'geo':
 					aggId = 'terms1_terms2';
 					params = {
-						field1: `property_geo_region_${ctx.selection.regionType}_name.keyword`,
-						field2: `${id}.keyword`,
+						field1: `${id}.keyword`,
+						field2: `property_geo_region_${ctx.selection.regionType}_name.keyword`,
 						missing2: 'Unknown'
 					};
 					break;

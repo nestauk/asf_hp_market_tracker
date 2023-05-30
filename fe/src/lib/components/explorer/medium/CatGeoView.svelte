@@ -1,8 +1,7 @@
 <script>
-	import {BarchartVDiv} from '@svizzle/barchart';
 	import {ColorBinsDiv} from '@svizzle/legend';
-	import {getKey, makeWithKeys} from '@svizzle/utils';
-	import {pairs} from 'd3-array';
+	import {applyFnMap, getKey, makeWithKeys} from '@svizzle/utils';
+	import {extent, pairs} from 'd3-array';
 	import {scaleQuantize} from 'd3-scale';
 	import * as _ from 'lamb';
 
@@ -27,28 +26,68 @@
 	import {_barchartsTheme, _legendsTheme} from '$lib/stores/theme.js';
 	import {_viewData} from '$lib/stores/view.js';
 
+	import DevView from '../DevView.svelte';
+
 	export let amountOfBins = 5;
 	export let formatFn;
 	export let interpolateColor;
 	export let items;
-	export let makeBarchartItems;
+	export let keyAccessor;
+	export let keyAccessor2;
 	export let makeDomain;
 	export let title;
 	export let valueAccessor;
+	export let valueAccessor2;
 
-	let barchartItems;
+	const getOverallExtent = _.pipe([
+		_.flatMapWith(
+			_.pipe([
+				valueAccessor,
+				_.mapWith(valueAccessor2)
+			])
+		),
+		extent
+	])
+
+	// copied from `fe/src/routes/explorer/category/time/[slug]/+page.svelte`
+	// should centralize/refactor
+	const reshapeItems = _.mapWith(
+		applyFnMap({
+			key: keyAccessor,
+			values: _.pipe([
+				valueAccessor,
+				_.mapWith(applyFnMap({
+					key: keyAccessor2,
+					value: valueAccessor2
+				}))
+			])
+		})
+	);
+
+	const getCategs = _.pipe([
+		_.mapWith(getKey),
+		_.sortWith([])
+	]);
+
+	let categories;
 	let colorScale;
 	let doDraw = false;
 	let domain;
-	let getFeatureState;
 	let legendBins;
+	let makeGetFeatureState
 	let regionType;
+	let reshapedItems;
 
 	$: if (items && items.length > 0) {
 
 		/* common */
 
-		domain = makeDomain(items);
+		reshapedItems = reshapeItems(items);
+		categories = getCategs(reshapedItems);
+		domain = getOverallExtent(items);
+
+		/* color */
+
 		const colorScheme = _.map(
 			_.range(0, 1, 1 / (amountOfBins - 1)).concat(1),
 			interpolateColor
@@ -66,26 +105,26 @@
 			_.zip(ranges, colorScheme),
 			makeWithKeys(['range', 'color'])
 		);
-
-		/* barchart */
-
-		barchartItems = makeBarchartItems(items) || [];
-
-		/* map */
+ 
+		/* maps */
 
 		regionType = $_selection.regionType;
 
-		const itemsIndex = _.index(items, getKey);
-		getFeatureState = feature => {
-			const {properties: {[$_featureNameId]: featureName}} = feature;
-			const item = itemsIndex[featureName];
+		const categoryIndex = _.index(reshapedItems, getKey);
+		makeGetFeatureState = category => {
+			const itemsIndex = _.index(categoryIndex[category].values, getKey);
 
-			if (item) {
-				const featureState = {
-					fill: colorScale(valueAccessor(item))
+			return feature => {
+				const {properties: {[$_featureNameId]: featureName}} = feature;
+				const item = itemsIndex[featureName];
+
+				if (item) {
+					const featureState = {
+						fill: colorScale(item.value)
+					}
+
+					return featureState;
 				}
-
-				return featureState;
 			}
 		}
 
@@ -117,28 +156,30 @@
 					/>
 				</div>
 			</div>
-			<Mapbox
-				{_zoom}
-				{accessToken}
-				{getFeatureState}
-				bounds={DEFAULT_BBOX_WS_EN}
-				isAnimated={false}
-				isInteractive={true}
-				slot='col1'
-				style={$_mapStyle}
-				visibleLayers={['nuts0', regionType]}
-				withScaleControl={false}
-				withZoomControl={false}
-			/>
-			<BarchartVDiv
-				{formatFn}
-				{title}
-				items={barchartItems}
-				slot='col2'
-				shouldResetScroll={true}
-				theme={$_barchartsTheme}
-				valueToColorFn={colorScale}
-			/>
+			<div slot='col1' class='col1'>
+				{#each categories as category}
+					<div class='choropleth'>
+						<div>
+							{category}
+						</div>
+						<div class='map'>
+							<Mapbox
+								{_zoom}
+								{accessToken}
+								getFeatureState={makeGetFeatureState(category)}
+								bounds={DEFAULT_BBOX_WS_EN}
+								isAnimated={false}
+								isInteractive={true}
+								style={$_mapStyle}
+								visibleLayers={['nuts0', regionType]}
+								withScaleControl={false}
+								withZoomControl={false}
+							/>
+						</div>
+					</div>
+				{/each}
+			</div>
+			<DevView slot='col2' />
 		</Grid3Columns>
 	{/if}
 </Grid2Rows>
@@ -155,5 +196,13 @@
 	.legend {
 		height: 50%;
 		width: 100%;
+	}
+	.col1 {
+		display: grid;
+		grid-gap: 10px;
+		grid-template-columns: repeat(auto-fit, 15em);
+	}
+	.map {
+		height: 21em;
 	}
 </style>
