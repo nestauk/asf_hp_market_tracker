@@ -190,12 +190,12 @@
 		/* grid layout */
 
 		if ($_screen) {
-			gridSize = [$_gridSize.inlineSize, $_gridSize.blockSize];
-			const {gWidth, gHeight} = $_screen.glyph;
+			const {inlineSize: width, blockSize: height} = $_gridSize;
+			const {width: gWidth, height: gHeight} = $_screen.glyph;
 			gridSizeInGlyphs = [
-				Math.floor(gridSize[0] / gWidth),
-				Math.floor(gridSize[1] / gHeight)
-			]
+				Math.floor(width / gWidth),
+				Math.floor(height / gHeight)
+			];
 			const bestFit = findBestFit(
 				...gridSizeInGlyphs,
 				widthRangeInEm,
