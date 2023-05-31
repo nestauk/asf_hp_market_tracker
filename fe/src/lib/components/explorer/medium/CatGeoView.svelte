@@ -55,7 +55,7 @@
 			])
 		),
 		extent
-	])
+	]);
 
 	// copied from `fe/src/routes/explorer/category/time/[slug]/+page.svelte`
 	// should centralize/refactor
