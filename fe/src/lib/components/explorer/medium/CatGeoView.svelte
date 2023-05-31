@@ -1,5 +1,6 @@
 <script>
 	import {ColorBinsDiv} from '@svizzle/legend';
+	import {_screen, setupResizeObserver} from '@svizzle/ui';
 	import {applyFnMap, getKey, makeWithKeys} from '@svizzle/utils';
 	import {extent, pairs} from 'd3-array';
 	import {scaleQuantize} from 'd3-scale';
@@ -39,6 +40,12 @@
 	export let valueAccessor;
 	export let valueAccessor2;
 
+	const widthRangeInEm = [7, 20];
+	const heightRangeInEm = [9, 30];
+
+	const {_writable: _gridSize, resizeObserver: gridObserver} =
+		setupResizeObserver();
+
 	const getOverallExtent = _.pipe([
 		_.flatMapWith(
 			_.pipe([
@@ -69,10 +76,57 @@
 		_.sortWith([])
 	]);
 
+	const findBestFit = (gridWidth, gridHeight, rectWidthRange, rectHeightRange, neededRects) => {
+		// Create arrays with the possible dimensions
+		const rectWidths = _.range(rectWidthRange[0], rectWidthRange[1] + 1);
+		const rectHeights = _.range(rectHeightRange[0], rectHeightRange[1] + 1);
+
+		// Generate all the possible combinations of dimensions
+		const combinations = _.flatMap(
+			rectWidths,
+			width => _.map(
+				rectHeights,
+				height => {
+					const numFitHorizontally = Math.floor(gridWidth / width);
+					const numFitVertically = Math.floor(gridHeight / height);
+					const totalRects = numFitHorizontally * numFitVertically;
+					return {width, height, totalRects};
+				}
+			)
+		);
+		console.log(combinations);
+
+		// Filter out the combinations that don't fit in the grid
+		const validCombinations = _.filter(
+			combinations,
+			({width, height, totalRects}) =>
+				Math.floor(gridWidth / width) > 0
+				&& Math.floor(gridHeight / height) > 0
+				&& totalRects > neededRects
+		);
+		console.log(validCombinations);
+
+		// Find the combination that gives the greatest area
+		return _.reduce(
+			validCombinations,
+			(bestFit, {width, height, totalRects}) => {
+				const area = totalRects * width * height;
+
+				return (!bestFit || area < bestFit.maxArea) 
+					? {width, height, totalRects, maxArea: area}
+					: bestFit;
+			},
+			null
+		);
+	}
+
+
 	let categories;
 	let colorScale;
 	let doDraw = false;
 	let domain;
+	let gridSize;
+	let gridSizeInGlyphs;
 	let legendBins;
 	let makeGetFeatureState
 	let regionType;
@@ -105,7 +159,7 @@
 			_.zip(ranges, colorScheme),
 			makeWithKeys(['range', 'color'])
 		);
- 
+	
 		/* maps */
 
 		regionType = $_selection.regionType;
@@ -127,6 +181,19 @@
 				}
 			}
 		}
+
+		/* grid layout */
+
+		if ($_screen) {
+			gridSize = [$_gridSize.inlineSize, $_gridSize.blockSize];
+			gridSizeInGlyphs = [
+				Math.floor(gridSize[0] / $_screen.glyph.width),
+				Math.floor(gridSize[1] / $_screen.glyph.height)
+			]
+			const bestFit = findBestFit(...gridSizeInGlyphs, widthRangeInEm, heightRangeInEm, categories.length);
+			console.log('bestFit', bestFit);
+		}
+
 
 		doDraw = true;
 	}
@@ -156,7 +223,7 @@
 					/>
 				</div>
 			</div>
-			<div slot='col1' class='col1'>
+			<div slot='col1' class='col1' use:gridObserver>
 				{#each categories as category}
 					<div class='choropleth'>
 						<div>
@@ -200,9 +267,14 @@
 	.col1 {
 		display: grid;
 		grid-gap: 10px;
-		grid-template-columns: repeat(auto-fit, 15em);
+		grid-template-columns: repeat(auto-fit, 8rem);
+		grid-template-rows: repeat(5, max-content min-content);
+	}
+	.choropleth {
+		display: grid;
+		grid-template-rows: subgrid;
 	}
 	.map {
-		height: 21em;
+		height: 10rem;
 	}
 </style>
