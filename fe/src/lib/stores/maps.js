@@ -120,3 +120,22 @@ export const _mapStyle = derived(
 		}
 	})
 );
+
+export const _smallMultMapStyle = derived(
+	[_regionLayers],
+	([regionLayers]) => ({
+		version: 8,
+		layers: [
+			...regionLayers
+		],
+		sources: {
+			protomaps: {
+				type: 'vector',
+				tiles: [
+					// our tiles
+					'https://d21cr7yltjd5j0.cloudfront.net/nuts0_msoa11_lsoa11_lau21_1_itl21_3_itl21_2_itl21_1/{z}/{x}/{y}.mvt',
+				],
+			}
+		}
+	})
+);

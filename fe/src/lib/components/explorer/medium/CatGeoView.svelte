@@ -19,7 +19,7 @@
 		_bbox_WS_EN,
 		_bbox_WSEN,
 		_featureNameId,
-		_mapStyle,
+		_smallMultMapStyle,
 		_zoom,
 	} from '$lib/stores/maps.js';
 	import {_currentMetric, _selection} from '$lib/stores/navigation.js';
@@ -169,9 +169,9 @@
 								getFeatureState={makeGetFeatureState(category)}
 								bounds={DEFAULT_BBOX_WS_EN}
 								isAnimated={false}
-								isInteractive={true}
-								style={$_mapStyle}
-								visibleLayers={['nuts0', regionType]}
+								isInteractive={false}
+								style={$_smallMultMapStyle}
+								visibleLayers={[regionType]}
 								withScaleControl={false}
 								withZoomControl={false}
 							/>
