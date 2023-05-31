@@ -40,9 +40,9 @@
 	export let valueAccessor;
 	export let valueAccessor2;
 
-	const widthRangeInEm = [7, 20];
-	const heightRangeInEm = [9, 30];
-	const preferredAspectRatio = 1.5;
+	const widthRangeInGlyph = [7, 15];
+	const heightRangeInGlyph = [10, 20];
+	const preferredAspectRatio = 0.75;
 
 	const {_writable: _gridSize, resizeObserver: gridObserver} =
 		setupResizeObserver();
@@ -86,8 +86,7 @@
 		desiredAspectRatio
 	) => {
 
-		console.log(gridWidth, gridHeight)
-		// Create arrays with the possible dimensions
+		// Create arrays of the size of all possible width and height dimensions
 		const rectWidths = _.range(rectWidthRange[0], rectWidthRange[1] + 1);
 		const rectHeights = _.range(rectHeightRange[0], rectHeightRange[1] + 1);
 
@@ -101,7 +100,15 @@
 					const numFitVertically = Math.floor(gridHeight / height);
 					const totalRects = numFitHorizontally * numFitVertically;
 					const aspectRatio = width / height;
-					return {width, height, totalRects, aspectRatio};
+					return {
+						aspectRatio,
+						height,
+						numFitHorizontally,
+						numFitVertically,
+						surfaceArea: width * height,
+						totalRects,
+						width,
+					};
 				}
 			)
 		);
@@ -115,24 +122,69 @@
 		console.log('validCombinations', validCombinations);
 
 		// Find the combination that gives the min number of rects
-		// and closest aspect ratio to `desiredAspectRatio`
+		// closest aspect ratio to `desiredAspectRatio` and max surface area
 		return _.reduce(
 			validCombinations,
-			(bestFit, {width, height, totalRects, aspectRatio}) => {
-				const aspectRatioDiff = Math.abs(desiredAspectRatio - aspectRatio);
-
-				return (
+			(
+				bestFit,
+				{
+					aspectRatio,
+					height,
+					numFitHorizontally,
+					numFitVertically,
+					surfaceArea,
+					totalRects,
+					width,
+				}
+			) => {
+				const aspectRatioDiff = Math.abs(desiredAspectRatio / aspectRatio);
+				const cellRatio = numFitHorizontally / numFitVertically;
+				const cellRatioDiff = Math.abs(desiredAspectRatio - cellRatio);
+				const isBetterFit = 
 					!bestFit ||
-					totalRects < bestFit.totalRects ||
-					aspectRatioDiff < bestFit.aspectRatioDiff
-				) ?
-				{width, height, totalRects, aspectRatioDiff} :
-				bestFit;
+					numFitHorizontally < bestFit.numFitHorizontally
+					// totalRects === bestFit.totalRects ||
+					// aspectRatioDiff < bestFit.aspectRatioDiff // ||
+					// (numFitHorizontally < bestFit.numFitHorizontally && height > bestFit.height)
+					// (surfaceArea > bestFit.surfaceArea && numFitHorizontally < bestFit.numFitHorizontally) // ||
+					// numFitHorizontally < bestFit.numFitHorizontally;
+					// (totalRects === bestFit.totalRects && aspectRatioDiff < bestFit.aspectRatioDiff) ||
+					// (totalRects === bestFit.totalRects && aspectRatioDiff === bestFit.aspectRatioDiff && surfaceArea > bestFit.surfaceArea) ||
+					// (totalRects === bestFit.totalRects && aspectRatioDiff === bestFit.aspectRatioDiff && surfaceArea === bestFit.surfaceArea && (numFitVertically > bestFit.numFitVertically));
+				
+				return isBetterFit ?
+					{
+						aspectRatioDiff,
+						cellRatio,
+						height,
+						numFitHorizontally,
+						numFitVertically,
+						surfaceArea,
+						totalRects,
+						width,
+						cellRatio
+					} :
+					bestFit;
 			},
 			null
 		);
 	}
 
+	function chunkArray(array, size, filler = null) {
+		const chunkIndices = _.range(0, array.length, size);
+		const chunks = _.map(chunkIndices, i => _.slice(array, i, i + size));
+
+		// Add filler cells to the last chunk to complete the grid
+		const lastChunk = chunks[chunks.length - 1];
+		while (lastChunk.length < size) {
+			lastChunk.push(filler);
+		}
+
+		return chunks;
+	}
+
+	let bestFit;
+	let catChunks = [];
 	let categories;
 	let colorScale;
 	let doDraw = false;
@@ -203,14 +255,32 @@
 				Math.floor(width / gWidth),
 				Math.floor(height / gHeight)
 			];
-			const bestFit = findBestFit(
+			console.log('glyph size in px', gWidth, gHeight);
+			console.log('gridSizeInGlyphs', gridSizeInGlyphs);
+			console.log('neededRects', categories.length);
+			bestFit = findBestFit(
 				...gridSizeInGlyphs,
-				widthRangeInEm,
-				heightRangeInEm,
+				widthRangeInGlyph,
+				heightRangeInGlyph,
 				categories.length,
 				preferredAspectRatio
 			);
+
 			console.log('bestFit', bestFit);
+
+
+
+			if (bestFit) {
+				// expand width & height
+				bestFit.width *= gridSizeInGlyphs[0] / (bestFit.width * bestFit.numFitHorizontally);
+				bestFit.height *= gridSizeInGlyphs[1] / (bestFit.height * bestFit.numFitVertically);
+				
+				catChunks = chunkArray(
+					categories,
+					bestFit.numFitHorizontally
+				);
+				console.log('catChunks', catChunks);
+			}
 		}
 
 
@@ -242,28 +312,41 @@
 					/>
 				</div>
 			</div>
-			<div slot='col1' class='col1' use:gridObserver>
-				{#each categories as category}
-					<div class='choropleth'>
-						<div>
-							{category}
-						</div>
-						<div class='map'>
-							<Mapbox
-								{_zoom}
-								{accessToken}
-								getFeatureState={makeGetFeatureState(category)}
-								bounds={DEFAULT_BBOX_WS_EN}
-								isAnimated={false}
-								isInteractive={false}
-								style={$_smallMultMapStyle}
-								visibleLayers={[regionType]}
-								withScaleControl={false}
-								withZoomControl={false}
-							/>
-						</div>
-					</div>
-				{/each}
+			<div
+				slot='col1'
+				class='col1'
+				use:gridObserver
+				style='--map-width: {bestFit?.width / 2 || 10}em; --map-height: {bestFit?.height * 1.1 || 8}em; --repeat: {bestFit?.numFitHorizontally || 1};'
+			>
+				{#if bestFit}
+					{#each catChunks as chunk}
+						{#each chunk as category}
+							<div>
+								{#if category}
+									{category}
+								{/if}
+							</div>
+						{/each}
+						{#each chunk as category}
+							<div class='map'>
+								{#if category}
+									<Mapbox
+										{_zoom}
+										{accessToken}
+										getFeatureState={makeGetFeatureState(category)}
+										bounds={DEFAULT_BBOX_WS_EN}
+										isAnimated={false}
+										isInteractive={false}
+										style={$_smallMultMapStyle}
+										visibleLayers={[regionType]}
+										withScaleControl={false}
+										withZoomControl={false}
+									/>
+								{/if}
+							</div>
+						{/each}
+					{/each}
+				{/if}
 			</div>
 			<DevView slot='col2' />
 		</Grid3Columns>
@@ -284,16 +367,15 @@
 		width: 100%;
 	}
 	.col1 {
+		width: 100%;
+		height: 100%;
 		display: grid;
-		grid-gap: 10px;
-		grid-template-columns: repeat(auto-fit, 8rem);
-		grid-template-rows: repeat(5, max-content min-content);
-	}
-	.choropleth {
-		display: grid;
-		grid-template-rows: subgrid;
+		grid-gap: 0;
+		grid-template-columns: repeat(var(--repeat), var(--map-width));
+		justify-content: center;
+		align-content: center;
 	}
 	.map {
-		height: 10rem;
+		height: var(--map-height);
 	}
 </style>
