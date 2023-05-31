@@ -42,6 +42,7 @@
 
 	const widthRangeInEm = [7, 20];
 	const heightRangeInEm = [9, 30];
+	const preferredAspectRatio = 1.5;
 
 	const {_writable: _gridSize, resizeObserver: gridObserver} =
 		setupResizeObserver();
@@ -81,8 +82,11 @@
 		gridHeight,
 		rectWidthRange,
 		rectHeightRange,
-		neededRects
+		neededRects,
+		desiredAspectRatio
 	) => {
+
+		console.log(gridWidth, gridHeight)
 		// Create arrays with the possible dimensions
 		const rectWidths = _.range(rectWidthRange[0], rectWidthRange[1] + 1);
 		const rectHeights = _.range(rectHeightRange[0], rectHeightRange[1] + 1);
@@ -96,31 +100,34 @@
 					const numFitHorizontally = Math.floor(gridWidth / width);
 					const numFitVertically = Math.floor(gridHeight / height);
 					const totalRects = numFitHorizontally * numFitVertically;
-					return {width, height, totalRects};
+					const aspectRatio = width / height;
+					return {width, height, totalRects, aspectRatio};
 				}
 			)
 		);
-		console.log(combinations);
+		console.log('combinations', combinations);
 
 		// Filter out the combinations that don't fit in the grid
 		const validCombinations = _.filter(
 			combinations,
-			({width, height, totalRects}) =>
-				Math.floor(gridWidth / width) > 0
-				&& Math.floor(gridHeight / height) > 0
-				&& totalRects > neededRects
+			({totalRects}) => totalRects >= neededRects
 		);
-		console.log(validCombinations);
+		console.log('validCombinations', validCombinations);
 
-		// Find the combination that gives the greatest area
+		// Find the combination that gives the min number of rects
+		// and closest aspect ratio to `desiredAspectRatio`
 		return _.reduce(
 			validCombinations,
-			(bestFit, {width, height, totalRects}) => {
-				const area = totalRects * width * height;
+			(bestFit, {width, height, totalRects, aspectRatio}) => {
+				const aspectRatioDiff = Math.abs(desiredAspectRatio - aspectRatio);
 
-				return (!bestFit || area < bestFit.maxArea) 
-					? {width, height, totalRects, maxArea: area}
-					: bestFit;
+				return (
+					!bestFit ||
+					totalRects < bestFit.totalRects ||
+					aspectRatioDiff < bestFit.aspectRatioDiff
+				) ?
+				{width, height, totalRects, aspectRatioDiff} :
+				bestFit;
 			},
 			null
 		);
@@ -200,7 +207,8 @@
 				...gridSizeInGlyphs,
 				widthRangeInEm,
 				heightRangeInEm,
-				categories.length
+				categories.length,
+				preferredAspectRatio
 			);
 			console.log('bestFit', bestFit);
 		}
