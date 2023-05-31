@@ -2,23 +2,27 @@ import {get} from 'svelte/store';
 import {assign} from 'xstate';
 
 import {_viewCache} from '$lib/stores/data.js';
-import {_activeViewType, _currentMetric} from '$lib/stores/navigation.js';
+import {
+	_activeViewType,
+	_currentMetric,
+	_currentPage,
+} from '$lib/stores/navigation.js';
 import {_isViewLoading, _viewData} from '$lib/stores/view.js';
 
 /* loading icon */
 
-export const showViewLoadingIcon = ctx => {
+export const showViewLoadingIcon = () => {
 	_isViewLoading.set(true);
 }
 
-export const hideViewLoadingIcon = ctx => {
+export const hideViewLoadingIcon = () => {
 	_isViewLoading.set(false);
 }
 
 /* view data */
 
 export const logViewData = (ctx, {data}) => {
-	console.log('viewData:', data);
+	console.log('response:', data);
 }
 
 // eslint-disable-next-line complexity
@@ -103,8 +107,8 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 						case 'installers':
 							aggId = 'date_histogram1_terms2'; // TBD date_histogram1_cardinality2?
 							params = {
-								field1: `installation_date`,
 								calendar_interval1: ctx.selection.interval,
+								field1: `installation_date`,
 								field2: `hp_id_brand.keyword`,
 								// field2: `installer_id.keyword`,
 								// we need the length of the nested array
@@ -199,9 +203,10 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 	return {...ctx, viewQueryPath}
 });
 
-export const cacheViewData = (ctx, {data}) => {
+export const cacheViewData = (ctx, {data: response}) => {
 	_viewCache.update(viewCache => {
-		viewCache[ctx.viewQueryPath] = data;
+		const page = get(_currentPage);
+		viewCache[ctx.viewQueryPath] = {response, page};
 
 		return viewCache;
 	});
@@ -212,6 +217,7 @@ export const updateDataStoresFromCache = ctx => {
 	_viewData.set(viewCache[ctx.viewQueryPath]);
 }
 
-export const updateDataStores = (ctx, {data}) => {
-	_viewData.set(data);
+export const updateDataStores = (ctx, {data: response}) => {
+	const page = get(_currentPage);
+	_viewData.set({response, page});
 }

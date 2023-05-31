@@ -8,6 +8,7 @@
 	} from '@svizzle/utils';
 	import * as _ from 'lamb';
 
+	import {page as _page} from '$app/stores';
 	import Grid2Rows from '$lib/components/svizzle/Grid2Rows.svelte';
 	import Trends from '$lib/components/svizzle/trends/Trends.svelte';
 	import TemporalOptions
@@ -33,8 +34,12 @@
 	let keyFilterFn;
 	let keyFormatFn;
 
-	$: if ($_viewData?.code === 200) {
-		const rawItems = $_viewData?.data.agg1.buckets || [];
+	$: proceed =
+		$_viewData?.response.code === 200 &&
+		$_page.route.id === $_viewData?.page.route.id;
+
+	$: if (proceed) {
+		const rawItems = $_viewData?.response.data.agg1.buckets || [];
 		const trend = filterOutNils(reshapeItems(rawItems));
 		items = [{key: 'trend', values: trend}];
 

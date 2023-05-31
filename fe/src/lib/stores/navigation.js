@@ -19,6 +19,8 @@ export const _currentMetricTitle = derived(
 	}
 );
 
+export const _currentPage = writable();
+
 export const _expectedRoute = derived(
 	[_activeViewType, _currentMetric],
 	([activeViewType, currentMetric]) => {

@@ -17,7 +17,11 @@
 		_.mapWith(applyFnMap({key: getKey, value: valueAccessor})),
 		_.sortWith([_.sorterDesc(getValue)])
 	]);
-	$: items = $_viewData?.code === 200 && $_viewData?.data.agg1.buckets || [];
+	$: proceed =
+		$_viewData?.response.code === 200 &&
+		$_viewData?.page.route.id === $_page.route.id;
+
+	$: items = proceed && $_viewData?.response.data.agg1.buckets || [];
 </script>
 
 <NumGeoView

@@ -25,7 +25,6 @@
 	} from '$lib/stores/maps.js';
 	import {_currentMetric, _selection} from '$lib/stores/navigation.js';
 	import {_barchartsTheme, _legendsTheme} from '$lib/stores/theme.js';
-	import {_viewData} from '$lib/stores/view.js';
 
 	export let amountOfBins = 5;
 	export let formatFn;
@@ -44,7 +43,7 @@
 	let legendBins;
 	let regionType;
 
-	$: if (items && items.length > 0) {
+	$: if (items?.length > 0) {
 
 		/* common */
 

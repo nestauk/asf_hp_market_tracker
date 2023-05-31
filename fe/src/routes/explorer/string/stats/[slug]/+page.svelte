@@ -6,6 +6,7 @@
 	import {interpolateSpectral as interpolateColor} from 'd3-scale-chromatic';
 	import * as _ from 'lamb';
 
+	import {page as _page} from '$app/stores';
 	import Grid2Columns from '$lib/components/svizzle/Grid2Columns.svelte';
 	import Treemap from '$lib/components/svizzle/Treemap.svelte';
 	import {_barchartsTheme} from '$lib/stores/theme.js';
@@ -31,8 +32,17 @@
 		_.sortWith([_.sorterDesc(getValue)])
 	]);
 
-	$: if ($_viewData?.code === 200) {
-		items = $_viewData?.data.agg1.buckets;
+	$: isMetricLabelPlural = $_selection.stringsTopCount > 1;
+	$: metricLabel =
+		`${$_currentMetric.label.toLowerCase()}${isMetricLabelPlural ? 's' : ''}`;
+	$: barchartTitle = `Top ${$_selection.stringsTopCount} ${metricLabel}`;
+
+	$: proceed =
+		$_viewData?.response.code === 200 &&
+		$_page.route.id === $_viewData?.page.route.id;
+
+	$: if (proceed) {
+		items = $_viewData?.response.data.agg1.buckets;
 
 		/* colors */
 
@@ -55,10 +65,6 @@
 
 		doDraw = true;
 	}
-	$: isMetricLabelPlural = $_selection.stringsTopCount > 1;
-	$: metricLabel =
-		`${$_currentMetric.label.toLowerCase()}${isMetricLabelPlural ? 's' : ''}`;
-	$: barchartTitle = `Top ${$_selection.stringsTopCount} ${metricLabel}`;
 </script>
 
 {#if doDraw}

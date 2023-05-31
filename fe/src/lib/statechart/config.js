@@ -29,7 +29,7 @@ export const config = {
 						SELECTION_CHANGED: {
 							target: '.Dirty',
 							actions: [
-								'setCxtNextValues',
+								'setCtxNextValues',
 								'navigateToNextParams',
 								// 'sendEdited',
 								// 'sendCommitted',

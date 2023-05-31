@@ -8,7 +8,7 @@
 	import {roundTo1} from '$lib/utils/numbers.js';
 
 	import NumGeoView from '$lib/components/explorer/medium/NumGeoView.svelte';
-	// import {_currentMetricId} from '$lib/stores/navigation.js'; // FIXME
+	import {_currentMetricId} from '$lib/stores/navigation.js'; // FIXME
 	import {_viewData} from '$lib/stores/view.js';
 
 	const valueAccessors = {
@@ -18,7 +18,7 @@
 		installers: _.getPath('agg2.value'), // {key, doc_count, agg2: {value}}[]
 	}
 
-	$: id = $_page.params.slug;
+	$: id = $_currentMetricId;
 	$: valueAccessor = valueAccessors[id];
 	$: filter = _.filterWith(_.pipe([valueAccessor, isNotNil]));
 	$: makeDomain = _.pipe([filter, arr => extent(arr, valueAccessor)]);
@@ -30,7 +30,11 @@
 	$: title = id === 'installations_per_installer' ? 'Average' : null;
 	$: formatFn = id === 'installations_per_installer' ? roundTo1 : null;
 
-	$: items = $_viewData?.code === 200 && $_viewData?.data.agg1.buckets || [];
+	$: proceed =
+		$_viewData?.response.code === 200 &&
+		$_viewData?.page.route.id === $_page.route.id;
+
+	$: items = proceed && $_viewData?.response.data.agg1.buckets || [];
 </script>
 
 <NumGeoView

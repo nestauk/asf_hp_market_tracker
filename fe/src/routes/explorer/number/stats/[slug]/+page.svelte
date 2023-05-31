@@ -7,6 +7,7 @@
 	import {interpolateGnBu as interpolateColor} from 'd3-scale-chromatic';
 	import * as _ from 'lamb';
 
+	import {page as _page} from '$app/stores';
 	import Grid2Columns from '$lib/components/svizzle/Grid2Columns.svelte';
 	import Treemap from '$lib/components/svizzle/Treemap.svelte';
 	import {_viewData} from '$lib/stores/view.js';
@@ -47,10 +48,14 @@
 	]);
 	const makeTreemapDomain = _.mapWith(treemapKeyAccessor);
 
-	$: if ($_viewData?.code === 200 && $_viewData?.meta) {
-		items = $_viewData?.data.agg1.buckets;
+	$: proceed =
+		$_viewData?.response.code === 200 &&
+		$_viewData?.page.route.id === $_page.route.id;
 
-		const {interval} = $_viewData?.meta;
+	$: if (proceed) {
+		items = $_viewData?.response.data.agg1.buckets;
+
+		const {interval} = $_viewData?.response.meta;
 
 		/* colors */
 

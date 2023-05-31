@@ -10,6 +10,7 @@
 	import {interpolateSpectral as interpolateColor} from 'd3-scale-chromatic';
 	import * as _ from 'lamb';
 
+	import {page as _page} from '$app/stores';
 	import TemporalOptions
 		from '$lib/components/explorer/medium/TemporalOptions.svelte';
 	import Grid2Columns from '$lib/components/svizzle/Grid2Columns.svelte';
@@ -19,8 +20,6 @@
 	import {_framesTheme} from '$lib/stores/theme.js';
 	import {_viewData} from '$lib/stores/view.js';
 	import {roundTo0} from '$lib/utils/numbers';
-
-	let doDraw = false;
 
 	const keyAccessor = _.getKey('key_as_string');
 	const valueAccessor = _.getPath('agg2.buckets');
@@ -49,12 +48,17 @@
 
 	let categories;
 	let categoryToColorFn;
+	let doDraw = false;
 	let items;
 	let keyFilterFn;
 	let keyFormatFn;
 
-	$: if ($_viewData?.code === 200) {
-		const rawItems = $_viewData?.data.agg1.buckets;
+	$: proceed =
+		$_viewData?.response.code === 200 &&
+		$_viewData?.page.route.id === $_page.route.id;
+
+	$: if (proceed) {
+		const rawItems = $_viewData?.response.data.agg1.buckets;
 
 		items = reshapeItems(rawItems);
 		categories = getCategs(items);

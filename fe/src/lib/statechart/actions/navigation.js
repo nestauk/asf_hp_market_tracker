@@ -5,6 +5,7 @@ import {goto} from '$app/navigation';
 import {
 	_activeViewType,
 	_currentMetricId,
+	_currentPage,
 	_selection,
 } from '$lib/stores/navigation.js';
 
@@ -18,6 +19,7 @@ export const updateNavStoresAndCtxSelectionFromPage = assign((ctx, {page}) => {
 	_activeViewType.set(page.route.id.split('/')[3]);
 
 	_currentMetricId.set(page.params.slug);
+	_currentPage.set(page);
 
 	// selection
 
@@ -28,7 +30,7 @@ export const updateNavStoresAndCtxSelectionFromPage = assign((ctx, {page}) => {
 
 	_selection.set(selection);
 
-	return {...ctx, selection};
+	return {...ctx, page, selection};
 });
 
 export const navigateToFullSearchParams = (ctx, {page}) => {
@@ -50,7 +52,7 @@ export const navigateToFullSearchParams = (ctx, {page}) => {
 
 // SELECTION_CHANGED
 
-export const setCxtNextValues = assign((ctx, {newValues}) => {
+export const setCtxNextValues = assign((ctx, {newValues}) => {
 	const nextSelection = {...ctx.selection, ...newValues};
 	const nextSearchParams = new URLSearchParams(nextSelection);
 
