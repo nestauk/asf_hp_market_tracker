@@ -76,7 +76,13 @@
 		_.sortWith([])
 	]);
 
-	const findBestFit = (gridWidth, gridHeight, rectWidthRange, rectHeightRange, neededRects) => {
+	const findBestFit = (
+		gridWidth,
+		gridHeight,
+		rectWidthRange,
+		rectHeightRange,
+		neededRects
+	) => {
 		// Create arrays with the possible dimensions
 		const rectWidths = _.range(rectWidthRange[0], rectWidthRange[1] + 1);
 		const rectHeights = _.range(rectHeightRange[0], rectHeightRange[1] + 1);
@@ -119,7 +125,6 @@
 			null
 		);
 	}
-
 
 	let categories;
 	let colorScale;
@@ -186,11 +191,17 @@
 
 		if ($_screen) {
 			gridSize = [$_gridSize.inlineSize, $_gridSize.blockSize];
+			const {gWidth, gHeight} = $_screen.glyph;
 			gridSizeInGlyphs = [
-				Math.floor(gridSize[0] / $_screen.glyph.width),
-				Math.floor(gridSize[1] / $_screen.glyph.height)
+				Math.floor(gridSize[0] / gWidth),
+				Math.floor(gridSize[1] / gHeight)
 			]
-			const bestFit = findBestFit(...gridSizeInGlyphs, widthRangeInEm, heightRangeInEm, categories.length);
+			const bestFit = findBestFit(
+				...gridSizeInGlyphs,
+				widthRangeInEm,
+				heightRangeInEm,
+				categories.length
+			);
 			console.log('bestFit', bestFit);
 		}
 
