@@ -7,7 +7,7 @@
 	import {derived, writable} from 'svelte/store';
 
 	import {
-		FIT_PADDING,
+		DEFAULT_GEOMETRY,
 		MAPBOXGL_MAX_ZOOM,
 		MAPBOXGL_MIN_ZOOM,
 		MAPBOXGL_TILE_SIZE
@@ -21,6 +21,7 @@
 	export let _zoom = null; // store
 	export let accessToken = null;
 	export let bounds;
+	export let geometry;
 	export let getFeatureState;
 	export let isAnimated = true;
 	export let isInteractive = true;
@@ -31,6 +32,7 @@
 
 	/* props sanitisation */
 
+	$: geometry = {...DEFAULT_GEOMETRY, ...geometry};
 	$: isAnimated = isAnimated ?? true;
 	$: isInteractive = isInteractive ?? true;
 	$: _bbox_WS_EN = _bbox_WS_EN || writable([[-180, -90], [180, 90]]);
@@ -136,14 +138,16 @@
 	/* bbox */
 
 	const fitToBbox = bbox_WSEN => {
+		const fitPaddingXPx = geometry.safetyFactor * width;
+		const fitPaddingYPx = geometry.safetyFactor * height;
 		map?.fitBounds(bbox_WSEN, {
 			animate: isAnimated,
 			linear: true,
 			padding: {
-				bottom: FIT_PADDING,
-				left: FIT_PADDING,
-				right: FIT_PADDING,
-				top: FIT_PADDING,
+				bottom: fitPaddingYPx,
+				left: fitPaddingXPx,
+				right: fitPaddingXPx,
+				top: fitPaddingYPx,
 			}
 		});
 	};
