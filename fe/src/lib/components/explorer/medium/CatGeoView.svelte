@@ -41,7 +41,7 @@
 	export let valueAccessor2;
 
 	const widthRangeInGlyph = [7, 15];
-	const heightRangeInGlyph = [10, 20];
+	const heightRangeInGlyph = [8, 20];
 	const preferredAspectRatio = 0.75;
 
 	const {_writable: _gridSize, resizeObserver: gridObserver} =
