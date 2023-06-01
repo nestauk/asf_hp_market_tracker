@@ -2,9 +2,10 @@
 	import * as _ from 'lamb';
 	import {applyFnMap, getKey, getValue, getValues} from '@svizzle/utils';;
 
+	export let colorScale;
+	export let columnKeys;
 	export let domain;
 	export let items;
-	export let columnKeys;
 
 	const maxSize = 8;
 	const computeSquareSize = value => maxSize * Math.sqrt(value / maxValue || 0);
@@ -47,9 +48,10 @@
 		{#each reshapedItems as {key, values}}
 			<div class='valueRow'>
 				{#each columnKeys as subKey}
+					{@const value = values?.[subKey]}
 					<div
 						class='square'
-						style='--width: {computeSquareSize(values?.[subKey])}px'
+						style='--width: {computeSquareSize(value)}px; background-color: {colorScale(value)};'
 					/>
 				{/each}
 			</div>
