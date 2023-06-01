@@ -27,7 +27,7 @@
 	import {_barchartsTheme, _legendsTheme} from '$lib/stores/theme.js';
 	import {_viewData} from '$lib/stores/view.js';
 
-	import DevView from '../DevView.svelte';
+	import CategoryGrid from './CategoryGrid.svelte';
 
 	export let amountOfBins = 5;
 	export let formatFn;
@@ -76,6 +76,30 @@
 		_.mapWith(getKey),
 		_.sortWith([])
 	]);
+
+	const pivotHierarchicalArray = _.pipe([
+        _.flatMapWith(({key, values}) =>
+			_.map(values, ({key: subKey, value}) =>
+				({
+					key,
+					subKey,
+					value
+				})
+			)
+		),
+		_.groupBy(_.getKey('subKey')),
+		_.pairs,
+		_.mapWith(applyFnMap({
+			key: _.getAt(0),
+			values: _.pipe([
+				_.getAt(1),
+				_.mapWith(applyFnMap({
+					key: _.getKey('key'),
+					value: _.getKey('value')
+				}))
+			])
+		}))
+    ]);
 
 	const findBestFit = (
 		gridWidth,
@@ -189,7 +213,7 @@
 	let colorScale;
 	let doDraw = false;
 	let domain;
-	let gridSize;
+	let gridItems;
 	let gridSizeInGlyphs;
 	let legendBins;
 	let makeGetFeatureState
@@ -283,6 +307,9 @@
 			}
 		}
 
+		/* category grid */
+
+		gridItems = pivotHierarchicalArray(reshapedItems);
 
 		doDraw = true;
 	}
@@ -348,7 +375,11 @@
 					{/each}
 				{/if}
 			</div>
-			<DevView slot='col2' />
+			<CategoryGrid
+				{domain}
+				items={gridItems}
+				slot='col2'
+			/>
 		</Grid3Columns>
 	{/if}
 </Grid2Rows>
