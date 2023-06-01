@@ -1,44 +1,64 @@
 <script>
 	import * as _ from 'lamb';
+	import {applyFnMap, getKey, getValue, getValues} from '@svizzle/utils';;
 
 	export let domain;
 	export let items;
+	export let columnKeys;
 
 	const maxSize = 8;
 	const computeSquareSize = value => maxSize * Math.sqrt(value / maxValue || 0);
 
-	let columnLabels;
-	let maxValue = domain[1];
+	const reshapeItems = _.mapWith(applyFnMap({
+		key: getKey,
+		values: _.pipe([
+			getValues,
+			_.mapWith(_.collect([getKey, getValue])),
+			_.fromPairs
+		])
+	}));
 
-	$: if (items) {
-		columnLabels = _.pipe([
-			_.mapWith(_.getKey('key')),
+	let doDraw = false;
+	let maxValue = domain[1];
+	let reshapedItems;
+	let rowKeys = [];
+
+	$: if (items && columnKeys) {
+		reshapedItems = reshapeItems(items);
+		console.log('reshapedItems', reshapedItems)
+		rowKeys = _.pipe([
+			_.mapWith(getKey),
 			_.sortWith([])
 		])(items);
+		console.log('rowKeys', rowKeys)
+
+		doDraw = true;
 	}
 </script>
 
-<ol>
-	{#each columnLabels as columnLabel}
-		<li>{columnLabel}</li>
-	{/each}
-</ol>
+{#if doDraw}
+	<ol>
+		{#each columnKeys as columnLabel}
+			<li>{columnLabel}</li>
+		{/each}
+	</ol>
 
-<div class='grid' style='--columns: {columnLabels.length}; --maxSize: {maxSize}px;'>
-	{#each items as {key, values}}
-		<div class='valueRow'>
-			{#each values as {subkey, value}}
-				<div
-					class='square'
-					style='--width: {computeSquareSize(value)}px'
-				/>
-			{/each}
-		</div>
-		<div class='labelRow'>
-			{key}
-		</div>
-	{/each}
-</div>
+	<div class='grid' style='--columns: {columnKeys.length}; --maxSize: {maxSize}px;'>
+		{#each reshapedItems as {key, values}}
+			<div class='valueRow'>
+				{#each columnKeys as subKey}
+					<div
+						class='square'
+						style='--width: {computeSquareSize(values?.[subKey])}px'
+					/>
+				{/each}
+			</div>
+			<div class='labelRow'>
+				{key}
+			</div>
+		{/each}
+	</div>
+{/if}
 
 <style>
 	ol {

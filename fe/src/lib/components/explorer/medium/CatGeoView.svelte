@@ -377,6 +377,7 @@
 			</div>
 			<CategoryGrid
 				{domain}
+				columnKeys={categories}
 				items={gridItems}
 				slot='col2'
 			/>
