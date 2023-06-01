@@ -12,6 +12,7 @@
 <style>
 	.DevView {
 		height: 100%;
+		overflow-x: auto;
 		white-space: pre-wrap;
 		width: 100%;
 	}

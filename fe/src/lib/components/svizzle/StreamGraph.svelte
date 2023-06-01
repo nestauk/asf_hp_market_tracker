@@ -35,6 +35,8 @@
 	export let categories;
 	export let categoryToColorFn;
 	export let geometry;
+	// {key, values: {key, value}}[]
+	// outer key is the x key, inner key is the stream name
 	export let items = [];
 	export let keyFilterFn;
 	export let keyFormatFn;

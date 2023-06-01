@@ -16,15 +16,26 @@
 	import Grid2Columns from '$lib/components/svizzle/Grid2Columns.svelte';
 	import Grid2Rows from '$lib/components/svizzle/Grid2Rows.svelte';
 	import StreamGraph from '$lib/components/svizzle/StreamGraph.svelte';
+	import Trends from '$lib/components/svizzle/trends/Trends.svelte';
 	import {_selection} from '$lib/stores/navigation.js';
-	import {_framesTheme} from '$lib/stores/theme.js';
+	import {_currThemeVars, _framesTheme} from '$lib/stores/theme.js';
 	import {_viewData} from '$lib/stores/view.js';
-	import {roundTo0} from '$lib/utils/numbers';
+	import {objectToKeyValuesArray} from '$lib/utils/svizzle/utils.js';
 
 	const keyAccessor = _.getKey('key_as_string');
 	const valueAccessor = _.getPath('agg2.buckets');
 	const keyAccessor2 = getKey;
 	const valueAccessor2 = _.getKey('doc_count');
+
+	/* common */
+
+	const keyFormatFn = _.pipe([
+		makeSplitBy('-'),
+		_.getAt(0),
+		sliceStringAt([2, 4])
+	]);
+
+	/* streams */
 
 	const reshapeItems = _.mapWith(
 		applyFnMap({
@@ -38,7 +49,7 @@
 			])
 		})
 	);
-	const getCategs = _.pipe([
+	const getStreamsCategs = _.pipe([
 		_.flatMapWith(
 			_.pipe([getValues, _.mapWith(getKey)])
 		),
@@ -46,12 +57,28 @@
 		_.sortWith([])
 	]);
 
+	/* trends */
+
+	const getTrends = _.pipe([
+		_.flatMapWith(
+			({key: xKey, values}) => _.map(values,
+				({key, value}) => ({key, xKey, value})
+			)
+		),
+		_.groupBy(getKey),
+		_.mapValuesWith(
+			_.mapWith(({xKey: key, value}) => ({key, value}))
+		),
+		objectToKeyValuesArray
+	]);
+
 	let categories;
 	let categoryToColorFn;
 	let doDraw = false;
-	let items;
-	let keyFilterFn;
-	let keyFormatFn;
+	let streams;
+	let trends;
+
+	// rename key, categs etc
 
 	$: proceed =
 		$_viewData?.response.code === 200 &&
@@ -60,8 +87,10 @@
 	$: if (proceed) {
 		const rawItems = $_viewData?.response.data.agg1.buckets;
 
-		items = reshapeItems(rawItems);
-		categories = getCategs(items);
+		streams = reshapeItems(rawItems);
+		categories = getStreamsCategs(streams);
+
+		trends = getTrends(streams);
 
 		const colorScheme = _.map(
 			categories,
@@ -69,38 +98,15 @@
 		);
 		categoryToColorFn = scaleOrdinal().domain(categories).range(colorScheme);
 
-		switch ($_selection.interval) {
-			case '1y':
-				keyFormatFn = _.pipe([
-					makeSplitBy('-'),
-					_.getAt(0),
-					sliceStringAt([2, 4])
-				]);
-				keyFilterFn = null;
-				break;
-			case '1q':
-			case '1M':
-				keyFormatFn = _.pipe([
-					makeSplitBy('-'),
-					_.getAt(0),
-					sliceStringAt([2, 4])
-				]);
-				keyFilterFn = _.pipe([
-					makeSplitBy('-'),
-					_.getAt(1),
-					_.is('01')
-				]);
-				break;
-			default:
-				break;
-		}
-
 		doDraw = true;
 	}
 </script>
 
 <Grid2Rows percents={[10, 90]}>
-	<TemporalOptions showStreamgraphOptions={true}/>
+	<TemporalOptions
+		showCategsTimeGraph={true}
+		showStreamgraphOptions={true}
+	/>
 	{#if doDraw}
 		<Grid2Columns
 			percents={[15, 85]}
@@ -122,23 +128,45 @@
 					{/each}
 				</ul>
 			</div>
-			<StreamGraph
-				{categories}
-				{categoryToColorFn}
-				{items}
-				{keyFilterFn}
-				{keyFormatFn}
-				valueFormatFn={roundTo0}
-				geometry={{
-					safetyBottom: 50,
-					safetyLeft: 80,
-					safetyRight: 80,
-					safetyTop: 50,
-				}}
-				slot='col1'
-				sorting={$_selection.streamgraphsSorting}
-				theme={$_framesTheme}
-			/>
+			<div class='col1' slot='col1'>
+				{#if $_selection.categsTimeGraph === 'streams'}
+					<StreamGraph
+						{categories}
+						{categoryToColorFn}
+						{keyFormatFn}
+						items={streams}
+						geometry={{
+							safetyBottom: 50,
+							safetyLeft: 80,
+							safetyRight: 80,
+							safetyTop: 50,
+						}}
+						sorting={$_selection.streamgraphsSorting}
+						theme={$_framesTheme}
+						valueFormatFn={Math.round}
+					/>
+
+				{:else}
+					<Trends
+						{keyFormatFn}
+						geometry={{
+							safetyBottom: 50,
+							safetyLeft: 80,
+							safetyRight: 80,
+							safetyTop: 50,
+						}}
+						items={trends}
+						keyToColorFn={categoryToColorFn}
+						keyType='date'
+						slot='col1'
+						theme={{
+							...$_framesTheme,
+							curveStroke: $_currThemeVars['--colorBorderAux']
+						}}
+						valueFormatFn={Math.round}
+					/>
+				{/if}
+			</div>
 		</Grid2Columns>
 	{/if}
 </Grid2Rows>
@@ -162,6 +190,11 @@
 		margin-right: 0.5em;
 		min-height: 1em;
 		min-width: 1em;
+	}
+
+	.col1 {
+		height: 100%;
+		width: 100%;
 	}
 </style>
 

@@ -5,12 +5,18 @@
 	import {_selection} from '$lib/stores/navigation.js';
 	import {_xorSelectorTheme} from '$lib/stores/theme.js';
 
+	export let showCategsTimeGraph = false;
 	export let showStreamgraphOptions = false;
 
 	const intervalChanged = ({detail: interval}) =>
 		explorerActor.send({
 			type: 'SELECTION_CHANGED',
 			newValues: {interval}
+		});
+	const setCategsTimeGraph = ({detail: categsTimeGraph}) =>
+		explorerActor.send({
+			type: 'SELECTION_CHANGED',
+			newValues: {categsTimeGraph}
 		});
 	const sortingChanged = ({detail: streamgraphsSorting}) =>
 		explorerActor.send({
@@ -27,7 +33,15 @@
 		values={['1M', '1q', '1y']}
 	/>
 
-	{#if showStreamgraphOptions}
+	{#if showCategsTimeGraph}
+		<XorSelector
+			on:changed={setCategsTimeGraph}
+			theme={$_xorSelectorTheme}
+			value={$_selection.categsTimeGraph}
+			values={['trends', 'streams']}
+		/>
+	{/if}
+	{#if showStreamgraphOptions && $_selection.categsTimeGraph === 'streams'}
 		<XorSelector
 			on:changed={sortingChanged}
 			theme={$_xorSelectorTheme}

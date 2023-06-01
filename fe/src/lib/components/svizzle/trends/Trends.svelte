@@ -32,9 +32,12 @@
 	}
 
 	export let geometry;
+	// {key, values: {key, value}}[]
+	// outer key is the trend name, inner key is the x key
 	export let items = [];
 	export let keyFilterFn;
 	export let keyFormatFn;
+	export let keyToColorFn;
 	export let keyType;
 	export let theme = null;
 	export let valueFormatFn;
@@ -187,7 +190,7 @@
 							x={xScale(key)}
 							y={bbox.bly}
 						>
-							{keyFormatFn ? keyFormatFn(key) : key}
+							{keyFormatFn?.(key) ?? key}
 						</text>
 						<text
 							class='centered'
@@ -195,7 +198,7 @@
 							x={xScale(key)}
 							y={bbox.try}
 						>
-							{keyFormatFn ? keyFormatFn(key) : key}
+							{keyFormatFn?.(key) ?? key}
 						</text>
 					</g>
 				{/each}
@@ -237,7 +240,7 @@
 				<path
 					d={lineGenerator(values)}
 					fill='none'
-					stroke='black'
+					stroke={keyToColorFn?.(key) ?? 'var(--curveStroke)'}
 				/>
 			{/each}
 
@@ -279,6 +282,5 @@
 
 	path {
 		stroke-width: var(--curveStrokeWidth);
-		stroke: var(--curveStroke);
 	}
 </style>
