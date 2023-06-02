@@ -4,6 +4,7 @@
 	import {interpolateYlGnBu as interpolateColor} from 'd3-scale-chromatic';
 	import * as _ from 'lamb';
 
+	import {page as _page} from '$app/stores';
 	import CatGeoView from '$lib/components/explorer/medium/CatGeoView.svelte';
 	import {_viewData} from '$lib/stores/view.js';
 	import {roundTo1} from '$lib/utils/numbers.js';
@@ -19,7 +20,14 @@
 		_.mapWith(applyFnMap({key: getKey, value: valueAccessor})),
 		_.sortWith([_.sorterDesc(getValue)])
 	]);
-	$: items = $_viewData?.code === 200 && $_viewData?.data.agg1.buckets || [];
+
+	let items;
+
+	$: proceed =
+		$_viewData?.response.code === 200 &&
+		$_viewData?.page.route.id === $_page.route.id;
+
+	$: proceed && (items = $_viewData.response.data.agg1.buckets);
 </script>
 
 <CatGeoView
