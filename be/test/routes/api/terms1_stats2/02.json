@@ -18,7 +18,7 @@
 					{
 						"key": "Very Good",
 						"doc_count": 101487,
-						"agg2": {
+						"stats": {
 							"count": 24936,
 							"min": 1,
 							"max": 200000,
@@ -29,7 +29,7 @@
 					{
 						"key": "Good",
 						"doc_count": 78915,
-						"agg2": {
+						"stats": {
 							"count": 45254,
 							"min": 1,
 							"max": 200000,
@@ -40,7 +40,7 @@
 					{
 						"key": "Average",
 						"doc_count": 28782,
-						"agg2": {
+						"stats": {
 							"count": 23138,
 							"min": 1,
 							"max": 167139.765625,
@@ -51,7 +51,7 @@
 					{
 						"key": "Very Poor",
 						"doc_count": 18685,
-						"agg2": {
+						"stats": {
 							"count": 14352,
 							"min": 1,
 							"max": 200000,
@@ -62,7 +62,7 @@
 					{
 						"key": "Poor",
 						"doc_count": 12615,
-						"agg2": {
+						"stats": {
 							"count": 8518,
 							"min": 1,
 							"max": 150000,
@@ -73,7 +73,7 @@
 					{
 						"key": "missing",
 						"doc_count": 25,
-						"agg2": {
+						"stats": {
 							"count": 20,
 							"min": 7848.31982421875,
 							"max": 18387.69921875,

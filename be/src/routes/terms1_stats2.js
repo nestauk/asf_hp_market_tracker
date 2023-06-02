@@ -8,6 +8,7 @@ export const getTerms1Stats2 = async (request, reply) => {
 		size1 = maxBuckets,
 		field2,
 		use_extended_stats2 = false,
+		use_percentiles2 = false,
 	} = request.query;
 
 	const statQuery = use_extended_stats2 ? 'extended_stats' : 'stats';
@@ -22,9 +23,16 @@ export const getTerms1Stats2 = async (request, reply) => {
 					...missing1 && { missing: missing1 }
 				},
 				aggs: {
-					agg2: {
+					[statQuery]: {
 						[statQuery]: {
 							field: field2,
+						}
+					},
+					...use_percentiles2 && {
+						percentiles: {
+							percentiles: {
+								field: field2
+							}
 						}
 					}
 				}
