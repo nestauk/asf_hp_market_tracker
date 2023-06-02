@@ -41,8 +41,6 @@
 	export let valueAccessor;
 	export let valueAccessor2;
 
-	const widthRangeInGlyph = [7, 15];
-	const heightRangeInGlyph = [8, 20];
 	const preferredAspectRatio = 0.75;
 
 	const {_writable: _gridSize, resizeObserver: gridObserver} =
@@ -102,97 +100,30 @@
 		}))
 	]);
 
-	const findBestFit = (
-		gridWidth,
-		gridHeight,
-		rectWidthRange,
-		rectHeightRange,
-		neededRects,
-		desiredAspectRatio
-	) => {
+	const getMaxRectangles = (containerWidth, containerHeight, rectWidth, rectHeight) => {
+		const numFitHorizontally = Math.floor(containerWidth / rectWidth);
+		const numFitVertically = Math.floor(containerHeight / rectHeight);
+		return {numFitHorizontally, numFitVertically};
+	}
 
-		// Create arrays of the size of all possible width and height dimensions
-		const rectWidths = _.range(rectWidthRange[0], rectWidthRange[1] + 1);
-		const rectHeights = _.range(rectHeightRange[0], rectHeightRange[1] + 1);
+	const getBestRectangleFit = (containerWidth, containerHeight, aspectRatio, maxRects) => {
+		let width = containerWidth;
+		let height = width / aspectRatio;
 
-		// Generate all the possible combinations of dimensions
-		const combinations = _.flatMap(
-			rectWidths,
-			width => _.map(
-				rectHeights,
-				height => {
-					const numFitHorizontally = Math.floor(gridWidth / width);
-					const numFitVertically = Math.floor(gridHeight / height);
-					const totalRects = numFitHorizontally * numFitVertically;
-					const aspectRatio = width / height;
-					return {
-						aspectRatio,
-						height,
-						numFitHorizontally,
-						numFitVertically,
-						surfaceArea: width * height,
-						totalRects,
-						width,
-					};
-				}
-			)
-		);
-		console.log('combinations', combinations);
+		let rectanglesFit;
+		do {
+			rectanglesFit = getMaxRectangles(containerWidth, containerHeight, width, height);
+			if (rectanglesFit.numFitHorizontally * rectanglesFit.numFitVertically < maxRects) {
+				width -= 16;
+				height = width / aspectRatio;
+			}
+		} while (rectanglesFit.numFitHorizontally * rectanglesFit.numFitVertically < maxRects)
 
-		// Filter out the combinations that don't fit in the grid
-		const validCombinations = _.filter(
-			combinations,
-			({totalRects}) => totalRects >= neededRects
-		);
-		console.log('validCombinations', validCombinations);
-
-		// Find the combination that gives the min number of rects
-		// closest aspect ratio to `desiredAspectRatio` and max surface area
-		return _.reduce(
-			validCombinations,
-			(
-				bestFit,
-				{
-					aspectRatio,
-					height,
-					numFitHorizontally,
-					numFitVertically,
-					surfaceArea,
-					totalRects,
-					width,
-				}
-			) => {
-				const aspectRatioDiff = Math.abs(desiredAspectRatio / aspectRatio);
-				const cellRatio = numFitHorizontally / numFitVertically;
-				const cellRatioDiff = Math.abs(desiredAspectRatio - cellRatio);
-				const isBetterFit = 
-					!bestFit ||
-					numFitHorizontally < bestFit.numFitHorizontally
-					// totalRects === bestFit.totalRects ||
-					// aspectRatioDiff < bestFit.aspectRatioDiff // ||
-					// (numFitHorizontally < bestFit.numFitHorizontally && height > bestFit.height)
-					// (surfaceArea > bestFit.surfaceArea && numFitHorizontally < bestFit.numFitHorizontally) // ||
-					// numFitHorizontally < bestFit.numFitHorizontally;
-					// (totalRects === bestFit.totalRects && aspectRatioDiff < bestFit.aspectRatioDiff) ||
-					// (totalRects === bestFit.totalRects && aspectRatioDiff === bestFit.aspectRatioDiff && surfaceArea > bestFit.surfaceArea) ||
-					// (totalRects === bestFit.totalRects && aspectRatioDiff === bestFit.aspectRatioDiff && surfaceArea === bestFit.surfaceArea && (numFitVertically > bestFit.numFitVertically));
-				
-				return isBetterFit ?
-					{
-						aspectRatioDiff,
-						cellRatio,
-						height,
-						numFitHorizontally,
-						numFitVertically,
-						surfaceArea,
-						totalRects,
-						width,
-						cellRatio
-					} :
-					bestFit;
-			},
-			null
-		);
+		return {
+			...rectanglesFit,
+			height,
+			width
+		};
 	}
 
 	function chunkArray(array, size, filler = null) {
@@ -295,17 +226,10 @@
 			console.log('glyph size in px', gWidth, gHeight);
 			console.log('gridSizeInGlyphs', gridSizeInGlyphs);
 			console.log('neededRects', categories.length);
-			bestFit = findBestFit(
-				...gridSizeInGlyphs,
-				widthRangeInGlyph,
-				heightRangeInGlyph,
-				categories.length,
-				preferredAspectRatio
-			);
+
+			bestFit = getBestRectangleFit(width, height, preferredAspectRatio, categories.length);
 
 			console.log('bestFit', bestFit);
-
-
 
 			if (bestFit) {
 				// expand width & height
@@ -432,14 +356,15 @@
 	.col1 {
 		width: 100%;
 		height: 100%;
+		overflow: hidden;
 		display: grid;
 		grid-gap: 0;
-		grid-template-columns: repeat(var(--repeat), var(--map-width));
+		grid-template-columns: repeat(var(--repeat), 1fr);
 		justify-content: center;
-		align-content: center;
+		justify-items: stretch;
 	}
 	.map {
-		height: var(--map-height);
+		height: 100%;
 	}
 	.catLabel {
 		padding: 0 0.5em;

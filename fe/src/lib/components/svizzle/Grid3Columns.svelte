@@ -31,6 +31,7 @@
 		grid-template-columns: var(--p0) var(--p1) var(--p2);
 		height: 100%;
 		width: 100%;
+		overflow: hidden;
 	}
 	.col {
 		height: 100%;
