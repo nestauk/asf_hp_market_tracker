@@ -1,4 +1,5 @@
 <script>
+	import {Scroller} from '@svizzle/ui';
 	import * as _ from 'lamb';
 	import {applyFnMap, getKey, getValue, getValues} from '@svizzle/utils';;
 
@@ -48,25 +49,27 @@
 		class='grid'
 		style='--columns: {columnKeys.length}; --maxSize: {maxSize}px;'
 	>
-		{#each reshapedItems as {key, values}}
-			<div class='valueRow'>
-				{#each columnKeys as subKey}
-					{@const value = values?.[subKey]}
-					<div class='box'>
-						<div
-							class='square'
-							style='
-								--width: {computeSquareSize(value)}px;
-								background-color: {colorScale(value)};
-							'
-						/>
-					</div>
-				{/each}
-			</div>
-			<div class='labelRow'>
-				{key}
-			</div>
-		{/each}
+		<Scroller>
+			{#each reshapedItems as {key, values}}
+				<div class='valueRow'>
+					{#each columnKeys as subKey}
+						{@const value = values?.[subKey]}
+						<div class='box'>
+							<div
+								class='square'
+								style='
+									--width: {computeSquareSize(value)}px;
+									background-color: {colorScale(value)};
+								'
+							/>
+						</div>
+					{/each}
+				</div>
+				<div class='labelRow'>
+					{key}
+				</div>
+			{/each}
+		</Scroller>
 	</div>
 {/if}
 
