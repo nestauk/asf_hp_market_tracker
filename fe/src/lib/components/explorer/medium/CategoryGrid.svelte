@@ -1,7 +1,8 @@
 <script>
 	import {Scroller} from '@svizzle/ui';
+	import {applyFnMap, getKey, getValue, getValues} from '@svizzle/utils';
 	import * as _ from 'lamb';
-	import {applyFnMap, getKey, getValue, getValues} from '@svizzle/utils';;
+
 
 	export let colorScale;
 	export let columnKeys;
@@ -27,24 +28,16 @@
 
 	$: if (items && columnKeys) {
 		reshapedItems = reshapeItems(items);
-		console.log('reshapedItems', reshapedItems)
 		rowKeys = _.pipe([
 			_.mapWith(getKey),
 			_.sortWith([])
 		])(items);
-		console.log('rowKeys', rowKeys)
 
 		doDraw = true;
 	}
 </script>
 
 {#if doDraw}
-	<!-- <ol>
-		{#each columnKeys as columnLabel}
-			<li>{columnLabel}</li>
-		{/each}
-	</ol> -->
-
 	<div
 		class='grid'
 		style='--columns: {columnKeys.length}; --maxSize: {maxSize}px;'
