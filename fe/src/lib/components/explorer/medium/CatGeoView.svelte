@@ -6,7 +6,7 @@
 	import {scaleQuantize} from 'd3-scale';
 	import * as _ from 'lamb';
 
-	import {Mapbox} from '@svizzle/mapbox'; // workspace
+	import {CustomControl, Mapbox} from '@svizzle/mapbox'; // workspace
 
 	import RegionLevelSelector
 		from '$lib/components/explorer/medium/RegionTypeSelector.svelte';
@@ -380,13 +380,13 @@
 										visibleLayers={[regionType]}
 										withScaleControl={false}
 										withZoomControl={false}
-									/>
-								{/if}
-							</div>
-						{/each}
-					{/each}
-				{/if}
-			</div>
+										>
+											<CustomControl position='top-left'>
+												<div class='catLabel'>
+													{categoryLabels[category]}
+												</div>
+											</CustomControl>
+										</Mapbox>
 				<CategoryGrid
 					{domain}
 					{colorScale}
@@ -423,5 +423,8 @@
 	}
 	.map {
 		height: var(--map-height);
+	}
+	.catLabel {
+		padding: 0 0.5em;
 	}
 </style>
