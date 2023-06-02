@@ -81,7 +81,7 @@
 
 	ol li::before {
 		border-radius: 50%;
-		border: 2px solid white;
+		border: 2px solid var(--colorPrimary);
 		content: counter(li);
 		counter-increment: li;
 		font-size: .8em;
@@ -116,7 +116,7 @@
 	}
 	.labelRow {
 		align-items: center;
-		border-top: thin solid lightgrey;
+		border-top: thin solid var(--colorBorder);
 		display: flex;
 		justify-content: center;
 		margin-bottom: 1em;
