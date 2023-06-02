@@ -15,7 +15,7 @@
 		from '$lib/components/explorer/medium/TemporalOptions.svelte';
 	import Grid2Columns from '$lib/components/svizzle/Grid2Columns.svelte';
 	import Grid2Rows from '$lib/components/svizzle/Grid2Rows.svelte';
-	import StreamGraph from '$lib/components/svizzle/StreamGraph.svelte';
+	import StreamGraph from '$lib/components/svizzle/trends/StreamGraph.svelte';
 	import Trends from '$lib/components/svizzle/trends/Trends.svelte';
 	import {_selection} from '$lib/stores/navigation.js';
 	import {_currThemeVars, _framesTheme} from '$lib/stores/theme.js';

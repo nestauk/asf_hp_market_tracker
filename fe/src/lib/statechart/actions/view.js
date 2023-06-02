@@ -176,6 +176,7 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 						calendar_interval1: ctx.selection.interval,
 						field1: `installation_date`,
 						field2: id,
+						use_percentiles2: true,
 					};
 					break;
 				default:
