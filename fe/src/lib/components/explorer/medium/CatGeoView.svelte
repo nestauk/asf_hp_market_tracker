@@ -28,6 +28,7 @@
 	import {_viewData} from '$lib/stores/view.js';
 
 	import CategoryGrid from './CategoryGrid.svelte';
+	import Pill from '../Pill.svelte';
 
 	export let amountOfBins = 5;
 	export let formatFn;
@@ -78,7 +79,7 @@
 	]);
 
 	const pivotHierarchicalArray = _.pipe([
-        _.flatMapWith(({key, values}) =>
+		_.flatMapWith(({key, values}) =>
 			_.map(values, ({key: subKey, value}) =>
 				({
 					key,
@@ -99,7 +100,7 @@
 				}))
 			])
 		}))
-    ]);
+	]);
 
 	const findBestFit = (
 		gridWidth,
@@ -221,7 +222,7 @@
 	let regionType;
 	let reshapedItems;
 
-	$: if (items && items.length > 0) {
+	$: if (items?.length > 0) {
 
 		/* common */
 
@@ -330,56 +331,60 @@
 <Grid2Rows percents={[10, 90]}>
 	<RegionLevelSelector />
 	{#if doDraw}
-		<Grid3Columns
-			percents={[10, 60, 30]}
-			gap='0.25em'
-		>
-			<div slot='col0' class='col0'>
-				<div class='legend'>
-					<ColorBinsDiv
-						bins={legendBins}
-						flags={{
-							isVertical: true,
-						}}
-						geometry={{
-							left: 0,
-							right: 20,
-						}}
-						padding=0
-						theme={$_legendsTheme}
-						ticksFormatFn={formatFn}
-					/>
-				</div>
+		<div class='main'>
+			<div class='categories'>
+				{#each categories as category}
+					<div>
+						<Pill>
+							{categoryLabels[category]}
+						</Pill>
+						{category}
+					</div>
+				{/each}
 			</div>
-			<div
-				slot='col1'
-				class='col1'
-				use:gridObserver
-				style='--map-width: {bestFit?.width / 2 || 10}em; --map-height: {bestFit?.height * 1.1 || 8}em; --repeat: {bestFit?.numFitHorizontally || 1};'
+			<Grid3Columns
+				percents={[10, 60, 30]}
+				gap='0.25em'
 			>
-				{#if bestFit}
-					{#each catChunks as chunk}
-						{#each chunk as category}
-							<div>
-								{#if category}
-									{category}
-								{/if}
-							</div>
-						{/each}
-						{#each chunk as category}
-							<div class='map'>
-								{#if category}
-									<Mapbox
-										{_zoom}
-										{accessToken}
-										getFeatureState={makeGetFeatureState(category)}
-										bounds={DEFAULT_BBOX_WS_EN}
-										isAnimated={false}
-										isInteractive={false}
-										style={$_smallMultMapStyle}
-										visibleLayers={[regionType]}
-										withScaleControl={false}
-										withZoomControl={false}
+				<div slot='col0' class='col0'>
+					<div class='legend'>
+						<ColorBinsDiv
+							bins={legendBins}
+							flags={{
+								isVertical: true,
+							}}
+							geometry={{
+								left: 0,
+								right: 20,
+							}}
+							padding=0
+							theme={$_legendsTheme}
+							ticksFormatFn={formatFn}
+						/>
+					</div>
+				</div>
+				<div
+					slot='col1'
+					class='col1'
+					use:gridObserver
+					style='--map-width: {bestFit?.width / 2 || 10}em; --map-height: {bestFit?.height * 1.1 || 8}em; --repeat: {bestFit?.numFitHorizontally || 1};'
+				>
+					{#if bestFit}
+						{#each catChunks as chunk}
+							{#each chunk as category}
+								<div class='map'>
+									{#if category}
+										<Mapbox
+											{_zoom}
+											{accessToken}
+											getFeatureState={makeGetFeatureState(category)}
+											bounds={DEFAULT_BBOX_WS_EN}
+											isAnimated={false}
+											isInteractive={false}
+											style={$_smallMultMapStyle}
+											visibleLayers={[regionType]}
+											withScaleControl={false}
+											withZoomControl={false}
 										>
 											<CustomControl position='top-left'>
 												<div class='catLabel'>
@@ -387,6 +392,12 @@
 												</div>
 											</CustomControl>
 										</Mapbox>
+									{/if}
+								</div>
+							{/each}
+						{/each}
+					{/if}
+				</div>
 				<CategoryGrid
 					{domain}
 					{colorScale}
@@ -395,11 +406,17 @@
 					items={gridItems}
 					slot='col2'
 				/>
-		</Grid3Columns>
+			</Grid3Columns>
+		</div>
 	{/if}
 </Grid2Rows>
 
 <style>
+	.main {
+		display: grid;
+		grid-auto-flow: row;
+		grid-template-rows: min-content 1fr;
+	}
 	.col0 {
 		align-items: center;
 		display: flex;
@@ -427,4 +444,9 @@
 	.catLabel {
 		padding: 0 0.5em;
 	}
+	.categories  {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(10em, 1fr));
+	}
+
 </style>
