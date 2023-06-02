@@ -3,9 +3,11 @@
 	import {applyFnMap, getKey, getValue, getValues} from '@svizzle/utils';
 	import * as _ from 'lamb';
 
+	import Pill from '../Pill.svelte';
 
 	export let colorScale;
 	export let columnKeys;
+	export let columnLabels;
 	export let domain;
 	export let items;
 
@@ -42,6 +44,13 @@
 		class='grid'
 		style='--columns: {columnKeys.length}; --maxSize: {maxSize}px;'
 	>
+		<div class='valueRow'>
+			{#each columnKeys as key}
+				<Pill>
+					<div class='box'>{columnLabels[key]}</div>
+				</Pill>
+			{/each}
+		</div>
 		<Scroller>
 			{#each reshapedItems as {key, values}}
 				<div class='valueRow'>
@@ -63,6 +72,13 @@
 				</div>
 			{/each}
 		</Scroller>
+		<div class='valueRow'>
+			{#each columnKeys as key}
+				<Pill>
+					<div class='box'>{columnLabels[key]}</div>
+				</Pill>
+			{/each}
+		</div>
 	</div>
 {/if}
 
@@ -96,11 +112,15 @@
 	.grid {
 		display: grid;
 		grid-auto-flow: row;
+		overflow: hidden;
+		height: 100%;
 	}
 	.valueRow {
 		display: grid;
 		grid-template-columns: repeat(var(--columns), 1fr);
 		height: var(--maxSize);
+		justify-items: center;
+		justify-content: stretch;
 	}
 	.box {
 		align-items: end;

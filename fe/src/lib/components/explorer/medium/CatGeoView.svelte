@@ -210,6 +210,7 @@
 	let bestFit;
 	let catChunks = [];
 	let categories;
+	let categoryLabels;
 	let colorScale;
 	let doDraw = false;
 	let domain;
@@ -227,6 +228,17 @@
 		reshapedItems = reshapeItems(items);
 		categories = getCategs(reshapedItems);
 		domain = getOverallExtent(items);
+		categoryLabels = _.pipe([
+			_.zipWithIndex,
+			_.mapWith(_.collect([
+				_.getAt(0),
+				_.pipe([
+					_.getAt(1),
+					_.add(1)
+				])
+			])),
+			_.fromPairs
+		])(categories);
 
 		/* color */
 
@@ -375,13 +387,14 @@
 					{/each}
 				{/if}
 			</div>
-			<CategoryGrid
-				{domain}
-				{colorScale}
-				columnKeys={categories}
-				items={gridItems}
-				slot='col2'
-			/>
+				<CategoryGrid
+					{domain}
+					{colorScale}
+					columnKeys={categories}
+					columnLabels={categoryLabels}
+					items={gridItems}
+					slot='col2'
+				/>
 		</Grid3Columns>
 	{/if}
 </Grid2Rows>
