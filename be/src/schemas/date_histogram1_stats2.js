@@ -16,6 +16,10 @@ export const schema = {
 				use_extended_stats2: {
 					default: false,
 					type: 'boolean'
+				},
+				use_percentiles2: {
+					default: false,
+					type: 'boolean'
 				}
 			}
 		}

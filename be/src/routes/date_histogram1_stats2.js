@@ -6,7 +6,8 @@ export const getDateHistogram1Stats2 = async (request, reply) => {
 		calendar_interval1 = '1y',
 		field1,
 		field2,
-		use_extended_stats2 = false
+		use_extended_stats2 = false,
+		use_percentiles2 = false
 	} = request.query;
 
 	const statQuery = use_extended_stats2 ? 'extended_stats' : 'stats';
@@ -21,9 +22,16 @@ export const getDateHistogram1Stats2 = async (request, reply) => {
 					format: 'yyyy-MM'
 				},
 				aggs: {
-					agg2: {
+					[statQuery]: {
 						[statQuery]: {
 							field: field2,
+						}
+					},
+					...use_percentiles2 && {
+						percentiles: {
+							percentiles: {
+								field: field2
+							}
 						}
 					}
 				}
