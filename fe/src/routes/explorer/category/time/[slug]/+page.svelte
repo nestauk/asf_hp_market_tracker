@@ -197,14 +197,7 @@
 	}
 
 	.col1 {
-		height: 100%;
+		height: 95%;
 		width: 100%;
 	}
 </style>
-
-<!--
-	TODO: `useRelativeY` option to map total sum in each year to the total height
-	like Marimekko to see relative change
-
-	TODO: `stackFlows` option to see absolute values instead of summing them up
--->

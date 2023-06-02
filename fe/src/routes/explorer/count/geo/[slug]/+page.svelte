@@ -8,18 +8,17 @@
 	import {roundTo1} from '$lib/utils/numbers.js';
 
 	import NumGeoView from '$lib/components/explorer/medium/NumGeoView.svelte';
-	import {_currentMetricId} from '$lib/stores/navigation.js'; // FIXME
+	import {_currentMetricId} from '$lib/stores/navigation.js';
 	import {_viewData} from '$lib/stores/view.js';
 
 	const valueAccessors = {
-		// {key, doc_count, agg2: {buckets: {key, value}[]}, stats2: {avg, ...} }}[]
+		// {key, doc_count, agg2: {...}, stats2: {avg, ...} }}[]
 		installations_per_installer: _.getPath('stats2.avg'),
-		installations: _.getPath('doc_count'), // {key, doc_count}[]
+		installations: _.getKey('doc_count'), // {key, doc_count}[]
 		installers: _.getPath('agg2.value'), // {key, doc_count, agg2: {value}}[]
 	}
 
-	$: id = $_currentMetricId;
-	$: valueAccessor = valueAccessors[id];
+	$: valueAccessor = valueAccessors[$_currentMetricId];
 	$: filter = _.filterWith(_.pipe([valueAccessor, isNotNil]));
 	$: makeDomain = _.pipe([filter, arr => extent(arr, valueAccessor)]);
 	$: makeBarchartItems = _.pipe([
@@ -27,8 +26,12 @@
 		_.mapWith(applyFnMap({key: getKey, value: valueAccessor})),
 		_.sortWith([_.sorterDesc(getValue)])
 	]);
-	$: title = id === 'installations_per_installer' ? 'Average' : null;
-	$: formatFn = id === 'installations_per_installer' ? roundTo1 : null;
+	$: title = $_currentMetricId === 'installations_per_installer'
+			? 'Average'
+			: null;
+	$: formatFn = $_currentMetricId === 'installations_per_installer'
+		? roundTo1
+		: null;
 
 	$: proceed =
 		$_viewData?.response.code === 200 &&

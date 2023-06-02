@@ -98,14 +98,6 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 								// TBD `with_stats`, `with_percentiles`
 							};
 							break;
-						case 'installers':
-							aggId = 'terms1_cardinality2';
-							params = {
-								field1: `installer_geo_region_${ctx.selection.regionType}_name.keyword`,
-								// TBD `with_stats1`, `with_percentiles1`
-								field2: `installer_id_hash.keyword`,
-							};
-							break;
 						case 'installations_per_installer':
 							aggId = 'terms1_terms2';
 							params = {
@@ -114,6 +106,14 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 								field2: `installer_id_hash.keyword`,
 								with_stats2: true
 								// TBD `with_percentiles1`
+							};
+							break;
+						case 'installers':
+							aggId = 'terms1_cardinality2';
+							params = {
+								field1: `installer_geo_region_${ctx.selection.regionType}_name.keyword`,
+								// TBD `with_stats1`, `with_percentiles1`
+								field2: `installer_id_hash.keyword`,
 							};
 							break;
 						default:
@@ -129,14 +129,6 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 								field: `installation_date`,
 							};
 							break;
-						case 'installers':
-							aggId = 'date_histogram1_cardinality2';
-							params = {
-								calendar_interval1: ctx.selection.interval,
-								field1: `installation_date`,
-								field2: `installer_id_hash.keyword`,
-							};
-							break;
 						case 'installations_per_installer':
 							aggId = 'date_histogram1_terms2';
 							params = {
@@ -144,6 +136,14 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 								field1: `installation_date`,
 								field2: `installer_id_hash.keyword`,
 								with_stats2: true
+							};
+							break;
+						case 'installers':
+							aggId = 'date_histogram1_cardinality2';
+							params = {
+								calendar_interval1: ctx.selection.interval,
+								field1: `installation_date`,
+								field2: `installer_id_hash.keyword`,
 							};
 							break;
 						default:

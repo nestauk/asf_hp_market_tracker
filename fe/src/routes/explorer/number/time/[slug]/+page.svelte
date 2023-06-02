@@ -28,12 +28,14 @@
 		})
 	);
 	const filterOutNils = _.filterWith(_.pipe([getValue, isNotNil]));
-	const splitByDash = makeSplitBy('-');
+	const keyFormatFn = _.pipe([
+		makeSplitBy('-'),
+		_.getAt(0),
+		sliceStringAt([2, 4])
+	]);
 
 	let doDraw = false;
 	let items;
-	let keyFilterFn;
-	let keyFormatFn;
 
 	$: proceed =
 		$_viewData?.response.code === 200 &&
@@ -43,32 +45,6 @@
 		const rawItems = $_viewData?.response.data.agg1.buckets || [];
 		const trend = filterOutNils(reshapeItems(rawItems));
 		items = [{key: 'trend', values: trend}];
-
-		switch ($_selection.interval) {
-			case '1y':
-				keyFormatFn = _.pipe([
-					splitByDash,
-					_.getAt(0),
-					sliceStringAt([2, 4])
-				]);
-				keyFilterFn = null;
-				break;
-			case '1q':
-			case '1M':
-				keyFormatFn = _.pipe([
-					splitByDash,
-					_.getAt(0),
-					sliceStringAt([2, 4])
-				]);
-				keyFilterFn = _.pipe([
-					splitByDash,
-					_.getAt(1),
-					_.is('01')
-				]);
-				break;
-			default:
-				break;
-		}
 
 		doDraw = true;
 	}
@@ -80,7 +56,6 @@
 	{#if doDraw}
 		<Trends
 			{items}
-			{keyFilterFn}
 			{keyFormatFn}
 			geometry={{
 				safetyBottom: 50,
