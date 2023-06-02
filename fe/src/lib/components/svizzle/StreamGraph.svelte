@@ -14,7 +14,7 @@
 	import {makeStyleVars} from '@svizzle/dom';
 
 	import {pairs} from 'd3-array';
-	import {scaleLinear, scalePoint} from 'd3-scale';
+	import {scaleLinear, scalePoint, scaleTime} from 'd3-scale';
 	import * as _ from 'lamb';
 
 	const defaultGeometry = {
@@ -39,7 +39,9 @@
 	// outer key is the x key, inner key is the stream name
 	export let items = [];
 	export let keyFilterFn;
-	export let keyFormatFn;
+	export let keyFormatFn = _.identity;
+	export let keyType;
+	export let preformatDate = _.identity;
 	export let sorting = 'off';
 	export let theme;
 	export let valueFormatFn;
@@ -48,6 +50,8 @@
 	let height;
 	let width;
 
+	$: keyFormatFn = keyFormatFn ?? _.identity;
+	$: preformatDate = preformatDate ?? _.identity;
 	$: yTicksCount = yTicksCount ?? 10;
 
 	/* theme */
@@ -67,9 +71,6 @@
 
 	const getSortedKeys = _.pipe([_.mapWith(getKey), _.sortWith([])]);
 	$: allKeys = getSortedKeys(items)
-	$: keyTicks = keyFilterFn
-		? _.filter(allKeys, keyFilterFn)
-		: allKeys;
 
 	const getMaxSum = arrayMaxWith(
 		_.pipe([getValues, arraySumWith(getValue)])
@@ -155,6 +156,7 @@
 
 	let bbox;
 	let doDraw = false;
+	let keyTicks;
 	let paths = [];
 	let xScale;
 	let yScale;
@@ -169,7 +171,20 @@
 			height: height - geometry.safetyTop - geometry.safetyBottom,
 		}
 
-		xScale = scalePoint().domain(allKeys).range([bbox.blx, bbox.trx]);
+		const xRange = [bbox.blx, bbox.trx];
+		if (keyType === 'date') {
+			const keyDomain = [_.head(allKeys), _.last(allKeys)];
+			const keyRankFn = key => (new Date(key)).getTime();
+			const timeDomain = _.map(keyDomain, keyRankFn);
+			const timeScale = scaleTime().domain(timeDomain).range(xRange);
+
+			keyTicks = _.map(timeScale.ticks(), preformatDate);
+			xScale = _.pipe([keyRankFn, timeScale]);
+		} else {
+			keyTicks = keyFilterFn ? _.filter(allKeys, keyFilterFn) : allKeys;
+			xScale = scalePoint().domain(allKeys).range(xRange);
+		}
+
 		yScale = scaleLinear().domain([0, maxSum]).range([bbox.bly, bbox.try]);
 
 		const getPaths = makeGetPaths({xScale, yScale});

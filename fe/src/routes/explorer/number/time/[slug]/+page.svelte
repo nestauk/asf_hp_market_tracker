@@ -17,6 +17,7 @@
 	import {_currThemeVars, _framesTheme} from '$lib/stores/theme.js';
 	import {_viewData} from '$lib/stores/view.js';
 	import {roundTo1} from '$lib/utils/numbers.js';
+	import {formatDate} from '$lib/utils/date.js';
 
 	const keyAccessor  = _.getPath('key_as_string');
 	const valueAccessor = _.getPath('agg2.avg');
@@ -88,6 +89,7 @@
 				safetyTop: 50,
 			}}
 			keyType='date'
+			preformatDate={formatDate}
 			theme={{
 				...$_framesTheme,
 				curveStroke: $_currThemeVars['--colorBorderAux']

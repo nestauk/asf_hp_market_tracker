@@ -21,6 +21,7 @@
 	import {_currThemeVars, _framesTheme} from '$lib/stores/theme.js';
 	import {_viewData} from '$lib/stores/view.js';
 	import {objectToKeyValuesArray} from '$lib/utils/svizzle/utils.js';
+	import {formatDate} from '$lib/utils/date.js';
 
 	const keyAccessor = _.getKey('key_as_string');
 	const valueAccessor = _.getPath('agg2.buckets');
@@ -134,13 +135,15 @@
 						{categories}
 						{categoryToColorFn}
 						{keyFormatFn}
-						items={streams}
 						geometry={{
 							safetyBottom: 50,
 							safetyLeft: 80,
 							safetyRight: 80,
 							safetyTop: 50,
 						}}
+						items={streams}
+						keyType='date'
+						preformatDate={formatDate}
 						sorting={$_selection.streamgraphsSorting}
 						theme={$_framesTheme}
 						valueFormatFn={Math.round}
@@ -158,6 +161,7 @@
 						items={trends}
 						keyToColorFn={categoryToColorFn}
 						keyType='date'
+						preformatDate={formatDate}
 						slot='col1'
 						theme={{
 							...$_framesTheme,

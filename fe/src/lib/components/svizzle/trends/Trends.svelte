@@ -31,14 +31,17 @@
 		textColor: 'black',
 	}
 
+	const defaultItems = {key: 'trend', items: []};
+
 	export let geometry;
 	// {key, values: {key, value}}[]
 	// outer key is the trend name, inner key is the x key
-	export let items = [];
+	export let items = defaultItems;
 	export let keyFilterFn;
-	export let keyFormatFn;
+	export let keyFormatFn = _.identity;
 	export let keyToColorFn;
 	export let keyType;
+	export let preformatDate = _.identity;
 	export let theme = null;
 	export let valueFormatFn;
 	export let yTicksCount = 10;
@@ -46,6 +49,8 @@
 	let height;
 	let width;
 
+	$: keyFormatFn = keyFormatFn ?? _.identity;
+	$: preformatDate = preformatDate ?? _.identity;
 	$: yTicksCount = yTicksCount ?? 10;
 
 	/* theme */
@@ -61,7 +66,7 @@
 
 	/* data */
 
-	$: items = items ?? [];
+	$: items = items ?? defaultItems;
 
 	const getSortedKeys = _.pipe([
 		_.flatMapWith(getValues),
@@ -98,10 +103,10 @@
 
 	let bbox;
 	let doDraw = false;
+	let keyTicks;
 	let lineGenerator;
 	let xScale;
 	let yScale;
-	let keyTicks;
 
 	$: if (height && width) {
 		bbox = {
@@ -120,18 +125,11 @@
 			const timeDomain = _.map(keyDomain, keyRankFn);
 			const timeScale = scaleTime().domain(timeDomain).range(xRange);
 
-			keyTicks = _.map(
-				timeScale.ticks(),
-				_.pipe([
-					date => date.getFullYear(),
-					String,
-				])
-			);
-
+			keyTicks = _.map(timeScale.ticks(), preformatDate);
 			xScale = _.pipe([keyRankFn, timeScale]);
 		} else {
-			xScale = scalePoint().domain(allKeys).range(xRange);
 			keyTicks = keyFilterFn ? _.filter(allKeys, keyFilterFn) : allKeys;
+			xScale = scalePoint().domain(allKeys).range(xRange);
 		}
 
 		yScale = scaleLinear().domain(yDomain).range([bbox.bly, bbox.try]);
