@@ -8,6 +8,7 @@ import {
 	_currentPage,
 } from '$lib/stores/navigation.js';
 import {_isViewLoading, _viewData} from '$lib/stores/view.js';
+import {isObjNotEmpty} from '@svizzle/utils';
 
 /* loading icon */
 
@@ -65,30 +66,54 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 			break;
 		case 'count':
 			switch (activeViewType) {
-				// case 'stats': // BE TBD: cardinality
+				case 'stats':
+					switch (id) {
+						case 'installations':
+							aggId = 'count';
+							params = {};
+							break;
+						case 'installers':
+							aggId = 'cardinality';
+							params = {
+								field: `installer_id_hash.keyword`,
+							};
+							break;
+						case 'installations_per_installer':
+							aggId = 'terms';
+							params = {
+								field: `installer_id_hash.keyword`,
+								with_stats: true
+							};
+							break;
+						default:
+							break;
+					}
+					break;
 				case 'geo':
 					switch (id) {
 						case 'installations':
 							aggId = 'terms';
 							params = {
 								field: `property_geo_region_${ctx.selection.regionType}_name.keyword`,
+								// TBD `with_stats`, `with_percentiles`
 							};
 							break;
 						case 'installers':
 							aggId = 'terms1_cardinality2';
 							params = {
 								field1: `installer_geo_region_${ctx.selection.regionType}_name.keyword`,
-								field2: `hp_id_brand.keyword`,
-								// field2: `installer_id.keyword`, TODO
+								// TBD `with_stats1`, `with_percentiles1`
+								field2: `installer_id_hash.keyword`,
 							};
 							break;
 						case 'installations_per_installer':
 							aggId = 'terms1_terms2';
 							params = {
 								field1: `property_geo_region_${ctx.selection.regionType}_name.keyword`,
-								// field2: `installer_id.keyword`, TODO
-								field2: `hp_id_brand.keyword`,
+								// TBD `with_stats1`, `with_percentiles1`
+								field2: `installer_id_hash.keyword`,
 								with_stats2: true
+								// TBD `with_percentiles1`
 							};
 							break;
 						default:
@@ -105,23 +130,20 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 							};
 							break;
 						case 'installers':
-							aggId = 'date_histogram1_terms2'; // TBD date_histogram1_cardinality2?
+							aggId = 'date_histogram1_cardinality2';
 							params = {
 								calendar_interval1: ctx.selection.interval,
 								field1: `installation_date`,
-								field2: `hp_id_brand.keyword`,
-								// field2: `installer_id.keyword`,
-								// we need the length of the nested array
+								field2: `installer_id_hash.keyword`,
 							};
 							break;
-						case 'installations_per_installer': // TBD date_histogram1_cardinality2_pipeline3?
+						case 'installations_per_installer':
 							aggId = 'date_histogram1_terms2';
 							params = {
 								calendar_interval1: ctx.selection.interval,
 								field1: `installation_date`,
-								field2: `hp_id_brand.keyword`,
-								// field2: `installer_id.keyword`,
-								// we need to return the array `doc_count`s to run stats / histogram
+								field2: `installer_id_hash.keyword`,
+								with_stats2: true
 							};
 							break;
 						default:
@@ -196,7 +218,11 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 			break;
 	}
 
-	const viewQueryPath = `${aggId}?${new URLSearchParams(params)}`;
+	let viewQueryPath = aggId;
+
+	if (isObjNotEmpty(params)) {
+		viewQueryPath = `${aggId}?${new URLSearchParams(params)}`;
+	}
 
 	// console.log('viewQueryPath', viewQueryPath);
 

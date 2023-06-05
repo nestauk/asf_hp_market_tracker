@@ -20,7 +20,7 @@
 	import {formatDate} from '$lib/utils/date.js';
 
 	const keyAccessor  = _.getPath('key_as_string');
-	const valueAccessor = _.getPath('agg2.avg');
+	const valueAccessor = _.getPath('stats.avg');
 	const reshapeItems = _.mapWith(
 		applyFnMap({
 			key: keyAccessor,

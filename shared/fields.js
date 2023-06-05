@@ -17,12 +17,6 @@ export const fields = [
 	},
 	{
 		entity: 'Heat pump',
-		id: 'hp_feature_heat_source',
-		label: 'Heat source',
-		type: 'category',
-	},
-	{
-		entity: 'Heat pump',
 		id: 'hp_feature_heat_system',
 		label: 'Heat system',
 		type: 'category',
@@ -90,6 +84,12 @@ export const fields = [
 		id: 'installer_certificate_date_start',
 		type: 'date',
 		use: 'time',
+	},
+	{
+		entity: 'Installer',
+		id: 'installer_geo_region_country', // TBD rename to installer_geo_region_country_name
+		type: 'category',
+		use: 'regionId',
 	},
 	{
 		entity: 'Installer',
@@ -165,86 +165,13 @@ export const fields = [
 	},
 	{
 		entity: 'Installer',
-		id: 'installer_geo_place_town',
-		label: 'Installer town',
+		id: 'installer_id_hash',
 		type: 'string',
-		use: 'placeName',
+		use: 'installerId'
 	},
 
 	/* Property */
 
-	{
-		entity: 'Property',
-		id: 'property_geo_region_itl21_1_id',
-		type: 'string',
-		use: 'regionId',
-	},
-	{
-		entity: 'Property',
-		id: 'property_geo_region_itl21_1_name',
-		type: 'string',
-		use: 'regionName',
-	},
-	{
-		entity: 'Property',
-		id: 'property_geo_region_itl21_2_id',
-		type: 'string',
-		use: 'regionId',
-	},
-	{
-		entity: 'Property',
-		id: 'property_geo_region_itl21_2_name',
-		type: 'string',
-		use: 'regionName',
-	},
-	{
-		entity: 'Property',
-		id: 'property_geo_region_itl21_3_id',
-		type: 'string',
-		use: 'regionId',
-	},
-	{
-		entity: 'Property',
-		id: 'property_geo_region_itl21_3_name',
-		type: 'string',
-		use: 'regionName',
-	},
-	{
-		entity: 'Property',
-		id: 'property_geo_region_lau21_1_id',
-		type: 'string',
-		use: 'regionId',
-	},
-	{
-		entity: 'Property',
-		id: 'property_geo_region_lau21_1_name',
-		type: 'string',
-		use: 'regionName',
-	},
-	{
-		entity: 'Property',
-		id: 'property_geo_region_lsoa11_id',
-		type: 'string',
-		use: 'regionId',
-	},
-	{
-		entity: 'Property',
-		id: 'property_geo_region_lsoa11_name',
-		type: 'string',
-		use: 'regionName',
-	},
-	{
-		entity: 'Property',
-		id: 'property_geo_region_msoa11_id',
-		type: 'string',
-		use: 'regionId',
-	},
-	{
-		entity: 'Property',
-		id: 'property_geo_region_msoa11_name',
-		type: 'string',
-		use: 'regionName',
-	},
 	{
 		entity: 'Property',
 		id: 'property_energy_efficiency_floor',
@@ -342,6 +269,84 @@ export const fields = [
 		id: 'property_feature_type',
 		label: 'Type',
 		type: 'category',
+	},
+	{
+		entity: 'Property',
+		id: 'property_geo_region_country', // TBD rename to property_geo_region_country_name
+		type: 'category',
+		use: 'regionName',
+	},
+	{
+		entity: 'Property',
+		id: 'property_geo_region_itl21_1_id',
+		type: 'string',
+		use: 'regionId',
+	},
+	{
+		entity: 'Property',
+		id: 'property_geo_region_itl21_1_name',
+		type: 'string',
+		use: 'regionName',
+	},
+	{
+		entity: 'Property',
+		id: 'property_geo_region_itl21_2_id',
+		type: 'string',
+		use: 'regionId',
+	},
+	{
+		entity: 'Property',
+		id: 'property_geo_region_itl21_2_name',
+		type: 'string',
+		use: 'regionName',
+	},
+	{
+		entity: 'Property',
+		id: 'property_geo_region_itl21_3_id',
+		type: 'string',
+		use: 'regionId',
+	},
+	{
+		entity: 'Property',
+		id: 'property_geo_region_itl21_3_name',
+		type: 'string',
+		use: 'regionName',
+	},
+	{
+		entity: 'Property',
+		id: 'property_geo_region_lau21_1_id',
+		type: 'string',
+		use: 'regionId',
+	},
+	{
+		entity: 'Property',
+		id: 'property_geo_region_lau21_1_name',
+		type: 'string',
+		use: 'regionName',
+	},
+	{
+		entity: 'Property',
+		id: 'property_geo_region_lsoa11_id',
+		type: 'string',
+		use: 'regionId',
+	},
+	{
+		entity: 'Property',
+		id: 'property_geo_region_lsoa11_name',
+		type: 'string',
+		use: 'regionName',
+	},
+	{
+		entity: 'Property',
+		id: 'property_geo_region_msoa11_id',
+		type: 'string',
+		use: 'regionId',
+	},
+	{
+		entity: 'Property',
+		id: 'property_geo_region_msoa11_name',
+		type: 'string',
+		use: 'regionName',
 	},
 	{
 		entity: 'Property',
