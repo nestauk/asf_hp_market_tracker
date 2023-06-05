@@ -67,12 +67,14 @@
 		const dataURL = canvas.toDataURL('image/png');
 		console.log('dataURL created');
 		$_mapDataURL = dataURL;
+		dispatch('mapDataURL', dataURL);
 		console.log('$_mapDataURL set');
 	}
 
 	$: map?.setStyle(style);
 	$: layers = $_map && style && $_map?.getStyle().layers;
 	$: {
+		console.log('updating layer states');
 		layers?.forEach(layer => {
 			if (getFeatureState && visibleLayers.includes(layer.id)) {
 				map
@@ -95,10 +97,11 @@
 			);
 		})
 
+		console.log('checking if we should capture canvas')
 		if (getFeatureState && shouldCaptureCanvas) {
 			console.log('scheduling call on render')
-			// map.once('idle', getMapDataURL);
-			map.once('idle', () => setTimeout(getMapDataURL, 100));
+			map.once('idle', getMapDataURL);
+			// map.once('idle', () => setTimeout(getMapDataURL, 100));
 		}
 	};
 
@@ -221,6 +224,7 @@
 	};
 
 	const mapgl = node => {
+		console.log('mapgl called')
 		const {center, zoom} = viewport;
 
 		mapboxgl.accessToken = accessToken;
@@ -256,8 +260,11 @@
 			$_projectFn = map.project.bind(map);
 
 		})
+		.on('idle', () => {
+			console.log('map idle');
+		})
 		.once('idle', () => {
-			console.log('map loaded, dispatching event')
+			console.log('map loaded, dispatching `mapLoaded` event. Should fire only `once`...')
 			dispatch('mapLoaded');
 			console.log('event sent')
 		});

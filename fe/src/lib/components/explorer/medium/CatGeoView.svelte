@@ -173,22 +173,26 @@
 		}
 	}
 	const addDataURL = url => {
-		console.log('adding url', url);
+		console.log('adding url', category);
 		if (url) {
 			mapDataURLs[category] = url;
 			console.log('resolving...', category);
 			resolveDataURLPromise();
 			console.log('resolved', category);
 		}
-	}
+	} 
 	const onMapLoaded = () => {
 		console.log('map loaded, event received');
 		if (!isMapLoaded) {
 			isMapLoaded = true;
 		}
 	}
+	const onMapDataURL = ({detail}) => {
+		console.log('map data url received', category);
+		addDataURL(detail);
+	}
 
-	$: addDataURL($_mapDataURL);
+	// $: addDataURL($_mapDataURL);
 
 	let _mapDataURL;
 	let bestFit;
@@ -293,7 +297,7 @@
 		doDraw = true;
 	}
 
-	$: if (categories && isMapLoaded) {
+	$: if (categories && isMapLoaded && regionType) {
 		console.log('ready to render categories', categories);
 		makeGetFeatureState = makeMakeGetFeatureState();
 		renderCategories();
@@ -312,20 +316,13 @@
 		isAnimated={false}
 		isInteractive={false}
 		on:mapLoaded={onMapLoaded}
+		on:mapDataURL={onMapDataURL}
 		shouldCaptureCanvas={true}
 		style={$_smallMultMapStyle}
 		visibleLayers={[regionType]}
 		withScaleControl={false}
 		withZoomControl={false}
-	>
-<!--
-		<CustomControl position='top-left'>
-			<div class='catLabel'>
-				{categoryLabels[category]}
-			</div>
-		</CustomControl>
--->
-	</Mapbox>
+	/>
 </div>
 
 <Grid2Rows percents={[10, 90]}>
@@ -372,14 +369,16 @@
 					{#if bestFit}
 						{#each catChunks as chunk}
 							{#each chunk as category}
-								<div class='map'>
-									<label>
-										<Pill>
-											{categoryLabels[category]}
-										</Pill>
-									</label>
-									<img src={mapDataURLs[category]}/>
-								</div>
+								{#if category}
+									<div class='map'>
+										<label>
+											<Pill>
+												{categoryLabels[category]}
+											</Pill>
+										</label>
+										<img src={mapDataURLs[category]}/>
+									</div>
+								{/if}
 							{/each}
 						{/each}
 					{/if}

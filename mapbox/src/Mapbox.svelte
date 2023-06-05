@@ -42,6 +42,7 @@
 		{withZoomControl}
 		on:bboxChanged
 		on:mapClick
+		on:mapDataURL
 		on:mapLoaded
 	>
 		<slot />
