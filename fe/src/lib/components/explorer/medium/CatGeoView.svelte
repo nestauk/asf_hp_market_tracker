@@ -126,11 +126,12 @@
 		};
 	}
 
-	function chunkArray(array, size, filler = null) {
+	const chunkArray = (array, size, filler = null) => {
 		const chunkIndices = _.range(0, array.length, size);
 		const chunks = _.map(chunkIndices, i => _.slice(array, i, i + size));
 
 		// Add filler cells to the last chunk to complete the grid
+		// FIXME add filler cells around existing cells, not only at the end
 		const lastChunk = chunks[chunks.length - 1];
 		while (lastChunk.length < size) {
 			lastChunk.push(filler);
@@ -139,26 +140,85 @@
 		return chunks;
 	}
 
+	const makeMakeGetFeatureState = () => {
+		const categoryIndex = _.index(reshapedItems, getKey);
+		return category => {
+			const itemsIndex = _.index(categoryIndex[category].values, getKey);
+
+			return feature => {
+				const {properties: {[$_featureNameId]: featureName}} = feature;
+				const item = itemsIndex[featureName];
+
+				if (item) {
+					const featureState = {
+						fill: colorScale(item.value)
+					}
+
+					return featureState;
+				}
+			}
+		}
+	}
+
+	const renderCategories = async () => {
+		mapDataURLs = {};
+		for (const cat of categories) {
+			console.log('rendering category', cat);
+			category = cat;  // rerenders reactively
+			console.log('waiting for render...', cat);
+			await new Promise(resolve => {
+				console.log('promise created', cat)
+				resolveDataURLPromise = resolve;
+			});
+		}
+	}
+	const addDataURL = url => {
+		console.log('adding url', url);
+		if (url) {
+			mapDataURLs[category] = url;
+			console.log('resolving...', category);
+			resolveDataURLPromise();
+			console.log('resolved', category);
+		}
+	}
+	const onMapLoaded = () => {
+		console.log('map loaded, event received');
+		if (!isMapLoaded) {
+			isMapLoaded = true;
+		}
+	}
+
+	$: addDataURL($_mapDataURL);
+
+	let _mapDataURL;
 	let bestFit;
 	let catChunks = [];
 	let categories;
+	let category;
 	let categoryLabels;
 	let colorScale;
 	let doDraw = false;
 	let domain;
+	let isMapLoaded = false;
 	let gridItems;
 	let gridSizeInGlyphs;
 	let legendBins;
-	let makeGetFeatureState
+	let makeGetFeatureState;
+	let mapDataURLs = {};
 	let regionType;
 	let reshapedItems;
+	let resolveDataURLPromise;
 
 	$: if (items?.length > 0) {
 
 		/* common */
 
 		reshapedItems = reshapeItems(items);
-		categories = getCategs(reshapedItems);
+		const cats = getCategs(reshapedItems);
+		if (JSON.stringify(cats) !== JSON.stringify(categories)) {
+			console.log('updating categories')
+			categories = cats;
+		}
 		domain = getOverallExtent(items);
 		categoryLabels = _.pipe([
 			_.zipWithIndex,
@@ -196,24 +256,6 @@
 
 		regionType = $_selection.regionType;
 
-		const categoryIndex = _.index(reshapedItems, getKey);
-		makeGetFeatureState = category => {
-			const itemsIndex = _.index(categoryIndex[category].values, getKey);
-
-			return feature => {
-				const {properties: {[$_featureNameId]: featureName}} = feature;
-				const item = itemsIndex[featureName];
-
-				if (item) {
-					const featureState = {
-						fill: colorScale(item.value)
-					}
-
-					return featureState;
-				}
-			}
-		}
-
 		/* grid layout */
 
 		if ($_screen) {
@@ -223,13 +265,13 @@
 				Math.floor(width / gWidth),
 				Math.floor(height / gHeight)
 			];
-			console.log('glyph size in px', gWidth, gHeight);
-			console.log('gridSizeInGlyphs', gridSizeInGlyphs);
-			console.log('neededRects', categories.length);
+			// console.log('glyph size in px', gWidth, gHeight);
+			// console.log('gridSizeInGlyphs', gridSizeInGlyphs);
+			// console.log('neededRects', categories.length);
 
 			bestFit = getBestRectangleFit(width, height, preferredAspectRatio, categories.length);
 
-			console.log('bestFit', bestFit);
+			// console.log('bestFit', bestFit);
 
 			if (bestFit) {
 				// expand width & height
@@ -240,7 +282,7 @@
 					categories,
 					bestFit.numFitHorizontally
 				);
-				console.log('catChunks', catChunks);
+				// console.log('catChunks', catChunks);
 			}
 		}
 
@@ -250,7 +292,41 @@
 
 		doDraw = true;
 	}
+
+	$: if (categories && isMapLoaded) {
+		console.log('ready to render categories', categories);
+		makeGetFeatureState = makeMakeGetFeatureState();
+		renderCategories();
+	}
+	$: console.log('mapDataURLs', mapDataURLs);
+	// $: console.log('$_mapDataURL',$_mapDataURL);
 </script>
+
+<div class='mb_instance'>
+	<Mapbox
+		{_zoom}
+		{accessToken}
+		bind:_mapDataURL
+		getFeatureState={makeGetFeatureState?.(category)}
+		bounds={DEFAULT_BBOX_WS_EN}
+		isAnimated={false}
+		isInteractive={false}
+		on:mapLoaded={onMapLoaded}
+		shouldCaptureCanvas={true}
+		style={$_smallMultMapStyle}
+		visibleLayers={[regionType]}
+		withScaleControl={false}
+		withZoomControl={false}
+	>
+<!--
+		<CustomControl position='top-left'>
+			<div class='catLabel'>
+				{categoryLabels[category]}
+			</div>
+		</CustomControl>
+-->
+	</Mapbox>
+</div>
 
 <Grid2Rows percents={[10, 90]}>
 	<RegionLevelSelector />
@@ -297,26 +373,12 @@
 						{#each catChunks as chunk}
 							{#each chunk as category}
 								<div class='map'>
-									{#if category}
-										<Mapbox
-											{_zoom}
-											{accessToken}
-											getFeatureState={makeGetFeatureState(category)}
-											bounds={DEFAULT_BBOX_WS_EN}
-											isAnimated={false}
-											isInteractive={false}
-											style={$_smallMultMapStyle}
-											visibleLayers={[regionType]}
-											withScaleControl={false}
-											withZoomControl={false}
-										>
-											<CustomControl position='top-left'>
-												<div class='catLabel'>
-													{categoryLabels[category]}
-												</div>
-											</CustomControl>
-										</Mapbox>
-									{/if}
+									<label>
+										<Pill>
+											{categoryLabels[category]}
+										</Pill>
+									</label>
+									<img src={mapDataURLs[category]}/>
 								</div>
 							{/each}
 						{/each}
@@ -365,6 +427,7 @@
 	}
 	.map {
 		height: 100%;
+		position: relative;
 	}
 	.catLabel {
 		padding: 0 0.5em;
@@ -373,5 +436,20 @@
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(10em, 1fr));
 	}
-
+	.mb_instance {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 400px;
+		height: 400px;
+	}
+	.map label {
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+	.map img {
+		width: 100%;
+		height: 100%;
+	}
 </style>

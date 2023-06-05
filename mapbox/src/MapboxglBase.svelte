@@ -16,6 +16,7 @@
 
 	const dispatch = createEventDispatcher();
 
+	export const _mapDataURL = writable();
 	export let _bbox_WS_EN = null; // store
 	export let _bbox_WSEN = null; // store
 	export let _zoom = null; // store
@@ -25,6 +26,7 @@
 	export let getFeatureState;
 	export let isAnimated = true;
 	export let isInteractive = true;
+	export let shouldCaptureCanvas = false;
 	export let style;
 	export let visibleLayers = [];
 	export let withScaleControl = true;
@@ -40,6 +42,7 @@
 	$: _zoom = _zoom || writable(0);
 	$: visibleLayers = visibleLayers || [];
 
+	// $:console.log('$_mapDataURL inside', $_mapDataURL)
 	/* props */
 
 	let height = 0;
@@ -58,30 +61,46 @@
 	});
 
 	/* updating layers */
+	const getMapDataURL = () => {
+		console.log('A render event occurred.');
+		const canvas = map.getCanvas();
+		const dataURL = canvas.toDataURL('image/png');
+		console.log('dataURL created');
+		$_mapDataURL = dataURL;
+		console.log('$_mapDataURL set');
+	}
 
 	$: map?.setStyle(style);
 	$: layers = $_map && style && $_map?.getStyle().layers;
-	$: layers?.forEach(layer => {
-		if (visibleLayers.includes(layer.id)) {
-			map
-			.querySourceFeatures(layer.source, {sourceLayer: layer.id})
-			.filter(feature => feature.id)
-			.forEach(feature => {
-				const state = getFeatureState(feature);
-				state && map.setFeatureState({
-					id: feature.id,
-					source: layer.source,
-					sourceLayer: layer.id,
-				}, state);
-			});
-		}
+	$: {
+		layers?.forEach(layer => {
+			if (getFeatureState && visibleLayers.includes(layer.id)) {
+				map
+				.querySourceFeatures(layer.source, {sourceLayer: layer.id})
+				.filter(feature => feature.id)
+				.forEach(feature => {
+					const state = getFeatureState(feature);
+					state && map.setFeatureState({
+						id: feature.id,
+						source: layer.source,
+						sourceLayer: layer.id,
+					}, state);
+				});
+			}
 
-		map?.setLayoutProperty(
-			layer.id,
-			'visibility',
-			visibleLayers.includes(layer.id) ? 'visible' : 'none'
-		);
-	});
+			map?.setLayoutProperty(
+				layer.id,
+				'visibility',
+				visibleLayers.includes(layer.id) ? 'visible' : 'none'
+			);
+		})
+
+		if (getFeatureState && shouldCaptureCanvas) {
+			console.log('scheduling call on render')
+			// map.once('idle', getMapDataURL);
+			map.once('idle', () => setTimeout(getMapDataURL, 100));
+		}
+	};
 
 	/* bbox */
 
@@ -235,6 +254,12 @@
 
 			$_map = map;
 			$_projectFn = map.project.bind(map);
+
+		})
+		.once('idle', () => {
+			console.log('map loaded, dispatching event')
+			dispatch('mapLoaded');
+			console.log('event sent')
 		});
 
 		map.touchZoomRotate.disableRotation();

@@ -12,7 +12,7 @@
 		});
 </script>
 
-<div class='centered'>
+<div class='RegionLevelSelector centered'>
 	<XorSelector
 		on:changed={selectionChanged}
 		theme={$_xorSelectorTheme}
