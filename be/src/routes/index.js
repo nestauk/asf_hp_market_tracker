@@ -1,4 +1,5 @@
 export { getCardinality } from './cardinality.js';
+export { getCount } from './count.js'
 export { getDateHistogram } from './date_histogram.js';
 export { getDateHistogram1Cardinality2 } from './date_histogram1_cardinality2.js';
 export { getDateHistogram1Histogram2 } from './date_histogram1_histogram2.js';

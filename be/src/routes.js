@@ -1,5 +1,6 @@
 import {
 	getCardinality,
+	getCount,
 	getDateHistogram,
 	getDateHistogram1Cardinality2,
 	getDateHistogram1Histogram2,
@@ -30,6 +31,7 @@ import {
 export const routes = (fastify, options, done) => {
 
 	fastify.get('/cardinality', cardinalitySchema, getCardinality);
+	fastify.get('/count', getCount)
 	fastify.get('/date_histogram', dateHistogramSchema, getDateHistogram);
 	fastify.get('/date_histogram1_cardinality2', dateHistogram1Cardinality2, getDateHistogram1Cardinality2);
 	fastify.get('/date_histogram1_histogram2', dateHistogram1Histogram2Schema, getDateHistogram1Histogram2);

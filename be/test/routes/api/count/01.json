@@ -1,0 +1,30 @@
+{
+	"query": {
+		"method": "GET",
+		"url": "count"
+	},
+	"response": {
+		"code": 200,
+		"data": {
+			"count": 240509,
+			"_shards": {
+				"total": 1,
+				"successful": 1,
+				"skipped": 0,
+				"failed": 0
+			}
+		},
+		"message": "aggregation successful",
+		"request": {
+			"agg": {
+				"id": "count",
+				"params": {}
+			},
+			"filter": {
+				"query": {
+					"match_all": {}
+				}
+			}
+		}
+	}
+}
