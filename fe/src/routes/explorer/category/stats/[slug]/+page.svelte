@@ -64,7 +64,7 @@
 
 {#if doDraw}
 	<Grid2Columns
-		percents={[70, 30]}
+		dimensions={['70%', '30%']}
 		gap='0.5em'
 	>
 		<div slot='col0' class='col'>

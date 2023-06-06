@@ -103,14 +103,14 @@
 	}
 </script>
 
-<Grid2Rows percents={[10, 90]}>
+<Grid2Rows dimensions={['10%', '90%']}>
 	<TemporalOptions
 		showCategsTimeGraph={true}
 		showStreamgraphOptions={true}
 	/>
 	{#if doDraw}
 		<Grid2Columns
-			percents={[15, 85]}
+			dimensions={['15%', '85%']}
 			gap='0.5em'
 		>
 			<div

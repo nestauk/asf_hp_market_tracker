@@ -92,11 +92,11 @@
 	}
 </script>
 
-<Grid2Rows percents={[10, 90]}>
+<Grid2Rows dimensions={['10%', '90%']}>
 	<RegionLevelSelector />
 	{#if doDraw}
 		<Grid3Columns
-			percents={[10, 60, 30]}
+			dimensions={['10%', '60%', '30%']}
 			gap='0.25em'
 		>
 			<div slot='col0' class='col0'>

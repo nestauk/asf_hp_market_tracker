@@ -2,12 +2,12 @@
 	import {makeStyleVars} from '@svizzle/dom';
 
 	export let gap = 0;
-	export let percents = [50, 50];
+	export let dimensions = ['50%', '50%'];
 
 	$: style = makeStyleVars({
 		gap,
-		p0: `${percents[0]}%`,
-		p1: `${percents[1]}%`,
+		p0: dimensions[0],
+		p1: dimensions[1],
 	});
 </script>
 

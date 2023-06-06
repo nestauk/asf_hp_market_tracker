@@ -5,7 +5,7 @@
 	import Grid2Rows from '$lib/components/svizzle/Grid2Rows.svelte';
 </script>
 
-<Grid2Rows percents={[10, 90]}>
+<Grid2Rows dimensions={['10%', '90%']}>
 	<TemporalOptions />
 	<DevView/>
 </Grid2Rows>
