@@ -797,7 +797,8 @@
 					"field2": "property_feature_type.keyword",
 					"with_stats2": true,
 					"use_extended_stats2": true,
-					"calendar_interval1": "1y"
+					"calendar_interval1": "1y",
+					"with_percentiles2": false
 				}
 			},
 			"filter": {

@@ -25,6 +25,10 @@ export const schema = {
 					default: false,
 					type: 'boolean'
 				},
+				with_percentiles2: {
+					default: false,
+					type: 'boolean'
+				},
 				with_stats2: {
 					default: false,
 					type: 'boolean'

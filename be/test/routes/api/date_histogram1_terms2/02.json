@@ -312,6 +312,7 @@
 					"calendar_interval1": "1y",
 					"size2": 2,
 					"use_extended_stats2": false,
+					"with_percentiles2": false,
 					"with_stats2": false
 				}
 			},

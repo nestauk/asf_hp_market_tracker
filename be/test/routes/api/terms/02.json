@@ -42,6 +42,7 @@
 					"missing": "missing",
 					"size": 65536,
 					"use_extended_stats": false,
+					"with_percentiles": false,
 					"with_stats": false
 				}
 			},

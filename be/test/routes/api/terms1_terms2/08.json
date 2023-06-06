@@ -231,7 +231,9 @@
 					"with_stats2": true,
 					"size1": 65536,
 					"use_extended_stats1": false,
-					"size2": 65536
+					"with_percentiles1": false,
+					"size2": 65536,
+					"with_percentiles2": false
 				}
 			},
 			"filter": {

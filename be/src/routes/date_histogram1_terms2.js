@@ -9,6 +9,7 @@ export const getDateHistogram1Terms2 = async (request, reply) => {
 		missing2 = null,
 		size2 = maxBuckets,
 		use_extended_stats2 = false,
+		with_percentiles2 = false,
 		with_stats2 = false,
 	} = request.query;
 
@@ -34,6 +35,13 @@ export const getDateHistogram1Terms2 = async (request, reply) => {
 					...with_stats2 && {
 						stats2: {
 							[stats_type2]: {
+								buckets_path: 'agg2>_count'
+							}
+						}
+					},
+					...with_percentiles2 && {
+						percentiles2: {
+							percentiles_bucket: {
 								buckets_path: 'agg2>_count'
 							}
 						}

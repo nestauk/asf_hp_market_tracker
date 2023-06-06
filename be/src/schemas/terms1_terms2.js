@@ -19,6 +19,10 @@ export const schema = {
 					default: false,
 					type: 'boolean'
 				},
+				with_percentiles1: {
+					default: false,
+					type: 'boolean'
+				},
 				with_stats1: {
 					default: false,
 					type: 'boolean'
@@ -33,6 +37,10 @@ export const schema = {
 					maximum: maxBuckets
 				},
 				use_extended_stats2: {
+					default: false,
+					type: 'boolean'
+				},
+				with_percentiles2: {
 					default: false,
 					type: 'boolean'
 				},

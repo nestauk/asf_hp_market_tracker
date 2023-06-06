@@ -4,8 +4,7 @@
 		"url": "terms",
 		"query": {
 			"field": "hp_feature_heat_system.keyword",
-			"use_extended_stats": true,
-			"with_stats": true
+			"with_percentiles": true
 		}
 	},
 	"response": {
@@ -33,26 +32,15 @@
 					}
 				]
 			},
-			"stats": {
-				"count": 4,
-				"min": 48,
-				"max": 207891,
-				"avg": 60127.25,
-				"sum": 240509,
-				"sum_of_squares": 44191663387,
-				"variance": 7432629654.1875,
-				"variance_population": 7432629654.1875,
-				"variance_sampling": 9910172872.25,
-				"std_deviation": 86212.70007480046,
-				"std_deviation_population": 86212.70007480046,
-				"std_deviation_sampling": 99549.85119150103,
-				"std_deviation_bounds": {
-					"upper": 232552.65014960093,
-					"lower": -112298.15014960093,
-					"upper_population": 232552.65014960093,
-					"lower_population": -112298.15014960093,
-					"upper_sampling": 259226.95238300206,
-					"lower_sampling": -138972.45238300206
+			"percentiles": {
+				"values": {
+					"1.0": 48,
+					"5.0": 48,
+					"25.0": 1409,
+					"50.0": 31161,
+					"75.0": 31161,
+					"95.0": 207891,
+					"99.0": 207891
 				}
 			}
 		},
@@ -62,10 +50,10 @@
 				"id": "terms",
 				"params": {
 					"field": "hp_feature_heat_system.keyword",
-					"use_extended_stats": true,
-					"with_stats": true,
+					"with_percentiles": true,
 					"size": 65536,
-					"with_percentiles": false
+					"use_extended_stats": false,
+					"with_stats": false
 				}
 			},
 			"filter": {
