@@ -5,6 +5,7 @@
 	export let dimensions = ['50%', '50%'];
 
 	$: style = makeStyleVars({
+		gap,
 		p0: dimensions[0],
 		p1: dimensions[1],
 	});
@@ -17,6 +18,7 @@
 <style>
 	.Grid2Rows {
 		display: grid;
+		gap: var(--gap);
 		grid-template-rows: calc(var(--p0) - var(--gap) / 2) calc(var(--p1) - var(--gap) / 2);
 		height: 100%;
 		width: 100%;

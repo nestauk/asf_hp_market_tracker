@@ -5,6 +5,7 @@
 	export let dimensions = ['33%', '33%', '34%'];
 
 	$: style = makeStyleVars({
+		gap,
 		p0: dimensions[0],
 		p1: dimensions[1],
 		p2: dimensions[2],
@@ -18,6 +19,7 @@
 <style>
 	.Grid3Rows {
 		display: grid;
+		gap: var(--gap);
 		grid-template-rows:
 			calc(var(--p0) - var(--gap) / 3)
 			calc(var(--p1) - var(--gap) / 3)
