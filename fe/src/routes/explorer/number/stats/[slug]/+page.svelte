@@ -53,7 +53,7 @@
 		$_viewData?.page.route.id === $_page.route.id;
 
 	$: if (proceed) {
-		items = $_viewData?.response.data.agg1.buckets;
+		items = $_viewData?.response.data.histogram.buckets;
 
 		const {interval} = $_viewData?.response.meta;
 

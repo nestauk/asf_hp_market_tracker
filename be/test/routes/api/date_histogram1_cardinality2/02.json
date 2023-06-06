@@ -11,13 +11,13 @@
 	"response": {
 		"code": 200,
 		"data": {
-			"agg1": {
+			"date_histogram": {
 				"buckets": [
 					{
 						"key_as_string": "2008-01",
 						"key": 1199145600000,
 						"doc_count": 19,
-						"agg2": {
+						"cardinality": {
 							"value": 3
 						}
 					},
@@ -25,7 +25,7 @@
 						"key_as_string": "2008-04",
 						"key": 1207008000000,
 						"doc_count": 26,
-						"agg2": {
+						"cardinality": {
 							"value": 2
 						}
 					},
@@ -33,7 +33,7 @@
 						"key_as_string": "2008-07",
 						"key": 1214870400000,
 						"doc_count": 218,
-						"agg2": {
+						"cardinality": {
 							"value": 3
 						}
 					},
@@ -41,7 +41,7 @@
 						"key_as_string": "2008-10",
 						"key": 1222819200000,
 						"doc_count": 464,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -49,7 +49,7 @@
 						"key_as_string": "2009-01",
 						"key": 1230768000000,
 						"doc_count": 538,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -57,7 +57,7 @@
 						"key_as_string": "2009-04",
 						"key": 1238544000000,
 						"doc_count": 925,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -65,7 +65,7 @@
 						"key_as_string": "2009-07",
 						"key": 1246406400000,
 						"doc_count": 1563,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -73,7 +73,7 @@
 						"key_as_string": "2009-10",
 						"key": 1254355200000,
 						"doc_count": 2274,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -81,7 +81,7 @@
 						"key_as_string": "2010-01",
 						"key": 1262304000000,
 						"doc_count": 2065,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -89,7 +89,7 @@
 						"key_as_string": "2010-04",
 						"key": 1270080000000,
 						"doc_count": 2234,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -97,7 +97,7 @@
 						"key_as_string": "2010-07",
 						"key": 1277942400000,
 						"doc_count": 2138,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -105,7 +105,7 @@
 						"key_as_string": "2010-10",
 						"key": 1285891200000,
 						"doc_count": 2426,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -113,7 +113,7 @@
 						"key_as_string": "2011-01",
 						"key": 1293840000000,
 						"doc_count": 3260,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -121,7 +121,7 @@
 						"key_as_string": "2011-04",
 						"key": 1301616000000,
 						"doc_count": 2713,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -129,7 +129,7 @@
 						"key_as_string": "2011-07",
 						"key": 1309478400000,
 						"doc_count": 2807,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -137,7 +137,7 @@
 						"key_as_string": "2011-10",
 						"key": 1317427200000,
 						"doc_count": 3096,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -145,7 +145,7 @@
 						"key_as_string": "2012-01",
 						"key": 1325376000000,
 						"doc_count": 4369,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -153,7 +153,7 @@
 						"key_as_string": "2012-04",
 						"key": 1333238400000,
 						"doc_count": 2476,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -161,7 +161,7 @@
 						"key_as_string": "2012-07",
 						"key": 1341100800000,
 						"doc_count": 2322,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -169,7 +169,7 @@
 						"key_as_string": "2012-10",
 						"key": 1349049600000,
 						"doc_count": 3874,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -177,7 +177,7 @@
 						"key_as_string": "2013-01",
 						"key": 1356998400000,
 						"doc_count": 4243,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -185,7 +185,7 @@
 						"key_as_string": "2013-04",
 						"key": 1364774400000,
 						"doc_count": 2714,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -193,7 +193,7 @@
 						"key_as_string": "2013-07",
 						"key": 1372636800000,
 						"doc_count": 2934,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -201,7 +201,7 @@
 						"key_as_string": "2013-10",
 						"key": 1380585600000,
 						"doc_count": 3886,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -209,7 +209,7 @@
 						"key_as_string": "2014-01",
 						"key": 1388534400000,
 						"doc_count": 4286,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -217,7 +217,7 @@
 						"key_as_string": "2014-04",
 						"key": 1396310400000,
 						"doc_count": 3434,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -225,7 +225,7 @@
 						"key_as_string": "2014-07",
 						"key": 1404172800000,
 						"doc_count": 3276,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -233,7 +233,7 @@
 						"key_as_string": "2014-10",
 						"key": 1412121600000,
 						"doc_count": 3886,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -241,7 +241,7 @@
 						"key_as_string": "2015-01",
 						"key": 1420070400000,
 						"doc_count": 4632,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -249,7 +249,7 @@
 						"key_as_string": "2015-04",
 						"key": 1427846400000,
 						"doc_count": 3474,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -257,7 +257,7 @@
 						"key_as_string": "2015-07",
 						"key": 1435708800000,
 						"doc_count": 3262,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -265,7 +265,7 @@
 						"key_as_string": "2015-10",
 						"key": 1443657600000,
 						"doc_count": 3936,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -273,7 +273,7 @@
 						"key_as_string": "2016-01",
 						"key": 1451606400000,
 						"doc_count": 3820,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -281,7 +281,7 @@
 						"key_as_string": "2016-04",
 						"key": 1459468800000,
 						"doc_count": 2997,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -289,7 +289,7 @@
 						"key_as_string": "2016-07",
 						"key": 1467331200000,
 						"doc_count": 2839,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -297,7 +297,7 @@
 						"key_as_string": "2016-10",
 						"key": 1475280000000,
 						"doc_count": 3233,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -305,7 +305,7 @@
 						"key_as_string": "2017-01",
 						"key": 1483228800000,
 						"doc_count": 3664,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -313,7 +313,7 @@
 						"key_as_string": "2017-04",
 						"key": 1491004800000,
 						"doc_count": 3368,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -321,7 +321,7 @@
 						"key_as_string": "2017-07",
 						"key": 1498867200000,
 						"doc_count": 3503,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -329,7 +329,7 @@
 						"key_as_string": "2017-10",
 						"key": 1506816000000,
 						"doc_count": 3487,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -337,7 +337,7 @@
 						"key_as_string": "2018-01",
 						"key": 1514764800000,
 						"doc_count": 3613,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -345,7 +345,7 @@
 						"key_as_string": "2018-04",
 						"key": 1522540800000,
 						"doc_count": 3808,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -353,7 +353,7 @@
 						"key_as_string": "2018-07",
 						"key": 1530403200000,
 						"doc_count": 4000,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -361,7 +361,7 @@
 						"key_as_string": "2018-10",
 						"key": 1538352000000,
 						"doc_count": 4687,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -369,7 +369,7 @@
 						"key_as_string": "2019-01",
 						"key": 1546300800000,
 						"doc_count": 4651,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -377,7 +377,7 @@
 						"key_as_string": "2019-04",
 						"key": 1554076800000,
 						"doc_count": 4493,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -385,7 +385,7 @@
 						"key_as_string": "2019-07",
 						"key": 1561939200000,
 						"doc_count": 5099,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -393,7 +393,7 @@
 						"key_as_string": "2019-10",
 						"key": 1569888000000,
 						"doc_count": 5442,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -401,7 +401,7 @@
 						"key_as_string": "2020-01",
 						"key": 1577836800000,
 						"doc_count": 5598,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -409,7 +409,7 @@
 						"key_as_string": "2020-04",
 						"key": 1585699200000,
 						"doc_count": 2711,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -417,7 +417,7 @@
 						"key_as_string": "2020-07",
 						"key": 1593561600000,
 						"doc_count": 5561,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -425,7 +425,7 @@
 						"key_as_string": "2020-10",
 						"key": 1601510400000,
 						"doc_count": 6999,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -433,7 +433,7 @@
 						"key_as_string": "2021-01",
 						"key": 1609459200000,
 						"doc_count": 8366,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -441,7 +441,7 @@
 						"key_as_string": "2021-04",
 						"key": 1617235200000,
 						"doc_count": 8598,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -449,7 +449,7 @@
 						"key_as_string": "2021-07",
 						"key": 1625097600000,
 						"doc_count": 9149,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -457,7 +457,7 @@
 						"key_as_string": "2021-10",
 						"key": 1633046400000,
 						"doc_count": 9881,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -465,7 +465,7 @@
 						"key_as_string": "2022-01",
 						"key": 1640995200000,
 						"doc_count": 16080,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -473,7 +473,7 @@
 						"key_as_string": "2022-04",
 						"key": 1648771200000,
 						"doc_count": 6737,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -481,7 +481,7 @@
 						"key_as_string": "2022-07",
 						"key": 1656633600000,
 						"doc_count": 8983,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
@@ -489,7 +489,7 @@
 						"key_as_string": "2022-10",
 						"key": 1664582400000,
 						"doc_count": 5372,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					}

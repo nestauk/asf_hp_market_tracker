@@ -10,7 +10,7 @@
 	"response": {
 		"code": 200,
 		"data": {
-			"agg1": {
+			"histogram": {
 				"buckets": [
 					{
 						"key": 0,

@@ -11,21 +11,21 @@
 	"response": {
 		"code": 200,
 		"data": {
-			"agg1": {
+			"terms": {
 				"doc_count_error_upper_bound": 0,
 				"sum_other_doc_count": 162244,
 				"buckets": [
 					{
 						"key": "TLK",
 						"doc_count": 39952,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
 					{
 						"key": "TLH",
 						"doc_count": 37882,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					}

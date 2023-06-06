@@ -10,7 +10,7 @@ export const getDateHistogram = async (request, reply) => {
 	const body = {
 		size: 0,
 		aggs: {
-			agg1: {
+			date_histogram: {
 				date_histogram: {
 					field,
 					calendar_interval,

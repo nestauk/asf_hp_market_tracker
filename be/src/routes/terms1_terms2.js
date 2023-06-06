@@ -23,14 +23,14 @@ export const getTerms1Terms2 = async (request, reply) => {
 	const body = {
 		size: 0,
 		aggs: {
-			agg1: {
+			terms: {
 				terms: {
 					field: field1,
 					size: size1,
 					...missing1 && { missing: missing1 }
 				},
 				aggs: {
-					agg2: {
+					terms: {
 						terms: {
 							field: field2,
 							size: size2,
@@ -38,33 +38,32 @@ export const getTerms1Terms2 = async (request, reply) => {
 						}
 					},
 					...with_stats2 && {
-						stats2: {
+						stats: {
 							[stats_type2]: {
-								buckets_path: 'agg2>_count'
+								buckets_path: 'terms>_count'
 							}
 						}
 					},
 					...with_percentiles2 && {
-						percentiles2: {
+						percentiles: {
 							percentiles_bucket: {
-								buckets_path: 'agg2>_count'
+								buckets_path: 'terms>_count'
 							}
 						}
 					}
-					
 				}
 			},
 			...with_stats1 && {
 				stats1: {
 					[stats_type1]: {
-						buckets_path: 'agg1>_count'
+						buckets_path: 'terms>_count'
 					}
 				}
 			},
 			...with_percentiles1 && {
 				percentiles1: {
 					percentiles_bucket: {
-						buckets_path: 'agg1>_count'
+						buckets_path: 'terms>_count'
 					}
 				}
 			}

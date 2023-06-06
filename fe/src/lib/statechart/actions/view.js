@@ -36,19 +36,19 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 	switch (type) {
 		case 'category':
 			switch (activeViewType) {
-				case 'stats':
-					aggId = 'terms';
-					params = {
-						field: `${id}.keyword`,
-						missing: 'Unknown'
-					};
-					break;
 				case 'geo':
 					aggId = 'terms1_terms2';
 					params = {
 						field1: `property_geo_region_${ctx.selection.regionType}_name.keyword`,
 						field2: `${id}.keyword`,
 						missing2: 'Unknown'
+					};
+					break;
+				case 'stats':
+					aggId = 'terms';
+					params = {
+						field: `${id}.keyword`,
+						missing: 'Unknown'
 					};
 					break;
 				case 'time':
@@ -66,29 +66,6 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 			break;
 		case 'count':
 			switch (activeViewType) {
-				case 'stats':
-					switch (id) {
-						case 'installations':
-							aggId = 'count';
-							params = {};
-							break;
-						case 'installers':
-							aggId = 'cardinality';
-							params = {
-								field: `installer_id_hash.keyword`,
-							};
-							break;
-						case 'installations_per_installer':
-							aggId = 'terms';
-							params = {
-								field: `installer_id_hash.keyword`,
-								with_stats: true
-							};
-							break;
-						default:
-							break;
-					}
-					break;
 				case 'geo':
 					switch (id) {
 						case 'installations':
@@ -114,6 +91,29 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 								field1: `installer_geo_region_${ctx.selection.regionType}_name.keyword`,
 								// TBD `with_stats1`, `with_percentiles1`
 								field2: `installer_id_hash.keyword`,
+							};
+							break;
+						default:
+							break;
+					}
+					break;
+				case 'stats':
+					switch (id) {
+						case 'installations':
+							aggId = 'count';
+							params = {};
+							break;
+						case 'installations_per_installer':
+							aggId = 'terms';
+							params = {
+								field: `installer_id_hash.keyword`,
+								with_stats: true
+							};
+							break;
+						case 'installers':
+							aggId = 'cardinality';
+							params = {
+								field: `installer_id_hash.keyword`,
 							};
 							break;
 						default:
@@ -154,22 +154,50 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 					break;
 			}
 			break;
-		case 'string':
+		case 'number':
 			switch (activeViewType) {
-				case 'stats':
-					aggId = 'terms';
+				case 'geo':
+					aggId = 'terms1_stats2';
 					params = {
-						field: `${id}.keyword`,
-						missing: 'Unknown',
-						size: ctx.selection.stringsTopCount
+						field1: `property_geo_region_${ctx.selection.regionType}_name.keyword`,
+						field2: id,
 					};
 					break;
+				case 'stats':
+					aggId = 'histogram';
+					params = {
+						bins: 10,
+						field: id,
+					};
+					break;
+				case 'time':
+					aggId = 'date_histogram1_stats2';
+					params = {
+						calendar_interval1: ctx.selection.interval,
+						field1: `installation_date`,
+						field2: id,
+					};
+					break;
+				default:
+					break;
+			}
+			break;
+		case 'string':
+			switch (activeViewType) {
 				case 'geo':
 					aggId = 'terms1_terms2';
 					params = {
 						field1: `property_geo_region_${ctx.selection.regionType}_name.keyword`,
 						field2: `${id}.keyword`,
 						missing2: 'Unknown',
+						size: ctx.selection.stringsTopCount
+					};
+					break;
+				case 'stats':
+					aggId = 'terms';
+					params = {
+						field: `${id}.keyword`,
+						missing: 'Unknown',
 						size: ctx.selection.stringsTopCount
 					};
 					break;
@@ -180,34 +208,6 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 						field1: `installation_date`,
 						field2: `${id}.keyword`,
 						size: ctx.selection.stringsTopCount
-					};
-					break;
-				default:
-					break;
-			}
-			break;
-		case 'number':
-			switch (activeViewType) {
-				case 'stats':
-					aggId = 'histogram';
-					params = {
-						bins: 10,
-						field: id,
-					};
-					break;
-				case 'geo':
-					aggId = 'terms1_stats2';
-					params = {
-						field1: `property_geo_region_${ctx.selection.regionType}_name.keyword`,
-						field2: id,
-					};
-					break;
-				case 'time':
-					aggId = 'date_histogram1_stats2';
-					params = {
-						calendar_interval1: ctx.selection.interval,
-						field1: `installation_date`,
-						field2: id,
 					};
 					break;
 				default:

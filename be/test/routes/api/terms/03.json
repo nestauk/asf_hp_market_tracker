@@ -10,7 +10,7 @@
 	"response": {
 		"code": 200,
 		"data": {
-			"agg1": {
+			"terms": {
 				"doc_count_error_upper_bound": 0,
 				"sum_other_doc_count": 1457,
 				"buckets": [

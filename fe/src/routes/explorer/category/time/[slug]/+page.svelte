@@ -24,7 +24,7 @@
 	import {formatDate} from '$lib/utils/date.js';
 
 	const keyAccessor = _.getKey('key_as_string');
-	const valueAccessor = _.getPath('agg2.buckets');
+	const valueAccessor = _.getPath('terms.buckets');
 	const keyAccessor2 = getKey;
 	const valueAccessor2 = _.getKey('doc_count');
 
@@ -86,7 +86,7 @@
 		$_viewData?.page.route.id === $_page.route.id;
 
 	$: if (proceed) {
-		const rawItems = $_viewData?.response.data.agg1.buckets;
+		const rawItems = $_viewData?.response.data.date_histogram.buckets;
 
 		streams = reshapeItems(rawItems);
 		categories = getStreamsCategs(streams);

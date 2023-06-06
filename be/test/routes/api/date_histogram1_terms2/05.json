@@ -11,13 +11,13 @@
 	"response": {
 		"code": 200,
 		"data": {
-			"agg1": {
+			"date_histogram": {
 				"buckets": [
 					{
 						"key_as_string": "2008-01",
 						"key": 1199145600000,
 						"doc_count": 727,
-						"agg2": {
+						"terms": {
 							"doc_count_error_upper_bound": 0,
 							"sum_other_doc_count": 0,
 							"buckets": [
@@ -39,7 +39,7 @@
 								}
 							]
 						},
-						"percentiles2": {
+						"percentiles": {
 							"values": {
 								"1.0": 12,
 								"5.0": 12,
@@ -55,7 +55,7 @@
 						"key_as_string": "2009-01",
 						"key": 1230768000000,
 						"doc_count": 5300,
-						"agg2": {
+						"terms": {
 							"doc_count_error_upper_bound": 0,
 							"sum_other_doc_count": 0,
 							"buckets": [
@@ -77,7 +77,7 @@
 								}
 							]
 						},
-						"percentiles2": {
+						"percentiles": {
 							"values": {
 								"1.0": 45,
 								"5.0": 45,
@@ -93,7 +93,7 @@
 						"key_as_string": "2010-01",
 						"key": 1262304000000,
 						"doc_count": 8863,
-						"agg2": {
+						"terms": {
 							"doc_count_error_upper_bound": 0,
 							"sum_other_doc_count": 0,
 							"buckets": [
@@ -115,7 +115,7 @@
 								}
 							]
 						},
-						"percentiles2": {
+						"percentiles": {
 							"values": {
 								"1.0": 48,
 								"5.0": 48,
@@ -131,7 +131,7 @@
 						"key_as_string": "2011-01",
 						"key": 1293840000000,
 						"doc_count": 11876,
-						"agg2": {
+						"terms": {
 							"doc_count_error_upper_bound": 0,
 							"sum_other_doc_count": 0,
 							"buckets": [
@@ -153,7 +153,7 @@
 								}
 							]
 						},
-						"percentiles2": {
+						"percentiles": {
 							"values": {
 								"1.0": 152,
 								"5.0": 152,
@@ -169,7 +169,7 @@
 						"key_as_string": "2012-01",
 						"key": 1325376000000,
 						"doc_count": 13041,
-						"agg2": {
+						"terms": {
 							"doc_count_error_upper_bound": 0,
 							"sum_other_doc_count": 0,
 							"buckets": [
@@ -191,7 +191,7 @@
 								}
 							]
 						},
-						"percentiles2": {
+						"percentiles": {
 							"values": {
 								"1.0": 92,
 								"5.0": 92,
@@ -207,7 +207,7 @@
 						"key_as_string": "2013-01",
 						"key": 1356998400000,
 						"doc_count": 13777,
-						"agg2": {
+						"terms": {
 							"doc_count_error_upper_bound": 0,
 							"sum_other_doc_count": 0,
 							"buckets": [
@@ -233,7 +233,7 @@
 								}
 							]
 						},
-						"percentiles2": {
+						"percentiles": {
 							"values": {
 								"1.0": 4,
 								"5.0": 4,
@@ -249,7 +249,7 @@
 						"key_as_string": "2014-01",
 						"key": 1388534400000,
 						"doc_count": 14882,
-						"agg2": {
+						"terms": {
 							"doc_count_error_upper_bound": 0,
 							"sum_other_doc_count": 0,
 							"buckets": [
@@ -275,7 +275,7 @@
 								}
 							]
 						},
-						"percentiles2": {
+						"percentiles": {
 							"values": {
 								"1.0": 1,
 								"5.0": 1,
@@ -291,7 +291,7 @@
 						"key_as_string": "2015-01",
 						"key": 1420070400000,
 						"doc_count": 15304,
-						"agg2": {
+						"terms": {
 							"doc_count_error_upper_bound": 0,
 							"sum_other_doc_count": 0,
 							"buckets": [
@@ -317,7 +317,7 @@
 								}
 							]
 						},
-						"percentiles2": {
+						"percentiles": {
 							"values": {
 								"1.0": 7,
 								"5.0": 7,
@@ -333,7 +333,7 @@
 						"key_as_string": "2016-01",
 						"key": 1451606400000,
 						"doc_count": 12889,
-						"agg2": {
+						"terms": {
 							"doc_count_error_upper_bound": 0,
 							"sum_other_doc_count": 0,
 							"buckets": [
@@ -355,7 +355,7 @@
 								}
 							]
 						},
-						"percentiles2": {
+						"percentiles": {
 							"values": {
 								"1.0": 84,
 								"5.0": 84,
@@ -371,7 +371,7 @@
 						"key_as_string": "2017-01",
 						"key": 1483228800000,
 						"doc_count": 14022,
-						"agg2": {
+						"terms": {
 							"doc_count_error_upper_bound": 0,
 							"sum_other_doc_count": 0,
 							"buckets": [
@@ -397,7 +397,7 @@
 								}
 							]
 						},
-						"percentiles2": {
+						"percentiles": {
 							"values": {
 								"1.0": 4,
 								"5.0": 4,
@@ -413,7 +413,7 @@
 						"key_as_string": "2018-01",
 						"key": 1514764800000,
 						"doc_count": 16108,
-						"agg2": {
+						"terms": {
 							"doc_count_error_upper_bound": 0,
 							"sum_other_doc_count": 0,
 							"buckets": [
@@ -439,7 +439,7 @@
 								}
 							]
 						},
-						"percentiles2": {
+						"percentiles": {
 							"values": {
 								"1.0": 3,
 								"5.0": 3,
@@ -455,7 +455,7 @@
 						"key_as_string": "2019-01",
 						"key": 1546300800000,
 						"doc_count": 19685,
-						"agg2": {
+						"terms": {
 							"doc_count_error_upper_bound": 0,
 							"sum_other_doc_count": 0,
 							"buckets": [
@@ -481,7 +481,7 @@
 								}
 							]
 						},
-						"percentiles2": {
+						"percentiles": {
 							"values": {
 								"1.0": 4,
 								"5.0": 4,
@@ -497,7 +497,7 @@
 						"key_as_string": "2020-01",
 						"key": 1577836800000,
 						"doc_count": 20869,
-						"agg2": {
+						"terms": {
 							"doc_count_error_upper_bound": 0,
 							"sum_other_doc_count": 0,
 							"buckets": [
@@ -523,7 +523,7 @@
 								}
 							]
 						},
-						"percentiles2": {
+						"percentiles": {
 							"values": {
 								"1.0": 7,
 								"5.0": 7,
@@ -539,7 +539,7 @@
 						"key_as_string": "2021-01",
 						"key": 1609459200000,
 						"doc_count": 35994,
-						"agg2": {
+						"terms": {
 							"doc_count_error_upper_bound": 0,
 							"sum_other_doc_count": 0,
 							"buckets": [
@@ -565,7 +565,7 @@
 								}
 							]
 						},
-						"percentiles2": {
+						"percentiles": {
 							"values": {
 								"1.0": 24,
 								"5.0": 24,
@@ -581,7 +581,7 @@
 						"key_as_string": "2022-01",
 						"key": 1640995200000,
 						"doc_count": 37172,
-						"agg2": {
+						"terms": {
 							"doc_count_error_upper_bound": 0,
 							"sum_other_doc_count": 0,
 							"buckets": [
@@ -607,7 +607,7 @@
 								}
 							]
 						},
-						"percentiles2": {
+						"percentiles": {
 							"values": {
 								"1.0": 10,
 								"5.0": 10,

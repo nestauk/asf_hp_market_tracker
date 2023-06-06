@@ -11,14 +11,14 @@
 	"response": {
 		"code": 200,
 		"data": {
-			"agg1": {
+			"terms": {
 				"doc_count_error_upper_bound": 0,
 				"sum_other_doc_count": 0,
 				"buckets": [
 					{
 						"key": "Very Good",
 						"doc_count": 101487,
-						"extended_stats": {
+						"stats": {
 							"count": 24936,
 							"min": 1,
 							"max": 200000,
@@ -44,7 +44,7 @@
 					{
 						"key": "Good",
 						"doc_count": 78915,
-						"extended_stats": {
+						"stats": {
 							"count": 45254,
 							"min": 1,
 							"max": 200000,
@@ -70,7 +70,7 @@
 					{
 						"key": "Average",
 						"doc_count": 28782,
-						"extended_stats": {
+						"stats": {
 							"count": 23138,
 							"min": 1,
 							"max": 167139.765625,
@@ -96,7 +96,7 @@
 					{
 						"key": "Very Poor",
 						"doc_count": 18685,
-						"extended_stats": {
+						"stats": {
 							"count": 14352,
 							"min": 1,
 							"max": 200000,
@@ -122,7 +122,7 @@
 					{
 						"key": "Poor",
 						"doc_count": 12615,
-						"extended_stats": {
+						"stats": {
 							"count": 8518,
 							"min": 1,
 							"max": 150000,

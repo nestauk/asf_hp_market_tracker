@@ -10,7 +10,7 @@
 	"response": {
 		"code": 200,
 		"data": {
-			"agg1": {
+			"date_histogram": {
 				"buckets": [
 					{
 						"key_as_string": "2008-01",

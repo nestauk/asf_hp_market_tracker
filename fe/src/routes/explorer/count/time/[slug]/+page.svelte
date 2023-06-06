@@ -21,10 +21,14 @@
 
 	const keyAccessor  = _.getPath('key_as_string');
 	const valueAccessors = {
-		// {key, doc_count, agg2: {...}, stats2: {avg, ...} }}[]
-		installations_per_installer: _.getPath('stats2.avg'),
-		installations: _.getKey('doc_count'), // {key, doc_count}[]
-		installers: _.getPath('agg2.value'), // {key, doc_count, agg2: {value}}[]
+		// {key, doc_count}[]
+		installations: _.getKey('doc_count'),
+
+		// {key, doc_count, terms: {...}, stats: {avg, ...} }}[]
+		installations_per_installer: _.getPath('stats.avg'),
+
+		// {key, doc_count, cardinality: {value}}[]
+		installers: _.getPath('cardinality.value'),
 	}
 	const filterOutNils = _.filterWith(_.pipe([getValue, isNotNil]));
 	const keyFormatFn = _.pipe([
@@ -42,7 +46,7 @@
 		$_page.params.slug === $_viewData?.page.params.slug;
 
 	$: if (proceed) {
-		const rawItems = $_viewData?.response.data.agg1.buckets;
+		const rawItems = $_viewData?.response.data.date_histogram.buckets;
 		const valueAccessor = valueAccessors[$_currentMetricId];
 		const reshapeItems = _.mapWith(
 			applyFnMap({

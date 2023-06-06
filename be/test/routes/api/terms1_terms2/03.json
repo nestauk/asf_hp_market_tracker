@@ -12,14 +12,14 @@
 	"response": {
 		"code": 200,
 		"data": {
-			"agg1": {
+			"terms": {
 				"doc_count_error_upper_bound": 0,
 				"sum_other_doc_count": 1457,
 				"buckets": [
 					{
 						"key": "Air Source Heat Pump",
 						"doc_count": 207891,
-						"agg2": {
+						"terms": {
 							"doc_count_error_upper_bound": 0,
 							"sum_other_doc_count": 71504,
 							"buckets": [
@@ -33,7 +33,7 @@
 					{
 						"key": "Ground/Water Source Heat Pump",
 						"doc_count": 31161,
-						"agg2": {
+						"terms": {
 							"doc_count_error_upper_bound": 0,
 							"sum_other_doc_count": 9640,
 							"buckets": [

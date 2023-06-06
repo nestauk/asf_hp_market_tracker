@@ -36,7 +36,7 @@
 		$_viewData?.page.route.id === $_page.route.id;
 
 	$: if (proceed) {
-		items = $_viewData?.response.data.agg1.buckets;
+		items = $_viewData?.response.data.terms.buckets;
 
 		/* colors */
 
