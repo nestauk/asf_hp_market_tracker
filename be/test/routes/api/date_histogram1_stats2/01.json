@@ -204,7 +204,8 @@
 					"field1": "installation_date",
 					"field2": "installation_cost",
 					"calendar_interval1": "1y",
-					"use_extended_stats2": false
+					"use_extended_stats2": false,
+					"use_percentiles2": false
 				}
 			},
 			"filter": {

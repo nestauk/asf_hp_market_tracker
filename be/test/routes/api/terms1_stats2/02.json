@@ -93,7 +93,8 @@
 					"field2": "installation_cost",
 					"missing1": "missing",
 					"size1": 65536,
-					"use_extended_stats2": false
+					"use_extended_stats2": false,
+					"use_percentiles2": false
 				}
 			},
 			"filter": {

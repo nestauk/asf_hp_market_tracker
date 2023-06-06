@@ -57,8 +57,10 @@
 					"size1": 2,
 					"size2": 1,
 					"use_extended_stats1": false,
+					"with_percentiles1": false,
 					"with_stats1": false,
 					"use_extended_stats2": false,
+					"with_percentiles2": false,
 					"with_stats2": false
 				}
 			},

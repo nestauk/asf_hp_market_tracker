@@ -7,11 +7,13 @@ export const getTerms1Terms2 = async (request, reply) => {
 		missing1 = null,
 		size1 = maxBuckets,
 		use_extended_stats1,
+		with_percentiles1,
 		with_stats1 = false,
 		field2,
 		missing2 = null,
 		size2 = maxBuckets,
 		use_extended_stats2,
+		with_percentiles2,
 		with_stats2 = false,
 	} = request.query;
 
@@ -41,12 +43,27 @@ export const getTerms1Terms2 = async (request, reply) => {
 								buckets_path: 'agg2>_count'
 							}
 						}
+					},
+					...with_percentiles2 && {
+						percentiles2: {
+							percentiles_bucket: {
+								buckets_path: 'agg2>_count'
+							}
+						}
 					}
+					
 				}
 			},
 			...with_stats1 && {
 				stats1: {
 					[stats_type1]: {
+						buckets_path: 'agg1>_count'
+					}
+				}
+			},
+			...with_percentiles1 && {
+				percentiles1: {
+					percentiles_bucket: {
 						buckets_path: 'agg1>_count'
 					}
 				}

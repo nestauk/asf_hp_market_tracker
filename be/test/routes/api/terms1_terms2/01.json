@@ -130,9 +130,11 @@
 					"field2": "property_feature_type.keyword",
 					"size1": 65536,
 					"use_extended_stats1": false,
+					"with_percentiles1": false,
 					"with_stats1": false,
 					"size2": 65536,
 					"use_extended_stats2": false,
+					"with_percentiles2": false,
 					"with_stats2": false
 				}
 			},

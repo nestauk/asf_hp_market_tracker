@@ -156,7 +156,8 @@
 					"field1": "property_energy_efficiency_walls.keyword",
 					"field2": "installation_cost",
 					"use_extended_stats2": true,
-					"size1": 65536
+					"size1": 65536,
+					"use_percentiles2": false
 				}
 			},
 			"filter": {

@@ -5,9 +5,8 @@
 		"query": {
 			"field1": "hp_feature_heat_system.keyword",
 			"field2": "property_feature_type.keyword",
-			"use_extended_stats1": true,
-			"with_stats1": true,
-			"with_stats2": true
+			"with_percentiles1": true,
+			"with_percentiles2": true
 		}
 	},
 	"response": {
@@ -46,12 +45,16 @@
 								}
 							]
 						},
-						"stats2": {
-							"count": 5,
-							"min": 63,
-							"max": 136387,
-							"avg": 41578.2,
-							"sum": 207891
+						"percentiles2": {
+							"values": {
+								"1.0": 63,
+								"5.0": 63,
+								"25.0": 1167,
+								"50.0": 28929,
+								"75.0": 41345,
+								"95.0": 136387,
+								"99.0": 136387
+							}
 						}
 					},
 					{
@@ -83,12 +86,16 @@
 								}
 							]
 						},
-						"stats2": {
-							"count": 5,
-							"min": 1,
-							"max": 21520,
-							"avg": 6232,
-							"sum": 31160
+						"percentiles2": {
+							"values": {
+								"1.0": 1,
+								"5.0": 1,
+								"25.0": 152,
+								"50.0": 4577,
+								"75.0": 4910,
+								"95.0": 21520,
+								"99.0": 21520
+							}
 						}
 					},
 					{
@@ -116,12 +123,16 @@
 								}
 							]
 						},
-						"stats2": {
-							"count": 4,
-							"min": 17,
-							"max": 994,
-							"avg": 352.25,
-							"sum": 1409
+						"percentiles2": {
+							"values": {
+								"1.0": 17,
+								"5.0": 17,
+								"25.0": 54,
+								"50.0": 344,
+								"75.0": 344,
+								"95.0": 994,
+								"99.0": 994
+							}
 						}
 					},
 					{
@@ -141,36 +152,29 @@
 								}
 							]
 						},
-						"stats2": {
-							"count": 2,
-							"min": 4,
-							"max": 44,
-							"avg": 24,
-							"sum": 48
+						"percentiles2": {
+							"values": {
+								"1.0": 4,
+								"5.0": 4,
+								"25.0": 4,
+								"50.0": 44,
+								"75.0": 44,
+								"95.0": 44,
+								"99.0": 44
+							}
 						}
 					}
 				]
 			},
-			"stats1": {
-				"count": 4,
-				"min": 48,
-				"max": 207891,
-				"avg": 60127.25,
-				"sum": 240509,
-				"sum_of_squares": 44191663387,
-				"variance": 7432629654.1875,
-				"variance_population": 7432629654.1875,
-				"variance_sampling": 9910172872.25,
-				"std_deviation": 86212.70007480046,
-				"std_deviation_population": 86212.70007480046,
-				"std_deviation_sampling": 99549.85119150103,
-				"std_deviation_bounds": {
-					"upper": 232552.65014960093,
-					"lower": -112298.15014960093,
-					"upper_population": 232552.65014960093,
-					"lower_population": -112298.15014960093,
-					"upper_sampling": 259226.95238300206,
-					"lower_sampling": -138972.45238300206
+			"percentiles1": {
+				"values": {
+					"1.0": 48,
+					"5.0": 48,
+					"25.0": 1409,
+					"50.0": 31161,
+					"75.0": 31161,
+					"95.0": 207891,
+					"99.0": 207891
 				}
 			}
 		},
@@ -181,14 +185,14 @@
 				"params": {
 					"field1": "hp_feature_heat_system.keyword",
 					"field2": "property_feature_type.keyword",
-					"use_extended_stats1": true,
-					"with_stats1": true,
-					"with_stats2": true,
+					"with_percentiles1": true,
+					"with_percentiles2": true,
 					"size1": 65536,
-					"with_percentiles1": false,
+					"use_extended_stats1": false,
+					"with_stats1": false,
 					"size2": 65536,
 					"use_extended_stats2": false,
-					"with_percentiles2": false
+					"with_stats2": false
 				}
 			},
 			"filter": {

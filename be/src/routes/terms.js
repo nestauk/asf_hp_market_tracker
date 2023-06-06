@@ -7,6 +7,7 @@ export const getTerms = async (request, reply) => {
 		missing = null,
 		size = maxBuckets,
 		use_extended_stats = false,
+		with_percentiles = false,
 		with_stats = false,
 	} = request.query;
 
@@ -25,6 +26,13 @@ export const getTerms = async (request, reply) => {
 			...with_stats && {
 				stats: {
 					[stats_type]: {
+						buckets_path: 'agg1>_count'
+					}
+				}
+			},
+			...with_percentiles && {
+				percentiles: {
+					percentiles_bucket: {
 						buckets_path: 'agg1>_count'
 					}
 				}
