@@ -1,7 +1,7 @@
 <script>
 	import {makeStyleVars} from '@svizzle/dom';
 
-	export let gap;
+	export let gap = 0;
 	export let percents = [20, 40, 40];
 
 	$: style = makeStyleVars({
@@ -28,7 +28,10 @@
 	.Grid3Columns {
 		display: grid;
 		gap: var(--gap);
-		grid-template-columns: var(--p0) var(--p1) var(--p2);
+		grid-template-columns:
+			calc(var(--p0) - var(--gap) / 3)
+			calc(var(--p1) - var(--gap) / 3)
+			calc(var(--p2) - var(--gap) / 3);
 		height: 100%;
 		width: 100%;
 	}
