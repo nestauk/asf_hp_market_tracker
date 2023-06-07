@@ -1,13 +1,14 @@
 <script>
 	import {makeStyleVars} from '@svizzle/dom';
 
-	export let gap = 0;
 	export let dimensions = ['50%', '50%'];
+	export let gap;
 
+	$: gap = gap ?? 0;
 	$: style = makeStyleVars({
+		d0: dimensions[0],
+		d1: dimensions[1],
 		gap,
-		p0: dimensions[0],
-		p1: dimensions[1],
 	});
 </script>
 
@@ -19,7 +20,9 @@
 	.Grid2Rows {
 		display: grid;
 		gap: var(--gap);
-		grid-template-rows: calc(var(--p0) - var(--gap) / 2) calc(var(--p1) - var(--gap) / 2);
+		grid-template-rows:
+			calc(var(--d0) - var(--gap) / 2)
+			calc(var(--d1) - var(--gap) / 2);
 		height: 100%;
 		width: 100%;
 	}
