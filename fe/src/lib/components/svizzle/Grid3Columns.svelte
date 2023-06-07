@@ -1,7 +1,7 @@
 <script>
 	import {makeStyleVars} from '@svizzle/dom';
 
-	export let dimensions = ['20%', '40%', '40%'];
+	export let dimensions = ['33%', '33%', '34%'];
 	export let gap;
 
 	$: gap = gap ?? 0

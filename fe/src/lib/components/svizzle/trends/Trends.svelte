@@ -1,5 +1,6 @@
 <script>
 	import {makeStyleVars} from '@svizzle/dom';
+	import {setupResizeObserver} from '@svizzle/ui';
 	import {
 		arrayMaxWith,
 		arrayMinWith,
@@ -33,6 +34,9 @@
 
 	const defaultItems = {key: 'trend', items: []};
 
+	const {_writable: _gridSize, resizeObserver: trendsObserver} =
+		setupResizeObserver();
+
 	export let geometry;
 	// {key, values: {key, value}}[]
 	// outer key is the trend name, inner key is the x key
@@ -45,9 +49,6 @@
 	export let theme = null;
 	export let valueFormatFn;
 	export let yTicksCount = 10;
-
-	let height;
-	let width;
 
 	$: keyFormatFn = keyFormatFn ?? _.identity;
 	$: preformatDate = preformatDate ?? _.identity;
@@ -108,6 +109,7 @@
 	let xScale;
 	let yScale;
 
+	$: ({blockSize: height, inlineSize: width} = $_gridSize);
 	$: if (height && width) {
 		bbox = {
 			blx: geometry.safetyLeft,
@@ -145,13 +147,12 @@
 
 <div
 	{style}
-	bind:clientHeight={height}
-	bind:clientWidth={width}
 	class='Trends'
+	use:trendsObserver
 >
 	{#if doDraw}
 		<svg
-			{height}
+			height={height-6}
 			{width}
 		>
 			<!-- grid -->
