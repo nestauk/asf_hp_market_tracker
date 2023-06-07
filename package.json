@@ -4,6 +4,12 @@
 	"license": "MIT",
 	"name": "nesta_hpmt",
 	"private": true,
+	"scripts": {
+		"clearmodules": "rm -rf node_modules be/node_modules fe/node_modules mapbox/node_modules shared/node_modules",
+		"clearlockfile": "rm -rf package-lock.json",
+		"clearall": "npm run clearmodules && npm run clearlockfile",
+		"reinstall": "npm run clearall && npm install"
+	},
 	"version": "0.0.1",
 	"workspaces": [
 		"be",
