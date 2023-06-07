@@ -14,7 +14,7 @@ export const getHistogram = async (request, reply) => {
 	const body = {
 		size: 0,
 		aggs: {
-			agg1: {
+			histogram: {
 				histogram: {
 					field,
 					interval,

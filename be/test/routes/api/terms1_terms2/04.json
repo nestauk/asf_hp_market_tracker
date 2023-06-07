@@ -11,14 +11,14 @@
 	"response": {
 		"code": 200,
 		"data": {
-			"agg1": {
+			"terms": {
 				"doc_count_error_upper_bound": 0,
 				"sum_other_doc_count": 0,
 				"buckets": [
 					{
 						"key": "Air Source Heat Pump",
 						"doc_count": 207891,
-						"agg2": {
+						"terms": {
 							"doc_count_error_upper_bound": 0,
 							"sum_other_doc_count": 0,
 							"buckets": [
@@ -48,7 +48,7 @@
 					{
 						"key": "Ground/Water Source Heat Pump",
 						"doc_count": 31161,
-						"agg2": {
+						"terms": {
 							"doc_count_error_upper_bound": 0,
 							"sum_other_doc_count": 0,
 							"buckets": [
@@ -78,7 +78,7 @@
 					{
 						"key": "Undefined or Other Heat Pump Type",
 						"doc_count": 1409,
-						"agg2": {
+						"terms": {
 							"doc_count_error_upper_bound": 0,
 							"sum_other_doc_count": 0,
 							"buckets": [
@@ -104,7 +104,7 @@
 					{
 						"key": "No HP",
 						"doc_count": 48,
-						"agg2": {
+						"terms": {
 							"doc_count_error_upper_bound": 0,
 							"sum_other_doc_count": 0,
 							"buckets": [

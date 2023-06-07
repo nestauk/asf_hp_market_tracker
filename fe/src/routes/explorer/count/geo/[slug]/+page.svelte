@@ -12,10 +12,14 @@
 	import {_viewData} from '$lib/stores/view.js';
 
 	const valueAccessors = {
-		// {key, doc_count, agg2: {...}, stats2: {avg, ...} }}[]
-		installations_per_installer: _.getPath('stats2.avg'),
-		installations: _.getKey('doc_count'), // {key, doc_count}[]
-		installers: _.getPath('agg2.value'), // {key, doc_count, agg2: {value}}[]
+		// {key, doc_count}[]
+		installations: _.getKey('doc_count'),
+
+		// {key, doc_count, terms: {...}, stats: {avg, ...} }}[]
+		installations_per_installer: _.getPath('stats.avg'),
+
+		// {key, doc_count, cardinality: {value}}[]
+		installers: _.getPath('cardinality.value'),
 	}
 
 	$: valueAccessor = valueAccessors[$_currentMetricId];
@@ -37,7 +41,7 @@
 		$_viewData?.response.code === 200 &&
 		$_viewData?.page.route.id === $_page.route.id;
 
-	$: items = proceed && $_viewData?.response.data.agg1.buckets || [];
+	$: items = proceed && $_viewData?.response.data.terms.buckets || [];
 </script>
 
 <NumGeoView

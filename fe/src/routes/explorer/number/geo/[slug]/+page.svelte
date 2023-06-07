@@ -21,7 +21,7 @@
 		$_viewData?.response.code === 200 &&
 		$_viewData?.page.route.id === $_page.route.id;
 
-	$: items = proceed && $_viewData?.response.data.agg1.buckets || [];
+	$: items = proceed && $_viewData?.response.data.terms.buckets || [];
 </script>
 
 <NumGeoView

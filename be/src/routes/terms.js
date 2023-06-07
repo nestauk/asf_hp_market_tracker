@@ -16,7 +16,7 @@ export const getTerms = async (request, reply) => {
 	const body = {
 		size: 0,
 		aggs: {
-			agg1: {
+			terms: {
 				terms: {
 					field,
 					size,
@@ -26,14 +26,14 @@ export const getTerms = async (request, reply) => {
 			...with_stats && {
 				stats: {
 					[stats_type]: {
-						buckets_path: 'agg1>_count'
+						buckets_path: 'terms>_count'
 					}
 				}
 			},
 			...with_percentiles && {
 				percentiles: {
 					percentiles_bucket: {
-						buckets_path: 'agg1>_count'
+						buckets_path: 'terms>_count'
 					}
 				}
 			}

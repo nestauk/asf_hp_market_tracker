@@ -12,91 +12,91 @@
 	"response": {
 		"code": 200,
 		"data": {
-			"agg1": {
+			"terms": {
 				"doc_count_error_upper_bound": 0,
 				"sum_other_doc_count": 0,
 				"buckets": [
 					{
 						"key": "TLK",
 						"doc_count": 39952,
-						"agg2": {
+						"cardinality": {
 							"value": 6
 						}
 					},
 					{
 						"key": "TLH",
 						"doc_count": 37882,
-						"agg2": {
+						"cardinality": {
 							"value": 6
 						}
 					},
 					{
 						"key": "TLJ",
 						"doc_count": 32733,
-						"agg2": {
+						"cardinality": {
 							"value": 6
 						}
 					},
 					{
 						"key": "TLM",
 						"doc_count": 32173,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
 					{
 						"key": "TLF",
 						"doc_count": 20470,
-						"agg2": {
+						"cardinality": {
 							"value": 6
 						}
 					},
 					{
 						"key": "TLE",
 						"doc_count": 15915,
-						"agg2": {
+						"cardinality": {
 							"value": 6
 						}
 					},
 					{
 						"key": "TLG",
 						"doc_count": 15065,
-						"agg2": {
+						"cardinality": {
 							"value": 6
 						}
 					},
 					{
 						"key": "TLD",
 						"doc_count": 13656,
-						"agg2": {
+						"cardinality": {
 							"value": 5
 						}
 					},
 					{
 						"key": "TLL",
 						"doc_count": 12925,
-						"agg2": {
+						"cardinality": {
 							"value": 6
 						}
 					},
 					{
 						"key": "TLI",
 						"doc_count": 12536,
-						"agg2": {
+						"cardinality": {
 							"value": 6
 						}
 					},
 					{
 						"key": "TLC",
 						"doc_count": 6771,
-						"agg2": {
+						"cardinality": {
 							"value": 6
 						}
 					},
 					{
 						"key": "missing",
 						"doc_count": 431,
-						"agg2": {
+						"cardinality": {
 							"value": 4
 						}
 					}

@@ -42,7 +42,7 @@
 		$_page.route.id === $_viewData?.page.route.id;
 
 	$: if (proceed) {
-		const rawItems = $_viewData?.response.data.agg1.buckets || [];
+		const rawItems = $_viewData?.response.data.date_histogram.buckets || [];
 		const trend = filterOutNils(reshapeItems(rawItems));
 		items = [{key: 'trend', values: trend}];
 

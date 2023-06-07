@@ -18,14 +18,14 @@ export const getDateHistogram1Terms2 = async (request, reply) => {
 	const body = {
 		size: 0,
 		aggs: {
-			agg1: {
+			date_histogram: {
 				date_histogram: {
 					field: field1,
 					calendar_interval: calendar_interval1,
 					format: 'yyyy-MM'
 				},
 				aggs: {
-					agg2: {
+					terms: {
 						terms: {
 							field: field2,
 							size: size2,
@@ -33,16 +33,16 @@ export const getDateHistogram1Terms2 = async (request, reply) => {
 						}
 					},
 					...with_stats2 && {
-						stats2: {
+						stats: {
 							[stats_type2]: {
-								buckets_path: 'agg2>_count'
+								buckets_path: 'terms>_count'
 							}
 						}
 					},
 					...with_percentiles2 && {
-						percentiles2: {
+						percentiles: {
 							percentiles_bucket: {
-								buckets_path: 'agg2>_count'
+								buckets_path: 'terms>_count'
 							}
 						}
 					}

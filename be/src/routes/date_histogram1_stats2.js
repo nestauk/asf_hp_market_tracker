@@ -15,14 +15,14 @@ export const getDateHistogram1Stats2 = async (request, reply) => {
 	const body = {
 		size: 0,
 		aggs: {
-			agg1: {
+			date_histogram: {
 				date_histogram: {
 					field: field1,
 					calendar_interval: calendar_interval1,
 					format: 'yyyy-MM'
 				},
 				aggs: {
-					[statQuery]: {
+					stats: {
 						[statQuery]: {
 							field: field2,
 						}

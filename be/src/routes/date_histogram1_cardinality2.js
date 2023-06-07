@@ -12,14 +12,14 @@ export const getDateHistogram1Cardinality2 = async (request, reply) => {
 	const body = {
 		size: 0,
 		aggs: {
-			agg1: {
+			date_histogram: {
 				date_histogram: {
 					field: field1,
 					calendar_interval: calendar_interval1,
 					format: 'yyyy-MM'
 				},
 				aggs: {
-					agg2: {
+					cardinality: {
 						cardinality: {
 							field: field2,
 							...missing2 && { missing: missing2 }

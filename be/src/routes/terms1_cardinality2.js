@@ -13,14 +13,14 @@ export const getTerms1Cardinality2 = async (request, reply) => {
 	const body = {
 		size: 0,
 		aggs: {
-			agg1: {
+			terms: {
 				terms: {
 					field: field1,
 					size: size1,
 					...missing1 && { missing: missing1 }
 				},
 				aggs: {
-					agg2: {
+					cardinality: {
 						cardinality: {
 							field: field2,
 							...missing2 && { missing: missing2 }

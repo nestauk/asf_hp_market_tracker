@@ -10,7 +10,7 @@ export const getCardinality = async (request, reply) => {
 	const body = {
 		size: 0,
 		aggs: {
-			agg1: {
+			cardinality: {
 				cardinality: {
 					field,
 					...missing && { missing }
