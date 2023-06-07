@@ -152,7 +152,7 @@
 >
 	{#if doDraw}
 		<svg
-			height={height-6}
+			{height}
 			{width}
 		>
 			<!-- grid -->
@@ -251,6 +251,7 @@
 	.Trends, svg {
 		height: 100%;
 		width: 100%;
+		overflow: hidden;
 	}
 
 	.grid line {
