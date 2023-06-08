@@ -3,6 +3,7 @@
 
 	import ViewSelector from '$lib/components/explorer/medium/ViewSelector.svelte';
 	import {_currentMetricTitle} from '$lib/stores/navigation.js';
+	import {_currThemeVars} from '$lib/stores/theme';
 	import {_isViewLoading} from '$lib/stores/view.js';
 </script>
 
@@ -19,8 +20,14 @@
 
 		{#if $_isViewLoading}
 			<div class='loading'>
-				<CenteredView backgroundColor='rgba(0,0,0,0.05)'>
-					<LoadingView message='Querying...'/>
+				<CenteredView
+					backgroundColor={$_currThemeVars['--colorBackdropSensor']}
+					color={$_currThemeVars['--colorText']}
+				>
+					<LoadingView
+						message='Querying...'
+						stroke={$_currThemeVars['--colorText']}
+					/>
 				</CenteredView>
 			</div>
 		{/if}
