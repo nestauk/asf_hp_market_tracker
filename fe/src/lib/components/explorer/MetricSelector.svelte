@@ -1,5 +1,6 @@
 <script>
 	import {Link, Scroller} from '@svizzle/ui';
+	import {tick} from 'svelte';
 
 	import {metricGroups} from '$lib/data/metrics.js';
 	import {
@@ -7,6 +8,17 @@
 		_currentMetricId,
 		_searchParams,
 	} from '$lib/stores/navigation.js';
+
+	const scrollIntoViewIfTrue = async (node, doScroll) => {
+		await tick();
+		if (node && doScroll) {
+			if (node.scrollIntoViewIfNeeded) {
+				node.scrollIntoViewIfNeeded(); // Chrome/Safari/Edge
+			} else {
+				node.scrollIntoView(); // FF
+			}
+		}
+	}
 </script>
 
 <Scroller>
@@ -19,6 +31,7 @@
 						<div
 							class:selected={id === $_currentMetricId}
 							class='item'
+							use:scrollIntoViewIfTrue={id === $_currentMetricId}
 						>
 							{label}
 						</div>
