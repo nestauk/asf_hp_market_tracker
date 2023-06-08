@@ -1,20 +1,31 @@
 <script>
 	import {ColorBinsDiv} from '@svizzle/legend';
-	import {applyFnMap, getKey, makeWithKeys, getValues} from '@svizzle/utils';
+	import {
+		applyFnMap,
+		arraySumWith,
+		getKey,
+		getValue,
+		getValues,
+		makeWithKeys,
+	} from '@svizzle/utils';
 	import {extent, pairs} from 'd3-array';
 	import {scaleQuantize} from 'd3-scale';
 	import * as _ from 'lamb';
 
 	import FlexBar from '$lib/components/explorer/FlexBar.svelte';
-	import SelectorRegionType
-		from '$lib/components/explorer/medium/SelectorRegionType.svelte';
-	import Grid2Columns from '$lib/components/svizzle/Grid2Columns.svelte';
-	import {_legendsTheme} from '$lib/stores/theme.js';
-
 	import LabelsGrid
 		from '$lib/components/explorer/medium/LabelsGrid.svelte';
 	import ScrollableGrid
 		from '$lib/components/explorer/medium/ScrollableGrid/ScrollableGrid.svelte';
+	import SelectorCategsGeoSortBy
+		from '$lib/components/explorer/medium/SelectorCategsGeoSortBy.svelte';
+    import SelectorCategsGeoSorting
+		from '$lib/components/explorer/medium/SelectorCategsGeoSorting.svelte';
+	import SelectorRegionType
+		from '$lib/components/explorer/medium/SelectorRegionType.svelte';
+	import Grid2Columns from '$lib/components/svizzle/Grid2Columns.svelte';
+	import {_selection} from '$lib/stores/navigation.js';
+	import {_legendsTheme} from '$lib/stores/theme.js';
 
 	export let amountOfBins = 5;
 	export let formatFn;
@@ -50,6 +61,10 @@
 		})
 	);
 
+	const getItemSum = _.pipe([getValues, arraySumWith(getValue)]);
+
+	/* categories */
+
 	const getInnerCategs = _.pipe([
 		_.flatMapWith(
 			_.pipe([getValues, _.mapWith(getKey)])
@@ -78,11 +93,19 @@
 	let labelsByCategory;
 	let legendBins;
 
+	$: sorter =
+		$_selection.categsGeoSortBy === 'regionName' ? getKey : getItemSum;
+	$: sortItems = _.sortWith([
+		$_selection.categsGeoSorting === 'desc'
+			? _.sorterDesc(sorter)
+			: sorter
+	]);
 	$: if (items?.length > 0) {
 
 		/* common */
 
-		gridItems = reshapeItems(items);
+		gridItems = sortItems(reshapeItems(items));
+
 		categories = getInnerCategs(gridItems);
 		domain = getOverallExtent(items);
 		labelsByCategory = getEnumeratedMapping(categories);
@@ -114,6 +137,8 @@
 <div class='threeRows'>
 	<FlexBar>
 		<SelectorRegionType />
+		<SelectorCategsGeoSortBy />
+		<SelectorCategsGeoSorting />
 	</FlexBar>
 
 	{#if doDraw}
@@ -177,13 +202,13 @@
 		display: flex;
 		height: 100%;
 		justify-content: center;
-		width: 100%;
 		padding: 0;
+		width: 100%;
 	}
 	.col1 {
 		height: 100%;
-		width: 100%;
 		overflow: hidden;
+		width: 100%;
 	}
 	.legend {
 		height: 50%;

@@ -2,6 +2,8 @@ export const context = {
 	nextSearchParams: '',
 	nextSelection: {},
 	selection: {
+		categsGeoSortBy: 'regionName',
+		categsGeoSorting: 'asc',
 		categsTimeGraph: 'trends',
 		interval: '1y',
 		numTimeGraph: 'percentiles',
