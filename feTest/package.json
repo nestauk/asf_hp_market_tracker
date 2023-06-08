@@ -10,5 +10,10 @@
 	},
 	"license": "MIT",
 	"name": "nesta_hpmt_frontend_tests",
+	"scripts": {
+		"lighthouse": "node src/lighthouse/validate.js",
+		"pa11y": "node src/pa11y/validate.js",
+		"selenium": "node src/browserstack/selenium-runner.mjs"
+	},
 	"type": "module"
 }
