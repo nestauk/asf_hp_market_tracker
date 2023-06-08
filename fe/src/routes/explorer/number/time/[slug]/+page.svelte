@@ -1,20 +1,23 @@
 <script>
 	import {
 		applyFnMap,
+		getKey,
 		isNotNil,
 		makeSplitBy,
 		sliceStringAt,
 	} from '@svizzle/utils';
-	import {scaleOrdinal} from 'd3-scale';
-	import {interpolateSpectral as interpolateColor} from 'd3-scale-chromatic';
 	import * as _ from 'lamb';
 
 	import {page as _page} from '$app/stores';
-	import Grid2Columns from '$lib/components/svizzle/Grid2Columns.svelte';
+	import FlexBar from '$lib/components/explorer/FlexBar.svelte';
+	import PercentilesTrendsView
+		from '$lib/components/explorer/medium/PercentilesTrendsView.svelte';
+	import SelectorInterval
+		from '$lib/components/explorer/medium/SelectorInterval.svelte';
+	import SelectorNumTimegraph
+		from '$lib/components/explorer/medium/SelectorNumTimegraph.svelte';
 	import Grid2Rows from '$lib/components/svizzle/Grid2Rows.svelte';
-	import StatsTrends from '$lib/components/svizzle/trends/StatsTrends.svelte';
-	import TemporalOptions
-		from '$lib/components/explorer/medium/TemporalOptions.svelte';
+	import Trends from '$lib/components/svizzle/trends/Trends.svelte';
 	import {_selection} from '$lib/stores/navigation.js';
 	import {_currThemeVars, _framesTheme} from '$lib/stores/theme.js';
 	import {_viewData} from '$lib/stores/view.js';
@@ -42,108 +45,53 @@
 		sliceStringAt([2, 4])
 	]);
 
-	const areas = [
-		['min', '1.0'],
-		['1.0', '5.0'],
-		['5.0', '25.0'],
-		['25.0', '50.0'],
-		['50.0', '75.0'],
-		['75.0', '95.0'],
-		['95.0', '99.0'],
-		['99.0', 'max'],
-	];
-	const colorScheme = _.map(
-		areas,
-		(v, index) => interpolateColor(index / (areas.length - 1))
-	);
-	const areaLowKeyToColor =
-		scaleOrdinal()
-		.domain(_.map(areas, _.head))
-		.range(colorScheme);
-	const avgTrendColor = 'black';
-
-	const trendLegendItems = [{color: avgTrendColor, label: 'Average'}];
-	const areaLegendItems = _.map(
-		_.reverse(areas),
-		([lowKey, highKey]) => {
-			const lowKeyString =
-				['min', 'max'].includes(lowKey) ? lowKey : `${lowKey}%`;
-			const highKeyString =
-				['min', 'max'].includes(highKey) ? highKey : `${highKey}%`;
-			const label = `${lowKeyString} - ${highKeyString}`;
-
-			return {
-				color: areaLowKeyToColor(lowKey),
-				label
-			}
-		}
-	);
-
 	$: proceed =
 		$_viewData?.response.code === 200 &&
 		$_page.route.id === $_viewData?.page.route.id;
 
 	let doDraw = false;
 	let items;
+	let trendsItems;
 
 	$: if (proceed) {
 		const rawItems = $_viewData?.response.data.date_histogram.buckets || [];
 		items = filterItems(reshapeItems(rawItems));
 
+		if ($_selection.numTimeGraph !== 'percentiles') {
+			trendsItems = [{
+			key: 'Average',
+			values: _.map(
+				items,
+				applyFnMap({
+					key: getKey,
+					value: _.getPath('values.avg'),
+				})
+			)
+		}];
+		}
+
 		doDraw = true;
 	}
 </script>
 
-<div
-	class='route'
-	style='--avgTrendColor:{avgTrendColor}'
->
 <Grid2Rows percents={[10, 90]}>
-	<TemporalOptions showStreamgraphOptions={false} />
+	<FlexBar>
+		<SelectorInterval />
+		<SelectorNumTimegraph />
+	</FlexBar>
 
 	{#if doDraw}
-		<Grid2Columns
-			percents={[15, 85]}
-			gap='0.5em'
-		>
-			<div
-				class='legend'
-				slot='col0'
-			>
-				<div class='legendBlock'>
-					<h3>Trends</h3>
-					<ul>
-						{#each trendLegendItems as {color, label}}
-							<li>
-								<span
-									class='dot'
-									style='background-color:{color};border:thin solid var(--colorBorder);'
-								></span>
-								<span>{label}</span>
-							</li>
-						{/each}
-					</ul>
-				</div>
-				<div class='legendBlock'>
-					<h3>Areas</h3>
-					<ul>
-						{#each areaLegendItems as {color, label}}
-							<li>
-								<span
-									class='dot'
-									style='background-color:{color}'
-								></span>
-								<span>{label}</span>
-							</li>
-						{/each}
-					</ul>
-				</div>
-			</div>
-			<StatsTrends
-				{areaLowKeyToColor}
+		{#if $_selection.numTimeGraph === 'percentiles'}
+			<PercentilesTrendsView
 				{items}
 				{keyFormatFn}
-				config={{areas, trends: ['avg']}}
+				valueFormatFn={roundTo1}
+				preformatDate={formatDate}
+			/>
+		{:else}
+			<Trends
+				items={trendsItems}
+				{keyFormatFn}
 				geometry={{
 					safetyBottom: 50,
 					safetyLeft: 80,
@@ -152,23 +100,17 @@
 				}}
 				keyType='date'
 				preformatDate={formatDate}
-				slot='col1'
 				theme={{
 					...$_framesTheme,
-					curveStroke: avgTrendColor
+					curveStroke: $_currThemeVars['--colorBorderAux']
 				}}
 				valueFormatFn={roundTo1}
 			/>
-		</Grid2Columns>
+		{/if}
 	{/if}
 </Grid2Rows>
-</div>
 
 <style>
-	.route {
-		height: 100%;
-		width: 100%;
-	}
 	.legend {
 		align-items: start;
 		display: flex;

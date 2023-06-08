@@ -100,6 +100,16 @@ export const _xorSelectorTheme = derived(
 	})
 );
 
+export const _switchTheme = derived(
+	_currThemeVars,
+	currThemeVars => ({
+		backgroundColor: currThemeVars['--colorBackground'],
+		color: currThemeVars['--colorIcon'],
+		knobColor: currThemeVars['--colorSwitchKnob'],
+		outlineColor: currThemeVars['--colorOutline'],
+	})
+);
+
 export const _framesTheme = derived(
 	_currThemeVars,
 	currThemeVars => ({

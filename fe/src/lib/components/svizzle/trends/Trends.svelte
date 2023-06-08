@@ -74,7 +74,7 @@
 		_.uniques,
 		_.sortWith([])
 	]);
-	$: allKeys = getSortedKeys(items)
+	$: allKeys = getSortedKeys(items);
 
 	const getMaxValue = arrayMaxWith(getValue);
 	const getMinValue = arrayMinWith(getValue);

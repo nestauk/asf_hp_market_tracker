@@ -5,10 +5,11 @@
 	import {page as _page} from '$app/stores';
 	import {_currentMetricId} from '$lib/stores/navigation.js';
 	import {_viewData} from '$lib/stores/view.js';
+	import {roundTo1} from '$lib/utils/numbers.js';
 
 	const dataAccessors = {
 		installations: _.getKey('count'),
-		installations_per_installer: _.getKey('stats.avg'),
+		installations_per_installer: _.pipe([_.getPath('stats.avg'), roundTo1]),
 		installers: _.getPath('cardinality.value'),
 	}
 

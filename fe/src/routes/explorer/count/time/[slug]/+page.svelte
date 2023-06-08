@@ -9,8 +9,8 @@
 	import * as _ from 'lamb';
 
 	import {page as _page} from '$app/stores';
-	import TemporalOptions
-		from '$lib/components/explorer/medium/TemporalOptions.svelte';
+	import FlexBar from '$lib/components/explorer/FlexBar.svelte';
+	import SelectorInterval from '$lib/components/explorer/medium/SelectorInterval.svelte';
 	import Grid2Rows from '$lib/components/svizzle/Grid2Rows.svelte';
 	import Trends from '$lib/components/svizzle/trends/Trends.svelte';
 	import {_currentMetricId} from '$lib/stores/navigation.js';
@@ -61,7 +61,9 @@
 </script>
 
 <Grid2Rows percents={[10, 90]}>
-	<TemporalOptions />
+	<FlexBar>
+		<SelectorInterval/>
+	</FlexBar>
 
 	{#if doDraw}
 		<Trends

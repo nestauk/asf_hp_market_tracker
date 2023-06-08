@@ -11,8 +11,10 @@
 	import * as _ from 'lamb';
 
 	import {page as _page} from '$app/stores';
-	import TemporalOptions
-		from '$lib/components/explorer/medium/TemporalOptions.svelte';
+	import FlexBar from '$lib/components/explorer/FlexBar.svelte';
+	import SelectorInterval from '$lib/components/explorer/medium/SelectorInterval.svelte';
+	import SelectorCategsTimegraph from '$lib/components/explorer/medium/SelectorCategsTimegraph.svelte';
+	import SelectorStreamgraphSort from '$lib/components/explorer/medium/SelectorStreamgraphSort.svelte';
 	import Grid2Columns from '$lib/components/svizzle/Grid2Columns.svelte';
 	import Grid2Rows from '$lib/components/svizzle/Grid2Rows.svelte';
 	import StreamGraph from '$lib/components/svizzle/trends/StreamGraph.svelte';
@@ -104,10 +106,11 @@
 </script>
 
 <Grid2Rows percents={[10, 90]}>
-	<TemporalOptions
-		showCategsTimeGraph={true}
-		showStreamgraphOptions={true}
-	/>
+	<FlexBar>
+		<SelectorInterval />
+		<SelectorCategsTimegraph />
+		<SelectorStreamgraphSort />
+	</FlexBar>
 	{#if doDraw}
 		<Grid2Columns
 			percents={[15, 85]}
