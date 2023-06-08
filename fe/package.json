@@ -41,7 +41,6 @@
 		"build": "vite build",
 		"chmod": "chmod u+x src/bin/*",
 		"dev": "vite dev",
-		"installbrowsertesting": "npm i browserstack-capabilities@^0.7.0 browserstack-local@1.5.1 lighthouse@9.6.6 pa11y@6.2.3 pa11y-reporter-html@2.0.0 selenium-webdriver@4.4.0",
 		"lighthouse": "node test/lighthouse/validate.js",
 		"linksvizzles": "npm install && npm link @svizzle/dev @svizzle/dom @svizzle/ui @svizzle/utils && npm list",
 		"lint": "eslint .",

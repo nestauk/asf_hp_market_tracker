@@ -1,0 +1,14 @@
+{
+	"description": "Nesta HPMT frontend tests",
+	"devDependencies": {
+		"browserstack-capabilities": "^0.7.0",
+		"browserstack-local": "^1.5.1",
+		"lighthouse": "^9.6.6",
+		"pa11y": "^6.2.3",
+		"pa11y-reporter-html": "^2.0.0",
+		"selenium-webdriver": "^4.4.0"
+	},
+	"license": "MIT",
+	"name": "nesta_hpmt_frontend_tests",
+	"type": "module"
+}
