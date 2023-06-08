@@ -1,3 +1,10 @@
+# Status
+
+This workspace is currently being moved from its original location inside
+of `fe/` to `appTest/` in order to make make installation of its dependencies
+optional. However this operation is not complete and the workspace is not
+currently functional.
+
 # Testing on the browser
 
 `npm run selenium` will launch all unit tests cointained in 
