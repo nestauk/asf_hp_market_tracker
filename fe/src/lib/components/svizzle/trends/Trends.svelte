@@ -132,10 +132,10 @@
 		bbox = {
 			blx: geometry.safetyLeft,
 			bly: height - geometry.safetyBottom,
+			height: height - geometry.safetyTop - geometry.safetyBottom,
 			trx: width - geometry.safetyRight,
 			try: geometry.safetyTop,
 			width: width - geometry.safetyRight - geometry.safetyLeft,
-			height: height - geometry.safetyTop - geometry.safetyBottom,
 		}
 
 		const xRange = [bbox.blx, bbox.trx];

@@ -23,7 +23,7 @@ export const hideViewLoadingIcon = () => {
 /* view data */
 
 export const logViewData = (ctx, {data}) => {
-	console.log('response:', data);
+	console.log('[logViewData] response:', data);
 }
 
 // eslint-disable-next-line complexity
@@ -31,13 +31,13 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 	const activeViewType = get(_activeViewType);
 	const {field, id, type} = get(_currentMetric);
 
-	let aggId;
+	let endpoint;
 	let params;
 	switch (type) {
 		case 'category':
 			switch (activeViewType) {
 				case 'geo':
-					aggId = 'terms1_terms2';
+					endpoint = 'terms1_terms2';
 					params = {
 						field1: `property_geo_region_${ctx.selection.regionType}_name.keyword`,
 						field2: `${id}.keyword`,
@@ -45,14 +45,14 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 					};
 					break;
 				case 'stats':
-					aggId = 'terms';
+					endpoint = 'terms';
 					params = {
 						field: `${id}.keyword`,
 						missing: 'Unknown'
 					};
 					break;
 				case 'time':
-					aggId = 'date_histogram1_terms2';
+					endpoint = 'date_histogram1_terms2';
 					params = {
 						calendar_interval1: ctx.selection.interval,
 						field1: 'installation_date',
@@ -69,14 +69,14 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 				case 'geo':
 					switch (id) {
 						case 'installations':
-							aggId = 'terms';
+							endpoint = 'terms';
 							params = {
 								field: `property_geo_region_${ctx.selection.regionType}_name.keyword`,
 								// TBD `with_stats`, `with_percentiles`
 							};
 							break;
 						case 'installations_per_installer':
-							aggId = 'terms1_terms2';
+							endpoint = 'terms1_terms2';
 							params = {
 								field1: `property_geo_region_${ctx.selection.regionType}_name.keyword`,
 								// TBD `with_stats1`, `with_percentiles1`
@@ -90,14 +90,14 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 						case 'installation_cost_sum':
 						case 'property_feature_total_floor_area_sum':
 						case 'property_supply_photovoltaic_sum':
-							aggId = 'terms1_stats2';
+							endpoint = 'terms1_stats2';
 							params = {
 								field1: `property_geo_region_${ctx.selection.regionType}_name.keyword`,
 								field2: field,
 							};
 							break;
 						case 'installers':
-							aggId = 'terms1_cardinality2';
+							endpoint = 'terms1_cardinality2';
 							params = {
 								field1: `installer_geo_region_${ctx.selection.regionType}_name.keyword`,
 								// TBD `with_stats1`, `with_percentiles1`
@@ -111,11 +111,11 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 				case 'stats':
 					switch (id) {
 						case 'installations':
-							aggId = 'count';
+							endpoint = 'count';
 							params = {};
 							break;
 						case 'installations_per_installer':
-							aggId = 'terms';
+							endpoint = 'terms';
 							params = {
 								field: 'installer_id_hash.keyword',
 								with_stats: true
@@ -126,13 +126,13 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 						case 'installation_cost_sum':
 						case 'property_feature_total_floor_area_sum':
 						case 'property_supply_photovoltaic_sum':
-							aggId = 'stats';
+							endpoint = 'stats';
 							params = {
 								field,
 							};
 							break;
 						case 'installers':
-							aggId = 'cardinality';
+							endpoint = 'cardinality';
 							params = {
 								field: 'installer_id_hash.keyword',
 							};
@@ -144,14 +144,14 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 				case 'time':
 					switch (id) {
 						case 'installations':
-							aggId = 'date_histogram';
+							endpoint = 'date_histogram';
 							params = {
 								calendar_interval: ctx.selection.interval,
 								field: 'installation_date',
 							};
 							break;
 						case 'installations_per_installer':
-							aggId = 'date_histogram1_terms2';
+							endpoint = 'date_histogram1_terms2';
 							params = {
 								calendar_interval1: ctx.selection.interval,
 								field1: 'installation_date',
@@ -164,7 +164,7 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 						case 'installation_cost_sum':
 						case 'property_feature_total_floor_area_sum':
 						case 'property_supply_photovoltaic_sum':
-							aggId = 'date_histogram1_stats2';
+							endpoint = 'date_histogram1_stats2';
 							params = {
 								calendar_interval1: ctx.selection.interval,
 								field1: 'installation_date',
@@ -172,7 +172,7 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 							};
 							break;
 						case 'installers':
-							aggId = 'date_histogram1_cardinality2';
+							endpoint = 'date_histogram1_cardinality2';
 							params = {
 								calendar_interval1: ctx.selection.interval,
 								field1: 'installation_date',
@@ -190,21 +190,21 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 		case 'number':
 			switch (activeViewType) {
 				case 'geo':
-					aggId = 'terms1_stats2';
+					endpoint = 'terms1_stats2';
 					params = {
 						field1: `property_geo_region_${ctx.selection.regionType}_name.keyword`,
 						field2: id,
 					};
 					break;
 				case 'stats':
-					aggId = 'histogram';
+					endpoint = 'histogram';
 					params = {
 						bins: 10,
 						field: id,
 					};
 					break;
 				case 'time':
-					aggId = 'date_histogram1_stats2';
+					endpoint = 'date_histogram1_stats2';
 					params = {
 						calendar_interval1: ctx.selection.interval,
 						field1: 'installation_date',
@@ -219,7 +219,7 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 		case 'string':
 			switch (activeViewType) {
 				case 'geo':
-					aggId = 'terms1_terms2';
+					endpoint = 'terms1_terms2';
 					params = {
 						field1: `property_geo_region_${ctx.selection.regionType}_name.keyword`,
 						field2: `${id}.keyword`,
@@ -227,7 +227,7 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 					};
 					break;
 				case 'stats':
-					aggId = 'terms';
+					endpoint = 'terms';
 					params = {
 						field: `${id}.keyword`,
 						missing: 'Unknown',
@@ -235,7 +235,7 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 					};
 					break;
 				case 'time':
-					aggId = 'date_histogram1_terms2';
+					endpoint = 'date_histogram1_terms2';
 					params = {
 						calendar_interval1: ctx.selection.interval,
 						field1: 'installation_date',
@@ -250,10 +250,10 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 			break;
 	}
 
-	let viewQueryPath = aggId;
+	let viewQueryPath = endpoint;
 
 	if (isObjNotEmpty(params)) {
-		viewQueryPath = `${aggId}?${new URLSearchParams(params)}`;
+		viewQueryPath = `${endpoint}?${new URLSearchParams(params)}`;
 	}
 
 	// console.log('viewQueryPath', viewQueryPath);
@@ -276,15 +276,15 @@ export const cacheViewData = (ctx, {data: response}) => {
 	});
 }
 
-export const updateDataStoresFromCache = ctx => {
-	const page = get(_currentPage);
+export const updateViewDataStoreFromCache = ctx => {
+	const currentPage = get(_currentPage);
 	const viewCache = get(_viewCache);
-	const key = `${page.route.id}-${ctx.viewQueryPath}`;
+	const key = `${currentPage.route.id}-${ctx.viewQueryPath}`;
 
 	_viewData.set(viewCache[key]);
 }
 
-export const updateDataStores = (ctx, {data: response}) => {
+export const updateViewDataStore = (ctx, {data: response}) => {
 	const page = get(_currentPage);
 
 	_viewData.set({response, page});

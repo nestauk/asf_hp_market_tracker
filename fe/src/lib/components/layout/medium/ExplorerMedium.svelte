@@ -1,6 +1,7 @@
 <script>
 	import MetricSelector from '$lib/components/explorer/MetricSelector.svelte';
 	import ViewMedium from '$lib/components/explorer/medium/ViewMedium.svelte';
+	import TimeLineHistogram from '$lib/components/explorer/medium/TimeLineHistogram.svelte';
 </script>
 
 <div class='ExplorerMedium'>
@@ -8,7 +9,9 @@
 	<nav class='metrics'>
 		<MetricSelector />
 	</nav>
-	<nav class='timeline'>timeline</nav>
+	<nav class='timeline'>
+		<TimeLineHistogram />
+	</nav>
 	<section class='view'>
 		<ViewMedium>
 			<slot />
@@ -45,11 +48,11 @@
 		border-left: thin solid var(--colorBorder);
 	}
 	.timeline {
-		align-items: center;
+		align-items: stretch;
 		border-top: thin solid var(--colorBorder);
 		display: flex;
 		grid-area: timeline;
-		justify-content: center;
+		justify-content: stretch;
 	}
 	.view {
 		grid-area: view;

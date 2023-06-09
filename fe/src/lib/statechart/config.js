@@ -65,7 +65,7 @@ export const config = {
 										{
 											target: '#HPMT.PageInteractive.ViewData.Ready',
 											cond: 'isViewDataCached',
-											actions: 'updateDataStoresFromCache'
+											actions: 'updateViewDataStoreFromCache'
 										},
 										{
 											target: 'QueryingViewData',
@@ -87,7 +87,7 @@ export const config = {
 												actions: [
 													'logViewData',
 													'cacheViewData',
-													'updateDataStores'
+													'updateViewDataStore'
 												]
 											}
 										]
@@ -104,7 +104,6 @@ export const config = {
 						}
 					}
 				},
-				/*
 				StaticData: {
 					initial: 'Dirty',
 					states: {
@@ -131,7 +130,10 @@ export const config = {
 										onDone: [
 											{
 												target: '#HPMT.PageInteractive.StaticData.Ready',
-												actions: 'responseToStaticDataStores'
+												actions: [
+													'logStaticData',
+													'updateStaticDataStore'
+												]
 											}
 										],
 										onError: [
@@ -152,6 +154,7 @@ export const config = {
 						}
 					}
 				},
+				/*
 				History: {
 					initial: 'Saved',
 					states: {
@@ -183,4 +186,3 @@ export const config = {
 		}
 	}
 };
-export const viewDataReadyState = {PageInteractive: {ViewData: 'Ready'}};

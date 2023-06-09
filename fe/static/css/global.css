@@ -133,6 +133,11 @@ a {
 	--colorView1: rgb(36, 175, 217);
 	--colorView2: rgb(240, 176, 58);
 	--colorView3: rgb(113, 231, 144);
+
+	/* timeline */
+
+	--colorTimelineActiveBinFill: #eee;
+	--colorTimelineActiveBinStroke: #333;
 }
 
 .themeDark {
@@ -185,4 +190,9 @@ a {
 	--colorView1: rgb(36, 175, 217);
 	--colorView2: rgb(240, 176, 58);
 	--colorView3: rgb(113, 231, 144);
+
+	/* timeline */
+
+	--colorTimelineActiveBinFill: #333;
+	--colorTimelineActiveBinStroke: #ccc;
 }
