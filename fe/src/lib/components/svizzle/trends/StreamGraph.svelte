@@ -4,7 +4,6 @@
 		arraySumWith,
 		getKey,
 		getValue,
-		getValues,
 		inclusiveRange,
 		keyValueArrayToObject,
 		makeKeyedZeroes,
@@ -12,10 +11,11 @@
 		transformValues,
 	} from '@svizzle/utils';
 	import {makeStyleVars} from '@svizzle/dom';
-
 	import {pairs} from 'd3-array';
 	import {scaleLinear, scalePoint, scaleTime} from 'd3-scale';
 	import * as _ from 'lamb';
+
+	import {objectToKeyValuesArray} from '$lib/utils/svizzle/utils.js';
 
 	const defaultGeometry = {
 		safetyBottom: 20,
@@ -32,15 +32,13 @@
 		textColor: 'black',
 	}
 
-	export let categories;
-	export let categoryToColorFn;
 	export let geometry;
-	// {key, values: {key, value}}[]
-	// outer key is the x key, inner key is the stream name
-	export let items = [];
+	export let groups;
+	export let groupToColorFn;
 	export let keyFilterFn;
 	export let keyFormatFn = _.identity;
 	export let keyType;
+	export let points = []; // {group, key, value}[]
 	export let preformatDate = _.identity;
 	export let sorting = 'off';
 	export let theme;
@@ -65,48 +63,57 @@
 	$: geometry = geometry ? {...defaultGeometry, ...geometry} : defaultGeometry;
 	$: labelsDy = Math.min(geometry.safetyBottom, geometry.safetyTop) / 2;
 
-	/* items based */
+	/* streams */
 
-	$: items = items ?? [];
+	$: points = points ?? [];
 
 	const getSortedKeys = _.pipe([_.mapWith(getKey), _.sortWith([])]);
-	$: allKeys = getSortedKeys(items)
+	$: allKeys = getSortedKeys(points);
 
-	const getMaxSum = arrayMaxWith(
-		_.pipe([getValues, arraySumWith(getValue)])
-	);
-	$: maxSum = getMaxSum(items);
-	$: yTicks = inclusiveRange([0, maxSum, maxSum / yTicksCount]);
-
-	$: zeroedCategoriesMap = makeKeyedZeroes(categories);
+	$: zeroedGroupsMap = makeKeyedZeroes(groups);
 	$: sortingFn = sorting === 'off'
 		? _.identity
 		: sorting === 'asc'
 			? _.sortWith([getValue])
 			: _.sortWith([_.sorterDesc(getValue)]);
-	$: augmentValues = transformValues({
-		values: _.pipe([
-			keyValueArrayToObject,
-			kvObject => _.merge(zeroedCategoriesMap, kvObject),
-			objectToKeyValueArray,
-			sortingFn,
-			values => _.reduce(values, (acc, {key, value}) => {
-				acc.array.push({
-					key,
-					value,
-					start: acc.sum,
-					end: acc.sum + value,
-				});
-				acc.sum += value;
+	$: makeStreams = _.pipe([
+		_.groupBy(getKey),
+		objectToKeyValuesArray, // {key, values: {group, key, value}[]}[]
+		_.mapWith(transformValues({
+			values: _.pipe([
+				_.mapWith(({group, value}) => ({key: group, value})),
+				keyValueArrayToObject,
+				kvObject => _.merge(zeroedGroupsMap, kvObject),
+				objectToKeyValueArray,
+				sortingFn,
+				kvObjects => _.reduce(kvObjects, (acc, {key, value}) => {
+					acc.array.push({
+						key,
+						value,
+						start: acc.sum,
+						end: acc.sum + value,
+					});
+					acc.sum += value;
 
-				return acc;
-			}, {array: [], sum: 0}),
-			_.getKey('array'),
-		])
-	});
-	$: augmentedItems = _.map(items, augmentValues);
+					return acc;
+				}, {array: [], sum: 0}),
+				_.getKey('array'),
+			])
+		}))
+	]);
+	$: streams = makeStreams(points)
 
-	/* geometry based */
+	/* scales, axes */
+
+	const getMaxSum = _.pipe([
+		_.groupBy(getKey),
+		_.values,
+		arrayMaxWith(arraySumWith(getValue))
+	]);
+	$: maxSum = getMaxSum(points);
+	$: yTicks = inclusiveRange([0, maxSum, maxSum / yTicksCount]);
+
+	/* paths */
 
 	const makeGetPaths = ({xScale, yScale}) => _.pipe([
 		pairs,
@@ -136,7 +143,7 @@
 
 							const path = `${M1} ${C12} ${L23} ${C34} Z`;
 							const category = L.value.key;
-							const fill = categoryToColorFn(category);
+							const fill = groupToColorFn(category);
 
 							return {
 								category,
@@ -161,7 +168,7 @@
 	let xScale;
 	let yScale;
 
-	$: if (height && width && items) {
+	$: if (height && width && streams) {
 		bbox = {
 			blx: geometry.safetyLeft,
 			bly: height - geometry.safetyBottom,
@@ -188,7 +195,7 @@
 		yScale = scaleLinear().domain([0, maxSum]).range([bbox.bly, bbox.try]);
 
 		const getPaths = makeGetPaths({xScale, yScale});
-		paths = getPaths(augmentedItems);
+		paths = getPaths(streams);
 
 		doDraw = true;
 	}
@@ -274,13 +281,15 @@
 		</g>
 
 		<!-- paths -->
-		{#each paths as p (p.id)}
-			<path
-				d={p.path}
-				fill={p.fill}
-				stroke={p.fill}
-			/>
-		{/each}
+		<g class='path'>
+			{#each paths as p (p.id)}
+				<path
+					d={p.path}
+					fill={p.fill}
+					stroke={p.fill}
+				/>
+			{/each}
+		</g>
 
 		<!-- frame -->
 		<rect

@@ -5,16 +5,16 @@
 	import {_selection} from '$lib/stores/navigation.js';
 	import {_xorSelectorTheme} from '$lib/stores/theme.js';
 
-	const sortingChanged = ({detail: streamgraphsSorting}) =>
+	const sortingChanged = ({detail: categsStreamgraphsSorting}) =>
 		explorerActor.send({
 			type: 'SELECTION_CHANGED',
-			newValues: {streamgraphsSorting}
+			newValues: {categsStreamgraphsSorting}
 		});
 </script>
 
 <XorSelector
 	on:changed={sortingChanged}
 	theme={$_xorSelectorTheme}
-	value={$_selection.streamgraphsSorting}
+	value={$_selection.categsStreamgraphsSorting}
 	values={['off', 'asc', 'desc']}
 />

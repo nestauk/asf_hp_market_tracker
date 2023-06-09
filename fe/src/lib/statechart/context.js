@@ -4,11 +4,13 @@ export const context = {
 	selection: {
 		categsGeoSortBy: 'regionName',
 		categsGeoSorting: 'asc',
+		categsStreamgraphsSorting: 'off',
 		categsTimeGraph: 'trends',
 		interval: '1y',
 		numTimeGraph: 'percentiles',
 		regionType: 'itl21_1',
-		streamgraphsSorting: 'off',
+		stringsStreamgraphsSorting: 'off',
+		stringsTimeGraph: 'trends',
 		stringsTopCount: 20, // this is a filter
 	},
 	viewQueryPath: '',

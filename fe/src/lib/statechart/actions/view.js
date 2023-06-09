@@ -191,7 +191,6 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 						field1: `property_geo_region_${ctx.selection.regionType}_name.keyword`,
 						field2: `${id}.keyword`,
 						missing2: 'Unknown',
-						size: ctx.selection.stringsTopCount
 					};
 					break;
 				case 'stats':
@@ -208,7 +207,6 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 						calendar_interval1: ctx.selection.interval,
 						field1: `installation_date`,
 						field2: `${id}.keyword`,
-						size: ctx.selection.stringsTopCount
 					};
 					break;
 				default:

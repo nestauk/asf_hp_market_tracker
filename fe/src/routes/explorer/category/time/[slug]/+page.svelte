@@ -1,7 +1,8 @@
 <script>
 	import {
-		applyFnMap,
+		arraySumWith,
 		getKey,
+		getValue,
 		getValues,
 		makeSplitBy,
 		sliceStringAt
@@ -12,9 +13,9 @@
 
 	import {page as _page} from '$app/stores';
 	import FlexBar from '$lib/components/explorer/FlexBar.svelte';
-	import SelectorInterval from '$lib/components/explorer/medium/SelectorInterval.svelte';
+	import SelectorCategsStreamgraphSort from '$lib/components/explorer/medium/SelectorCategsStreamgraphSort.svelte';
 	import SelectorCategsTimegraph from '$lib/components/explorer/medium/SelectorCategsTimegraph.svelte';
-	import SelectorStreamgraphSort from '$lib/components/explorer/medium/SelectorStreamgraphSort.svelte';
+	import SelectorInterval from '$lib/components/explorer/medium/SelectorInterval.svelte';
 	import Grid2Columns from '$lib/components/svizzle/Grid2Columns.svelte';
 	import Grid2Rows from '$lib/components/svizzle/Grid2Rows.svelte';
 	import StreamGraph from '$lib/components/svizzle/trends/StreamGraph.svelte';
@@ -38,20 +39,28 @@
 		sliceStringAt([2, 4])
 	]);
 
+	const flattenItems = _.flatMapWith(
+		_.pipe([
+			_.collect([keyAccessor, valueAccessor]),
+			([key, points]) => _.map(points,
+				point => ({
+					group: keyAccessor2(point),
+					key,
+					value: valueAccessor2(point),
+				})
+			)
+		])
+	); // {group, key, value}[]
+
+	// {group, key, value}[] => group[]
+	const getGroups = _.pipe([
+		_.pluck('group'),
+		_.uniques,
+		_.sortWith([])
+	]);
+
 	/* streams */
 
-	const reshapeItems = _.mapWith(
-		applyFnMap({
-			key: keyAccessor,
-			values: _.pipe([
-				valueAccessor,
-				_.mapWith(applyFnMap({
-					key: keyAccessor2,
-					value: valueAccessor2
-				}))
-			])
-		})
-	);
 	const getStreamsCategs = _.pipe([
 		_.flatMapWith(
 			_.pipe([getValues, _.mapWith(getKey)])
@@ -62,44 +71,43 @@
 
 	/* trends */
 
+	const getItemSum = _.pipe([getValues, arraySumWith(getValue)]);
 	const getTrends = _.pipe([
-		_.flatMapWith(
-			({key: xKey, values}) => _.map(values,
-				({key, value}) => ({key, xKey, value})
-			)
-		),
-		_.groupBy(getKey),
-		_.mapValuesWith(
-			_.mapWith(({xKey: key, value}) => ({key, value}))
-		),
-		objectToKeyValuesArray
+		_.groupBy(_.getKey('group')),
+		objectToKeyValuesArray,
+		_.sortWith([_.sorterDesc(getItemSum)]),
+	]);
+	const getTrendsPoints = _.pipe([
+		_.flatMapWith(getValues),
+		_.sortWith([getKey]),
 	]);
 
-	let categories;
-	let categoryToColorFn;
 	let doDraw = false;
-	let streams;
+	let groups;
+	let groupToColorFn;
+	let points;
 	let trends;
 
-	// rename key, categs etc
-
+	$: showStreams = $_selection.categsTimeGraph === 'streams';
 	$: proceed =
 		$_viewData?.response.code === 200 &&
 		$_viewData?.page.route.id === $_page.route.id;
 
 	$: if (proceed) {
 		const rawItems = $_viewData?.response.data.date_histogram.buckets;
+		const allPoints = flattenItems(rawItems);
 
-		streams = reshapeItems(rawItems);
-		categories = getStreamsCategs(streams);
+		trends = getTrends(allPoints);
+		points = getTrendsPoints(trends);
+		console.log('points', points);
 
-		trends = getTrends(streams);
+		groups = getGroups(points);
 
 		const colorScheme = _.map(
-			categories,
-			(v, index) => interpolateColor(index / (categories.length - 1))
+			groups,
+			(v, index) => interpolateColor(index / (groups.length - 1))
 		);
-		categoryToColorFn = scaleOrdinal().domain(categories).range(colorScheme);
+		groupToColorFn = scaleOrdinal().domain(groups).range(colorScheme);
 
 		doDraw = true;
 	}
@@ -109,7 +117,9 @@
 	<FlexBar>
 		<SelectorInterval />
 		<SelectorCategsTimegraph />
-		<SelectorStreamgraphSort />
+		{#if showStreams}
+			<SelectorCategsStreamgraphSort />
+		{/if}
 	</FlexBar>
 	{#if doDraw}
 		<Grid2Columns
@@ -121,13 +131,13 @@
 				slot='col0'
 			>
 				<ul>
-					{#each categories as category}
+					{#each groups as group}
 						<li>
 							<span
 								class='dot'
-								style='background-color:{categoryToColorFn(category)}'
+								style='background-color:{groupToColorFn(group)}'
 							></span>
-							<span>{category}</span>
+							<span>{group}</span>
 						</li>
 					{/each}
 				</ul>
@@ -135,19 +145,19 @@
 			<div class='col1' slot='col1'>
 				{#if $_selection.categsTimeGraph === 'streams'}
 					<StreamGraph
-						{categories}
-						{categoryToColorFn}
+						{groups}
+						{groupToColorFn}
 						{keyFormatFn}
+						{points}
 						geometry={{
 							safetyBottom: 50,
 							safetyLeft: 80,
 							safetyRight: 80,
 							safetyTop: 50,
 						}}
-						items={streams}
 						keyType='date'
 						preformatDate={formatDate}
-						sorting={$_selection.streamgraphsSorting}
+						sorting={$_selection.categsStreamgraphsSorting}
 						theme={$_framesTheme}
 						valueFormatFn={Math.round}
 					/>
@@ -162,7 +172,7 @@
 							safetyTop: 50,
 						}}
 						items={trends}
-						keyToColorFn={categoryToColorFn}
+						keyToColorFn={groupToColorFn}
 						keyType='date'
 						preformatDate={formatDate}
 						slot='col1'
