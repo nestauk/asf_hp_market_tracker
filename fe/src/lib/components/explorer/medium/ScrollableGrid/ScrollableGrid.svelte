@@ -1,6 +1,7 @@
 <script>
 	import {applyFnMap, getKey, getValue, getValues} from '@svizzle/utils';
 	import * as _ from 'lamb';
+	import {afterUpdate} from 'svelte';
 
 	import Scroller from '$lib/components/svizzle/Scroller.svelte';
 	import SizeSensor from '$lib/components/svizzle/SizeSensor.svelte';
@@ -12,6 +13,7 @@
 	export let domain;
 	export let items;
 	export let labelsByCategory;
+	export let shouldResetScroll;
 
 	/* data */
 
@@ -27,8 +29,18 @@
 	let doDraw = false;
 	let extraWidth;
 	let maxSize;
+	let previousItems;
 	let reshapedItems;
+	let scrollTop;
 
+	afterUpdate(() => {
+		if (shouldResetScroll && previousItems !== items) {
+			scrollTop = 0;
+			previousItems = items;
+		}
+	});
+
+	$: shouldResetScroll = shouldResetScroll || false;
 	$: maxValue = domain[1] || 1;
 	$: sideScale = value => maxSize * Math.sqrt(value / maxValue || 0);
 	$: if (items && categories) {
@@ -52,7 +64,10 @@
 		</SizeSensor>
 
 		<!-- content -->
-		<Scroller bind:extraWidth>
+		<Scroller
+			bind:extraWidth
+			bind:outerScrollTop={scrollTop}
+		>
 			{#each reshapedItems as {key, values}}
 				<div class='valueRow'>
 					{#each categories as subKey}

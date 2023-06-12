@@ -12,10 +12,12 @@
 	};
 
 	export let extraWidth;
+	export let outerScrollTop = 0;
 	export let theme;
 
 	let hasBottomShadow;
 	let hasTopShadow;
+	let previousScrollTop = 0;
 	let scroller;
 	let shadowOpacityBottom = 1;
 	let shadowOpacityTop = 1;
@@ -43,9 +45,16 @@
 			? scrollBottom / 10
 			: 1;
 		extraWidth = offsetWidth - scrollWidth;
+		previousScrollTop = scrollTop;
+		if (outerScrollTop !== scrollTop) {
+			outerScrollTop = scrollTop;
+		}
 	};
 
 	$: scroller && $_size && onScroll();
+	$: if (previousScrollTop !== outerScrollTop) {
+		scroller.scrollTop = outerScrollTop;
+	}
 	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
 	$: rgb = color(theme.shadowColor).rgb();
 	$: bottomShadow = `${theme.bottomShadowGeometry} rgba(${rgb.r},${rgb.g},${rgb.b},${shadowOpacityBottom})`;

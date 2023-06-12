@@ -175,6 +175,7 @@
 					{domain}
 					{labelsByCategory}
 					items={gridItems}
+					shouldResetScroll={true}
 					slot='col1'
 				/>
 			</Grid2Columns>
