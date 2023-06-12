@@ -1,0 +1,52 @@
+{
+	"query": {
+		"method": "GET",
+		"url": "stats",
+		"query": {
+			"field": "installation_cost",
+			"use_extended_stats": true
+		}
+	},
+	"response": {
+		"code": 200,
+		"data": {
+			"stats": {
+				"count": 116218,
+				"min": 1,
+				"max": 200000,
+				"avg": 11871.213866879221,
+				"sum": 1379648733.1809692,
+				"sum_of_squares": 24648776268653.113,
+				"variance": 71165147.36007194,
+				"variance_population": 71165147.36007194,
+				"variance_sampling": 71165759.70721015,
+				"std_deviation": 8435.943774117508,
+				"std_deviation_population": 8435.943774117508,
+				"std_deviation_sampling": 8435.980067971364,
+				"std_deviation_bounds": {
+					"upper": 28743.101415114237,
+					"lower": -5000.6736813557945,
+					"upper_population": 28743.101415114237,
+					"lower_population": -5000.6736813557945,
+					"upper_sampling": 28743.17400282195,
+					"lower_sampling": -5000.7462690635075
+				}
+			}
+		},
+		"message": "aggregation successful",
+		"request": {
+			"agg": {
+				"id": "stats",
+				"params": {
+					"field": "installation_cost",
+					"use_extended_stats": true
+				}
+			},
+			"filter": {
+				"query": {
+					"match_all": {}
+				}
+			}
+		}
+	}
+}

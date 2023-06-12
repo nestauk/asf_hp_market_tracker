@@ -5,6 +5,7 @@ export { schema as dateHistogram1Stats2Schema } from './date_histogram1_stats2.j
 export { schema as dateHistogram1Terms2Schema } from './date_histogram1_terms2.js';
 export { schema as dateHistogramSchema } from './date_histogram.js';
 export { schema as histogramSchema } from './histogram.js';
+export { schema as statsSchema } from './stats.js';
 export { schema as terms1Cardinality2Schema } from './terms1_cardinality2.js';
 export { schema as terms1Histogram2Schema } from './terms1_histogram2.js';
 export { schema as terms1Stats2Schema } from './terms1_stats2.js';

@@ -7,6 +7,7 @@ import {
 	getDateHistogram1Stats2,
 	getDateHistogram1Terms2,
 	getHistogram,
+	getStats,
 	getTerms,
 	getTerms1Cardinality2,
 	getTerms1Histogram2,
@@ -21,6 +22,7 @@ import {
 	dateHistogram1Terms2Schema,
 	dateHistogramSchema,
 	histogramSchema,
+	statsSchema,
 	terms1Cardinality2Schema,
 	terms1Histogram2Schema,
 	terms1Stats2Schema,
@@ -38,6 +40,7 @@ export const routes = (fastify, options, done) => {
 	fastify.get('/date_histogram1_stats2', dateHistogram1Stats2Schema, getDateHistogram1Stats2);
 	fastify.get('/date_histogram1_terms2', dateHistogram1Terms2Schema, getDateHistogram1Terms2);
 	fastify.get('/histogram', histogramSchema, getHistogram);
+	fastify.get('/stats', statsSchema, getStats);
 	fastify.get('/terms', termsSchema, getTerms);
 	fastify.get('/terms1_cardinality2', terms1Cardinality2Schema, getTerms1Cardinality2);
 	fastify.get('/terms1_histogram2', terms1Histogram2Schema, getTerms1Histogram2);

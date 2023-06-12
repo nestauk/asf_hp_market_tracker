@@ -1,0 +1,36 @@
+{
+	"query": {
+		"method": "GET",
+		"url": "stats",
+		"query": {
+			"field": "installation_cost"
+		}
+	},
+	"response": {
+		"code": 200,
+		"data": {
+			"stats": {
+				"count": 116218,
+				"min": 1,
+				"max": 200000,
+				"avg": 11871.213866879221,
+				"sum": 1379648733.1809692
+			}
+		},
+		"message": "aggregation successful",
+		"request": {
+			"agg": {
+				"id": "stats",
+				"params": {
+					"field": "installation_cost",
+					"use_extended_stats": false
+				}
+			},
+			"filter": {
+				"query": {
+					"match_all": {}
+				}
+			}
+		}
+	}
+}
