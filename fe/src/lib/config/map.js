@@ -12,10 +12,11 @@ export const MAPBOXGL_STYLEURLs = {
 }
 
 export const regionTypeToFeatureNameId = {
+	country21: 'CTRY21NM',
 	itl21_1: 'ITL121NM',
 	itl21_2: 'ITL221NM',
 	itl21_3: 'ITL321NM',
-	lau21_1: 'LAD21NM',
+	lad21: 'LAD21NM',
 	lsoa11: 'LSOA11NM',
 	msoa11: 'MSOA11NM',
 }
