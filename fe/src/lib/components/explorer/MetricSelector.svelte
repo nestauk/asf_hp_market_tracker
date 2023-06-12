@@ -1,7 +1,8 @@
 <script>
-	import {Link, Scroller} from '@svizzle/ui';
+	import {Link} from '@svizzle/ui';
 	import {tick} from 'svelte';
 
+	import Scroller from '$lib/components/svizzle/Scroller.svelte';
 	import {metricGroups} from '$lib/data/metrics.js';
 	import {
 		_activeViewType,
@@ -22,8 +23,8 @@
 </script>
 
 <Scroller>
-	{#each metricGroups as {key, value}}
-		<h2>{key}</h2>
+	{#each metricGroups as {key: entity, value}}
+		<h2>{entity}</h2>
 		<ul>
 			{#each value as {id, label, type}}
 				<li>

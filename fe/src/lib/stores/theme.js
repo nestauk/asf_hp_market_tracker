@@ -127,6 +127,16 @@ export const _stackedBarchartTheme = derived(
 	})
 );
 
+export const _rangeSlidersTheme = derived(
+	_currThemeVars,
+	currThemeVars => ({
+		knobFill: currThemeVars['--colorSwitchKnob'],
+		knobStroke: currThemeVars['--colorBorderAux'],
+		lineColor: currThemeVars['--colorBorder'],
+		textColor: currThemeVars['--colorText'],
+	})
+);
+
 /* icons */
 
 export const _getIconColor = derived(

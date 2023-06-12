@@ -1,11 +1,14 @@
 <script>
+	import Filters from '$lib/components/explorer/Filters.svelte';
 	import MetricSelector from '$lib/components/explorer/MetricSelector.svelte';
 	import ViewMedium from '$lib/components/explorer/medium/ViewMedium.svelte';
 	import TimeLineHistogram from '$lib/components/explorer/medium/TimeLineHistogram.svelte';
 </script>
 
 <div class='ExplorerMedium'>
-	<nav class='filters'>filters</nav>
+	<nav class='filters'>
+		<Filters />
+	</nav>
 	<nav class='metrics'>
 		<MetricSelector />
 	</nav>
@@ -24,8 +27,8 @@
 		display: grid;
 		grid-template-areas:
 			"filters view metrics"
-			"filters timeline timeline";
-		grid-template-columns: 15% 70% 15%;
+			"filters timeline metrics";
+		grid-template-columns: 18% 67% 15%;
 		grid-template-rows: 90% 10%;
 		height: 100%;
 		width: 100%;
@@ -37,15 +40,12 @@
 	}
 
 	.filters {
-		align-items: center;
 		border-right: thin solid var(--colorBorder);
-		display: flex;
 		grid-area: filters;
-		justify-content: center;
 	}
 	.metrics {
-		grid-area: metrics;
 		border-left: thin solid var(--colorBorder);
+		grid-area: metrics;
 	}
 	.timeline {
 		align-items: stretch;

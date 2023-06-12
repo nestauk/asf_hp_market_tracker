@@ -1,4 +1,5 @@
 import * as _ from 'lamb';
+
 import {_staticData} from '$lib/stores/data.js';
 
 export const logStaticData = (ctx, {data}) => {
@@ -11,7 +12,7 @@ const indexTimelines = _.pipe([
 ]);
 const indexNumStats = _.pipe([
 	_.indexBy(_.getPath('request.agg.params.field')),
-	_.mapValuesWith(_.getPath('data.stats'))
+	_.mapValuesWith(_.getPath('data.stats')),
 ]);
 export const updateStaticDataStore = (ctx, {data: {timelines, numStats}}) => {
 	_staticData.set({
