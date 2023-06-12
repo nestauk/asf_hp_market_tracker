@@ -7,7 +7,7 @@
 	import {derived, writable} from 'svelte/store';
 
 	import {
-		FIT_PADDING,
+		DEFAULT_GEOMETRY,
 		MAPBOXGL_MAX_ZOOM,
 		MAPBOXGL_MIN_ZOOM,
 		MAPBOXGL_TILE_SIZE
@@ -21,9 +21,11 @@
 	export let _zoom = null; // store
 	export let accessToken = null;
 	export let bounds;
+	export let geometry;
 	export let getFeatureState;
 	export let isAnimated = true;
 	export let isInteractive = true;
+	export let shouldCaptureCanvas = false;
 	export let style;
 	export let visibleLayers = [];
 	export let withScaleControl = true;
@@ -31,6 +33,7 @@
 
 	/* props sanitisation */
 
+	$: geometry = {...DEFAULT_GEOMETRY, ...geometry};
 	$: isAnimated = isAnimated ?? true;
 	$: isInteractive = isInteractive ?? true;
 	$: _bbox_WS_EN = _bbox_WS_EN || writable([[-180, -90], [180, 90]]);
@@ -57,28 +60,41 @@
 
 	/* updating layers */
 
+	const getMapDataURL = () => {
+		const canvas = map.getCanvas();
+		const dataURL = canvas.toDataURL('image/png');
+		dispatch('mapDataURL', dataURL);
+	}
+
 	$: map?.setStyle(style);
 	$: layers = $_map && style && $_map?.getStyle().layers;
-	$: layers?.forEach(layer => {
-		if (visibleLayers.includes(layer.id)) {
-			map
-			.querySourceFeatures(layer.source, {sourceLayer: layer.id})
-			.forEach(feature => {
-				const state = getFeatureState(feature);
-				state && map.setFeatureState({
-					id: feature.id,
-					source: layer.source,
-					sourceLayer: layer.id,
-				}, state);
-			});
-		}
+	$: {
+		layers?.forEach(layer => {
+			if (getFeatureState && visibleLayers.includes(layer.id)) {
+				map
+				.querySourceFeatures(layer.source, {sourceLayer: layer.id})
+				.filter(feature => feature.id)
+				.forEach(feature => {
+					const state = getFeatureState(feature);
+					state && map.setFeatureState({
+						id: feature.id,
+						source: layer.source,
+						sourceLayer: layer.id,
+					}, state);
+				});
+			}
 
-		map?.setLayoutProperty(
-			layer.id,
-			'visibility',
-			visibleLayers.includes(layer.id) ? 'visible' : 'none'
-		);
-	});
+			map?.setLayoutProperty(
+				layer.id,
+				'visibility',
+				visibleLayers.includes(layer.id) ? 'visible' : 'none'
+			);
+		})
+
+		if (getFeatureState && shouldCaptureCanvas) {
+			map.once('idle', getMapDataURL);
+		}
+	};
 
 	/* bbox */
 
@@ -135,14 +151,16 @@
 	/* bbox */
 
 	const fitToBbox = bbox_WSEN => {
+		const fitPaddingXPx = geometry.safetyFactor * width;
+		const fitPaddingYPx = geometry.safetyFactor * height;
 		map?.fitBounds(bbox_WSEN, {
 			animate: isAnimated,
 			linear: true,
 			padding: {
-				bottom: FIT_PADDING,
-				left: FIT_PADDING,
-				right: FIT_PADDING,
-				top: FIT_PADDING,
+				bottom: fitPaddingYPx,
+				left: fitPaddingXPx,
+				right: fitPaddingXPx,
+				top: fitPaddingYPx,
 			}
 		});
 	};
@@ -230,8 +248,15 @@
 
 			$_map = map;
 			$_projectFn = map.project.bind(map);
+		})
+		.on('data', () => {
+			if ($_map?.areTilesLoaded()) {
+				dispatch('dataLoaded');
+			}
+		})
+		.on('dataloading', () =>{
+			dispatch('dataLoading');
 		});
-
 		map.touchZoomRotate.disableRotation();
 
 		// controls
