@@ -9,8 +9,13 @@ const indexTimelines = _.pipe([
 	_.indexBy(_.getPath('request.agg.params.calendar_interval')),
 	_.mapValuesWith(_.getPath('data.date_histogram.buckets'))
 ]);
-export const updateStaticDataStore = (ctx, {data}) => {
+const indexNumStats = _.pipe([
+	_.indexBy(_.getPath('request.agg.params.field')),
+	_.mapValuesWith(_.getPath('data.stats'))
+]);
+export const updateStaticDataStore = (ctx, {data: {timelines, numStats}}) => {
 	_staticData.set({
-		timelines: indexTimelines(data)
+		numStats: indexNumStats(numStats),
+		timelines: indexTimelines(timelines),
 	});
 }

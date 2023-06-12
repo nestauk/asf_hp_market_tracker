@@ -40,7 +40,6 @@
 	$: proceed = height && width && $_staticData?.timelines;
 	$: if (proceed) {
 		items = $_staticData.timelines[$_selection.interval];
-		console.log('TL items', items);
 
 		bbox = {
 			blx: geometry.safetyLeft,
@@ -79,7 +78,6 @@
 			label: formatDate(date),
 			x: xScale(date),
 		}));
-		console.log('xTicks', xTicks);
 	}
 </script>
 

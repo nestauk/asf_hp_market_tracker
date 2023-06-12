@@ -17,8 +17,9 @@ export const machine = createMachine(
 export const explorerActor = interpret(machine).start();
 
 if (browser) {
-	explorerActor.subscribe((state) => {
+	explorerActor.subscribe((state, event) => {
 		// console.log('🤖🤖🤖', JSON.stringify(state.value));
+		// if (event) {console.log('🎈🎈🎈', event);}
 
 		const isViewStateReady = isViewReady(state.value);
 		_isViewReady.set(isViewStateReady);

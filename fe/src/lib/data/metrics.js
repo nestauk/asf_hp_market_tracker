@@ -22,3 +22,5 @@ const getMetricGroups = _.pipe([
 	objectToKeyValueArray
 ]);
 export const metricGroups = getMetricGroups(metrics);
+
+export const numericMetrics = _.filter(metrics, _.hasKeyValue('type', 'number'));
