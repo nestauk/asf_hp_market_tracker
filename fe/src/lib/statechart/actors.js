@@ -1,5 +1,5 @@
-import {backendURL} from '$lib/config.js';
+import {selectedBeURL} from '$lib/env.js';
 
 export const queryViewData = ({viewQueryPath}) =>
-	fetch(`${backendURL}/${viewQueryPath}`)
+	fetch(`${selectedBeURL}/${viewQueryPath}`)
 	.then((response) => response.json());
