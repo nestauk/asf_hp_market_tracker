@@ -7,6 +7,7 @@ import {
 import {_selection} from '$lib/stores/navigation.js';
 import {_currThemeVars} from '$lib/stores/theme.js';
 
+
 /* bounding box, zoom */
 
 export const _bbox_WS_EN = writable(DEFAULT_BBOX_WS_EN);
@@ -30,9 +31,9 @@ export const _baseLayers = derived(
 	_currThemeVars,
 	currThemeVars => [
 		{
-			id: 'nuts0',
+			id: 'nuts21_0',
 			source: 'protomaps',
-			'source-layer': 'nuts0',
+			'source-layer': 'nuts21_0',
 			type: 'fill',
 			paint: {
 				'fill-color': currThemeVars['--colorBackground'],
@@ -57,6 +58,13 @@ export const _regionLayers = derived(
 	_defaultLayerPaint,
 	defaultLayerPaint => [
 		{
+			id: 'country21',
+			source: 'protomaps',
+			'source-layer': 'country21',
+			type: 'fill',
+			paint: defaultLayerPaint	
+		},
+		{
 			id: 'itl21_1',
 			source: 'protomaps',
 			'source-layer': 'itl21_1',
@@ -78,9 +86,9 @@ export const _regionLayers = derived(
 			paint: defaultLayerPaint
 		},
 		{
-			id: 'lau21_1',
+			id: 'lad21',
 			source: 'protomaps',
-			'source-layer': 'lau21_1',
+			'source-layer': 'lad21',
 			type: 'fill',
 			paint: defaultLayerPaint
 		},
@@ -109,13 +117,11 @@ export const _mapStyle = derived(
 			...baseLayers,
 			...regionLayers
 		],
+		// sources
 		sources: {
 			protomaps: {
 				type: 'vector',
-				tiles: [
-					// our tiles
-					'https://d21cr7yltjd5j0.cloudfront.net/nuts0_msoa11_lsoa11_lau21_1_itl21_3_itl21_2_itl21_1/{z}/{x}/{y}.mvt',
-				],
+				tiles: ['https://d21cr7yltjd5j0.cloudfront.net/nuts21_0_country21_itl21_1_itl21_2_itl21_3_lad21_msoa11_lsoa11/{z}/{x}/{y}.mvt']
 			}
 		}
 	})

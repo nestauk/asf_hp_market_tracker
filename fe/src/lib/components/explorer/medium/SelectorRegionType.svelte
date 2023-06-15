@@ -17,10 +17,11 @@
 	theme={$_xorSelectorTheme}
 	value={$_selection.regionType}
 	values={[
+		'country21',
 		'itl21_1',
 		'itl21_2',
 		'itl21_3',
-		'lau21_1',
+		'lad21',
 		// 'lsoa11',
 		// 'msoa11',
 	]}

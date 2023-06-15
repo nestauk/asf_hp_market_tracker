@@ -1,4 +1,7 @@
 .DS_Store
 .git
 node_modules
+be/**/*.geojson
+be/**/*.mbtiles
+be/**/*.pmtiles
 _
