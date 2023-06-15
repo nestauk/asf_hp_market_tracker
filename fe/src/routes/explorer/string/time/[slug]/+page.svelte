@@ -20,16 +20,21 @@
 	import Grid2Rows from '$lib/components/svizzle/Grid2Rows.svelte';
 	import StreamGraph from '$lib/components/svizzle/trends/StreamGraph.svelte';
 	import Trends from '$lib/components/svizzle/trends/Trends.svelte';
-	import {_selection} from '$lib/stores/navigation.js';
+	import {_currentMetric, _selection} from '$lib/stores/navigation.js';
 	import {_currThemeVars, _framesTheme} from '$lib/stores/theme.js';
-	import {_viewData} from '$lib/stores/view.js';
+	import {_isViewReady, _viewData} from '$lib/stores/view.js';
 	import {formatDate} from '$lib/utils/date.js';
+	import {
+		getDocCount,
+		getKeyAsString,
+		getTermsBuckets
+	} from '$lib/utils/getters.js';
 	import {objectToKeyValuesArray} from '$lib/utils/svizzle/utils.js';
 
-	const keyAccessor = _.getKey('key_as_string');
-	const valueAccessor = _.getPath('terms.buckets');
+	const keyAccessor = getKeyAsString;
+	const valueAccessor = getTermsBuckets;
 	const keyAccessor2 = getKey;
-	const valueAccessor2 = _.getKey('doc_count');
+	const valueAccessor2 = getDocCount;
 
 	/* common */
 
@@ -75,8 +80,10 @@
 	$: cropTrends = _.take($_selection.stringsTopCount);
 	$: showStreams = $_selection.stringsTimeGraph === 'streams';
 	$: proceed =
-		$_viewData?.response.code === 200 &&
-		$_page.route.id === $_viewData?.page.route.id;
+		$_isViewReady &&
+		$_currentMetric?.id === $_page.params.slug &&
+		$_viewData.page.route.id === $_page.route.id &&
+		$_viewData?.response.code === 200;
 
 	let doDraw = false;
 	let groups;
@@ -85,7 +92,7 @@
 	let trends;
 
 	$: if (proceed) {
-		const rawItems = $_viewData?.response.data.date_histogram.buckets;
+		const rawItems = $_viewData?.response.data.date_histogram?.buckets || [];
 		const allPoints = flattenItems(rawItems);
 		trends = cropTrends(getTrends(allPoints));
 		points = getTrendsPoints(trends);
@@ -157,13 +164,13 @@
 				{:else}
 					<Trends
 						{keyFormatFn}
+						{trends}
 						geometry={{
 							safetyBottom: 50,
 							safetyLeft: 80,
 							safetyRight: 80,
 							safetyTop: 50,
 						}}
-						items={trends}
 						keyToColorFn={groupToColorFn}
 						keyType='date'
 						preformatDate={formatDate}

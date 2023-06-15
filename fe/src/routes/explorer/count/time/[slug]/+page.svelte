@@ -6,6 +6,7 @@
 		makeSplitBy,
 		sliceStringAt,
 	} from '@svizzle/utils';
+	import {format} from 'd3-format';
 	import * as _ from 'lamb';
 
 	import {page as _page} from '$app/stores';
@@ -13,22 +14,29 @@
 	import SelectorInterval from '$lib/components/explorer/medium/SelectorInterval.svelte';
 	import Grid2Rows from '$lib/components/svizzle/Grid2Rows.svelte';
 	import Trends from '$lib/components/svizzle/trends/Trends.svelte';
-	import {_currentMetricId} from '$lib/stores/navigation.js';
+	import {_currentMetric} from '$lib/stores/navigation.js';
 	import {_currThemeVars, _framesTheme} from '$lib/stores/theme.js';
-	import {_viewData} from '$lib/stores/view.js';
-	import {roundTo1} from '$lib/utils/numbers.js';
+	import {_isViewReady, _viewData} from '$lib/stores/view.js';
 	import {formatDate} from '$lib/utils/date.js';
+	import {
+		getCardinalityValue,
+		getDocCount,
+		getKeyAsString,
+		getStatsAvg,
+		getStatsSum,
+	} from '$lib/utils/getters.js';
+	import {roundTo1} from '$lib/utils/numbers.js';
 
-	const keyAccessor  = _.getPath('key_as_string');
+	const keyAccessor = getKeyAsString;
 	const valueAccessors = {
-		// {key, doc_count}[]
-		installations: _.getKey('doc_count'),
-
-		// {key, doc_count, terms: {...}, stats: {avg, ...} }}[]
-		installations_per_installer: _.getPath('stats.avg'),
-
-		// {key, doc_count, cardinality: {value}}[]
-		installers: _.getPath('cardinality.value'),
+		hp_feature_power_capacity_sum: getStatsSum,
+		hp_feature_power_generation_sum: getStatsSum,
+		installation_cost_sum: getStatsSum,
+		installations_per_installer: getStatsAvg,
+		installations: getDocCount,
+		installers: getCardinalityValue,
+		property_feature_total_floor_area_sum: getStatsSum,
+		property_supply_photovoltaic_sum: getStatsSum,
 	}
 	const filterOutNils = _.filterWith(_.pipe([getValue, isNotNil]));
 	const keyFormatFn = _.pipe([
@@ -38,16 +46,19 @@
 	]);
 
 	let doDraw = false;
-	let items;
+	let trends;
+	let valueFormatFn;
 
 	$: proceed =
-		$_viewData?.response.code === 200 &&
-		$_page.route.id === $_viewData?.page.route.id &&
-		$_page.params.slug === $_viewData?.page.params.slug;
+		$_isViewReady &&
+		$_currentMetric?.id === $_page.params.slug &&
+		$_viewData.page.route.id === $_page.route.id &&
+		$_viewData?.response.code === 200;
 
 	$: if (proceed) {
-		const rawItems = $_viewData?.response.data.date_histogram.buckets;
-		const valueAccessor = valueAccessors[$_currentMetricId];
+		const rawItems = $_viewData?.response.data.date_histogram.buckets || [];
+
+		const valueAccessor = valueAccessors[$_currentMetric?.id];
 		const reshapeItems = _.mapWith(
 			applyFnMap({
 				key: keyAccessor,
@@ -55,7 +66,14 @@
 			})
 		);
 		const trend = filterOutNils(reshapeItems(rawItems));
-		items = [{key: 'trend', values: trend}];
+		trends = [{key: 'trend', values: trend}];
+
+		valueFormatFn = $_currentMetric?.formatSpecifier
+			? format($_currentMetric.formatSpecifier)
+			: $_currentMetric.id === 'installations_per_installer'
+				? roundTo1
+				: _.identity;
+
 		doDraw = true;
 	}
 </script>
@@ -67,8 +85,9 @@
 
 	{#if doDraw}
 		<Trends
-			{items}
 			{keyFormatFn}
+			{trends}
+			{valueFormatFn}
 			geometry={{
 				safetyBottom: 50,
 				safetyLeft: 80,
@@ -81,7 +100,6 @@
 				...$_framesTheme,
 				curveStroke: $_currThemeVars['--colorBorderAux']
 			}}
-			valueFormatFn={roundTo1}
 		/>
 	{/if}
 </Grid2Rows>

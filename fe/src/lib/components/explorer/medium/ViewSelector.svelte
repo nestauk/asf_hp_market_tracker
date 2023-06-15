@@ -1,7 +1,11 @@
 <script>
 	import {Link} from '@svizzle/ui';
 
-	import {_activeViewType, _currentMetric} from '$lib/stores/navigation.js';
+	import {
+		_activeViewType,
+		_currentMetric,
+		_searchParams,
+	} from '$lib/stores/navigation.js';
 
 	$: ({id, type} = $_currentMetric);
 </script>
@@ -15,7 +19,7 @@
 	>
 		<div class='dot stats'></div>
 		<Link
-			href='/explorer/{type}/stats/{id}'
+			href='/explorer/{type}/stats/{id}?{$_searchParams}'
 			isBold={$_activeViewType === 'stats'}
 		>
 			Stats
@@ -27,7 +31,7 @@
 	>
 		<div class='dot region'></div>
 		<Link
-			href='/explorer/{type}/geo/{id}'
+			href='/explorer/{type}/geo/{id}?{$_searchParams}'
 			isBold={$_activeViewType === 'geo'}
 		>
 			Geo
@@ -39,7 +43,7 @@
 	>
 		<div class='dot date'></div>
 		<Link
-			href='/explorer/{type}/time/{id}'
+			href='/explorer/{type}/time/{id}?{$_searchParams}'
 			isBold={$_activeViewType === 'time'}
 		>
 			Time

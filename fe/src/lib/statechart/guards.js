@@ -3,11 +3,14 @@ import * as _ from 'lamb';
 import {get} from 'svelte/store';
 
 import {_viewCache} from '$lib/stores/data.js';
+import {_currentPage} from '$lib/stores/navigation.js';
 
 export const isViewDataCached = ctx => {
+	const page = get(_currentPage);
 	const viewCache = get(_viewCache);
+	const key = `${page.route.id}-${ctx.viewQueryPath}`;
 
-	return _.has(viewCache, ctx.viewQueryPath);
+	return _.has(viewCache, key);
 }
 
 const areKeysEqual = _.allOf([
@@ -19,9 +22,9 @@ const areKeysEqual = _.allOf([
 		areAllTruthy
 	])
 ]);
-export const hasFullSearchParams = (ctx, {page}) => {
+export const hasFullSearchParams = ctx => {
 	const ctxSelectionKeys = _.keys(ctx.selection);
-	const searchParamsKeys = Array.from(page.url.searchParams.keys());
+	const searchParamsKeys = Array.from(ctx.page.url.searchParams.keys());
 	const pass = areKeysEqual([ctxSelectionKeys, searchParamsKeys]);
 
 	return pass;

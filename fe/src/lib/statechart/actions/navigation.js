@@ -11,30 +11,29 @@ import {
 
 // PAGE_CHANGED
 
-export const updateNavStoresAndCtxSelectionFromPage = assign((ctx, {page}) => {
-
-	// route
-
+export const updateNavStores = assign((ctx, {page}) => {
 	// '/explorer/category/stats/[slug]' => 'stats'
 	_activeViewType.set(page.route.id.split('/')[3]);
 
 	_currentMetricId.set(page.params.slug);
 	_currentPage.set(page);
 
-	// selection
+	return {...ctx, page};
+});
 
+export const updateCtxSelectionFromPage = assign(ctx => {
 	// ?foo=1 => {foo: 1}
-	const searchParams = _.fromPairs(Array.from(page.url.searchParams.entries()));
+	const searchParams = _.fromPairs(Array.from(ctx.page.url.searchParams.entries()));
 
 	const selection = {...ctx.selection, ...searchParams};
 
 	_selection.set(selection);
 
-	return {...ctx, page, selection};
+	return {...ctx, selection};
 });
 
-export const navigateToFullSearchParams = (ctx, {page}) => {
-	const searchParams = _.fromPairs(Array.from(page.url.searchParams.entries()));
+export const navigateToFullSearchParams = ctx => {
+	const searchParams = _.fromPairs(Array.from(ctx.page.url.searchParams.entries()));
 	const fullSearchParams = new URLSearchParams({
 		...ctx.selection,
 		...searchParams,

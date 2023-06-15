@@ -5,12 +5,11 @@ export const schema = {
 			type: 'object',
 			required: ['field'],
 			properties: {
-				// 1
 				field: { type: 'string' },
-                use_extended_stats: {
-                    type: 'boolean',
-                    default: false
-                }
+				use_extended_stats: {
+					type: 'boolean',
+					default: false
+				}
 			}
 		}
 	}

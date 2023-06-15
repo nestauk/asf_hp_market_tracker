@@ -111,7 +111,7 @@
 						}}
 						geometry={{
 							left: 0,
-							right: 20,
+							right: 50,
 						}}
 						padding=0
 						theme={$_legendsTheme}
@@ -128,7 +128,7 @@
 				isInteractive={true}
 				slot='col1'
 				style={$_mapStyle}
-				visibleLayers={['nuts0', regionType]}
+				visibleLayers={['nuts21_0', regionType]}
 				withScaleControl={false}
 				withZoomControl={false}
 			/>

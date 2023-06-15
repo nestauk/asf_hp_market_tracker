@@ -10,17 +10,12 @@
 	import {page as _page} from '$app/stores';
 	import Grid2Columns from '$lib/components/svizzle/Grid2Columns.svelte';
 	import Treemap from '$lib/components/svizzle/Treemap.svelte';
-	import {_viewData} from '$lib/stores/view.js';
+	import {_currentMetric} from '$lib/stores/navigation.js';
+	import {_isViewReady, _viewData} from '$lib/stores/view.js';
 	import {_histogramsTheme} from '$lib/stores/theme.js';
+	import {getDocCount} from '$lib/utils/getters.js';
 
-	let bins;
-	let binsFill;
-	let doDraw = false;
-	let items;
-	let keyToColorFn;
-	let keyToColorLabelFn;
-
-	const valueAccessor = _.getKey('doc_count');
+	const valueAccessor = getDocCount;
 
 	/* histogram */
 
@@ -49,11 +44,20 @@
 	const makeTreemapDomain = _.mapWith(treemapKeyAccessor);
 
 	$: proceed =
-		$_viewData?.response.code === 200 &&
-		$_viewData?.page.route.id === $_page.route.id;
+		$_isViewReady &&
+		$_currentMetric?.id === $_page.params.slug &&
+		$_viewData.page.route.id === $_page.route.id &&
+		$_viewData?.response.code === 200;
+
+	let bins;
+	let binsFill;
+	let doDraw = false;
+	let items;
+	let keyToColorFn;
+	let keyToColorLabelFn;
 
 	$: if (proceed) {
-		items = $_viewData?.response.data.histogram.buckets;
+		items = $_viewData?.response.data.histogram?.buckets || [];
 
 		const {interval} = $_viewData?.response.meta;
 

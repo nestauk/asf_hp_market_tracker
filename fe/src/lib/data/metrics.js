@@ -16,5 +16,9 @@ export const metricTitleById = _.mapValues(
 	({entity, label, title}) => title ?? `${entity} ${label.toLowerCase()}`
 );
 
-const getMetricGroups = _.pipe([_.groupBy(getEntity), objectToKeyValueArray]);
+const getMetricGroups = _.pipe([
+	_.groupBy(getEntity),
+	_.mapValuesWith(_.sortWith([getId])),
+	objectToKeyValueArray
+]);
 export const metricGroups = getMetricGroups(metrics);

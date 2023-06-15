@@ -6,10 +6,12 @@
 
 	import {page as _page} from '$app/stores';
 	import NumGeoView from '$lib/components/explorer/medium/NumGeoView.svelte';
-	import {_viewData} from '$lib/stores/view.js';
+	import {_currentMetric} from '$lib/stores/navigation.js';
+	import {_isViewReady, _viewData} from '$lib/stores/view.js';
+	import {getStatsAvg} from '$lib/utils/getters.js';
 	import {roundTo1} from '$lib/utils/numbers.js';
 
-	const valueAccessor = _.getPath('stats.avg');
+	const valueAccessor = getStatsAvg;
 	const filter = _.filterWith(_.pipe([valueAccessor, isNotNil]));
 	const makeDomain = _.pipe([filter, arr => extent(arr, valueAccessor)]);
 	const makeBarchartItems = _.pipe([
@@ -17,19 +19,28 @@
 		_.mapWith(applyFnMap({key: getKey, value: valueAccessor})),
 		_.sortWith([_.sorterDesc(getValue)])
 	]);
-	$: proceed =
-		$_viewData?.response.code === 200 &&
-		$_viewData?.page.route.id === $_page.route.id;
 
-	$: items = proceed && $_viewData?.response.data.terms.buckets || [];
+	$: proceed =
+		$_isViewReady &&
+		$_currentMetric?.id === $_page.params.slug &&
+		$_viewData.page.route.id === $_page.route.id &&
+		$_viewData?.response.code === 200;
+
+	let items;
+
+	$: if (proceed) {
+		items = $_viewData?.response.data.terms?.buckets || [];
+	}
 </script>
 
-<NumGeoView
-	{interpolateColor}
-	{items}
-	{makeBarchartItems}
-	{makeDomain}
-	{valueAccessor}
-	amountOfBins={5}
-	formatFn={roundTo1}
-/>
+{#if proceed}
+	<NumGeoView
+		{interpolateColor}
+		{items}
+		{makeBarchartItems}
+		{makeDomain}
+		{valueAccessor}
+		amountOfBins={5}
+		formatFn={roundTo1}
+	/>
+{/if}

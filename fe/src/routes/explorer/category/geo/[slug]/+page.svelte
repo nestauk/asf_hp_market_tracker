@@ -6,13 +6,16 @@
 
 	import {page as _page} from '$app/stores';
 	import CatGeoView from '$lib/components/explorer/medium/CatGeoView.svelte';
-	import {_viewData} from '$lib/stores/view.js';
+	import {_currentMetric} from '$lib/stores/navigation.js';
+	import {_isViewReady, _viewData} from '$lib/stores/view.js';
+	import {getDocCount, getTermsBuckets} from '$lib/utils/getters.js';
 	import {roundTo1} from '$lib/utils/numbers.js';
 
 	const keyAccessor = getKey;
-	const valueAccessor = _.getPath('terms.buckets');
+	const valueAccessor = getTermsBuckets;
 	const keyAccessor2 = getKey;
-	const valueAccessor2 = _.getKey('doc_count');
+	const valueAccessor2 = getDocCount;
+
 	const filter = _.filterWith(_.pipe([valueAccessor, isNotNil]));
 	const makeDomain = _.pipe([filter, arr => extent(arr, valueAccessor)]);
 	const makeBarchartItems = _.pipe([
@@ -21,23 +24,29 @@
 		_.sortWith([_.sorterDesc(getValue)])
 	]);
 
+	$: proceed =
+		$_isViewReady &&
+		$_currentMetric?.id === $_page.params.slug &&
+		$_viewData.page.route.id === $_page.route.id &&
+		$_viewData?.response.code === 200;
+
 	let items;
 
-	$: proceed =
-		$_viewData?.response.code === 200 &&
-		$_viewData?.page.route.id === $_page.route.id;
-
-	$: proceed && (items = $_viewData.response.data.terms.buckets);
+	$: if (proceed) {
+		items = proceed && $_viewData?.response.data.terms?.buckets || [];
+	}
 </script>
 
-<CatGeoView
- 	{interpolateColor}
- 	{items}
-	{keyAccessor}
-	{keyAccessor2}
-	{makeBarchartItems}
-	{makeDomain}
-	{valueAccessor}
-	{valueAccessor2}
-	formatFn={roundTo1}
-/>
+{#if proceed}
+	<CatGeoView
+		{interpolateColor}
+		{items}
+		{keyAccessor}
+		{keyAccessor2}
+		{makeBarchartItems}
+		{makeDomain}
+		{valueAccessor}
+		{valueAccessor2}
+		formatFn={roundTo1}
+	/>
+{/if}

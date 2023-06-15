@@ -3,13 +3,15 @@
 	import ExplorerMedium from '$lib/components/layout/medium/ExplorerMedium.svelte';
 	import View from '$lib/components/viewports/View.svelte';
 	import ViewsXor from '$lib/components/viewports/ViewsXor.svelte';
-	import {toolName} from '$lib/config';
+	import {toolName} from '$lib/config.js';
 	import {explorerActor} from '$lib/statechart/index.js';
-	import {_screenId} from '$lib/stores/layout';
+	import {_screenId} from '$lib/stores/layout.js';
 
 	explorerActor.send({type: 'MOUNTED'});
 
 	$: explorerActor.send({type: 'PAGE_CHANGED', page: $_page});
+
+	// $: console.log('🟥 LAYOUT $_page', JSON.stringify($_page))
 </script>
 
 <svelte:head>

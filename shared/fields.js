@@ -87,7 +87,7 @@ export const fields = [
 	},
 	{
 		entity: 'Installer',
-		id: 'installer_geo_region_country', // TBD rename to installer_geo_region_country_name
+		id: 'installer_geo_region_country21_name',
 		type: 'category',
 		use: 'regionId',
 	},
@@ -272,7 +272,7 @@ export const fields = [
 	},
 	{
 		entity: 'Property',
-		id: 'property_geo_region_country', // TBD rename to property_geo_region_country_name
+		id: 'property_geo_region_country21_name',
 		type: 'category',
 		use: 'regionName',
 	},

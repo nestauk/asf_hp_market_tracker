@@ -31,18 +31,18 @@
 		textColor: 'black',
 	}
 
-	const defaultItems = {key: 'trend', items: []};
+	// {key, values: {key, value}[]}[]
+	// outer key is the trend name, inner key is the x key
+	const defaultTrends = [{key: 'trend', values: []}];
 
 	export let geometry;
-	// {key, values: {key, value}}[]
-	// outer key is the trend name, inner key is the x key
-	export let items = defaultItems;
 	export let keyFilterFn;
 	export let keyFormatFn = _.identity;
 	export let keyToColorFn;
 	export let keyType;
 	export let preformatDate = _.identity;
 	export let theme = null;
+	export let trends;
 	export let valueFormatFn;
 	export let yTicksCount = 10;
 
@@ -51,6 +51,7 @@
 
 	$: keyFormatFn = keyFormatFn ?? _.identity;
 	$: preformatDate = preformatDate ?? _.identity;
+	$: valueFormatFn = valueFormatFn ?? _.identity;
 	$: yTicksCount = yTicksCount ?? 10;
 
 	/* theme */
@@ -66,7 +67,7 @@
 
 	/* data */
 
-	$: items = items ?? defaultItems;
+	$: trends = trends ?? defaultTrends;
 
 	const getSortedKeys = _.pipe([
 		_.flatMapWith(getValues),
@@ -74,19 +75,21 @@
 		_.uniques,
 		_.sortWith([])
 	]);
-	$: allKeys = getSortedKeys(items);
+	$: allKeys = getSortedKeys(trends);
 
 	const getMaxValue = arrayMaxWith(getValue);
 	const getMinValue = arrayMinWith(getValue);
 
-	$: allData = _.flatMap(items, getValues);
+	$: allData = _.flatMap(trends, getValues);
 	$: maxValue = getMaxValue(allData);
 	$: maxValueSign = Math.sign(maxValue);
 	$: minValue = getMinValue(allData);
 	$: minValueSign = Math.sign(minValue);
 
-	let yDomain;
 	let yDelta;
+	let yDomain;
+	let yTicks;
+
 	$: {
 		if (maxValueSign !== minValueSign) {
 			yDomain = [minValue, maxValue];
@@ -98,8 +101,8 @@
 			yDomain = [minValue, 0];
 			yDelta = -minValue;
 		}
+		yTicks = inclusiveRange([...yDomain, yDelta / yTicksCount]);
 	}
-	$: yTicks = inclusiveRange([...yDomain, yDelta / yTicksCount]);
 
 	let bbox;
 	let doDraw = false;
@@ -234,7 +237,7 @@
 				height={bbox.height}
 			/>
 
-			{#each items as {key, values} (key)}
+			{#each trends as {key, values} (key)}
 				<path
 					d={lineGenerator(values)}
 					fill='none'

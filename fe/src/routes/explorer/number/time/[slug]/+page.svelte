@@ -18,13 +18,14 @@
 		from '$lib/components/explorer/medium/SelectorNumTimegraph.svelte';
 	import Grid2Rows from '$lib/components/svizzle/Grid2Rows.svelte';
 	import Trends from '$lib/components/svizzle/trends/Trends.svelte';
-	import {_selection} from '$lib/stores/navigation.js';
+	import {_currentMetric, _selection} from '$lib/stores/navigation.js';
 	import {_currThemeVars, _framesTheme} from '$lib/stores/theme.js';
-	import {_viewData} from '$lib/stores/view.js';
+	import {_isViewReady, _viewData} from '$lib/stores/view.js';
+	import {getKeyAsString} from '$lib/utils/getters.js';
 	import {roundTo1} from '$lib/utils/numbers.js';
 	import {formatDate} from '$lib/utils/date.js';
 
-	const keyAccessor  = _.getPath('key_as_string');
+	const keyAccessor = getKeyAsString;
 	const valueAccessor = _.pipe([
 		_.collect([_.getKey('stats'), _.getPath('percentiles.values')]),
 		_.apply(_.merge),
@@ -46,28 +47,30 @@
 	]);
 
 	$: proceed =
-		$_viewData?.response.code === 200 &&
-		$_page.route.id === $_viewData?.page.route.id;
+		$_isViewReady &&
+		$_currentMetric?.id === $_page.params.slug &&
+		$_viewData.page.route.id === $_page.route.id &&
+		$_viewData?.response.code === 200;
 
 	let doDraw = false;
 	let items;
-	let trendsItems;
+	let trends;
 
 	$: if (proceed) {
-		const rawItems = $_viewData?.response.data.date_histogram.buckets || [];
+		const rawItems = $_viewData?.response.data.date_histogram?.buckets || [];
 		items = filterItems(reshapeItems(rawItems));
 
 		if ($_selection.numTimeGraph !== 'percentiles') {
-			trendsItems = [{
-			key: 'Average',
-			values: _.map(
-				items,
-				applyFnMap({
-					key: getKey,
-					value: _.getPath('values.avg'),
-				})
-			)
-		}];
+			trends = [{
+				key: 'Average',
+				values: _.map(
+					items,
+					applyFnMap({
+						key: getKey,
+						value: _.getPath('values.avg'),
+					})
+				)
+			}];
 		}
 
 		doDraw = true;
@@ -90,8 +93,8 @@
 			/>
 		{:else}
 			<Trends
-				items={trendsItems}
 				{keyFormatFn}
+				{trends}
 				geometry={{
 					safetyBottom: 50,
 					safetyLeft: 80,

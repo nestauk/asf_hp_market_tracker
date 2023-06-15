@@ -35,18 +35,25 @@ export const config = {
 								// 'sendCommitted',
 							]
 						},
-						PAGE_CHANGED: [
-							{
-								target: '.Dirty.CheckViewData',
-								cond: 'hasFullSearchParams',
-								actions: 'updateNavStoresAndCtxSelectionFromPage',
-							},
-							{
-								actions: 'navigateToFullSearchParams',
-							}
-						]
+						PAGE_CHANGED: {
+							target: '.CheckURL',
+							actions: 'updateNavStores',
+						}
 					},
 					states: {
+						CheckURL: {
+							always: [
+								{
+									target: '#HPMT.PageInteractive.ViewData.Dirty.CheckViewData',
+									cond: 'hasFullSearchParams',
+									actions: 'updateCtxSelectionFromPage'
+								},
+								{
+									target: '#HPMT.PageInteractive.ViewData',
+									actions: 'navigateToFullSearchParams',
+								}
+							]
+						},
 						Dirty: {
 							entry: 'showViewLoadingIcon',
 							initial: 'Idle',
@@ -56,7 +63,7 @@ export const config = {
 									entry: 'generateQueryPathFromSelectionStores',
 									always: [
 										{
-											target: '#HPMT.PageInteractive.ViewData.Clean',
+											target: '#HPMT.PageInteractive.ViewData.Ready',
 											cond: 'isViewDataCached',
 											actions: 'updateDataStoresFromCache'
 										},
@@ -76,7 +83,7 @@ export const config = {
 										],
 										onDone: [
 											{
-												target: '#HPMT.PageInteractive.ViewData.Clean',
+												target: '#HPMT.PageInteractive.ViewData.Ready',
 												actions: [
 													'logViewData',
 													'cacheViewData',
@@ -92,7 +99,7 @@ export const config = {
 								}
 							}
 						},
-						Clean: {
+						Ready: {
 							entry: 'hideViewLoadingIcon'
 						}
 					}
@@ -108,7 +115,7 @@ export const config = {
 								CheckStaticData: {
 									always: [
 										{
-											target: '#HPMT.PageInteractive.StaticData.Clean',
+											target: '#HPMT.PageInteractive.StaticData.Ready',
 											cond: 'hasStaticData'
 										},
 										{
@@ -123,7 +130,7 @@ export const config = {
 										id: 'staticData',
 										onDone: [
 											{
-												target: '#HPMT.PageInteractive.StaticData.Clean',
+												target: '#HPMT.PageInteractive.StaticData.Ready',
 												actions: 'responseToStaticDataStores'
 											}
 										],
@@ -140,7 +147,7 @@ export const config = {
 								}
 							}
 						},
-						Clean: {
+						Ready: {
 							entry: 'hideFiltersAndTimelineLoadingIcon'
 						}
 					}
@@ -176,3 +183,4 @@ export const config = {
 		}
 	}
 };
+export const viewDataReadyState = {PageInteractive: {ViewData: 'Ready'}};

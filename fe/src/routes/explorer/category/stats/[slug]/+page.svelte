@@ -9,17 +9,12 @@
 	import {page as _page} from '$app/stores';
 	import Grid2Columns from '$lib/components/svizzle/Grid2Columns.svelte';
 	import Treemap from '$lib/components/svizzle/Treemap.svelte';
+	import {_currentMetric} from '$lib/stores/navigation.js';
 	import {_barchartsTheme} from '$lib/stores/theme.js';
-	import {_viewData} from '$lib/stores/view.js';
+	import {_isViewReady, _viewData} from '$lib/stores/view.js';
+	import {getDocCount} from '$lib/utils/getters.js';
 
-	let barchartItems;
-	let doDraw = false;
-	let domain;
-	let items;
-	let keyToColorFn;
-	let keyToColorLabelFn;
-
-	const valueAccessor = _.getKey('doc_count');
+	const valueAccessor = getDocCount;
 	const filter = _.filterWith(_.pipe([valueAccessor, isNotNil]));
 	const makeDomain = _.pipe([_.mapWith(getKey), _.sortWith([])]);
 
@@ -32,11 +27,20 @@
 	]);
 
 	$: proceed =
-		$_viewData?.response.code === 200 &&
-		$_viewData?.page.route.id === $_page.route.id;
+		$_isViewReady &&
+		$_currentMetric?.id === $_page.params.slug &&
+		$_viewData.page.route.id === $_page.route.id &&
+		$_viewData?.response.code === 200;
+
+	let barchartItems;
+	let doDraw = false;
+	let domain;
+	let items;
+	let keyToColorFn;
+	let keyToColorLabelFn;
 
 	$: if (proceed) {
-		items = $_viewData?.response.data.terms.buckets;
+		items = $_viewData?.response.data.terms?.buckets || [];
 
 		/* colors */
 
