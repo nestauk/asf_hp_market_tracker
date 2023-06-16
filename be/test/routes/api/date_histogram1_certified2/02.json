@@ -1,0 +1,466 @@
+{
+	"query": {
+		"method": "GET",
+		"url": "date_histogram1_certified2",
+		"query": {
+			"calendar_interval1": "1q"
+		}
+	},
+	"response": {
+		"code": 200,
+		"data": {
+			"date_histogram": {
+				"buckets": [
+					{
+						"certified": {
+							"value": 1
+						},
+						"key_as_string": "2008-10-01",
+						"key": 1222815600000
+					},
+					{
+						"certified": {
+							"value": 1
+						},
+						"key_as_string": "2009-01-01",
+						"key": 1230768000000
+					},
+					{
+						"certified": {
+							"value": 1
+						},
+						"key_as_string": "2009-04-01",
+						"key": 1238540400000
+					},
+					{
+						"certified": {
+							"value": 1
+						},
+						"key_as_string": "2009-07-01",
+						"key": 1246402800000
+					},
+					{
+						"certified": {
+							"value": 42
+						},
+						"key_as_string": "2009-10-01",
+						"key": 1254351600000
+					},
+					{
+						"certified": {
+							"value": 41
+						},
+						"key_as_string": "2010-01-01",
+						"key": 1262304000000
+					},
+					{
+						"certified": {
+							"value": 41
+						},
+						"key_as_string": "2010-04-01",
+						"key": 1270076400000
+					},
+					{
+						"certified": {
+							"value": 41
+						},
+						"key_as_string": "2010-07-01",
+						"key": 1277938800000
+					},
+					{
+						"certified": {
+							"value": 149
+						},
+						"key_as_string": "2010-10-01",
+						"key": 1285887600000
+					},
+					{
+						"certified": {
+							"value": 149
+						},
+						"key_as_string": "2011-01-01",
+						"key": 1293840000000
+					},
+					{
+						"certified": {
+							"value": 148
+						},
+						"key_as_string": "2011-04-01",
+						"key": 1301612400000
+					},
+					{
+						"certified": {
+							"value": 148
+						},
+						"key_as_string": "2011-07-01",
+						"key": 1309474800000
+					},
+					{
+						"certified": {
+							"value": 256
+						},
+						"key_as_string": "2011-10-01",
+						"key": 1317423600000
+					},
+					{
+						"certified": {
+							"value": 255
+						},
+						"key_as_string": "2012-01-01",
+						"key": 1325376000000
+					},
+					{
+						"certified": {
+							"value": 255
+						},
+						"key_as_string": "2012-04-01",
+						"key": 1333234800000
+					},
+					{
+						"certified": {
+							"value": 252
+						},
+						"key_as_string": "2012-07-01",
+						"key": 1341097200000
+					},
+					{
+						"certified": {
+							"value": 283
+						},
+						"key_as_string": "2012-10-01",
+						"key": 1349046000000
+					},
+					{
+						"certified": {
+							"value": 278
+						},
+						"key_as_string": "2013-01-01",
+						"key": 1356998400000
+					},
+					{
+						"certified": {
+							"value": 268
+						},
+						"key_as_string": "2013-04-01",
+						"key": 1364770800000
+					},
+					{
+						"certified": {
+							"value": 263
+						},
+						"key_as_string": "2013-07-01",
+						"key": 1372633200000
+					},
+					{
+						"certified": {
+							"value": 291
+						},
+						"key_as_string": "2013-10-01",
+						"key": 1380582000000
+					},
+					{
+						"certified": {
+							"value": 283
+						},
+						"key_as_string": "2014-01-01",
+						"key": 1388534400000
+					},
+					{
+						"certified": {
+							"value": 277
+						},
+						"key_as_string": "2014-04-01",
+						"key": 1396306800000
+					},
+					{
+						"certified": {
+							"value": 272
+						},
+						"key_as_string": "2014-07-01",
+						"key": 1404169200000
+					},
+					{
+						"certified": {
+							"value": 299
+						},
+						"key_as_string": "2014-10-01",
+						"key": 1412118000000
+					},
+					{
+						"certified": {
+							"value": 288
+						},
+						"key_as_string": "2015-01-01",
+						"key": 1420070400000
+					},
+					{
+						"certified": {
+							"value": 282
+						},
+						"key_as_string": "2015-04-01",
+						"key": 1427842800000
+					},
+					{
+						"certified": {
+							"value": 269
+						},
+						"key_as_string": "2015-07-01",
+						"key": 1435705200000
+					},
+					{
+						"certified": {
+							"value": 298
+						},
+						"key_as_string": "2015-10-01",
+						"key": 1443654000000
+					},
+					{
+						"certified": {
+							"value": 285
+						},
+						"key_as_string": "2016-01-01",
+						"key": 1451606400000
+					},
+					{
+						"certified": {
+							"value": 274
+						},
+						"key_as_string": "2016-04-01",
+						"key": 1459465200000
+					},
+					{
+						"certified": {
+							"value": 263
+						},
+						"key_as_string": "2016-07-01",
+						"key": 1467327600000
+					},
+					{
+						"certified": {
+							"value": 261
+						},
+						"key_as_string": "2016-10-01",
+						"key": 1475276400000
+					},
+					{
+						"certified": {
+							"value": 244
+						},
+						"key_as_string": "2017-01-01",
+						"key": 1483228800000
+					},
+					{
+						"certified": {
+							"value": 232
+						},
+						"key_as_string": "2017-04-01",
+						"key": 1491001200000
+					},
+					{
+						"certified": {
+							"value": 224
+						},
+						"key_as_string": "2017-07-01",
+						"key": 1498863600000
+					},
+					{
+						"certified": {
+							"value": 230
+						},
+						"key_as_string": "2017-10-01",
+						"key": 1506812400000
+					},
+					{
+						"certified": {
+							"value": 221
+						},
+						"key_as_string": "2018-01-01",
+						"key": 1514764800000
+					},
+					{
+						"certified": {
+							"value": 218
+						},
+						"key_as_string": "2018-04-01",
+						"key": 1522537200000
+					},
+					{
+						"certified": {
+							"value": 214
+						},
+						"key_as_string": "2018-07-01",
+						"key": 1530399600000
+					},
+					{
+						"certified": {
+							"value": 224
+						},
+						"key_as_string": "2018-10-01",
+						"key": 1538348400000
+					},
+					{
+						"certified": {
+							"value": 217
+						},
+						"key_as_string": "2019-01-01",
+						"key": 1546300800000
+					},
+					{
+						"certified": {
+							"value": 210
+						},
+						"key_as_string": "2019-04-01",
+						"key": 1554073200000
+					},
+					{
+						"certified": {
+							"value": 206
+						},
+						"key_as_string": "2019-07-01",
+						"key": 1561935600000
+					},
+					{
+						"certified": {
+							"value": 225
+						},
+						"key_as_string": "2019-10-01",
+						"key": 1569884400000
+					},
+					{
+						"certified": {
+							"value": 224
+						},
+						"key_as_string": "2020-01-01",
+						"key": 1577836800000
+					},
+					{
+						"certified": {
+							"value": 221
+						},
+						"key_as_string": "2020-04-01",
+						"key": 1585695600000
+					},
+					{
+						"certified": {
+							"value": 221
+						},
+						"key_as_string": "2020-07-01",
+						"key": 1593558000000
+					},
+					{
+						"certified": {
+							"value": 279
+						},
+						"key_as_string": "2020-10-01",
+						"key": 1601506800000
+					},
+					{
+						"certified": {
+							"value": 276
+						},
+						"key_as_string": "2021-01-01",
+						"key": 1609459200000
+					},
+					{
+						"certified": {
+							"value": 274
+						},
+						"key_as_string": "2021-04-01",
+						"key": 1617231600000
+					},
+					{
+						"certified": {
+							"value": 271
+						},
+						"key_as_string": "2021-07-01",
+						"key": 1625094000000
+					},
+					{
+						"certified": {
+							"value": 328
+						},
+						"key_as_string": "2021-10-01",
+						"key": 1633042800000
+					},
+					{
+						"certified": {
+							"value": 327
+						},
+						"key_as_string": "2022-01-01",
+						"key": 1640995200000
+					},
+					{
+						"certified": {
+							"value": 323
+						},
+						"key_as_string": "2022-04-01",
+						"key": 1648767600000
+					},
+					{
+						"certified": {
+							"value": 316
+						},
+						"key_as_string": "2022-07-01",
+						"key": 1656630000000
+					},
+					{
+						"certified": {
+							"value": 347
+						},
+						"key_as_string": "2022-10-01",
+						"key": 1664578800000
+					},
+					{
+						"certified": {
+							"value": 336
+						},
+						"key_as_string": "2023-01-01",
+						"key": 1672531200000
+					},
+					{
+						"certified": {
+							"value": 327
+						},
+						"key_as_string": "2023-04-01",
+						"key": 1680303600000
+					},
+					{
+						"certified": {
+							"value": 327
+						},
+						"key_as_string": "2023-07-01",
+						"key": 1688166000000
+					},
+					{
+						"certified": {
+							"value": 326
+						},
+						"key_as_string": "2023-10-01",
+						"key": 1696114800000
+					},
+					{
+						"certified": {
+							"value": 319
+						},
+						"key_as_string": "2024-01-01",
+						"key": 1704067200000
+					}
+				]
+			}
+		},
+		"message": "aggregation successful",
+		"request": {
+			"agg": {
+				"id": "date_histogram1_certified2",
+				"params": {
+					"calendar_interval1": "1q"
+				}
+			},
+			"filter": {
+				"query": {
+					"match_all": {}
+				}
+			}
+		}
+	}
+}

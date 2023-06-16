@@ -1,0 +1,71 @@
+{
+	"query": {
+		"method": "GET",
+		"url": "terms1_certified2",
+		"query": {
+			"field1": "property_geo_region_country21_name.keyword",
+			"filter": "(installer_certificate_date_start:(gte:'2016-01-01'),installer_certificate_date_end:(lte:'2020-01-01'))",
+			"logic2": "engulfs"
+		}
+	},
+	"response": {
+		"code": 200,
+		"data": {
+			"terms": {
+				"buckets": [
+					{
+						"key": "England",
+						"certified": {
+							"value": 544
+						}
+					},
+					{
+						"key": "Scotland",
+						"certified": {
+							"value": 117
+						}
+					},
+					{
+						"key": "Wales",
+						"certified": {
+							"value": 143
+						}
+					}
+				]
+			}
+		},
+		"message": "aggregation successful",
+		"request": {
+			"agg": {
+				"id": "terms1_certified2",
+				"params": {
+					"field1": "property_geo_region_country21_name.keyword",
+					"filter": "(installer_certificate_date_start:(gte:'2016-01-01'),installer_certificate_date_end:(lte:'2020-01-01'))",
+					"logic2": "engulfs"
+				}
+			},
+			"filter": {
+				"query": {
+					"bool": {
+						"filter": [
+							{
+								"range": {
+									"installer_certificate_date_start": {
+										"gte": "2016-01-01"
+									}
+								}
+							},
+							{
+								"range": {
+									"installer_certificate_date_end": {
+										"lte": "2020-01-01"
+									}
+								}
+							}
+						]
+					}
+				}
+			}
+		}
+	}
+}

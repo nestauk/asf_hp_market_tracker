@@ -1,0 +1,30 @@
+{
+	"query": {
+		"method": "GET",
+		"url": "certified",
+		"query": {
+			"calendar_interval": "1M"
+		}
+	},
+	"response": {
+		"code": 200,
+		"data": {
+			"count": 2300
+		},
+		"message": "aggregation successful",
+		"request": {
+			"agg": {
+				"id": "certified",
+				"params": {
+					"calendar_interval": "1M",
+					"logic": "overlaps"
+				}
+			},
+			"filter": {
+				"query": {
+					"match_all": {}
+				}
+			}
+		}
+	}
+}

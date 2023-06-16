@@ -94,6 +94,26 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 							params = {
 								field1: `property_geo_region_${ctx.selection.regionType}_name.keyword`,
 								field2: field,
+							}
+							break;
+						case 'installers_certified':
+							aggId = 'terms1_certified2'
+							params = {
+								field1: `property_geo_region_${ctx.selection.regionType}_name.keyword`,
+							};
+							break;
+						case 'installers_dropped_certifications':
+							aggId = 'terms1_certified2';
+							params = {
+								field1: `property_geo_region_${ctx.selection.regionType}_name.keyword`,
+								logic2: 'dropped'
+							};
+							break;
+						case 'installers_new_certifications':
+							aggId = 'terms1_certified2';
+							params = {
+								field1: `property_geo_region_${ctx.selection.regionType}_name.keyword`,
+								logic2: 'new'
 							};
 							break;
 						case 'installers':
@@ -130,6 +150,22 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 							params = {
 								field,
 							};
+							break;
+						case 'installers_certified':
+							aggId = 'certified';
+							params = {};
+							break;
+						case 'installers_dropped_certifications':
+							aggId = 'certified';
+							params = {
+								logic: 'dropped'
+							}
+							break;
+						case 'installers_new_certifications':
+							aggId = 'certified';
+							params = {
+								logic: 'new'
+							}
 							break;
 						case 'installers':
 							endpoint = 'cardinality';
@@ -169,6 +205,29 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 								calendar_interval1: ctx.selection.interval,
 								field1: 'installation_date',
 								field2: field,
+							};
+							break;
+						case 'installers_certified':
+							aggId = 'date_histogram1_certified2';
+							params = {
+								calendar_interval1: ctx.selection.interval
+							};
+							break;
+						case 'installers_dropped_certifications':
+							aggId = 'date_histogram1_cardinality2';
+							params = {
+								calendar_interval1: ctx.selection.interval,
+								field1: 'installer_certificate_date_end',
+								field2: 'installer_id_hash.keyword',
+								missing2: '2024-02-01'
+							};
+							break;
+						case 'installers_new_certifications':
+							aggId = 'date_histogram1_cardinality2';
+							params = {
+								calendar_interval1: ctx.selection.interval,
+								field1: 'installer_certificate_date_start',
+								field2: 'installer_id_hash.keyword',
 							};
 							break;
 						case 'installers':

@@ -1,0 +1,48 @@
+{
+	"query": {
+		"method": "GET",
+		"url": "certified",
+		"query": {
+			"filter": "(installer_certificate_date_start:(gte:'2016-01-01'),installer_certificate_date_end:(lte:'2020-01-01'))",
+			"logic": "engulfs"
+		}
+	},
+	"response": {
+		"code": 200,
+		"data": {
+			"count": 636
+		},
+		"message": "aggregation successful",
+		"request": {
+			"agg": {
+				"id": "certified",
+				"params": {
+					"filter": "(installer_certificate_date_start:(gte:'2016-01-01'),installer_certificate_date_end:(lte:'2020-01-01'))",
+					"logic": "engulfs"
+				}
+			},
+			"filter": {
+				"query": {
+					"bool": {
+						"filter": [
+							{
+								"range": {
+									"installer_certificate_date_start": {
+										"gte": "2016-01-01"
+									}
+								}
+							},
+							{
+								"range": {
+									"installer_certificate_date_end": {
+										"lte": "2020-01-01"
+									}
+								}
+							}
+						]
+					}
+				}
+			}
+		}
+	}
+}
