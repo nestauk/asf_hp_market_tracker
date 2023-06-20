@@ -43,6 +43,7 @@
 	export let preformatDate = _.identity;
 	export let theme = null;
 	export let trends;
+	export let trendType; // 'periodic' | 'incremental'
 	export let valueFormatFn;
 	export let yTicksCount = 10;
 
@@ -68,6 +69,22 @@
 	/* data */
 
 	$: trends = trends ?? defaultTrends;
+	$: if (trendType === 'incremental') {
+		trends = _.map(trends, ({key, values}) => {
+			const incrementalValues = _.reduce(
+				values,
+				(acc, {key, value}) => {
+					acc.sum += value;
+					acc.array.push({key, value: acc.sum});
+
+					return acc;
+				},
+				{sum: 0, array: []}
+			).array;
+
+			return {key, values: incrementalValues}
+		});
+	}
 
 	const getSortedKeys = _.pipe([
 		_.flatMapWith(getValues),

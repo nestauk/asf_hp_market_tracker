@@ -11,10 +11,13 @@
 
 	import {page as _page} from '$app/stores';
 	import FlexBar from '$lib/components/explorer/FlexBar.svelte';
-	import SelectorInterval from '$lib/components/explorer/medium/SelectorInterval.svelte';
+	import SelectorInterval
+		from '$lib/components/explorer/medium/SelectorInterval.svelte';
+	import SelectorIncrementalTrends
+		from '$lib/components/explorer/medium/SelectorIncrementalTrends.svelte';
 	import Grid2Rows from '$lib/components/svizzle/Grid2Rows.svelte';
 	import Trends from '$lib/components/svizzle/trends/Trends.svelte';
-	import {_currentMetric} from '$lib/stores/navigation.js';
+	import {_currentMetric, _selection} from '$lib/stores/navigation.js';
 	import {_currThemeVars, _framesTheme} from '$lib/stores/theme.js';
 	import {_isViewReady, _viewData} from '$lib/stores/view.js';
 	import {formatDate} from '$lib/utils/date.js';
@@ -49,6 +52,10 @@
 	let trends;
 	let valueFormatFn;
 
+	$: trendType = $_currentMetric.isAdditive
+		? $_selection.trendType
+		: 'periodic';
+
 	$: proceed =
 		$_isViewReady &&
 		$_currentMetric?.id === $_page.params.slug &&
@@ -80,13 +87,18 @@
 
 <Grid2Rows percents={[10, 90]}>
 	<FlexBar>
-		<SelectorInterval/>
+		<SelectorInterval />
+
+		{#if $_currentMetric.isAdditive}
+			<SelectorIncrementalTrends />
+		{/if}
 	</FlexBar>
 
 	{#if doDraw}
 		<Trends
 			{keyFormatFn}
 			{trends}
+			{trendType}
 			{valueFormatFn}
 			geometry={{
 				safetyBottom: 50,
