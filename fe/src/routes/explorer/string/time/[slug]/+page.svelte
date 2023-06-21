@@ -13,9 +13,9 @@
 
 	import {page as _page} from '$app/stores';
 	import FlexBar from '$lib/components/explorer/FlexBar.svelte';
+	import SelectionXor
+		from '$lib/components/explorer/medium/SelectionXor.svelte';
 	import SelectorInterval from '$lib/components/explorer/medium/SelectorInterval.svelte';
-	import SelectorStringsStreamgraphSort from '$lib/components/explorer/medium/SelectorStringsStreamgraphSort.svelte';
-	import SelectorStringsTimegraph from '$lib/components/explorer/medium/SelectorStringsTimegraph.svelte';
 	import Grid2Columns from '$lib/components/svizzle/Grid2Columns.svelte';
 	import Grid2Rows from '$lib/components/svizzle/Grid2Rows.svelte';
 	import StreamGraph from '$lib/components/svizzle/trends/StreamGraph.svelte';
@@ -111,9 +111,15 @@
 <Grid2Rows percents={[10, 90]}>
 	<FlexBar>
 		<SelectorInterval/>
-		<SelectorStringsTimegraph/>
+		<SelectionXor
+			name='stringsTimeGraph'
+			values={['trends', 'streams']}
+		/>
 		{#if showStreams}
-			<SelectorStringsStreamgraphSort />
+			<SelectionXor
+				name='stringsStreamgraphsSorting'
+				values={['off', 'asc', 'desc']}
+			/>
 		{/if}
 	</FlexBar>
 
