@@ -39,7 +39,10 @@
 				"params": {
 					"field1": "property_geo_region_itl21_1_id.keyword",
 					"field2": "property_energy_efficiency_windows.keyword",
-					"size1": 2
+					"size1": 2,
+					"use_extended_stats2": false,
+					"with_percentiles2": false,
+					"with_stats2": false
 				}
 			},
 			"filter": {

@@ -18,6 +18,18 @@ export const schema = {
 				// 2
 				field2: { type: 'string' },
 				missing2: { type: 'string' },
+				use_extended_stats2: {
+					default: false,
+					type: 'boolean'
+				},
+				with_percentiles2: {
+					default: false,
+					type: 'boolean'
+				},
+				with_stats2: {
+					default: false,
+					type: 'boolean'
+				},
 			}
 		}
 	}
