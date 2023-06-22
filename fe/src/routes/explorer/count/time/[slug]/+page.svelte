@@ -11,10 +11,10 @@
 
 	import {page as _page} from '$app/stores';
 	import FlexBar from '$lib/components/explorer/FlexBar.svelte';
+	import SelectionXor
+		from '$lib/components/explorer/medium/SelectionXor.svelte';
 	import SelectorInterval
 		from '$lib/components/explorer/medium/SelectorInterval.svelte';
-	import SelectorIncrementalTrends
-		from '$lib/components/explorer/medium/SelectorIncrementalTrends.svelte';
 	import Grid2Rows from '$lib/components/svizzle/Grid2Rows.svelte';
 	import Trends from '$lib/components/svizzle/trends/Trends.svelte';
 	import {_currentMetric, _selection} from '$lib/stores/navigation.js';
@@ -90,7 +90,10 @@
 		<SelectorInterval />
 
 		{#if $_currentMetric.isAdditive}
-			<SelectorIncrementalTrends />
+			<SelectionXor
+				name='trendType'
+				values={['periodic', 'incremental']}
+			/>	
 		{/if}
 	</FlexBar>
 

@@ -17,10 +17,8 @@
 		from '$lib/components/explorer/medium/LabelsGrid.svelte';
 	import ScrollableGrid
 		from '$lib/components/explorer/medium/ScrollableGrid/ScrollableGrid.svelte';
-	import SelectorCategsGeoSortBy
-		from '$lib/components/explorer/medium/SelectorCategsGeoSortBy.svelte';
-    import SelectorCategsGeoSorting
-		from '$lib/components/explorer/medium/SelectorCategsGeoSorting.svelte';
+	import SelectionXor
+		from '$lib/components/explorer/medium/SelectionXor.svelte';
 	import SelectorRegionType
 		from '$lib/components/explorer/medium/SelectorRegionType.svelte';
 	import Grid2Columns from '$lib/components/svizzle/Grid2Columns.svelte';
@@ -137,8 +135,14 @@
 <div class='threeRows'>
 	<FlexBar>
 		<SelectorRegionType />
-		<SelectorCategsGeoSortBy />
-		<SelectorCategsGeoSorting />
+		<SelectionXor
+			name='categsGeoSortBy'
+			values={['regionName', 'total']}
+		/>
+		<SelectionXor
+			name='categsGeoSorting'
+			values={['asc', 'desc']}
+		/>
 	</FlexBar>
 
 	{#if doDraw}

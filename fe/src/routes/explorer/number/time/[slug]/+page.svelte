@@ -12,10 +12,10 @@
 	import FlexBar from '$lib/components/explorer/FlexBar.svelte';
 	import PercentilesTrendsView
 		from '$lib/components/explorer/medium/PercentilesTrendsView.svelte';
+	import SelectionXor
+		from '$lib/components/explorer/medium/SelectionXor.svelte';
 	import SelectorInterval
 		from '$lib/components/explorer/medium/SelectorInterval.svelte';
-	import SelectorNumTimegraph
-		from '$lib/components/explorer/medium/SelectorNumTimegraph.svelte';
 	import Grid2Rows from '$lib/components/svizzle/Grid2Rows.svelte';
 	import Trends from '$lib/components/svizzle/trends/Trends.svelte';
 	import {_currentMetric, _selection} from '$lib/stores/navigation.js';
@@ -80,7 +80,10 @@
 <Grid2Rows percents={[10, 90]}>
 	<FlexBar>
 		<SelectorInterval />
-		<SelectorNumTimegraph />
+		<SelectionXor
+			name='numTimeGraph'
+			values={['percentiles', 'average']}
+		/>
 	</FlexBar>
 
 	{#if doDraw}
