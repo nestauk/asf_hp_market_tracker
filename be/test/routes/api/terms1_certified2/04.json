@@ -1,0 +1,52 @@
+{
+	"query": {
+		"method": "GET",
+		"url": "terms1_certified2",
+		"query": {
+			"field1": "property_geo_region_country21_name.keyword",
+			"logic2": "new"
+		}
+	},
+	"response": {
+		"code": 200,
+		"data": {
+			"terms": {
+				"buckets": [
+					{
+						"key": "England",
+						"certified": {
+							"value": 2001
+						}
+					},
+					{
+						"key": "Scotland",
+						"certified": {
+							"value": 355
+						}
+					},
+					{
+						"key": "Wales",
+						"certified": {
+							"value": 448
+						}
+					}
+				]
+			}
+		},
+		"message": "aggregation successful",
+		"request": {
+			"agg": {
+				"id": "terms1_certified2",
+				"params": {
+					"field1": "property_geo_region_country21_name.keyword",
+					"logic2": "new"
+				}
+			},
+			"filter": {
+				"query": {
+					"match_all": {}
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,148 @@
+{
+	"query": {
+		"method": "GET",
+		"url": "date_histogram1_certified2"
+	},
+	"response": {
+		"code": 200,
+		"data": {
+			"date_histogram": {
+				"buckets": [
+					{
+						"certified": {
+							"value": 1
+						},
+						"key_as_string": "2008-01-01",
+						"key": 1199145600000
+					},
+					{
+						"certified": {
+							"value": 163
+						},
+						"key_as_string": "2009-01-01",
+						"key": 1230768000000
+					},
+					{
+						"certified": {
+							"value": 500
+						},
+						"key_as_string": "2010-01-01",
+						"key": 1262304000000
+					},
+					{
+						"certified": {
+							"value": 869
+						},
+						"key_as_string": "2011-01-01",
+						"key": 1293840000000
+					},
+					{
+						"certified": {
+							"value": 1032
+						},
+						"key_as_string": "2012-01-01",
+						"key": 1325376000000
+					},
+					{
+						"certified": {
+							"value": 1139
+						},
+						"key_as_string": "2013-01-01",
+						"key": 1356998400000
+					},
+					{
+						"certified": {
+							"value": 1191
+						},
+						"key_as_string": "2014-01-01",
+						"key": 1388534400000
+					},
+					{
+						"certified": {
+							"value": 1207
+						},
+						"key_as_string": "2015-01-01",
+						"key": 1420070400000
+					},
+					{
+						"certified": {
+							"value": 1128
+						},
+						"key_as_string": "2016-01-01",
+						"key": 1451606400000
+					},
+					{
+						"certified": {
+							"value": 1008
+						},
+						"key_as_string": "2017-01-01",
+						"key": 1483228800000
+					},
+					{
+						"certified": {
+							"value": 917
+						},
+						"key_as_string": "2018-01-01",
+						"key": 1514764800000
+					},
+					{
+						"certified": {
+							"value": 914
+						},
+						"key_as_string": "2019-01-01",
+						"key": 1546300800000
+					},
+					{
+						"certified": {
+							"value": 993
+						},
+						"key_as_string": "2020-01-01",
+						"key": 1577836800000
+					},
+					{
+						"certified": {
+							"value": 1187
+						},
+						"key_as_string": "2021-01-01",
+						"key": 1609459200000
+					},
+					{
+						"certified": {
+							"value": 1322
+						},
+						"key_as_string": "2022-01-01",
+						"key": 1640995200000
+					},
+					{
+						"certified": {
+							"value": 1223
+						},
+						"key_as_string": "2023-01-01",
+						"key": 1672531200000
+					},
+					{
+						"certified": {
+							"value": 1158
+						},
+						"key_as_string": "2024-01-01",
+						"key": 1704067200000
+					}
+				]
+			}
+		},
+		"message": "aggregation successful",
+		"request": {
+			"agg": {
+				"id": "date_histogram1_certified2",
+				"params": {
+					"calendar_interval1": "1y"
+				}
+			},
+			"filter": {
+				"query": {
+					"match_all": {}
+				}
+			}
+		}
+	}
+}

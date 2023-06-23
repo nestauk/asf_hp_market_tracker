@@ -4,12 +4,15 @@ import { minDocCount } from './conf.js';
 import { getDocumentCount } from './es.js';
 import { makeQuery } from './filter.js';
 
+// eslint-disable-next-line consistent-return
 export const onRequest = async (request, reply) => {
 	const { filter = null } = request.query;
 
 	request.filter = filter
 		? makeQuery(rison.decode(filter))
 		: { query: { match_all: {} } };
+
+	request.originalFilter = filter ? rison.decode(filter) : {};
 
 	reply.noData = false;
 	if (filter) {

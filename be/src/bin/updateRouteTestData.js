@@ -6,7 +6,7 @@ import { buildServer } from '../app.js';
 
 const path = 'test/routes/api';
 
-const update = async route => {
+const updateRoute = async route => {
 
 	const server = await buildServer();
 
@@ -23,7 +23,7 @@ const update = async route => {
 
 const main = async () => {
 	const routes = await readDir(path);
-	_.forEach(routes, route => update(route));
+	_.forEach(routes, updateRoute);
 };
 
 main();

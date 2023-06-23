@@ -14,7 +14,7 @@ export const getStats = async (request, reply) => {
 		aggs: {
 			stats: {
 				[statQuery]: {
-					field: field,
+					field,
 				}
 			}
 		}

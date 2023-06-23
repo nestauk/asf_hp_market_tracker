@@ -20,10 +20,13 @@
 		installation_cost_sum: getStatsSum,
 		installations_per_installer: getStatsAvg,
 		installations: _.getKey('count'),
+		installers_certified: _.getKey('count'),
+		installers_dropped_certifications: _.getKey('count'),
+		installers_new_certifications: _.getKey('count'),
 		installers: getCardinalityValue,
 		property_feature_total_floor_area_sum: getStatsSum,
 		property_supply_photovoltaic_sum: getStatsSum,
-	}
+	};
 
 	$: proceed =
 		$_isViewReady &&
@@ -57,18 +60,26 @@
 			case 'installations':
 				text = `${value} installations for the current filter`;
 				break;
+			case 'installers_dropped_certifications':
+				text = `${value} certifications expired during the current filer`;
+				break;
+			case 'installers_new_certifications':
+				text = `${value} new/renewed certifications during the current filer`;
+				break;
 			case 'installations_per_installer':
 				text = `Average of ${value} installations/installer for the current filter`;
+				break;
+			case 'installers_certified':
+				text = `${value} installers were certified for the current filter`;
+				break;
+			case 'installers':
+				text = `${value} installers installed heat pumps for the current filter`;
 				break;
 			case 'property_feature_total_floor_area_sum':
 				text = `Total of ${value} m^2 of floor area for the current filter`;
 				break;
 			case 'property_supply_photovoltaic_sum':
 				text = `${value} installed photovoltaic energy generation for the current filter`;
-				break;
-			case 'installers':
-				text = `${value} installers installed heat pumps for the current filter`;
-				break;
 			default:
 				break;
 		}

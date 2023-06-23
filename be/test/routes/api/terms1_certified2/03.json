@@ -1,0 +1,99 @@
+{
+	"query": {
+		"method": "GET",
+		"url": "terms1_certified2",
+		"query": {
+			"field1": "property_geo_region_itl21_1_name.keyword"
+		}
+	},
+	"response": {
+		"code": 200,
+		"data": {
+			"terms": {
+				"buckets": [
+					{
+						"key": "South West (England)",
+						"certified": {
+							"value": 658
+						}
+					},
+					{
+						"key": "East",
+						"certified": {
+							"value": 608
+						}
+					},
+					{
+						"key": "South East (England)",
+						"certified": {
+							"value": 728
+						}
+					},
+					{
+						"key": "Scotland",
+						"certified": {
+							"value": 355
+						}
+					},
+					{
+						"key": "East Midlands (England)",
+						"certified": {
+							"value": 533
+						}
+					},
+					{
+						"key": "Yorkshire and The Humber",
+						"certified": {
+							"value": 503
+						}
+					},
+					{
+						"key": "West Midlands (England)",
+						"certified": {
+							"value": 559
+						}
+					},
+					{
+						"key": "North West (England)",
+						"certified": {
+							"value": 488
+						}
+					},
+					{
+						"key": "Wales",
+						"certified": {
+							"value": 448
+						}
+					},
+					{
+						"key": "London",
+						"certified": {
+							"value": 315
+						}
+					},
+					{
+						"key": "North East (England)",
+						"certified": {
+							"value": 226
+						}
+					}
+				]
+			}
+		},
+		"message": "aggregation successful",
+		"request": {
+			"agg": {
+				"id": "terms1_certified2",
+				"params": {
+					"field1": "property_geo_region_itl21_1_name.keyword",
+					"logic2": "overlaps"
+				}
+			},
+			"filter": {
+				"query": {
+					"match_all": {}
+				}
+			}
+		}
+	}
+}

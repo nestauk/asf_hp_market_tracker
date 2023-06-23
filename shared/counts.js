@@ -63,6 +63,30 @@ export const counts = [
 		title: 'Amount of active installers',
 		type: 'count',
 	},
+	{
+		entity: 'Installer',
+		formatSpecifier: '.3s',
+		id: 'installers_certified',
+		label: 'Amount of certified installers',
+		title: 'Amount of certified installers',
+		type: 'count'
+	},
+	{
+		entity: 'Installer',
+		formatSpecifier: '.3s',
+		id: 'installers_dropped_certifications',
+		label: 'Amount of expired certificates',
+		title: 'Amount of expired certificates ',
+		type: 'count'
+	},
+	{
+		entity: 'Installer',
+		formatSpecifier: '.3s',
+		id: 'installers_new_certifications',
+		label: 'Amount of new/renewed certificates',
+		title: 'Amount of new/renewed certificates',
+		type: 'count'
+	},
 
 	/* Property */
 

@@ -30,6 +30,7 @@ const histogramTests = async (tap, query, result) => {
 };
 
 testRoute('cardinality');
+testRoute('certified');
 testRoute('date_histogram');
 testRoute('date_histogram1_cardinality2');
 testRoute('date_histogram1_terms2');
