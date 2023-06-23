@@ -5,7 +5,8 @@
 		"query": {
 			"field1": "property_geo_region_itl21_1_id.keyword",
 			"field2": "property_energy_efficiency_windows.keyword",
-			"missing1": "missing"
+			"with_stats2": true,
+			"use_extended_stats2": true
 		}
 	},
 	"response": {
@@ -91,15 +92,30 @@
 						"cardinality": {
 							"value": 5
 						}
-					},
-					{
-						"key": "missing",
-						"doc_count": 431,
-						"cardinality": {
-							"value": 3
-						}
 					}
 				]
+			},
+			"stats": {
+				"count": 11,
+				"min": 5,
+				"max": 5,
+				"avg": 5,
+				"sum": 55,
+				"sum_of_squares": 275,
+				"variance": 0,
+				"variance_population": 0,
+				"variance_sampling": 0,
+				"std_deviation": 0,
+				"std_deviation_population": 0,
+				"std_deviation_sampling": 0,
+				"std_deviation_bounds": {
+					"upper": 5,
+					"lower": 5,
+					"upper_population": 5,
+					"lower_population": 5,
+					"upper_sampling": 5,
+					"lower_sampling": 5
+				}
 			}
 		},
 		"message": "aggregation successful",
@@ -109,11 +125,10 @@
 				"params": {
 					"field1": "property_geo_region_itl21_1_id.keyword",
 					"field2": "property_energy_efficiency_windows.keyword",
-					"missing1": "missing",
+					"with_stats2": true,
+					"use_extended_stats2": true,
 					"size1": 65536,
-					"use_extended_stats2": false,
-					"with_percentiles2": false,
-					"with_stats2": false
+					"with_percentiles2": false
 				}
 			},
 			"filter": {

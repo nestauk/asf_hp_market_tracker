@@ -5,7 +5,7 @@
 		"query": {
 			"field1": "property_geo_region_itl21_1_id.keyword",
 			"field2": "property_energy_efficiency_windows.keyword",
-			"missing1": "missing"
+			"with_stats2": true
 		}
 	},
 	"response": {
@@ -91,15 +91,15 @@
 						"cardinality": {
 							"value": 5
 						}
-					},
-					{
-						"key": "missing",
-						"doc_count": 431,
-						"cardinality": {
-							"value": 3
-						}
 					}
 				]
+			},
+			"stats": {
+				"count": 11,
+				"min": 5,
+				"max": 5,
+				"avg": 5,
+				"sum": 55
 			}
 		},
 		"message": "aggregation successful",
@@ -109,11 +109,10 @@
 				"params": {
 					"field1": "property_geo_region_itl21_1_id.keyword",
 					"field2": "property_energy_efficiency_windows.keyword",
-					"missing1": "missing",
+					"with_stats2": true,
 					"size1": 65536,
 					"use_extended_stats2": false,
-					"with_percentiles2": false,
-					"with_stats2": false
+					"with_percentiles2": false
 				}
 			},
 			"filter": {
