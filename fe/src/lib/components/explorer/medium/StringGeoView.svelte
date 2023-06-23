@@ -17,6 +17,8 @@
 	import FlexBar from '$lib/components/explorer/FlexBar.svelte';
 	import StackedBarchart
 		from '$lib/components/svizzle/StackedBarchart.svelte';
+	import SelectionXor
+		from '$lib/components/explorer/medium/SelectionXor.svelte';
 	import SelectorRegionType
 		from '$lib/components/explorer/medium/SelectorRegionType.svelte';
 	import Grid2Columns from '$lib/components/svizzle/Grid2Columns.svelte';
@@ -121,6 +123,10 @@
 <div class='twoRows'>
 	<FlexBar>
 		<SelectorRegionType />
+		<SelectionXor
+			name='stringsGeoSortBy'
+			values={['total', 'regionName']}
+		/>
 	</FlexBar>
 
 	{#if doDraw}
@@ -140,6 +146,7 @@
 					{groupIds}
 					{groupToColorFn}
 					{stacks}
+					groupSortBy={$_selection.stringsGeoSortBy}
 					shouldResetScroll={true}
 					slot='col1'
 					theme={$_stackedBarchartTheme}

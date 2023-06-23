@@ -2,13 +2,13 @@ export const context = {
 	nextSearchParams: '',
 	nextSelection: {},
 	selection: {
-		categsGeoSortBy: 'regionName',
-		categsGeoSorting: 'asc',
+		categsGeoSortBy: 'total',
 		categsStreamgraphsSorting: 'off',
 		categsTimeGraph: 'trends',
 		interval: '1y',
 		numTimeGraph: 'percentiles',
 		regionType: 'itl21_1',
+		stringsGeoSortBy: 'total',
 		stringsStreamgraphsSorting: 'off',
 		stringsTimeGraph: 'trends',
 		stringsTopCount: 20, // this is a filter
