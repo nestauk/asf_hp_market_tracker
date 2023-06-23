@@ -21,6 +21,7 @@
 	export let geometry;
 	export let groupIds;
 	export let groupToColorFn;
+	export let groupSortBy;
 	export let shouldResetScroll;
 	export let stacks;
 	export let theme;
@@ -73,18 +74,22 @@
 	$: theme = {...defaultTheme, ...theme};
 	$: geometry = {...defaultGeometry, ...geometry};
 	$: groupToColorFn = groupToColorFn || defaultBarColorFn;
+	$: groupSortBy = groupSortBy || 'total';
 	$: shouldResetScroll = shouldResetScroll || false;
 	$: width = $_size.inlineSize - extraWidth;
 	$: keyHeight = geometry.keyHeightEm * em;
 
-	$: sortingFn = _.sortWith([_.sorterDesc(getValue)]);
+	$: valueSortingFn = _.sortWith([_.sorterDesc(getValue)]);
+	$: groupSortingFn = groupSortBy === 'total'
+		? _.sortWith([_.sorterDesc(getSum)])
+		: _.sortWith([getKey]);
 	$: zeroedGroupMap = makeKeyedZeroes(groupIds);
 	$: augmentValues = transformValues({
 		values: _.pipe([
 			keyValueArrayToObject,
 			kvObject => _.merge(zeroedGroupMap, kvObject),
 			objectToKeyValueArray,
-			sortingFn,
+			valueSortingFn,
 			values => _.reduce(values, (acc, {key, value}) => {
 				acc.array.push({
 					key,
@@ -101,9 +106,8 @@
 	});
 	$: augmentItems = _.pipe([
 		_.mapWith(augmentValues),
-		_.sortWith([_.sorterDesc(getSum)]),
+		groupSortingFn
 	]);
-
 	$: if (stacks && augmentItems) {
 		maxSum = getMaxSum(stacks);
 		augmentedItems = augmentItems(stacks);

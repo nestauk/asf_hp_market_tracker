@@ -91,13 +91,10 @@
 	let labelsByCategory;
 	let legendBins;
 
-	$: sorter =
-		$_selection.categsGeoSortBy === 'regionName' ? getKey : getItemSum;
-	$: sortItems = _.sortWith([
-		$_selection.categsGeoSorting === 'desc'
-			? _.sorterDesc(sorter)
-			: sorter
-	]);
+	$: sortItems =
+		$_selection.categsGeoSortBy === 'regionName'
+			? _.sortWith([getKey])
+			: _.sortWith([_.sorterDesc(getItemSum)]);
 	$: if (items?.length > 0) {
 
 		/* common */
@@ -137,11 +134,7 @@
 		<SelectorRegionType />
 		<SelectionXor
 			name='categsGeoSortBy'
-			values={['regionName', 'total']}
-		/>
-		<SelectionXor
-			name='categsGeoSorting'
-			values={['asc', 'desc']}
+			values={['total', 'regionName']}
 		/>
 	</FlexBar>
 
