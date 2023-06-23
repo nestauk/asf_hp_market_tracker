@@ -97,20 +97,20 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 							}
 							break;
 						case 'installers_certified':
-							aggId = 'terms1_certified2'
+							endpoint = 'terms1_certified2'
 							params = {
 								field1: `property_geo_region_${ctx.selection.regionType}_name.keyword`,
 							};
 							break;
 						case 'installers_dropped_certifications':
-							aggId = 'terms1_certified2';
+							endpoint = 'terms1_certified2';
 							params = {
 								field1: `property_geo_region_${ctx.selection.regionType}_name.keyword`,
 								logic2: 'dropped'
 							};
 							break;
 						case 'installers_new_certifications':
-							aggId = 'terms1_certified2';
+							endpoint = 'terms1_certified2';
 							params = {
 								field1: `property_geo_region_${ctx.selection.regionType}_name.keyword`,
 								logic2: 'new'
@@ -152,17 +152,17 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 							};
 							break;
 						case 'installers_certified':
-							aggId = 'certified';
+							endpoint = 'certified';
 							params = {};
 							break;
 						case 'installers_dropped_certifications':
-							aggId = 'certified';
+							endpoint = 'certified';
 							params = {
 								logic: 'dropped'
 							}
 							break;
 						case 'installers_new_certifications':
-							aggId = 'certified';
+							endpoint = 'certified';
 							params = {
 								logic: 'new'
 							}
@@ -208,13 +208,13 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 							};
 							break;
 						case 'installers_certified':
-							aggId = 'date_histogram1_certified2';
+							endpoint = 'date_histogram1_certified2';
 							params = {
 								calendar_interval1: ctx.selection.interval
 							};
 							break;
 						case 'installers_dropped_certifications':
-							aggId = 'date_histogram1_cardinality2';
+							endpoint = 'date_histogram1_cardinality2';
 							params = {
 								calendar_interval1: ctx.selection.interval,
 								field1: 'installer_certificate_date_end',
@@ -223,7 +223,7 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 							};
 							break;
 						case 'installers_new_certifications':
-							aggId = 'date_histogram1_cardinality2';
+							endpoint = 'date_histogram1_cardinality2';
 							params = {
 								calendar_interval1: ctx.selection.interval,
 								field1: 'installer_certificate_date_start',
