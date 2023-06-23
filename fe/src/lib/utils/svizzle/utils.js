@@ -80,9 +80,9 @@ export const pairToKeyValuesObject = ([key, values]) => ({key, values});
  * @return {array}
  *
  * @example
-> obj = {k1: 'v1', k2: 'v2'}
+> obj = {k1: ['a', 'b'], k2: ['c', 'd']}
 > objectToKeyValuesArray(obj)
-[{key: 'k1', values: 'v1'}, {key: 'k2', values: 'v2'}]
+[{key: 'k1', values: ['a', 'b']}, {key: 'k2', values: ['c', 'd']}]
  *
  * @since 0.20.0
  */

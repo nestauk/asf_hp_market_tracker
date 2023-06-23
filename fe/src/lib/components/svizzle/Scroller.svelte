@@ -11,7 +11,7 @@
 		topShadowGeometry: 'inset 0px 12px 13px -13px',
 	};
 
-	export let extraWidth;
+	export let extraWidth = 0;
 	export let outerScrollTop = 0;
 	export let theme;
 

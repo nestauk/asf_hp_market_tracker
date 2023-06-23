@@ -120,6 +120,13 @@ export const _framesTheme = derived(
 	})
 );
 
+export const _stackedBarchartTheme = derived(
+	_currThemeVars,
+	currThemeVars => ({
+		textColor: currThemeVars['--colorText'],
+	})
+);
+
 /* icons */
 
 export const _getIconColor = derived(
