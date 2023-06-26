@@ -12,7 +12,7 @@
 
 	let isInfoBannerVisible = false;
 	const onInfoClick = () => {
-		isInfoBannerVisible = true;
+		isInfoBannerVisible = !isInfoBannerVisible;
 	};
 </script>
 
