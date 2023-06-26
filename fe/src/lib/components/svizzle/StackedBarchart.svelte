@@ -53,6 +53,7 @@
 
 	let allKeys;
 	let augmentedItems;
+	let barsScaleByKey;
 	let doDraw = false;
 	let extraWidth = 0;
 	let height;
@@ -62,7 +63,6 @@
 	let scrollTop;
 	let width;
 	let xScale;
-	let xScaleMap;
 	let yScale;
 
 	afterUpdate(() => {
@@ -121,32 +121,27 @@
 		maxSum = getMaxSum(stacks);
 		augmentedItems = augmentItems(stacks);
 		allKeys = _.map(augmentedItems, getKey)
-		console.log('augmentedItems1', augmentedItems)
 	}
 	$: if (allKeys && width) {
 		height = allKeys.length * keyHeight;
-		xScale = scaleLinear()
-			.domain([0, maxSum])
-			.range([geometry.safetyLeft, width - geometry.safetyRight]);
+		const xRange = [geometry.safetyLeft, width - geometry.safetyRight];
+		xScale = scaleLinear().domain([0, maxSum]).range(xRange);
 
-		const getXScaleMap = _.pipe([
+		const getBarsScaleByKey = _.pipe([
 			_.mapWith(_.collect([
 				getKey,
 				_.pipe([
 					_.getKey('sum'),
-					sum => scaleLinear()
-						.domain([0, sum])
-						.range([geometry.safetyLeft, width - geometry.safetyRight])
+					sum => scaleLinear().domain([0, sum]).range(xRange)
 				])
 			])),
 			_.fromPairs
 		]);
 
-		xScaleMap = extentsType === 'percent'
-			? getXScaleMap(augmentedItems)
+		barsScaleByKey = extentsType === 'percent'
+			? getBarsScaleByKey(augmentedItems)
 			: null;
 
-		console.log('xScaleMap', xScaleMap)
 		yScale = scaleBand()
 			.domain(allKeys)
 			.range([geometry.safetyTop, height - geometry.safetyBottom])
@@ -169,7 +164,7 @@
 		>
 			<svg {width} {height}>
 				{#each augmentedItems as {key, values}}
-					{@const currentXScale = xScaleMap?.[key] || xScale}
+					{@const barScale = barsScaleByKey?.[key] || xScale}
 					<text
 						class='key'
 						x={geometry.safetyLeft}
@@ -180,9 +175,9 @@
 					</text>
  					{#each values as {key: subKey, value, start}}
 						<rect
-							x={currentXScale(start)}
+							x={barScale(start)}
 							y={yScale(key)}
-							width={currentXScale(value)}
+							width={barScale(value)}
 							height={yScale.bandwidth()}
 							fill={groupToColorFn(subKey)}
 						/>
