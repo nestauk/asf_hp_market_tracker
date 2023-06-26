@@ -1,0 +1,4 @@
+# Amount of active installers
+
+The total number of active installers.
+	

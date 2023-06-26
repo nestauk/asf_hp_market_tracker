@@ -1,0 +1,4 @@
+# Total power capacity
+
+The total power capacity of all the heat pumps combined, measured in kilowatts.
+	

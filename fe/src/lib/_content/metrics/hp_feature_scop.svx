@@ -1,0 +1,4 @@
+# SCOP
+
+The Seasonal Coefficient of Performance of the heat pump, a measure of its efficiency over a heating season.
+	

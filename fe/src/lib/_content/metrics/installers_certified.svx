@@ -1,0 +1,4 @@
+# Amount of certified installers
+
+The total number of installers who are certified.
+	

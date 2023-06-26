@@ -1,0 +1,4 @@
+# Amount of installations per installer
+
+The total number of installations done per installer.
+	

@@ -1,15 +1,37 @@
 <script>
-	import {CenteredView, LoadingView} from '@svizzle/ui';
+	import {Banner, CenteredView, Icon, Info, LoadingView} from '@svizzle/ui';
 
 	import ViewSelector from '$lib/components/explorer/medium/ViewSelector.svelte';
-	import {_currentMetricTitle} from '$lib/stores/navigation.js';
+	import {_currentMetricId, _currentMetricTitle} from '$lib/stores/navigation.js';
 	import {_currThemeVars} from '$lib/stores/theme';
 	import {_isViewLoading} from '$lib/stores/view.js';
+	import {_bannersTheme,} from '$lib/stores/theme.js';
+
+	import * as metricInfos from '$lib/_content/metrics/index.js';
+
+	let isInfoBannerVisible = false;
+	const onInfoClick = () => {
+		isInfoBannerVisible = true;
+	};
 </script>
 
 <div class='ViewMedium'>
 	<header>
-		<h1>{$_currentMetricTitle}</h1>
+		<h1>
+			{$_currentMetricTitle}
+			{#if $_currentMetricId in metricInfos}
+				<button
+					on:click={onInfoClick}
+				>
+					<Icon
+						glyph={Info}
+						size=20
+						stroke={$_currThemeVars['--colorIcon']}
+						strokeWidth=1
+					/>
+				</button>
+			{/if}
+		</h1>
 		<ViewSelector />
 	</header>
 	<main>
@@ -33,6 +55,15 @@
 		{/if}
 	</main>
 </div>
+
+{#if isInfoBannerVisible}
+	<Banner
+		on:close={() => isInfoBannerVisible = false}
+		theme={$_bannersTheme}
+	>
+		<svelte:component this={metricInfos[$_currentMetricId]} />
+	</Banner>
+{/if}
 
 <style>
 	.ViewMedium {
@@ -73,5 +104,12 @@
 		height: 100%;
 		position: absolute;
 		width: 100%;
+	}
+
+	button {
+		background: none;
+		border: none;
+		cursor: pointer;
+		vertical-align: middle;
 	}
 </style>

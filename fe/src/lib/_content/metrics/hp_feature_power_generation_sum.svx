@@ -1,0 +1,4 @@
+# Total power generation
+
+The total power generation of all the heat pumps combined, measured in kilowatts.
+	

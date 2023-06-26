@@ -1,0 +1,4 @@
+# Power capacity
+
+The maximum amount of power that the heat pump can produce.
+	

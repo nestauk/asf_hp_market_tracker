@@ -1,0 +1,4 @@
+# Tenure
+
+The type of legal rights (tenure) the occupant has over the property (e.g., ownership, rental).
+	

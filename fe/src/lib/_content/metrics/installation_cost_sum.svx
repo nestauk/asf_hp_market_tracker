@@ -1,0 +1,4 @@
+# Market value
+
+The total market value of all the installations, measured in GBP.
+	

@@ -1,0 +1,4 @@
+# Flow temperature
+
+The temperature of the fluid (water or air) that the heat pump is producing.
+	
