@@ -27,7 +27,7 @@
 						glyph={Info}
 						size=30
 						stroke={$_currThemeVars['--colorIcon']}
-						strokeWidth=2
+						strokeWidth=1.5
 					/>
 				</button>
 			{/if}
@@ -110,6 +110,7 @@
 		background: none;
 		border: none;
 		cursor: pointer;
+		margin-left: 0.5em;
 		vertical-align: text-top;
 	}
 </style>
