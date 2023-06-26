@@ -127,6 +127,10 @@
 			name='stringsGeoSortBy'
 			values={['total', 'regionName']}
 		/>
+		<SelectionXor
+			name='stringsGeoChartType'
+			values={['bar', 'marimekko']}
+		/>
 	</FlexBar>
 
 	{#if doDraw}
@@ -150,6 +154,7 @@
 					shouldResetScroll={true}
 					slot='col1'
 					theme={$_stackedBarchartTheme}
+					useMarimekko={$_selection.stringsGeoChartType === 'marimekko'}
 				/>
 			</Grid2Columns>
 		</div>

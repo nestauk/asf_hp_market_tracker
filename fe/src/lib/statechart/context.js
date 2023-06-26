@@ -8,6 +8,7 @@ export const context = {
 		interval: '1y',
 		numTimeGraph: 'percentiles',
 		regionType: 'itl21_1',
+		stringsGeoChartType: 'bar',
 		stringsGeoSortBy: 'total',
 		stringsStreamgraphsSorting: 'off',
 		stringsTimeGraph: 'trends',

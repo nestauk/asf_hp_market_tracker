@@ -1,6 +1,7 @@
 <script>
 	import {_screen, setupResizeObserver} from '@svizzle/ui';
 	import {
+    	applyFnMap,
 		arrayMaxWith,
 		arraySumWith,
 		getKey,
@@ -25,6 +26,7 @@
 	export let shouldResetScroll;
 	export let stacks;
 	export let theme;
+	export let useMarimekko;
 
 	const defaultGeometry = {
 		keyHeightEm: 3,
@@ -60,6 +62,7 @@
 	let scrollTop;
 	let width;
 	let xScale;
+	let xScaleMap;
 	let yScale;
 
 	afterUpdate(() => {
@@ -78,6 +81,7 @@
 	$: shouldResetScroll = shouldResetScroll || false;
 	$: width = $_size.inlineSize - extraWidth;
 	$: keyHeight = geometry.keyHeightEm * em;
+	$: useMarimekko = useMarimekko || false;
 
 	$: valueSortingFn = _.sortWith([_.sorterDesc(getValue)]);
 	$: groupSortingFn = groupSortBy === 'total'
@@ -101,23 +105,49 @@
 
 				return acc;
 			}, {array: [], sum: 0}),
-			_.getKey('array'),
-		]),
+		])
 	});
 	$: augmentItems = _.pipe([
-		_.mapWith(augmentValues),
+		_.mapWith(_.pipe([
+			augmentValues,
+			applyFnMap({
+				key: getKey,
+				values: _.getPath('values.array'),
+				sum: _.getPath('values.sum'),
+			}),
+		])),
 		groupSortingFn
 	]);
 	$: if (stacks && augmentItems) {
 		maxSum = getMaxSum(stacks);
 		augmentedItems = augmentItems(stacks);
 		allKeys = _.map(augmentedItems, getKey)
+		console.log('augmentedItems1', augmentedItems)
 	}
 	$: if (allKeys && width) {
 		height = allKeys.length * keyHeight;
 		xScale = scaleLinear()
 			.domain([0, maxSum])
 			.range([geometry.safetyLeft, width - geometry.safetyRight]);
+
+		const getXScaleMap = _.pipe([
+			_.mapWith(_.collect([
+				getKey,
+				_.pipe([
+					_.getKey('sum'),
+					sum => scaleLinear()
+						.domain([0, sum])
+						.range([geometry.safetyLeft, width - geometry.safetyRight])
+				])
+			])),
+			_.fromPairs
+		]);
+
+		xScaleMap = useMarimekko
+			? getXScaleMap(augmentedItems)
+			: null;
+
+		console.log('xScaleMap', xScaleMap)
 		yScale = scaleBand()
 			.domain(allKeys)
 			.range([geometry.safetyTop, height - geometry.safetyBottom])
@@ -140,6 +170,7 @@
 		>
 			<svg {width} {height}>
 				{#each augmentedItems as {key, values}}
+					{@const currentXScale = xScaleMap?.[key] || xScale}
 					<text
 						class='key'
 						x={geometry.safetyLeft}
@@ -150,9 +181,9 @@
 					</text>
  					{#each values as {key: subKey, value, start}}
 						<rect
-							x={xScale(start)}
+							x={currentXScale(start)}
 							y={yScale(key)}
-							width={xScale(value)}
+							width={currentXScale(value)}
 							height={yScale.bandwidth()}
 							fill={groupToColorFn(subKey)}
 						/>
