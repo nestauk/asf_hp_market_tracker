@@ -127,6 +127,10 @@
 			name='stringsGeoSortBy'
 			values={['total', 'regionName']}
 		/>
+		<SelectionXor
+			name='stackedBarsExtents'
+			values={['absolute', 'percent']}
+		/>
 	</FlexBar>
 
 	{#if doDraw}
@@ -146,6 +150,7 @@
 					{groupIds}
 					{groupToColorFn}
 					{stacks}
+					extentsType={$_selection.stackedBarsExtents}
 					groupSortBy={$_selection.stringsGeoSortBy}
 					shouldResetScroll={true}
 					slot='col1'

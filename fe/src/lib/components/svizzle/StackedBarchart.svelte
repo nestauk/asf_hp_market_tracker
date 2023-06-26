@@ -1,6 +1,7 @@
 <script>
 	import {_screen, setupResizeObserver} from '@svizzle/ui';
 	import {
+		applyFnMap,
 		arrayMaxWith,
 		arraySumWith,
 		getKey,
@@ -18,10 +19,11 @@
 	import Scroller from '$lib/components/svizzle/Scroller.svelte';
 
 	export let domain;
+	export let extentsType;
 	export let geometry;
 	export let groupIds;
-	export let groupToColorFn;
 	export let groupSortBy;
+	export let groupToColorFn;
 	export let shouldResetScroll;
 	export let stacks;
 	export let theme;
@@ -51,6 +53,7 @@
 
 	let allKeys;
 	let augmentedItems;
+	let barsScaleByKey;
 	let doDraw = false;
 	let extraWidth = 0;
 	let height;
@@ -101,11 +104,17 @@
 
 				return acc;
 			}, {array: [], sum: 0}),
-			_.getKey('array'),
-		]),
+		])
 	});
 	$: augmentItems = _.pipe([
-		_.mapWith(augmentValues),
+		_.mapWith(_.pipe([
+			augmentValues,
+			applyFnMap({
+				key: getKey,
+				values: _.getPath('values.array'),
+				sum: _.getPath('values.sum'),
+			}),
+		])),
 		groupSortingFn
 	]);
 	$: if (stacks && augmentItems) {
@@ -115,9 +124,24 @@
 	}
 	$: if (allKeys && width) {
 		height = allKeys.length * keyHeight;
-		xScale = scaleLinear()
-			.domain([0, maxSum])
-			.range([geometry.safetyLeft, width - geometry.safetyRight]);
+		const xRange = [geometry.safetyLeft, width - geometry.safetyRight];
+		xScale = scaleLinear().domain([0, maxSum]).range(xRange);
+
+		const getBarsScaleByKey = _.pipe([
+			_.mapWith(_.collect([
+				getKey,
+				_.pipe([
+					_.getKey('sum'),
+					sum => scaleLinear().domain([0, sum]).range(xRange)
+				])
+			])),
+			_.fromPairs
+		]);
+
+		barsScaleByKey = extentsType === 'percent'
+			? getBarsScaleByKey(augmentedItems)
+			: null;
+
 		yScale = scaleBand()
 			.domain(allKeys)
 			.range([geometry.safetyTop, height - geometry.safetyBottom])
@@ -140,6 +164,7 @@
 		>
 			<svg {width} {height}>
 				{#each augmentedItems as {key, values}}
+					{@const barScale = barsScaleByKey?.[key] || xScale}
 					<text
 						class='key'
 						x={geometry.safetyLeft}
@@ -150,9 +175,9 @@
 					</text>
  					{#each values as {key: subKey, value, start}}
 						<rect
-							x={xScale(start)}
+							x={barScale(start)}
 							y={yScale(key)}
-							width={xScale(value)}
+							width={barScale(value)}
 							height={yScale.bandwidth()}
 							fill={groupToColorFn(subKey)}
 						/>
