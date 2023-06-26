@@ -1,12 +1,13 @@
 <script>
-	import {Banner, CenteredView, Icon, Info, LoadingView} from '@svizzle/ui';
+	import {CenteredView, Icon, Info, LoadingView} from '@svizzle/ui';
 
 	import ViewSelector from '$lib/components/explorer/medium/ViewSelector.svelte';
 	import {_currentMetricId, _currentMetricTitle} from '$lib/stores/navigation.js';
 	import {_currThemeVars} from '$lib/stores/theme';
 	import {_isViewLoading} from '$lib/stores/view.js';
 	import {_bannersTheme,} from '$lib/stores/theme.js';
-
+	import Banner from '$lib/components/svizzle/Banner.svelte'
+	
 	import * as metricInfos from '$lib/_content/metrics/index.js';
 
 	let isInfoBannerVisible = false;
@@ -58,6 +59,7 @@
 			<Banner
 				on:close={() => isInfoBannerVisible = false}
 				theme={$_bannersTheme}
+				width='50%'
 			>
 				<svelte:component this={metricInfos[$_currentMetricId]} />
 			</Banner>
