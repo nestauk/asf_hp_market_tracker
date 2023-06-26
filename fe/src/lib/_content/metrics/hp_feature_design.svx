@@ -1,4 +1,3 @@
 # Design
 
 The specific construction and operation characteristics of the heat pump.
-	

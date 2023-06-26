@@ -1,4 +1,0 @@
-# undefined
-
-The date when the installer's certification expires.
-	

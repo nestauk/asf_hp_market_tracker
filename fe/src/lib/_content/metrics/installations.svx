@@ -1,4 +1,3 @@
 # Amount of installations
 
 The total number of heat pump installations.
-	

@@ -1,4 +1,0 @@
-# undefined
-
-The date the heat pump was installed.
-	

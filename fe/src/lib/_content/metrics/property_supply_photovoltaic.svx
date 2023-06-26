@@ -1,0 +1,3 @@
+# Photovoltaic supply
+
+This field refers to the photovoltaic (solar power) supply of the property, measured in kilowatts.

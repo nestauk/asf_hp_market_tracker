@@ -1,0 +1,3 @@
+# Lighting energy efficiency
+
+This specifies the energy efficiency rating of the lighting used in the property.

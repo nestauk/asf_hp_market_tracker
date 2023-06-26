@@ -1,0 +1,3 @@
+# Built form
+
+This field refers to the form of the property when it was built.

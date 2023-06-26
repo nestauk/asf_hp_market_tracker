@@ -1,4 +1,3 @@
 # Model
 
 The specific model of the heat pump.
-	

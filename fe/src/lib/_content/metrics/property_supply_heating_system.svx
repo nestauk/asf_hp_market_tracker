@@ -1,0 +1,3 @@
+# Heating system
+
+This field represents the type of heating system installed in the property.

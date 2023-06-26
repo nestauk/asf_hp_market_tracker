@@ -1,0 +1,3 @@
+# Potential energy rating
+
+This is the potential energy rating that the property could achieve with improvements.

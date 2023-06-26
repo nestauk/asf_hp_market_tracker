@@ -1,0 +1,3 @@
+# Type
+
+This field refers to the type of the property (e.g., detached, semi-detached, terraced, etc.).
