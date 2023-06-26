@@ -53,17 +53,17 @@
 				</CenteredView>
 			</div>
 		{/if}
+
+		{#if isInfoBannerVisible}
+			<Banner
+				on:close={() => isInfoBannerVisible = false}
+				theme={$_bannersTheme}
+			>
+				<svelte:component this={metricInfos[$_currentMetricId]} />
+			</Banner>
+		{/if}
 	</main>
 </div>
-
-{#if isInfoBannerVisible}
-	<Banner
-		on:close={() => isInfoBannerVisible = false}
-		theme={$_bannersTheme}
-	>
-		<svelte:component this={metricInfos[$_currentMetricId]} />
-	</Banner>
-{/if}
 
 <style>
 	.ViewMedium {
