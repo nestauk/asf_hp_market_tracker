@@ -1,7 +1,7 @@
 <script>
 	import {_screen, setupResizeObserver} from '@svizzle/ui';
 	import {
-    	applyFnMap,
+		applyFnMap,
 		arrayMaxWith,
 		arraySumWith,
 		getKey,
@@ -19,14 +19,14 @@
 	import Scroller from '$lib/components/svizzle/Scroller.svelte';
 
 	export let domain;
+	export let extentsType;
 	export let geometry;
 	export let groupIds;
-	export let groupToColorFn;
 	export let groupSortBy;
+	export let groupToColorFn;
 	export let shouldResetScroll;
 	export let stacks;
 	export let theme;
-	export let useMarimekko;
 
 	const defaultGeometry = {
 		keyHeightEm: 3,
@@ -81,7 +81,6 @@
 	$: shouldResetScroll = shouldResetScroll || false;
 	$: width = $_size.inlineSize - extraWidth;
 	$: keyHeight = geometry.keyHeightEm * em;
-	$: useMarimekko = useMarimekko || false;
 
 	$: valueSortingFn = _.sortWith([_.sorterDesc(getValue)]);
 	$: groupSortingFn = groupSortBy === 'total'
@@ -143,7 +142,7 @@
 			_.fromPairs
 		]);
 
-		xScaleMap = useMarimekko
+		xScaleMap = extentsType === 'percent'
 			? getXScaleMap(augmentedItems)
 			: null;
 
