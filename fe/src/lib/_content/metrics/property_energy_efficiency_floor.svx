@@ -1,3 +1,3 @@
 # Floor energy efficiency
 
-This represents the energy efficiency of the floor of the property.
+A qualitative description of the energy efficiency of the floor of the property.

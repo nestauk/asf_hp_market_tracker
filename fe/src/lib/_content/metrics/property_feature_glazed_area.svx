@@ -1,3 +1,3 @@
 # Glazed area
 
-This indicates the area of the property that is covered by glazed (glass) structures.
+Ranged estimate of the total glazed area of the Habitable Area.

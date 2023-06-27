@@ -1,3 +1,3 @@
 # Power generation
 
-The amount of power that the heat pump is currently generating.
+Estimated energy produced by the heat pump in a year (in kW).
