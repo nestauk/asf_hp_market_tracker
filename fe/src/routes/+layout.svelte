@@ -143,7 +143,7 @@
 		aria-label='Website content'
 		use:contentSizeObserver
 	>
-		<slot></slot>
+		<slot />
 	</main>
 	{#if !$_isSmallScreen}
 		<footer
