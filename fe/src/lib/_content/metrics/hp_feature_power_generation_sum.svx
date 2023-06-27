@@ -1,3 +1,3 @@
-# Total power generation
+#### Total power generation
 
 The sum of the estimated energy produced in a year by all all installed heat pumps (in kW).

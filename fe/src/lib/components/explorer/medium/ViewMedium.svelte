@@ -7,7 +7,7 @@
 	import {_isViewLoading} from '$lib/stores/view.js';
 	import {_bannersTheme,} from '$lib/stores/theme.js';
 	import Banner from '$lib/components/svizzle/Banner.svelte'
-	
+
 	import * as metricInfos from '$lib/_content/metrics/index.js';
 
 	let isInfoBannerVisible = false;
@@ -61,7 +61,9 @@
 				theme={$_bannersTheme}
 				width='50%'
 			>
-				<svelte:component this={metricInfos[$_currentMetricId]} />
+				<div class='info'>
+					<svelte:component this={metricInfos[$_currentMetricId]} />
+				</div>
 			</Banner>
 		{/if}
 	</main>
@@ -114,5 +116,9 @@
 		cursor: pointer;
 		margin-left: 0.5em;
 		vertical-align: text-top;
+	}
+
+	.info {
+		padding: 0.75em;
 	}
 </style>
