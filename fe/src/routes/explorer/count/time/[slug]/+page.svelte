@@ -55,9 +55,9 @@
 	let trends;
 	let valueFormatFn;
 
-	$: trendType = $_currentMetric.isAdditive
+	$: trendType = $_currentMetric.isCumulative
 		? $_selection.trendType
-		: 'periodic';
+		: 'progressive';
 
 	$: proceed =
 		$_isViewReady &&
@@ -92,11 +92,11 @@
 	<FlexBar>
 		<SelectorInterval />
 
-		{#if $_currentMetric.isAdditive}
+		{#if $_currentMetric.isCumulative}
 			<SelectionXor
 				name='trendType'
-				values={['periodic', 'incremental']}
-			/>	
+				values={['progressive', 'cumulative']}
+			/>
 		{/if}
 	</FlexBar>
 

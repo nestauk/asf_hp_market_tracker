@@ -13,7 +13,7 @@ export const context = {
 		stringsStreamgraphsSorting: 'off',
 		stringsTimeGraph: 'trends',
 		stringsTopCount: 20, // this is a filter
-		trendType: 'periodic',
+		trendType: 'progressive',
 	},
 	viewQueryPath: '',
 };

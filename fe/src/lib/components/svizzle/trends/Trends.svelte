@@ -43,7 +43,7 @@
 	export let preformatDate = _.identity;
 	export let theme = null;
 	export let trends;
-	export let trendType; // 'periodic' | 'incremental'
+	export let trendType; // 'progressive' | 'cumulative'
 	export let valueFormatFn;
 	export let yTicksCount = 10;
 
@@ -69,9 +69,9 @@
 	/* data */
 
 	$: trends = trends ?? defaultTrends;
-	$: if (trendType === 'incremental') {
+	$: if (trendType === 'cumulative') {
 		trends = _.map(trends, ({key, values}) => {
-			const incrementalValues = _.reduce(
+			const cumulativeValues = _.reduce(
 				values,
 				(acc, {key, value}) => {
 					acc.sum += value;
@@ -82,7 +82,7 @@
 				{sum: 0, array: []}
 			).array;
 
-			return {key, values: incrementalValues}
+			return {key, values: cumulativeValues}
 		});
 	}
 
