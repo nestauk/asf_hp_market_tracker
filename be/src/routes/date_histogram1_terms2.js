@@ -16,6 +16,7 @@ export const getDateHistogram1Terms2 = async (request, reply) => {
 	const stats_type2 = use_extended_stats2 ? 'extended_stats_bucket' : 'stats_bucket';
 
 	const body = {
+		...request.filter,
 		size: 0,
 		aggs: {
 			date_histogram: {

@@ -14,6 +14,7 @@ export const getDateHistogram1Histogram2 = async (request, reply) => {
 	request.meta = { interval2: interval };
 
 	const body = {
+		...request.filter,
 		size: 0,
 		aggs: {
 			date_histogram: {

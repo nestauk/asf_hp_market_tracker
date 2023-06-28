@@ -30,6 +30,7 @@ export const getTerms1Certified2 = async (request, reply) => {
 	const missingEndDate = maxEndDate;
 
 	const body = {
+		...request.filter,
 		size: 0,
 		aggs: {
 			terms: {

@@ -10,6 +10,7 @@ export const getStats = async (request, reply) => {
 	const statQuery = use_extended_stats ? 'extended_stats' : 'stats';
 
 	const body = {
+		...request.filter,
 		size: 0,
 		aggs: {
 			stats: {
