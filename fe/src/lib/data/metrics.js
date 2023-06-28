@@ -25,3 +25,6 @@ export const metricGroups = getMetricGroups(metrics);
 
 export const numericMetrics = _.filter(metrics, _.hasKeyValue('type', 'number'));
 export const numericMetricsById = _.index(numericMetrics, getId);
+
+export const categoricalMetrics = _.filter(metrics, _.hasKeyValue('type', 'category'));
+export const categoricalMetricsById = _.index(categoricalMetrics, getId);

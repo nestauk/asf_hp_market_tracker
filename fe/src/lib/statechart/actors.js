@@ -2,7 +2,7 @@ import {applyFnMap} from '@svizzle/utils';
 import * as _ from 'lamb';
 
 import {intervals} from '$lib/config/time.js';
-import {numericMetrics} from '$lib/data/metrics.js';
+import {categoricalMetrics, numericMetrics} from '$lib/data/metrics.js';
 import {selectedBeURL} from '$lib/env.js';
 
 const query = backendPath =>
@@ -33,11 +33,28 @@ export const queryStaticData = () => {
 		return promise;
 	});
 
+	const catTermsPromises = _.map(categoricalMetrics, ({id: field}) => {
+		const endpoint = 'terms';
+		const params = {
+			field: `${field}.keyword`,
+			missing: 'Unknown'
+		};
+		const queryPath = `${endpoint}?${new URLSearchParams(params)}`;
+		const promise = query(queryPath);
+
+		return promise;
+	});
+
 	return Promise.all([
 		...timelinesPromises,
-		...numStatsPromises
+		...numStatsPromises,
+		...catTermsPromises
 	]).then(applyFnMap({
 		timelines: _.take(intervals.length),
-		numStats: _.drop(intervals.length),
+		numStats: _.pipe([
+			_.drop(intervals.length),
+			_.take(numericMetrics.length)
+		]),
+		catStats: _.drop(intervals.length + numericMetrics.length)
 	}));
 };

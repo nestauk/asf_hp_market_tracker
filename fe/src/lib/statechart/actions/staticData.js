@@ -14,8 +14,16 @@ const indexNumStats = _.pipe([
 	_.indexBy(_.getPath('request.agg.params.field')),
 	_.mapValuesWith(_.getPath('data.stats')),
 ]);
-export const updateStaticDataStore = (ctx, {data: {timelines, numStats}}) => {
+const indexCatStats = _.pipe([
+	_.indexBy(_.pipe([
+		_.getPath('request.agg.params.field'),
+		_.replace('.keyword', '')
+	])),
+	_.mapValuesWith(_.getPath('data.terms.buckets')),
+]);
+export const updateStaticDataStore = (ctx, {data: {timelines, numStats, catStats}}) => {
 	_staticData.set({
+		catStats: indexCatStats(catStats),
 		numStats: indexNumStats(numStats),
 		timelines: indexTimelines(timelines),
 	});

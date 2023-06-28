@@ -138,6 +138,15 @@ a {
 
 	--colorTimelineActiveBinFill: #eee;
 	--colorTimelineActiveBinStroke: #333;
+
+	/* cat filters */
+
+	--colorBackgroundApply: limegreen;
+	--colorBackgroundDirty: antiquewhite;
+	--colorBackgroundDismiss: orangered;
+	--colorBackgroundHover: #eee;
+	--colorTextApply: white;
+	--colorTextDismiss: white;
 }
 
 .themeDark {
@@ -195,4 +204,13 @@ a {
 
 	--colorTimelineActiveBinFill: #333;
 	--colorTimelineActiveBinStroke: #ccc;
+
+	/* cat filters */
+
+	--colorBackgroundApply: limegreen;
+	--colorBackgroundDirty: darkslategrey;
+	--colorBackgroundDismiss: orangered;
+	--colorBackgroundHover: #333;
+	--colorTextApply: white;
+	--colorTextDismiss: white;
 }
