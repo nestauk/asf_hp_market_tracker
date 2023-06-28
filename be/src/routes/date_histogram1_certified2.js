@@ -26,6 +26,7 @@ export const getDateHistogram1Certified2 = async (request, reply) => {
 	const maxEndDate = maxEndDateResponse.aggregations.max.value_as_string;
 
 	const body = {
+		...request.filter,
 		size: 0,
 		aggs: {
 			terms: {

@@ -10,6 +10,7 @@ export const getDateHistogram1Cardinality2 = async (request, reply) => {
 	} = request.query;
 
 	const body = {
+		...request.filter,
 		size: 0,
 		aggs: {
 			date_histogram: {

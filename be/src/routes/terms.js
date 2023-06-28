@@ -14,6 +14,7 @@ export const getTerms = async (request, reply) => {
 	const stats_type = use_extended_stats ? 'extended_stats_bucket' : 'stats_bucket';
 
 	const body = {
+		...request.filter,
 		size: 0,
 		aggs: {
 			terms: {

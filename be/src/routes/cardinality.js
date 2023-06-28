@@ -8,6 +8,7 @@ export const getCardinality = async (request, reply) => {
 	} = request.query;
 
 	const body = {
+		...request.filter,
 		size: 0,
 		aggs: {
 			cardinality: {

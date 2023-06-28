@@ -14,6 +14,7 @@ export const getTerms1Stats2 = async (request, reply) => {
 	const statQuery = use_extended_stats2 ? 'extended_stats' : 'stats';
 
 	const body = {
+		...request.filter,
 		size: 0,
 		aggs: {
 			terms: {

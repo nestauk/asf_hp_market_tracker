@@ -8,6 +8,7 @@ export const getDateHistogram = async (request, reply) => {
 	} = request.query;
 
 	const body = {
+		...request.filter,
 		size: 0,
 		aggs: {
 			date_histogram: {

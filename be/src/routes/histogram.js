@@ -12,6 +12,7 @@ export const getHistogram = async (request, reply) => {
 	request.meta = { interval };
 
 	const body = {
+		...request.filter,
 		size: 0,
 		aggs: {
 			histogram: {

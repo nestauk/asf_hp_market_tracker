@@ -28,6 +28,7 @@ export const getCertified = async (request, reply) => {
 	const missingEndDate = DateTime.fromISO(maxEndDate).toMillis();
 
 	const body = {
+		...request.filter,
 		size: 0,
 		aggs: {
 			terms: {
