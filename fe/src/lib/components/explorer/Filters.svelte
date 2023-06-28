@@ -1,6 +1,8 @@
 <script>
 	import * as _ from 'lamb';
 
+	import CategorySelector
+		from '$lib/components/explorer/CategorySelector.svelte';
 	import RangeSlider from '$lib/components/svizzle/RangeSlider.svelte';
 	import Scroller from '$lib/components/svizzle/Scroller.svelte';
 	import {_staticData} from '$lib/stores/data.js';
@@ -10,20 +12,27 @@
 
 {#if $_filters}
 	<Scroller>
-		{#each $_filters as {key: entity, values}, entityIndex}
+		{#each $_filters as {key: entity, values: metrics}, entityIndex}
 			<h2>{entity}</h2>
 			<ul>
-				{#each values as {label, Max, Min}, metricIndex}
+				{#each metrics as metric, metricIndex}
 					<li>
 						<div class='slider'>
-							<div>{label}</div>
-							<RangeSlider
-								{Max}
-								{Min}
-								bind:max={$_filters[entityIndex].values[metricIndex].max}
-								bind:min={$_filters[entityIndex].values[metricIndex].min}
-								theme={$_rangeSlidersTheme}
-							/>
+							<h3>{metric.label}</h3>
+							{#if metric.type === 'number'}
+								<RangeSlider
+									Max={metric.Max}
+									Min={metric.Min}
+									bind:max={$_filters[entityIndex].values[metricIndex].max}
+									bind:min={$_filters[entityIndex].values[metricIndex].min}
+									theme={$_rangeSlidersTheme}
+								/>
+							{:else if metric.type === 'category'}
+								<CategorySelector
+									label={metric.label}
+									bind:categories={$_filters[entityIndex].values[metricIndex].values}
+								/>
+							{/if}
 						</div>
 					</li>
 				{/each}
