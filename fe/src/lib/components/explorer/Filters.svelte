@@ -1,13 +1,57 @@
 <script>
 	import * as _ from 'lamb';
+	import {RISON} from 'rison2';
 
 	import CategorySelector
 		from '$lib/components/explorer/CategorySelector.svelte';
 	import RangeSlider from '$lib/components/svizzle/RangeSlider.svelte';
 	import Scroller from '$lib/components/svizzle/Scroller.svelte';
+	import {explorerActor} from '$lib/statechart/index.js';
 	import {_staticData} from '$lib/stores/data.js';
 	import {_rangeSlidersTheme} from '$lib/stores/theme.js';
 	import {_filters} from '$lib/stores/filters.js';
+
+	const getFiltertQuery = filters => {
+		if (!filters) return null;
+		const query = {};
+		filters.forEach(({values: metrics}) => {
+			_.forEach(
+				metrics,
+				metric => {
+					if (metric.type === 'number') {
+						const subQuery = {};
+						if (metric.max !== metric.Max) {
+							subQuery['lte'] = metric.max;
+						}
+						if (metric.min !== metric.Min) {
+							subQuery['gte'] = metric.min;
+						}
+						if (_.keys(subQuery).length) {
+							query[metric.id] = subQuery;
+						}
+					} else if (metric.type === 'category') {
+						if (_.someIn(metric.values, ({selected}) => !selected)) {
+							query[metric.id] = _.pipe([
+								_.filterWith(_.hasKeyValue('selected', true)),
+								_.mapWith(_.getKey('key'))
+							])(metric.values);
+						}
+					}
+				}
+			);
+		});
+		return _.keys(query).length ? RISON.stringify(query) : '';
+	}
+
+	let lastFilterQuery;
+	$: filterQuery = getFiltertQuery($_filters);
+	$: if (filterQuery !== lastFilterQuery) {
+		explorerActor.send({
+			type: 'SELECTION_CHANGED',
+			newValues: {filterQuery}
+		});
+		lastFilterQuery = filterQuery;
+	}
 </script>
 
 {#if $_filters}
