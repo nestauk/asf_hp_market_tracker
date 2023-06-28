@@ -1,0 +1,3 @@
+#### Amount of expired certificates
+
+The total number of installers whose certifications have expired.

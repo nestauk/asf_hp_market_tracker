@@ -1,0 +1,3 @@
+#### Glazed type
+
+The type of glazing used in the property (double-glazing, triple-glazing, etc.).

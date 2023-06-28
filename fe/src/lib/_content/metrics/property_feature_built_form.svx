@@ -1,0 +1,5 @@
+#### Built form
+
+The building type of the Property e.g. Detached, Semi-Detached, Terrace etc.
+
+Together with the Property Type, the Build Form produces a structured description of the property.

@@ -1,0 +1,3 @@
+#### Power capacity
+
+Capacity of heat pump model (in kW).

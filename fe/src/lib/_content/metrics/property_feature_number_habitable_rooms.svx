@@ -1,0 +1,3 @@
+#### Number of habitable rooms
+
+This is the total number of habitable rooms in the property.

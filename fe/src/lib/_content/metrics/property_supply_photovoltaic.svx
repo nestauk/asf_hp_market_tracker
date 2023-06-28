@@ -1,0 +1,3 @@
+#### Photovoltaic supply
+
+The photovoltaic (solar power) supply of the property (in kW).

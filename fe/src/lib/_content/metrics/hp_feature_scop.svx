@@ -1,0 +1,3 @@
+#### SCOP
+
+Manufacturer-provided Seasonal Coefficient of Performance.

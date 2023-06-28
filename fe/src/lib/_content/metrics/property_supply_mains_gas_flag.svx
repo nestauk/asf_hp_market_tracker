@@ -1,0 +1,3 @@
+#### Heating mains gas?
+
+Whether the property has a mains gas supply (represented by a Boolean flag).

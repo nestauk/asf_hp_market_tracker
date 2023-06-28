@@ -1,0 +1,3 @@
+#### Total power capacity
+
+The sum of the power capacity for all installed heat pumps (in kW).

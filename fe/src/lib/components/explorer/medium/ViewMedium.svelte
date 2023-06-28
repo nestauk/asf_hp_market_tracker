@@ -1,22 +1,44 @@
 <script>
-	import {CenteredView, LoadingView} from '@svizzle/ui';
+	import {CenteredView, Icon, Info, LoadingView} from '@svizzle/ui';
 
+	import * as metricInfos from '$lib/_content/metrics/index.js';
 	import ViewSelector from '$lib/components/explorer/medium/ViewSelector.svelte';
-	import {_currentMetricTitle} from '$lib/stores/navigation.js';
-	import {_currThemeVars} from '$lib/stores/theme';
+	import Banner from '$lib/components/svizzle/Banner.svelte'
+	import {_currentMetricId, _currentMetricTitle} from '$lib/stores/navigation.js';
+	import {_bannersTheme, _currThemeVars} from '$lib/stores/theme.js';
 	import {_isViewLoading} from '$lib/stores/view.js';
+
+	let isInfoBannerVisible = false;
+
+	const toggleInfoModal = () => {
+		isInfoBannerVisible = !isInfoBannerVisible;
+	};
 </script>
 
 <div class='ViewMedium'>
 	<header>
-		<h1>{$_currentMetricTitle}</h1>
+		<h1>
+			{$_currentMetricTitle}
+			{#if $_currentMetricId in metricInfos}
+				<button on:click={toggleInfoModal}>
+					<Icon
+						glyph={Info}
+						size=30
+						stroke={$_currThemeVars['--colorIcon']}
+						strokeWidth=1.5
+					/>
+				</button>
+			{/if}
+		</h1>
 		<ViewSelector />
 	</header>
 	<main>
 		<div class='charts'>
-			<slot></slot>
+			<slot />
 		</div>
-		<div class='coverage'>coverage</div>
+		<div class='coverage'>
+			coverage
+		</div>
 
 		{#if $_isViewLoading}
 			<div class='loading'>
@@ -30,6 +52,18 @@
 					/>
 				</CenteredView>
 			</div>
+		{/if}
+
+		{#if isInfoBannerVisible}
+			<Banner
+				on:close={() => isInfoBannerVisible = false}
+				theme={$_bannersTheme}
+				width='50%'
+			>
+				<div class='info'>
+					<svelte:component this={metricInfos[$_currentMetricId]} />
+				</div>
+			</Banner>
 		{/if}
 	</main>
 </div>
@@ -73,5 +107,17 @@
 		height: 100%;
 		position: absolute;
 		width: 100%;
+	}
+
+	button {
+		background: none;
+		border: none;
+		cursor: pointer;
+		margin-left: 0.5em;
+		vertical-align: text-top;
+	}
+
+	.info {
+		padding: 0.75em;
 	}
 </style>

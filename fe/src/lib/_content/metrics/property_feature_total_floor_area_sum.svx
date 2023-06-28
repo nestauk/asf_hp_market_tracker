@@ -1,0 +1,3 @@
+#### Total floor area
+
+The total floor area of all the properties, measured in square meters.

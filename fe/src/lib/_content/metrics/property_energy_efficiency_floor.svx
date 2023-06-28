@@ -1,0 +1,3 @@
+#### Floor energy efficiency
+
+A qualitative description of the energy efficiency of the floor of the property.
