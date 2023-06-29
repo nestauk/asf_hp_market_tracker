@@ -12,12 +12,12 @@
 
 	const getSelected = _.getKey('selected');
 	const getInputStateCopy = _.pick(['key', 'doc_count', 'selected']);
-
+	const getInputStatesCopy = _.mapWith(getInputStateCopy);
 	const getSortedInputsStates = _.pipe([
-		_.mapWith(getInputStateCopy),
+		getInputStatesCopy,
 		_.sortWith([getKey])
 	])
-	const getAppliedCategories = _.mapWith(getInputStateCopy);
+
 	const makeIsKey = key => _.pipe([getKey, _.is(key)]);
 	const makeClearAllBut = key => _.mapWith(
 		makeMergeAppliedFnMap({selected: makeIsKey(key)})
@@ -42,7 +42,7 @@
 		sortedInputStates = getSortedInputsStates(categories);
 	};
 	const onApply = () => {
-		categories = getAppliedCategories(sortedInputStates);
+		categories = getInputStatesCopy(sortedInputStates);
 	};
 
 	$: sortedInputStates = getSortedInputsStates(categories);
