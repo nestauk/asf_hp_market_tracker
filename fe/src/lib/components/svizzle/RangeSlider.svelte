@@ -2,6 +2,7 @@
 	import {makeStyleVars} from '@svizzle/dom';
 	import {setupResizeObserver} from '@svizzle/ui';
 	import {scaleLinear} from 'd3-scale';
+	import {createEventDispatcher} from 'svelte';
 
 	export let formatFn;
 	export let max;
@@ -9,6 +10,8 @@
 	export let min;
 	export let Min;
 	export let theme;
+
+	const dispatch = createEventDispatcher();
 
 	const {
 		_writable: _size,
@@ -66,6 +69,7 @@
 	const stopDragging = event => {
 		event.target.onpointermove = null;
 		event.target.releasePointerCapture(event.pointerId);
+		dispatch('changed', {min, max});
 	}
 </script>
 

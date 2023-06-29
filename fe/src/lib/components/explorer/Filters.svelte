@@ -67,9 +67,13 @@
 								<RangeSlider
 									formatFn={metric.formatFn}
 									Max={metric.Max}
+									max={metric.max}
 									Min={metric.Min}
-									bind:max={$_filters[entityIndex].values[metricIndex].max}
-									bind:min={$_filters[entityIndex].values[metricIndex].min}
+									min={metric.min}
+									on:changed={({detail: {max, min}}) => {
+										$_filters[entityIndex].values[metricIndex].max = max;
+										$_filters[entityIndex].values[metricIndex].min = min;
+									}}
 									theme={$_rangeSlidersTheme}
 								/>
 							{:else if metric.type === 'category'}
