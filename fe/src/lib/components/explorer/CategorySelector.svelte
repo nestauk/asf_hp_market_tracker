@@ -13,37 +13,50 @@
 		_.fromPairs
 	]);
 	const makeCheckDirty = map => ({key, selected}) => selected !== map[key];
-	const toggle = key => selectionMap[key] = !selectionMap[key];
+	const makeOnChange = key => () => selectionMap[key] = !selectionMap[key];
+	const makeOnClick = key => e => {
+		if (e.altKey) {
+			// selectionMap = _.mapValues(selectionMap, () => false);
+			for (const akey in selectionMap) {
+				selectionMap[akey] = key === akey;
+			}
+			// selectionMap[key] = true;
+			// e.target.checked = true;
+			console.log(selectionMap)
+			selectionMap = {...selectionMap};
+		}
+	};
 
 	const onDismiss = () => {
-		selectionMap = getSelectionMap(categories);
+		selectionMap = getSelectionMap(sortedCategories);
 	};
 	const onApply = () => {
 		_.forEach(categories, cat => {
 			cat.selected = selectionMap[cat.key];
 		});
-		categories = categories;
+		sortedCategories = sortedCategories;
 	};
 
 	let selectionMap;
 
 	$: sortedCategories = _.sort(categories, [getKey]);
-	$: !selectionMap && (selectionMap = getSelectionMap(categories));
+	$: !selectionMap && (selectionMap = getSelectionMap(sortedCategories));
 	$: checkDirty = makeCheckDirty(selectionMap);
-	$: isDirty = _.someIn(categories, checkDirty);
+	$: isDirty = _.someIn(sortedCategories, checkDirty);
 </script>
 
 <div class='CategorySelector'>
-	{#each sortedCategories as category}
+	{#each sortedCategories as category (category.key)}
 		{@const key = category.key}
 		{@const id = `${label}-${key}`}
 		<span
 			class='category'
 			class:dirty={checkDirty(category)}
 		>
+		<!-- on:change={makeOnChange(key)} -->
 			<input
 				checked={selectionMap[key]}
-				on:change={toggle(key)}
+				on:click|preventDefault={makeOnClick(key)}
 				{id}
 				type='checkbox'
 			/>
