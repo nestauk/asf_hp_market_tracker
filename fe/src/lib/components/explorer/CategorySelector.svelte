@@ -1,66 +1,75 @@
 <script>
-	import {getKey} from '@svizzle/utils';
+	import {
+		getKey,
+		makeMergeAppliedFnMap
+	} from '@svizzle/utils';
 	import * as _ from 'lamb';
+
+	import Checkbox from '$lib/components/explorer/Checkbox.svelte';
 
 	export let categories;
 	export let label;
 
-	const getSelectionMap = _.pipe([
-		_.mapWith(_.collect([
-			getKey,
-			_.getKey('selected')
-		])),
-		_.fromPairs
-	]);
-	const makeCheckDirty = map => ({key, selected}) => selected !== map[key];
-	const makeOnChange = key => () => selectionMap[key] = !selectionMap[key];
-	const makeOnClick = key => e => {
+	const getSelected = _.getKey('selected');
+	const getInputStateCopy = _.pick(['key', 'doc_count', 'selected']);
+
+	const getSortedInputsStates = _.pipe([
+		_.mapWith(getInputStateCopy),
+		_.sortWith([getKey])
+	])
+	const getAppliedCategories = _.mapWith(getInputStateCopy);
+	const makeIsKey = key => _.pipe([getKey, _.is(key)]);
+	const makeClearAllBut = key => _.mapWith(
+		makeMergeAppliedFnMap({selected: makeIsKey(key)})
+	);
+	const makeToggleSelected = key => _.mapWith(
+		makeMergeAppliedFnMap({selected: _.condition(
+			makeIsKey(key),
+			_.not(getSelected),
+		getSelected
+		)})
+	);
+
+	const makeOnClick = key => async e => {
 		if (e.altKey) {
-			// selectionMap = _.mapValues(selectionMap, () => false);
-			for (const akey in selectionMap) {
-				selectionMap[akey] = key === akey;
-			}
-			// selectionMap[key] = true;
-			// e.target.checked = true;
-			console.log(selectionMap)
-			selectionMap = {...selectionMap};
+			sortedInputStates = makeClearAllBut(key)(sortedInputStates);
+		} else {
+			sortedInputStates = makeToggleSelected(key)(sortedInputStates);
 		}
 	};
 
 	const onDismiss = () => {
-		selectionMap = getSelectionMap(sortedCategories);
+		sortedInputStates = getSortedInputsStates(categories);
 	};
 	const onApply = () => {
-		_.forEach(categories, cat => {
-			cat.selected = selectionMap[cat.key];
-		});
-		sortedCategories = sortedCategories;
+		categories = getAppliedCategories(sortedInputStates);
 	};
 
-	let selectionMap;
-
-	$: sortedCategories = _.sort(categories, [getKey]);
-	$: !selectionMap && (selectionMap = getSelectionMap(sortedCategories));
-	$: checkDirty = makeCheckDirty(selectionMap);
-	$: isDirty = _.someIn(sortedCategories, checkDirty);
+	$: sortedInputStates = getSortedInputsStates(categories);
+	$: indexedCats = _.index(categories, getKey);
+	$: checkDirty = (key, value) => indexedCats[key].selected !== value;
+	$: isDirty = _.someIn(sortedInputStates, ({key, selected}) => checkDirty(key, selected));
 </script>
 
 <div class='CategorySelector'>
-	{#each sortedCategories as category (category.key)}
-		{@const key = category.key}
+	{#each sortedInputStates as inputState (inputState.key)}
+		{@const {key, selected, isDirty} = inputState}
 		{@const id = `${label}-${key}`}
 		<span
 			class='category'
-			class:dirty={checkDirty(category)}
+			class:dirty={checkDirty(key, selected)}
 		>
-		<!-- on:change={makeOnChange(key)} -->
-			<input
-				checked={selectionMap[key]}
-				on:click|preventDefault={makeOnClick(key)}
-				{id}
-				type='checkbox'
+			<!-- on:change={makeOnChange(key)} -->
+<!-- 				on:change={() => {
+					inputState.selected = !inputState.selected;
+					inputState.isDirty = true;
+					// sortedInputStates = [...sortedInputStates];
+				}} -->
+			<Checkbox
+				checked={selected}
+				label={key}
+				on:click={makeOnClick(key)}
 			/>
-			<label for={id}>{key}</label>
 		</span>
 	{/each}
 	{#if isDirty}
