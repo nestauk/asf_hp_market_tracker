@@ -26,7 +26,7 @@
 		makeMergeAppliedFnMap({selected: _.condition(
 			makeIsKey(key),
 			_.not(getSelected),
-		getSelected
+			getSelected
 		)})
 	);
 
@@ -52,19 +52,11 @@
 </script>
 
 <div class='CategorySelector'>
-	{#each sortedInputStates as inputState (inputState.key)}
-		{@const {key, selected, isDirty} = inputState}
-		{@const id = `${label}-${key}`}
+	{#each sortedInputStates as {key, selected} (key)}
 		<span
 			class='category'
 			class:dirty={checkDirty(key, selected)}
 		>
-			<!-- on:change={makeOnChange(key)} -->
-<!-- 				on:change={() => {
-					inputState.selected = !inputState.selected;
-					inputState.isDirty = true;
-					// sortedInputStates = [...sortedInputStates];
-				}} -->
 			<Checkbox
 				checked={selected}
 				label={key}
