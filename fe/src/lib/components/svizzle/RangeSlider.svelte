@@ -95,7 +95,6 @@
 				class='knob min'
 				cx={scale(min)}
 				cy={geometry.x1}
-				fill='blue'
 				on:pointerdown={createStartDragging({isMinKnob: true})}
 				on:pointerup={stopDragging}
 				r={knobRadius}
@@ -104,7 +103,6 @@
 				class='knob max'
 				cx={scale(max)}
 				cy={geometry.x1}
-				fill='red'
 				on:pointerdown={createStartDragging({isMinKnob: false})}
 				on:pointerup={stopDragging}
 				r={knobRadius}

@@ -18,6 +18,9 @@
 		safetyTop: 30,
 	};
 
+	const knobStrokeWidth = 2;
+	const knobRadius = 8;
+
 	const {
 		_writable: _size,
 		resizeObserver: sizeObserver
@@ -29,11 +32,62 @@
 		([[first, second], last]) => [first, last + second - first]
 	]);
 
+	/* range selection */
+	const getClosestTick = (ticks, value) => {
+		const [[, smallest]] = ticks
+		.map((tick, i) => [Math.abs(tick.getTime() - value.getTime()), i])
+		.sort(([a], [b]) => a - b);
+		return ticks[smallest];
+	}
+
+	const handleMinDrag = event => {
+		const value = Math.min(
+			Math.max(knobGeometry.x1, event.offsetX - geometry.safetyLeft),
+			xScale(max)
+		);
+		min = xScale.invert(value);
+		const closestTick = getClosestTick(selectionTicks, min);
+		cursorX = xScale(closestTick);
+	}
+	const handleMaxDrag = event => {
+		const value = Math.max(
+			Math.min(knobGeometry.x2, event.offsetX - geometry.safetyLeft),
+			xScale(min)
+		);
+		max = xScale.invert(value);
+		const closestTick = getClosestTick(selectionTicks, max);
+		cursorX = xScale(closestTick);
+	}
+
+	const createStartDragging = ({isMinKnob}) => event => {
+		isMinDragging = isMinKnob;
+		event.target.onpointermove = isMinKnob ? handleMinDrag : handleMaxDrag;
+		event.target.setPointerCapture(event.pointerId);
+	}
+	const stopDragging = event => {
+		event.target.onpointermove = null;
+		event.target.releasePointerCapture(event.pointerId);
+		if (isMinDragging) {
+			min = xScale.invert(cursorX);
+		} else {
+			max = xScale.invert(cursorX);
+		}
+		cursorX = null;
+		// dispatch('changed', {min, max});
+	}
+
 	let bbox;
+	let cursorX;
 	let fontSize;
 	let items;
 	let rects;
 	let xTicks;
+	let knobGeometry;
+	let Min;
+	let Max;
+	let selectionTicks;
+	let xScale;
+	let isMinDragging;
 
 	$: ({inlineSize: width, blockSize: height} = $_size);
 	$: proceed = height && width && $_staticData?.timelines;
@@ -50,15 +104,20 @@
 		};
 
 		const timeDomain = getTimeDomain(items);
-		const xScale =
+		xScale =
 			scaleTime()
 			.domain(timeDomain)
 			.range([0, bbox.width]);
 
 		const barWidth = xScale(getKey(items[1])) - xScale(getKey(items[0]));
 
-		const [, max] = extent(items, getDocCount);
-		const yScale = scaleLinear().domain([0, max]).range([0, bbox.height]);
+		const [, dMax] = extent(items, getDocCount);
+		const yScale = scaleLinear().domain([0, dMax]).range([0, bbox.height]);
+
+		selectionTicks = xScale.ticks(items.length + 1);
+		[Min, Max] = timeDomain;
+		!min && (min = Min);
+		!max && (max = Max);
 
 		rects = _.map(items, ({key, doc_count}) => {
 			const barHeight = yScale(doc_count);
@@ -78,12 +137,17 @@
 			x: xScale(date),
 		}));
 	}
+	$: min = min || Min;
+	$: max = max || Max;
+	$: max < min && (max = min);
+	$: knobGeometry = {x1: knobStrokeWidth / 2 /* + knobRadius */};
+	$: bbox && (knobGeometry.x2 = bbox.width - knobGeometry.x1);
 </script>
 
 <div
 	class='TimeLine'
 	use:sizeObserver={'contentBoxSize'}
-	style='font-size:{fontSize}'
+	style='font-size:{fontSize}; --knobStrokeWidth:{knobStrokeWidth}px;'
 >
 	{#if proceed}
 		<svg
@@ -118,6 +182,35 @@
 						/>
 					{/each}
 				</g>
+
+				{#if cursorX}
+					<line
+						class='cursor'
+						x1={cursorX}
+						x2={cursorX}
+						y1={0}
+						y2={bbox.height}
+						stroke='red'
+					/>
+				{/if}
+
+				<circle
+					class='knob min'
+					cx={xScale(min)}
+					cy={knobGeometry.x1}
+					on:pointerdown={createStartDragging({isMinKnob: true})}
+					on:pointerup={stopDragging}
+					r={knobRadius}
+				/>
+
+				<circle
+					class='knob max'
+					cx={xScale(max)}
+					cy={knobGeometry.x1}
+					on:pointerdown={createStartDragging({isMinKnob: false})}
+					on:pointerup={stopDragging}
+					r={knobRadius}
+				/>
 			</g>
 		</svg>
 	{/if}
@@ -142,5 +235,11 @@
 	.bins rect {
 		fill: var(--colorTimelineActiveBinFill);
 		stroke: var(--colorTimelineActiveBinStroke);
+	}
+	.knob {
+		cursor: pointer;
+		fill: var(--colorSwitchKnob);
+		stroke-width: var(--knobStrokeWidth);
+		stroke: var(--colorBorderAux);
 	}
 </style>
