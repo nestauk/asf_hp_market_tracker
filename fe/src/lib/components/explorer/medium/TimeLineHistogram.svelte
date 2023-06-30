@@ -6,6 +6,7 @@
 	import * as _ from 'lamb';
 
 	import {_staticData} from '$lib/stores/data.js';
+	import {_filters} from '$lib/stores/filters.js';
 	import {_selection} from '$lib/stores/navigation.js';
 	import {formatDate} from '$lib/utils/date.js';
 	import {getDocCount} from '$lib/utils/getters.js';
@@ -48,6 +49,7 @@
 		}
 		min = getClosestTick(selectionTicks, min);
 		max = getClosestTick(selectionTicks, max);
+		// updateFilter();
 	}
 
 	const handleMinDrag = event => {
@@ -83,9 +85,10 @@
 			max = xScale.invert(cursorX);
 		}
 		cursorX = null;
-		// dispatch('changed', {min, max});
+		// updateFilter();
 	}
 
+	let barWidth;
 	let bbox;
 	let cursorX;
 	let fontSize;
@@ -119,7 +122,7 @@
 			.domain(timeDomain)
 			.range([0, bbox.width]);
 
-		const barWidth = xScale(getKey(items[1])) - xScale(getKey(items[0]));
+		barWidth = xScale(getKey(items[1])) - xScale(getKey(items[0]));
 
 		const [, dMax] = extent(items, getDocCount);
 		const yScale = scaleLinear().domain([0, dMax]).range([0, bbox.height]);
@@ -209,12 +212,18 @@
 					/>
 				{/if}
 
+				<rect
+					class='sensor'
+					height={bbox.height}
+					width={barWidth}
+					x={xScale(min) - barWidth / 2}
+					on:pointerdown={createStartDragging({isMinKnob: true})}
+					on:pointerup={stopDragging}
+				/>
 				<circle
 					class='knob min'
 					cx={xScale(min)}
 					cy={knobGeometry.x1}
-					on:pointerdown={createStartDragging({isMinKnob: true})}
-					on:pointerup={stopDragging}
 					r={knobRadius}
 				/>
 
@@ -252,6 +261,10 @@
 	}
 	.bins rect.selected {
 		fill: var(--colorTimelineActiveBinFill);
+	}
+	.sensor {
+		cursor: pointer;
+		fill: red;
 	}
 	.knob {
 		cursor: pointer;
