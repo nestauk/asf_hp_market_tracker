@@ -1,8 +1,10 @@
 <script>
 	import {
+		arrayMaxWith,
 		getKey,
 		makeMergeAppliedFnMap
 	} from '@svizzle/utils';
+	import {scaleLinear} from 'd3-scale';
 	import * as _ from 'lamb';
 
 	import Checkbox from '$lib/components/explorer/Checkbox.svelte';
@@ -45,6 +47,10 @@
 		categories = getInputStatesCopy(sortedInputStates);
 	};
 
+	$: maxDocCount = arrayMaxWith(_.getKey('doc_count'))(categories);
+	$: scale = scaleLinear()
+		.domain([0, maxDocCount])
+		.range([0, 100]);
 	$: sortedInputStates = getSortedInputsStates(categories);
 	$: indexedCats = _.index(categories, getKey);
 	$: checkDirty = (key, value) => indexedCats[key].selected !== value;
@@ -52,7 +58,7 @@
 </script>
 
 <div class='CategorySelector'>
-	{#each sortedInputStates as {key, selected} (key)}
+	{#each sortedInputStates as {key, selected, doc_count} (key)}
 		<span
 			class='category'
 			class:dirty={checkDirty(key, selected)}
@@ -61,7 +67,12 @@
 				checked={selected}
 				label={key}
 				on:click={makeOnClick(key)}
-			/>
+			>
+			<div>
+				<div>{key}</div>
+				<div class='bar' style:width='{scale(doc_count)}%'/>
+			</div>
+			</Checkbox>
 		</span>
 	{/each}
 	{#if isDirty}
@@ -84,27 +95,26 @@
 
 <style>
 	.CategorySelector {
-		display: flex;
-		flex-wrap: wrap;
-		padding: 0.5em;
+		display: grid;
+		grid-auto-flow: row;
 	}
 	.category {
 		align-items: center;
 		display: flex;
-		margin: 0.25em;
-		padding: 0.25em;
 	}
 	.category label, .category input {
 		cursor: pointer;
-	}
-	.category input {
-		margin-right: 0.5em;
 	}
 	.category:hover {
 		background-color: var(--colorBackgroundHover);
 	}
 	.dirty {
 		background-color: var(--colorBackgroundDirty) !important;
+	}
+	.bar {
+		background-color: gray;
+		height: 0.5em;
+		margin-left: 0.5em;
 	}
 	.buttons {
 		text-align: center;
