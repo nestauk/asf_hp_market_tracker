@@ -114,7 +114,6 @@
 	.bar {
 		background-color: gray;
 		height: 0.5em;
-		margin-left: 0.5em;
 	}
 	.buttons {
 		text-align: center;
