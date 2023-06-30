@@ -1,12 +1,24 @@
-import {getId, objectToKeyValueArray} from '@svizzle/utils';
+import {getId, makeMergeAppliedFnMap, objectToKeyValueArray} from '@svizzle/utils';
+import {format} from 'd3-format';
 import * as _ from 'lamb';
 
 import {counts, fields} from 'nesta_hpmt_shared/index.js';
 
 const getEntity = _.getKey('entity');
+const getMetrics = _.pipe([
+	_.filterWith(_.not(_.hasKey('use'))),
+	_.mapWith(
+		_.when(
+			_.hasKey('formatSpecifier'),
+			makeMergeAppliedFnMap({
+				formatFn: _.pipe([_.getKey('formatSpecifier'), format])
+			})
+		)
+	)
+]);
 
-export const all = _.sort(fields.concat(counts), [getEntity]);
-export const metrics = _.filter(all, _.not(_.hasKey('use')));
+export const allItems = _.sort(fields.concat(counts), [getEntity]);
+export const metrics = getMetrics(allItems);
 export const defaultMetric = metrics[0];
 
 export const metricById = _.index(metrics, getId);

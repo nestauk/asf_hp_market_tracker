@@ -3,6 +3,7 @@
 	import {setupResizeObserver} from '@svizzle/ui';
 	import {scaleLinear} from 'd3-scale';
 
+	export let formatFn;
 	export let max;
 	export let Max;
 	export let min;
@@ -73,7 +74,7 @@
 	class='RangeSlider'
 >
 	<div class='output'>
-		{min} - {max}
+		{formatFn?.(min) || min} - {formatFn?.(max) || max}
 	</div>
 	<div
 		class='slider'
@@ -107,8 +108,8 @@
 		</svg>
 	</div>
 	<div class='extent'>
-		<div>{Min}</div>
-		<div>{Max}</div>
+		<div>{formatFn?.(Min) || Min}</div>
+		<div>{formatFn?.(Max) || Max}</div>
 	</div>
 </div>
 

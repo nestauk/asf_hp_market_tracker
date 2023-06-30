@@ -21,6 +21,7 @@
 							<h3>{metric.label}</h3>
 							{#if metric.type === 'number'}
 								<RangeSlider
+									formatFn={metric.formatFn}
 									Max={metric.Max}
 									Min={metric.Min}
 									bind:max={$_filters[entityIndex].values[metricIndex].max}

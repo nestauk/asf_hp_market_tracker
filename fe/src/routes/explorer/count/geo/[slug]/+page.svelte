@@ -1,7 +1,6 @@
 <script>
 	import {applyFnMap, getKey, getValue, isNotNil} from '@svizzle/utils';
 	import {extent} from 'd3-array';
-	import {format} from 'd3-format';
 	import {interpolateYlGnBu as interpolateColor} from 'd3-scale-chromatic';
 	import * as _ from 'lamb';
 
@@ -12,11 +11,11 @@
 	import {_isViewReady, _viewData} from '$lib/stores/view.js';
 	import {
 		getCardinalityValue,
+		getCertifiedValue,
 		getDocCount,
 		getStatsAvg,
 		getStatsSum,
 	} from '$lib/utils/getters.js';
-	import {roundTo1} from '$lib/utils/numbers.js';
 
 	const valueAccessors = {
 		hp_feature_power_capacity_sum: getStatsSum,
@@ -24,9 +23,9 @@
 		installation_cost_sum: getStatsSum,
 		installations_per_installer: getStatsAvg,
 		installations: getDocCount,
-		installers_certified: _.getPath('certified.value'),
-		installers_dropped_certifications: _.getPath('certified.value'),
-		installers_new_certifications: _.getPath('certified.value'),
+		installers_certified: getCertifiedValue,
+		installers_dropped_certifications: getCertifiedValue,
+		installers_new_certifications: getCertifiedValue,
 		installers: getCardinalityValue,
 		property_feature_total_floor_area_sum: getStatsSum,
 		property_supply_photovoltaic_sum: getStatsSum,
@@ -39,7 +38,6 @@
 		$_viewData?.response.code === 200;
 
 	let doDraw = false;
-	let formatFn;
 	let items;
 	let makeBarchartItems;
 	let makeDomain;
@@ -61,24 +59,17 @@
 		title = $_currentMetric.id === 'installations_per_installer'
 			? 'Average'
 			: null;
-		formatFn = $_currentMetric?.formatSpecifier
-			? format($_currentMetric.formatSpecifier)
-			: $_currentMetric.id === 'installations_per_installer'
-				? roundTo1
-				: _.identity;
 
 		doDraw = true;
 	}
 </script>
 
-{#if doDraw}
-	<NumGeoView
-		{formatFn}
-		{interpolateColor}
-		{items}
-		{makeBarchartItems}
-		{makeDomain}
-		{title}
-		{valueAccessor}
-	/>
-{/if}
+<NumGeoView
+	formatFn={$_currentMetric?.formatFn}
+	{interpolateColor}
+	{items}
+	{makeBarchartItems}
+	{makeDomain}
+	{title}
+	{valueAccessor}
+/>

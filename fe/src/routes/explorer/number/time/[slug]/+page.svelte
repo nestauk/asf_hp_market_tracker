@@ -22,7 +22,6 @@
 	import {_currThemeVars, _framesTheme} from '$lib/stores/theme.js';
 	import {_isViewReady, _viewData} from '$lib/stores/view.js';
 	import {getKeyAsString} from '$lib/utils/getters.js';
-	import {roundTo1} from '$lib/utils/numbers.js';
 	import {formatDate} from '$lib/utils/date.js';
 
 	const keyAccessor = getKeyAsString;
@@ -91,7 +90,7 @@
 			<PercentilesTrendsView
 				{items}
 				{keyFormatFn}
-				valueFormatFn={roundTo1}
+				valueFormatFn={$_currentMetric?.formatFn}
 				preformatDate={formatDate}
 			/>
 		{:else}
@@ -110,7 +109,7 @@
 					...$_framesTheme,
 					curveStroke: $_currThemeVars['--colorBorderAux']
 				}}
-				valueFormatFn={roundTo1}
+				valueFormatFn={$_currentMetric?.formatFn}
 			/>
 		{/if}
 	{/if}

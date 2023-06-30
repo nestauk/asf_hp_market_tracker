@@ -6,7 +6,6 @@
 		makeSplitBy,
 		sliceStringAt,
 	} from '@svizzle/utils';
-	import {format} from 'd3-format';
 	import * as _ from 'lamb';
 
 	import {page as _page} from '$app/stores';
@@ -23,12 +22,12 @@
 	import {formatDate} from '$lib/utils/date.js';
 	import {
 		getCardinalityValue,
+		getCertifiedValue,
 		getDocCount,
 		getKeyAsString,
 		getStatsAvg,
 		getStatsSum,
 	} from '$lib/utils/getters.js';
-	import {roundTo1} from '$lib/utils/numbers.js';
 
 	const keyAccessor = getKeyAsString;
 	const valueAccessors = {
@@ -37,9 +36,9 @@
 		installation_cost_sum: getStatsSum,
 		installations_per_installer: getStatsAvg,
 		installations: getDocCount,
-		installers_certified: _.getPath('certified.value'),
-		installers_dropped_certifications: _.getPath('cardinality.value'),
-		installers_new_certifications: _.getPath('cardinality.value'),
+		installers_certified: getCertifiedValue,
+		installers_dropped_certifications: getCardinalityValue,
+		installers_new_certifications: getCardinalityValue,
 		installers: getCardinalityValue,
 		property_feature_total_floor_area_sum: getStatsSum,
 		property_supply_photovoltaic_sum: getStatsSum,
@@ -78,11 +77,7 @@
 		const trend = filterOutNils(reshapeItems(rawItems));
 		trends = [{key: 'trend', values: trend}];
 
-		valueFormatFn = $_currentMetric?.formatSpecifier
-			? format($_currentMetric.formatSpecifier)
-			: $_currentMetric.id === 'installations_per_installer'
-				? roundTo1
-				: _.identity;
+		valueFormatFn = $_currentMetric?.formatFn ?? _.identity;
 
 		doDraw = true;
 	}

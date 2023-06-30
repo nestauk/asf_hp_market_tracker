@@ -11,19 +11,21 @@ export const fields = [
 	{
 		entity: 'Heat pump',
 		id: 'hp_feature_flow_temperature',
+		formatSpecifier: '.1f',
 		label: 'Flow temperature',
 		type: 'number',
 		unitOfMeasure: '°C',
 	},
-	{
-		entity: 'Heat pump',
-		id: 'hp_feature_heat_system',
-		label: 'Heat system',
-		type: 'category',
-	},
+	// {
+	// 	entity: 'Heat pump',
+	// 	id: 'hp_feature_heat_system',
+	// 	label: 'Heat system',
+	// 	type: 'category',
+	// },
 	{
 		entity: 'Heat pump',
 		id: 'hp_feature_power_capacity',
+		formatSpecifier: '.3s',
 		label: 'Power capacity',
 		type: 'number',
 		unitOfMeasure: 'kW',
@@ -31,6 +33,7 @@ export const fields = [
 	{
 		entity: 'Heat pump',
 		id: 'hp_feature_power_generation',
+		formatSpecifier: '.3s',
 		label: 'Power generation',
 		type: 'number',
 		unitOfMeasure: 'kW',
@@ -38,6 +41,7 @@ export const fields = [
 	{
 		entity: 'Heat pump',
 		id: 'hp_feature_scop',
+		formatSpecifier: '.1f',
 		label: 'SCOP',
 		longLabel: 'Seasonal Coefficient of Performance',
 		type: 'number',
@@ -60,6 +64,7 @@ export const fields = [
 	{
 		entity: 'Installation',
 		id: 'installation_cost',
+		formatSpecifier: '.3s',
 		label: 'Cost',
 		type: 'number',
 		unitOfMeasure: 'GBP',
@@ -241,6 +246,7 @@ export const fields = [
 	{
 		entity: 'Property',
 		id: 'property_feature_glazed_area',
+		formatSpecifier: '.1f',
 		label: 'Glazed area',
 		type: 'number',
 		unitOfMeasure: 'm^2',
@@ -254,12 +260,14 @@ export const fields = [
 	{
 		entity: 'Property',
 		id: 'property_feature_number_habitable_rooms',
+		formatSpecifier: '.1f',
 		label: 'Number of habitable rooms',
 		type: 'number',
 	},
 	{
 		entity: 'Property',
 		id: 'property_feature_total_floor_area',
+		formatSpecifier: 'd',
 		label: 'Floor area',
 		type: 'number',
 		unitOfMeasure: 'm^2',
@@ -348,37 +356,38 @@ export const fields = [
 		type: 'string',
 		use: 'regionName',
 	},
-	{
-		entity: 'Property',
-		id: 'property_supply_heating_fuel_type',
-		label: 'Heating fuel type',
-		type: 'category',
-	},
-	{
-		entity: 'Property',
-		id: 'property_supply_heating_system',
-		label: 'Heating system',
-		type: 'category',
-	},
+	// {
+	// 	entity: 'Property',
+	// 	id: 'property_supply_heating_fuel_type',
+	// 	label: 'Heating fuel type',
+	// 	type: 'category',
+	// },
+	// {
+	// 	entity: 'Property',
+	// 	id: 'property_supply_heating_system',
+	// 	label: 'Heating system',
+	// 	type: 'category',
+	// },
 	{
 		entity: 'Property',
 		id: 'property_supply_mains_gas_flag',
 		label: 'Heating mains gas?',
 		type: 'category',
 	},
-	{
-		entity: 'Property',
-		id: 'property_supply_photovoltaic',
-		label: 'Photovoltaic supply',
-		type: 'number',
-		unitOfMeasure: 'kW',
-	},
-	{
-		entity: 'Property',
-		id: 'property_supply_solar_water_heating_flag',
-		label: 'Solar water heating?',
-		type: 'category',
-	},
+	// {
+	// 	entity: 'Property',
+	// 	id: 'property_supply_photovoltaic',
+	// 	formatSpecifier: '.3s',
+	// 	label: 'Photovoltaic supply',
+	// 	type: 'number',
+	// 	unitOfMeasure: 'kW',
+	// },
+	// {
+	// 	entity: 'Property',
+	// 	id: 'property_supply_solar_water_heating_flag',
+	// 	label: 'Solar water heating?',
+	// 	type: 'category',
+	// },
 	{
 		entity: 'Property',
 		id: 'property_tenure',

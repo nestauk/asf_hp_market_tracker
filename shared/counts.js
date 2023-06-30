@@ -50,7 +50,7 @@ export const counts = [
 	{
 		entity: 'Installer',
 		id: 'installations_per_installer',
-		formatSpecifier: '.3s',
+		formatSpecifier: '.1f',
 		label: 'Amount of installations per installer',
 		title: 'Amount of installations per installer',
 		type: 'count',
@@ -100,14 +100,14 @@ export const counts = [
 		type: 'count',
 		unitOfMeasure: 'm^2',
 	},
-	{
-		entity: 'Property',
-		field: 'property_supply_photovoltaic',
-		formatSpecifier: '.3s',
-		id: 'property_supply_photovoltaic_sum',
-		isCumulative: true,
-		label: 'Total photovoltaic supply',
-		type: 'count',
-		unitOfMeasure: 'kW',
-	},
+	// {
+	// 	entity: 'Property',
+	// 	field: 'property_supply_photovoltaic',
+	// 	formatSpecifier: '.3s',
+	// 	id: 'property_supply_photovoltaic_sum',
+	// 	isCumulative: true,
+	// 	label: 'Total photovoltaic supply',
+	// 	type: 'count',
+	// 	unitOfMeasure: 'kW',
+	// },
 ];

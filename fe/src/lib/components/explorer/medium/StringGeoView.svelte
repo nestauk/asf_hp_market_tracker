@@ -26,7 +26,6 @@
 	import {_legendsTheme, _stackedBarchartTheme} from '$lib/stores/theme.js';
 	import {objectToKeyValuesArray} from '$lib/utils/svizzle/utils.js';
 
-	export let formatFn;
 	export let keyAccessor;
 	export let keyAccessor2;
 	export let items;

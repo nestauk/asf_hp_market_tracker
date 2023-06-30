@@ -1,6 +1,5 @@
 <script>
 	import {MessageView} from '@svizzle/ui';
-	import {format} from 'd3-format';
 	import * as _ from 'lamb';
 
 	import {page as _page} from '$app/stores';
@@ -9,20 +8,20 @@
 	import {_isViewReady, _viewData} from '$lib/stores/view.js';
 	import {
 		getCardinalityValue,
+		getCount,
 		getStatsAvg,
 		getStatsSum,
 	} from '$lib/utils/getters.js';
-	import {roundTo1} from '$lib/utils/numbers.js';
 
 	const dataAccessors = {
 		hp_feature_power_capacity_sum: getStatsSum,
 		hp_feature_power_generation_sum: getStatsSum,
 		installation_cost_sum: getStatsSum,
 		installations_per_installer: getStatsAvg,
-		installations: _.getKey('count'),
-		installers_certified: _.getKey('count'),
-		installers_dropped_certifications: _.getKey('count'),
-		installers_new_certifications: _.getKey('count'),
+		installations: getCount,
+		installers_certified: getCount,
+		installers_dropped_certifications: getCount,
+		installers_new_certifications: getCount,
 		installers: getCardinalityValue,
 		property_feature_total_floor_area_sum: getStatsSum,
 		property_supply_photovoltaic_sum: getStatsSum,
@@ -40,12 +39,7 @@
 	$: if (proceed) {
 		const dataAccessor = dataAccessors[$_currentMetric.id];
 		const rawValue = dataAccessor($_viewData.response.data);
-		const formatFn = $_currentMetric?.formatSpecifier
-			? format($_currentMetric.formatSpecifier)
-			: $_currentMetric.id === 'installations_per_installer'
-				? roundTo1
-				: _.identity;
-		const value = formatFn ? formatFn(rawValue) : rawValue;
+		const value = $_currentMetric?.formatFn?.(rawValue) ?? rawValue;
 
 		switch ($_currentMetric.id) {
 			case 'hp_feature_power_capacity_sum':

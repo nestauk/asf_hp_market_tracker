@@ -9,7 +9,6 @@
 	import {_currentMetric} from '$lib/stores/navigation.js';
 	import {_isViewReady, _viewData} from '$lib/stores/view.js';
 	import {getDocCount, getTermsBuckets} from '$lib/utils/getters.js';
-	import {roundTo1} from '$lib/utils/numbers.js';
 
 	const keyAccessor = getKey;
 	const valueAccessor = getTermsBuckets;
@@ -37,16 +36,14 @@
 	}
 </script>
 
-{#if proceed}
-	<CatGeoView
-		{interpolateColor}
-		{items}
-		{keyAccessor}
-		{keyAccessor2}
-		{makeBarchartItems}
-		{makeDomain}
-		{valueAccessor}
-		{valueAccessor2}
-		formatFn={roundTo1}
-	/>
-{/if}
+<CatGeoView
+	{interpolateColor}
+	{items}
+	{keyAccessor}
+	{keyAccessor2}
+	{makeBarchartItems}
+	{makeDomain}
+	{valueAccessor}
+	{valueAccessor2}
+	formatFn={$_currentMetric?.formatFn}
+/>

@@ -5,7 +5,6 @@
 	import {page as _page} from '$app/stores';
 	import StringGeoView from '$lib/components/explorer/medium/StringGeoView.svelte';
 	import {_viewData} from '$lib/stores/view.js';
-	import {roundTo1} from '$lib/utils/numbers.js';
 
 	const keyAccessor = getKey;
 	const valueAccessor = _.getPath('terms.buckets');
@@ -23,13 +22,10 @@
 	}
 </script>
 
-{#if proceed}
-	<StringGeoView
-		{items}
-		{keyAccessor}
-		{keyAccessor2}
-		{valueAccessor}
-		{valueAccessor2}
-		formatFn={roundTo1}
-	/>
-{/if}
+<StringGeoView
+	{items}
+	{keyAccessor}
+	{keyAccessor2}
+	{valueAccessor}
+	{valueAccessor2}
+/>

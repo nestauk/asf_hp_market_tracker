@@ -9,7 +9,6 @@
 	import {_currentMetric} from '$lib/stores/navigation.js';
 	import {_isViewReady, _viewData} from '$lib/stores/view.js';
 	import {getStatsAvg} from '$lib/utils/getters.js';
-	import {roundTo1} from '$lib/utils/numbers.js';
 
 	const valueAccessor = getStatsAvg;
 	const filter = _.filterWith(_.pipe([valueAccessor, isNotNil]));
@@ -33,14 +32,12 @@
 	}
 </script>
 
-{#if proceed}
-	<NumGeoView
-		{interpolateColor}
-		{items}
-		{makeBarchartItems}
-		{makeDomain}
-		{valueAccessor}
-		amountOfBins={5}
-		formatFn={roundTo1}
-	/>
-{/if}
+<NumGeoView
+	{interpolateColor}
+	{items}
+	{makeBarchartItems}
+	{makeDomain}
+	{valueAccessor}
+	amountOfBins={5}
+	formatFn={$_currentMetric?.formatFn}
+/>
