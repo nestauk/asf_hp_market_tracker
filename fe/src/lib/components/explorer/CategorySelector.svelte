@@ -101,6 +101,7 @@
 	.category {
 		align-items: center;
 		display: flex;
+		margin: 0.5em 0;
 	}
 	.category label, .category input {
 		cursor: pointer;
@@ -113,7 +114,7 @@
 	}
 	.bar {
 		background-color: gray;
-		height: 0.5em;
+		height: 2px;
 	}
 	.buttons {
 		text-align: center;
