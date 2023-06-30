@@ -1,9 +1,8 @@
 <script>
-	import {Icon, CheckSquare, Square} from '@svizzle/ui';
+	import {CheckSquare, Icon, Square} from '@svizzle/ui';
 
 	export let checked;
 	export let label;
-
 </script>
 
 <div
@@ -20,6 +19,7 @@
 <style>
 	.Checkbox {
 		align-items: center;
+		cursor: pointer;
 		display: flex;
 		gap: 0.5em;
 	}
