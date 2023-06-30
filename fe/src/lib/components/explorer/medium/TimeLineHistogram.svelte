@@ -2,7 +2,7 @@
 	import {setupResizeObserver} from '@svizzle/ui';
 	import {getKey} from '@svizzle/utils';
 	import {extent} from 'd3-array';
-	import {scaleLinear, scaleTime} from 'd3-scale';
+	import {scaleLinear, scaleUtc} from 'd3-scale';
 	import * as _ from 'lamb';
 
 	import {_staticData} from '$lib/stores/data.js';
@@ -34,10 +34,20 @@
 
 	/* range selection */
 	const getClosestTick = (ticks, value) => {
-		const [[, smallest]] = ticks
-		.map((tick, i) => [Math.abs(tick.getTime() - value.getTime()), i])
-		.sort(([a], [b]) => a - b);
+		const diffs = _.map(
+			ticks,
+			(tick, i) => [Math.abs(tick.getTime() - value), i]
+		)
+		const sorted = _.sort(diffs, [_.getAt(0)]);
+		const [[, smallest]] = sorted;
 		return ticks[smallest];
+	}
+	const updateMinMax = () => {
+		if (!min || !max) {
+			return;
+		}
+		min = getClosestTick(selectionTicks, min);
+		max = getClosestTick(selectionTicks, max);
 	}
 
 	const handleMinDrag = event => {
@@ -46,7 +56,7 @@
 			xScale(max)
 		);
 		min = xScale.invert(value);
-		const closestTick = getClosestTick(selectionTicks, min);
+		const closestTick = getClosestTick(selectionTicks, min.getTime());
 		cursorX = xScale(closestTick);
 	}
 	const handleMaxDrag = event => {
@@ -55,7 +65,7 @@
 			xScale(min)
 		);
 		max = xScale.invert(value);
-		const closestTick = getClosestTick(selectionTicks, max);
+		const closestTick = getClosestTick(selectionTicks, max.getTime());
 		cursorX = xScale(closestTick);
 	}
 
@@ -105,7 +115,7 @@
 
 		const timeDomain = getTimeDomain(items);
 		xScale =
-			scaleTime()
+			scaleUtc()
 			.domain(timeDomain)
 			.range([0, bbox.width]);
 
@@ -137,6 +147,9 @@
 			x: xScale(date),
 		}));
 	}
+
+	$: $_selection.interval && selectionTicks && updateMinMax();
+	
 	$: min = min || Min;
 	$: max = max || Max;
 	$: max < min && (max = min);
@@ -174,7 +187,9 @@
 
 				<g class='bins'>
 					{#each rects as {x, y, width, height}}
+						{@const selected = x >= xScale(min) && x < xScale(max)}
 						<rect
+							class:selected
 							{height}
 							{width}
 							{x}
@@ -233,8 +248,10 @@
 	}
 
 	.bins rect {
-		fill: var(--colorTimelineActiveBinFill);
 		stroke: var(--colorTimelineActiveBinStroke);
+	}
+	.bins rect.selected {
+		fill: var(--colorTimelineActiveBinFill);
 	}
 	.knob {
 		cursor: pointer;
