@@ -12,7 +12,6 @@
 	<Icon
 		glyph={checked ? CheckSquare : Square}
 		size=16
-		stroke={checked ? 'var(--colorBackgroundApply)' : null}
 	/>
 	<slot>
 		<span>{label}</span>

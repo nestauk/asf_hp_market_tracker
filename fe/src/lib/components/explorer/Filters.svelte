@@ -1,4 +1,5 @@
 <script>
+	import {getKey, isObjNotEmpty} from  '@svizzle/utils'
 	import * as _ from 'lamb';
 	import {RISON} from 'rison2';
 
@@ -10,6 +11,11 @@
 	import {_staticData} from '$lib/stores/data.js';
 	import {_rangeSlidersTheme} from '$lib/stores/theme.js';
 	import {_filters} from '$lib/stores/filters.js';
+
+	const getSelectedCats = _.pipe([
+		_.filterWith(_.hasKeyValue('selected', true)),
+		_.mapWith(getKey)
+	]);
 
 	const getFiltertQuery = filters => {
 		if (!filters) return null;
@@ -26,21 +32,18 @@
 						if (metric.min !== metric.Min) {
 							subQuery['gte'] = metric.min;
 						}
-						if (_.keys(subQuery).length) {
+						if (isObjNotEmpty(subQuery)) {
 							query[metric.id] = subQuery;
 						}
 					} else if (metric.type === 'category') {
 						if (_.someIn(metric.values, ({selected}) => !selected)) {
-							query[metric.id] = _.pipe([
-								_.filterWith(_.hasKeyValue('selected', true)),
-								_.mapWith(_.getKey('key'))
-							])(metric.values);
+							query[metric.id] = getSelectedCats(metric.values);
 						}
 					}
 				}
 			);
 		});
-		return _.keys(query).length ? RISON.stringify(query) : '';
+		return isObjNotEmpty(query) ? RISON.stringify(query) : '';
 	}
 
 	let lastFilterQuery;
