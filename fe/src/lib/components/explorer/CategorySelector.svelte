@@ -8,10 +8,12 @@
 	import * as _ from 'lamb';
 
 	import Checkbox from '$lib/components/explorer/Checkbox.svelte';
+    import {getDocCount} from '$lib/utils/getters.js';
 
 	export let categories;
 	export let label;
 
+	const getMaxDocCount = arrayMaxWith(getDocCount);
 	const getSelected = _.getKey('selected');
 	const getInputStateCopy = _.pick(['key', 'doc_count', 'selected']);
 	const getInputStatesCopy = _.mapWith(getInputStateCopy);
@@ -47,7 +49,7 @@
 		categories = getInputStatesCopy(sortedInputStates);
 	};
 
-	$: maxDocCount = arrayMaxWith(_.getKey('doc_count'))(categories);
+	$: maxDocCount = getMaxDocCount(categories);
 	$: scale = scaleLinear()
 		.domain([0, maxDocCount])
 		.range([0, 100]);
