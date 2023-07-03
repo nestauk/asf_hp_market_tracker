@@ -287,5 +287,6 @@
 	}
 	.cursor {
 		pointer-events: none;
+		stroke-width: var(--knobStrokeWidth);
 	}
 </style>
