@@ -80,7 +80,14 @@
 		event.target.onpointermove = null;
 		event.target.releasePointerCapture(event.pointerId);
 		cursorX = null;
-		updateFilter('Installation', 'installation_date', {min: min.getTime(), max: max.getTime()});
+		updateFilter(
+			'Installation',
+			'installation_date',
+			{
+				min: min.getTime(),
+				max: max.getTime()
+			}
+		);
 	}
 
 	let barWidth;
