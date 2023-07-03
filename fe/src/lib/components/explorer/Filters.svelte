@@ -1,13 +1,60 @@
 <script>
+	import {getKey, isObjNotEmpty} from  '@svizzle/utils'
 	import * as _ from 'lamb';
+	import {RISON} from 'rison2';
 
 	import CategorySelector
 		from '$lib/components/explorer/CategorySelector.svelte';
 	import RangeSlider from '$lib/components/svizzle/RangeSlider.svelte';
 	import Scroller from '$lib/components/svizzle/Scroller.svelte';
+	import {explorerActor} from '$lib/statechart/index.js';
 	import {_staticData} from '$lib/stores/data.js';
 	import {_rangeSlidersTheme} from '$lib/stores/theme.js';
 	import {_filters} from '$lib/stores/filters.js';
+
+	const getSelectedCats = _.pipe([
+		_.filterWith(_.hasKeyValue('selected', true)),
+		_.mapWith(getKey)
+	]);
+
+	const getFiltertQuery = filters => {
+		if (!filters) return null;
+		const query = {};
+		filters.forEach(({values: metrics}) => {
+			_.forEach(
+				metrics,
+				metric => {
+					if (metric.type === 'number') {
+						const subQuery = {};
+						if (metric.max !== metric.Max) {
+							subQuery['lte'] = metric.max;
+						}
+						if (metric.min !== metric.Min) {
+							subQuery['gte'] = metric.min;
+						}
+						if (isObjNotEmpty(subQuery)) {
+							query[metric.id] = subQuery;
+						}
+					} else if (metric.type === 'category') {
+						if (_.someIn(metric.values, ({selected}) => !selected)) {
+							query[metric.id] = getSelectedCats(metric.values);
+						}
+					}
+				}
+			);
+		});
+		return isObjNotEmpty(query) ? RISON.stringify(query) : '';
+	}
+
+	let lastFilterQuery;
+	$: filterQuery = getFiltertQuery($_filters);
+	$: if (filterQuery !== lastFilterQuery) {
+		explorerActor.send({
+			type: 'SELECTION_CHANGED',
+			newValues: {filterQuery}
+		});
+		lastFilterQuery = filterQuery;
+	}
 </script>
 
 {#if $_filters}
@@ -23,9 +70,13 @@
 								<RangeSlider
 									formatFn={metric.formatFn}
 									Max={metric.Max}
+									max={metric.max}
 									Min={metric.Min}
-									bind:max={$_filters[entityIndex].values[metricIndex].max}
-									bind:min={$_filters[entityIndex].values[metricIndex].min}
+									min={metric.min}
+									on:changed={({detail: {max, min}}) => {
+										$_filters[entityIndex].values[metricIndex].max = max;
+										$_filters[entityIndex].values[metricIndex].min = min;
+									}}
 									theme={$_rangeSlidersTheme}
 								/>
 							{:else if metric.type === 'category'}

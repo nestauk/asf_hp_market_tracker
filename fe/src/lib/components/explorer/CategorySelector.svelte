@@ -1,53 +1,80 @@
 <script>
-	import {getKey} from '@svizzle/utils';
+	import {
+		arrayMaxWith,
+		getKey,
+		makeMergeAppliedFnMap
+	} from '@svizzle/utils';
+	import {scaleLinear} from 'd3-scale';
 	import * as _ from 'lamb';
+
+	import Checkbox from '$lib/components/explorer/Checkbox.svelte';
+    import {getDocCount} from '$lib/utils/getters.js';
 
 	export let categories;
 	export let label;
 
-	const getSelectionMap = _.pipe([
-		_.mapWith(_.collect([
-			getKey,
-			_.getKey('selected')
-		])),
-		_.fromPairs
-	]);
-	const makeCheckDirty = map => ({key, selected}) => selected !== map[key];
-	const toggle = key => selectionMap[key] = !selectionMap[key];
+	const getMaxDocCount = arrayMaxWith(getDocCount);
+	const getSelected = _.getKey('selected');
+	const getInputStateCopy = _.pick(['key', 'doc_count', 'selected']);
+	const getInputStatesCopy = _.mapWith(getInputStateCopy);
+	const getSortedInputsStates = _.pipe([
+		getInputStatesCopy,
+		_.sortWith([getKey])
+	])
+
+	const makeIsKey = key => _.pipe([getKey, _.is(key)]);
+	const makeClearAllBut = key => _.mapWith(
+		makeMergeAppliedFnMap({selected: makeIsKey(key)})
+	);
+	const makeToggleSelected = key => _.mapWith(
+		makeMergeAppliedFnMap({selected: _.condition(
+			makeIsKey(key),
+			_.not(getSelected),
+			getSelected
+		)})
+	);
+
+	const makeOnClick = key => async e => {
+		if (e.altKey) {
+			sortedInputStates = makeClearAllBut(key)(sortedInputStates);
+		} else {
+			sortedInputStates = makeToggleSelected(key)(sortedInputStates);
+		}
+	};
 
 	const onDismiss = () => {
-		selectionMap = getSelectionMap(categories);
+		sortedInputStates = getSortedInputsStates(categories);
 	};
 	const onApply = () => {
-		_.forEach(categories, cat => {
-			cat.selected = selectionMap[cat.key];
-		});
-		categories = categories;
+		categories = getInputStatesCopy(sortedInputStates);
 	};
 
-	let selectionMap;
-
-	$: sortedCategories = _.sort(categories, [getKey]);
-	$: !selectionMap && (selectionMap = getSelectionMap(categories));
-	$: checkDirty = makeCheckDirty(selectionMap);
-	$: isDirty = _.someIn(categories, checkDirty);
+	$: maxDocCount = getMaxDocCount(categories);
+	$: scale = scaleLinear()
+		.domain([0, maxDocCount])
+		.range([0, 100]);
+	$: sortedInputStates = getSortedInputsStates(categories);
+	$: indexedCats = _.index(categories, getKey);
+	$: checkDirty = (key, value) => indexedCats[key].selected !== value;
+	$: isDirty = _.someIn(sortedInputStates, ({key, selected}) => checkDirty(key, selected));
 </script>
 
 <div class='CategorySelector'>
-	{#each sortedCategories as category}
-		{@const key = category.key}
-		{@const id = `${label}-${key}`}
+	{#each sortedInputStates as {key, selected, doc_count} (key)}
 		<span
 			class='category'
-			class:dirty={checkDirty(category)}
+			class:dirty={checkDirty(key, selected)}
 		>
-			<input
-				checked={selectionMap[key]}
-				on:change={toggle(key)}
-				{id}
-				type='checkbox'
-			/>
-			<label for={id}>{key}</label>
+			<Checkbox
+				checked={selected}
+				label={key}
+				on:click={makeOnClick(key)}
+			>
+			<div>
+				<div>{key}</div>
+				<div class='bar' style:width='{scale(doc_count)}%'/>
+			</div>
+			</Checkbox>
 		</span>
 	{/each}
 	{#if isDirty}
@@ -70,27 +97,26 @@
 
 <style>
 	.CategorySelector {
-		display: flex;
-		flex-wrap: wrap;
-		padding: 0.5em;
+		display: grid;
+		grid-auto-flow: row;
 	}
 	.category {
 		align-items: center;
 		display: flex;
-		margin: 0.25em;
-		padding: 0.25em;
+		margin: 0.5em 0;
 	}
 	.category label, .category input {
 		cursor: pointer;
-	}
-	.category input {
-		margin-right: 0.5em;
 	}
 	.category:hover {
 		background-color: var(--colorBackgroundHover);
 	}
 	.dirty {
 		background-color: var(--colorBackgroundDirty) !important;
+	}
+	.bar {
+		background-color: gray;
+		height: 2px;
 	}
 	.buttons {
 		text-align: center;

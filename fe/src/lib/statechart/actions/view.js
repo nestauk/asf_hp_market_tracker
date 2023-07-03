@@ -311,11 +311,17 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 
 	let viewQueryPath = endpoint;
 
+	console.log('filterQuery', ctx.selection.filterQuery);
+
+	if (ctx.selection.filterQuery !== '') {
+		params.filter = ctx.selection.filterQuery;
+	}
+
 	if (isObjNotEmpty(params)) {
 		viewQueryPath = `${endpoint}?${new URLSearchParams(params)}`;
 	}
 
-	// console.log('viewQueryPath', viewQueryPath);
+	console.log('viewQueryPath', viewQueryPath);
 
 	return {...ctx, viewQueryPath}
 });
