@@ -21,6 +21,7 @@
 
 	const knobStrokeWidth = 2;
 	const knobRadius = 8;
+	const sensorWidth = 70;
 
 	const {
 		_writable: _size,
@@ -79,11 +80,6 @@
 	const stopDragging = event => {
 		event.target.onpointermove = null;
 		event.target.releasePointerCapture(event.pointerId);
-		if (isMinDragging) {
-			min = xScale.invert(cursorX);
-		} else {
-			max = xScale.invert(cursorX);
-		}
 		cursorX = null;
 		// updateFilter();
 	}
@@ -201,40 +197,54 @@
 					{/each}
 				</g>
 
-				{#if cursorX}
-					<line
-						class='cursor'
-						x1={cursorX}
-						x2={cursorX}
-						y1={0}
-						y2={bbox.height}
-						stroke='red'
-					/>
-				{/if}
+				<!-- Range selectors -->
 
 				<rect
 					class='sensor'
 					height={bbox.height}
-					width={barWidth}
-					x={xScale(min) - barWidth / 2}
+					width={sensorWidth}
+					x={xScale(min) - sensorWidth / 2}
 					on:pointerdown={createStartDragging({isMinKnob: true})}
 					on:pointerup={stopDragging}
+				/>
+				<line
+					class='cursor'
+					x1={xScale(min)}
+					x2={xScale(min)}
+					y1={0}
+					y2={bbox.height}
+					stroke='var(--colorBorderAux)'
 				/>
 				<circle
 					class='knob min'
 					cx={xScale(min)}
-					cy={knobGeometry.x1}
+					cy={knobGeometry.x1 + bbox.height / 2}
 					r={knobRadius}
 				/>
 
+				<rect
+					class='sensor'
+					height={bbox.height}
+					width={sensorWidth}
+					x={xScale(max) - sensorWidth / 2}
+					on:pointerdown={createStartDragging({isMinKnob: false})}
+					on:pointerup={stopDragging}
+				/>
+				<line
+					class='cursor'
+					x1={xScale(max)}
+					x2={xScale(max)}
+					y1={0}
+					y2={bbox.height}
+					stroke='var(--colorBorderAux)'
+				/>
 				<circle
 					class='knob max'
 					cx={xScale(max)}
-					cy={knobGeometry.x1}
-					on:pointerdown={createStartDragging({isMinKnob: false})}
-					on:pointerup={stopDragging}
+					cy={knobGeometry.x1 + bbox.height / 2}
 					r={knobRadius}
 				/>
+				<path d='' />
 			</g>
 		</svg>
 	{/if}
@@ -244,6 +254,7 @@
 	.TimeLine {
 		height: 100%;
 		width: 100%;
+		user-select: none;
 	}
 
 	.xTicks text {
@@ -257,19 +268,25 @@
 	}
 
 	.bins rect {
-		stroke: var(--colorTimelineActiveBinStroke);
+		fill: var(--colorTimelineInactiveBinFill);
+		stroke: var(--colorTimelineInactiveBinStroke);
 	}
 	.bins rect.selected {
 		fill: var(--colorTimelineActiveBinFill);
+		stroke: var(--colorTimelineActiveBinStroke);
 	}
 	.sensor {
 		cursor: pointer;
-		fill: red;
+		fill: transparent;
 	}
 	.knob {
 		cursor: pointer;
 		fill: var(--colorSwitchKnob);
+		pointer-events: none;
 		stroke-width: var(--knobStrokeWidth);
 		stroke: var(--colorBorderAux);
+	}
+	.cursor {
+		pointer-events: none;
 	}
 </style>
