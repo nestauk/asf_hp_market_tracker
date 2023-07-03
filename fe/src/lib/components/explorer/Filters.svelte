@@ -25,7 +25,7 @@
 			_.forEach(
 				metrics,
 				metric => {
-					if (metric.type === 'number') {
+					if (metric.type === 'number' || metric.type === 'date') {
 						const subQuery = {};
 						if (metric.max !== metric.Max) {
 							subQuery['lte'] = metric.max;

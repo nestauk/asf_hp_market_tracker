@@ -6,7 +6,7 @@
 	import * as _ from 'lamb';
 
 	import {_staticData} from '$lib/stores/data.js';
-	import {_filters} from '$lib/stores/filters.js';
+	import {_filters, updateFilter} from '$lib/stores/filters.js';
 	import {_selection} from '$lib/stores/navigation.js';
 	import {formatDate} from '$lib/utils/date.js';
 	import {getDocCount} from '$lib/utils/getters.js';
@@ -50,7 +50,6 @@
 		}
 		min = getClosestTick(selectionTicks, min);
 		max = getClosestTick(selectionTicks, max);
-		// updateFilter();
 	}
 
 	const handleMinDrag = event => {
@@ -81,7 +80,7 @@
 		event.target.onpointermove = null;
 		event.target.releasePointerCapture(event.pointerId);
 		cursorX = null;
-		// updateFilter();
+		updateFilter('Installation', 'installation_date', {min: min.getTime(), max: max.getTime()});
 	}
 
 	let barWidth;
