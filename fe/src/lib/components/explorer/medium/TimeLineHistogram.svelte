@@ -95,15 +95,17 @@
 	let bins;
 	let cursorX;
 	let fontSize;
-	let items;
-	let xTicks;
-	let knobGeometry;
-	let Min;
-	let Max;
-	let selectionTicks;
-	let xScale;
 	let isMinDragging;
+	let items;
+	let knobGeometry;
+	let Max;
+	let maxX;
+	let Min;
+	let minX;
+	let selectionTicks;
 	let sensorDiff;
+	let xScale;
+	let xTicks;
 
 	$: ({inlineSize: width, blockSize: height} = $_size);
 	$: proceed = height && width && $_staticData?.timelines;
@@ -125,6 +127,8 @@
 			scaleUtc()
 			.domain(timeDomain)
 			.range([0, bbox.width]);
+		minX = xScale(min);
+		maxX = xScale(max);
 
 		barWidth = xScale(getKey(items[1])) - xScale(getKey(items[0]));
 
@@ -142,7 +146,7 @@
 
 			return {
 				height: barHeight,
-				selected: x >= xScale(min) && x < xScale(max),
+				selected: x >= minX && x < maxX,
 				width: barWidth,
 				x,
 				y: bbox.height - barHeight,
@@ -163,9 +167,11 @@
 	$: max = max || Max;
 	$: max < min && (max = min);
 	$: xScale && (sensorDiff = Math.min(sensorWidth, xScale(max) - xScale(min)) / 2);
-	$: xScale && console.log('sensorDiff', xScale(max), xScale(min), sensorDiff)
+
 	$: knobGeometry = {x1: knobStrokeWidth / 2 /* + knobRadius */};
 	$: bbox && (knobGeometry.x2 = bbox.width - knobGeometry.x1);
+
+	$: xScale && console.log('sensorDiff', xScale(max), xScale(min), sensorDiff)
 </script>
 
 <div
@@ -214,21 +220,21 @@
 					class='sensor'
 					height={bbox.height}
 					width={sensorWidth / 2 + sensorDiff}
-					x={xScale(min) - sensorWidth / 2}
+					x={minX - sensorWidth / 2}
 					on:pointerdown={createStartDragging({isMinKnob: true})}
 					on:pointerup={stopDragging}
 				/>
 				<line
 					class='cursor'
-					x1={xScale(min)}
-					x2={xScale(min)}
+					x1={minX}
+					x2={minX}
 					y1={0}
 					y2={bbox.height}
 					stroke='var(--colorBorderAux)'
 				/>
 				<circle
 					class='knob min'
-					cx={xScale(min)}
+					cx={minX}
 					cy={knobGeometry.x1 + bbox.height / 2}
 					r={knobRadius}
 				/>
@@ -237,21 +243,21 @@
 					class='sensor'
 					height={bbox.height}
 					width={sensorWidth / 2 + sensorDiff}
-					x={xScale(max) - sensorDiff}
+					x={maxX - sensorDiff}
 					on:pointerdown={createStartDragging({isMinKnob: false})}
 					on:pointerup={stopDragging}
 				/>
 				<line
 					class='cursor'
-					x1={xScale(max)}
-					x2={xScale(max)}
+					x1={maxX}
+					x2={maxX}
 					y1={0}
 					y2={bbox.height}
 					stroke='var(--colorBorderAux)'
 				/>
 				<circle
 					class='knob max'
-					cx={xScale(max)}
+					cx={maxX}
 					cy={knobGeometry.x1 + bbox.height / 2}
 					r={knobRadius}
 				/>
