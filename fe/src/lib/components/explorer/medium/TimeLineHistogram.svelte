@@ -183,8 +183,8 @@
 
 <div
 	class='TimeLine'
-	use:sizeObserver={'contentBoxSize'}
 	style='font-size:{fontSize}; --knobStrokeWidth:{knobStrokeWidth}px;'
+	use:sizeObserver={'contentBoxSize'}
 >
 	{#if proceed}
 		<svg
@@ -192,6 +192,9 @@
 			{width}
 		>
 			<g transform='translate({bbox.blx},{bbox.try})'>
+
+				<!-- x axis -->
+
 				<g class='xTicks'>
 					{#each xTicks as {dy, label, x}}
 						<text
@@ -208,6 +211,8 @@
 					{/each}
 				</g>
 
+				<!-- bins -->
+
 				<g class='bins'>
 					{#each bins as {height, selected, width, x, y}}
 						<rect
@@ -220,7 +225,7 @@
 					{/each}
 				</g>
 
-				<!-- Range selectors -->
+				<!-- min handle -->
 
 				<rect
 					class='sensor'
@@ -243,6 +248,8 @@
 					cy={knobGeometry.x1 + bbox.height / 2}
 					r={knobRadius}
 				/>
+
+				<!-- max handle -->
 
 				<rect
 					class='sensor'
