@@ -228,7 +228,6 @@
 					class='cursor'
 					x1={minX}
 					x2={minX}
-					y1={0}
 					y2={bbox.height}
 					stroke='var(--colorBorderAux)'
 				/>
@@ -251,7 +250,6 @@
 					class='cursor'
 					x1={maxX}
 					x2={maxX}
-					y1={0}
 					y2={bbox.height}
 					stroke='var(--colorBorderAux)'
 				/>
