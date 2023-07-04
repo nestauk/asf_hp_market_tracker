@@ -7,6 +7,7 @@
 	import Scroller from '$lib/components/svizzle/Scroller.svelte';
 	import {_staticData} from '$lib/stores/data.js';
 	import {_filters} from '$lib/stores/filters.js';
+	import {_rangeSlidersTheme} from '$lib/stores/theme.js';
 </script>
 
 {#if $_filters}

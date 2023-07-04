@@ -92,10 +92,10 @@
 
 	let barWidth;
 	let bbox;
+	let bins;
 	let cursorX;
 	let fontSize;
 	let items;
-	let rects;
 	let xTicks;
 	let knobGeometry;
 	let Min;
@@ -107,6 +107,7 @@
 
 	$: ({inlineSize: width, blockSize: height} = $_size);
 	$: proceed = height && width && $_staticData?.timelines;
+
 	$: if (proceed) {
 		items = $_staticData.timelines[$_selection.interval];
 
@@ -135,13 +136,15 @@
 		!min && (min = Min);
 		!max && (max = Max);
 
-		rects = _.map(items, ({key, doc_count}) => {
+		bins = _.map(items, ({key, doc_count}) => {
 			const barHeight = yScale(doc_count);
+			const x = xScale(key);
 
 			return {
 				height: barHeight,
+				selected: x >= xScale(min) && x < xScale(max),
 				width: barWidth,
-				x: xScale(key),
+				x,
 				y: bbox.height - barHeight,
 			}
 		});
@@ -194,14 +197,13 @@
 				</g>
 
 				<g class='bins'>
-					{#each rects as {x, y, width, height}}
-						{@const selected = x >= xScale(min) && x < xScale(max)}
+					{#each bins as {height, selected, width, x, y}}
 						<rect
-							class:selected
 							{height}
 							{width}
 							{x}
 							{y}
+							class:selected
 						/>
 					{/each}
 				</g>
@@ -253,7 +255,6 @@
 					cy={knobGeometry.x1 + bbox.height / 2}
 					r={knobRadius}
 				/>
-				<path d='' />
 			</g>
 		</svg>
 	{/if}
