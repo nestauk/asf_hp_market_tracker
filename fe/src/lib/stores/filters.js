@@ -124,10 +124,11 @@ const getSelectedCats = _.pipe([
 	_.mapWith(getKey)
 ]);
 
-const getFiltertQuery = filters => {
+const getFilterQuery = filters => {
 	if (!filters) {
 		return null;
 	}
+
 	const query = {};
 	filters.forEach(({values: metrics}) => {
 		_.forEach(
@@ -152,11 +153,14 @@ const getFiltertQuery = filters => {
 			}
 		);
 	});
+
 	return isObjNotEmpty(query) ? RISON.stringify(query) : '';
 }
 
-const _filterQuery = derived(_filters, getFiltertQuery);
+const _filterQuery = derived(_filters, getFilterQuery);
+
 let lastFilterQuery;
+
 _filterQuery.subscribe(filterQuery => {
 	if (filterQuery !== lastFilterQuery) {
 		explorerActor.send({
