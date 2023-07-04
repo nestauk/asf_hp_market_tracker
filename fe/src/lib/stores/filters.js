@@ -1,7 +1,7 @@
 import {
 	applyFnMap,
 	getKey,
-	getValues,
+	isObjNotEmpty,
 	makeMergeAppliedFnMap,
 	makeWithKeys,
 	mergeObj,
@@ -9,13 +9,15 @@ import {
 } from '@svizzle/utils';
 import {extent} from 'd3-array';
 import * as _ from 'lamb';
-import {writable} from 'svelte/store';
+import {RISON} from 'rison2';
+import {derived, writable} from 'svelte/store';
 
 import {
 	categoricalMetricsById,
 	dateMetricsById,
 	numericMetricsById,
 } from '$lib/data/metrics.js';
+import {explorerActor} from '$lib/statechart/index.js';
 import {_staticData} from '$lib/stores/data.js';
 import {objectToKeyValuesArray} from '$lib/utils/svizzle/utils';
 
@@ -121,3 +123,51 @@ export const updateFilter = (entityName, fieldName, objToMerge) => {
 		return filters;
 	});
 }
+
+const getSelectedCats = _.pipe([
+	_.filterWith(_.hasKeyValue('selected', true)),
+	_.mapWith(getKey)
+]);
+
+const getFiltertQuery = filters => {
+	if (!filters) {
+		return null;
+	}
+	const query = {};
+	filters.forEach(({values: metrics}) => {
+		_.forEach(
+			metrics,
+			metric => {
+				if (metric.type === 'number' || metric.type === 'date') {
+					const subQuery = {};
+					if (metric.max !== metric.Max) {
+						subQuery.lte = metric.max;
+					}
+					if (metric.min !== metric.Min) {
+						subQuery.gte = metric.min;
+					}
+					if (isObjNotEmpty(subQuery)) {
+						query[metric.id] = subQuery;
+					}
+				} else if (metric.type === 'category') {
+					if (_.someIn(metric.values, ({selected}) => !selected)) {
+						query[metric.id] = getSelectedCats(metric.values);
+					}
+				}
+			}
+		);
+	});
+	return isObjNotEmpty(query) ? RISON.stringify(query) : '';
+}
+
+const _filterQuery = derived(_filters, getFiltertQuery);
+let lastFilterQuery;
+_filterQuery.subscribe(filterQuery => {
+	if (filterQuery !== lastFilterQuery) {
+		explorerActor.send({
+			type: 'SELECTION_CHANGED',
+			newValues: {filterQuery}
+		});
+		lastFilterQuery = filterQuery;
+	}
+});
