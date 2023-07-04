@@ -21,7 +21,7 @@
 	const fontSize = geometry.safetyTop / 2;
 
 	const knobStrokeWidth = 2;
-	const knobRadius = 4;
+	const knobRadius = 6;
 	const sensors = {
 		maxSemiWidth: 35
 	};
@@ -111,14 +111,13 @@
 	let xTicks;
 
 	$: ({inlineSize: width, blockSize: height} = $_size);
-	$: proceed = height && width && $_staticData?.timelines;
-
-	$: if (proceed) {
-
-		/* data */
-
+	$: if ($_staticData?.timelines) {
 		items = $_staticData.timelines[$_selection.interval];
 		[Min, Max] = getTimeDomain(items);
+	}
+
+	$: proceed = height && width && Min && Max;
+	$: if (proceed) {
 
 		/* geometry */
 
@@ -171,7 +170,6 @@
 		minX = xScale(min);
 		maxX = xScale(max);
 
-		// TBD modifying const props...
 		sensors.dynamicWidth = Math.min(sensors.maxSemiWidth, (maxX - minX) / 2);
 		sensors.width = sensors.maxSemiWidth + sensors.dynamicWidth;
 		sensors.xMin = minX - sensors.maxSemiWidth;
@@ -184,7 +182,7 @@
 	$: max = max || Max;
 	$: max < min && (max = min);
 
-	$: knobGeometry = {x1: knobStrokeWidth / 2 /* + knobRadius */};
+	$: knobGeometry = {x1: knobStrokeWidth / 2 + knobRadius};
 	$: bbox && (knobGeometry.x2 = bbox.width - knobGeometry.x1);
 </script>
 
@@ -252,7 +250,7 @@
 				<circle
 					class='knob min'
 					cx={minX}
-					cy={knobGeometry.x1 + bbox.height / 2}
+					cy={bbox.height / 2}
 					r={knobRadius}
 				/>
 
@@ -276,7 +274,7 @@
 				<circle
 					class='knob max'
 					cx={maxX}
-					cy={knobGeometry.x1 + bbox.height / 2}
+					cy={bbox.height / 2}
 					r={knobRadius}
 				/>
 			</g>
