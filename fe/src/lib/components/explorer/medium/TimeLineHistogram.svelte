@@ -9,6 +9,7 @@
 	import {_selection} from '$lib/stores/navigation.js';
 	import {formatDate} from '$lib/utils/date.js';
 	import {getDocCount} from '$lib/utils/getters.js';
+	import {pluckKeySorted} from '$lib/utils/svizzle/utils.js';
 
 	const geometry = {
 		safetyBottom: 0,
@@ -22,10 +23,8 @@
 		resizeObserver: sizeObserver
 	} = setupResizeObserver();
 
-	const pluckKeys = _.mapWith(getKey);
 	const getTimeDomain = _.pipe([
-		pluckKeys,
-		_.sortWith([]),
+		pluckKeySorted,
 		_.collect([_.take(2), _.last]),
 		([[first, second], last]) => [first, last + second - first]
 	]);

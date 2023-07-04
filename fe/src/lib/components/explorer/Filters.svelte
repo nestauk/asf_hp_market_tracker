@@ -1,5 +1,5 @@
 <script>
-	import {getKey, isObjNotEmpty} from  '@svizzle/utils'
+	import {isObjNotEmpty} from  '@svizzle/utils'
 	import * as _ from 'lamb';
 	import {RISON} from 'rison2';
 
@@ -9,12 +9,13 @@
 	import Scroller from '$lib/components/svizzle/Scroller.svelte';
 	import {explorerActor} from '$lib/statechart/index.js';
 	import {_staticData} from '$lib/stores/data.js';
-	import {_rangeSlidersTheme} from '$lib/stores/theme.js';
 	import {_filters} from '$lib/stores/filters.js';
+	import {_rangeSlidersTheme} from '$lib/stores/theme.js';
+	import {pluckKey} from '$lib/utils/svizzle/utils.js';
 
 	const getSelectedCats = _.pipe([
 		_.filterWith(_.hasKeyValue('selected', true)),
-		_.mapWith(getKey)
+		pluckKey
 	]);
 
 	const getFiltertQuery = filters => {

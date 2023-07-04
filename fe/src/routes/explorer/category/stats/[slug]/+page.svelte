@@ -13,10 +13,10 @@
 	import {_barchartsTheme} from '$lib/stores/theme.js';
 	import {_isViewReady, _viewData} from '$lib/stores/view.js';
 	import {getDocCount} from '$lib/utils/getters.js';
+	import {pluckKeySorted} from '$lib/utils/svizzle/utils.js';
 
 	const valueAccessor = getDocCount;
 	const filter = _.filterWith(_.pipe([valueAccessor, isNotNil]));
-	const makeDomain = _.pipe([_.mapWith(getKey), _.sortWith([])]);
 
 	/* barchart */
 
@@ -44,7 +44,7 @@
 
 		/* colors */
 
-		domain = makeDomain(items);
+		domain = pluckKeySorted(items);
 
 		const colorScheme = _.map(
 			domain,

@@ -1,3 +1,4 @@
+import {getKey} from '@svizzle/utils';
 import * as _ from 'lamb';
 
 /**
@@ -90,3 +91,7 @@ export const objectToKeyValuesArray = _.pipe([
 	_.pairs,
 	_.mapWith(pairToKeyValuesObject)
 ]);
+
+export const pluckKey = _.mapWith(getKey);
+
+export const pluckKeySorted = _.pipe([pluckKey, _.sortWith()]);

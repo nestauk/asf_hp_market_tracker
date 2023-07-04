@@ -24,7 +24,10 @@
 	import Grid2Columns from '$lib/components/svizzle/Grid2Columns.svelte';
 	import {_selection} from '$lib/stores/navigation.js';
 	import {_legendsTheme, _stackedBarchartTheme} from '$lib/stores/theme.js';
-	import {objectToKeyValuesArray} from '$lib/utils/svizzle/utils.js';
+	import {
+		objectToKeyValuesArray,
+		pluckKeySorted
+	} from '$lib/utils/svizzle/utils.js';
 
 	export let keyAccessor;
 	export let keyAccessor2;
@@ -50,10 +53,6 @@
 		_.groupBy(getId),
 		objectToKeyValuesArray,
 		_.sortWith([_.sorterDesc(getGroupSum)]),
-	]);
-	const getGroupIds = _.pipe([
-		_.mapWith(getKey),
-		_.sortWith([]),
 	]);
 	const flattenGroups = _.flatMapWith(getValues);
 
@@ -95,7 +94,7 @@
 		const pointsByGroupId = cropGroups(getPointsByGroupId(allPoints));
 		const points = flattenGroups(pointsByGroupId);
 
-		groupIds = getGroupIds(pointsByGroupId);
+		groupIds = pluckKeySorted(pointsByGroupId);
 		labelsByCategory = getEnumeratedMapping(groupIds);
 
 		stacks = getStacks(points);

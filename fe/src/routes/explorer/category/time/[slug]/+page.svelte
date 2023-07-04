@@ -61,7 +61,7 @@
 	const getGroups = _.pipe([
 		_.pluck('group'),
 		_.uniques,
-		_.sortWith([])
+		_.sortWith()
 	]);
 
 	/* trends */

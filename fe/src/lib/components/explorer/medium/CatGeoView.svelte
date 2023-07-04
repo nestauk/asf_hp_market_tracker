@@ -24,6 +24,7 @@
 	import Grid2Columns from '$lib/components/svizzle/Grid2Columns.svelte';
 	import {_selection} from '$lib/stores/navigation.js';
 	import {_legendsTheme} from '$lib/stores/theme.js';
+	import {pluckKey} from '$lib/utils/svizzle/utils.js';
 
 	export let amountOfBins = 5;
 	export let formatFn;
@@ -65,10 +66,10 @@
 
 	const getInnerCategs = _.pipe([
 		_.flatMapWith(
-			_.pipe([getValues, _.mapWith(getKey)])
+			_.pipe([getValues, pluckKey])
 		),
 		_.uniques,
-		_.sortWith([])
+		_.sortWith()
 	]);
 
 	const getEnumeratedMapping = _.pipe([

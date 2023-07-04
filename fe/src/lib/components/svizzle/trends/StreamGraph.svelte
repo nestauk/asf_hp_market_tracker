@@ -15,7 +15,10 @@
 	import {scaleLinear, scalePoint, scaleTime} from 'd3-scale';
 	import * as _ from 'lamb';
 
-	import {objectToKeyValuesArray} from '$lib/utils/svizzle/utils.js';
+	import {
+		objectToKeyValuesArray,
+		pluckKeySorted
+	} from '$lib/utils/svizzle/utils.js';
 
 	const defaultGeometry = {
 		safetyBottom: 20,
@@ -67,8 +70,7 @@
 
 	$: points = points ?? [];
 
-	const getSortedKeys = _.pipe([_.mapWith(getKey), _.sortWith([])]);
-	$: allKeys = getSortedKeys(points);
+	$: allKeys = pluckKeySorted(points);
 
 	$: zeroedGroupsMap = makeKeyedZeroes(groups);
 	$: sortingFn = sorting === 'off'

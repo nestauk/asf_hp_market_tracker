@@ -13,10 +13,10 @@
 	import {_isViewReady, _viewData} from '$lib/stores/view.js';
 	import {_currentMetric, _selection} from '$lib/stores/navigation.js';
 	import {getDocCount} from '$lib/utils/getters.js';
+	import {pluckKeySorted} from '$lib/utils/svizzle/utils.js';
 
 	const valueAccessor = getDocCount;
 	const filter = _.filterWith(_.pipe([valueAccessor, isNotNil]));
-	const makeDomain = _.pipe([_.mapWith(getKey), _.sortWith([])]);
 
 	/* barchart */
 
@@ -49,7 +49,7 @@
 
 		/* colors */
 
-		domain = makeDomain(items);
+		domain = pluckKeySorted(items);
 		const colorScheme = _.map(
 			domain,
 			(v, index) => interpolateColor(index / (domain.length - 1))

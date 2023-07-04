@@ -11,6 +11,8 @@
 	import {area, line, curveMonotoneX} from 'd3-shape';
 	import * as _ from 'lamb';
 
+	import {pluckKey} from '$lib/utils/svizzle/utils.js';
+
 	const defaultGeometry = {
 		safetyBottom: 20,
 		safetyLeft: 20,
@@ -67,9 +69,9 @@
 	/* data */
 
 	const getSortedKeys = _.pipe([
-		_.mapWith(getKey),
+		pluckKey,
 		_.uniques,
-		_.sortWith([])
+		_.sortWith()
 	]);
 	$: allKeys = getSortedKeys(items);
 
