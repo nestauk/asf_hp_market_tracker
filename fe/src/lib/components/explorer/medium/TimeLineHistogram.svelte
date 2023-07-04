@@ -20,7 +20,7 @@
 	};
 
 	const knobStrokeWidth = 2;
-	const knobRadius = 8;
+	const knobRadius = 4;
 	const sensorWidth = 70;
 
 	const {
@@ -103,6 +103,7 @@
 	let selectionTicks;
 	let xScale;
 	let isMinDragging;
+	let sensorDiff;
 
 	$: ({inlineSize: width, blockSize: height} = $_size);
 	$: proceed = height && width && $_staticData?.timelines;
@@ -158,6 +159,8 @@
 	$: min = min || Min;
 	$: max = max || Max;
 	$: max < min && (max = min);
+	$: xScale && (sensorDiff = Math.min(sensorWidth, xScale(max) - xScale(min)) / 2);
+	$: xScale && console.log('sensorDiff', xScale(max), xScale(min), sensorDiff)
 	$: knobGeometry = {x1: knobStrokeWidth / 2 /* + knobRadius */};
 	$: bbox && (knobGeometry.x2 = bbox.width - knobGeometry.x1);
 </script>
@@ -207,8 +210,8 @@
 
 				<rect
 					class='sensor'
-					height={bbox.height}
-					width={sensorWidth}
+					height={bbox.height}2
+					width={sensorWidth / 2 + sensorDiff}
 					x={xScale(min) - sensorWidth / 2}
 					on:pointerdown={createStartDragging({isMinKnob: true})}
 					on:pointerup={stopDragging}
@@ -231,8 +234,8 @@
 				<rect
 					class='sensor'
 					height={bbox.height}
-					width={sensorWidth}
-					x={xScale(max) - sensorWidth / 2}
+					width={sensorWidth / 2 + sensorDiff}
+					x={xScale(max) - sensorDiff}
 					on:pointerdown={createStartDragging({isMinKnob: false})}
 					on:pointerup={stopDragging}
 				/>
