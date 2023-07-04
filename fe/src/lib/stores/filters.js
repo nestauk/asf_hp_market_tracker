@@ -3,7 +3,6 @@ import {
 	getKey,
 	isObjNotEmpty,
 	makeMergeAppliedFnMap,
-	makeWithKeys,
 	mergeObj,
 	mergeWithMerge
 } from '@svizzle/utils';
