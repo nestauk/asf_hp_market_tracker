@@ -21,7 +21,9 @@
 
 	const knobStrokeWidth = 2;
 	const knobRadius = 4;
-	const sensorWidth = 70;
+	const sensors = {
+		maxSemiWidth: 35
+	};
 
 	const {
 		_writable: _size,
@@ -103,7 +105,6 @@
 	let Min;
 	let minX;
 	let selectionTicks;
-	let sensorDiff;
 	let xScale;
 	let xTicks;
 
@@ -129,6 +130,11 @@
 			.range([0, bbox.width]);
 		minX = xScale(min);
 		maxX = xScale(max);
+
+		sensors.dynamicWidth = Math.min(sensors.maxSemiWidth, (maxX - minX) / 2);
+		sensors.width = sensors.maxSemiWidth + sensors.dynamicWidth;
+		sensors.xMin = minX - sensors.maxSemiWidth;
+		sensors.xMax = maxX - sensors.dynamicWidth;
 
 		barWidth = xScale(getKey(items[1])) - xScale(getKey(items[0]));
 
@@ -166,12 +172,9 @@
 	$: min = min || Min;
 	$: max = max || Max;
 	$: max < min && (max = min);
-	$: xScale && (sensorDiff = Math.min(sensorWidth, xScale(max) - xScale(min)) / 2);
 
 	$: knobGeometry = {x1: knobStrokeWidth / 2 /* + knobRadius */};
 	$: bbox && (knobGeometry.x2 = bbox.width - knobGeometry.x1);
-
-	$: xScale && console.log('sensorDiff', xScale(max), xScale(min), sensorDiff)
 </script>
 
 <div
@@ -196,7 +199,6 @@
 						<line
 							x1={x}
 							x2={x}
-							y1={0}
 							y2={bbox.height}
 						/>
 					{/each}
@@ -219,8 +221,8 @@
 				<rect
 					class='sensor'
 					height={bbox.height}
-					width={sensorWidth / 2 + sensorDiff}
-					x={minX - sensorWidth / 2}
+					width={sensors.width}
+					x={sensors.xMin}
 					on:pointerdown={createStartDragging({isMinKnob: true})}
 					on:pointerup={stopDragging}
 				/>
@@ -241,8 +243,8 @@
 				<rect
 					class='sensor'
 					height={bbox.height}
-					width={sensorWidth / 2 + sensorDiff}
-					x={maxX - sensorDiff}
+					width={sensors.width}
+					x={sensors.xMax}
 					on:pointerdown={createStartDragging({isMinKnob: false})}
 					on:pointerup={stopDragging}
 				/>
