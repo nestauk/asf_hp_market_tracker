@@ -155,7 +155,7 @@
 	}
 
 	$: $_selection.interval && selectionTicks && updateMinMax();
-	
+
 	$: min = min || Min;
 	$: max = max || Max;
 	$: max < min && (max = min);

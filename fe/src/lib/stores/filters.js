@@ -45,13 +45,13 @@ const getCategoricalFiltersPresets = _.mapValuesWith(
 
 const getTimelinesExtent = _.pipe([
 	_.values,
-	_.flatMapWith(_.identity),
-	_.mapWith(getKey),
+	_.flatMapWith(_.mapWith(getKey)),
 	extent,
-	makeWithKeys(['min', 'max']),
-	makeMergeAppliedFnMap({
-		Max: _.getKey('max'),
-		Min: _.getKey('min'),
+	applyFnMap({
+		max: _.last,
+		Max: _.last,
+		min: _.head,
+		Min: _.head,
 	}),
 ]);
 
@@ -79,17 +79,15 @@ _staticData.subscribe(staticData => {
 			);
 			const catFilters = _.values(catFiltersById);
 
-			const timeFiltersById = mergeWithMerge(
+			const timelineFilter = mergeWithMerge(
 				dateMetricsById.installation_date,
 				getTimelinesExtent(staticData.timelines)
 			);
 
-			console.log('timeFiltersById', timeFiltersById)
-
 			const filters = formatFilters([
 				...numFilters,
 				...catFilters,
-				timeFiltersById
+				timelineFilter
 			]);
 
 			return filters;
@@ -103,23 +101,21 @@ _filters.subscribe(filters => {
 
 export const updateFilter = (entityName, fieldName, objToMerge) => {
 	_filters.update(filters => {
-		console.log('filters1', filters)
 		const entityIndex = _.findIndex(
 			filters,
 			_.hasKeyValue('key', entityName)
 		);
-		console.log('entity', filters[entityIndex])
-
 		const fieldIndex = _.findIndex(
 			filters[entityIndex].values,
 			_.hasKeyValue('id', fieldName)
 		);
 		const field = filters[entityIndex].values[fieldIndex];
-		console.log('field', field)
+
 		filters[entityIndex].values[fieldIndex] = {
 			...field,
 			...objToMerge
 		};
+
 		return filters;
 	});
 }
