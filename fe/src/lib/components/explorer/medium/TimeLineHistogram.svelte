@@ -43,10 +43,11 @@
 		const diffs = _.map(
 			ticks,
 			(tick, i) => [Math.abs(tick.getTime() - value), i]
-		)
-		const sorted = _.sort(diffs, [_.getAt(0)]);
-		const [[, smallest]] = sorted;
-		return ticks[smallest];
+		);
+		const sorted = _.sort(diffs, [_.head]);
+		const [[, index]] = sorted;
+
+		return ticks[index];
 	}
 	const updateMinMax = () => {
 		if (!min || !max) {
