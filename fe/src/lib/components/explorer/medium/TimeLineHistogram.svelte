@@ -18,6 +18,7 @@
 		safetyRight: 40,
 		safetyTop: 30,
 	};
+	const fontSize = geometry.safetyTop / 2;
 
 	const knobStrokeWidth = 2;
 	const knobRadius = 4;
@@ -97,7 +98,6 @@
 	let bbox;
 	let bins;
 	let cursorX;
-	let fontSize;
 	let isMinDragging;
 	let items;
 	let knobGeometry;
