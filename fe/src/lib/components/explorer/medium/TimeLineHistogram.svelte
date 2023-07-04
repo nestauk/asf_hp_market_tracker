@@ -37,6 +37,7 @@
 	]);
 
 	/* range selection */
+
 	const getClosestTick = (ticks, value) => {
 		const diffs = _.map(
 			ticks,
@@ -92,7 +93,7 @@
 		);
 	}
 
-	let barWidth;
+	let binWidth;
 	let bbox;
 	let bins;
 	let cursorX;
@@ -123,10 +124,10 @@
 			width: width - geometry.safetyRight - geometry.safetyLeft,
 		};
 
-		const timeDomain = getTimeDomain(items);
+		[Min, Max] = getTimeDomain(items);
 		xScale =
 			scaleUtc()
-			.domain(timeDomain)
+			.domain([Min, Max])
 			.range([0, bbox.width]);
 		minX = xScale(min);
 		maxX = xScale(max);
@@ -136,15 +137,16 @@
 		sensors.xMin = minX - sensors.maxSemiWidth;
 		sensors.xMax = maxX - sensors.dynamicWidth;
 
-		barWidth = xScale(getKey(items[1])) - xScale(getKey(items[0]));
+		binWidth = xScale(getKey(items[1])) - xScale(getKey(items[0]));
 
 		const [, dMax] = extent(items, getDocCount);
 		const yScale = scaleLinear().domain([0, dMax]).range([0, bbox.height]);
 
 		selectionTicks = xScale.ticks(items.length + 1);
-		[Min, Max] = timeDomain;
 		!min && (min = Min);
 		!max && (max = Max);
+
+		/* bins */
 
 		bins = _.map(items, ({key, doc_count}) => {
 			const barHeight = yScale(doc_count);
@@ -153,11 +155,13 @@
 			return {
 				height: barHeight,
 				selected: x >= minX && x < maxX,
-				width: barWidth,
+				width: binWidth,
 				x,
 				y: bbox.height - barHeight,
 			}
 		});
+
+		/* x axis */
 
 		fontSize = geometry.safetyTop / 2;
 		xTicks = _.map(xScale.ticks(), date => ({
