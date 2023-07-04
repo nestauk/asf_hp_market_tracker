@@ -212,7 +212,7 @@
 
 				<rect
 					class='sensor'
-					height={bbox.height}2
+					height={bbox.height}
 					width={sensorWidth / 2 + sensorDiff}
 					x={xScale(min) - sensorWidth / 2}
 					on:pointerdown={createStartDragging({isMinKnob: true})}
