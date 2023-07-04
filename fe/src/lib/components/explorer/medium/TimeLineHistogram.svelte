@@ -113,7 +113,13 @@
 	$: proceed = height && width && $_staticData?.timelines;
 
 	$: if (proceed) {
+
+		/* data */
+
 		items = $_staticData.timelines[$_selection.interval];
+		[Min, Max] = getTimeDomain(items);
+
+		/* geometry */
 
 		bbox = {
 			blx: geometry.safetyLeft,
@@ -124,51 +130,51 @@
 			width: width - geometry.safetyRight - geometry.safetyLeft,
 		};
 
-		[Min, Max] = getTimeDomain(items);
-		xScale =
-			scaleUtc()
-			.domain([Min, Max])
-			.range([0, bbox.width]);
-		minX = xScale(min);
-		maxX = xScale(max);
+		/* scales, ticks */
 
-		sensors.dynamicWidth = Math.min(sensors.maxSemiWidth, (maxX - minX) / 2);
-		sensors.width = sensors.maxSemiWidth + sensors.dynamicWidth;
-		sensors.xMin = minX - sensors.maxSemiWidth;
-		sensors.xMax = maxX - sensors.dynamicWidth;
-
+		xScale = scaleUtc().domain([Min, Max]).range([0, bbox.width]);
 		binWidth = xScale(getKey(items[1])) - xScale(getKey(items[0]));
+		selectionTicks = xScale.ticks(items.length + 1);
 
 		const [, dMax] = extent(items, getDocCount);
 		const yScale = scaleLinear().domain([0, dMax]).range([0, bbox.height]);
 
-		selectionTicks = xScale.ticks(items.length + 1);
-		!min && (min = Min);
-		!max && (max = Max);
-
-		/* bins */
-
-		bins = _.map(items, ({key, doc_count}) => {
-			const barHeight = yScale(doc_count);
-			const x = xScale(key);
-
-			return {
-				height: barHeight,
-				selected: x >= minX && x < maxX,
-				width: binWidth,
-				x,
-				y: bbox.height - barHeight,
-			}
-		});
-
 		/* x axis */
 
-		fontSize = geometry.safetyTop / 2;
 		xTicks = _.map(xScale.ticks(), date => ({
 			dy: -geometry.safetyTop / 4,
 			label: formatDate(date),
 			x: xScale(date),
 		}));
+
+		/* bins */
+
+		bins = _.map(items, ({key, doc_count}) => {
+			const binHeight = yScale(doc_count);
+			const x = xScale(key);
+
+			return {
+				height: binHeight,
+				selected: x >= minX && x < maxX,
+				width: binWidth,
+				x,
+				y: bbox.height - binHeight,
+			}
+		});
+
+		/* interaction */
+
+		!min && (min = Min);
+		!max && (max = Max);
+
+		minX = xScale(min);
+		maxX = xScale(max);
+
+		// TBD modifying const props...
+		sensors.dynamicWidth = Math.min(sensors.maxSemiWidth, (maxX - minX) / 2);
+		sensors.width = sensors.maxSemiWidth + sensors.dynamicWidth;
+		sensors.xMin = minX - sensors.maxSemiWidth;
+		sensors.xMax = maxX - sensors.dynamicWidth;
 	}
 
 	$: $_selection.interval && selectionTicks && updateMinMax();
