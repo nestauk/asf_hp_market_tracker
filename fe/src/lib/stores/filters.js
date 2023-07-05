@@ -9,7 +9,7 @@ import {
 import {extent} from 'd3-array';
 import * as _ from 'lamb';
 import {RISON} from 'rison2';
-import {derived, writable} from 'svelte/store';
+import {derived, get, writable} from 'svelte/store';
 
 import {
 	categoricalMetricsById,
@@ -117,6 +117,31 @@ export const updateFilter = (entityName, fieldName, objToMerge) => {
 
 		return filters;
 	});
+}
+
+export const getFilter = (filters, entityName, fieldName) => {
+	// const filters = get(_filters);
+
+	if (!filters) {
+		return {};
+	}
+	const entityIndex = _.findIndex(
+		filters,
+		_.hasKeyValue('key', entityName)
+	);
+	if (entityIndex === -1) {
+		return {};
+	}
+	const fieldIndex = _.findIndex(
+		filters[entityIndex].values,
+		_.hasKeyValue('id', fieldName)
+	);
+	if (fieldIndex === -1) {
+		return {};
+	}
+	const field = filters[entityIndex].values[fieldIndex] || {};
+
+	return field;
 }
 
 const getSelectedCats = _.pipe([

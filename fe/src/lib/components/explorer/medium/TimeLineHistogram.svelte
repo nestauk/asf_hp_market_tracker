@@ -6,7 +6,7 @@
 	import * as _ from 'lamb';
 
 	import {_staticData} from '$lib/stores/data.js';
-	import {_filters, updateFilter} from '$lib/stores/filters.js';
+	import {_filters, getFilter, updateFilter} from '$lib/stores/filters.js';
 	import {_selection} from '$lib/stores/navigation.js';
 	import {formatDate} from '$lib/utils/date.js';
 	import {getDocCount} from '$lib/utils/getters.js';
@@ -39,7 +39,7 @@
 
 	/* range selection */
 
-	const getClosestTick = (ticks, value) => {
+	const getClosestTickIndex = (ticks, value) => {
 		const diffs = _.map(
 			ticks,
 			(tick, i) => [Math.abs(tick.getTime() - value), i]
@@ -47,44 +47,33 @@
 		const sorted = _.sort(diffs, [_.head]);
 		const [[, index]] = sorted;
 
-		return ticks[index];
-	}
-	const updateMinMax = () => {
-		if (!min || !max) {
-			return;
-		}
-		min = getClosestTick(selectionTicks, min);
-		max = getClosestTick(selectionTicks, max);
+		return index;
 	}
 
 	const handleMinDrag = event => {
 		const value = Math.min(
-			Math.max(knobGeometry.x1, event.offsetX - geometry.safetyLeft),
+			Math.max(0, event.offsetX - geometry.safetyLeft),
 			xScale(max)
 		);
 		min = xScale.invert(value);
-		const closestTick = getClosestTick(selectionTicks, min.getTime());
-		cursorX = xScale(closestTick);
 	}
 	const handleMaxDrag = event => {
 		const value = Math.max(
-			Math.min(knobGeometry.x2, event.offsetX - geometry.safetyLeft),
+			Math.min(bbox.width, event.offsetX - geometry.safetyLeft),
 			xScale(min)
 		);
 		max = xScale.invert(value);
-		const closestTick = getClosestTick(selectionTicks, max.getTime());
-		cursorX = xScale(closestTick);
 	}
 
 	const createStartDragging = ({isMinKnob}) => event => {
-		isMinDragging = isMinKnob;
+		currentlyDragging = isMinKnob ? 'min' : 'max';
 		event.target.onpointermove = isMinKnob ? handleMinDrag : handleMaxDrag;
 		event.target.setPointerCapture(event.pointerId);
 	}
 	const stopDragging = event => {
+		currentlyDragging = null;
 		event.target.onpointermove = null;
 		event.target.releasePointerCapture(event.pointerId);
-		cursorX = null;
 		updateFilter(
 			'Installation',
 			'installation_date',
@@ -95,11 +84,10 @@
 		);
 	}
 
-	let binWidth;
 	let bbox;
 	let bins;
-	let cursorX;
-	let isMinDragging;
+	let binWidth;
+	let currentlyDragging;
 	let items;
 	let knobGeometry;
 	let Max;
@@ -109,6 +97,7 @@
 	let selectionTicks;
 	let xScale;
 	let xTicks;
+	let yScale;
 
 	$: ({inlineSize: width, blockSize: height} = $_size);
 	$: if ($_staticData?.timelines) {
@@ -116,8 +105,8 @@
 		[Min, Max] = getTimeDomain(items);
 	}
 
-	$: proceed = height && width && Min && Max;
-	$: if (proceed) {
+	$: isReadyForLayout = height && width && Min && Max;
+	$: if (isReadyForLayout) {
 
 		/* geometry */
 
@@ -137,7 +126,7 @@
 		selectionTicks = xScale.ticks(items.length + 1);
 
 		const [, dMax] = extent(items, getDocCount);
-		const yScale = scaleLinear().domain([0, dMax]).range([0, bbox.height]);
+		yScale = scaleLinear().domain([0, dMax]).range([0, bbox.height]);
 
 		/* x axis */
 
@@ -146,6 +135,34 @@
 			label: formatDate(date),
 			x: xScale(date),
 		}));
+	}
+
+	$: ({min, max} = getFilter(
+		$_filters,
+		'Installation',
+		'installation_date'
+	));
+
+	$: proceed = xTicks;
+	$: if (proceed) {
+
+		/* interaction */
+
+		let minIndex = getClosestTickIndex(selectionTicks, min);
+		let maxIndex = getClosestTickIndex(selectionTicks, max);
+
+		if (maxIndex <= minIndex && !(currentlyDragging === 'min')) {
+			maxIndex = Math.min(minIndex + 1, selectionTicks.length - 1);
+		}
+		if (minIndex >= maxIndex && !(currentlyDragging === 'max')) {
+			minIndex = Math.max(0, minIndex - 1);
+		}
+
+		console.log('minIndex', minIndex, 'maxIndex', maxIndex)
+		min = selectionTicks[minIndex];
+		max = selectionTicks[maxIndex];
+		minX = xScale(min);
+		maxX = xScale(max);
 
 		/* bins */
 
@@ -162,25 +179,11 @@
 			}
 		});
 
-		/* interaction */
-
-		!min && (min = Min);
-		!max && (max = Max);
-
-		minX = xScale(min);
-		maxX = xScale(max);
-
 		sensors.dynamicWidth = Math.min(sensors.maxSemiWidth, (maxX - minX) / 2);
 		sensors.width = sensors.maxSemiWidth + sensors.dynamicWidth;
 		sensors.xMin = minX - sensors.maxSemiWidth;
 		sensors.xMax = maxX - sensors.dynamicWidth;
 	}
-
-	$: $_selection.interval && selectionTicks && updateMinMax();
-
-	$: min = min || Min;
-	$: max = max || Max;
-	$: max < min && (max = min);
 
 	$: knobGeometry = {x1: knobStrokeWidth / 2 + knobRadius};
 	$: bbox && (knobGeometry.x2 = bbox.width - knobGeometry.x1);
