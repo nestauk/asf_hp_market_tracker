@@ -139,9 +139,9 @@ export const getFilter = (filters, entityName, fieldName) => {
 	if (fieldIndex === -1) {
 		return {};
 	}
-	const field = filters[entityIndex].values[fieldIndex] || {};
+	const filter = filters[entityIndex].values[fieldIndex] || {};
 
-	return field;
+	return filter;
 }
 
 const getSelectedCats = _.pipe([
