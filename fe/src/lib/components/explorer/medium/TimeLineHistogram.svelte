@@ -86,6 +86,7 @@
 
 	let bbox;
 	let bins;
+	let binsTicks;
 	let binWidth;
 	let draggedHandle;
 	let items;
@@ -94,7 +95,6 @@
 	let maxX;
 	let Min;
 	let minX;
-	let selectionTicks;
 	let xScale;
 	let xTicks;
 	let yScale;
@@ -123,7 +123,7 @@
 
 		xScale = scaleUtc().domain([Min, Max]).range([0, bbox.width]);
 		binWidth = xScale(getKey(items[1])) - xScale(getKey(items[0]));
-		selectionTicks = xScale.ticks(items.length + 1);
+		binsTicks = xScale.ticks(items.length + 1);
 
 		const [, dMax] = extent(items, getDocCount);
 		yScale = scaleLinear().domain([0, dMax]).range([0, bbox.height]);
@@ -148,19 +148,19 @@
 
 		/* interaction */
 
-		let minIndex = getClosestTickIndex(selectionTicks, min);
-		let maxIndex = getClosestTickIndex(selectionTicks, max);
+		let minIndex = getClosestTickIndex(binsTicks, min);
+		let maxIndex = getClosestTickIndex(binsTicks, max);
 
 		if (maxIndex <= minIndex && !(draggedHandle === 'min')) {
-			maxIndex = Math.min(minIndex + 1, selectionTicks.length - 1);
+			maxIndex = Math.min(minIndex + 1, binsTicks.length - 1);
 		}
 		if (minIndex >= maxIndex && !(draggedHandle === 'max')) {
 			minIndex = Math.max(0, minIndex - 1);
 		}
 
 		console.log('minIndex', minIndex, 'maxIndex', maxIndex)
-		min = selectionTicks[minIndex];
-		max = selectionTicks[maxIndex];
+		min = binsTicks[minIndex];
+		max = binsTicks[maxIndex];
 		minX = xScale(min);
 		maxX = xScale(max);
 
