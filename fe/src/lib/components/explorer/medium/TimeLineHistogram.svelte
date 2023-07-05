@@ -66,12 +66,12 @@
 	}
 
 	const createStartDragging = ({isMinKnob}) => event => {
-		currentlyDragging = isMinKnob ? 'min' : 'max';
+		draggedHandle = isMinKnob ? 'min' : 'max';
 		event.target.onpointermove = isMinKnob ? handleMinDrag : handleMaxDrag;
 		event.target.setPointerCapture(event.pointerId);
 	}
 	const stopDragging = event => {
-		currentlyDragging = null;
+		draggedHandle = null;
 		event.target.onpointermove = null;
 		event.target.releasePointerCapture(event.pointerId);
 		updateFilter(
@@ -87,7 +87,7 @@
 	let bbox;
 	let bins;
 	let binWidth;
-	let currentlyDragging;
+	let draggedHandle;
 	let items;
 	let knobGeometry;
 	let Max;
@@ -151,10 +151,10 @@
 		let minIndex = getClosestTickIndex(selectionTicks, min);
 		let maxIndex = getClosestTickIndex(selectionTicks, max);
 
-		if (maxIndex <= minIndex && !(currentlyDragging === 'min')) {
+		if (maxIndex <= minIndex && !(draggedHandle === 'min')) {
 			maxIndex = Math.min(minIndex + 1, selectionTicks.length - 1);
 		}
-		if (minIndex >= maxIndex && !(currentlyDragging === 'max')) {
+		if (minIndex >= maxIndex && !(draggedHandle === 'max')) {
 			minIndex = Math.max(0, minIndex - 1);
 		}
 
