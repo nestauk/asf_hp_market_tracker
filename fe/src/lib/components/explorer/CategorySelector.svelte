@@ -2,19 +2,22 @@
 	import {
 		arrayMaxWith,
 		getKey,
-		makeMergeAppliedFnMap
+		makeMergeAppliedFnMap,
+		mergeObj,
 	} from '@svizzle/utils';
 	import {scaleLinear} from 'd3-scale';
 	import * as _ from 'lamb';
 
-	import Checkbox from '$lib/components/explorer/Checkbox.svelte';
-    import {getDocCount} from '$lib/utils/getters.js';
+	import Checkboxed from '$lib/components/explorer/Checkboxed.svelte';
+	import {getDocCount} from '$lib/utils/getters.js';
+	import {areAllFalsyWith} from '$lib/utils/svizzle/utils.js';
 
 	export let categories;
 	export let label;
 
 	const getMaxDocCount = arrayMaxWith(getDocCount);
 	const getSelected = _.getKey('selected');
+	const areAllDeselected = areAllFalsyWith(getSelected);
 	const getInputStateCopy = _.pick(['key', 'doc_count', 'selected']);
 	const getInputStatesCopy = _.mapWith(getInputStateCopy);
 	const getSortedInputsStates = _.pipe([
@@ -33,9 +36,12 @@
 			getSelected
 		)})
 	);
+	const selectAll = _.mapWith(mergeObj({selected: true}));
 
-	const makeOnClick = key => async e => {
-		if (e.altKey) {
+	const makeOnClick = key => async event => {
+		if (event.shiftKey) {
+			sortedInputStates = selectAll(sortedInputStates);
+		} else if (event.altKey) {
 			sortedInputStates = makeClearAllBut(key)(sortedInputStates);
 		} else {
 			sortedInputStates = makeToggleSelected(key)(sortedInputStates);
@@ -50,13 +56,12 @@
 	};
 
 	$: maxDocCount = getMaxDocCount(categories);
-	$: scale = scaleLinear()
-		.domain([0, maxDocCount])
-		.range([0, 100]);
+	$: scale = scaleLinear().domain([0, maxDocCount]).range([0, 100]);
 	$: sortedInputStates = getSortedInputsStates(categories);
 	$: indexedCats = _.index(categories, getKey);
 	$: checkDirty = (key, value) => indexedCats[key].selected !== value;
 	$: isDirty = _.someIn(sortedInputStates, ({key, selected}) => checkDirty(key, selected));
+	$: isApplyDisabled = areAllDeselected(sortedInputStates);
 </script>
 
 <div class='CategorySelector'>
@@ -65,16 +70,16 @@
 			class='category'
 			class:dirty={checkDirty(key, selected)}
 		>
-			<Checkbox
+			<Checkboxed
 				checked={selected}
 				label={key}
 				on:click={makeOnClick(key)}
 			>
-			<div>
-				<div>{key}</div>
-				<div class='bar' style:width='{scale(doc_count)}%'/>
-			</div>
-			</Checkbox>
+				<div>
+					<div>{key}</div>
+					<div class='bar' style:width='{scale(doc_count)}%'/>
+				</div>
+			</Checkboxed>
 		</span>
 	{/each}
 	{#if isDirty}
@@ -86,8 +91,9 @@
 				Dismiss
 			</button>
 			<button
+				class:disabled={isApplyDisabled}
 				class='apply'
-				on:click={onApply}
+				on:click={isApplyDisabled ? null : onApply}
 			>
 				Apply
 			</button>
@@ -138,5 +144,10 @@
 	.apply {
 		background-color: var(--colorBackgroundApply);
 		color: var(--colorTextApply);
+	}
+	.apply.disabled {
+		background-color: var(--colorBackgroundApplyDisabled);
+		color: var(--colorTextApply);
+		cursor: auto;
 	}
 </style>

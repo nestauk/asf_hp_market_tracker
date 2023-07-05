@@ -6,7 +6,7 @@
 </script>
 
 <div
-	class='Checkbox'
+	class='Checkboxed'
 	on:click
 >
 	<Icon
@@ -19,12 +19,13 @@
 </div>
 
 <style>
-	.Checkbox {
+	.Checkboxed {
 		align-items: center;
 		cursor: pointer;
 		display: grid;
-		grid-template-columns: min-content 1fr;
 		gap: 0.5em;
+		grid-template-columns: min-content 1fr;
+		user-select: none;
 		width: 100%;
 	}
 </style>

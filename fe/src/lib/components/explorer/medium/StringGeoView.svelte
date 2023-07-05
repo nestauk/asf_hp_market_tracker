@@ -71,9 +71,9 @@
 	const getEnumeratedMapping = _.pipe([
 		_.zipWithIndex,
 		_.mapWith(_.collect([
-			_.getAt(0),
+			_.head,
 			_.pipe([
-				_.getAt(1),
+				_.last,
 				_.add(1)
 			])
 		])),

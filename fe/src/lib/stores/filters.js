@@ -59,7 +59,3 @@ _staticData.subscribe(staticData => {
 		});
 	}
 });
-
-_filters.subscribe(filters => {
-	console.log(filters)
-});

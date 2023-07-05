@@ -5,11 +5,12 @@
 	import {page as _page} from '$app/stores';
 	import StringGeoView from '$lib/components/explorer/medium/StringGeoView.svelte';
 	import {_viewData} from '$lib/stores/view.js';
+	import {getDocCount, getTermsBuckets} from '$lib/utils/getters.js';
 
 	const keyAccessor = getKey;
-	const valueAccessor = _.getPath('terms.buckets');
+	const valueAccessor = getTermsBuckets;
 	const keyAccessor2 = getKey;
-	const valueAccessor2 = _.getKey('doc_count');
+	const valueAccessor2 = getDocCount;
 
 	$: proceed =
 		$_viewData?.response.code === 200 &&

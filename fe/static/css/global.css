@@ -142,6 +142,7 @@ a {
 	/* cat filters */
 
 	--colorBackgroundApply: limegreen;
+	--colorBackgroundApplyDisabled: grey;
 	--colorBackgroundDirty: antiquewhite;
 	--colorBackgroundDismiss: orangered;
 	--colorBackgroundHover: #eee;
@@ -208,6 +209,7 @@ a {
 	/* cat filters */
 
 	--colorBackgroundApply: limegreen;
+	--colorBackgroundApplyDisabled: grey;
 	--colorBackgroundDirty: darkslategrey;
 	--colorBackgroundDismiss: orangered;
 	--colorBackgroundHover: #333;

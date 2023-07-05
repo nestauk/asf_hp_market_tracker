@@ -95,3 +95,5 @@ export const objectToKeyValuesArray = _.pipe([
 export const pluckKey = _.mapWith(getKey);
 
 export const pluckKeySorted = _.pipe([pluckKey, _.sortWith()]);
+
+export const areAllFalsyWith = accessor => _.every(_.not(accessor));

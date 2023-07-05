@@ -41,7 +41,7 @@
 	);
 	const keyFormatFn = _.pipe([
 		makeSplitBy('-'),
-		_.getAt(0),
+		_.head,
 		sliceStringAt([2, 4])
 	]);
 
