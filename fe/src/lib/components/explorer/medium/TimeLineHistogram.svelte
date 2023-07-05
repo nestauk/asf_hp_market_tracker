@@ -90,7 +90,6 @@
 	let binWidth;
 	let draggedHandle;
 	let items;
-	let knobGeometry;
 	let Max;
 	let maxX;
 	let Min;
@@ -184,9 +183,6 @@
 		sensors.xMin = minX - sensors.maxSemiWidth;
 		sensors.xMax = maxX - sensors.dynamicWidth;
 	}
-
-	$: knobGeometry = {x1: knobStrokeWidth / 2 + knobRadius};
-	$: bbox && (knobGeometry.x2 = bbox.width - knobGeometry.x1);
 </script>
 
 <div
