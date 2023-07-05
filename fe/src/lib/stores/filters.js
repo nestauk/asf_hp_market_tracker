@@ -119,8 +119,8 @@ export const updateFilter = (entityName, fieldName, objToMerge) => {
 	});
 }
 
-export const getFilter = (filters, entityName, fieldName) => {
-	// const filters = get(_filters);
+export const getFilter = (entityName, fieldName) => {
+	const filters = get(_filters);
 
 	if (!filters) {
 		return {};

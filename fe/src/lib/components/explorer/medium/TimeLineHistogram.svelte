@@ -51,18 +51,26 @@
 	}
 
 	const handleMinDrag = event => {
-		const value = Math.min(
-			Math.max(0, event.offsetX - geometry.safetyLeft),
-			xScale(max)
-		);
-		min = xScale.invert(value);
+		const value = xScale.invert(event.offsetX - geometry.safetyLeft);
+		const maxIndex = getClosestTickIndex(binsTicks, max);
+
+		let minIndex = getClosestTickIndex(binsTicks, value);
+		if (minIndex >= maxIndex) {
+			minIndex = Math.max(0, maxIndex - 1);
+		}
+
+		min = binsTicks[minIndex];
 	}
 	const handleMaxDrag = event => {
-		const value = Math.max(
-			Math.min(bbox.width, event.offsetX - geometry.safetyLeft),
-			xScale(min)
-		);
-		max = xScale.invert(value);
+		const value = xScale.invert(event.offsetX - geometry.safetyLeft);
+		const minIndex = getClosestTickIndex(binsTicks, min);
+
+		let maxIndex = getClosestTickIndex(binsTicks, value);
+		if (maxIndex <= minIndex) {
+			maxIndex = Math.min(minIndex + 1, binsTicks.length - 1);
+		}
+
+		max = binsTicks[maxIndex];
 	}
 
 	const createStartDragging = ({isMinKnob}) => event => {
@@ -91,9 +99,12 @@
 	let draggedHandle;
 	let items;
 	let Max;
+	let max;
 	let maxX;
 	let Min;
+	let min;
 	let minX;
+	let proceed = false;
 	let xScale;
 	let xTicks;
 	let yScale;
@@ -134,32 +145,32 @@
 			label: formatDate(date),
 			x: xScale(date),
 		}));
+ 
+		const {min: unsnappedMin, max: unsnappedMax} = getFilter(
+			'Installation',
+			'installation_date'
+		);
+
+		let minIndex = getClosestTickIndex(binsTicks, unsnappedMin);
+		let maxIndex = getClosestTickIndex(binsTicks, unsnappedMax);
+
+		if (maxIndex <= minIndex) {
+			maxIndex = Math.min(minIndex + 1, binsTicks.length - 1);
+		}
+		if (minIndex >= maxIndex) {
+			minIndex = Math.max(0, maxIndex - 1);
+		}
+
+		min = binsTicks[minIndex];
+		max = binsTicks[maxIndex];
+
+		proceed = true;
 	}
 
-	$: ({min, max} = getFilter(
-		$_filters,
-		'Installation',
-		'installation_date'
-	));
-
-	$: proceed = xTicks;
 	$: if (proceed) {
 
 		/* interaction */
 
-		let minIndex = getClosestTickIndex(binsTicks, min);
-		let maxIndex = getClosestTickIndex(binsTicks, max);
-
-		if (maxIndex <= minIndex && !(draggedHandle === 'min')) {
-			maxIndex = Math.min(minIndex + 1, binsTicks.length - 1);
-		}
-		if (minIndex >= maxIndex && !(draggedHandle === 'max')) {
-			minIndex = Math.max(0, minIndex - 1);
-		}
-
-		console.log('minIndex', minIndex, 'maxIndex', maxIndex)
-		min = binsTicks[minIndex];
-		max = binsTicks[maxIndex];
 		minX = xScale(min);
 		maxX = xScale(max);
 
