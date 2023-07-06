@@ -1,5 +1,6 @@
 import {
 	applyFnMap,
+	concatValues,
 	getKey,
 	isObjNotEmpty,
 	makeMergeAppliedFnMap,
@@ -18,7 +19,7 @@ import {
 } from '$lib/data/metrics.js';
 import {explorerActor} from '$lib/statechart/index.js';
 import {_staticData} from '$lib/stores/data.js';
-import {objectToKeyValuesArray} from '$lib/utils/svizzle/utils';
+import {objectToKeyValuesArray, pluckKeySorted} from '$lib/utils/svizzle/utils';
 
 /* numeric filters */
 
@@ -42,9 +43,14 @@ const getCategoricalFiltersPresets = _.mapValuesWith(
 
 /* timeline filter */
 
+const getTimeDomain = _.pipe([
+	pluckKeySorted,
+	_.collect([_.take(2), _.last]),
+	([[first, second], last]) => [first, last + second - first]
+]);
 const getTimelinesExtent = _.pipe([
-	_.values,
-	_.flatMapWith(_.mapWith(getKey)),
+	_.mapValuesWith(getTimeDomain),
+	concatValues,
 	extent,
 	applyFnMap({
 		max: _.last,

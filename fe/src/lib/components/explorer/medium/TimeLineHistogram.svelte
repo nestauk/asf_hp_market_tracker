@@ -10,7 +10,6 @@
 	import {_selection} from '$lib/stores/navigation.js';
 	import {formatDate} from '$lib/utils/date.js';
 	import {getDocCount} from '$lib/utils/getters.js';
-	import {pluckKeySorted} from '$lib/utils/svizzle/utils.js';
 
 	const geometry = {
 		safetyBottom: 0,
@@ -30,12 +29,6 @@
 		_writable: _size,
 		resizeObserver: sizeObserver
 	} = setupResizeObserver();
-
-	const getTimeDomain = _.pipe([
-		pluckKeySorted,
-		_.collect([_.take(2), _.last]),
-		([[first, second], last]) => [first, last + second - first]
-	]);
 
 	/* range selection */
 
@@ -109,14 +102,17 @@
 	let xTicks;
 	let yScale;
 
+	$: if ($_filters) {
+		const installation_date = $_filters[1].values[1];
+		Max = installation_date.Max;
+		Min = installation_date.Min;
+	}
 	$: ({inlineSize: width, blockSize: height} = $_size);
 	$: if ($_staticData?.timelines) {
 		items = $_staticData.timelines[$_selection.interval];
-		[Min, Max] = getTimeDomain(items);
 	}
 
-	$: isReadyForLayout = height && width && Min && Max;
-	$: if (isReadyForLayout) {
+	$: if (height && width && Min && Max) {
 
 		/* geometry */
 
@@ -145,7 +141,9 @@
 			label: formatDate(date),
 			x: xScale(date),
 		}));
- 
+
+		/* snap handles */
+
 		const {min: unsnappedMin, max: unsnappedMax} = getFilter(
 			'Installation',
 			'installation_date'
