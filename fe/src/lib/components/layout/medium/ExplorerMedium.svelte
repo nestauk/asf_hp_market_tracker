@@ -1,8 +1,23 @@
 <script>
+	import * as _ from 'lamb';
+
 	import Filters from '$lib/components/explorer/Filters.svelte';
 	import MetricSelector from '$lib/components/explorer/MetricSelector.svelte';
 	import ViewMedium from '$lib/components/explorer/medium/ViewMedium.svelte';
 	import TimeLineHistogram from '$lib/components/explorer/medium/TimeLineHistogram.svelte';
+	import {explorerActor} from '$lib/statechart/index.js';
+	import {_filters, getFilterQuery} from '$lib/stores/filters.js';
+
+	let lastFilterQuery = '';
+
+	$: filterQuery = getFilterQuery($_filters);
+	$: if (filterQuery !== lastFilterQuery) {
+		explorerActor.send({
+			type: 'SELECTION_CHANGED',
+			newValues: {filterQuery}
+		});
+		lastFilterQuery = filterQuery;
+	}
 </script>
 
 <div class='ExplorerMedium'>

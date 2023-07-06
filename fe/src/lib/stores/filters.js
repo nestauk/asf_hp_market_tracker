@@ -10,14 +10,13 @@ import {
 import {extent} from 'd3-array';
 import * as _ from 'lamb';
 import {RISON} from 'rison2';
-import {derived, get, writable} from 'svelte/store';
+import {get, writable} from 'svelte/store';
 
 import {
 	categoricalMetricsById,
 	dateMetricsById,
 	numericMetricsById,
 } from '$lib/data/metrics.js';
-import {explorerActor} from '$lib/statechart/index.js';
 import {_staticData} from '$lib/stores/data.js';
 import {objectToKeyValuesArray, pluckKeySorted} from '$lib/utils/svizzle/utils';
 
@@ -155,9 +154,9 @@ const getSelectedCats = _.pipe([
 	_.mapWith(getKey)
 ]);
 
-const getFilterQuery = filters => {
+export const getFilterQuery = filters => {
 	if (!filters) {
-		return null;
+		return '';
 	}
 
 	const query = {};
@@ -185,19 +184,10 @@ const getFilterQuery = filters => {
 		);
 	});
 
-	return isObjNotEmpty(query) ? RISON.stringify(query) : '';
+	const result = isObjNotEmpty(query) ? RISON.stringify(query) : '';
+	console.log('in _filterQuery', result)
+
+	return result;
 }
 
-const _filterQuery = derived(_filters, getFilterQuery);
-
-let lastFilterQuery;
-
-_filterQuery.subscribe(filterQuery => {
-	if (filterQuery !== lastFilterQuery) {
-		explorerActor.send({
-			type: 'SELECTION_CHANGED',
-			newValues: {filterQuery}
-		});
-		lastFilterQuery = filterQuery;
-	}
-});
+// export const _filterQuery = derived(_filters, getFilterQuery);
