@@ -45,24 +45,25 @@
 
 	const handleMinDrag = event => {
 		const value = xScale.invert(event.offsetX - geometry.safetyLeft);
-		const maxIndex = getClosestTickIndex(binsTicks, max);
-
 		let minIndex = getClosestTickIndex(binsTicks, value);
+
+		/* snap and limit left handle value */
+
+		const maxIndex = getClosestTickIndex(binsTicks, max);
 		if (minIndex >= maxIndex) {
 			minIndex = Math.max(0, maxIndex - 1);
 		}
-
 		min = binsTicks[minIndex];
 	}
 	const handleMaxDrag = event => {
 		const value = xScale.invert(event.offsetX - geometry.safetyLeft);
-		const minIndex = getClosestTickIndex(binsTicks, min);
-
 		let maxIndex = getClosestTickIndex(binsTicks, value);
+
+		/* snap and limit right handle value */
+		const minIndex = getClosestTickIndex(binsTicks, min);
 		if (maxIndex <= minIndex) {
 			maxIndex = Math.min(minIndex + 1, binsTicks.length - 1);
 		}
-
 		max = binsTicks[maxIndex];
 	}
 
@@ -139,7 +140,7 @@
 			x: xScale(date),
 		}));
 
-		/* snap handles */
+		/* snap handles when data changes */
 
 		const {min: unsnappedMin, max: unsnappedMax} = getFilter(
 			'Installation',
