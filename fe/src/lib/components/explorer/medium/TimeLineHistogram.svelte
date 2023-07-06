@@ -67,12 +67,10 @@
 	}
 
 	const createStartDragging = ({isMinKnob}) => event => {
-		draggedHandle = isMinKnob ? 'min' : 'max';
 		event.target.onpointermove = isMinKnob ? handleMinDrag : handleMaxDrag;
 		event.target.setPointerCapture(event.pointerId);
 	}
 	const stopDragging = event => {
-		draggedHandle = null;
 		event.target.onpointermove = null;
 		event.target.releasePointerCapture(event.pointerId);
 		updateFilter(
@@ -89,7 +87,6 @@
 	let bins;
 	let binsTicks;
 	let binWidth;
-	let draggedHandle;
 	let items;
 	let Max;
 	let max;
