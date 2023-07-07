@@ -119,33 +119,36 @@ export const getFilterQuery = filters => {
 	}
 
 	const query = {};
-	filters.forEach(({values: metrics}) => {
-		_.forEach(
-			metrics,
-			metric => {
-				if (metric.type === 'number' || metric.type === 'date') {
-					const subQuery = {};
-					if (metric.max !== metric.Max) {
-						subQuery.lte = metric.max;
-					}
-					if (metric.min !== metric.Min) {
-						subQuery.gte = metric.min;
-					}
-					if (isObjNotEmpty(subQuery)) {
-						query[metric.id] = subQuery;
-					}
-				} else if (metric.type === 'category') {
-					if (_.someIn(metric.values, ({selected}) => !selected)) {
-						query[metric.id] = getSelectedCats(metric.values);
+	_.forEach(
+		filters,
+		({values: metrics}) => {
+			_.forEach(
+				metrics,
+				metric => {
+					if (metric.type === 'number' || metric.type === 'date') {
+						const subQuery = {};
+						if (metric.max !== metric.Max) {
+							subQuery.lte = metric.max;
+						}
+						if (metric.min !== metric.Min) {
+							subQuery.gte = metric.min;
+						}
+						if (isObjNotEmpty(subQuery)) {
+							query[metric.id] = subQuery;
+						}
+					} else if (metric.type === 'category') {
+						if (_.someIn(metric.values, ({selected}) => !selected)) {
+							query[metric.id] = getSelectedCats(metric.values);
+						}
 					}
 				}
-			}
-		);
-	});
+			);
+		}
+	);
 
 	const result = isObjNotEmpty(query) ? RISON.stringify(query) : '';
 
 	return result;
 }
 
-export const _filterQuery = derived(_filters, getFilterQuery);
+export const _filterQuery = derived(_groupedFilters, getFilterQuery);
