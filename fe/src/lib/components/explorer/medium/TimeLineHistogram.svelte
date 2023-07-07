@@ -79,7 +79,6 @@
 			min: min.getTime(),
 			max: max.getTime()
 		};
-		console.log('$_filters.installation_date', $_filters.installation_date);
 	}
 
 	let bbox;
