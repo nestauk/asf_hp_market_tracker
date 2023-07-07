@@ -1,6 +1,7 @@
 import {
 	applyFnMap,
 	concatValues,
+	getId,
 	getKey,
 	isObjNotEmpty,
 	makeMergeAppliedFnMap,
@@ -10,7 +11,7 @@ import {
 import {extent} from 'd3-array';
 import * as _ from 'lamb';
 import {RISON} from 'rison2';
-import {get, derived, writable} from 'svelte/store';
+import {derived, writable} from 'svelte/store';
 
 import {
 	categoricalMetricsById,
@@ -96,10 +97,8 @@ _staticData.subscribe(staticData => {
 					...catFilters,
 					timelineFilter
 				],
-				_.getKey('id')
+				getId
 			);
-
-			console.log('in _filters', _.values(filters))
 
 			return filters;
 		});
@@ -113,35 +112,39 @@ const getSelectedCats = _.pipe([
 	_.mapWith(getKey)
 ]);
 
+const getQueryForFilter = filter => {
+	let value;
+	if (filter.type === 'number' || filter.type === 'date') {
+		const subQuery = {};
+		if (filter.max !== filter.Max) {
+			subQuery.lte = filter.max;
+		}
+		if (filter.min !== filter.Min) {
+			subQuery.gte = filter.min;
+		}
+		if (isObjNotEmpty(subQuery)) {
+			value = subQuery;
+		}
+	} else if (filter.type === 'category') {
+		if (_.someIn(filter.values, ({selected}) => !selected)) {
+			value = getSelectedCats(filter.values);
+		}
+	}
+
+	return value;
+}
+
+const getQueryFromFilters = _.pipe([
+	_.mapValuesWith(getQueryForFilter),
+	_.skipIf(_.isUndefined)
+]);
+
 export const _filterQuery = derived(_filters, filters => {
 	if (!filters) {
 		return '';
 	}
 
-	const query = _.mapValues(
-		filters,
-		filter => {
-			let value;
-			if (filter.type === 'number' || filter.type === 'date') {
-				const subQuery = {};
-				if (filter.max !== filter.Max) {
-					subQuery.lte = filter.max;
-				}
-				if (filter.min !== filter.Min) {
-					subQuery.gte = filter.min;
-				}
-				if (isObjNotEmpty(subQuery)) {
-					value = subQuery;
-				}
-			} else if (filter.type === 'category') {
-				if (_.someIn(filter.values, ({selected}) => !selected)) {
-					value = getSelectedCats(filter.values);
-				}
-			}
-
-			return value;
-		}
-	);
+	const query = getQueryFromFilters(filters);
 
 	const result = isObjNotEmpty(query) ? RISON.stringify(query) : '';
 
