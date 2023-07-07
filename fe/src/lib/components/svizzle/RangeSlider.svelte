@@ -39,7 +39,7 @@
 	$: max < min && (max = min);
 
 	$: theme = {...defaultTheme, ...theme};
-	$: knobRadius = height / 2 - theme.knobStrokeWidth / 2;
+	$: knobRadius = Math.max(0, height / 2 - theme.knobStrokeWidth / 2);
 	$: geometry = {x1: theme.knobStrokeWidth / 2 + knobRadius};
 	$: geometry.x2 = width - geometry.x1;
 	$: style = makeStyleVars({...theme, x1: `${geometry.x1}px`});

@@ -1,4 +1,4 @@
-import {areAllTruthy, getLength, getKey} from '@svizzle/utils';
+import {areAllTruthy, getLength, getKey, isNotNil} from '@svizzle/utils';
 import * as _ from 'lamb';
 
 /**
@@ -107,3 +107,21 @@ export const doPairItemsContainSameValues = _.allOf([
 		areAllTruthy
 	])
 ]);
+
+export const hasKeyWith = predicate => _.pipe([
+	_.pairs,
+	_.findWhere(_.pipe([_.head, predicate])),
+	isNotNil
+]);
+
+export const pickIfKeyWith = predicate => _.pipe([
+	_.pairs,
+	_.filterWith(_.pipe([_.head, predicate])),
+	_.fromPairs
+]); // now unused here but quite useful
+
+export const skipIfKeyWith = predicate => _.pipe([
+	_.pairs,
+	_.filterWith(_.pipe([_.head, _.not(predicate)])),
+	_.fromPairs
+]); // now unused here but quite useful

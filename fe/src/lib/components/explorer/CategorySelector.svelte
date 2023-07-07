@@ -10,6 +10,7 @@
 	import {createEventDispatcher} from 'svelte';
 
 	import Checkboxed from '$lib/components/explorer/Checkboxed.svelte';
+	import DismissOrApply from '$lib/components/explorer/DismissOrApply.svelte';
 	import {getDocCount} from '$lib/utils/getters.js';
 	import {areAllFalsyWith} from '$lib/utils/svizzle/utils.js';
 
@@ -86,21 +87,11 @@
 		</span>
 	{/each}
 	{#if isDirty}
-		<div class='buttons'>
-			<button
-				class='dismiss'
-				on:click={onDismiss}
-			>
-				Dismiss
-			</button>
-			<button
-				class:disabled={isApplyDisabled}
-				class='apply'
-				on:click={isApplyDisabled ? null : onApply}
-			>
-				Apply
-			</button>
-		</div>
+		<DismissOrApply
+			{isApplyDisabled}
+			{onApply}
+			{onDismiss}
+		/>
 	{/if}
 </div>
 

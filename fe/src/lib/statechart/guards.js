@@ -1,5 +1,6 @@
-import {isNotNil} from '@svizzle/utils';
+import {isNotNaN, isNotNil} from '@svizzle/utils';
 import * as _ from 'lamb';
+import {RISON} from 'rison2';
 import {get} from 'svelte/store';
 
 import {_viewCache, _staticData} from '$lib/stores/data.js';
@@ -19,12 +20,32 @@ export const isViewDataCached = ctx => {
 /* navigation */
 
 export const hasFullSearchParams = ctx => {
+	const searchParams = _.fromPairs(Array.from(ctx.page.url.searchParams.entries()));
+
+	// do `ctx.selection` and `ctx.page` have the same keys?
+
 	const ctxSelectionKeys = _.keys(ctx.selection);
-	const searchParamsKeys = Array.from(ctx.page.url.searchParams.keys());
-	const pass = doPairItemsContainSameValues([
-		ctxSelectionKeys,
-		searchParamsKeys
-	]);
+	const searchParamsKeys = _.keys(searchParams);
+	let pass = doPairItemsContainSameValues([ctxSelectionKeys, searchParamsKeys]);
+
+	if (pass) {
+		// if so, does the URL `filters` have region criteria?
+
+		const parsedSearchParams = _.mapValues(
+			searchParams,
+			value => {
+				const dontParseIt = value === '' || isNotNaN(parseInt(value[0]));
+				const result = dontParseIt ? value : RISON.parse(value);
+
+				return result;
+			}
+		);
+
+		pass =
+			_.has(parsedSearchParams, 'filters') &&
+			_.has(parsedSearchParams.filters, 'propertyRegionNames') &&
+			_.has(parsedSearchParams.filters, 'propertyRegionType');
+	}
 
 	return pass;
 }

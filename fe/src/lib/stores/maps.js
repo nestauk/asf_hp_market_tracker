@@ -36,7 +36,7 @@ export const _baseLayers = derived(
 			'source-layer': 'nuts21_0',
 			type: 'fill',
 			paint: {
-				'fill-color': currThemeVars['--colorBackground'],
+				'fill-color': currThemeVars['--colorMapRegionFillNuts'],
 				'fill-outline-color': currThemeVars['--colorBorder'],
 			}
 		}
@@ -51,7 +51,11 @@ const _defaultLayerPaint = derived(
 			['!=', ['feature-state', 'fill'], null], ['feature-state', 'fill'],
 			currThemeVars['--colorBackground']
 		],
-		'fill-outline-color': currThemeVars['--colorBorderAux']
+		'fill-outline-color': [
+			'case',
+			['!=', ['feature-state', 'stroke'], null], ['feature-state', 'stroke'],
+			currThemeVars['--colorBorderAux']
+		],
 	})
 );
 export const _regionLayers = derived(

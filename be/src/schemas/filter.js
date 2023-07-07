@@ -49,6 +49,10 @@ export const schema = {
 	installer_certificate_date_start: {
 		type: 'range'
 	},
+	installer_geo_region_country21_name: {
+		type: 'terms',
+		name: 'installer_geo_region_country21_name.keyword'
+	},
 	installer_geo_region_itl21_1_id: {
 		type: 'terms',
 		name: 'installer_geo_region_itl21_1_id.keyword'
@@ -101,9 +105,9 @@ export const schema = {
 		type: 'terms',
 		name: 'installer_geo_town.keyword'
 	},
-	property_geo_region_country: {
+	property_geo_region_country21_name: {
 		type: 'terms',
-		name: 'property_geo_region_country.keyword'
+		name: 'property_geo_region_country21_name.keyword'
 	},
 	property_geo_region_itl21_1_id: {
 		type: 'terms',

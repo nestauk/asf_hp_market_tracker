@@ -21,9 +21,12 @@
 	export let _zoom = null; // store
 	export let accessToken = null;
 	export let bounds;
+	export let eventsHandlers;
 	export let getFeatureState;
 	export let isAnimated = true;
+	export let isDblClickEnabled = true;
 	export let isInteractive = true;
+	export let reactiveLayers = [];
 	export let style;
 	export let visibleLayers = [];
 	export let withScaleControl = true;
@@ -31,15 +34,18 @@
 
 	/* props sanitisation */
 
+	$: isDblClickEnabled = isDblClickEnabled ?? true;
 	$: isAnimated = isAnimated ?? true;
 	$: isInteractive = isInteractive ?? true;
 	$: _bbox_WS_EN = _bbox_WS_EN || writable([[-180, -90], [180, 90]]);
 	$: _bbox_WSEN = _bbox_WSEN || derived(_bbox_WS_EN, bbox_WS_EN => bbox_WS_EN.length ?? ws_en_to_wsen(bbox_WS_EN));
 	$: _zoom = _zoom || writable(0);
 	$: visibleLayers = visibleLayers || [];
+	$: reactiveLayers = reactiveLayers || [];
 
 	/* props */
 
+	let eventsHandlersRegistry = [];
 	let height = 0;
 	let map;
 	let mapcontainer;
@@ -60,7 +66,7 @@
 	$: map?.setStyle(style);
 	$: layers = $_map && style && $_map?.getStyle().layers;
 	$: layers?.forEach(layer => {
-		if (visibleLayers.includes(layer.id)) {
+		if (reactiveLayers.includes(layer.id)) {
 			map
 			.querySourceFeatures(layer.source, {sourceLayer: layer.id})
 			.forEach(feature => {
@@ -79,6 +85,19 @@
 			visibleLayers.includes(layer.id) ? 'visible' : 'none'
 		);
 	});
+	$: {
+		eventsHandlersRegistry.forEach(
+			({type, targetLayer, handler}) => {
+				map?.off(type, targetLayer, handler);
+			}
+		);
+		eventsHandlers?.forEach(
+			({type, targetLayer, handler}) => {
+				map?.on(type, targetLayer, handler);
+			}
+		);
+		eventsHandlersRegistry = eventsHandlers ?? [];
+	};
 
 	/* bbox */
 
@@ -211,11 +230,11 @@
 			zoom,
 
 			// interactions
-			interactive: isInteractive,
 			attributionControl: false, // we add this later to have it compact
-			doubleClickZoom: isInteractive,
+			doubleClickZoom: isDblClickEnabled,
 			dragPan: isInteractive,
 			dragRotate: false,
+			interactive: isInteractive,
 			pitchWithRotate: false, // don't render dots in perspective
 			scrollZoom: isInteractive,
 			touchPitch: false,

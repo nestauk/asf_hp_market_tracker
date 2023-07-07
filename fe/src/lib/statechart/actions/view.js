@@ -1,4 +1,5 @@
-import {isObjNotEmpty} from '@svizzle/utils';
+import {isIterableNotEmpty, isObjNotEmpty} from '@svizzle/utils';
+import * as _ from 'lamb';
 import {RISON} from 'rison2';
 import {get} from 'svelte/store';
 import {assign} from 'xstate';
@@ -30,7 +31,10 @@ export const logViewData = (ctx, {data}) => {
 // eslint-disable-next-line complexity
 export const generateQueryPathFromSelectionStores = assign(ctx => {
 	const activeViewType = get(_activeViewType);
-	const {field, id, type} = get(_currentMetric);
+	const {field, geoPrefix, id, type} = get(_currentMetric);
+
+	const regionType = ctx.selection.regionType;
+	const geoField = `${geoPrefix}_geo_region_${regionType}_name.keyword`;
 
 	let endpoint;
 	let params;
@@ -40,7 +44,7 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 				case 'geo':
 					endpoint = 'terms1_terms2';
 					params = {
-						field1: `property_geo_region_${ctx.selection.regionType}_name.keyword`,
+						field1: geoField,
 						field2: `${id}.keyword`,
 						missing2: 'Unknown'
 					};
@@ -72,14 +76,14 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 						case 'installations':
 							endpoint = 'terms';
 							params = {
-								field: `property_geo_region_${ctx.selection.regionType}_name.keyword`,
+								field: geoField,
 								// TBD `with_stats`, `with_percentiles`
 							};
 							break;
 						case 'installations_per_installer':
 							endpoint = 'terms1_terms2';
 							params = {
-								field1: `property_geo_region_${ctx.selection.regionType}_name.keyword`,
+								field1: geoField,
 								// TBD `with_stats1`, `with_percentiles1`
 								field2: 'installer_id_hash.keyword',
 								with_stats2: true
@@ -93,34 +97,34 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 						case 'property_supply_photovoltaic_sum':
 							endpoint = 'terms1_stats2';
 							params = {
-								field1: `property_geo_region_${ctx.selection.regionType}_name.keyword`,
+								field1: geoField,
 								field2: field,
 							}
 							break;
 						case 'installers_certified':
 							endpoint = 'terms1_certified2'
 							params = {
-								field1: `property_geo_region_${ctx.selection.regionType}_name.keyword`,
+								field1: geoField,
 							};
 							break;
 						case 'installers_dropped_certifications':
 							endpoint = 'terms1_certified2';
 							params = {
-								field1: `property_geo_region_${ctx.selection.regionType}_name.keyword`,
+								field1: geoField,
 								logic2: 'dropped'
 							};
 							break;
 						case 'installers_new_certifications':
 							endpoint = 'terms1_certified2';
 							params = {
-								field1: `property_geo_region_${ctx.selection.regionType}_name.keyword`,
+								field1: geoField,
 								logic2: 'new'
 							};
 							break;
 						case 'installers':
 							endpoint = 'terms1_cardinality2';
 							params = {
-								field1: `installer_geo_region_${ctx.selection.regionType}_name.keyword`,
+								field1: geoField,
 								// TBD `with_stats1`, `with_percentiles1`
 								field2: 'installer_id_hash.keyword',
 							};
@@ -252,7 +256,7 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 				case 'geo':
 					endpoint = 'terms1_stats2';
 					params = {
-						field1: `property_geo_region_${ctx.selection.regionType}_name.keyword`,
+						field1: geoField,
 						field2: id,
 					};
 					break;
@@ -281,7 +285,7 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 				case 'geo':
 					endpoint = 'terms1_terms2';
 					params = {
-						field1: `property_geo_region_${ctx.selection.regionType}_name.keyword`,
+						field1: geoField,
 						field2: `${id}.keyword`,
 						missing2: 'Unknown',
 					};
@@ -314,12 +318,25 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 
 	const {filters} = ctx.selection;
 	if (isObjNotEmpty(filters)) {
-		params.filter = RISON.stringify(filters);
+		const {propertyRegionNames, propertyRegionType} = filters;
+		let processedFilters = _.skipIn(filters, [
+			'propertyRegionNames',
+			'propertyRegionType',
+		]);
+
+		if (isIterableNotEmpty(propertyRegionNames)) {
+			const propertyGeoField = `property_geo_region_${propertyRegionType}_name`;
+			processedFilters[propertyGeoField] = propertyRegionNames;
+		};
+
+		params.filter = RISON.stringify(processedFilters);
 	}
 
 	if (isObjNotEmpty(params)) {
 		viewQueryPath = `${endpoint}?${new URLSearchParams(params)}`;
 	}
+
+	// console.log('viewQueryPath', viewQueryPath);
 
 	return {...ctx, viewQueryPath}
 });

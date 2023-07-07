@@ -4,12 +4,14 @@ export const fields = [
 
 	{
 		entity: 'Heat pump',
+		geoPrefix: 'property',
 		id: 'hp_feature_design',
 		label: 'Design',
 		type: 'category',
 	},
 	{
 		entity: 'Heat pump',
+		geoPrefix: 'property',
 		id: 'hp_feature_flow_temperature',
 		formatSpecifier: '.1f',
 		label: 'Flow temperature',
@@ -18,12 +20,14 @@ export const fields = [
 	},
 	// {
 	// 	entity: 'Heat pump',
+	// 	geoPrefix: 'property',
 	// 	id: 'hp_feature_heat_system',
 	// 	label: 'Heat system',
 	// 	type: 'category',
 	// },
 	{
 		entity: 'Heat pump',
+		geoPrefix: 'property',
 		id: 'hp_feature_power_capacity',
 		formatSpecifier: '.3s',
 		label: 'Power capacity',
@@ -32,6 +36,7 @@ export const fields = [
 	},
 	{
 		entity: 'Heat pump',
+		geoPrefix: 'property',
 		id: 'hp_feature_power_generation',
 		formatSpecifier: '.3s',
 		label: 'Power generation',
@@ -40,6 +45,7 @@ export const fields = [
 	},
 	{
 		entity: 'Heat pump',
+		geoPrefix: 'property',
 		id: 'hp_feature_scop',
 		formatSpecifier: '.1f',
 		label: 'SCOP',
@@ -48,12 +54,14 @@ export const fields = [
 	},
 	{
 		entity: 'Heat pump',
+		geoPrefix: 'property',
 		id: 'hp_id_brand',
 		label: 'Brand',
 		type: 'string',
 	},
 	{
 		entity: 'Heat pump',
+		geoPrefix: 'property',
 		id: 'hp_id_model',
 		label: 'Model',
 		type: 'string',
@@ -63,6 +71,7 @@ export const fields = [
 
 	{
 		entity: 'Installation',
+		geoPrefix: 'property',
 		id: 'installation_cost',
 		formatSpecifier: '.3s',
 		label: 'Cost',
@@ -179,72 +188,84 @@ export const fields = [
 
 	{
 		entity: 'Property',
+		geoPrefix: 'property',
 		id: 'property_energy_efficiency_floor',
 		label: 'Floor energy efficiency',
 		type: 'category',
 	},
 	{
 		entity: 'Property',
+		geoPrefix: 'property',
 		id: 'property_energy_efficiency_hot_water',
 		label: 'Hot water energy efficiency',
 		type: 'category',
 	},
 	{
 		entity: 'Property',
+		geoPrefix: 'property',
 		id: 'property_energy_efficiency_lighting',
 		label: 'Lighting energy efficiency',
 		type: 'category',
 	},
 	{
 		entity: 'Property',
+		geoPrefix: 'property',
 		id: 'property_energy_efficiency_main_heat',
 		label: 'Main heat energy efficiency',
 		type: 'category',
 	},
 	{
 		entity: 'Property',
+		geoPrefix: 'property',
 		id: 'property_energy_efficiency_roof',
 		label: 'Roof heat energy efficiency',
 		type: 'category',
 	},
 	{
 		entity: 'Property',
+		geoPrefix: 'property',
 		id: 'property_energy_efficiency_walls',
 		label: 'Walls heat energy efficiency',
 		type: 'category',
 	},
 	{
 		entity: 'Property',
+		geoPrefix: 'property',
 		id: 'property_energy_efficiency_windows',
 		label: 'Windows heat energy efficiency',
 		type: 'category',
 	},
 	{
 		entity: 'Property',
+		geoPrefix: 'property',
 		id: 'property_energy_rating_current',
 		label: 'Current energy rating',
 		type: 'category',
 	},
 	{
 		entity: 'Property',
+		geoPrefix: 'property',
 		id: 'property_energy_rating_potential',
 		label: 'Potential energy rating',
 		type: 'category',
 	},
 	{
 		entity: 'Property',
+		geoPrefix: 'property',
 		id: 'property_feature_age_band',
 		label: 'Age band',
 		type: 'category',
 	},
 	{
 		entity: 'Property',
+		geoPrefix: 'property',
 		id: 'property_feature_built_form',
 		label: 'Built form',
 		type: 'category',
 	},
 	{
 		entity: 'Property',
+		geoPrefix: 'property',
 		id: 'property_feature_glazed_area',
 		formatSpecifier: '.1f',
 		label: 'Glazed area',
@@ -253,12 +274,14 @@ export const fields = [
 	},
 	{
 		entity: 'Property',
+		geoPrefix: 'property',
 		id: 'property_feature_glazed_type',
 		label: 'Glazed type',
 		type: 'category',
 	},
 	{
 		entity: 'Property',
+		geoPrefix: 'property',
 		id: 'property_feature_number_habitable_rooms',
 		formatSpecifier: '.1f',
 		label: 'Number of habitable rooms',
@@ -266,6 +289,7 @@ export const fields = [
 	},
 	{
 		entity: 'Property',
+		geoPrefix: 'property',
 		id: 'property_feature_total_floor_area',
 		formatSpecifier: 'd',
 		label: 'Floor area',
@@ -274,6 +298,7 @@ export const fields = [
 	},
 	{
 		entity: 'Property',
+		geoPrefix: 'property',
 		id: 'property_feature_type',
 		label: 'Type',
 		type: 'category',
@@ -358,24 +383,28 @@ export const fields = [
 	},
 	// {
 	// 	entity: 'Property',
+	// 	geoPrefix: 'property',
 	// 	id: 'property_supply_heating_fuel_type',
 	// 	label: 'Heating fuel type',
 	// 	type: 'category',
 	// },
 	// {
 	// 	entity: 'Property',
+	// 	geoPrefix: 'property',
 	// 	id: 'property_supply_heating_system',
 	// 	label: 'Heating system',
 	// 	type: 'category',
 	// },
 	{
 		entity: 'Property',
+		geoPrefix: 'property',
 		id: 'property_supply_mains_gas_flag',
 		label: 'Heating mains gas?',
 		type: 'category',
 	},
 	// {
 	// 	entity: 'Property',
+	// 	geoPrefix: 'property',
 	// 	id: 'property_supply_photovoltaic',
 	// 	formatSpecifier: '.3s',
 	// 	label: 'Photovoltaic supply',
@@ -384,12 +413,14 @@ export const fields = [
 	// },
 	// {
 	// 	entity: 'Property',
+	//	geoPrefix: 'property',
 	// 	id: 'property_supply_solar_water_heating_flag',
 	// 	label: 'Solar water heating?',
 	// 	type: 'category',
 	// },
 	{
 		entity: 'Property',
+		geoPrefix: 'property',
 		id: 'property_tenure',
 		label: 'Tenure',
 		type: 'category',

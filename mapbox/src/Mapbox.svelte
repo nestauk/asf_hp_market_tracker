@@ -11,9 +11,12 @@
 	export let _zoom = null;
 	export let accessToken;
 	export let bounds;
+	export let eventsHandlers;
 	export let getFeatureState;
 	export let isAnimated = true;
+	export let isDblClickEnabled;
 	export let isInteractive = true;
+	export let reactiveLayers;
 	export let style;
 	export let visibleLayers;
 	export let withScaleControl = true;
@@ -28,9 +31,12 @@
 		{_zoom}
 		{accessToken}
 		{bounds}
+		{eventsHandlers}
 		{getFeatureState}
 		{isAnimated}
+		{isDblClickEnabled}
 		{isInteractive}
+		{reactiveLayers}
 		{style}
 		{visibleLayers}
 		{withScaleControl}

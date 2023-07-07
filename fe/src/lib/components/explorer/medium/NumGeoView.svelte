@@ -18,8 +18,6 @@
 		MAPBOXGL_ACCESSTOKEN as accessToken,
 	} from '$lib/config/map.js';
 	import {
-		_bbox_WS_EN,
-		_bbox_WSEN,
 		_featureNameId,
 		_mapStyle,
 		_zoom,
@@ -79,14 +77,11 @@
 		getFeatureState = feature => {
 			const {properties: {[$_featureNameId]: featureName}} = feature;
 			const item = itemsIndex[featureName];
-
-			if (item) {
-				const featureState = {
-					fill: colorScale(valueAccessor(item))
-				}
-
-				return featureState;
+			const featureState = {
+				fill: item ? colorScale(valueAccessor(item)) : null
 			}
+
+			return featureState;
 		}
 
 		doDraw = true;
@@ -126,6 +121,7 @@
 				bounds={DEFAULT_BBOX_WS_EN}
 				isAnimated={false}
 				isInteractive={true}
+				reactiveLayers={[regionType]}
 				slot='col1'
 				style={$_mapStyle}
 				visibleLayers={['nuts21_0', regionType]}

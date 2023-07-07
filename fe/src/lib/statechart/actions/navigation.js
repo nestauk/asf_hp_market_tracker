@@ -26,7 +26,7 @@ export const updateNavStores = assign((ctx, {page}) => {
 
 export const updateCtxSelectionFromPage = assign(ctx => {
 	// ?foo=1 => {foo: 1}
-	const searchParams = _.fromPairs(Array.from(ctx.page.url.searchParams.entries()));
+	const searchParams = _.fromPairs(Array.from(ctx.page.url.searchParams.entries())); // TODO `searchParamsToObject`
 	const parsedSearchParams = _.mapValues(
 		searchParams,
 		value => {
@@ -45,13 +45,35 @@ export const updateCtxSelectionFromPage = assign(ctx => {
 });
 
 export const navigateToFullSearchParams = ctx => {
-	const risonifiedSelection = risonifyValues(ctx.selection);
+	/* searchParams */
+
 	const searchParams =
 		_.fromPairs(Array.from(ctx.page.url.searchParams.entries()));
-	const fullSearchParams = objectToSearchParams({
-		...risonifiedSelection,
-		...searchParams,
+	const parsedSearchParams = _.mapValues(
+		searchParams,
+		value => {
+			const dontParseIt = value === '' || isNotNaN(parseInt(value[0]));
+			const result = dontParseIt ? value : RISON.parse(value);
+
+			return result;
+		}
+	);
+
+	/* merge selection & parsedSearchParams */
+
+	const newFilters = RISON.stringify({
+		...ctx.selection.filters,
+		...parsedSearchParams.filters,
 	});
+	const newSelection = {
+		...ctx.selection,
+		...parsedSearchParams,
+		filters: newFilters
+	};
+
+	/* serialise values and navigate */
+
+	const fullSearchParams = objectToSearchParams(newSelection);
 	const url =
 		`${window.location.origin}${window.location.pathname}?${fullSearchParams}`;
 
@@ -82,7 +104,7 @@ export const navigateToNextParams = ctx => {
 	const url =
 		`${window.location.origin}${window.location.pathname}?${ctx.nextSearchParams}`;
 
-	// console.log('next url:', url)
+	// console.log('next url:', url);
 
 	goto(url, {
 		keepFocus: true,

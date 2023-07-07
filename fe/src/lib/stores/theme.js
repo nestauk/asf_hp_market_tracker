@@ -99,6 +99,16 @@ export const _xorSelectorTheme = derived(
 		textColor: currThemeVars['--colorText'],
 	})
 );
+export const _xorNavigatorTheme = derived(
+	_currThemeVars,
+	currThemeVars => ({
+		border: currThemeVars['--border'],
+		colorBackground: currThemeVars['--colorBackground'],
+		colorIcon: currThemeVars['--colorIcon'],
+		colorIconDisabled: currThemeVars['--colorIconDisabled'],
+		textColor: currThemeVars['--colorText'],
+	})
+);
 
 export const _switchTheme = derived(
 	_currThemeVars,

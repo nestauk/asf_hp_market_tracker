@@ -5,7 +5,10 @@ export const context = {
 		categsGeoSortBy: 'total',
 		categsStreamgraphsSorting: 'off',
 		categsTimeGraph: 'trends',
-		filters: {},
+		filters: {
+			propertyRegionNames: [],
+			propertyRegionType: 'itl21_1',
+		},
 		interval: '1y',
 		numTimeGraph: 'percentiles',
 		regionType: 'itl21_1',
@@ -13,7 +16,7 @@ export const context = {
 		stringsGeoSortBy: 'total',
 		stringsStreamgraphsSorting: 'off',
 		stringsTimeGraph: 'trends',
-		stringsTopCount: 20, // this is a filter
+		stringsTopCount: 20,
 		trendType: 'progressive',
 	},
 	viewQueryPath: '',
