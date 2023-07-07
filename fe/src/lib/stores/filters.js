@@ -118,10 +118,10 @@ export const _filterQuery = derived(_filters, filters => {
 		return '';
 	}
 
-	const query = {};
-	_.forEach(
-		_.values(filters),
+	const query = _.mapValues(
+		filters,
 		filter => {
+			let value;
 			if (filter.type === 'number' || filter.type === 'date') {
 				const subQuery = {};
 				if (filter.max !== filter.Max) {
@@ -131,13 +131,15 @@ export const _filterQuery = derived(_filters, filters => {
 					subQuery.gte = filter.min;
 				}
 				if (isObjNotEmpty(subQuery)) {
-					query[filter.id] = subQuery;
+					value = subQuery;
 				}
 			} else if (filter.type === 'category') {
 				if (_.someIn(filter.values, ({selected}) => !selected)) {
-					query[filter.id] = getSelectedCats(filter.values);
+					value = getSelectedCats(filter.values);
 				}
 			}
+
+			return value;
 		}
 	);
 
