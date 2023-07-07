@@ -6,7 +6,7 @@
 	import * as _ from 'lamb';
 
 	import {_staticData} from '$lib/stores/data.js';
-	import {_filters, getFilter, updateFilter} from '$lib/stores/filters.js';
+	import {_groupedFilters, _filters} from '$lib/stores/filters.js';
 	import {_selection} from '$lib/stores/navigation.js';
 	import {formatDate} from '$lib/utils/date.js';
 	import {getDocCount} from '$lib/utils/getters.js';
@@ -74,14 +74,12 @@
 	const stopDragging = event => {
 		event.target.onpointermove = null;
 		event.target.releasePointerCapture(event.pointerId);
-		updateFilter(
-			'Installation',
-			'installation_date',
-			{
-				min: min.getTime(),
-				max: max.getTime()
-			}
-		);
+		$_filters.installation_date = {
+			...$_filters.installation_date,
+			min: min.getTime(),
+			max: max.getTime()
+		};
+		console.log('$_filters.installation_date', $_filters.installation_date);
 	}
 
 	let bbox;
@@ -101,9 +99,11 @@
 	let yScale;
 
 	$: if ($_filters) {
-		const installation_date = $_filters[1].values[1];
+		const installation_date = $_filters.installation_date;
 		Max = installation_date.Max;
 		Min = installation_date.Min;
+		max = installation_date.max;
+		min = installation_date.min;
 	}
 	$: ({inlineSize: width, blockSize: height} = $_size);
 	$: if ($_staticData?.timelines) {
@@ -142,13 +142,8 @@
 
 		/* snap handles when data changes */
 
-		const {min: unsnappedMin, max: unsnappedMax} = getFilter(
-			'Installation',
-			'installation_date'
-		);
-
-		let minIndex = getClosestTickIndex(binsTicks, unsnappedMin);
-		let maxIndex = getClosestTickIndex(binsTicks, unsnappedMax);
+		let minIndex = getClosestTickIndex(binsTicks, min);
+		let maxIndex = getClosestTickIndex(binsTicks, max);
 
 		if (maxIndex <= minIndex) {
 			maxIndex = Math.min(minIndex + 1, binsTicks.length - 1);

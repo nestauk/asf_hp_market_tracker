@@ -62,6 +62,8 @@ const getTimelinesExtent = _.pipe([
 /* all */
 
 const formatFilters = _.pipe([
+	_.when(_.isUndefined, _.always({})),
+	_.values,
 	_.groupBy(_.getKey('entity')),
 	objectToKeyValuesArray
 ]);
@@ -88,66 +90,23 @@ _staticData.subscribe(staticData => {
 				getTimelinesExtent(staticData.timelines)
 			);
 
-			const filters = formatFilters([
-				...numFilters,
-				...catFilters,
-				timelineFilter
-			]);
+			const filters = _.index(
+				[
+					...numFilters,
+					...catFilters,
+					timelineFilter
+				],
+				_.getKey('id')
+			);
+
+			console.log('in _filters', _.values(filters))
 
 			return filters;
 		});
 	}
 });
 
-// _filters.subscribe(filters => {
-// 	console.log(filters)
-// });
-
-export const updateFilter = (entityName, fieldName, objToMerge) => {
-	_filters.update(filters => {
-		const entityIndex = _.findIndex(
-			filters,
-			_.hasKeyValue('key', entityName)
-		);
-		const fieldIndex = _.findIndex(
-			filters[entityIndex].values,
-			_.hasKeyValue('id', fieldName)
-		);
-		const field = filters[entityIndex].values[fieldIndex];
-
-		filters[entityIndex].values[fieldIndex] = {
-			...field,
-			...objToMerge
-		};
-
-		return filters;
-	});
-}
-
-export const getFilter = (entityName, fieldName) => {
-	const filters = get(_filters);
-
-	if (!filters) {
-		return {};
-	}
-	const entityIndex = _.findIndex(
-		filters,
-		_.hasKeyValue('key', entityName)
-	);
-	if (entityIndex === -1) {
-		return {};
-	}
-	const fieldIndex = _.findIndex(
-		filters[entityIndex].values,
-		_.hasKeyValue('id', fieldName)
-	);
-	if (fieldIndex === -1) {
-		return {};
-	}
-	const filter = filters[entityIndex].values[fieldIndex] || {};
-
-	return filter;
-}
+export const _groupedFilters = derived(_filters, formatFilters);
 
 const getSelectedCats = _.pipe([
 	_.filterWith(_.hasKeyValue('selected', true)),
