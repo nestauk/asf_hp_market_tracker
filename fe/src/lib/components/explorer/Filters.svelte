@@ -6,13 +6,13 @@
 	import RangeSlider from '$lib/components/svizzle/RangeSlider.svelte';
 	import Scroller from '$lib/components/svizzle/Scroller.svelte';
 	import {_staticData} from '$lib/stores/data.js';
-	import {_groupedFilters, _filters} from '$lib/stores/filters.js';
+	import {_filtersBar, _filters} from '$lib/stores/filters.js';
 	import {_rangeSlidersTheme} from '$lib/stores/theme.js';
 </script>
 
-{#if $_groupedFilters}
+{#if $_filtersBar}
 	<Scroller>
-		{#each $_groupedFilters as {key: entity, values: metrics}}
+		{#each $_filtersBar as {key: entity, values: metrics}}
 			<h2>{entity}</h2>
 			<ul>
 				{#each metrics as metric}
