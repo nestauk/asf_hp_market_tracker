@@ -1,7 +1,7 @@
 <script>
 	import * as _ from 'lamb';
 
-	import Filters from '$lib/components/explorer/Filters.svelte';
+	import FiltersBar from '$lib/components/explorer/FiltersBar.svelte';
 	import MetricSelector from '$lib/components/explorer/MetricSelector.svelte';
 	import ViewMedium from '$lib/components/explorer/medium/ViewMedium.svelte';
 	import TimeLineHistogram from '$lib/components/explorer/medium/TimeLineHistogram.svelte';
@@ -21,7 +21,7 @@
 
 <div class='ExplorerMedium'>
 	<nav class='filters'>
-		<Filters />
+		<FiltersBar />
 	</nav>
 	<nav class='metrics'>
 		<MetricSelector />

@@ -1,6 +1,7 @@
 import {
 	applyFnMap,
 	concatValues,
+	getId,
 	getKey,
 	isObjNotEmpty,
 	makeMergeAppliedFnMap,
@@ -10,7 +11,7 @@ import {
 import {extent} from 'd3-array';
 import * as _ from 'lamb';
 import {RISON} from 'rison2';
-import {get, derived, writable} from 'svelte/store';
+import {derived, writable} from 'svelte/store';
 
 import {
 	categoricalMetricsById,
@@ -62,6 +63,8 @@ const getTimelinesExtent = _.pipe([
 /* all */
 
 const formatFilters = _.pipe([
+	_.when(_.isUndefined, _.always({})),
+	_.values,
 	_.groupBy(_.getKey('entity')),
 	objectToKeyValuesArray
 ]);
@@ -88,105 +91,62 @@ _staticData.subscribe(staticData => {
 				getTimelinesExtent(staticData.timelines)
 			);
 
-			const filters = formatFilters([
-				...numFilters,
-				...catFilters,
-				timelineFilter
-			]);
+			const filters = _.index(
+				[
+					...numFilters,
+					...catFilters,
+					timelineFilter
+				],
+				getId
+			);
 
 			return filters;
 		});
 	}
 });
 
-// _filters.subscribe(filters => {
-// 	console.log(filters)
-// });
-
-export const updateFilter = (entityName, fieldName, objToMerge) => {
-	_filters.update(filters => {
-		const entityIndex = _.findIndex(
-			filters,
-			_.hasKeyValue('key', entityName)
-		);
-		const fieldIndex = _.findIndex(
-			filters[entityIndex].values,
-			_.hasKeyValue('id', fieldName)
-		);
-		const field = filters[entityIndex].values[fieldIndex];
-
-		filters[entityIndex].values[fieldIndex] = {
-			...field,
-			...objToMerge
-		};
-
-		return filters;
-	});
-}
-
-export const getFilter = (entityName, fieldName) => {
-	const filters = get(_filters);
-
-	if (!filters) {
-		return {};
-	}
-	const entityIndex = _.findIndex(
-		filters,
-		_.hasKeyValue('key', entityName)
-	);
-	if (entityIndex === -1) {
-		return {};
-	}
-	const fieldIndex = _.findIndex(
-		filters[entityIndex].values,
-		_.hasKeyValue('id', fieldName)
-	);
-	if (fieldIndex === -1) {
-		return {};
-	}
-	const filter = filters[entityIndex].values[fieldIndex] || {};
-
-	return filter;
-}
+export const _filtersBar = derived(_filters, formatFilters);
 
 const getSelectedCats = _.pipe([
 	_.filterWith(_.hasKeyValue('selected', true)),
 	_.mapWith(getKey)
 ]);
 
-export const getFilterQuery = filters => {
+const getQueryForFilter = filter => {
+	let value;
+	if (filter.type === 'number' || filter.type === 'date') {
+		const subQuery = {};
+		if (filter.max !== filter.Max) {
+			subQuery.lte = filter.max;
+		}
+		if (filter.min !== filter.Min) {
+			subQuery.gte = filter.min;
+		}
+		if (isObjNotEmpty(subQuery)) {
+			value = subQuery;
+		}
+	} else if (filter.type === 'category') {
+		if (_.someIn(filter.values, ({selected}) => !selected)) {
+			value = getSelectedCats(filter.values);
+		}
+	}
+
+	return value;
+}
+
+const getQueryFromFilters = _.pipe([
+	_.mapValuesWith(getQueryForFilter),
+	_.skipIf(_.isUndefined)
+]);
+
+export const _filterQuery = derived(_filters, filters => {
 	if (!filters) {
 		return '';
 	}
 
-	const query = {};
-	filters.forEach(({values: metrics}) => {
-		_.forEach(
-			metrics,
-			metric => {
-				if (metric.type === 'number' || metric.type === 'date') {
-					const subQuery = {};
-					if (metric.max !== metric.Max) {
-						subQuery.lte = metric.max;
-					}
-					if (metric.min !== metric.Min) {
-						subQuery.gte = metric.min;
-					}
-					if (isObjNotEmpty(subQuery)) {
-						query[metric.id] = subQuery;
-					}
-				} else if (metric.type === 'category') {
-					if (_.someIn(metric.values, ({selected}) => !selected)) {
-						query[metric.id] = getSelectedCats(metric.values);
-					}
-				}
-			}
-		);
-	});
+	const query = getQueryFromFilters(filters);
 
 	const result = isObjNotEmpty(query) ? RISON.stringify(query) : '';
 
 	return result;
-}
-
-export const _filterQuery = derived(_filters, getFilterQuery);
+});
