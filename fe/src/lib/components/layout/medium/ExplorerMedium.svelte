@@ -6,17 +6,16 @@
 	import ViewMedium from '$lib/components/explorer/medium/ViewMedium.svelte';
 	import TimeLineHistogram from '$lib/components/explorer/medium/TimeLineHistogram.svelte';
 	import {explorerActor} from '$lib/statechart/index.js';
-	import {_filters, getFilterQuery} from '$lib/stores/filters.js';
+	import {_filterQuery} from '$lib/stores/filters.js';
 
 	let lastFilterQuery = '';
 
-	$: filterQuery = getFilterQuery($_filters);
-	$: if (filterQuery !== lastFilterQuery) {
+	$: if ($_filterQuery !== lastFilterQuery) {
 		explorerActor.send({
 			type: 'SELECTION_CHANGED',
-			newValues: {filterQuery}
+			newValues: {filterQuery: $_filterQuery}
 		});
-		lastFilterQuery = filterQuery;
+		lastFilterQuery = $_filterQuery;
 	}
 </script>
 

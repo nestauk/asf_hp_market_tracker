@@ -10,7 +10,7 @@ import {
 import {extent} from 'd3-array';
 import * as _ from 'lamb';
 import {RISON} from 'rison2';
-import {get, writable} from 'svelte/store';
+import {get, derived, writable} from 'svelte/store';
 
 import {
 	categoricalMetricsById,
@@ -99,9 +99,9 @@ _staticData.subscribe(staticData => {
 	}
 });
 
-_filters.subscribe(filters => {
-	console.log(filters)
-});
+// _filters.subscribe(filters => {
+// 	console.log(filters)
+// });
 
 export const updateFilter = (entityName, fieldName, objToMerge) => {
 	_filters.update(filters => {
@@ -185,9 +185,8 @@ export const getFilterQuery = filters => {
 	});
 
 	const result = isObjNotEmpty(query) ? RISON.stringify(query) : '';
-	console.log('in _filterQuery', result)
 
 	return result;
 }
 
-// export const _filterQuery = derived(_filters, getFilterQuery);
+export const _filterQuery = derived(_filters, getFilterQuery);

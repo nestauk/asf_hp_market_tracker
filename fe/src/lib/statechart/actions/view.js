@@ -311,8 +311,6 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 
 	let viewQueryPath = endpoint;
 
-	console.log('filterQuery', ctx.selection.filterQuery);
-
 	if (ctx.selection.filterQuery !== '') {
 		params.filter = ctx.selection.filterQuery;
 	}
@@ -321,7 +319,7 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 		viewQueryPath = `${endpoint}?${new URLSearchParams(params)}`;
 	}
 
-	console.log('viewQueryPath', viewQueryPath);
+	// console.log('viewQueryPath', viewQueryPath);
 
 	return {...ctx, viewQueryPath}
 });
