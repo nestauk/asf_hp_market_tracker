@@ -45,6 +45,7 @@
 		"dev": "vite dev",
 		"linksvizzles": "npm install && npm link @svizzle/dev @svizzle/dom @svizzle/ui @svizzle/utils && npm list",
 		"lint": "eslint .",
+		"makedata": "node src/bin/regions/hierarchy.js",
 		"preview": "vite preview",
 		"redev": "npm run rmkv && npm run dev",
 		"reinstall": "npm run uninstall && npm install",
