@@ -23,7 +23,7 @@
 	const getSortedInputsStates = _.pipe([
 		getInputStatesCopy,
 		_.sortWith([getKey])
-	])
+	]);
 
 	const makeIsKey = key => _.pipe([getKey, _.is(key)]);
 	const makeClearAllBut = key => _.mapWith(

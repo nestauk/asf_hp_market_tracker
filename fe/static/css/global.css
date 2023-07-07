@@ -138,6 +138,8 @@ a {
 
 	--colorTimelineActiveBinFill: #eee;
 	--colorTimelineActiveBinStroke: #333;
+	--colorTimelineInactiveBinFill: white;
+	--colorTimelineInactiveBinStroke: silver;
 
 	/* cat filters */
 
@@ -205,6 +207,8 @@ a {
 
 	--colorTimelineActiveBinFill: #333;
 	--colorTimelineActiveBinStroke: #ccc;
+	--colorTimelineInactiveBinFill: black;
+	--colorTimelineInactiveBinStroke: #555;
 
 	/* cat filters */
 
