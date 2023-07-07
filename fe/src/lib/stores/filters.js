@@ -71,8 +71,14 @@ const formatFilters = _.pipe([
 
 export const _filters = writable();
 
-_staticData.subscribe(staticData => {
+export const initFilters = filterQuery => {
+	const staticData = get(_staticData);
 	if (staticData) {
+		let parsedFilters = {};
+		if (filterQuery !== '') {
+			parsedFilters = RISON.parse(filterQuery);
+		}
+		console.log('initFilters', staticData, parsedFilters)
 		_filters.update(() => {
 			const numFiltersById = mergeWithMerge(
 				numericMetricsById,
@@ -103,7 +109,7 @@ _staticData.subscribe(staticData => {
 			return filters;
 		});
 	}
-});
+}
 
 export const _filtersBar = derived(_filters, formatFilters);
 

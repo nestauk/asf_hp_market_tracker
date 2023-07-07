@@ -1,7 +1,7 @@
 import {get} from 'svelte/store';
 import {assign} from 'xstate';
 
-import {_viewCache} from '$lib/stores/data.js';
+import {_staticData, _viewCache} from '$lib/stores/data.js';
 import {
 	_activeViewType,
 	_currentMetric,
@@ -9,6 +9,7 @@ import {
 } from '$lib/stores/navigation.js';
 import {_isViewLoading, _viewData} from '$lib/stores/view.js';
 import {isObjNotEmpty} from '@svizzle/utils';
+import { initFilters } from '$lib/stores/filters.js';
 
 /* loading icon */
 
@@ -352,3 +353,6 @@ export const updateViewDataStore = (ctx, {data: response}) => {
 
 	_viewData.set({response, page});
 }
+
+export const setFiltersFromParams = ({selection: {filterQuery}}) =>
+	initFilters(filterQuery);

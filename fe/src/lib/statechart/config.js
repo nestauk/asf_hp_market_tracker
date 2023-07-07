@@ -38,6 +38,9 @@ export const config = {
 						PAGE_CHANGED: {
 							target: '.CheckURL',
 							actions: 'updateNavStores',
+						},
+						STATIC_DATA_CHANGED: {
+							target: '.CheckURL',
 						}
 					},
 					states: {
@@ -46,7 +49,10 @@ export const config = {
 								{
 									target: '#HPMT.PageInteractive.ViewData.Dirty.CheckViewData',
 									cond: 'hasFullSearchParams',
-									actions: 'updateCtxSelectionFromPage'
+									actions: [
+										'updateCtxSelectionFromPage',
+										'setFiltersFromParams'
+									]
 								},
 								{
 									target: '#HPMT.PageInteractive.ViewData',
@@ -150,7 +156,10 @@ export const config = {
 							}
 						},
 						Ready: {
-							entry: 'hideFiltersAndTimelineLoadingIcon'
+							entry: [
+								'hideFiltersAndTimelineLoadingIcon',
+								'sendStaticDataChanged'
+							]
 						}
 					}
 				},

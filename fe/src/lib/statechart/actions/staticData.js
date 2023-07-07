@@ -1,4 +1,6 @@
 import * as _ from 'lamb';
+import {get} from 'svelte/store';
+import {raise} from 'xstate';
 
 import {_staticData} from '$lib/stores/data.js';
 
@@ -28,3 +30,6 @@ export const updateStaticDataStore = (ctx, {data: {timelines, numStats, catStats
 		timelines: indexTimelines(timelines),
 	});
 }
+export const sendStaticDataChanged = raise(
+	'STATIC_DATA_CHANGED'
+);
