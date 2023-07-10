@@ -11,7 +11,7 @@ import {
 import {extent} from 'd3-array';
 import * as _ from 'lamb';
 import {RISON} from 'rison2';
-import {derived, writable} from 'svelte/store';
+import {derived, get, writable} from 'svelte/store';
 
 import {
 	categoricalMetricsById,
@@ -71,14 +71,14 @@ const formatFilters = _.pipe([
 
 export const _filters = writable();
 
-export const initFilters = filterQuery => {
+export const initFilters = (filtersRison = '') => {
 	const staticData = get(_staticData);
 	if (staticData) {
+		console.log('filtersRison', filtersRison);
 		let parsedFilters = {};
-		if (filterQuery !== '') {
-			parsedFilters = RISON.parse(filterQuery);
+		if (filtersRison !== '') {
+			parsedFilters = RISON.parse(filtersRison);
 		}
-		console.log('initFilters', staticData, parsedFilters)
 		_filters.update(() => {
 			const numFiltersById = mergeWithMerge(
 				numericMetricsById,
@@ -97,7 +97,7 @@ export const initFilters = filterQuery => {
 				getTimelinesExtent(staticData.timelines)
 			);
 
-			const filters = _.index(
+			const defaultFilters = _.index(
 				[
 					...numFilters,
 					...catFilters,
@@ -105,6 +105,13 @@ export const initFilters = filterQuery => {
 				],
 				getId
 			);
+
+			const filters = {
+				...defaultFilters,
+				...parsedFilters
+			}
+
+			console.log('initFilters', staticData, parsedFilters)
 
 			return filters;
 		});

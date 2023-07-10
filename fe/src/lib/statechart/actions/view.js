@@ -312,10 +312,10 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 
 	let viewQueryPath = endpoint;
 
-	if (ctx.selection.filterQuery !== '') {
+/* 	if (ctx.selection.filterQuery !== '') {
 		params.filter = ctx.selection.filterQuery;
 	}
-
+ */
 	if (isObjNotEmpty(params)) {
 		viewQueryPath = `${endpoint}?${new URLSearchParams(params)}`;
 	}
@@ -354,5 +354,5 @@ export const updateViewDataStore = (ctx, {data: response}) => {
 	_viewData.set({response, page});
 }
 
-export const setFiltersFromParams = ({selection: {filterQuery}}) =>
-	initFilters(filterQuery);
+export const setFiltersFromParams = ({selection: {filters}}) =>
+	initFilters(filters);

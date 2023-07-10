@@ -5,7 +5,7 @@ export const context = {
 		categsGeoSortBy: 'total',
 		categsStreamgraphsSorting: 'off',
 		categsTimeGraph: 'trends',
-		filterQuery: '',
+		filters: '',
 		interval: '1y',
 		numTimeGraph: 'percentiles',
 		regionType: 'itl21_1',
