@@ -62,7 +62,7 @@ export const _regionLayers = derived(
 			source: 'protomaps',
 			'source-layer': 'country21',
 			type: 'fill',
-			paint: defaultLayerPaint	
+			paint: defaultLayerPaint
 		},
 		{
 			id: 'itl21_1',
@@ -121,7 +121,8 @@ export const _mapStyle = derived(
 		sources: {
 			protomaps: {
 				type: 'vector',
-				tiles: ['https://d21cr7yltjd5j0.cloudfront.net/nuts21_0_country21_itl21_1_itl21_2_itl21_3_lad21_msoa11_lsoa11/{z}/{x}/{y}.mvt']
+				tiles: ['https://d21cr7yltjd5j0.cloudfront.net/nuts21_0_country21_itl21_1_itl21_2_itl21_3_lad21_msoa11_lsoa11/{z}/{x}/{y}.mvt'],
+				maxzoom: 14
 			}
 		}
 	})
