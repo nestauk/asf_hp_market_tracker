@@ -6,7 +6,7 @@
 	import RangeSlider from '$lib/components/svizzle/RangeSlider.svelte';
 	import Scroller from '$lib/components/svizzle/Scroller.svelte';
 	import {_staticData} from '$lib/stores/data.js';
-	import {_filtersBar, _filters} from '$lib/stores/filters.js';
+	import {_filtersBar, _filters, sendFiltersChanged} from '$lib/stores/filters.js';
 	import {_rangeSlidersTheme} from '$lib/stores/theme.js';
 </script>
 
@@ -30,13 +30,18 @@
 										on:changed={({detail: {max, min}}) => {
 											$_filters[metric.id].max = max;
 											$_filters[metric.id].min = min;
+											sendFiltersChanged();
 										}}
 										theme={$_rangeSlidersTheme}
 									/>
 								{:else if metric.type === 'category'}
 									<CategorySelector
 										label={metric.label}
-										bind:categories={$_filters[metric.id].values}
+										categories={$_filters[metric.id].values}
+										on:applied={({detail}) => {
+											$_filters[metric.id].values = detail;
+											sendFiltersChanged();
+										}}
 									/>
 								{/if}
 							</div>

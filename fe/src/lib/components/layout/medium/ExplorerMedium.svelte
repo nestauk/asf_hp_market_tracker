@@ -1,25 +1,10 @@
 <script>
 	import * as _ from 'lamb';
-	import {RISON} from 'rison2';
 
 	import FiltersBar from '$lib/components/explorer/FiltersBar.svelte';
 	import MetricSelector from '$lib/components/explorer/MetricSelector.svelte';
 	import ViewMedium from '$lib/components/explorer/medium/ViewMedium.svelte';
 	import TimeLineHistogram from '$lib/components/explorer/medium/TimeLineHistogram.svelte';
-	import {explorerActor} from '$lib/statechart/index.js';
-	import {_filters} from '$lib/stores/filters.js';
-
-	let lastFilters = '';
-	let filtersRison;
-
-	$: filtersRison = $_filters ? RISON.stringify($_filters) : '';
-	$: if (filtersRison !== lastFilters) {
-		explorerActor.send({
-			type: 'SELECTION_CHANGED',
-			newValues: {filters: filtersRison}
-		});
-		lastFilters = filtersRison;
-	}
 </script>
 
 <div class='ExplorerMedium'>

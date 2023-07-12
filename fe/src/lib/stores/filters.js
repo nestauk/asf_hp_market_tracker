@@ -18,6 +18,7 @@ import {
 	dateMetricsById,
 	numericMetricsById,
 } from '$lib/data/metrics.js';
+import {explorerActor} from '$lib/statechart/index.js';
 import {_staticData} from '$lib/stores/data.js';
 import {objectToKeyValuesArray, pluckKeySorted} from '$lib/utils/svizzle/utils';
 
@@ -74,7 +75,7 @@ export const _filters = writable();
 export const initFilters = (filtersRison = '') => {
 	const staticData = get(_staticData);
 	if (staticData) {
-		console.log('filtersRison', filtersRison);
+		// console.log('filtersRison', filtersRison);
 		let parsedFilters = {};
 		if (filtersRison !== '') {
 			parsedFilters = RISON.parse(filtersRison);
@@ -147,12 +148,12 @@ const getQueryForFilter = filter => {
 	return value;
 }
 
-const getQueryFromFilters = _.pipe([
+export const getQueryFromFilters = _.pipe([
 	_.mapValuesWith(getQueryForFilter),
 	_.skipIf(_.isUndefined)
 ]);
 
-export const _filterQuery = derived(_filters, filters => {
+/* export const _filterQuery = derived(_filters, filters => {
 	if (!filters) {
 		return '';
 	}
@@ -162,4 +163,17 @@ export const _filterQuery = derived(_filters, filters => {
 	const result = isObjNotEmpty(query) ? RISON.stringify(query) : '';
 
 	return result;
-});
+}); */
+
+let lastFilters = '';
+export const sendFiltersChanged = () => {
+	const filters = get(_filters);
+	const filtersRison = filters ? RISON.stringify(filters) : ''
+	if (filtersRison !== lastFilters) {
+		explorerActor.send({
+			type: 'SELECTION_CHANGED',
+			newValues: {filters: filtersRison}
+		});
+		lastFilters = filtersRison;
+	}
+}

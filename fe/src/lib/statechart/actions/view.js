@@ -1,7 +1,8 @@
+import {RISON} from 'rison2';
 import {get} from 'svelte/store';
 import {assign} from 'xstate';
 
-import {_staticData, _viewCache} from '$lib/stores/data.js';
+import {_viewCache} from '$lib/stores/data.js';
 import {
 	_activeViewType,
 	_currentMetric,
@@ -9,7 +10,7 @@ import {
 } from '$lib/stores/navigation.js';
 import {_isViewLoading, _viewData} from '$lib/stores/view.js';
 import {isObjNotEmpty} from '@svizzle/utils';
-import { initFilters } from '$lib/stores/filters.js';
+import {initFilters, getQueryFromFilters} from '$lib/stores/filters.js';
 
 /* loading icon */
 
@@ -312,10 +313,15 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 
 	let viewQueryPath = endpoint;
 
-/* 	if (ctx.selection.filterQuery !== '') {
-		params.filter = ctx.selection.filterQuery;
+	if (ctx.selection.filters !== '') {
+		const filters = RISON.parse(ctx.selection.filters);
+		const query = getQueryFromFilters(filters);
+
+		const queryRison = isObjNotEmpty(query) ? RISON.stringify(query) : '';
+
+		params.filter = queryRison;
 	}
- */
+
 	if (isObjNotEmpty(params)) {
 		viewQueryPath = `${endpoint}?${new URLSearchParams(params)}`;
 	}

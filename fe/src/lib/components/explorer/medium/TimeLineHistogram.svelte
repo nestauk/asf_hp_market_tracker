@@ -6,7 +6,7 @@
 	import * as _ from 'lamb';
 
 	import {_staticData} from '$lib/stores/data.js';
-	import {_filters} from '$lib/stores/filters.js';
+	import {_filters, sendFiltersChanged} from '$lib/stores/filters.js';
 	import {_selection} from '$lib/stores/navigation.js';
 	import {formatDate} from '$lib/utils/date.js';
 	import {getDocCount} from '$lib/utils/getters.js';
@@ -79,6 +79,7 @@
 			min: min.getTime(),
 			max: max.getTime()
 		};
+		sendFiltersChanged();
 	}
 
 	let bbox;
@@ -97,8 +98,8 @@
 	let xTicks;
 	let yScale;
 
-	$: if ($_filters) {
-		const installation_date = $_filters.installation_date;
+	$: installation_date = $_filters?.installation_date
+	$: if (installation_date) {
 		Max = installation_date.Max;
 		Min = installation_date.Min;
 		max = installation_date.max;
