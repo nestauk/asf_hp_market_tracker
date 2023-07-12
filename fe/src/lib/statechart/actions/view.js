@@ -1,16 +1,32 @@
+import {
+	getId,
+	isObjNotEmpty,
+	mergeWithMerge
+} from '@svizzle/utils';
+import * as _ from 'lamb';
 import {RISON} from 'rison2';
 import {get} from 'svelte/store';
 import {assign} from 'xstate';
 
-import {_viewCache} from '$lib/stores/data.js';
+import {
+	categoricalMetricsById,
+	dateMetricsById,
+	numericMetricsById,
+} from '$lib/data/metrics.js';
+import {_viewCache, _staticData} from '$lib/stores/data.js';
 import {
 	_activeViewType,
 	_currentMetric,
 	_currentPage,
 } from '$lib/stores/navigation.js';
 import {_isViewLoading, _viewData} from '$lib/stores/view.js';
-import {isObjNotEmpty} from '@svizzle/utils';
-import {initFilters, getQueryFromFilters} from '$lib/stores/filters.js';
+import {_filters} from '$lib/stores/filters.js';
+import {
+	createNumericFilters,
+	getQueryFromFilters,
+	getCategoricalFiltersPresets,
+	getTimelinesExtent,
+} from '$lib/utils/filters.js';
 
 /* loading icon */
 
@@ -360,5 +376,49 @@ export const updateViewDataStore = (ctx, {data: response}) => {
 	_viewData.set({response, page});
 }
 
-export const setFiltersFromParams = ({selection: {filters}}) =>
-	initFilters(filters);
+export const setFiltersFromParams = ({selection: {filters: filtersRison}}) => {
+	const staticData = get(_staticData);
+	if (staticData) {
+		// console.log('filtersRison', filtersRison);
+		let parsedFilters = {};
+		if (filtersRison !== '') {
+			parsedFilters = RISON.parse(filtersRison);
+		}
+		_filters.update(() => {
+			const numFiltersById = mergeWithMerge(
+				numericMetricsById,
+				staticData.numStats
+			);
+			const numFilters = createNumericFilters(numFiltersById);
+
+			const catFiltersById = mergeWithMerge(
+				categoricalMetricsById,
+				getCategoricalFiltersPresets(staticData.catStats)
+			);
+			const catFilters = _.values(catFiltersById);
+
+			const timelineFilter = mergeWithMerge(
+				dateMetricsById.installation_date,
+				getTimelinesExtent(staticData.timelines)
+			);
+
+			const defaultFilters = _.index(
+				[
+					...numFilters,
+					...catFilters,
+					timelineFilter
+				],
+				getId
+			);
+
+			const filters = {
+				...defaultFilters,
+				...parsedFilters
+			}
+
+			console.log('initFilters', staticData, parsedFilters)
+
+			return filters;
+		});
+	}
+}
