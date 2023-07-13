@@ -51,7 +51,7 @@ export const config = {
 									cond: 'hasFullSearchParams',
 									actions: [
 										'updateCtxSelectionFromPage',
-										'setFiltersFromParams'
+										'updateFilters'
 									]
 								},
 								{

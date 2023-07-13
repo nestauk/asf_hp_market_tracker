@@ -374,7 +374,7 @@ export const updateViewDataStore = (ctx, {data: response}) => {
 	_viewData.set({response, page});
 }
 
-export const setFiltersFromParams = ({selection: {filters: filtersRison}}) => {
+export const updateFilters = ({selection: {filters: filtersRison}}) => {
 	const staticData = get(_staticData);
 	if (staticData) {
 		let parsedFilters = {};
