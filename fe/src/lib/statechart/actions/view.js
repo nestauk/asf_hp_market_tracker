@@ -14,7 +14,6 @@ import {
 	numericMetricsById,
 } from '$lib/data/metrics.js';
 import {_viewCache, _staticData} from '$lib/stores/data.js';
-import {_filters} from '$lib/stores/filters.js';
 import {
 	_activeViewType,
 	_currentMetric,
@@ -329,14 +328,14 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 
 	let viewQueryPath = endpoint;
 
-	if (ctx.selection.filters !== '') {
+/* 	if (ctx.selection.filters !== '') {
 		const filters = RISON.parse(ctx.selection.filters);
 		const query = getQueryFromFilters(filters);
 
 		const queryRison = isObjNotEmpty(query) ? RISON.stringify(query) : '';
 
 		params.filter = queryRison;
-	}
+	} */
 
 	if (isObjNotEmpty(params)) {
 		viewQueryPath = `${endpoint}?${new URLSearchParams(params)}`;
@@ -374,46 +373,47 @@ export const updateViewDataStore = (ctx, {data: response}) => {
 	_viewData.set({response, page});
 }
 
-export const updateFilters = ({selection: {filters: filtersRison}}) => {
+export const updateFilters = assign(({selection}) => {
+	let filters;
 	const staticData = get(_staticData);
 	if (staticData) {
-		let parsedFilters = {};
-		if (filtersRison !== '') {
-			parsedFilters = RISON.parse(filtersRison);
+		const numFiltersById = mergeWithMerge(
+			numericMetricsById,
+			staticData.numStats
+		);
+		const numFilters = createNumericFilters(numFiltersById);
+
+		const catFiltersById = mergeWithMerge(
+			categoricalMetricsById,
+			getCategoricalFiltersPresets(staticData.catStats)
+		);
+		const catFilters = _.values(catFiltersById);
+
+		const timelineFilter = mergeWithMerge(
+			dateMetricsById.installation_date,
+			getTimelinesExtent(staticData.timelines)
+		);
+
+		const defaultFilters = _.index(
+			[
+				...numFilters,
+				...catFilters,
+				timelineFilter
+			],
+			getId
+		);
+
+		const {filters: loadedFilters} = selection
+
+		filters = {
+			...defaultFilters,
+			...loadedFilters
 		}
-		_filters.update(() => {
-			const numFiltersById = mergeWithMerge(
-				numericMetricsById,
-				staticData.numStats
-			);
-			const numFilters = createNumericFilters(numFiltersById);
-
-			const catFiltersById = mergeWithMerge(
-				categoricalMetricsById,
-				getCategoricalFiltersPresets(staticData.catStats)
-			);
-			const catFilters = _.values(catFiltersById);
-
-			const timelineFilter = mergeWithMerge(
-				dateMetricsById.installation_date,
-				getTimelinesExtent(staticData.timelines)
-			);
-
-			const defaultFilters = _.index(
-				[
-					...numFilters,
-					...catFilters,
-					timelineFilter
-				],
-				getId
-			);
-
-			const filters = {
-				...defaultFilters,
-				...parsedFilters
-			}
-
-			return filters;
-		});
 	}
-}
+	return {
+		selection: {
+			...selection,
+			filters
+		}
+	}
+});

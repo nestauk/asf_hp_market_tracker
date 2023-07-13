@@ -1,11 +1,10 @@
 import * as _ from 'lamb';
-import {RISON} from 'rison2';
-import {derived, get, writable} from 'svelte/store';
+import {derived} from 'svelte/store';
 
-import {explorerActor} from '$lib/statechart/index.js';
+import {_selection} from '$lib/stores/navigation.js';
 import {objectToKeyValuesArray} from '$lib/utils/svizzle/utils';
 
-export const _filters = writable();
+export const _filters = derived(_selection, ({filters}) => filters);
 
 export const _filtersBar = derived(
 	_filters,
@@ -16,16 +15,3 @@ export const _filtersBar = derived(
 		objectToKeyValuesArray
 	])
 );
-
-let lastFilters = '';
-export const sendFiltersChanged = () => {
-	const filters = get(_filters);
-	const filtersRison = filters ? RISON.stringify(filters) : ''
-	if (filtersRison !== lastFilters) {
-		explorerActor.send({
-			type: 'SELECTION_CHANGED',
-			newValues: {filters: filtersRison}
-		});
-		lastFilters = filtersRison;
-	}
-}

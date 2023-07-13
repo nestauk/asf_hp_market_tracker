@@ -6,7 +6,6 @@
 	import * as _ from 'lamb';
 
 	import {_staticData} from '$lib/stores/data.js';
-	import {_filters, sendFiltersChanged} from '$lib/stores/filters.js';
 	import {_selection} from '$lib/stores/navigation.js';
 	import {formatDate} from '$lib/utils/date.js';
 	import {getDocCount} from '$lib/utils/getters.js';
@@ -74,12 +73,12 @@
 	const stopDragging = event => {
 		event.target.onpointermove = null;
 		event.target.releasePointerCapture(event.pointerId);
-		$_filters.installation_date = {
+/* 		$_filters.installation_date = {
 			...$_filters.installation_date,
 			min: min.getTime(),
 			max: max.getTime()
 		};
-		sendFiltersChanged();
+		sendFiltersChanged(); */
 	}
 
 	let bbox;
@@ -98,7 +97,7 @@
 	let xTicks;
 	let yScale;
 
-	$: installation_date = $_filters?.installation_date
+	$: installation_date = $_selection.filters?.installation_date
 	$: if (installation_date) {
 		Max = installation_date.Max;
 		Min = installation_date.Min;
@@ -110,7 +109,7 @@
 		items = $_staticData.timelines[$_selection.interval];
 	}
 
-	$: if (height && width && Min && Max) {
+	$: if (items && height && width && Min && Max) {
 
 		/* geometry */
 

@@ -4,9 +4,11 @@
 	import CategorySelector
 		from '$lib/components/explorer/CategorySelector.svelte';
 	import RangeSlider from '$lib/components/svizzle/RangeSlider.svelte';
+	import {explorerActor} from '$lib/statechart/index.js';
 	import Scroller from '$lib/components/svizzle/Scroller.svelte';
 	import {_staticData} from '$lib/stores/data.js';
-	import {_filtersBar, _filters, sendFiltersChanged} from '$lib/stores/filters.js';
+	import {_filtersBar} from '$lib/stores/filters.js';
+	import {_selection} from '$lib/stores/navigation.js';
 	import {_rangeSlidersTheme} from '$lib/stores/theme.js';
 </script>
 
@@ -27,21 +29,21 @@
 										max={metric.max}
 										Min={metric.Min}
 										min={metric.min}
-										on:changed={({detail: {max, min}}) => {
-											$_filters[metric.id].max = max;
+										on:changed={({detail: range}) => {
+/* 											$_filters[metric.id].max = max;
 											$_filters[metric.id].min = min;
-											sendFiltersChanged();
+											sendFiltersChanged(); */
 										}}
 										theme={$_rangeSlidersTheme}
 									/>
 								{:else if metric.type === 'category'}
 									<CategorySelector
 										label={metric.label}
-										categories={$_filters[metric.id].values}
+										categories={metric.values}
 										on:applied={({detail}) => {
-											$_filters[metric.id].values = detail;
+/* 											$_filters[metric.id].values = detail;
 											sendFiltersChanged();
-										}}
+ */										}}
 									/>
 								{/if}
 							</div>
