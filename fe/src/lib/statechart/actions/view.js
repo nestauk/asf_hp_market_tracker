@@ -14,17 +14,17 @@ import {
 	numericMetricsById,
 } from '$lib/data/metrics.js';
 import {_viewCache, _staticData} from '$lib/stores/data.js';
+import {_filters} from '$lib/stores/filters.js';
 import {
 	_activeViewType,
 	_currentMetric,
 	_currentPage,
 } from '$lib/stores/navigation.js';
 import {_isViewLoading, _viewData} from '$lib/stores/view.js';
-import {_filters} from '$lib/stores/filters.js';
 import {
 	createNumericFilters,
-	getQueryFromFilters,
 	getCategoricalFiltersPresets,
+	getQueryFromFilters,
 	getTimelinesExtent,
 } from '$lib/utils/filters.js';
 
@@ -342,8 +342,6 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 		viewQueryPath = `${endpoint}?${new URLSearchParams(params)}`;
 	}
 
-	// console.log('viewQueryPath', viewQueryPath);
-
 	return {...ctx, viewQueryPath}
 });
 
@@ -379,7 +377,6 @@ export const updateViewDataStore = (ctx, {data: response}) => {
 export const setFiltersFromParams = ({selection: {filters: filtersRison}}) => {
 	const staticData = get(_staticData);
 	if (staticData) {
-		// console.log('filtersRison', filtersRison);
 		let parsedFilters = {};
 		if (filtersRison !== '') {
 			parsedFilters = RISON.parse(filtersRison);
@@ -415,8 +412,6 @@ export const setFiltersFromParams = ({selection: {filters: filtersRison}}) => {
 				...defaultFilters,
 				...parsedFilters
 			}
-
-			console.log('initFilters', staticData, parsedFilters)
 
 			return filters;
 		});
