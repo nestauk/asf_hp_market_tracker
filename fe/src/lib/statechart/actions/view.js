@@ -373,7 +373,8 @@ export const updateViewDataStore = (ctx, {data: response}) => {
 	_viewData.set({response, page});
 }
 
-export const updateFilters = assign(({selection}) => {
+export const updateFilters = assign(ctx => {
+	const {selection} = ctx;
 	let {filters} = selection;
 	const staticData = get(_staticData);
 	if (staticData) {
@@ -410,10 +411,7 @@ export const updateFilters = assign(({selection}) => {
 			...loadedFilters
 		}
 	}
-	return {
-		selection: {
-			...selection,
-			filters
-		}
-	}
+	const newCtx = {...ctx};
+	newCtx.selection.filters = filters;
+	return newCtx;
 });
