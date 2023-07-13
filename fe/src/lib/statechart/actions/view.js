@@ -4,28 +4,17 @@ import {
 	mergeWithMerge
 } from '@svizzle/utils';
 import * as _ from 'lamb';
-import {RISON} from 'rison2';
 import {get} from 'svelte/store';
 import {assign} from 'xstate';
 
-import {
-	categoricalMetricsById,
-	dateMetricsById,
-	numericMetricsById,
-} from '$lib/data/metrics.js';
-import {_viewCache, _staticData} from '$lib/stores/data.js';
+import {_viewCache} from '$lib/stores/data.js';
 import {
 	_activeViewType,
 	_currentMetric,
 	_currentPage,
 } from '$lib/stores/navigation.js';
 import {_isViewLoading, _viewData} from '$lib/stores/view.js';
-import {
-	createNumericFilters,
-	getCategoricalFiltersPresets,
-	getQueryFromFilters,
-	getTimelinesExtent,
-} from '$lib/utils/filters.js';
+import {getQueryFromFilters} from '$lib/utils/filters.js';
 
 /* loading icon */
 
@@ -372,43 +361,3 @@ export const updateViewDataStore = (ctx, {data: response}) => {
 
 	_viewData.set({response, page});
 }
-
-export const updateFilters = assign(ctx => {
-	let {selection: {filters}} = ctx;
-	const staticData = get(_staticData);
-	if (staticData) {
-		const numFiltersById = mergeWithMerge(
-			numericMetricsById,
-			staticData.numStats
-		);
-		const numFilters = createNumericFilters(numFiltersById);
-
-		const catFiltersById = mergeWithMerge(
-			categoricalMetricsById,
-			getCategoricalFiltersPresets(staticData.catStats)
-		);
-		const catFilters = _.values(catFiltersById);
-
-		const timelineFilter = mergeWithMerge(
-			dateMetricsById.installation_date,
-			getTimelinesExtent(staticData.timelines)
-		);
-
-		const defaultFilters = _.index(
-			[
-				...numFilters,
-				...catFilters,
-				timelineFilter
-			],
-			getId
-		);
-
-		filters = {
-			...defaultFilters,
-			...filters
-		}
-	}
-	const newCtx = {...ctx};
-	newCtx.selection.filters = filters;
-	return newCtx;
-});

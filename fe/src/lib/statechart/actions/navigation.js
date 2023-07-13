@@ -38,12 +38,10 @@ export const updateCtxSelectionFromPage = assign(ctx => {
 
 	const selection = {...ctx.selection, ...parsedSearchParams};
 
+	_selection.set(selection);
+
 	return {...ctx, selection};
 });
-
-export const updateSelectionStore = ({selection}) => {
-	_selection.set(selection);
-}
 
 export const needsStringify = _.anyOf([isArray, isObject]);
 export const processParam = value =>

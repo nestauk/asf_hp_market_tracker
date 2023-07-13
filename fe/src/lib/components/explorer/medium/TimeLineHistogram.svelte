@@ -7,7 +7,9 @@
 
 	import {_staticData} from '$lib/stores/data.js';
 	import {_selection} from '$lib/stores/navigation.js';
+	import {_filtersBar} from '$lib/stores/filters.js';
 	import {formatDate} from '$lib/utils/date.js';
+    import {findInFiltersBar} from '$lib/utils/filters.js';
 	import {getDocCount} from '$lib/utils/getters.js';
 
 	const geometry = {
@@ -97,7 +99,11 @@
 	let xTicks;
 	let yScale;
 
-	$: installation_date = $_selection.filters?.installation_date
+	$: installation_date = findInFiltersBar(
+		$_filtersBar,
+		'Installation',
+		'installation_date'
+	);
 	$: if (installation_date) {
 		Max = installation_date.Max;
 		Min = installation_date.Min;
