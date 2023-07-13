@@ -374,8 +374,7 @@ export const updateViewDataStore = (ctx, {data: response}) => {
 }
 
 export const updateFilters = assign(ctx => {
-	const {selection} = ctx;
-	let {filters} = selection;
+	let {selection: {filters}} = ctx;
 	const staticData = get(_staticData);
 	if (staticData) {
 		const numFiltersById = mergeWithMerge(
@@ -404,11 +403,9 @@ export const updateFilters = assign(ctx => {
 			getId
 		);
 
-		const {filters: loadedFilters} = selection
-
 		filters = {
 			...defaultFilters,
-			...loadedFilters
+			...filters
 		}
 	}
 	const newCtx = {...ctx};
