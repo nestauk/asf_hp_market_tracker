@@ -10,7 +10,6 @@
 	import {_selection} from '$lib/stores/navigation.js';
 	import {_filtersBar} from '$lib/stores/filters.js';
 	import {formatDate} from '$lib/utils/date.js';
-    import {findInFiltersBar} from '$lib/utils/filters.js';
 	import {getDocCount} from '$lib/utils/getters.js';
 
 	const geometry = {
@@ -31,6 +30,31 @@
 		_writable: _size,
 		resizeObserver: sizeObserver
 	} = setupResizeObserver();
+
+	const findInFiltersBar = (filtersBar, entityName, fieldName) => {
+		if (!filtersBar) {
+			return {};
+		}
+		const entityIndex = _.findIndex(
+			filtersBar,
+			_.hasKeyValue('key', entityName)
+		);
+
+		if (entityIndex === -1) {
+			return {};
+		}
+		const fieldIndex = _.findIndex(
+			filtersBar[entityIndex].values,
+			_.hasKeyValue('id', fieldName)
+		);
+
+		if (fieldIndex === -1) {
+			return {};
+		}
+		const filter = filtersBar[entityIndex].values[fieldIndex] || {};
+
+		return filter;
+	}
 
 	/* range selection */
 
