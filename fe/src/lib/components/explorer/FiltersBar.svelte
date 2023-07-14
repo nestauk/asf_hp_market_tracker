@@ -19,7 +19,9 @@
 	const enhanceCategories = (categories, selectedCats) => _.map(
 		categories,
 		makeMergeAppliedFnMap({
-			selected: ({key}) => _.isIn(selectedCats, key)
+			selected: ({key}) => selectedCats.length
+				? _.isIn(selectedCats, key)
+				: true
 		})
 	)
 
