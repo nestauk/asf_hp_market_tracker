@@ -39,9 +39,6 @@ export const config = {
 							target: '.CheckURL',
 							actions: 'updateNavStores',
 						},
-						STATIC_DATA_CHANGED: {
-							target: '.CheckURL',
-						}
 					},
 					states: {
 						CheckURL: {
@@ -157,7 +154,6 @@ export const config = {
 						Ready: {
 							entry: [
 								'hideFiltersAndTimelineLoadingIcon',
-								'sendStaticDataChanged'
 							]
 						}
 					}

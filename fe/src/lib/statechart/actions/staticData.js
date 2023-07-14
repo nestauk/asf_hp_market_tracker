@@ -30,6 +30,3 @@ export const updateStaticDataStore = (ctx, {data: {timelines, numStats, catStats
 		timelines: indexTimelines(timelines),
 	});
 }
-export const sendStaticDataChanged = raise(
-	'STATIC_DATA_CHANGED'
-);
