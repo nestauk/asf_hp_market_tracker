@@ -10,7 +10,7 @@
 	import {_selection} from '$lib/stores/navigation.js';
 	import {_filtersBar} from '$lib/stores/filters.js';
 	import {formatDate} from '$lib/utils/date.js';
-    import {findInFiltersBar, mergeFilters} from '$lib/utils/filters.js';
+    import {findInFiltersBar} from '$lib/utils/filters.js';
 	import {getDocCount} from '$lib/utils/getters.js';
 
 	const geometry = {
@@ -57,6 +57,7 @@
 		}
 		min = binsTicks[minIndex];
 	}
+
 	const handleMaxDrag = event => {
 		const value = xScale.invert(event.offsetX - geometry.safetyLeft);
 		let maxIndex = getClosestTickIndex(binsTicks, value);
@@ -73,24 +74,20 @@
 		event.target.onpointermove = isMinKnob ? handleMinDrag : handleMaxDrag;
 		event.target.setPointerCapture(event.pointerId);
 	}
+
 	const stopDragging = event => {
 		event.target.onpointermove = null;
 		event.target.releasePointerCapture(event.pointerId);
-/* 		$_filters.installation_date = {
-			...$_filters.installation_date,
-			min: min.getTime(),
-			max: max.getTime()
-		};
-		sendFiltersChanged(); */
-		const newFilters = mergeFilters(
-			$_filtersBar,
-			'Installation',
-			'installation_date',
-			{
-				min: min.getTime(),
-				max: max.getTime()
+
+		const {filters: oldFilters} = $_selection;
+		const newFilters = {
+			...oldFilters,
+			installation_date: {
+				gte: min.getTime(),
+				lte: max.getTime()
 			}
-		);
+		}
+
 		explorerActor.send({
 			type: 'SELECTION_CHANGED',
 			newValues: {filters: newFilters}
@@ -118,11 +115,12 @@
 		'Installation',
 		'installation_date'
 	);
-	$: if (installation_date) {
-		Max = installation_date.Max;
-		Min = installation_date.Min;
-		max = installation_date.max;
-		min = installation_date.min;
+	$: queryValues = $_selection.filters.installation_date
+	$: if (installation_date && queryValues) {
+		Max = installation_date.max;
+		Min = installation_date.min;
+		max = queryValues.lte || installation_date.max;
+		min = queryValues.gte || installation_date.min;
 	}
 	$: ({inlineSize: width, blockSize: height} = $_size);
 	$: if ($_staticData?.timelines) {

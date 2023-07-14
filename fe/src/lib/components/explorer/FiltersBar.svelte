@@ -9,7 +9,7 @@
 	import {_filtersBar} from '$lib/stores/filters.js';
 	import {_selection} from '$lib/stores/navigation.js';
 	import {_rangeSlidersTheme} from '$lib/stores/theme.js';
-    import {mergeFilters} from '$lib/utils/filters.js';
+	import {getSelectedCats, enhanceCategories} from '$lib/utils/filters.js';
 </script>
 
 {#if $_filtersBar}
@@ -18,6 +18,7 @@
 			<h2>{entity}</h2>
 			<ul>
 				{#each metrics as metric}
+				{@const queryValue = $_selection.filters[metric.id]}
 					{#if metric.id !== 'installation_date'}
 						<li>
 							<div class='slider'>
@@ -25,17 +26,19 @@
 								{#if metric.type === 'number'}
 									<RangeSlider
 										formatFn={metric.formatFn}
-										Max={metric.Max}
-										max={metric.max}
-										Min={metric.Min}
-										min={metric.min}
-										on:changed={({detail: range}) => {
-											const newFilters = mergeFilters(
-												$_filtersBar,
-												entity,
-												metric.id,
-												range
-											);
+										Max={metric.max}
+										max={queryValue?.lte || metric.max}
+										Min={metric.min}
+										min={queryValue?.gte || metric.min}
+										on:changed={({detail: {min, max}}) => {
+											const {filters: oldFilters} = $_selection;
+											const newFilters = {
+												...oldFilters,
+												[metric.id]: {
+													gte: min,
+													lte: max
+												}
+											}
 											explorerActor.send({
 												type: 'SELECTION_CHANGED',
 												newValues: {filters: newFilters}
@@ -46,21 +49,18 @@
 								{:else if metric.type === 'category'}
 									<CategorySelector
 										label={metric.label}
-										categories={metric.values}
+										categories={enhanceCategories(metric.values, queryValue || [])}
 										on:applied={({detail: categories}) => {
-											const newFilters = mergeFilters(
-												$_filtersBar,
-												entity,
-												metric.id,
-												{values: categories}
-											);
+											const {filters: oldFilters} = $_selection;
+											const newFilters = {
+												...oldFilters,
+												[metric.id]: getSelectedCats(categories)
+											}
 											explorerActor.send({
 												type: 'SELECTION_CHANGED',
 												newValues: {filters: newFilters}
 											});
-/* 											$_filters[metric.id].values = detail;
-											sendFiltersChanged();
- */										}}
+										}}
 									/>
 								{/if}
 							</div>

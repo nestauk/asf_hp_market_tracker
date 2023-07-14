@@ -1,17 +1,15 @@
 import {mergeWithMerge} from '@svizzle/utils';
 import * as _ from 'lamb';
-import {derived, get} from 'svelte/store';
+import {derived} from 'svelte/store';
 
 import {
 	categoricalMetricsById,
 	dateMetricsById,
 	numericMetricsById,
 } from '$lib/data/metrics.js';
-import {_selection} from '$lib/stores/navigation.js';
 import {_staticData} from '$lib/stores/data.js';
 import {objectToKeyValuesArray} from '$lib/utils/svizzle/utils';
 import {
-	createNumericFilters,
 	getCategoricalFiltersPresets,
 	getTimelinesExtent,
 } from '$lib/utils/filters.js';
@@ -26,7 +24,7 @@ const getDefaultFiltersBar = staticData => {
 		numericMetricsById,
 		staticData.numStats
 	);
-	const numFilters = createNumericFilters(numFiltersById);
+	const numFilters = _.values(numFiltersById);
 
 	const catFiltersById = mergeWithMerge(
 		categoricalMetricsById,
@@ -49,24 +47,6 @@ const getDefaultFiltersBar = staticData => {
 }
 
 export const _filtersBar = derived(
-	[_selection, _staticData],
-	([{filters}, staticData]) => {
-		let filtersBar = [];
-		if (staticData) {
-			const defaultFilters = getDefaultFiltersBar(staticData);
-
-			/*
-			filtersBar = [
-				...defaultFilters,
-				...filters
-			];
-			*/
-
-			// temporary
-			filtersBar = filters.length > 0
-				? filters
-				: defaultFilters;
-		}
-		return filtersBar;
-	}
+	[_staticData],
+	([staticData]) => staticData ? getDefaultFiltersBar(staticData) : []
 );
