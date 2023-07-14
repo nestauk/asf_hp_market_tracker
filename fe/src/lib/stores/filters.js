@@ -1,4 +1,9 @@
-import {mergeWithMerge} from '@svizzle/utils';
+import {
+	applyFnMap,
+	concatValues,
+	mergeWithMerge,
+} from '@svizzle/utils';
+import {extent} from 'd3-array';
 import * as _ from 'lamb';
 import {derived} from 'svelte/store';
 
@@ -8,15 +13,32 @@ import {
 	numericMetricsById,
 } from '$lib/data/metrics.js';
 import {_staticData} from '$lib/stores/data.js';
-import {
-	getWrappedCategoricalFilters,
-	getTimelinesExtent,
-} from '$lib/utils/filters.js';
-import {objectToKeyValuesArray} from '$lib/utils/svizzle/utils';
+import {getWrappedCategoricalFilters} from '$lib/utils/filters.js';
+import {objectToKeyValuesArray, pluckKeySorted} from '$lib/utils/svizzle/utils';
 
 const formatFilters = _.pipe([
 	_.groupBy(_.getKey('entity')),
 	objectToKeyValuesArray
+]);
+
+/* timeline filter */
+
+const getTimeDomain = _.pipe([
+	pluckKeySorted,
+	_.collect([_.take(2), _.last]),
+	([[first, second], last]) => [first, last + second - first]
+]);
+
+const getTimelinesExtent = _.pipe([
+	_.mapValuesWith(getTimeDomain),
+	concatValues,
+	extent,
+	applyFnMap({
+		max: _.last,
+		Max: _.last,
+		min: _.head,
+		Min: _.head,
+	}),
 ]);
 
 export const _filtersBar = derived(
