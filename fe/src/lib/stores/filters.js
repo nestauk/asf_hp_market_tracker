@@ -13,7 +13,6 @@ import {
 	numericMetricsById,
 } from '$lib/data/metrics.js';
 import {_staticData} from '$lib/stores/data.js';
-import {getWrappedCategoricalFilters} from '$lib/utils/filters.js';
 import {objectToKeyValuesArray, pluckKeySorted} from '$lib/utils/svizzle/utils';
 
 const formatFilters = _.pipe([
@@ -40,6 +39,14 @@ const getTimelinesExtent = _.pipe([
 		Min: _.head,
 	}),
 ]);
+
+/* categorical filters */
+
+const getWrappedCategoricalFilters = _.mapValuesWith(
+	applyFnMap({
+		values: _.identity,
+	})
+);
 
 export const _filtersBar = derived(
 	_staticData,

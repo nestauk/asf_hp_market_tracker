@@ -1,4 +1,5 @@
 <script>
+	import {getKey, makeMergeAppliedFnMap} from '@svizzle/utils';
 	import * as _ from 'lamb';
 
 	import CategorySelector
@@ -9,7 +10,18 @@
 	import {_filtersBar} from '$lib/stores/filters.js';
 	import {_selection} from '$lib/stores/navigation.js';
 	import {_rangeSlidersTheme} from '$lib/stores/theme.js';
-	import {getSelectedCats, enhanceCategories} from '$lib/utils/filters.js';
+
+	const getSelectedCats = _.pipe([
+		_.filterWith(_.hasKeyValue('selected', true)),
+		_.mapWith(getKey)
+	]);
+
+	const enhanceCategories = (categories, selectedCats) => _.map(
+		categories,
+		makeMergeAppliedFnMap({
+			selected: ({key}) => _.isIn(selectedCats, key)
+		})
+	)
 </script>
 
 {#if $_filtersBar}
