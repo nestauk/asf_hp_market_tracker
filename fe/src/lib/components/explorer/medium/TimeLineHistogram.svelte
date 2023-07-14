@@ -109,20 +109,19 @@
 	let xTicks;
 	let yScale;
 
-	$: console.log('extent', $_installationDateExtent)
-	$: queryValues = $_selection.filters.installation_date
-	$: if ($_installationDateExtent && queryValues) {
-		Max = $_installationDateExtent.Max;
-		Min = $_installationDateExtent.min;
-		max = queryValues.lte || Max;
-		min = queryValues.gte || Min;
-	}
 	$: ({inlineSize: width, blockSize: height} = $_size);
-	$: if ($_staticData?.timelines) {
+
+	$: if ($_installationDateExtent) {
 		items = $_staticData.timelines[$_selection.interval];
+		Max = $_installationDateExtent.Max;
+		Min = $_installationDateExtent.Min;
 	}
 
-	$: if (items && height && width && Min && Max) {
+	$: selectedRange = $_selection.filters.installation_date
+	$: max = selectedRange?.lte || Max;
+	$: min = selectedRange?.gte || Min;
+
+	$: if (items && $_size && $_installationDateExtent) {
 
 		/* geometry */
 
