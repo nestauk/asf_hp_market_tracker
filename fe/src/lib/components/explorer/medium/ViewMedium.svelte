@@ -54,8 +54,8 @@
 			coverage
 		</div>
 
-		<div class='overlay'>
-			{#if $_isViewLoading}
+		{#if $_isViewLoading}
+			<div class='overlay'>
 				<CenteredView
 					backgroundColor={$_currThemeVars['--colorBackdropSensor']}
 					color={$_currThemeVars['--colorText']}
@@ -65,7 +65,9 @@
 						stroke={$_currThemeVars['--colorText']}
 					/>
 				</CenteredView>
-			{:else if $_showMessage}
+			</div>
+		{:else if $_showMessage}
+			<div class='overlay'>
 				<CenteredView
 					backgroundColor={$_currThemeVars['--colorBackground']}
 				>
@@ -77,8 +79,8 @@
 						}}
 					/>
 				</CenteredView>
-			{/if}
-		</div>
+			</div>
+		{/if}
 
 		{#if isInfoBannerVisible}
 			<Banner

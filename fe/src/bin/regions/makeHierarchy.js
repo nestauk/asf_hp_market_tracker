@@ -1,3 +1,7 @@
+#!/usr/bin/env node
+
+import path from 'node:path';
+
 import {tapMessage} from '@svizzle/dev';
 import {readTsv, saveObj} from '@svizzle/file';
 import {getId} from '@svizzle/utils';
@@ -13,8 +17,8 @@ const getRegionLinkId = ({id, level, parentId}) => `${level}-${id}-${parentId}`;
 // [1]
 const makeHierarchy = _.pipe([
 	_.flatMapWith(({
-		COUNTRY21CD,
-		COUNTRY21NM,
+		CTRY21CD,
+		CTRY21NM,
 		ITL121CD,
 		ITL121NM,
 		ITL221CD,
@@ -30,8 +34,8 @@ const makeHierarchy = _.pipe([
 			name: LAD21NM,
 			parentId: ITL321CD,
 			parentName: ITL321NM,
-			rootId: COUNTRY21CD,
-			rootName: COUNTRY21NM,
+			rootId: CTRY21CD,
+			rootName: CTRY21NM,
 			type: 'lad21',
 		},
 		{
@@ -40,8 +44,8 @@ const makeHierarchy = _.pipe([
 			name: ITL321NM,
 			parentId: ITL221CD,
 			parentName: ITL221NM,
-			rootId: COUNTRY21CD,
-			rootName: COUNTRY21NM,
+			rootId: CTRY21CD,
+			rootName: CTRY21NM,
 			type: 'itl21_3',
 		},
 		{
@@ -50,28 +54,28 @@ const makeHierarchy = _.pipe([
 			name: ITL221NM,
 			parentId: ITL121CD,
 			parentName: ITL121NM,
-			rootId: COUNTRY21CD,
-			rootName: COUNTRY21NM,
+			rootId: CTRY21CD,
+			rootName: CTRY21NM,
 			type: 'itl21_2',
 		},
 		{
 			id: ITL121CD,
 			level: 1,
 			name: ITL121NM,
-			parentId: COUNTRY21CD,
-			parentName: COUNTRY21NM,
-			rootId: COUNTRY21CD,
-			rootName: COUNTRY21NM,
+			parentId: CTRY21CD,
+			parentName: CTRY21NM,
+			rootId: CTRY21CD,
+			rootName: CTRY21NM,
 			type: 'itl21_1',
 		},
 		{
-			id: COUNTRY21CD,
+			id: CTRY21CD,
 			level: 0,
-			name: COUNTRY21NM,
+			name: CTRY21NM,
 			parentId: null,
 			parentName: null,
-			rootId: COUNTRY21CD,
-			rootName: COUNTRY21NM,
+			rootId: CTRY21CD,
+			rootName: CTRY21NM,
 			type: 'country21',
 		},
 	]),
@@ -101,6 +105,8 @@ const makeHierarchy = _.pipe([
 		})
 ]);
 
+console.log(`\nrun: ${path.basename(import.meta.url)}\n`);
+
 readTsv(IN_FILE_PATH_LOOKUP)
 .then(makeHierarchy)
 .then(saveObj(OUT_FILE_PATH_HIERARCHY, '\t'))
@@ -110,8 +116,8 @@ readTsv(IN_FILE_PATH_LOOKUP)
 /* [1]
 
 {
-	COUNTRY21CD: 'E'
-	COUNTRY21NM: 'England',
+	CTRY21CD: 'E92000001'
+	CTRY21NM: 'England',
 	ITL121CD: 'TLF',
 	ITL121NM: 'East Midlands (England)',
 	ITL221CD: 'TLF2',

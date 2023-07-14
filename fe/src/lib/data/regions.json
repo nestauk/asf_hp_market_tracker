@@ -1,0 +1,6071 @@
+{
+	"country21": {
+		"idKey": "CTRY21CD",
+		"nameKey": "CTRY21NM",
+		"regionType": "country21",
+		"regions": {
+			"England": {
+				"bbox": [
+					-6.41866722959945,
+					49.8647926367715,
+					1.76370560966352,
+					55.8111250221581
+				],
+				"id": "E92000001",
+				"name": "England"
+			},
+			"Northern Ireland": {
+				"bbox": [
+					-8.17748428228008,
+					54.0227454538131,
+					-5.43278427013933,
+					55.3129461663757
+				],
+				"id": "N92000002",
+				"name": "Northern Ireland"
+			},
+			"Scotland": {
+				"bbox": [
+					-8.64999583330431,
+					54.6332633056004,
+					-0.724615813308308,
+					60.8607823901619
+				],
+				"id": "S92000003",
+				"name": "Scotland"
+			},
+			"Wales": {
+				"bbox": [
+					-5.66908574290067,
+					51.3749671724463,
+					-2.6498728323064,
+					53.4357105481797
+				],
+				"id": "W92000004",
+				"name": "Wales"
+			}
+		}
+	},
+	"itl21_1": {
+		"idKey": "ITL121CD",
+		"nameKey": "ITL121NM",
+		"regionType": "itl21_1",
+		"regions": {
+			"North East (England)": {
+				"bbox": [
+					-2.68979023468093,
+					54.4511648524724,
+					-0.78862501947752,
+					55.8111250221581
+				],
+				"id": "TLC",
+				"name": "North East (England)"
+			},
+			"North West (England)": {
+				"bbox": [
+					-3.6397898299266,
+					52.9471648775005,
+					-1.90962083195551,
+					55.1889842117909
+				],
+				"id": "TLD",
+				"name": "North West (England)"
+			},
+			"Yorkshire and The Humber": {
+				"bbox": [
+					-2.56473808826307,
+					53.3016490547021,
+					0.14687670588844,
+					54.5601937893936
+				],
+				"id": "TLE",
+				"name": "Yorkshire and The Humber"
+			},
+			"East Midlands (England)": {
+				"bbox": [
+					-2.03408638701546,
+					51.9772913167567,
+					0.355628207639269,
+					53.6163880602418
+				],
+				"id": "TLF",
+				"name": "East Midlands (England)"
+			},
+			"West Midlands (England)": {
+				"bbox": [
+					-3.23554290740389,
+					51.8260847036187,
+					-1.17212636579044,
+					53.2262417356404
+				],
+				"id": "TLG",
+				"name": "West Midlands (England)"
+			},
+			"East": {
+				"bbox": [
+					-0.745678020612605,
+					51.4511175082274,
+					1.76370560966352,
+					52.987856173333
+				],
+				"id": "TLH",
+				"name": "East"
+			},
+			"London": {
+				"bbox": [
+					-0.510276926276867,
+					51.2867586590943,
+					0.334024218329937,
+					51.6918756451179
+				],
+				"id": "TLI",
+				"name": "London"
+			},
+			"South East (England)": {
+				"bbox": [
+					-1.95722449515295,
+					50.5749268495248,
+					1.44955381922558,
+					52.1963361721666
+				],
+				"id": "TLJ",
+				"name": "South East (England)"
+			},
+			"South West (England)": {
+				"bbox": [
+					-6.41866722959943,
+					49.8647926367716,
+					-1.48571137940255,
+					52.1125925601067
+				],
+				"id": "TLK",
+				"name": "South West (England)"
+			},
+			"Wales": {
+				"bbox": [
+					-5.66908574290065,
+					51.3749671724463,
+					-2.6498728323064,
+					53.4357105481797
+				],
+				"id": "TLL",
+				"name": "Wales"
+			},
+			"Scotland": {
+				"bbox": [
+					-8.64999583330428,
+					54.6332633056004,
+					-0.724615813308304,
+					60.8607823901619
+				],
+				"id": "TLM",
+				"name": "Scotland"
+			},
+			"Northern Ireland": {
+				"bbox": [
+					-8.17748428228007,
+					54.0227454538131,
+					-5.43278427013932,
+					55.3129461663757
+				],
+				"id": "TLN",
+				"name": "Northern Ireland"
+			}
+		}
+	},
+	"itl21_2": {
+		"idKey": "ITL221CD",
+		"nameKey": "ITL221NM",
+		"regionType": "itl21_2",
+		"regions": {
+			"Tees Valley and Durham": {
+				"bbox": [
+					-2.35548207761577,
+					54.4511648506751,
+					-0.788434552885444,
+					54.9186998536076
+				],
+				"id": "TLC1",
+				"name": "Tees Valley and Durham"
+			},
+			"Northumberland, and Tyne and Wear": {
+				"bbox": [
+					-2.68979023782191,
+					54.7823773819308,
+					-1.34731167706003,
+					55.8110685484572
+				],
+				"id": "TLC2",
+				"name": "Northumberland, and Tyne and Wear"
+			},
+			"Cumbria": {
+				"bbox": [
+					-3.63977533218454,
+					54.044260411396,
+					-2.15899719521648,
+					55.1889842117731
+				],
+				"id": "TLD1",
+				"name": "Cumbria"
+			},
+			"Greater Manchester": {
+				"bbox": [
+					-2.73052092366414,
+					53.3273146956071,
+					-1.90962083195931,
+					53.6857340281769
+				],
+				"id": "TLD3",
+				"name": "Greater Manchester"
+			},
+			"Lancashire": {
+				"bbox": [
+					-3.06101062876645,
+					53.4827816876141,
+					-2.04507530403724,
+					54.2395684095903
+				],
+				"id": "TLD4",
+				"name": "Lancashire"
+			},
+			"Cheshire": {
+				"bbox": [
+					-3.11071666284966,
+					52.9471648766016,
+					-1.97485875421024,
+					53.4809294210516
+				],
+				"id": "TLD6",
+				"name": "Cheshire"
+			},
+			"Merseyside": {
+				"bbox": [
+					-3.22901660120113,
+					53.2962906217185,
+					-2.57674283314649,
+					53.6984478844415
+				],
+				"id": "TLD7",
+				"name": "Merseyside"
+			},
+			"East Yorkshire and Northern Lincolnshire": {
+				"bbox": [
+					-1.10357042281565,
+					53.4335649215751,
+					0.147576708014572,
+					54.1765207044398
+				],
+				"id": "TLE1",
+				"name": "East Yorkshire and Northern Lincolnshire"
+			},
+			"North Yorkshire": {
+				"bbox": [
+					-2.56473808825084,
+					53.6211122446221,
+					-0.21254224218915,
+					54.5594655990728
+				],
+				"id": "TLE2",
+				"name": "North Yorkshire"
+			},
+			"South Yorkshire": {
+				"bbox": [
+					-1.8225892753118,
+					53.3016490538128,
+					-0.865338727585955,
+					53.6611865171752
+				],
+				"id": "TLE3",
+				"name": "South Yorkshire"
+			},
+			"West Yorkshire": {
+				"bbox": [
+					-2.17329358668378,
+					53.5198230488638,
+					-1.19881814856329,
+					53.9631370163739
+				],
+				"id": "TLE4",
+				"name": "West Yorkshire"
+			},
+			"Derbyshire and Nottinghamshire": {
+				"bbox": [
+					-2.03408638701475,
+					52.6965388867802,
+					-0.666406106956858,
+					53.5404296499201
+				],
+				"id": "TLF1",
+				"name": "Derbyshire and Nottinghamshire"
+			},
+			"Leicestershire, Rutland and Northamptonshire": {
+				"bbox": [
+					-1.59754104513292,
+					51.9772913158577,
+					-0.341590493979016,
+					52.9776791164139
+				],
+				"id": "TLF2",
+				"name": "Leicestershire, Rutland and Northamptonshire"
+			},
+			"Lincolnshire": {
+				"bbox": [
+					-0.819968884409505,
+					52.6402363834685,
+					0.355627376858217,
+					53.6163880593649
+				],
+				"id": "TLF3",
+				"name": "Lincolnshire"
+			},
+			"Herefordshire, Worcestershire and Warwickshire": {
+				"bbox": [
+					-3.14192072336542,
+					51.8260847036268,
+					-1.17212636727553,
+					52.6872608072795
+				],
+				"id": "TLG1",
+				"name": "Herefordshire, Worcestershire and Warwickshire"
+			},
+			"Shropshire and Staffordshire": {
+				"bbox": [
+					-3.23554290737874,
+					52.3062812582252,
+					-1.58535204005437,
+					53.2262417347416
+				],
+				"id": "TLG2",
+				"name": "Shropshire and Staffordshire"
+			},
+			"West Midlands": {
+				"bbox": [
+					-2.20687697904642,
+					52.3477398320627,
+					-1.42393778084032,
+					52.6627333894026
+				],
+				"id": "TLG3",
+				"name": "West Midlands"
+			},
+			"East Anglia": {
+				"bbox": [
+					-0.499885396336524,
+					51.932388537353,
+					1.76357118826928,
+					52.9884005677535
+				],
+				"id": "TLH1",
+				"name": "East Anglia"
+			},
+			"Bedfordshire and Hertfordshire": {
+				"bbox": [
+					-0.745678020637583,
+					51.5996628919353,
+					0.195594278405723,
+					52.3229532803574
+				],
+				"id": "TLH2",
+				"name": "Bedfordshire and Hertfordshire"
+			},
+			"Essex": {
+				"bbox": [
+					-0.0197304300283652,
+					51.4511186950971,
+					1.2966222480817,
+					52.0926741545194
+				],
+				"id": "TLH3",
+				"name": "Essex"
+			},
+			"Inner London - West": {
+				"bbox": [
+					-0.259089615833306,
+					51.4177517060131,
+					-0.0727547375748667,
+					51.5729727582802
+				],
+				"id": "TLI3",
+				"name": "Inner London - West"
+			},
+			"Inner London - East": {
+				"bbox": [
+					-0.171259814892594,
+					51.4109908604255,
+					0.096790065242576,
+					51.611217498657
+				],
+				"id": "TLI4",
+				"name": "Inner London - East"
+			},
+			"Outer London - East and North East": {
+				"bbox": [
+					-0.18586583055303,
+					51.4084829760647,
+					0.334024216843264,
+					51.6918756442426
+				],
+				"id": "TLI5",
+				"name": "Outer London - East and North East"
+			},
+			"Outer London - South": {
+				"bbox": [
+					-0.330655553303684,
+					51.2867586581957,
+					0.1623841485646,
+					51.4443173305185
+				],
+				"id": "TLI6",
+				"name": "Outer London - South"
+			},
+			"Outer London - West and North West": {
+				"bbox": [
+					-0.510276927745254,
+					51.3914396034601,
+					-0.129121094134365,
+					51.6701702728038
+				],
+				"id": "TLI7",
+				"name": "Outer London - West and North West"
+			},
+			"Berkshire, Buckinghamshire and Oxfordshire": {
+				"bbox": [
+					-1.71948863303458,
+					51.3289607165809,
+					-0.476595821288973,
+					52.1963361712678
+				],
+				"id": "TLJ1",
+				"name": "Berkshire, Buckinghamshire and Oxfordshire"
+			},
+			"Surrey, East and West Sussex": {
+				"bbox": [
+					-0.957581427632574,
+					50.7223605168371,
+					0.867891380298353,
+					51.4715284831431
+				],
+				"id": "TLJ2",
+				"name": "Surrey, East and West Sussex"
+			},
+			"Hampshire and Isle of Wight": {
+				"bbox": [
+					-1.95722449515378,
+					50.5749118090206,
+					-0.729395984778629,
+					51.3839155770638
+				],
+				"id": "TLJ3",
+				"name": "Hampshire and Isle of Wight"
+			},
+			"Kent": {
+				"bbox": [
+					0.0335877741193275,
+					50.9109807746336,
+					1.44958517302414,
+					51.487283689842
+				],
+				"id": "TLJ4",
+				"name": "Kent"
+			},
+			"Gloucestershire, Wiltshire and Bath/Bristol area": {
+				"bbox": [
+					-3.11506040244504,
+					50.9449855124625,
+					-1.4857109260985,
+					52.1125925592077
+				],
+				"id": "TLK1",
+				"name": "Gloucestershire, Wiltshire and Bath/Bristol area"
+			},
+			"Dorset and Somerset": {
+				"bbox": [
+					-3.83982066625528,
+					50.5130987955019,
+					-1.68167442579929,
+					51.3287935492998
+				],
+				"id": "TLK2",
+				"name": "Dorset and Somerset"
+			},
+			"Cornwall and Isles of Scilly": {
+				"bbox": [
+					-6.41862215000577,
+					49.8647440556141,
+					-4.16641141319906,
+					50.9312668689696
+				],
+				"id": "TLK3",
+				"name": "Cornwall and Isles of Scilly"
+			},
+			"Devon": {
+				"bbox": [
+					-4.68062927308376,
+					50.2018546863657,
+					-2.88664434480499,
+					51.246393554942
+				],
+				"id": "TLK4",
+				"name": "Devon"
+			},
+			"West Wales and The Valleys": {
+				"bbox": [
+					-5.66914174990369,
+					51.4701945896528,
+					-2.95889434910182,
+					53.4357105473124
+				],
+				"id": "TLL1",
+				"name": "West Wales and The Valleys"
+			},
+			"East Wales": {
+				"bbox": [
+					-3.92886830901287,
+					51.3749671715473,
+					-2.6498728323064,
+					53.3568651873849
+				],
+				"id": "TLL2",
+				"name": "East Wales"
+			},
+			"North Eastern Scotland": {
+				"bbox": [
+					-3.80164626420355,
+					56.7471308238048,
+					-1.76632304428993,
+					57.7011894986324
+				],
+				"id": "TLM5",
+				"name": "North Eastern Scotland"
+			},
+			"Highlands and Islands": {
+				"bbox": [
+					-8.64999574374536,
+					55.2744887034994,
+					-0.724615813413704,
+					60.8607823726561
+				],
+				"id": "TLM6",
+				"name": "Highlands and Islands"
+			},
+			"Eastern Scotland": {
+				"bbox": [
+					-4.8544769756808,
+					55.7103471254394,
+					-2.36592920437453,
+					56.9868040925951
+				],
+				"id": "TLM7",
+				"name": "Eastern Scotland"
+			},
+			"West Central Scotland": {
+				"bbox": [
+					-4.89874159673713,
+					55.6758537810618,
+					-3.71112709311886,
+					56.3319142237389
+				],
+				"id": "TLM8",
+				"name": "West Central Scotland"
+			},
+			"Southern Scotland": {
+				"bbox": [
+					-5.18740853869387,
+					54.6332550107448,
+					-2.03439111884179,
+					55.9459556308602
+				],
+				"id": "TLM9",
+				"name": "Southern Scotland"
+			},
+			"Northern Ireland": {
+				"bbox": [
+					-8.17675204985765,
+					54.0225825356532,
+					-5.43170607951455,
+					55.3129534677877
+				],
+				"id": "TLN0",
+				"name": "Northern Ireland"
+			}
+		}
+	},
+	"itl21_3": {
+		"idKey": "ITL321CD",
+		"nameKey": "ITL321NM",
+		"regionType": "itl21_3",
+		"regions": {
+			"South Teesside": {
+				"bbox": [
+					-1.28543171083753,
+					54.4878732313846,
+					-0.788434552885445,
+					54.6475831457446
+				],
+				"id": "TLC12",
+				"name": "South Teesside"
+			},
+			"Darlington": {
+				"bbox": [
+					-1.70966705949225,
+					54.4511648506751,
+					-1.40729171029441,
+					54.6193656791143
+				],
+				"id": "TLC13",
+				"name": "Darlington"
+			},
+			"Northumberland": {
+				"bbox": [
+					-2.6897902378219,
+					54.7823773819308,
+					-1.46177205116783,
+					55.8110685484572
+				],
+				"id": "TLC21",
+				"name": "Northumberland"
+			},
+			"West Cumbria": {
+				"bbox": [
+					-3.63977533218454,
+					54.044260411396,
+					-2.98299889443729,
+					54.9544763474696
+				],
+				"id": "TLD11",
+				"name": "West Cumbria"
+			},
+			"Greater Manchester South West": {
+				"bbox": [
+					-2.48971382173928,
+					53.3574246412491,
+					-2.2451039485015,
+					53.542253487627
+				],
+				"id": "TLD34",
+				"name": "Greater Manchester South West"
+			},
+			"Blackburn with Darwen": {
+				"bbox": [
+					-2.56466035677929,
+					53.6166318726845,
+					-2.36264103578287,
+					53.7817913098954
+				],
+				"id": "TLD41",
+				"name": "Blackburn with Darwen"
+			},
+			"Blackpool": {
+				"bbox": [
+					-3.06101062876645,
+					53.7731167789048,
+					-2.98335722120133,
+					53.875731724741
+				],
+				"id": "TLD42",
+				"name": "Blackpool"
+			},
+			"Mid Lancashire": {
+				"bbox": [
+					-3.05685023652795,
+					53.6714199250986,
+					-2.18452239163443,
+					54.049089059666
+				],
+				"id": "TLD45",
+				"name": "Mid Lancashire"
+			},
+			"East Lancashire": {
+				"bbox": [
+					-2.46580771222016,
+					53.6145142323629,
+					-2.04507530403724,
+					53.9522641291998
+				],
+				"id": "TLD46",
+				"name": "East Lancashire"
+			},
+			"Warrington": {
+				"bbox": [
+					-2.69772482751726,
+					53.3224495682373,
+					-2.42538116846439,
+					53.4809294210516
+				],
+				"id": "TLD61",
+				"name": "Warrington"
+			},
+			"Cheshire East": {
+				"bbox": [
+					-2.75292866346148,
+					52.9471648766016,
+					-1.97485875421024,
+					53.3874615151435
+				],
+				"id": "TLD62",
+				"name": "Cheshire East"
+			},
+			"East Merseyside": {
+				"bbox": [
+					-2.92261510605602,
+					53.3050347961608,
+					-2.57674283314649,
+					53.5314301951848
+				],
+				"id": "TLD71",
+				"name": "East Merseyside"
+			},
+			"East Riding of Yorkshire": {
+				"bbox": [
+					-1.10357042281565,
+					53.5714719369948,
+					0.147576708014572,
+					54.1765207044398
+				],
+				"id": "TLE12",
+				"name": "East Riding of Yorkshire"
+			},
+			"York": {
+				"bbox": [
+					-1.22369940568342,
+					53.8745857896332,
+					-0.919678710464277,
+					54.0568828844481
+				],
+				"id": "TLE21",
+				"name": "York"
+			},
+			"Bradford": {
+				"bbox": [
+					-2.06125057169467,
+					53.7243564456809,
+					-1.64033405310208,
+					53.9631370163739
+				],
+				"id": "TLE41",
+				"name": "Bradford"
+			},
+			"Leeds": {
+				"bbox": [
+					-1.80042422664646,
+					53.6989837098988,
+					-1.290355339103,
+					53.9458881862317
+				],
+				"id": "TLE42",
+				"name": "Leeds"
+			},
+			"East Derbyshire": {
+				"bbox": [
+					-1.59930007240631,
+					53.0809878867763,
+					-1.16648754146527,
+					53.3419924902733
+				],
+				"id": "TLF12",
+				"name": "East Derbyshire"
+			},
+			"Nottingham": {
+				"bbox": [
+					-1.24683864346369,
+					52.8890290424015,
+					-1.0861150739695,
+					53.0186913191341
+				],
+				"id": "TLF14",
+				"name": "Nottingham"
+			},
+			"Lincolnshire CC": {
+				"bbox": [
+					-0.819968884409505,
+					52.6402363834685,
+					0.355627376858217,
+					53.6163880593649
+				],
+				"id": "TLF30",
+				"name": "Lincolnshire CC"
+			},
+			"Worcestershire CC": {
+				"bbox": [
+					-2.66320577513719,
+					51.9665650232253,
+					-1.7573982486725,
+					52.4553169276049
+				],
+				"id": "TLG12",
+				"name": "Worcestershire CC"
+			},
+			"Shropshire": {
+				"bbox": [
+					-3.23554290737874,
+					52.3062812582252,
+					-2.23289449571617,
+					52.9984110604571
+				],
+				"id": "TLG22",
+				"name": "Shropshire"
+			},
+			"Staffordshire CC": {
+				"bbox": [
+					-2.47084125001665,
+					52.4232580747125,
+					-1.58535204005437,
+					53.2262417347416
+				],
+				"id": "TLG24",
+				"name": "Staffordshire CC"
+			},
+			"Birmingham": {
+				"bbox": [
+					-2.03364061278963,
+					52.3810669273893,
+					-1.72885044839419,
+					52.6086892470626
+				],
+				"id": "TLG31",
+				"name": "Birmingham"
+			},
+			"Coventry": {
+				"bbox": [
+					-1.61445000213311,
+					52.3638920741167,
+					-1.42393778084032,
+					52.4647986859745
+				],
+				"id": "TLG33",
+				"name": "Coventry"
+			},
+			"Walsall": {
+				"bbox": [
+					-2.07779302176065,
+					52.5473065293957,
+					-1.87256445035675,
+					52.6627333894026
+				],
+				"id": "TLG38",
+				"name": "Walsall"
+			},
+			"Peterborough": {
+				"bbox": [
+					-0.497651443797756,
+					52.5061130631153,
+					-0.0128403766332573,
+					52.6752243722454
+				],
+				"id": "TLH11",
+				"name": "Peterborough"
+			},
+			"Suffolk CC": {
+				"bbox": [
+					0.34000251196732,
+					51.932388537353,
+					1.76357118826929,
+					52.5502473605725
+				],
+				"id": "TLH14",
+				"name": "Suffolk CC"
+			},
+			"North and West Norfolk": {
+				"bbox": [
+					0.154061974425915,
+					52.4364266682765,
+					1.67487051453391,
+					52.9884005677535
+				],
+				"id": "TLH16",
+				"name": "North and West Norfolk"
+			},
+			"Breckland and South Norfolk": {
+				"bbox": [
+					0.530520987264727,
+					52.3553869629239,
+					1.68222667448634,
+					52.8111265211044
+				],
+				"id": "TLH17",
+				"name": "Breckland and South Norfolk"
+			},
+			"Luton": {
+				"bbox": [
+					-0.505923085990184,
+					51.8544812635663,
+					-0.349898907226484,
+					51.9277474610019
+				],
+				"id": "TLH21",
+				"name": "Luton"
+			},
+			"Hertfordshire CC": {
+				"bbox": [
+					-0.745678020637583,
+					51.5996628919353,
+					0.195594278405723,
+					52.0805471995297
+				],
+				"id": "TLH23",
+				"name": "Hertfordshire CC"
+			},
+			"Bedford": {
+				"bbox": [
+					-0.668663863148343,
+					52.0545431777833,
+					-0.240723004318449,
+					52.3229532803574
+				],
+				"id": "TLH24",
+				"name": "Bedford"
+			},
+			"Central Bedfordshire": {
+				"bbox": [
+					-0.702156753891057,
+					51.8050953611308,
+					-0.143931724305866,
+					52.1909257723471
+				],
+				"id": "TLH25",
+				"name": "Central Bedfordshire"
+			},
+			"West Essex": {
+				"bbox": [
+					-0.0197304300283719,
+					51.6044670396835,
+					0.519262342727642,
+					52.0926741545194
+				],
+				"id": "TLH35",
+				"name": "West Essex"
+			},
+			"Essex Thames Gateway": {
+				"bbox": [
+					0.375126916105279,
+					51.5078289925346,
+					0.95812821914499,
+					51.6512053719263
+				],
+				"id": "TLH37",
+				"name": "Essex Thames Gateway"
+			},
+			"Camden and City of London": {
+				"bbox": [
+					-0.21347655311145,
+					51.507844170121,
+					-0.0727547375748667,
+					51.5729727582802
+				],
+				"id": "TLI31",
+				"name": "Camden and City of London"
+			},
+			"Westminster": {
+				"bbox": [
+					-0.216004501188751,
+					51.4848144280882,
+					-0.111075760332404,
+					51.5397949860743
+				],
+				"id": "TLI32",
+				"name": "Westminster"
+			},
+			"Kensington & Chelsea and Hammersmith & Fulham": {
+				"bbox": [
+					-0.255067207557317,
+					51.4648343928829,
+					-0.14997916830025,
+					51.5327541201969
+				],
+				"id": "TLI33",
+				"name": "Kensington & Chelsea and Hammersmith & Fulham"
+			},
+			"Hackney and Newham": {
+				"bbox": [
+					-0.104484586634463,
+					51.4983072825101,
+					0.096790065242576,
+					51.5777860362408
+				],
+				"id": "TLI41",
+				"name": "Hackney and Newham"
+			},
+			"Tower Hamlets": {
+				"bbox": [
+					-0.0794034280439689,
+					51.4859623636058,
+					0.00922980001812057,
+					51.5446873755573
+				],
+				"id": "TLI42",
+				"name": "Tower Hamlets"
+			},
+			"Haringey and Islington": {
+				"bbox": [
+					-0.171259814892595,
+					51.5185427454848,
+					-0.04142246051411,
+					51.611217498657
+				],
+				"id": "TLI43",
+				"name": "Haringey and Islington"
+			},
+			"Lewisham and Southwark": {
+				"bbox": [
+					-0.111417244190793,
+					51.4135507021822,
+					0.0390548491055435,
+					51.5086248994431
+				],
+				"id": "TLI44",
+				"name": "Lewisham and Southwark"
+			},
+			"Lambeth": {
+				"bbox": [
+					-0.151206270946544,
+					51.4109908604255,
+					-0.0782806466164412,
+					51.50844222617
+				],
+				"id": "TLI45",
+				"name": "Lambeth"
+			},
+			"Bexley and Greenwich": {
+				"bbox": [
+					-0.0263824453438024,
+					51.4084829760647,
+					0.217644208227234,
+					51.5132941451344
+				],
+				"id": "TLI51",
+				"name": "Bexley and Greenwich"
+			},
+			"Barking & Dagenham and Havering": {
+				"bbox": [
+					0.0666760012510559,
+					51.4876889398072,
+					0.334024216843264,
+					51.6317377614967
+				],
+				"id": "TLI52",
+				"name": "Barking & Dagenham and Havering"
+			},
+			"Redbridge and Waltham Forest": {
+				"bbox": [
+					-0.0622119917081762,
+					51.5435699130462,
+					0.149512226618696,
+					51.646527846937
+				],
+				"id": "TLI53",
+				"name": "Redbridge and Waltham Forest"
+			},
+			"Merton, Kingston upon Thames and Sutton": {
+				"bbox": [
+					-0.330655553303684,
+					51.3215085858984,
+					-0.116893382800198,
+					51.4414745549229
+				],
+				"id": "TLI63",
+				"name": "Merton, Kingston upon Thames and Sutton"
+			},
+			"Brent": {
+				"bbox": [
+					-0.335562213805841,
+					51.5276557613812,
+					-0.191458548625621,
+					51.600373004574
+				],
+				"id": "TLI72",
+				"name": "Brent"
+			},
+			"Hounslow and Richmond upon Thames": {
+				"bbox": [
+					-0.461481694296472,
+					51.3914396034601,
+					-0.22291905242103,
+					51.5028513888905
+				],
+				"id": "TLI75",
+				"name": "Hounslow and Richmond upon Thames"
+			},
+			"Berkshire": {
+				"bbox": [
+					-1.58806412670236,
+					51.3289607165809,
+					-0.490024731194161,
+					51.5778285823672
+				],
+				"id": "TLJ11",
+				"name": "Berkshire"
+			},
+			"Buckinghamshire": {
+				"bbox": [
+					-1.14067612335695,
+					51.4854836970676,
+					-0.476595821288973,
+					52.0815337112453
+				],
+				"id": "TLJ13",
+				"name": "Buckinghamshire"
+			},
+			"Brighton and Hove": {
+				"bbox": [
+					-0.244970867137355,
+					50.7990884665911,
+					-0.0160023584077892,
+					50.8923683218769
+				],
+				"id": "TLJ21",
+				"name": "Brighton and Hove"
+			},
+			"West Sussex (South West)": {
+				"bbox": [
+					-0.957581427632577,
+					50.7223605168371,
+					-0.215294932070142,
+					51.0944841769189
+				],
+				"id": "TLJ27",
+				"name": "West Sussex (South West)"
+			},
+			"Portsmouth": {
+				"bbox": [
+					-1.11819171676051,
+					50.7501560303299,
+					-1.02062526976529,
+					50.8592996543141
+				],
+				"id": "TLJ31",
+				"name": "Portsmouth"
+			},
+			"Southampton": {
+				"bbox": [
+					-1.47872454974052,
+					50.8800387520251,
+					-1.32197756360747,
+					50.9561274527552
+				],
+				"id": "TLJ32",
+				"name": "Southampton"
+			},
+			"Central Hampshire": {
+				"bbox": [
+					-1.95722449515295,
+					50.7059903438453,
+					-0.744683494928558,
+					51.3393553048772
+				],
+				"id": "TLJ36",
+				"name": "Central Hampshire"
+			},
+			"North Hampshire": {
+				"bbox": [
+					-1.46015235806283,
+					51.1335401455289,
+					-0.729395984778627,
+					51.3839155770638
+				],
+				"id": "TLJ37",
+				"name": "North Hampshire"
+			},
+			"Mid Kent": {
+				"bbox": [
+					0.378175339192201,
+					50.9894920242728,
+					1.02924094451885,
+					51.3387431250211
+				],
+				"id": "TLJ45",
+				"name": "Mid Kent"
+			},
+			"West Kent": {
+				"bbox": [
+					0.0335877741193239,
+					51.0034550202867,
+					0.646674841374688,
+					51.4179768309728
+				],
+				"id": "TLJ46",
+				"name": "West Kent"
+			},
+			"Bath and North East Somerset, North Somerset and South Gloucestershire": {
+				"bbox": [
+					-3.11506040244504,
+					51.2730967431087,
+					-2.2521083355095,
+					51.6772457427528
+				],
+				"id": "TLK12",
+				"name": "Bath and North East Somerset, North Somerset and South Gloucestershire"
+			},
+			"Cornwall and Isles of Scilly": {
+				"bbox": [
+					-6.41862215000577,
+					49.8647440556141,
+					-4.16641141319906,
+					50.9312668689696
+				],
+				"id": "TLK30",
+				"name": "Cornwall and Isles of Scilly"
+			},
+			"Torbay": {
+				"bbox": [
+					-3.62841211871871,
+					50.3734825874037,
+					-3.48060150325022,
+					50.5185023197548
+				],
+				"id": "TLK42",
+				"name": "Torbay"
+			},
+			"Gwynedd": {
+				"bbox": [
+					-4.80417939305283,
+					52.541208011353,
+					-3.43678549405547,
+					53.2483872903585
+				],
+				"id": "TLL12",
+				"name": "Gwynedd"
+			},
+			"South West Wales": {
+				"bbox": [
+					-5.6691417499037,
+					51.5961137725147,
+					-3.64713650257412,
+					52.562420519917
+				],
+				"id": "TLL14",
+				"name": "South West Wales"
+			},
+			"Central Valleys": {
+				"bbox": [
+					-3.5937174820441,
+					51.4989630785812,
+					-3.2363390125494,
+					51.8351008639615
+				],
+				"id": "TLL15",
+				"name": "Central Valleys"
+			},
+			"Gwent Valleys": {
+				"bbox": [
+					-3.33447027980171,
+					51.5456379831253,
+					-2.95889434910183,
+					51.825488657588
+				],
+				"id": "TLL16",
+				"name": "Gwent Valleys"
+			},
+			"Bridgend and Neath Port Talbot": {
+				"bbox": [
+					-3.9365046147252,
+					51.4701945896528,
+					-3.46302487944434,
+					51.8103611109496
+				],
+				"id": "TLL17",
+				"name": "Bridgend and Neath Port Talbot"
+			},
+			"Swansea": {
+				"bbox": [
+					-4.33355430135653,
+					51.5357700143942,
+					-3.84274706410588,
+					51.7741836608163
+				],
+				"id": "TLL18",
+				"name": "Swansea"
+			},
+			"Monmouthshire and Newport": {
+				"bbox": [
+					-3.15735167768612,
+					51.5018183541331,
+					-2.6498728323064,
+					51.9831427870413
+				],
+				"id": "TLL21",
+				"name": "Monmouthshire and Newport"
+			},
+			"Cardiff and Vale of Glamorgan": {
+				"bbox": [
+					-3.64192277535173,
+					51.3749671715473,
+					-3.06891000650497,
+					51.5605050149904
+				],
+				"id": "TLL22",
+				"name": "Cardiff and Vale of Glamorgan"
+			},
+			"Powys": {
+				"bbox": [
+					-3.92886830901288,
+					51.7527514727021,
+					-2.9496213649415,
+					52.9015755441941
+				],
+				"id": "TLL24",
+				"name": "Powys"
+			},
+			"Aberdeen City and Aberdeenshire": {
+				"bbox": [
+					-3.80164626420355,
+					56.7471308238048,
+					-1.76632304428993,
+					57.7011894986324
+				],
+				"id": "TLM50",
+				"name": "Aberdeen City and Aberdeenshire"
+			},
+			"Caithness and Sutherland, and Ross and Cromarty": {
+				"bbox": [
+					-5.87287766554968,
+					57.3325855380306,
+					-3.02394755191969,
+					58.6968867049005
+				],
+				"id": "TLM61",
+				"name": "Caithness and Sutherland, and Ross and Cromarty"
+			},
+			"Inverness and Nairn, Moray, and Badenoch and Strathspey": {
+				"bbox": [
+					-5.28354829331832,
+					56.773843190679,
+					-2.64982473299054,
+					57.7306613099237
+				],
+				"id": "TLM62",
+				"name": "Inverness and Nairn, Moray, and Badenoch and Strathspey"
+			},
+			"Lochaber, Skye and Lochalsh, Arran and Cumbrae, and Argyll and Bute": {
+				"bbox": [
+					-7.01528913048751,
+					55.2744887034994,
+					-4.52036655865773,
+					57.7469140295108
+				],
+				"id": "TLM63",
+				"name": "Lochaber, Skye and Lochalsh, Arran and Cumbrae, and Argyll and Bute"
+			},
+			"Na h-Eileanan Siar": {
+				"bbox": [
+					-8.64999574374537,
+					56.7781532327961,
+					-5.81038443151469,
+					59.1341369394504
+				],
+				"id": "TLM64",
+				"name": "Na h-Eileanan Siar"
+			},
+			"Orkney Islands": {
+				"bbox": [
+					-4.50722703262448,
+					58.6737076548109,
+					-2.37047061720342,
+					59.3985970554444
+				],
+				"id": "TLM65",
+				"name": "Orkney Islands"
+			},
+			"Shetland Islands": {
+				"bbox": [
+					-2.11735171958141,
+					59.506886184829,
+					-0.724615813413697,
+					60.8607823726561
+				],
+				"id": "TLM66",
+				"name": "Shetland Islands"
+			},
+			"Angus and Dundee City": {
+				"bbox": [
+					-3.40702154878832,
+					56.4510445786333,
+					-2.42456012880133,
+					56.9868040925951
+				],
+				"id": "TLM71",
+				"name": "Angus and Dundee City"
+			},
+			"Clackmannanshire and Fife": {
+				"bbox": [
+					-3.88395838573317,
+					56.005878056119,
+					-2.54467464828661,
+					56.4532544025197
+				],
+				"id": "TLM72",
+				"name": "Clackmannanshire and Fife"
+			},
+			"East Lothian and Midlothian": {
+				"bbox": [
+					-3.36903648047757,
+					55.7103471254394,
+					-2.36592920437454,
+					56.0792717583422
+				],
+				"id": "TLM73",
+				"name": "East Lothian and Midlothian"
+			},
+			"City of Edinburgh": {
+				"bbox": [
+					-3.44952927631907,
+					55.8187913831385,
+					-3.07768039595056,
+					56.0121703445132
+				],
+				"id": "TLM75",
+				"name": "City of Edinburgh"
+			},
+			"Falkirk": {
+				"bbox": [
+					-4.03034113165393,
+					55.8953928189992,
+					-3.51152813769574,
+					56.1067801335604
+				],
+				"id": "TLM76",
+				"name": "Falkirk"
+			},
+			"East Dunbartonshire, West Dunbartonshire, and Helensburgh and Lomond": {
+				"bbox": [
+					-4.88120401492711,
+					55.8895717493156,
+					-4.0468620448359,
+					56.3319142237389
+				],
+				"id": "TLM81",
+				"name": "East Dunbartonshire, West Dunbartonshire, and Helensburgh and Lomond"
+			},
+			"Glasgow City": {
+				"bbox": [
+					-4.39239271731136,
+					55.7812748992613,
+					-4.07170516459571,
+					55.9296074289814
+				],
+				"id": "TLM82",
+				"name": "Glasgow City"
+			},
+			"Inverclyde, East Renfrewshire, and Renfrewshire": {
+				"bbox": [
+					-4.89874159673714,
+					55.6758537810618,
+					-4.21874420949018,
+					55.9634227995349
+				],
+				"id": "TLM83",
+				"name": "Inverclyde, East Renfrewshire, and Renfrewshire"
+			},
+			"North Lanarkshire": {
+				"bbox": [
+					-4.19448957631337,
+					55.7347581811031,
+					-3.71112709311886,
+					56.0313623272924
+				],
+				"id": "TLM84",
+				"name": "North Lanarkshire"
+			},
+			"Dumfries and Galloway": {
+				"bbox": [
+					-5.18740853869387,
+					54.6332550107448,
+					-2.85735070792946,
+					55.464051838113
+				],
+				"id": "TLM92",
+				"name": "Dumfries and Galloway"
+			},
+			"South Ayrshire": {
+				"bbox": [
+					-5.12420604954579,
+					54.9977923685937,
+					-4.39894560104366,
+					55.6018696561931
+				],
+				"id": "TLM94",
+				"name": "South Ayrshire"
+			},
+			"South Lanarkshire": {
+				"bbox": [
+					-4.28255879307013,
+					55.2907711406223,
+					-3.39640461177176,
+					55.8442558744517
+				],
+				"id": "TLM95",
+				"name": "South Lanarkshire"
+			},
+			"Belfast": {
+				"bbox": [
+					-6.05919821510294,
+					54.5304963660432,
+					-5.80635019699602,
+					54.6649276289222
+				],
+				"id": "TLN06",
+				"name": "Belfast"
+			},
+			"Armagh City, Banbridge and Craigavon": {
+				"bbox": [
+					-6.87712686239092,
+					54.1789844577989,
+					-6.01753903489012,
+					54.5912027761986
+				],
+				"id": "TLN07",
+				"name": "Armagh City, Banbridge and Craigavon"
+			},
+			"Newry, Mourne and Down": {
+				"bbox": [
+					-6.66806145151987,
+					54.0225825356532,
+					-5.51490847966119,
+					54.4955765695811
+				],
+				"id": "TLN08",
+				"name": "Newry, Mourne and Down"
+			},
+			"Ards and North Down": {
+				"bbox": [
+					-5.85747791931319,
+					54.3242177409883,
+					-5.43170607951455,
+					54.6991478078202
+				],
+				"id": "TLN09",
+				"name": "Ards and North Down"
+			},
+			"Mid Ulster": {
+				"bbox": [
+					-7.36619045211137,
+					54.3250847329026,
+					-6.40614170013762,
+					54.9519835828016
+				],
+				"id": "TLN0B",
+				"name": "Mid Ulster"
+			},
+			"Lisburn and Castlereagh": {
+				"bbox": [
+					-6.30366631807158,
+					54.3703669564156,
+					-5.75642925030186,
+					54.6242732040777
+				],
+				"id": "TLN0E",
+				"name": "Lisburn and Castlereagh"
+			},
+			"Mid and East Antrim": {
+				"bbox": [
+					-6.50534608601607,
+					54.6887952944474,
+					-5.68699220422701,
+					55.0562700021859
+				],
+				"id": "TLN0F",
+				"name": "Mid and East Antrim"
+			},
+			"Fermanagh and Omagh": {
+				"bbox": [
+					-8.17675204985766,
+					54.1132097427795,
+					-6.93507992768285,
+					54.7804419355754
+				],
+				"id": "TLN0G",
+				"name": "Fermanagh and Omagh"
+			},
+			"Bournemouth, Christchurch and Poole": {
+				"bbox": [
+					-2.0408132455439,
+					50.6826742955961,
+					-1.68167442579319,
+					50.8096058854495
+				],
+				"id": "TLK24",
+				"name": "Bournemouth, Christchurch and Poole"
+			},
+			"Dorset": {
+				"bbox": [
+					-2.96159888701075,
+					50.5131112884232,
+					-1.79061492044422,
+					51.0809914128362
+				],
+				"id": "TLK25",
+				"name": "Dorset"
+			},
+			"Hartlepool and Stockton-on-Tees": {
+				"bbox": [
+					-1.45264121899468,
+					54.4641554112261,
+					-1.15772383031886,
+					54.7271686859839
+				],
+				"id": "TLC11",
+				"name": "Hartlepool and Stockton-on-Tees"
+			},
+			"Durham": {
+				"bbox": [
+					-2.35548207761577,
+					54.4515215401153,
+					-1.24193513860133,
+					54.9186998536076
+				],
+				"id": "TLC14",
+				"name": "Durham"
+			},
+			"Tyneside": {
+				"bbox": [
+					-1.85272134452008,
+					54.8777701469924,
+					-1.35321182774977,
+					55.0793886997228
+				],
+				"id": "TLC22",
+				"name": "Tyneside"
+			},
+			"Sunderland": {
+				"bbox": [
+					-1.568891335629,
+					54.7990583295719,
+					-1.34731167706003,
+					54.9441798170984
+				],
+				"id": "TLC23",
+				"name": "Sunderland"
+			},
+			"East Cumbria": {
+				"bbox": [
+					-3.24187247868496,
+					54.0935508212909,
+					-2.15899719521648,
+					55.1889842117731
+				],
+				"id": "TLD12",
+				"name": "East Cumbria"
+			},
+			"Manchester": {
+				"bbox": [
+					-2.31991901980118,
+					53.3401224959776,
+					-2.14682778416754,
+					53.5446085360172
+				],
+				"id": "TLD33",
+				"name": "Manchester"
+			},
+			"Greater Manchester South East": {
+				"bbox": [
+					-2.24682802957181,
+					53.3273146956071,
+					-1.96338598926175,
+					53.5313929547266
+				],
+				"id": "TLD35",
+				"name": "Greater Manchester South East"
+			},
+			"Greater Manchester North West": {
+				"bbox": [
+					-2.73052092366414,
+					53.4460572065904,
+					-2.33699025717691,
+					53.6460454468648
+				],
+				"id": "TLD36",
+				"name": "Greater Manchester North West"
+			},
+			"Greater Manchester North East": {
+				"bbox": [
+					-2.38345547884726,
+					53.4911282635564,
+					-1.90962083195931,
+					53.6857340281769
+				],
+				"id": "TLD37",
+				"name": "Greater Manchester North East"
+			},
+			"Lancaster and Wyre": {
+				"bbox": [
+					-3.05107039787351,
+					53.8199872979186,
+					-2.45877933436389,
+					54.2395684095903
+				],
+				"id": "TLD44",
+				"name": "Lancaster and Wyre"
+			},
+			"Chorley and West Lancashire": {
+				"bbox": [
+					-3.04669858185674,
+					53.4827816876141,
+					-2.51132292781427,
+					53.7514115019628
+				],
+				"id": "TLD47",
+				"name": "Chorley and West Lancashire"
+			},
+			"Cheshire West and Chester": {
+				"bbox": [
+					-3.11071666284966,
+					52.9829437202551,
+					-2.34635313769278,
+					53.3446995043427
+				],
+				"id": "TLD63",
+				"name": "Cheshire West and Chester"
+			},
+			"Liverpool": {
+				"bbox": [
+					-3.00875528920072,
+					53.3268048513166,
+					-2.81800026207563,
+					53.4749832139421
+				],
+				"id": "TLD72",
+				"name": "Liverpool"
+			},
+			"Sefton": {
+				"bbox": [
+					-3.10546967171902,
+					53.4383683800028,
+					-2.88120734090577,
+					53.6984478844415
+				],
+				"id": "TLD73",
+				"name": "Sefton"
+			},
+			"Wirral": {
+				"bbox": [
+					-3.22901660120113,
+					53.2962906217185,
+					-2.92857185328225,
+					53.4429298952609
+				],
+				"id": "TLD74",
+				"name": "Wirral"
+			},
+			"Kingston upon Hull, City of": {
+				"bbox": [
+					-0.422579851198989,
+					53.7195768910204,
+					-0.241435238575079,
+					53.8132701663898
+				],
+				"id": "TLE11",
+				"name": "Kingston upon Hull, City of"
+			},
+			"North and North East Lincolnshire": {
+				"bbox": [
+					-0.95000908732291,
+					53.4335649215751,
+					0.0172744328925961,
+					53.7146028578707
+				],
+				"id": "TLE13",
+				"name": "North and North East Lincolnshire"
+			},
+			"North Yorkshire CC": {
+				"bbox": [
+					-2.56473808825084,
+					53.6211122446221,
+					-0.21254224218915,
+					54.5594655990728
+				],
+				"id": "TLE22",
+				"name": "North Yorkshire CC"
+			},
+			"Barnsley, Doncaster and Rotherham": {
+				"bbox": [
+					-1.8225892753118,
+					53.3016490538128,
+					-0.865338727585955,
+					53.6611865171752
+				],
+				"id": "TLE31",
+				"name": "Barnsley, Doncaster and Rotherham"
+			},
+			"Sheffield": {
+				"bbox": [
+					-1.80147063245778,
+					53.3045326519315,
+					-1.32466917494264,
+					53.5031209751345
+				],
+				"id": "TLE32",
+				"name": "Sheffield"
+			},
+			"Calderdale and Kirklees": {
+				"bbox": [
+					-2.17329358668378,
+					53.5198230488638,
+					-1.57102346344083,
+					53.825635480166
+				],
+				"id": "TLE44",
+				"name": "Calderdale and Kirklees"
+			},
+			"Wakefield": {
+				"bbox": [
+					-1.62487919181324,
+					53.575366969865,
+					-1.19881814856329,
+					53.7417246386101
+				],
+				"id": "TLE45",
+				"name": "Wakefield"
+			},
+			"Derby": {
+				"bbox": [
+					-1.55685223199552,
+					52.8611171452919,
+					-1.38307440896783,
+					52.9681536265314
+				],
+				"id": "TLF11",
+				"name": "Derby"
+			},
+			"South and West Derbyshire": {
+				"bbox": [
+					-2.03408638701476,
+					52.6965388867802,
+					-1.23844775652653,
+					53.5404296499201
+				],
+				"id": "TLF13",
+				"name": "South and West Derbyshire"
+			},
+			"North Nottinghamshire": {
+				"bbox": [
+					-1.34459026765824,
+					52.9569943964451,
+					-0.666406106956858,
+					53.5025165284922
+				],
+				"id": "TLF15",
+				"name": "North Nottinghamshire"
+			},
+			"South Nottinghamshire": {
+				"bbox": [
+					-1.33639245012486,
+					52.7894115462359,
+					-0.815158222324027,
+					53.1039601593087
+				],
+				"id": "TLF16",
+				"name": "South Nottinghamshire"
+			},
+			"Leicester": {
+				"bbox": [
+					-1.21598078461804,
+					52.5806687566272,
+					-1.0462043074511,
+					52.6915230251843
+				],
+				"id": "TLF21",
+				"name": "Leicester"
+			},
+			"Leicestershire CC and Rutland": {
+				"bbox": [
+					-1.59754104513292,
+					52.3921710762571,
+					-0.428365708558795,
+					52.9776791164139
+				],
+				"id": "TLF22",
+				"name": "Leicestershire CC and Rutland"
+			},
+			"West Northamptonshire": {
+				"bbox": [
+					-1.33233249788053,
+					51.9772913158577,
+					-0.705043858877064,
+					52.4774625070593
+				],
+				"id": "TLF24",
+				"name": "West Northamptonshire"
+			},
+			"North Northamptonshire": {
+				"bbox": [
+					-0.906250314713831,
+					52.1915706998869,
+					-0.341590493979016,
+					52.6436193399782
+				],
+				"id": "TLF25",
+				"name": "North Northamptonshire"
+			},
+			"Herefordshire, County of": {
+				"bbox": [
+					-3.14192072336542,
+					51.8260847036268,
+					-2.337962615651,
+					52.3954370615104
+				],
+				"id": "TLG11",
+				"name": "Herefordshire, County of"
+			},
+			"Warwickshire CC": {
+				"bbox": [
+					-1.96196572924164,
+					51.9554034162791,
+					-1.17212636727553,
+					52.6872608072795
+				],
+				"id": "TLG13",
+				"name": "Warwickshire CC"
+			},
+			"Telford and Wrekin": {
+				"bbox": [
+					-2.66736213778366,
+					52.6146083395036,
+					-2.31220754401401,
+					52.8283782775932
+				],
+				"id": "TLG21",
+				"name": "Telford and Wrekin"
+			},
+			"Stoke-on-Trent": {
+				"bbox": [
+					-2.23876135171727,
+					52.9462064185365,
+					-2.07923858928253,
+					53.0927192428975
+				],
+				"id": "TLG23",
+				"name": "Stoke-on-Trent"
+			},
+			"Solihull": {
+				"bbox": [
+					-1.87203384032738,
+					52.3477398320627,
+					-1.59284561871618,
+					52.5144928863722
+				],
+				"id": "TLG32",
+				"name": "Solihull"
+			},
+			"Dudley": {
+				"bbox": [
+					-2.19174881082098,
+					52.4260547319215,
+					-2.01150484508709,
+					52.5582068271232
+				],
+				"id": "TLG36",
+				"name": "Dudley"
+			},
+			"Sandwell": {
+				"bbox": [
+					-2.09707415300245,
+					52.4607425840992,
+					-1.91815749708414,
+					52.569085322277
+				],
+				"id": "TLG37",
+				"name": "Sandwell"
+			},
+			"Wolverhampton": {
+				"bbox": [
+					-2.20687697904642,
+					52.543944879761,
+					-2.04802173347942,
+					52.63791052036
+				],
+				"id": "TLG39",
+				"name": "Wolverhampton"
+			},
+			"Cambridgeshire CC": {
+				"bbox": [
+					-0.499885396336529,
+					52.0057887382646,
+					0.514484040922089,
+					52.7400003975391
+				],
+				"id": "TLH12",
+				"name": "Cambridgeshire CC"
+			},
+			"Norwich and East Norfolk": {
+				"bbox": [
+					0.990368406235502,
+					52.5261191281022,
+					1.74580206920954,
+					52.8306138125738
+				],
+				"id": "TLH15",
+				"name": "Norwich and East Norfolk"
+			},
+			"Southend-on-Sea": {
+				"bbox": [
+					0.622960281716702,
+					51.5212505754188,
+					0.821256679687141,
+					51.5768010705607
+				],
+				"id": "TLH31",
+				"name": "Southend-on-Sea"
+			},
+			"Thurrock": {
+				"bbox": [
+					0.210553959140994,
+					51.4511186950971,
+					0.541271371085289,
+					51.5678214043104
+				],
+				"id": "TLH32",
+				"name": "Thurrock"
+			},
+			"Essex Haven Gateway": {
+				"bbox": [
+					0.379612827767947,
+					51.7504160865059,
+					1.2966222480817,
+					52.08704016683
+				],
+				"id": "TLH34",
+				"name": "Essex Haven Gateway"
+			},
+			"Heart of Essex": {
+				"bbox": [
+					0.175702645009986,
+					51.56429939234,
+					0.950691527801587,
+					51.857478405261
+				],
+				"id": "TLH36",
+				"name": "Heart of Essex"
+			},
+			"Wandsworth": {
+				"bbox": [
+					-0.259089615833307,
+					51.4177517060131,
+					-0.12633855990654,
+					51.4850497272295
+				],
+				"id": "TLI34",
+				"name": "Wandsworth"
+			},
+			"Enfield": {
+				"bbox": [
+					-0.185865830553031,
+					51.6056360387106,
+					-0.00894084598418056,
+					51.6918756442426
+				],
+				"id": "TLI54",
+				"name": "Enfield"
+			},
+			"Bromley": {
+				"bbox": [
+					-0.0809676274951158,
+					51.2893537137148,
+					0.1623841485646,
+					51.4443173305185
+				],
+				"id": "TLI61",
+				"name": "Bromley"
+			},
+			"Croydon": {
+				"bbox": [
+					-0.161879752243111,
+					51.2867586581957,
+					0.00331063716253771,
+					51.4232440578894
+				],
+				"id": "TLI62",
+				"name": "Croydon"
+			},
+			"Barnet": {
+				"bbox": [
+					-0.305573663835557,
+					51.5551885431918,
+					-0.129121094134365,
+					51.6701702728038
+				],
+				"id": "TLI71",
+				"name": "Barnet"
+			},
+			"Ealing": {
+				"bbox": [
+					-0.419569679898948,
+					51.4904707316254,
+					-0.245063485658338,
+					51.5596850579871
+				],
+				"id": "TLI73",
+				"name": "Ealing"
+			},
+			"Harrow and Hillingdon": {
+				"bbox": [
+					-0.510276927745255,
+					51.453266507389,
+					-0.267131489837759,
+					51.64053556669
+				],
+				"id": "TLI74",
+				"name": "Harrow and Hillingdon"
+			},
+			"Milton Keynes": {
+				"bbox": [
+					-0.887331283278931,
+					51.9692289641511,
+					-0.59181033114981,
+					52.1963361712678
+				],
+				"id": "TLJ12",
+				"name": "Milton Keynes"
+			},
+			"Oxfordshire CC": {
+				"bbox": [
+					-1.71948863303458,
+					51.4595036815445,
+					-0.870056210684845,
+					52.168485055298
+				],
+				"id": "TLJ14",
+				"name": "Oxfordshire CC"
+			},
+			"East Sussex CC": {
+				"bbox": [
+					-0.135823519113147,
+					50.734944183716,
+					0.867891380298355,
+					51.1474540323496
+				],
+				"id": "TLJ22",
+				"name": "East Sussex CC"
+			},
+			"West Surrey": {
+				"bbox": [
+					-0.848912169248545,
+					51.0714916858393,
+					-0.307365443666319,
+					51.4715284831431
+				],
+				"id": "TLJ25",
+				"name": "West Surrey"
+			},
+			"East Surrey": {
+				"bbox": [
+					-0.438436754352283,
+					51.1052046699699,
+					0.0582428301614819,
+					51.3801694091377
+				],
+				"id": "TLJ26",
+				"name": "East Surrey"
+			},
+			"West Sussex (North East)": {
+				"bbox": [
+					-0.568910665219997,
+					50.862155192937,
+					0.0445609234162735,
+					51.1673002882995
+				],
+				"id": "TLJ28",
+				"name": "West Sussex (North East)"
+			},
+			"Isle of Wight": {
+				"bbox": [
+					-1.58992580468582,
+					50.5749118090206,
+					-1.0697664966629,
+					50.767287019786
+				],
+				"id": "TLJ34",
+				"name": "Isle of Wight"
+			},
+			"South Hampshire": {
+				"bbox": [
+					-1.39964301518242,
+					50.7734637416499,
+					-0.926450187009924,
+					51.0043613183766
+				],
+				"id": "TLJ35",
+				"name": "South Hampshire"
+			},
+			"Medway": {
+				"bbox": [
+					0.397346295961245,
+					51.3278964115044,
+					0.723482885512547,
+					51.487283689842
+				],
+				"id": "TLJ41",
+				"name": "Medway"
+			},
+			"Kent Thames Gateway": {
+				"bbox": [
+					0.149159928843984,
+					51.2243476967013,
+					1.01698534643369,
+					51.4795267449987
+				],
+				"id": "TLJ43",
+				"name": "Kent Thames Gateway"
+			},
+			"East Kent": {
+				"bbox": [
+					0.777026621517935,
+					50.9109807746336,
+					1.44958517302414,
+					51.3937887258712
+				],
+				"id": "TLJ44",
+				"name": "East Kent"
+			},
+			"Bristol, City of": {
+				"bbox": [
+					-2.75583864705552,
+					51.3972819383619,
+					-2.51046233684169,
+					51.544431061056
+				],
+				"id": "TLK11",
+				"name": "Bristol, City of"
+			},
+			"Gloucestershire CC": {
+				"bbox": [
+					-2.68709256578398,
+					51.5775903265124,
+					-1.61518893059496,
+					52.1125925592077
+				],
+				"id": "TLK13",
+				"name": "Gloucestershire CC"
+			},
+			"Swindon": {
+				"bbox": [
+					-1.86512833380358,
+					51.4824545734086,
+					-1.60281227578358,
+					51.6927126141815
+				],
+				"id": "TLK14",
+				"name": "Swindon"
+			},
+			"Wiltshire": {
+				"bbox": [
+					-2.36558992950093,
+					50.9449855124625,
+					-1.4857109260985,
+					51.7031457121323
+				],
+				"id": "TLK15",
+				"name": "Wiltshire"
+			},
+			"Somerset CC": {
+				"bbox": [
+					-3.83982066625528,
+					50.8208301237739,
+					-2.24443053733742,
+					51.3287935492998
+				],
+				"id": "TLK23",
+				"name": "Somerset CC"
+			},
+			"Plymouth": {
+				"bbox": [
+					-4.20535180226669,
+					50.3330712695279,
+					-4.01963425481051,
+					50.4441538016389
+				],
+				"id": "TLK41",
+				"name": "Plymouth"
+			},
+			"Devon CC": {
+				"bbox": [
+					-4.68062927308376,
+					50.2018546863657,
+					-2.88664434480499,
+					51.246393554942
+				],
+				"id": "TLK43",
+				"name": "Devon CC"
+			},
+			"Isle of Anglesey": {
+				"bbox": [
+					-4.70043510135626,
+					53.1266627021153,
+					-4.02020234863586,
+					53.4357105473124
+				],
+				"id": "TLL11",
+				"name": "Isle of Anglesey"
+			},
+			"Conwy and Denbighshire": {
+				"bbox": [
+					-4.03126494115596,
+					52.8619394441009,
+					-3.09029519464832,
+					53.3520562547979
+				],
+				"id": "TLL13",
+				"name": "Conwy and Denbighshire"
+			},
+			"Flintshire and Wrexham": {
+				"bbox": [
+					-3.40059901443571,
+					52.8666086172759,
+					-2.72417536060341,
+					53.3568651873849
+				],
+				"id": "TLL23",
+				"name": "Flintshire and Wrexham"
+			},
+			"Perth and Kinross, and Stirling": {
+				"bbox": [
+					-4.85447697568081,
+					55.9572216248559,
+					-3.05193075664028,
+					56.9486205260044
+				],
+				"id": "TLM77",
+				"name": "Perth and Kinross, and Stirling"
+			},
+			"West Lothian": {
+				"bbox": [
+					-3.83124855932486,
+					55.7707148799246,
+					-3.38662557190857,
+					56.002095471676
+				],
+				"id": "TLM78",
+				"name": "West Lothian"
+			},
+			"Scottish Borders": {
+				"bbox": [
+					-3.53979208115239,
+					55.1083487900317,
+					-2.03439111884179,
+					55.9459556308602
+				],
+				"id": "TLM91",
+				"name": "Scottish Borders"
+			},
+			"East Ayrshire and North Ayrshire mainland": {
+				"bbox": [
+					-4.90540871515394,
+					55.1378831648008,
+					-3.95704645871325,
+					55.8926081084785
+				],
+				"id": "TLM93",
+				"name": "East Ayrshire and North Ayrshire mainland"
+			},
+			"Derry City and Strabane": {
+				"bbox": [
+					-7.92025416787657,
+					54.6074462849046,
+					-6.90125782025061,
+					55.0672188779681
+				],
+				"id": "TLN0A",
+				"name": "Derry City and Strabane"
+			},
+			"Causeway Coast and Glens": {
+				"bbox": [
+					-7.16502309312247,
+					54.8202183439223,
+					-5.97590354333218,
+					55.3129534677877
+				],
+				"id": "TLN0C",
+				"name": "Causeway Coast and Glens"
+			},
+			"Antrim and Newtownabbey": {
+				"bbox": [
+					-6.49498098936884,
+					54.568138985938,
+					-5.86722564084698,
+					54.8118134859422
+				],
+				"id": "TLN0D",
+				"name": "Antrim and Newtownabbey"
+			}
+		}
+	},
+	"lad21": {
+		"idKey": "LAD21CD",
+		"nameKey": "LAD21NM",
+		"regionType": "lad21",
+		"regions": {
+			"Middlesbrough": {
+				"bbox": [
+					-1.28543724133293,
+					54.5011253146045,
+					-1.13731937218486,
+					54.5907289389131
+				],
+				"id": "E06000002",
+				"name": "Middlesbrough"
+			},
+			"Blackburn with Darwen": {
+				"bbox": [
+					-2.56476819788326,
+					53.6165840960203,
+					-2.3626410357906,
+					53.7818188747229
+				],
+				"id": "E06000008",
+				"name": "Blackburn with Darwen"
+			},
+			"Blackpool": {
+				"bbox": [
+					-3.05903468309261,
+					53.7731167798034,
+					-2.98335722276106,
+					53.8757189847014
+				],
+				"id": "E06000009",
+				"name": "Blackpool"
+			},
+			"Kingston upon Hull, City of": {
+				"bbox": [
+					-0.42257985113171,
+					53.7195783813206,
+					-0.241403486910475,
+					53.8132701672882
+				],
+				"id": "E06000010",
+				"name": "Kingston upon Hull, City of"
+			},
+			"Derby": {
+				"bbox": [
+					-1.55685223049924,
+					52.8610550407951,
+					-1.38307440746764,
+					52.9681536283292
+				],
+				"id": "E06000015",
+				"name": "Derby"
+			},
+			"Leicester": {
+				"bbox": [
+					-1.215980784602,
+					52.5806687575261,
+					-1.04620430743156,
+					52.6915230260726
+				],
+				"id": "E06000016",
+				"name": "Leicester"
+			},
+			"Nottingham": {
+				"bbox": [
+					-1.24695293783229,
+					52.8890290433004,
+					-1.08611507246246,
+					53.0186913209318
+				],
+				"id": "E06000018",
+				"name": "Nottingham"
+			},
+			"Stoke-on-Trent": {
+				"bbox": [
+					-2.23876135172224,
+					52.9462064203344,
+					-2.07923858928417,
+					53.0927192437964
+				],
+				"id": "E06000021",
+				"name": "Stoke-on-Trent"
+			},
+			"Luton": {
+				"bbox": [
+					-0.505923085960359,
+					51.8544812644456,
+					-0.3498989071936,
+					51.9277474618813
+				],
+				"id": "E06000032",
+				"name": "Luton"
+			},
+			"Southend-on-Sea": {
+				"bbox": [
+					0.622945951640881,
+					51.5213360139181,
+					0.820968405413912,
+					51.5768010714265
+				],
+				"id": "E06000033",
+				"name": "Southend-on-Sea"
+			},
+			"Bracknell Forest": {
+				"bbox": [
+					-0.837349302933734,
+					51.3319363412335,
+					-0.630552938632746,
+					51.4687339898807
+				],
+				"id": "E06000036",
+				"name": "Bracknell Forest"
+			},
+			"Reading": {
+				"bbox": [
+					-1.05297452901207,
+					51.4097807646839,
+					-0.928475285041177,
+					51.4931361527316
+				],
+				"id": "E06000038",
+				"name": "Reading"
+			},
+			"Slough": {
+				"bbox": [
+					-0.660146561343318,
+					51.467984948416,
+					-0.490024731164425,
+					51.5388952073441
+				],
+				"id": "E06000039",
+				"name": "Slough"
+			},
+			"Brighton and Hove": {
+				"bbox": [
+					-0.24504978694712,
+					50.7990773687868,
+					-0.0160023583696679,
+					50.8923683218769
+				],
+				"id": "E06000043",
+				"name": "Brighton and Hove"
+			},
+			"Portsmouth": {
+				"bbox": [
+					-1.11819171674349,
+					50.7501511562403,
+					-1.02062526974649,
+					50.8592996552133
+				],
+				"id": "E06000044",
+				"name": "Portsmouth"
+			},
+			"Southampton": {
+				"bbox": [
+					-1.4773255064721,
+					50.880026976555,
+					-1.32197756217243,
+					50.9561274536544
+				],
+				"id": "E06000045",
+				"name": "Southampton"
+			},
+			"Cambridge": {
+				"bbox": [
+					0.0686388413859443,
+					52.1579417014909,
+					0.184552035598734,
+					52.2372295579635
+				],
+				"id": "E07000008",
+				"name": "Cambridge"
+			},
+			"Chesterfield": {
+				"bbox": [
+					-1.48416816009004,
+					53.212442201971,
+					-1.30130161259842,
+					53.2990440943817
+				],
+				"id": "E07000034",
+				"name": "Chesterfield"
+			},
+			"Exeter": {
+				"bbox": [
+					-3.5702182649407,
+					50.6749416737886,
+					-3.45143231496005,
+					50.7614550781156
+				],
+				"id": "E07000041",
+				"name": "Exeter"
+			},
+			"Eastbourne": {
+				"bbox": [
+					0.209381082631183,
+					50.7344193557436,
+					0.339307150730746,
+					50.813073201165
+				],
+				"id": "E07000061",
+				"name": "Eastbourne"
+			},
+			"Hastings": {
+				"bbox": [
+					0.500712476210745,
+					50.842261222592,
+					0.65857681641057,
+					50.8948246030523
+				],
+				"id": "E07000062",
+				"name": "Hastings"
+			},
+			"Harlow": {
+				"bbox": [
+					0.054068810963473,
+					51.7346870732877,
+					0.168018960489515,
+					51.797233006516
+				],
+				"id": "E07000073",
+				"name": "Harlow"
+			},
+			"Cheltenham": {
+				"bbox": [
+					-2.14301431485322,
+					51.8583412596567,
+					-2.01021519154428,
+					51.9388815799919
+				],
+				"id": "E07000078",
+				"name": "Cheltenham"
+			},
+			"Gloucester": {
+				"bbox": [
+					-2.30135325369926,
+					51.80758040165,
+					-2.17725789160801,
+					51.8852241000915
+				],
+				"id": "E07000081",
+				"name": "Gloucester"
+			},
+			"Gosport": {
+				"bbox": [
+					-1.21416686532176,
+					50.7732831057986,
+					-1.11189328853384,
+					50.8393240025137
+				],
+				"id": "E07000088",
+				"name": "Gosport"
+			},
+			"Rushmoor": {
+				"bbox": [
+					-0.80752379242497,
+					51.2304556185928,
+					-0.729325031346628,
+					51.3200843382103
+				],
+				"id": "E07000092",
+				"name": "Rushmoor"
+			},
+			"Broxbourne": {
+				"bbox": [
+					-0.114148403497219,
+					51.6808778155788,
+					0.0145539264069783,
+					51.7806080633279
+				],
+				"id": "E07000095",
+				"name": "Broxbourne"
+			},
+			"Hertsmere": {
+				"bbox": [
+					-0.386831198305677,
+					51.623504817498,
+					-0.163118088645696,
+					51.7381452538131
+				],
+				"id": "E07000098",
+				"name": "Hertsmere"
+			},
+			"Watford": {
+				"bbox": [
+					-0.439543240235569,
+					51.637117243535,
+					-0.368766140427457,
+					51.7019427464431
+				],
+				"id": "E07000103",
+				"name": "Watford"
+			},
+			"Dartford": {
+				"bbox": [
+					0.149159930322975,
+					51.38653982156,
+					0.344626764730069,
+					51.4796646303263
+				],
+				"id": "E07000107",
+				"name": "Dartford"
+			},
+			"Gravesham": {
+				"bbox": [
+					0.310685334757213,
+					51.3250060447047,
+					0.491196227907712,
+					51.4649460802575
+				],
+				"id": "E07000109",
+				"name": "Gravesham"
+			},
+			"Thanet": {
+				"bbox": [
+					1.21078174878976,
+					51.3079867949493,
+					1.44970261504831,
+					51.3937782754357
+				],
+				"id": "E07000114",
+				"name": "Thanet"
+			},
+			"Burnley": {
+				"bbox": [
+					-2.3423059086941,
+					53.7230116839111,
+					-2.11227899052983,
+					53.8252766069024
+				],
+				"id": "E07000117",
+				"name": "Burnley"
+			},
+			"Hyndburn": {
+				"bbox": [
+					-2.46580771374763,
+					53.70469281054,
+					-2.31372441355751,
+					53.8166191916107
+				],
+				"id": "E07000120",
+				"name": "Hyndburn"
+			},
+			"Oadby and Wigston": {
+				"bbox": [
+					-1.14451244826743,
+					52.5561689578573,
+					-1.04135762765073,
+					52.6180668313852
+				],
+				"id": "E07000135",
+				"name": "Oadby and Wigston"
+			},
+			"Lincoln": {
+				"bbox": [
+					-0.622616974304759,
+					53.1863260710722,
+					-0.493914707716645,
+					53.2545749922524
+				],
+				"id": "E07000138",
+				"name": "Lincoln"
+			},
+			"Norwich": {
+				"bbox": [
+					1.20389047148497,
+					52.5951838785003,
+					1.34224411589981,
+					52.6849351236194
+				],
+				"id": "E07000148",
+				"name": "Norwich"
+			},
+			"Broxtowe": {
+				"bbox": [
+					-1.33639245011107,
+					52.8922892374961,
+					-1.1823012510609,
+					53.0544834267596
+				],
+				"id": "E07000172",
+				"name": "Broxtowe"
+			},
+			"Mansfield": {
+				"bbox": [
+					-1.26006786057334,
+					53.1148104411525,
+					-1.09476360068258,
+					53.2356354068621
+				],
+				"id": "E07000174",
+				"name": "Mansfield"
+			},
+			"Oxford": {
+				"bbox": [
+					-1.30422964072168,
+					51.7109837159491,
+					-1.1757937183455,
+					51.7962718701282
+				],
+				"id": "E07000178",
+				"name": "Oxford"
+			},
+			"Cannock Chase": {
+				"bbox": [
+					-2.05463221958658,
+					52.6396530561463,
+					-1.91080679278257,
+					52.7741967349443
+				],
+				"id": "E07000192",
+				"name": "Cannock Chase"
+			},
+			"Tamworth": {
+				"bbox": [
+					-1.73580832977155,
+					52.5886539158903,
+					-1.6329197884851,
+					52.6575167797495
+				],
+				"id": "E07000199",
+				"name": "Tamworth"
+			},
+			"Ipswich": {
+				"bbox": [
+					1.10727569557284,
+					52.020768655973,
+					1.22361032387657,
+					52.0944696524962
+				],
+				"id": "E07000202",
+				"name": "Ipswich"
+			},
+			"Elmbridge": {
+				"bbox": [
+					-0.481196356772933,
+					51.2948524375411,
+					-0.307365443633207,
+					51.412050818527
+				],
+				"id": "E07000207",
+				"name": "Elmbridge"
+			},
+			"Epsom and Ewell": {
+				"bbox": [
+					-0.306191996680517,
+					51.2923303488632,
+					-0.217264425534208,
+					51.3801892362233
+				],
+				"id": "E07000208",
+				"name": "Epsom and Ewell"
+			},
+			"Runnymede": {
+				"bbox": [
+					-0.619634818010671,
+					51.3388579994845,
+					-0.457885893491634,
+					51.451007631736
+				],
+				"id": "E07000212",
+				"name": "Runnymede"
+			},
+			"Spelthorne": {
+				"bbox": [
+					-0.54061316396913,
+					51.3784086086375,
+					-0.383350026681253,
+					51.4715651296222
+				],
+				"id": "E07000213",
+				"name": "Spelthorne"
+			},
+			"Surrey Heath": {
+				"bbox": [
+					-0.775466206963731,
+					51.2792474574396,
+					-0.548491682088978,
+					51.3924588428026
+				],
+				"id": "E07000214",
+				"name": "Surrey Heath"
+			},
+			"Woking": {
+				"bbox": [
+					-0.649961674973826,
+					51.2654861134023,
+					-0.460963863965282,
+					51.3496077515774
+				],
+				"id": "E07000217",
+				"name": "Woking"
+			},
+			"Nuneaton and Bedworth": {
+				"bbox": [
+					-1.5561874751067,
+					52.4500892412062,
+					-1.40281154869425,
+					52.5519783440298
+				],
+				"id": "E07000219",
+				"name": "Nuneaton and Bedworth"
+			},
+			"Adur": {
+				"bbox": [
+					-0.371517018515527,
+					50.8174242191549,
+					-0.215294488990349,
+					50.8747381452188
+				],
+				"id": "E07000223",
+				"name": "Adur"
+			},
+			"Crawley": {
+				"bbox": [
+					-0.255607356566176,
+					51.0848057281517,
+					-0.132952086272834,
+					51.1673002891983
+				],
+				"id": "E07000226",
+				"name": "Crawley"
+			},
+			"Worthing": {
+				"bbox": [
+					-0.446531773483826,
+					50.8031394390228,
+					-0.332608092419676,
+					50.8632519060736
+				],
+				"id": "E07000229",
+				"name": "Worthing"
+			},
+			"Redditch": {
+				"bbox": [
+					-2.01892882131527,
+					52.235261331702,
+					-1.87520703557667,
+					52.3242122369594
+				],
+				"id": "E07000236",
+				"name": "Redditch"
+			},
+			"Worcester": {
+				"bbox": [
+					-2.26319929567024,
+					52.1616475389051,
+					-2.15729877740523,
+					52.2314054157501
+				],
+				"id": "E07000237",
+				"name": "Worcester"
+			},
+			"Stevenage": {
+				"bbox": [
+					-0.234371697047689,
+					51.8692676944124,
+					-0.146817430268182,
+					51.9324133792184
+				],
+				"id": "E07000243",
+				"name": "Stevenage"
+			},
+			"Salford": {
+				"bbox": [
+					-2.48973034134074,
+					53.4158914442799,
+					-2.24510394851182,
+					53.5422534894246
+				],
+				"id": "E08000006",
+				"name": "Salford"
+			},
+			"Tameside": {
+				"bbox": [
+					-2.16966351247207,
+					53.4259723650252,
+					-1.96338598926022,
+					53.5313929556254
+				],
+				"id": "E08000008",
+				"name": "Tameside"
+			},
+			"Trafford": {
+				"bbox": [
+					-2.47845439772895,
+					53.3574246421479,
+					-2.25302232692278,
+					53.4803738002721
+				],
+				"id": "E08000009",
+				"name": "Trafford"
+			},
+			"Liverpool": {
+				"bbox": [
+					-3.00875228191605,
+					53.3267900519452,
+					-2.81800026209284,
+					53.4749832157279
+				],
+				"id": "E08000012",
+				"name": "Liverpool"
+			},
+			"Newcastle upon Tyne": {
+				"bbox": [
+					-1.77568505202114,
+					54.9599945440303,
+					-1.53084429541888,
+					55.07938870152
+				],
+				"id": "E08000021",
+				"name": "Newcastle upon Tyne"
+			},
+			"North Tyneside": {
+				"bbox": [
+					-1.63975943117304,
+					54.9829318621012,
+					-1.40278751406296,
+					55.0749351338781
+				],
+				"id": "E08000022",
+				"name": "North Tyneside"
+			},
+			"South Tyneside": {
+				"bbox": [
+					-1.53417275688498,
+					54.9283688788392,
+					-1.35328223157179,
+					55.0113365465712
+				],
+				"id": "E08000023",
+				"name": "South Tyneside"
+			},
+			"Coventry": {
+				"bbox": [
+					-1.61445000065458,
+					52.3638920750157,
+					-1.42392898231888,
+					52.4647986868735
+				],
+				"id": "E08000026",
+				"name": "Coventry"
+			},
+			"Sandwell": {
+				"bbox": [
+					-2.09710836796544,
+					52.4607327763577,
+					-1.91815749708244,
+					52.569085323176
+				],
+				"id": "E08000028",
+				"name": "Sandwell"
+			},
+			"Walsall": {
+				"bbox": [
+					-2.07782393325462,
+					52.5473065302947,
+					-1.87251154038685,
+					52.6627333903016
+				],
+				"id": "E08000030",
+				"name": "Walsall"
+			},
+			"Wolverhampton": {
+				"bbox": [
+					-2.20687697905067,
+					52.54394488066,
+					-2.0480217334804,
+					52.637910521259
+				],
+				"id": "E08000031",
+				"name": "Wolverhampton"
+			},
+			"City of London": {
+				"bbox": [
+					-0.113803703413632,
+					51.5078026497749,
+					-0.0727355983455488,
+					51.5233140396699
+				],
+				"id": "E09000001",
+				"name": "City of London"
+			},
+			"Barking and Dagenham": {
+				"bbox": [
+					0.0666760012917532,
+					51.5120053649925,
+					0.190222134044087,
+					51.5994359399714
+				],
+				"id": "E09000002",
+				"name": "Barking and Dagenham"
+			},
+			"Barnet": {
+				"bbox": [
+					-0.305573663802058,
+					51.5551909329255,
+					-0.129093931888576,
+					51.6701702737025
+				],
+				"id": "E09000003",
+				"name": "Barnet"
+			},
+			"Bexley": {
+				"bbox": [
+					0.0746680798001108,
+					51.4084291289347,
+					0.217665422548806,
+					51.5132739154238
+				],
+				"id": "E09000004",
+				"name": "Bexley"
+			},
+			"Brent": {
+				"bbox": [
+					-0.335555531666752,
+					51.5276386365623,
+					-0.191467608561554,
+					51.6003719685842
+				],
+				"id": "E09000005",
+				"name": "Brent"
+			},
+			"Camden": {
+				"bbox": [
+					-0.213486677002519,
+					51.5126606829041,
+					-0.105290341558648,
+					51.5729628336939
+				],
+				"id": "E09000007",
+				"name": "Camden"
+			},
+			"Croydon": {
+				"bbox": [
+					-0.161879752207213,
+					51.2867586590943,
+					0.00331469659213381,
+					51.4232442695196
+				],
+				"id": "E09000008",
+				"name": "Croydon"
+			},
+			"Ealing": {
+				"bbox": [
+					-0.419602534853399,
+					51.4904761558315,
+					-0.245134655699555,
+					51.5596573963232
+				],
+				"id": "E09000009",
+				"name": "Ealing"
+			},
+			"Enfield": {
+				"bbox": [
+					-0.185893323219588,
+					51.6056467853338,
+					-0.00892210347290382,
+					51.6918770231401
+				],
+				"id": "E09000010",
+				"name": "Enfield"
+			},
+			"Greenwich": {
+				"bbox": [
+					-0.0263728337248308,
+					51.4237003708481,
+					0.12419108741121,
+					51.5114508628077
+				],
+				"id": "E09000011",
+				"name": "Greenwich"
+			},
+			"Hackney": {
+				"bbox": [
+					-0.104483220665044,
+					51.5198188248555,
+					-0.0165080482098572,
+					51.5777860371156
+				],
+				"id": "E09000012",
+				"name": "Hackney"
+			},
+			"Hammersmith and Fulham": {
+				"bbox": [
+					-0.255064221072407,
+					51.4648405393077,
+					-0.179362623599558,
+					51.5327375103472
+				],
+				"id": "E09000013",
+				"name": "Hammersmith and Fulham"
+			},
+			"Haringey": {
+				"bbox": [
+					-0.17123183297214,
+					51.5646473489419,
+					-0.041390716789704,
+					51.6112183462889
+				],
+				"id": "E09000014",
+				"name": "Haringey"
+			},
+			"Harrow": {
+				"bbox": [
+					-0.404003977890064,
+					51.553084604915,
+					-0.267113115479641,
+					51.6405355675681
+				],
+				"id": "E09000015",
+				"name": "Harrow"
+			},
+			"Havering": {
+				"bbox": [
+					0.138184235471144,
+					51.4877097030735,
+					0.334044063437149,
+					51.6317377623678
+				],
+				"id": "E09000016",
+				"name": "Havering"
+			},
+			"Hillingdon": {
+				"bbox": [
+					-0.510355887089289,
+					51.4532905922729,
+					-0.375918843631766,
+					51.6317620210519
+				],
+				"id": "E09000017",
+				"name": "Hillingdon"
+			},
+			"Hounslow": {
+				"bbox": [
+					-0.46148169282775,
+					51.4206290165035,
+					-0.244419991253253,
+					51.502847528294
+				],
+				"id": "E09000018",
+				"name": "Hounslow"
+			},
+			"Islington": {
+				"bbox": [
+					-0.142482591057135,
+					51.5185548587508,
+					-0.0763049515416961,
+					51.5755067662442
+				],
+				"id": "E09000019",
+				"name": "Islington"
+			},
+			"Kensington and Chelsea": {
+				"bbox": [
+					-0.228730175524929,
+					51.4773503184455,
+					-0.149982777183601,
+					51.5303191572033
+				],
+				"id": "E09000020",
+				"name": "Kensington and Chelsea"
+			},
+			"Kingston upon Thames": {
+				"bbox": [
+					-0.330732916145702,
+					51.3263182536104,
+					-0.238730295207436,
+					51.4372880704664
+				],
+				"id": "E09000021",
+				"name": "Kingston upon Thames"
+			},
+			"Lambeth": {
+				"bbox": [
+					-0.151211614592545,
+					51.4109918256844,
+					-0.0782876818800692,
+					51.5085038080105
+				],
+				"id": "E09000022",
+				"name": "Lambeth"
+			},
+			"Lewisham": {
+				"bbox": [
+					-0.0750854929713361,
+					51.4135347104259,
+					0.039067801957852,
+					51.4930527864757
+				],
+				"id": "E09000023",
+				"name": "Lewisham"
+			},
+			"Merton": {
+				"bbox": [
+					-0.254238567069917,
+					51.380182375519,
+					-0.124139637510634,
+					51.4414645849425
+				],
+				"id": "E09000024",
+				"name": "Merton"
+			},
+			"Newham": {
+				"bbox": [
+					-0.0212691846118921,
+					51.498356519861,
+					0.0969021049622299,
+					51.5640217712285
+				],
+				"id": "E09000025",
+				"name": "Newham"
+			},
+			"Redbridge": {
+				"bbox": [
+					0.00869444540428972,
+					51.5435618414325,
+					0.149510112602879,
+					51.6290181021025
+				],
+				"id": "E09000026",
+				"name": "Redbridge"
+			},
+			"Southwark": {
+				"bbox": [
+					-0.111466570920131,
+					51.4206047143525,
+					-0.0322130157812844,
+					51.5086543907297
+				],
+				"id": "E09000028",
+				"name": "Southwark"
+			},
+			"Sutton": {
+				"bbox": [
+					-0.245404841047607,
+					51.3214852871721,
+					-0.116842029977448,
+					51.3934129467947
+				],
+				"id": "E09000029",
+				"name": "Sutton"
+			},
+			"Tower Hamlets": {
+				"bbox": [
+					-0.0794129529519501,
+					51.4859760356014,
+					0.00918731019619266,
+					51.5446874669901
+				],
+				"id": "E09000030",
+				"name": "Tower Hamlets"
+			},
+			"Waltham Forest": {
+				"bbox": [
+					-0.0622229785982064,
+					51.5499066882953,
+					0.0257386646061706,
+					51.6465278478357
+				],
+				"id": "E09000031",
+				"name": "Waltham Forest"
+			},
+			"Wandsworth": {
+				"bbox": [
+					-0.259111198831886,
+					51.4177517059903,
+					-0.12630848820243,
+					51.4850646485149
+				],
+				"id": "E09000032",
+				"name": "Wandsworth"
+			},
+			"Westminster": {
+				"bbox": [
+					-0.216066490837136,
+					51.4847880510842,
+					-0.111057012329661,
+					51.5398141593737
+				],
+				"id": "E09000033",
+				"name": "Westminster"
+			},
+			"Dundee City": {
+				"bbox": [
+					-3.09804101236186,
+					56.450970811673,
+					-2.83564550262336,
+					56.5039815975032
+				],
+				"id": "S12000042",
+				"name": "Dundee City"
+			},
+			"Blaenau Gwent": {
+				"bbox": [
+					-3.31009487268817,
+					51.6812782856969,
+					-3.10601554595748,
+					51.825488658471
+				],
+				"id": "W06000019",
+				"name": "Blaenau Gwent"
+			},
+			"Hartlepool": {
+				"bbox": [
+					-1.38376723660419,
+					54.6218847195187,
+					-1.15763713826617,
+					54.727168687781
+				],
+				"id": "E06000001",
+				"name": "Hartlepool"
+			},
+			"Redcar and Cleveland": {
+				"bbox": [
+					-1.20174302467608,
+					54.4878486173683,
+					-0.788389581298897,
+					54.6475941696358
+				],
+				"id": "E06000003",
+				"name": "Redcar and Cleveland"
+			},
+			"Stockton-on-Tees": {
+				"bbox": [
+					-1.45264121897064,
+					54.4641506390909,
+					-1.15874583122789,
+					54.6452507844201
+				],
+				"id": "E06000004",
+				"name": "Stockton-on-Tees"
+			},
+			"Darlington": {
+				"bbox": [
+					-1.70976414983484,
+					54.4511376094983,
+					-1.40729171028139,
+					54.6193656809116
+				],
+				"id": "E06000005",
+				"name": "Darlington"
+			},
+			"Halton": {
+				"bbox": [
+					-2.83245729486952,
+					53.3050347970597,
+					-2.5952211411125,
+					53.4025532307433
+				],
+				"id": "E06000006",
+				"name": "Halton"
+			},
+			"Warrington": {
+				"bbox": [
+					-2.69772482754663,
+					53.3223303510826,
+					-2.425380621562,
+					53.4809294219504
+				],
+				"id": "E06000007",
+				"name": "Warrington"
+			},
+			"North East Lincolnshire": {
+				"bbox": [
+					-0.29211512919743,
+					53.4335649233719,
+					0.0176321787622001,
+					53.6399659715778
+				],
+				"id": "E06000012",
+				"name": "North East Lincolnshire"
+			},
+			"York": {
+				"bbox": [
+					-1.22371908740097,
+					53.8745857914306,
+					-0.919677344555545,
+					54.0568828853467
+				],
+				"id": "E06000014",
+				"name": "York"
+			},
+			"Rutland": {
+				"bbox": [
+					-0.821752864472965,
+					52.5248034370253,
+					-0.428364699911486,
+					52.7598408822972
+				],
+				"id": "E06000017",
+				"name": "Rutland"
+			},
+			"Telford and Wrekin": {
+				"bbox": [
+					-2.6673621378111,
+					52.6145585603198,
+					-2.31220754402045,
+					52.8283871797426
+				],
+				"id": "E06000020",
+				"name": "Telford and Wrekin"
+			},
+			"Bristol, City of": {
+				"bbox": [
+					-2.75587971107275,
+					51.3972819383619,
+					-2.51041953845727,
+					51.5444310619551
+				],
+				"id": "E06000023",
+				"name": "Bristol, City of"
+			},
+			"Plymouth": {
+				"bbox": [
+					-4.20533734486742,
+					50.3330711686626,
+					-4.01963425625447,
+					50.4441538016389
+				],
+				"id": "E06000026",
+				"name": "Plymouth"
+			},
+			"Torbay": {
+				"bbox": [
+					-3.62841211871871,
+					50.3734825873851,
+					-3.48057680085517,
+					50.5185023197364
+				],
+				"id": "E06000027",
+				"name": "Torbay"
+			},
+			"Swindon": {
+				"bbox": [
+					-1.86512833380089,
+					51.4824545734086,
+					-1.60281227577577,
+					51.6927132461595
+				],
+				"id": "E06000030",
+				"name": "Swindon"
+			},
+			"Peterborough": {
+				"bbox": [
+					-0.497651443767072,
+					52.5061130640139,
+					-0.0128403765926011,
+					52.6752330946213
+				],
+				"id": "E06000031",
+				"name": "Peterborough"
+			},
+			"Thurrock": {
+				"bbox": [
+					0.210575775391054,
+					51.4511175082274,
+					0.541312481464481,
+					51.56782140518
+				],
+				"id": "E06000034",
+				"name": "Thurrock"
+			},
+			"Windsor and Maidenhead": {
+				"bbox": [
+					-0.853907491772685,
+					51.3828005282468,
+					-0.522765050804453,
+					51.5778285832504
+				],
+				"id": "E06000040",
+				"name": "Windsor and Maidenhead"
+			},
+			"Wokingham": {
+				"bbox": [
+					-1.01188405929674,
+					51.3520705024913,
+					-0.788839993914029,
+					51.5621275783588
+				],
+				"id": "E06000041",
+				"name": "Wokingham"
+			},
+			"Milton Keynes": {
+				"bbox": [
+					-0.887353760910342,
+					51.9692289650499,
+					-0.591810331121503,
+					52.1963361721666
+				],
+				"id": "E06000042",
+				"name": "Milton Keynes"
+			},
+			"Isles of Scilly": {
+				"bbox": [
+					-6.41866722959945,
+					49.8646681906904,
+					-6.24457828822094,
+					49.9806899402223
+				],
+				"id": "E06000053",
+				"name": "Isles of Scilly"
+			},
+			"Bedford": {
+				"bbox": [
+					-0.668756729853352,
+					52.0545431786636,
+					-0.240723002820836,
+					52.3229532812371
+				],
+				"id": "E06000055",
+				"name": "Bedford"
+			},
+			"Amber Valley": {
+				"bbox": [
+					-1.61009488331144,
+					52.9242077388049,
+					-1.30744372494867,
+					53.1339645595524
+				],
+				"id": "E07000032",
+				"name": "Amber Valley"
+			},
+			"Bolsover": {
+				"bbox": [
+					-1.37826515219979,
+					53.0809878876668,
+					-1.1664875414478,
+					53.3129491235298
+				],
+				"id": "E07000033",
+				"name": "Bolsover"
+			},
+			"Erewash": {
+				"bbox": [
+					-1.47983310075821,
+					52.8723578783783,
+					-1.23839765593724,
+					53.0036547888145
+				],
+				"id": "E07000036",
+				"name": "Erewash"
+			},
+			"Basildon": {
+				"bbox": [
+					0.375126917595192,
+					51.5299855542692,
+					0.568795260839047,
+					51.6512419575078
+				],
+				"id": "E07000066",
+				"name": "Basildon"
+			},
+			"Brentwood": {
+				"bbox": [
+					0.175702646497488,
+					51.5642993932384,
+					0.412560206765404,
+					51.7170130529691
+				],
+				"id": "E07000068",
+				"name": "Brentwood"
+			},
+			"Chelmsford": {
+				"bbox": [
+					0.332191422515801,
+					51.6166275841407,
+					0.646735281170112,
+					51.8574913522599
+				],
+				"id": "E07000070",
+				"name": "Chelmsford"
+			},
+			"Epping Forest": {
+				"bbox": [
+					-0.0197431177734428,
+					51.604467042686,
+					0.347595797499802,
+					51.8221540085985
+				],
+				"id": "E07000072",
+				"name": "Epping Forest"
+			},
+			"Eastleigh": {
+				"bbox": [
+					-1.39964301375757,
+					50.8487659908423,
+					-1.25815427373225,
+					51.0043613192758
+				],
+				"id": "E07000086",
+				"name": "Eastleigh"
+			},
+			"Fareham": {
+				"bbox": [
+					-1.30855292479603,
+					50.809273587275,
+					-1.11223822862476,
+					50.8985491287115
+				],
+				"id": "E07000087",
+				"name": "Fareham"
+			},
+			"Hart": {
+				"bbox": [
+					-1.00227767688334,
+					51.1860036088581,
+					-0.76290312001552,
+					51.3663170663636
+				],
+				"id": "E07000089",
+				"name": "Hart"
+			},
+			"Havant": {
+				"bbox": [
+					-1.05488331890077,
+					50.7765323097285,
+					-0.926450186989275,
+					50.9096500803222
+				],
+				"id": "E07000090",
+				"name": "Havant"
+			},
+			"Dacorum": {
+				"bbox": [
+					-0.745765517671848,
+					51.679834158485,
+					-0.404858806630098,
+					51.8581374677739
+				],
+				"id": "E07000096",
+				"name": "Dacorum"
+			},
+			"Three Rivers": {
+				"bbox": [
+					-0.539260817248429,
+					51.5995853172733,
+					-0.362621257698241,
+					51.7408368511604
+				],
+				"id": "E07000102",
+				"name": "Three Rivers"
+			},
+			"Maidstone": {
+				"bbox": [
+					0.37813185237855,
+					51.1339445383835,
+					0.796469114922585,
+					51.3387431250211
+				],
+				"id": "E07000110",
+				"name": "Maidstone"
+			},
+			"Chorley": {
+				"bbox": [
+					-2.82403694241396,
+					53.5936019593096,
+					-2.51132292934796,
+					53.7514115037603
+				],
+				"id": "E07000118",
+				"name": "Chorley"
+			},
+			"Pendle": {
+				"bbox": [
+					-2.33364465004493,
+					53.8057083891249,
+					-2.04507530403921,
+					53.9522641300986
+				],
+				"id": "E07000122",
+				"name": "Pendle"
+			},
+			"Preston": {
+				"bbox": [
+					-2.82599421787706,
+					53.7482689853326,
+					-2.59543526622435,
+					53.8961663859101
+				],
+				"id": "E07000123",
+				"name": "Preston"
+			},
+			"Rossendale": {
+				"bbox": [
+					-2.41100664469002,
+					53.6145142332618,
+					-2.14514650166405,
+					53.7550449889071
+				],
+				"id": "E07000125",
+				"name": "Rossendale"
+			},
+			"South Ribble": {
+				"bbox": [
+					-2.85544133117926,
+					53.6713341284435,
+					-2.54554336628584,
+					53.7828337574513
+				],
+				"id": "E07000126",
+				"name": "South Ribble"
+			},
+			"Blaby": {
+				"bbox": [
+					-1.3391283279794,
+					52.4932134381993,
+					-1.05939219116329,
+					52.6644018183087
+				],
+				"id": "E07000129",
+				"name": "Blaby"
+			},
+			"Charnwood": {
+				"bbox": [
+					-1.33506626371415,
+					52.6538661474147,
+					-0.947237799575772,
+					52.8247266344066
+				],
+				"id": "E07000130",
+				"name": "Charnwood"
+			},
+			"Hinckley and Bosworth": {
+				"bbox": [
+					-1.57135993877814,
+					52.5010423245412,
+					-1.19968163037784,
+					52.7152889033589
+				],
+				"id": "E07000132",
+				"name": "Hinckley and Bosworth"
+			},
+			"North West Leicestershire": {
+				"bbox": [
+					-1.59754104512465,
+					52.6639580217486,
+					-1.24714069691699,
+					52.8770804463604
+				],
+				"id": "E07000134",
+				"name": "North West Leicestershire"
+			},
+			"Ashfield": {
+				"bbox": [
+					-1.34459026764461,
+					53.0080803433272,
+					-1.16425148277133,
+					53.1714552917787
+				],
+				"id": "E07000170",
+				"name": "Ashfield"
+			},
+			"Gedling": {
+				"bbox": [
+					-1.23128870787785,
+					52.9481811898795,
+					-1.00708600519626,
+					53.1039601611064
+				],
+				"id": "E07000173",
+				"name": "Gedling"
+			},
+			"Rushcliffe": {
+				"bbox": [
+					-1.27528282314089,
+					52.7894115471348,
+					-0.815158220785605,
+					53.0359284297717
+				],
+				"id": "E07000176",
+				"name": "Rushcliffe"
+			},
+			"Lichfield": {
+				"bbox": [
+					-1.96322524496663,
+					52.5849076658171,
+					-1.58628530395622,
+					52.807809408498
+				],
+				"id": "E07000194",
+				"name": "Lichfield"
+			},
+			"Newcastle-under-Lyme": {
+				"bbox": [
+					-2.47084125003617,
+					52.8740080691121,
+					-2.18108615815399,
+					53.1158244641231
+				],
+				"id": "E07000195",
+				"name": "Newcastle-under-Lyme"
+			},
+			"Guildford": {
+				"bbox": [
+					-0.748336015847959,
+					51.1731814316052,
+					-0.387142549569629,
+					51.3315135971617
+				],
+				"id": "E07000209",
+				"name": "Guildford"
+			},
+			"Mole Valley": {
+				"bbox": [
+					-0.438436754321913,
+					51.1051476216347,
+					-0.17654260499928,
+					51.3350844126725
+				],
+				"id": "E07000210",
+				"name": "Mole Valley"
+			},
+			"Reigate and Banstead": {
+				"bbox": [
+					-0.272234355213241,
+					51.1595843412691,
+					-0.124292859195443,
+					51.3435951607866
+				],
+				"id": "E07000211",
+				"name": "Reigate and Banstead"
+			},
+			"Tandridge": {
+				"bbox": [
+					-0.154960683838719,
+					51.1367655212928,
+					0.0582428302016134,
+					51.3387044848688
+				],
+				"id": "E07000215",
+				"name": "Tandridge"
+			},
+			"Waverley": {
+				"bbox": [
+					-0.848912169248545,
+					51.0714916867383,
+					-0.413236600134928,
+					51.2450647475977
+				],
+				"id": "E07000216",
+				"name": "Waverley"
+			},
+			"North Warwickshire": {
+				"bbox": [
+					-1.78846071184577,
+					52.4354715665142,
+					-1.45999402369308,
+					52.6872608081784
+				],
+				"id": "E07000218",
+				"name": "North Warwickshire"
+			},
+			"Rugby": {
+				"bbox": [
+					-1.46509215196856,
+					52.2527318966475,
+					-1.17212636579044,
+					52.5344864311728
+				],
+				"id": "E07000220",
+				"name": "Rugby"
+			},
+			"Warwick": {
+				"bbox": [
+					-1.78016933319821,
+					52.2137189111782,
+					-1.40607766791026,
+					52.3892994855589
+				],
+				"id": "E07000222",
+				"name": "Warwick"
+			},
+			"Bromsgrove": {
+				"bbox": [
+					-2.16777834528713,
+					52.2780600047739,
+					-1.84547409706993,
+					52.4452835394779
+				],
+				"id": "E07000234",
+				"name": "Bromsgrove"
+			},
+			"Wyre Forest": {
+				"bbox": [
+					-2.43650998244075,
+					52.3148509529162,
+					-2.11921321829335,
+					52.4553169285039
+				],
+				"id": "E07000239",
+				"name": "Wyre Forest"
+			},
+			"St Albans": {
+				"bbox": [
+					-0.44058423783946,
+					51.6875908514074,
+					-0.241581155478973,
+					51.8496055510724
+				],
+				"id": "E07000240",
+				"name": "St Albans"
+			},
+			"Welwyn Hatfield": {
+				"bbox": [
+					-0.277542611055781,
+					51.6855183598555,
+					-0.0921413208351193,
+					51.860443867016
+				],
+				"id": "E07000241",
+				"name": "Welwyn Hatfield"
+			},
+			"Bolton": {
+				"bbox": [
+					-2.62861435038086,
+					53.5228826546469,
+					-2.33699025719107,
+					53.6460454486624
+				],
+				"id": "E08000001",
+				"name": "Bolton"
+			},
+			"Bury": {
+				"bbox": [
+					-2.38345547886356,
+					53.5120211683573,
+					-2.23415847548089,
+					53.667080654493
+				],
+				"id": "E08000002",
+				"name": "Bury"
+			},
+			"Manchester": {
+				"bbox": [
+					-2.31991901980795,
+					53.340120620359,
+					-2.14682778417064,
+					53.5446085369161
+				],
+				"id": "E08000003",
+				"name": "Manchester"
+			},
+			"Oldham": {
+				"bbox": [
+					-2.18601421381712,
+					53.4911282644553,
+					-1.90962083195551,
+					53.6241671461057
+				],
+				"id": "E08000004",
+				"name": "Oldham"
+			},
+			"Rochdale": {
+				"bbox": [
+					-2.28258512131777,
+					53.5290593985386,
+					-2.02681574056412,
+					53.6857340290757
+				],
+				"id": "E08000005",
+				"name": "Rochdale"
+			},
+			"Stockport": {
+				"bbox": [
+					-2.24682802957703,
+					53.327314696506,
+					-1.99232947055908,
+					53.4549368626877
+				],
+				"id": "E08000007",
+				"name": "Stockport"
+			},
+			"Wigan": {
+				"bbox": [
+					-2.7305209236796,
+					53.4460572083879,
+					-2.41453919482293,
+					53.6083107547937
+				],
+				"id": "E08000010",
+				"name": "Wigan"
+			},
+			"Knowsley": {
+				"bbox": [
+					-2.92261510760143,
+					53.3466508515403,
+					-2.74339554539956,
+					53.5039228805927
+				],
+				"id": "E08000011",
+				"name": "Knowsley"
+			},
+			"St. Helens": {
+				"bbox": [
+					-2.82504300651466,
+					53.3853882195736,
+					-2.57674283317084,
+					53.5314301969823
+				],
+				"id": "E08000013",
+				"name": "St. Helens"
+			},
+			"Sefton": {
+				"bbox": [
+					-3.10479412272064,
+					53.4382968799089,
+					-2.88120734094307,
+					53.6984478039265
+				],
+				"id": "E08000014",
+				"name": "Sefton"
+			},
+			"Barnsley": {
+				"bbox": [
+					-1.82258927530432,
+					53.4383149312165,
+					-1.27571203128746,
+					53.6127388206827
+				],
+				"id": "E08000016",
+				"name": "Barnsley"
+			},
+			"Rotherham": {
+				"bbox": [
+					-1.45678991086165,
+					53.301569792195,
+					-1.11513724955129,
+					53.5153272951537
+				],
+				"id": "E08000018",
+				"name": "Rotherham"
+			},
+			"Sheffield": {
+				"bbox": [
+					-1.80147063244941,
+					53.3045326528304,
+					-1.32459110191372,
+					53.5031209760333
+				],
+				"id": "E08000019",
+				"name": "Sheffield"
+			},
+			"Sunderland": {
+				"bbox": [
+					-1.56889133560984,
+					54.7990519128126,
+					-1.34732543015329,
+					54.9441798188955
+				],
+				"id": "E08000024",
+				"name": "Sunderland"
+			},
+			"Birmingham": {
+				"bbox": [
+					-2.03364061279039,
+					52.3810669282883,
+					-1.72885044838865,
+					52.6087219886757
+				],
+				"id": "E08000025",
+				"name": "Birmingham"
+			},
+			"Dudley": {
+				"bbox": [
+					-2.19194049675542,
+					52.4260142968737,
+					-2.01150484508758,
+					52.5582232421637
+				],
+				"id": "E08000027",
+				"name": "Dudley"
+			},
+			"Solihull": {
+				"bbox": [
+					-1.87203384032481,
+					52.3477398329617,
+					-1.59284561870792,
+					52.5144953535475
+				],
+				"id": "E08000029",
+				"name": "Solihull"
+			},
+			"Calderdale": {
+				"bbox": [
+					-2.17329358668748,
+					53.6153184570457,
+					-1.72722486311416,
+					53.8256354819636
+				],
+				"id": "E08000033",
+				"name": "Calderdale"
+			},
+			"Kirklees": {
+				"bbox": [
+					-2.00947078713106,
+					53.5197458043211,
+					-1.5708089363966,
+					53.7648483550099
+				],
+				"id": "E08000034",
+				"name": "Kirklees"
+			},
+			"Wakefield": {
+				"bbox": [
+					-1.62490150410721,
+					53.5753669707637,
+					-1.19881814854623,
+					53.741828407132
+				],
+				"id": "E08000036",
+				"name": "Wakefield"
+			},
+			"Gateshead": {
+				"bbox": [
+					-1.85272713603503,
+					54.8777701487896,
+					-1.51036490770694,
+					54.9844219496728
+				],
+				"id": "E08000037",
+				"name": "Gateshead"
+			},
+			"Bromley": {
+				"bbox": [
+					-0.0810876892985421,
+					51.2893537136896,
+					0.162384150043184,
+					51.4443279483964
+				],
+				"id": "E09000006",
+				"name": "Bromley"
+			},
+			"Richmond upon Thames": {
+				"bbox": [
+					-0.392912348231466,
+					51.3914306048966,
+					-0.222909324389406,
+					51.4890094029478
+				],
+				"id": "E09000027",
+				"name": "Richmond upon Thames"
+			},
+			"Clackmannanshire": {
+				"bbox": [
+					-3.88397934438872,
+					56.0782744079888,
+					-3.57140719879531,
+					56.2172271306542
+				],
+				"id": "S12000005",
+				"name": "Clackmannanshire"
+			},
+			"East Renfrewshire": {
+				"bbox": [
+					-4.55093577030208,
+					55.6757930338362,
+					-4.21867801616292,
+					55.8231478436573
+				],
+				"id": "S12000011",
+				"name": "East Renfrewshire"
+			},
+			"Inverclyde": {
+				"bbox": [
+					-4.89877511621102,
+					55.8379700528209,
+					-4.59728864265038,
+					55.9634222945189
+				],
+				"id": "S12000018",
+				"name": "Inverclyde"
+			},
+			"Midlothian": {
+				"bbox": [
+					-3.36903649137681,
+					55.7103470908584,
+					-2.84624367983483,
+					55.9320190380809
+				],
+				"id": "S12000019",
+				"name": "Midlothian"
+			},
+			"Aberdeen City": {
+				"bbox": [
+					-2.36092443915212,
+					57.0761748772513,
+					-2.04647028914107,
+					57.2353376284174
+				],
+				"id": "S12000033",
+				"name": "Aberdeen City"
+			},
+			"City of Edinburgh": {
+				"bbox": [
+					-3.44952924107955,
+					55.818791345111,
+					-3.07772759776747,
+					56.0121703471913
+				],
+				"id": "S12000036",
+				"name": "City of Edinburgh"
+			},
+			"Renfrewshire": {
+				"bbox": [
+					-4.78399177576579,
+					55.7595196890611,
+					-4.35309172398026,
+					55.9303640590968
+				],
+				"id": "S12000038",
+				"name": "Renfrewshire"
+			},
+			"West Dunbartonshire": {
+				"bbox": [
+					-4.6598902591745,
+					55.8895810377502,
+					-4.37547456512933,
+					56.0842262154959
+				],
+				"id": "S12000039",
+				"name": "West Dunbartonshire"
+			},
+			"East Dunbartonshire": {
+				"bbox": [
+					-4.4020374738936,
+					55.896083820634,
+					-4.04686210998606,
+					56.0302911902834
+				],
+				"id": "S12000045",
+				"name": "East Dunbartonshire"
+			},
+			"Bridgend": {
+				"bbox": [
+					-3.76300511881063,
+					51.4699305045605,
+					-3.46302487947318,
+					51.6458383815691
+				],
+				"id": "W06000013",
+				"name": "Bridgend"
+			},
+			"Vale of Glamorgan": {
+				"bbox": [
+					-3.64197857570944,
+					51.3810001279381,
+					-3.16383485401566,
+					51.5153807912122
+				],
+				"id": "W06000014",
+				"name": "Vale of Glamorgan"
+			},
+			"Cardiff": {
+				"bbox": [
+					-3.34377712509382,
+					51.3749671724463,
+					-3.06891000794599,
+					51.5605050149904
+				],
+				"id": "W06000015",
+				"name": "Cardiff"
+			},
+			"Rhondda Cynon Taf": {
+				"bbox": [
+					-3.5937174835239,
+					51.4989630794801,
+					-3.23632041166166,
+					51.8301292509159
+				],
+				"id": "W06000016",
+				"name": "Rhondda Cynon Taf"
+			},
+			"Caerphilly": {
+				"bbox": [
+					-3.33447027982823,
+					51.5456379840242,
+					-3.06369879859041,
+					51.7989763046678
+				],
+				"id": "W06000018",
+				"name": "Caerphilly"
+			},
+			"Torfaen": {
+				"bbox": [
+					-3.14392394952362,
+					51.6066749442671,
+					-2.95889207220455,
+					51.7962320285536
+				],
+				"id": "W06000020",
+				"name": "Torfaen"
+			},
+			"Merthyr Tydfil": {
+				"bbox": [
+					-3.4531499878985,
+					51.6446795482579,
+					-3.27393042083335,
+					51.8351008648428
+				],
+				"id": "W06000024",
+				"name": "Merthyr Tydfil"
+			},
+			"North Lincolnshire": {
+				"bbox": [
+					-0.950009087300711,
+					53.4553351864969,
+					-0.200723603455493,
+					53.71462926753
+				],
+				"id": "E06000013",
+				"name": "North Lincolnshire"
+			},
+			"Bath and North East Somerset": {
+				"bbox": [
+					-2.70789213030415,
+					51.273096744002,
+					-2.27853530454884,
+					51.4395334928121
+				],
+				"id": "E06000022",
+				"name": "Bath and North East Somerset"
+			},
+			"North Somerset": {
+				"bbox": [
+					-3.11507073433954,
+					51.2906145791208,
+					-2.58720161761044,
+					51.5026666701013
+				],
+				"id": "E06000024",
+				"name": "North Somerset"
+			},
+			"South Gloucestershire": {
+				"bbox": [
+					-2.67381351919379,
+					51.4159018061483,
+					-2.2521083355095,
+					51.6772836173709
+				],
+				"id": "E06000025",
+				"name": "South Gloucestershire"
+			},
+			"Medway": {
+				"bbox": [
+					0.397346296008141,
+					51.3278964123716,
+					0.72352072253319,
+					51.4873056323339
+				],
+				"id": "E06000035",
+				"name": "Medway"
+			},
+			"West Berkshire": {
+				"bbox": [
+					-1.58807420194072,
+					51.3289603653114,
+					-0.981700070875653,
+					51.5637124135033
+				],
+				"id": "E06000037",
+				"name": "West Berkshire"
+			},
+			"Isle of Wight": {
+				"bbox": [
+					-1.59172299149856,
+					50.5748889838725,
+					-1.06959795266028,
+					50.7673492569867
+				],
+				"id": "E06000046",
+				"name": "Isle of Wight"
+			},
+			"Central Bedfordshire": {
+				"bbox": [
+					-0.702156753865155,
+					51.8050953620297,
+					-0.143931724268567,
+					52.1909257732246
+				],
+				"id": "E06000056",
+				"name": "Central Bedfordshire"
+			},
+			"Bournemouth, Christchurch and Poole": {
+				"bbox": [
+					-2.04074622764021,
+					50.6826489234549,
+					-1.68165652199454,
+					50.8096058854495
+				],
+				"id": "E06000058",
+				"name": "Bournemouth, Christchurch and Poole"
+			},
+			"North Northamptonshire": {
+				"bbox": [
+					-0.906250314691577,
+					52.1915707007857,
+					-0.341590492473876,
+					52.6436193417756
+				],
+				"id": "E06000061",
+				"name": "North Northamptonshire"
+			},
+			"East Cambridgeshire": {
+				"bbox": [
+					0.0344207867815118,
+					52.156424381786,
+					0.514484042486228,
+					52.5136222736722
+				],
+				"id": "E07000009",
+				"name": "East Cambridgeshire"
+			},
+			"Fenland": {
+				"bbox": [
+					-0.197873350783597,
+					52.3857499512989,
+					0.236319141863767,
+					52.7400005596077
+				],
+				"id": "E07000010",
+				"name": "Fenland"
+			},
+			"Huntingdonshire": {
+				"bbox": [
+					-0.499890992452227,
+					52.1587355439061,
+					0.0511713989797623,
+					52.5832956965298
+				],
+				"id": "E07000011",
+				"name": "Huntingdonshire"
+			},
+			"South Cambridgeshire": {
+				"bbox": [
+					-0.234804043652189,
+					52.0057887391631,
+					0.420886391436469,
+					52.3533770620552
+				],
+				"id": "E07000012",
+				"name": "South Cambridgeshire"
+			},
+			"Barrow-in-Furness": {
+				"bbox": [
+					-3.2767029277637,
+					54.0442691932393,
+					-3.14258166717163,
+					54.2184764646447
+				],
+				"id": "E07000027",
+				"name": "Barrow-in-Furness"
+			},
+			"Copeland": {
+				"bbox": [
+					-3.63979136323023,
+					54.1882164611553,
+					-3.11414417918803,
+					54.607353393852
+				],
+				"id": "E07000029",
+				"name": "Copeland"
+			},
+			"Derbyshire Dales": {
+				"bbox": [
+					-1.91855680618971,
+					52.8686931604978,
+					-1.49536574441841,
+					53.3919108271105
+				],
+				"id": "E07000035",
+				"name": "Derbyshire Dales"
+			},
+			"High Peak": {
+				"bbox": [
+					-2.03409700050163,
+					53.1946962223609,
+					-1.65381782187416,
+					53.5404681760807
+				],
+				"id": "E07000037",
+				"name": "High Peak"
+			},
+			"North East Derbyshire": {
+				"bbox": [
+					-1.59930007238949,
+					53.1033600954658,
+					-1.28201141324174,
+					53.341992492071
+				],
+				"id": "E07000038",
+				"name": "North East Derbyshire"
+			},
+			"South Derbyshire": {
+				"bbox": [
+					-1.74965218944041,
+					52.6965356719709,
+					-1.31902284313031,
+					52.9481623126299
+				],
+				"id": "E07000039",
+				"name": "South Derbyshire"
+			},
+			"East Devon": {
+				"bbox": [
+					-3.58556119645832,
+					50.6066160423685,
+					-2.88664434482201,
+					50.908725684683
+				],
+				"id": "E07000040",
+				"name": "East Devon"
+			},
+			"Mid Devon": {
+				"bbox": [
+					-3.9259298618892,
+					50.7031832610266,
+					-3.14237089952179,
+					51.0338359031582
+				],
+				"id": "E07000042",
+				"name": "Mid Devon"
+			},
+			"Teignbridge": {
+				"bbox": [
+					-3.88282414982757,
+					50.4611272323981,
+					-3.42250021514289,
+					50.7639787092911
+				],
+				"id": "E07000045",
+				"name": "Teignbridge"
+			},
+			"West Devon": {
+				"bbox": [
+					-4.33522641876651,
+					50.4342105790778,
+					-3.73229040223304,
+					50.8746132849403
+				],
+				"id": "E07000047",
+				"name": "West Devon"
+			},
+			"Lewes": {
+				"bbox": [
+					-0.135839249073717,
+					50.7558522497439,
+					0.154470283862391,
+					51.0025138340307
+				],
+				"id": "E07000063",
+				"name": "Lewes"
+			},
+			"Rother": {
+				"bbox": [
+					0.321585740673586,
+					50.8203535960944,
+					0.867891381774926,
+					51.0836454771635
+				],
+				"id": "E07000064",
+				"name": "Rother"
+			},
+			"Wealden": {
+				"bbox": [
+					-0.036213376436162,
+					50.7384858729512,
+					0.450159515881868,
+					51.1474540323236
+				],
+				"id": "E07000065",
+				"name": "Wealden"
+			},
+			"Braintree": {
+				"bbox": [
+					0.379612827815692,
+					51.7504160873722,
+					0.782289933329653,
+					52.0870401677281
+				],
+				"id": "E07000067",
+				"name": "Braintree"
+			},
+			"Castle Point": {
+				"bbox": [
+					0.518009397956447,
+					51.5078049317313,
+					0.636965279969412,
+					51.5882717795873
+				],
+				"id": "E07000069",
+				"name": "Castle Point"
+			},
+			"Rochford": {
+				"bbox": [
+					0.54903494812593,
+					51.5401320959897,
+					0.958408042170986,
+					51.6368328097047
+				],
+				"id": "E07000075",
+				"name": "Rochford"
+			},
+			"Uttlesford": {
+				"bbox": [
+					0.0681274189013754,
+					51.767318510819,
+					0.519283395743268,
+					52.0926741553906
+				],
+				"id": "E07000077",
+				"name": "Uttlesford"
+			},
+			"Forest of Dean": {
+				"bbox": [
+					-2.68716010934252,
+					51.6093479501889,
+					-2.26753675939118,
+					52.0238900050318
+				],
+				"id": "E07000080",
+				"name": "Forest of Dean"
+			},
+			"Stroud": {
+				"bbox": [
+					-2.53478909673859,
+					51.5898340409186,
+					-2.06862413773313,
+					51.8500996954052
+				],
+				"id": "E07000082",
+				"name": "Stroud"
+			},
+			"Tewkesbury": {
+				"bbox": [
+					-2.35274776228366,
+					51.8193099744553,
+					-1.80167920800798,
+					52.0505671494144
+				],
+				"id": "E07000083",
+				"name": "Tewkesbury"
+			},
+			"Basingstoke and Deane": {
+				"bbox": [
+					-1.46015235805229,
+					51.133540146428,
+					-0.974796238369647,
+					51.3839155779629
+				],
+				"id": "E07000084",
+				"name": "Basingstoke and Deane"
+			},
+			"East Hampshire": {
+				"bbox": [
+					-1.13180487841333,
+					50.8672523792294,
+					-0.744683494904214,
+					51.2127367564152
+				],
+				"id": "E07000085",
+				"name": "East Hampshire"
+			},
+			"Test Valley": {
+				"bbox": [
+					-1.69410720996231,
+					50.9282804274256,
+					-1.30882299401137,
+					51.3393553057763
+				],
+				"id": "E07000093",
+				"name": "Test Valley"
+			},
+			"Winchester": {
+				"bbox": [
+					-1.45650350398392,
+					50.8551065890035,
+					-1.03389467972924,
+					51.1969970843657
+				],
+				"id": "E07000094",
+				"name": "Winchester"
+			},
+			"North Hertfordshire": {
+				"bbox": [
+					-0.406299599690257,
+					51.8332340598732,
+					0.0743218481517264,
+					52.0805472004283
+				],
+				"id": "E07000099",
+				"name": "North Hertfordshire"
+			},
+			"Ashford": {
+				"bbox": [
+					0.590368962892355,
+					50.9894920251371,
+					1.029240945946,
+					51.2702458933181
+				],
+				"id": "E07000105",
+				"name": "Ashford"
+			},
+			"Canterbury": {
+				"bbox": [
+					0.950403269946465,
+					51.1771783029243,
+					1.24983248770984,
+					51.3801753244993
+				],
+				"id": "E07000106",
+				"name": "Canterbury"
+			},
+			"Dover": {
+				"bbox": [
+					1.1427753690613,
+					51.0971917698531,
+					1.40575431899087,
+					51.3322828820408
+				],
+				"id": "E07000108",
+				"name": "Dover"
+			},
+			"Sevenoaks": {
+				"bbox": [
+					0.0335461822496928,
+					51.1317901553582,
+					0.344726181966788,
+					51.4179768318443
+				],
+				"id": "E07000111",
+				"name": "Sevenoaks"
+			},
+			"Folkestone and Hythe": {
+				"bbox": [
+					0.776870855211829,
+					50.9108604209795,
+					1.22114189838816,
+					51.2050041949687
+				],
+				"id": "E07000112",
+				"name": "Folkestone and Hythe"
+			},
+			"Tonbridge and Malling": {
+				"bbox": [
+					0.2005423369464,
+					51.1746934858577,
+					0.526777175865602,
+					51.3680434559438
+				],
+				"id": "E07000115",
+				"name": "Tonbridge and Malling"
+			},
+			"Tunbridge Wells": {
+				"bbox": [
+					0.150062135842052,
+					51.0034353323986,
+					0.646674841425981,
+					51.2016169643177
+				],
+				"id": "E07000116",
+				"name": "Tunbridge Wells"
+			},
+			"Fylde": {
+				"bbox": [
+					-3.0571063963274,
+					53.7314109009779,
+					-2.78050039761239,
+					53.864510821858
+				],
+				"id": "E07000119",
+				"name": "Fylde"
+			},
+			"Ribble Valley": {
+				"bbox": [
+					-2.65083208213507,
+					53.7562176437781,
+					-2.18452239163842,
+					54.0490890614635
+				],
+				"id": "E07000124",
+				"name": "Ribble Valley"
+			},
+			"West Lancashire": {
+				"bbox": [
+					-3.04669858190109,
+					53.4827816885128,
+					-2.68931258757785,
+					53.7339751365507
+				],
+				"id": "E07000127",
+				"name": "West Lancashire"
+			},
+			"Wyre": {
+				"bbox": [
+					-3.05103585269964,
+					53.819987299716,
+					-2.61340257292018,
+					53.9802440537051
+				],
+				"id": "E07000128",
+				"name": "Wyre"
+			},
+			"Harborough": {
+				"bbox": [
+					-1.30594754120562,
+					52.392171077156,
+					-0.713283742057328,
+					52.684976955664
+				],
+				"id": "E07000131",
+				"name": "Harborough"
+			},
+			"Melton": {
+				"bbox": [
+					-1.04662334791221,
+					52.6458730448419,
+					-0.664101453534753,
+					52.9776791173126
+				],
+				"id": "E07000133",
+				"name": "Melton"
+			},
+			"North Kesteven": {
+				"bbox": [
+					-0.764141500639807,
+					52.8869959783769,
+					-0.189890522849971,
+					53.2581302454031
+				],
+				"id": "E07000139",
+				"name": "North Kesteven"
+			},
+			"South Kesteven": {
+				"bbox": [
+					-0.804315967166995,
+					52.6402363852471,
+					-0.212500265341941,
+					53.0599718209467
+				],
+				"id": "E07000141",
+				"name": "South Kesteven"
+			},
+			"West Lindsey": {
+				"bbox": [
+					-0.820050294118667,
+					53.1788371561448,
+					-0.131879272038797,
+					53.6163880602418
+				],
+				"id": "E07000142",
+				"name": "West Lindsey"
+			},
+			"Breckland": {
+				"bbox": [
+					0.530520987316443,
+					52.3695193799926,
+					1.10832230213001,
+					52.8111265219668
+				],
+				"id": "E07000143",
+				"name": "Breckland"
+			},
+			"Broadland": {
+				"bbox": [
+					0.990368407777722,
+					52.5554096181155,
+					1.67804170895319,
+					52.8306138134714
+				],
+				"id": "E07000144",
+				"name": "Broadland"
+			},
+			"Great Yarmouth": {
+				"bbox": [
+					1.54492307682844,
+					52.5261369086332,
+					1.74580129085564,
+					52.7425748220914
+				],
+				"id": "E07000145",
+				"name": "Great Yarmouth"
+			},
+			"Craven": {
+				"bbox": [
+					-2.56474072528009,
+					53.8501412464577,
+					-1.81673301854612,
+					54.2571558310793
+				],
+				"id": "E07000163",
+				"name": "Craven"
+			},
+			"Harrogate": {
+				"bbox": [
+					-2.00450785291312,
+					53.8914306413283,
+					-1.17501080950072,
+					54.2616093784681
+				],
+				"id": "E07000165",
+				"name": "Harrogate"
+			},
+			"Richmondshire": {
+				"bbox": [
+					-2.36771223910638,
+					54.1725452171845,
+					-1.46757640816799,
+					54.5423479518656
+				],
+				"id": "E07000166",
+				"name": "Richmondshire"
+			},
+			"Ryedale": {
+				"bbox": [
+					-1.26600420015434,
+					53.981547889456,
+					-0.418043885640348,
+					54.4153443284802
+				],
+				"id": "E07000167",
+				"name": "Ryedale"
+			},
+			"Scarborough": {
+				"bbox": [
+					-1.06469587990416,
+					54.1324403558,
+					-0.212509855046284,
+					54.5602296142599
+				],
+				"id": "E07000168",
+				"name": "Scarborough"
+			},
+			"Bassetlaw": {
+				"bbox": [
+					-1.21302650313245,
+					53.1966692278667,
+					-0.747871111830831,
+					53.5025165293909
+				],
+				"id": "E07000171",
+				"name": "Bassetlaw"
+			},
+			"Newark and Sherwood": {
+				"bbox": [
+					-1.17789116216515,
+					52.956994397329,
+					-0.666262020635388,
+					53.2610356927715
+				],
+				"id": "E07000175",
+				"name": "Newark and Sherwood"
+			},
+			"Cherwell": {
+				"bbox": [
+					-1.52282569381325,
+					51.7809650253817,
+					-1.0471229362899,
+					52.168485056197
+				],
+				"id": "E07000177",
+				"name": "Cherwell"
+			},
+			"South Oxfordshire": {
+				"bbox": [
+					-1.29022497489805,
+					51.4594142335279,
+					-0.870047010240948,
+					51.8137775288111
+				],
+				"id": "E07000179",
+				"name": "South Oxfordshire"
+			},
+			"Vale of White Horse": {
+				"bbox": [
+					-1.70033080496069,
+					51.5182950573493,
+					-1.20220879160645,
+					51.7901156226146
+				],
+				"id": "E07000180",
+				"name": "Vale of White Horse"
+			},
+			"West Oxfordshire": {
+				"bbox": [
+					-1.71948863302901,
+					51.68381068006,
+					-1.28613275824864,
+					51.9968565673043
+				],
+				"id": "E07000181",
+				"name": "West Oxfordshire"
+			},
+			"Mendip": {
+				"bbox": [
+					-2.8426879403719,
+					51.0632800127714,
+					-2.24439816478264,
+					51.3257041239791
+				],
+				"id": "E07000187",
+				"name": "Mendip"
+			},
+			"Sedgemoor": {
+				"bbox": [
+					-3.21646871667614,
+					51.0408213808061,
+					-2.70989301683794,
+					51.3287011049714
+				],
+				"id": "E07000188",
+				"name": "Sedgemoor"
+			},
+			"South Somerset": {
+				"bbox": [
+					-3.09244368651893,
+					50.8208301237739,
+					-2.32585275983044,
+					51.1477121168228
+				],
+				"id": "E07000189",
+				"name": "South Somerset"
+			},
+			"East Staffordshire": {
+				"bbox": [
+					-2.04355603809626,
+					52.7298446698049,
+					-1.58535204003726,
+					53.0459510241068
+				],
+				"id": "E07000193",
+				"name": "East Staffordshire"
+			},
+			"South Staffordshire": {
+				"bbox": [
+					-2.32547507277904,
+					52.4232580756115,
+					-1.98373096366595,
+					52.7864326579289
+				],
+				"id": "E07000196",
+				"name": "South Staffordshire"
+			},
+			"Stafford": {
+				"bbox": [
+					-2.41634660240013,
+					52.7150475065369,
+					-1.93333068784887,
+					52.9805793513013
+				],
+				"id": "E07000197",
+				"name": "Stafford"
+			},
+			"Staffordshire Moorlands": {
+				"bbox": [
+					-2.2113149262639,
+					52.9166789567913,
+					-1.77564415425255,
+					53.2262417356404
+				],
+				"id": "E07000198",
+				"name": "Staffordshire Moorlands"
+			},
+			"Babergh": {
+				"bbox": [
+					0.626886372153874,
+					51.9490158909528,
+					1.27905795334339,
+					52.1813160127578
+				],
+				"id": "E07000200",
+				"name": "Babergh"
+			},
+			"Mid Suffolk": {
+				"bbox": [
+					0.797577110916504,
+					52.0651566057982,
+					1.4095085144785,
+					52.4044243835646
+				],
+				"id": "E07000203",
+				"name": "Mid Suffolk"
+			},
+			"Stratford-on-Avon": {
+				"bbox": [
+					-1.96199927454645,
+					51.9554034171782,
+					-1.23169963071516,
+					52.3680985216346
+				],
+				"id": "E07000221",
+				"name": "Stratford-on-Avon"
+			},
+			"Arun": {
+				"bbox": [
+					-0.764807632552036,
+					50.7566877813199,
+					-0.363491468340713,
+					50.9058708994232
+				],
+				"id": "E07000224",
+				"name": "Arun"
+			},
+			"Horsham": {
+				"bbox": [
+					-0.569019745821936,
+					50.8621551938147,
+					-0.199999558110664,
+					51.1431143862383
+				],
+				"id": "E07000227",
+				"name": "Horsham"
+			},
+			"Mid Sussex": {
+				"bbox": [
+					-0.249081348544969,
+					50.8678855967986,
+					0.044576792001215,
+					51.1427668399436
+				],
+				"id": "E07000228",
+				"name": "Mid Sussex"
+			},
+			"Malvern Hills": {
+				"bbox": [
+					-2.66320843615968,
+					51.9665649342157,
+					-2.14874241594222,
+					52.3685265912978
+				],
+				"id": "E07000235",
+				"name": "Malvern Hills"
+			},
+			"Wychavon": {
+				"bbox": [
+					-2.27604676993057,
+					51.9994154033037,
+					-1.75739824866764,
+					52.3612192577164
+				],
+				"id": "E07000238",
+				"name": "Wychavon"
+			},
+			"East Hertfordshire": {
+				"bbox": [
+					-0.183598135116009,
+					51.7342715993096,
+					0.195594279900795,
+					51.9971696634496
+				],
+				"id": "E07000242",
+				"name": "East Hertfordshire"
+			},
+			"Wirral": {
+				"bbox": [
+					-3.22901801373825,
+					53.2893038754743,
+					-2.92863596687009,
+					53.4429241136581
+				],
+				"id": "E08000015",
+				"name": "Wirral"
+			},
+			"Doncaster": {
+				"bbox": [
+					-1.34873341137308,
+					53.4057598373729,
+					-0.865338726025611,
+					53.6611865180739
+				],
+				"id": "E08000017",
+				"name": "Doncaster"
+			},
+			"Bradford": {
+				"bbox": [
+					-2.06125057169733,
+					53.7243564465797,
+					-1.64033405308677,
+					53.9631653206383
+				],
+				"id": "E08000032",
+				"name": "Bradford"
+			},
+			"Leeds": {
+				"bbox": [
+					-1.80042422664219,
+					53.698983710792,
+					-1.29035533300546,
+					53.9458881880291
+				],
+				"id": "E08000035",
+				"name": "Leeds"
+			},
+			"East Lothian": {
+				"bbox": [
+					-3.08928393595174,
+					55.8173173470177,
+					-2.36592914529793,
+					56.079307974158
+				],
+				"id": "S12000010",
+				"name": "East Lothian"
+			},
+			"Falkirk": {
+				"bbox": [
+					-4.0303411431556,
+					55.8953927877803,
+					-3.51152811055802,
+					56.106824933069
+				],
+				"id": "S12000014",
+				"name": "Falkirk"
+			},
+			"West Lothian": {
+				"bbox": [
+					-3.83124850637463,
+					55.7707148491187,
+					-3.38662559636482,
+					56.0021435491559
+				],
+				"id": "S12000040",
+				"name": "West Lothian"
+			},
+			"Glasgow City": {
+				"bbox": [
+					-4.39237249309761,
+					55.7812748892724,
+					-4.07170515706163,
+					55.9296353593474
+				],
+				"id": "S12000049",
+				"name": "Glasgow City"
+			},
+			"North Lanarkshire": {
+				"bbox": [
+					-4.19448955472014,
+					55.7347161722012,
+					-3.71112703754746,
+					56.0313623598227
+				],
+				"id": "S12000050",
+				"name": "North Lanarkshire"
+			},
+			"Denbighshire": {
+				"bbox": [
+					-3.60196414333801,
+					52.8619394449995,
+					-3.09029519615975,
+					53.3535300241349
+				],
+				"id": "W06000004",
+				"name": "Denbighshire"
+			},
+			"Flintshire": {
+				"bbox": [
+					-3.40059901446516,
+					53.0721415225011,
+					-2.92027710423941,
+					53.356465403192
+				],
+				"id": "W06000005",
+				"name": "Flintshire"
+			},
+			"Wrexham": {
+				"bbox": [
+					-3.37552478500583,
+					52.8666086181746,
+					-2.72413332413793,
+					53.1343258788144
+				],
+				"id": "W06000006",
+				"name": "Wrexham"
+			},
+			"Neath Port Talbot": {
+				"bbox": [
+					-3.93650461617364,
+					51.5271657980179,
+					-3.56177411714798,
+					51.8103611118252
+				],
+				"id": "W06000012",
+				"name": "Neath Port Talbot"
+			},
+			"Monmouthshire": {
+				"bbox": [
+					-3.15735167770916,
+					51.5252840634888,
+					-2.64986721904377,
+					51.9831427879402
+				],
+				"id": "W06000021",
+				"name": "Monmouthshire"
+			},
+			"Newport": {
+				"bbox": [
+					-3.1241920442001,
+					51.5009316516136,
+					-2.80301106787193,
+					51.6494706648247
+				],
+				"id": "W06000022",
+				"name": "Newport"
+			},
+			"East Riding of Yorkshire": {
+				"bbox": [
+					-1.10335931463428,
+					53.5712768866137,
+					0.146876705888438,
+					54.1765400827641
+				],
+				"id": "E06000011",
+				"name": "East Riding of Yorkshire"
+			},
+			"Herefordshire, County of": {
+				"bbox": [
+					-3.14192072484887,
+					51.8259503795045,
+					-2.33796261565779,
+					52.3954991379065
+				],
+				"id": "E06000019",
+				"name": "Herefordshire, County of"
+			},
+			"County Durham": {
+				"bbox": [
+					-2.35574349125271,
+					54.4514863636621,
+					-1.24099449277965,
+					54.9186998554048
+				],
+				"id": "E06000047",
+				"name": "County Durham"
+			},
+			"Cheshire East": {
+				"bbox": [
+					-2.7529286634929,
+					52.9471648775005,
+					-1.97478645134255,
+					53.3874615169358
+				],
+				"id": "E06000049",
+				"name": "Cheshire East"
+			},
+			"Cheshire West and Chester": {
+				"bbox": [
+					-3.12300486479432,
+					52.9829301019161,
+					-2.34635313770005,
+					53.3446995052415
+				],
+				"id": "E06000050",
+				"name": "Cheshire West and Chester"
+			},
+			"Shropshire": {
+				"bbox": [
+					-3.23554290740389,
+					52.3062772785268,
+					-2.23289449572097,
+					52.9984110622549
+				],
+				"id": "E06000051",
+				"name": "Shropshire"
+			},
+			"Cornwall": {
+				"bbox": [
+					-5.74702769088688,
+					49.9586951724897,
+					-4.16638983520406,
+					50.9312684886808
+				],
+				"id": "E06000052",
+				"name": "Cornwall"
+			},
+			"Wiltshire": {
+				"bbox": [
+					-2.36559678699086,
+					50.9449793576782,
+					-1.4857109260985,
+					51.7031457130314
+				],
+				"id": "E06000054",
+				"name": "Wiltshire"
+			},
+			"Northumberland": {
+				"bbox": [
+					-2.68979023468094,
+					54.7823773837281,
+					-1.46179374970094,
+					55.8110853660943
+				],
+				"id": "E06000057",
+				"name": "Northumberland"
+			},
+			"Dorset": {
+				"bbox": [
+					-2.96160031150341,
+					50.5130865047899,
+					-1.79061492044422,
+					51.0809914128362
+				],
+				"id": "E06000059",
+				"name": "Dorset"
+			},
+			"Buckinghamshire": {
+				"bbox": [
+					-1.14067612335695,
+					51.4854707874074,
+					-0.476594525775733,
+					52.0815336222521
+				],
+				"id": "E06000060",
+				"name": "Buckinghamshire"
+			},
+			"West Northamptonshire": {
+				"bbox": [
+					-1.3323324978671,
+					51.9772776034959,
+					-0.705043858850979,
+					52.4774625079581
+				],
+				"id": "E06000062",
+				"name": "West Northamptonshire"
+			},
+			"Allerdale": {
+				"bbox": [
+					-3.57992389218566,
+					54.4541106699469,
+					-2.98299889448078,
+					54.9543149810862
+				],
+				"id": "E07000026",
+				"name": "Allerdale"
+			},
+			"Carlisle": {
+				"bbox": [
+					-3.12723852643935,
+					54.7761576696433,
+					-2.48233944919166,
+					55.1889842117909
+				],
+				"id": "E07000028",
+				"name": "Carlisle"
+			},
+			"Eden": {
+				"bbox": [
+					-3.09429434660301,
+					54.3547625584943,
+					-2.15899719522345,
+					54.8564307386828
+				],
+				"id": "E07000030",
+				"name": "Eden"
+			},
+			"South Lakeland": {
+				"bbox": [
+					-3.24194188157862,
+					54.0935714556484,
+					-2.30983199811505,
+					54.4998665421711
+				],
+				"id": "E07000031",
+				"name": "South Lakeland"
+			},
+			"North Devon": {
+				"bbox": [
+					-4.2618950442636,
+					50.8763721224904,
+					-3.59447111942891,
+					51.2464057320781
+				],
+				"id": "E07000043",
+				"name": "North Devon"
+			},
+			"South Hams": {
+				"bbox": [
+					-4.18981865820365,
+					50.2019032867877,
+					-3.50764454709004,
+					50.5426086087791
+				],
+				"id": "E07000044",
+				"name": "South Hams"
+			},
+			"Torridge": {
+				"bbox": [
+					-4.68063981049395,
+					50.6465408609257,
+					-3.88384632533369,
+					51.2025058161729
+				],
+				"id": "E07000046",
+				"name": "Torridge"
+			},
+			"Colchester": {
+				"bbox": [
+					0.699407717677594,
+					51.7701216142837,
+					1.02683354149244,
+					51.9771656610416
+				],
+				"id": "E07000071",
+				"name": "Colchester"
+			},
+			"Maldon": {
+				"bbox": [
+					0.589128957004079,
+					51.6213332946048,
+					0.949100943252515,
+					51.8291268110924
+				],
+				"id": "E07000074",
+				"name": "Maldon"
+			},
+			"Tendring": {
+				"bbox": [
+					0.931126618300932,
+					51.7695078267095,
+					1.29662431207023,
+					51.9596458319512
+				],
+				"id": "E07000076",
+				"name": "Tendring"
+			},
+			"Cotswold": {
+				"bbox": [
+					-2.3236003412244,
+					51.5775362593489,
+					-1.61518893058729,
+					52.1125925601067
+				],
+				"id": "E07000079",
+				"name": "Cotswold"
+			},
+			"New Forest": {
+				"bbox": [
+					-1.95726958215592,
+					50.7059892474206,
+					-1.30685818080388,
+					51.009422262898
+				],
+				"id": "E07000091",
+				"name": "New Forest"
+			},
+			"Swale": {
+				"bbox": [
+					0.600980219755268,
+					51.224347697565,
+					1.01698534649263,
+					51.4477940702256
+				],
+				"id": "E07000113",
+				"name": "Swale"
+			},
+			"Lancaster": {
+				"bbox": [
+					-2.92443097153999,
+					53.9180797323255,
+					-2.4587382202994,
+					54.2395684104832
+				],
+				"id": "E07000121",
+				"name": "Lancaster"
+			},
+			"Boston": {
+				"bbox": [
+					-0.246705114012854,
+					52.8628301168131,
+					0.199587043824418,
+					53.0866918705947
+				],
+				"id": "E07000136",
+				"name": "Boston"
+			},
+			"East Lindsey": {
+				"bbox": [
+					-0.317479244654575,
+					53.00112044826,
+					0.355628207639265,
+					53.5297177652897
+				],
+				"id": "E07000137",
+				"name": "East Lindsey"
+			},
+			"South Holland": {
+				"bbox": [
+					-0.30680987858175,
+					52.6515074247825,
+					0.272208555754368,
+					52.9288324752047
+				],
+				"id": "E07000140",
+				"name": "South Holland"
+			},
+			"King's Lynn and West Norfolk": {
+				"bbox": [
+					0.154061974514316,
+					52.4364266700427,
+					0.821569075850233,
+					52.9879778527915
+				],
+				"id": "E07000146",
+				"name": "King's Lynn and West Norfolk"
+			},
+			"North Norfolk": {
+				"bbox": [
+					0.707938541626203,
+					52.6798450186754,
+					1.67487012758371,
+					52.9803835770346
+				],
+				"id": "E07000147",
+				"name": "North Norfolk"
+			},
+			"South Norfolk": {
+				"bbox": [
+					0.947028051906419,
+					52.3553552572144,
+					1.682295618333,
+					52.6785425474329
+				],
+				"id": "E07000149",
+				"name": "South Norfolk"
+			},
+			"Hambleton": {
+				"bbox": [
+					-1.70526086993587,
+					53.9888925986615,
+					-0.972092111987041,
+					54.5119964084244
+				],
+				"id": "E07000164",
+				"name": "Hambleton"
+			},
+			"Selby": {
+				"bbox": [
+					-1.3529698771545,
+					53.6211122464196,
+					-0.903649224081086,
+					53.9356014782329
+				],
+				"id": "E07000169",
+				"name": "Selby"
+			},
+			"Chichester": {
+				"bbox": [
+					-0.957581427612506,
+					50.7223781263034,
+					-0.473153442260804,
+					51.0944841769189
+				],
+				"id": "E07000225",
+				"name": "Chichester"
+			},
+			"East Suffolk": {
+				"bbox": [
+					1.15783883919243,
+					51.9323619333505,
+					1.76370560966352,
+					52.550247361424
+				],
+				"id": "E07000244",
+				"name": "East Suffolk"
+			},
+			"West Suffolk": {
+				"bbox": [
+					0.340002513478712,
+					52.0538142818942,
+					0.967471013014227,
+					52.4625083462197
+				],
+				"id": "E07000245",
+				"name": "West Suffolk"
+			},
+			"Somerset West and Taunton": {
+				"bbox": [
+					-3.83982066625529,
+					50.8913948046497,
+					-2.88372682101715,
+					51.2332785267526
+				],
+				"id": "E07000246",
+				"name": "Somerset West and Taunton"
+			},
+			"Dumfries and Galloway": {
+				"bbox": [
+					-5.18740947529937,
+					54.6332571370994,
+					-2.85733651418674,
+					55.4640518758031
+				],
+				"id": "S12000006",
+				"name": "Dumfries and Galloway"
+			},
+			"East Ayrshire": {
+				"bbox": [
+					-4.63859175587832,
+					55.1378741753372,
+					-3.95704646596515,
+					55.7637801830316
+				],
+				"id": "S12000008",
+				"name": "East Ayrshire"
+			},
+			"Na h-Eileanan Siar": {
+				"bbox": [
+					-8.64999583330431,
+					56.7780765406966,
+					-5.81038441274624,
+					59.134136942087
+				],
+				"id": "S12000013",
+				"name": "Na h-Eileanan Siar"
+			},
+			"Highland": {
+				"bbox": [
+					-6.78968954000712,
+					56.4971391814426,
+					-3.02422921428628,
+					58.6968867084922
+				],
+				"id": "S12000017",
+				"name": "Highland"
+			},
+			"Moray": {
+				"bbox": [
+					-3.76263880642536,
+					57.0684406458242,
+					-2.64982470171258,
+					57.7306613063496
+				],
+				"id": "S12000020",
+				"name": "Moray"
+			},
+			"North Ayrshire": {
+				"bbox": [
+					-5.39705039509315,
+					55.424351706778,
+					-4.49245474105347,
+					55.8926081111344
+				],
+				"id": "S12000021",
+				"name": "North Ayrshire"
+			},
+			"Orkney Islands": {
+				"bbox": [
+					-4.50723169546139,
+					58.6736274745197,
+					-2.37047061723288,
+					59.3985970581383
+				],
+				"id": "S12000023",
+				"name": "Orkney Islands"
+			},
+			"Scottish Borders": {
+				"bbox": [
+					-3.53979849445201,
+					55.108348804226,
+					-2.03435750917377,
+					55.9459875532842
+				],
+				"id": "S12000026",
+				"name": "Scottish Borders"
+			},
+			"Shetland Islands": {
+				"bbox": [
+					-2.11746835426737,
+					59.506840323107,
+					-0.724615813308308,
+					60.8607873694705
+				],
+				"id": "S12000027",
+				"name": "Shetland Islands"
+			},
+			"South Ayrshire": {
+				"bbox": [
+					-5.12420605125729,
+					54.997791208886,
+					-4.39885661385345,
+					55.6018696580548
+				],
+				"id": "S12000028",
+				"name": "South Ayrshire"
+			},
+			"South Lanarkshire": {
+				"bbox": [
+					-4.28255884217727,
+					55.2907710979967,
+					-3.39643717014613,
+					55.8442558762473
+				],
+				"id": "S12000029",
+				"name": "South Lanarkshire"
+			},
+			"Stirling": {
+				"bbox": [
+					-4.85447699803646,
+					55.9572216257834,
+					-3.79789901853576,
+					56.5470912768095
+				],
+				"id": "S12000030",
+				"name": "Stirling"
+			},
+			"Aberdeenshire": {
+				"bbox": [
+					-3.80164622664352,
+					56.7471285365992,
+					-1.76637346580757,
+					57.7011115454301
+				],
+				"id": "S12000034",
+				"name": "Aberdeenshire"
+			},
+			"Argyll and Bute": {
+				"bbox": [
+					-7.11348366174088,
+					55.274482877619,
+					-4.55983966622687,
+					56.7046193852817
+				],
+				"id": "S12000035",
+				"name": "Argyll and Bute"
+			},
+			"Angus": {
+				"bbox": [
+					-3.40702154650928,
+					56.4645410316888,
+					-2.42694244067325,
+					56.9868040921257
+				],
+				"id": "S12000041",
+				"name": "Angus"
+			},
+			"Fife": {
+				"bbox": [
+					-3.73844454740546,
+					56.00572929221,
+					-2.54461158830485,
+					56.4532564351483
+				],
+				"id": "S12000047",
+				"name": "Fife"
+			},
+			"Perth and Kinross": {
+				"bbox": [
+					-4.72043295812877,
+					56.1324148685314,
+					-3.0519836972122,
+					56.9486205187259
+				],
+				"id": "S12000048",
+				"name": "Perth and Kinross"
+			},
+			"Isle of Anglesey": {
+				"bbox": [
+					-4.6966989969827,
+					53.1263642910635,
+					-4.02020234867831,
+					53.4357258674268
+				],
+				"id": "W06000001",
+				"name": "Isle of Anglesey"
+			},
+			"Gwynedd": {
+				"bbox": [
+					-4.80439251487124,
+					52.5411806591761,
+					-3.43678549411509,
+					53.2483872912317
+				],
+				"id": "W06000002",
+				"name": "Gwynedd"
+			},
+			"Conwy": {
+				"bbox": [
+					-4.03133767240668,
+					52.9493718381519,
+					-3.45459142321376,
+					53.3427365309957
+				],
+				"id": "W06000003",
+				"name": "Conwy"
+			},
+			"Ceredigion": {
+				"bbox": [
+					-4.69601306320273,
+					52.0267561327686,
+					-3.65816741122617,
+					52.5624205207917
+				],
+				"id": "W06000008",
+				"name": "Ceredigion"
+			},
+			"Pembrokeshire": {
+				"bbox": [
+					-5.66914175134854,
+					51.5961019875022,
+					-4.48561364040918,
+					52.1179355992835
+				],
+				"id": "W06000009",
+				"name": "Pembrokeshire"
+			},
+			"Carmarthenshire": {
+				"bbox": [
+					-4.7231034056339,
+					51.6546650521999,
+					-3.64713650260716,
+					52.1424075748023
+				],
+				"id": "W06000010",
+				"name": "Carmarthenshire"
+			},
+			"Swansea": {
+				"bbox": [
+					-4.33358739639787,
+					51.5357700152927,
+					-3.84274318431454,
+					51.7741949732821
+				],
+				"id": "W06000011",
+				"name": "Swansea"
+			},
+			"Powys": {
+				"bbox": [
+					-3.92888455792546,
+					51.7527514735792,
+					-2.94962136496068,
+					52.9015755450781
+				],
+				"id": "W06000023",
+				"name": "Powys"
+			},
+			"Belfast": {
+				"id": "N09000003",
+				"name": "Belfast"
+			},
+			"Armagh City, Banbridge and Craigavon": {
+				"id": "N09000002",
+				"name": "Armagh City, Banbridge and Craigavon"
+			},
+			"Newry, Mourne and Down": {
+				"id": "N09000010",
+				"name": "Newry, Mourne and Down"
+			},
+			"Ards and North Down": {
+				"id": "N09000011",
+				"name": "Ards and North Down"
+			},
+			"Derry City and Strabane": {
+				"id": "N09000005",
+				"name": "Derry City and Strabane"
+			},
+			"Mid Ulster": {
+				"id": "N09000009",
+				"name": "Mid Ulster"
+			},
+			"Causeway Coast and Glens": {
+				"id": "N09000004",
+				"name": "Causeway Coast and Glens"
+			},
+			"Antrim and Newtownabbey": {
+				"id": "N09000001",
+				"name": "Antrim and Newtownabbey"
+			},
+			"Lisburn and Castlereagh": {
+				"id": "N09000007",
+				"name": "Lisburn and Castlereagh"
+			},
+			"Mid and East Antrim": {
+				"id": "N09000008",
+				"name": "Mid and East Antrim"
+			},
+			"Fermanagh and Omagh": {
+				"id": "N09000006",
+				"name": "Fermanagh and Omagh"
+			}
+		}
+	}
+}
