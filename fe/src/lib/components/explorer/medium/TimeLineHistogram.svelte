@@ -5,10 +5,12 @@
 	import {scaleLinear, scaleUtc} from 'd3-scale';
 	import * as _ from 'lamb';
 
+	import {explorerActor} from '$lib/statechart/index.js';
 	import {_staticData} from '$lib/stores/data.js';
-	import {_filters} from '$lib/stores/filters.js';
 	import {_selection} from '$lib/stores/navigation.js';
+	import {_filtersBar} from '$lib/stores/filters.js';
 	import {formatDate} from '$lib/utils/date.js';
+    import {findInFiltersBar, mergeFilters} from '$lib/utils/filters.js';
 	import {getDocCount} from '$lib/utils/getters.js';
 
 	const geometry = {
@@ -74,11 +76,25 @@
 	const stopDragging = event => {
 		event.target.onpointermove = null;
 		event.target.releasePointerCapture(event.pointerId);
-		$_filters.installation_date = {
+/* 		$_filters.installation_date = {
 			...$_filters.installation_date,
 			min: min.getTime(),
 			max: max.getTime()
 		};
+		sendFiltersChanged(); */
+		const newFilters = mergeFilters(
+			$_filtersBar,
+			'Installation',
+			'installation_date',
+			{
+				min: min.getTime(),
+				max: max.getTime()
+			}
+		);
+		explorerActor.send({
+			type: 'SELECTION_CHANGED',
+			newValues: {filters: newFilters}
+		});
 	}
 
 	let bbox;
@@ -97,8 +113,12 @@
 	let xTicks;
 	let yScale;
 
-	$: if ($_filters) {
-		const installation_date = $_filters.installation_date;
+	$: installation_date = findInFiltersBar(
+		$_filtersBar,
+		'Installation',
+		'installation_date'
+	);
+	$: if (installation_date) {
 		Max = installation_date.Max;
 		Min = installation_date.Min;
 		max = installation_date.max;
@@ -109,7 +129,7 @@
 		items = $_staticData.timelines[$_selection.interval];
 	}
 
-	$: if (height && width && Min && Max) {
+	$: if (items && height && width && Min && Max) {
 
 		/* geometry */
 

@@ -1,152 +1,72 @@
-import {
-	applyFnMap,
-	concatValues,
-	getId,
-	getKey,
-	isObjNotEmpty,
-	makeMergeAppliedFnMap,
-	mergeObj,
-	mergeWithMerge
-} from '@svizzle/utils';
-import {extent} from 'd3-array';
+import {mergeWithMerge} from '@svizzle/utils';
 import * as _ from 'lamb';
-import {RISON} from 'rison2';
-import {derived, writable} from 'svelte/store';
+import {derived, get} from 'svelte/store';
 
 import {
 	categoricalMetricsById,
 	dateMetricsById,
 	numericMetricsById,
 } from '$lib/data/metrics.js';
+import {_selection} from '$lib/stores/navigation.js';
 import {_staticData} from '$lib/stores/data.js';
-import {objectToKeyValuesArray, pluckKeySorted} from '$lib/utils/svizzle/utils';
-
-/* numeric filters */
-
-const createNumericFilters = _.pipe([
-	_.values,
-	_.mapWith(makeMergeAppliedFnMap({
-		Max: _.getKey('max'),
-		Min: _.getKey('min'),
-	})),
-]);
-
-/* categorical filters */
-
-const getCategoricalFiltersPresets = _.mapValuesWith(
-	applyFnMap({
-		values: _.mapWith(mergeObj({
-			selected: true // this will have to read from filters in the URL
-		}))
-	})
-);
-
-/* timeline filter */
-
-const getTimeDomain = _.pipe([
-	pluckKeySorted,
-	_.collect([_.take(2), _.last]),
-	([[first, second], last]) => [first, last + second - first]
-]);
-const getTimelinesExtent = _.pipe([
-	_.mapValuesWith(getTimeDomain),
-	concatValues,
-	extent,
-	applyFnMap({
-		max: _.last,
-		Max: _.last,
-		min: _.head,
-		Min: _.head,
-	}),
-]);
-
-/* all */
+import {objectToKeyValuesArray} from '$lib/utils/svizzle/utils';
+import {
+	createNumericFilters,
+	getCategoricalFiltersPresets,
+	getTimelinesExtent,
+} from '$lib/utils/filters.js';
 
 const formatFilters = _.pipe([
-	_.when(_.isUndefined, _.always({})),
-	_.values,
 	_.groupBy(_.getKey('entity')),
 	objectToKeyValuesArray
 ]);
 
-export const _filters = writable();
+const getDefaultFiltersBar = staticData => {
+	const numFiltersById = mergeWithMerge(
+		numericMetricsById,
+		staticData.numStats
+	);
+	const numFilters = createNumericFilters(numFiltersById);
 
-_staticData.subscribe(staticData => {
-	if (staticData) {
-		_filters.update(() => {
-			const numFiltersById = mergeWithMerge(
-				numericMetricsById,
-				staticData.numStats
-			);
-			const numFilters = createNumericFilters(numFiltersById);
+	const catFiltersById = mergeWithMerge(
+		categoricalMetricsById,
+		getCategoricalFiltersPresets(staticData.catStats)
+	);
+	const catFilters = _.values(catFiltersById);
 
-			const catFiltersById = mergeWithMerge(
-				categoricalMetricsById,
-				getCategoricalFiltersPresets(staticData.catStats)
-			);
-			const catFilters = _.values(catFiltersById);
+	const timelineFilter = mergeWithMerge(
+		dateMetricsById.installation_date,
+		getTimelinesExtent(staticData.timelines)
+	);
 
-			const timelineFilter = mergeWithMerge(
-				dateMetricsById.installation_date,
-				getTimelinesExtent(staticData.timelines)
-			);
+	const defaultFilters = formatFilters([
+		...numFilters,
+		...catFilters,
+		timelineFilter
+	]);
 
-			const filters = _.index(
-				[
-					...numFilters,
-					...catFilters,
-					timelineFilter
-				],
-				getId
-			);
-
-			return filters;
-		});
-	}
-});
-
-export const _filtersBar = derived(_filters, formatFilters);
-
-const getSelectedCats = _.pipe([
-	_.filterWith(_.hasKeyValue('selected', true)),
-	_.mapWith(getKey)
-]);
-
-const getQueryForFilter = filter => {
-	let value;
-	if (filter.type === 'number' || filter.type === 'date') {
-		const subQuery = {};
-		if (filter.max !== filter.Max) {
-			subQuery.lte = filter.max;
-		}
-		if (filter.min !== filter.Min) {
-			subQuery.gte = filter.min;
-		}
-		if (isObjNotEmpty(subQuery)) {
-			value = subQuery;
-		}
-	} else if (filter.type === 'category') {
-		if (_.someIn(filter.values, ({selected}) => !selected)) {
-			value = getSelectedCats(filter.values);
-		}
-	}
-
-	return value;
+	return defaultFilters;
 }
 
-const getQueryFromFilters = _.pipe([
-	_.mapValuesWith(getQueryForFilter),
-	_.skipIf(_.isUndefined)
-]);
+export const _filtersBar = derived(
+	[_selection, _staticData],
+	([{filters}, staticData]) => {
+		let filtersBar = [];
+		if (staticData) {
+			const defaultFilters = getDefaultFiltersBar(staticData);
 
-export const _filterQuery = derived(_filters, filters => {
-	if (!filters) {
-		return '';
+			/*
+			filtersBar = [
+				...defaultFilters,
+				...filters
+			];
+			*/
+
+			// temporary
+			filtersBar = filters.length > 0
+				? filters
+				: defaultFilters;
+		}
+		return filtersBar;
 	}
-
-	const query = getQueryFromFilters(filters);
-
-	const result = isObjNotEmpty(query) ? RISON.stringify(query) : '';
-
-	return result;
-});
+);

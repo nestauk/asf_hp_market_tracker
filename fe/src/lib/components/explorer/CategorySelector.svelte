@@ -7,6 +7,7 @@
 	} from '@svizzle/utils';
 	import {scaleLinear} from 'd3-scale';
 	import * as _ from 'lamb';
+	import {createEventDispatcher} from 'svelte';
 
 	import Checkboxed from '$lib/components/explorer/Checkboxed.svelte';
 	import {getDocCount} from '$lib/utils/getters.js';
@@ -14,6 +15,8 @@
 
 	export let categories;
 	export let label;
+
+	const dispatch = createEventDispatcher();
 
 	const getMaxDocCount = arrayMaxWith(getDocCount);
 	const getSelected = _.getKey('selected');
@@ -52,7 +55,7 @@
 		sortedInputStates = getSortedInputsStates(categories);
 	};
 	const onApply = () => {
-		categories = getInputStatesCopy(sortedInputStates);
+		dispatch('applied', getInputStatesCopy(sortedInputStates));
 	};
 
 	$: maxDocCount = getMaxDocCount(categories);

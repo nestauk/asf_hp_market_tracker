@@ -1,4 +1,6 @@
+import {isArray, isNotNaN, isObject} from '@svizzle/utils';
 import * as _ from 'lamb';
+import {RISON} from 'rison2';
 import {assign} from 'xstate';
 
 import {goto} from '$app/navigation';
@@ -24,18 +26,33 @@ export const updateNavStores = assign((ctx, {page}) => {
 export const updateCtxSelectionFromPage = assign(ctx => {
 	// ?foo=1 => {foo: 1}
 	const searchParams = _.fromPairs(Array.from(ctx.page.url.searchParams.entries()));
+	const parsedSearchParams = _.mapValues(
+		searchParams,
+		value => {
+			const dontParseIt = value === '' || isNotNaN(parseInt(value[0]));
+			const result = dontParseIt ? value : RISON.parse(value);
 
-	const selection = {...ctx.selection, ...searchParams};
+			return result
+		}
+	);
+
+	const selection = {...ctx.selection, ...parsedSearchParams};
 
 	_selection.set(selection);
 
 	return {...ctx, selection};
 });
 
+export const needsStringify = _.anyOf([isArray, isObject]);
+export const processParam = value =>
+	needsStringify(value) ? RISON.stringify(value) : value;
+
 export const navigateToFullSearchParams = ctx => {
-	const searchParams = _.fromPairs(Array.from(ctx.page.url.searchParams.entries()));
+	const processedSelection = _.mapValues(ctx.selection, processParam);
+	const searchParams =
+		_.fromPairs(Array.from(ctx.page.url.searchParams.entries()));
 	const fullSearchParams = new URLSearchParams({
-		...ctx.selection,
+		...processedSelection,
 		...searchParams,
 	});
 	const url =
@@ -53,7 +70,9 @@ export const navigateToFullSearchParams = ctx => {
 
 export const setCtxNextValues = assign((ctx, {newValues}) => {
 	const nextSelection = {...ctx.selection, ...newValues};
-	const nextSearchParams = new URLSearchParams(nextSelection);
+
+	const processedNextSelection = _.mapValues(nextSelection, processParam);
+	const nextSearchParams = new URLSearchParams(processedNextSelection);
 
 	return {
 		...ctx,
@@ -63,7 +82,8 @@ export const setCtxNextValues = assign((ctx, {newValues}) => {
 });
 
 export const navigateToNextParams = ctx => {
-	const url = `${window.location.origin}${window.location.pathname}?${ctx.nextSearchParams}`;
+	const url =
+		`${window.location.origin}${window.location.pathname}?${ctx.nextSearchParams}`;
 
 	// console.log('next url:', url)
 
