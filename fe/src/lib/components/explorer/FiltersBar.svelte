@@ -1,5 +1,6 @@
 <script>
 	import {getKey, makeMergeAppliedFnMap} from '@svizzle/utils';
+	import isEqual from 'just-compare';
 	import * as _ from 'lamb';
 
 	import CategorySelector
@@ -34,10 +35,13 @@
 				lte: max
 			}
 		}
-		explorerActor.send({
-			type: 'SELECTION_CHANGED',
-			newValues: {filters: newFilters}
-		});
+
+		if (!isEqual(oldFilters, newFilters)) {
+			explorerActor.send({
+				type: 'SELECTION_CHANGED',
+				newValues: {filters: newFilters}
+			});
+		}
 	}
 
 	const makeOnCatsChanged = id => ({detail: categories}) => {
@@ -46,10 +50,13 @@
 			...oldFilters,
 			[id]: getSelectedCats(categories)
 		}
-		explorerActor.send({
-			type: 'SELECTION_CHANGED',
-			newValues: {filters: newFilters}
-		});
+
+		if (!isEqual(oldFilters, newFilters)) {
+			explorerActor.send({
+				type: 'SELECTION_CHANGED',
+				newValues: {filters: newFilters}
+			});
+		}
 	}
 </script>
 
