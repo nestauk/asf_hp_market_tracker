@@ -6,7 +6,6 @@
 	import RangeSlider from '$lib/components/svizzle/RangeSlider.svelte';
 	import Scroller from '$lib/components/svizzle/Scroller.svelte';
 	import {explorerActor} from '$lib/statechart/index.js';
-	import {_staticData} from '$lib/stores/data.js';
 	import {_filtersBar} from '$lib/stores/filters.js';
 	import {_selection} from '$lib/stores/navigation.js';
 	import {_rangeSlidersTheme} from '$lib/stores/theme.js';
