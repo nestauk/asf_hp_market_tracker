@@ -1,4 +1,4 @@
-import {isArray, isNotNaN, isObject} from '@svizzle/utils';
+import {isNotNaN} from '@svizzle/utils';
 import * as _ from 'lamb';
 import {RISON} from 'rison2';
 import {assign} from 'xstate';
@@ -10,6 +10,7 @@ import {
 	_currentPage,
 	_selection,
 } from '$lib/stores/navigation.js';
+import {risonifyValues} from '$lib/utils/svizzle/url.js';
 
 // PAGE_CHANGED
 
@@ -43,16 +44,12 @@ export const updateCtxSelectionFromPage = assign(ctx => {
 	return {...ctx, selection};
 });
 
-export const needsStringify = _.anyOf([isArray, isObject]);
-export const processParam = value =>
-	needsStringify(value) ? RISON.stringify(value) : value;
-
 export const navigateToFullSearchParams = ctx => {
-	const processedSelection = _.mapValues(ctx.selection, processParam);
+	const risonifiedSelection = risonifyValues(ctx.selection);
 	const searchParams =
 		_.fromPairs(Array.from(ctx.page.url.searchParams.entries()));
 	const fullSearchParams = new URLSearchParams({
-		...processedSelection,
+		...risonifiedSelection,
 		...searchParams,
 	});
 	const url =
@@ -71,8 +68,8 @@ export const navigateToFullSearchParams = ctx => {
 export const setCtxNextValues = assign((ctx, {newValues}) => {
 	const nextSelection = {...ctx.selection, ...newValues};
 
-	const processedNextSelection = _.mapValues(nextSelection, processParam);
-	const nextSearchParams = new URLSearchParams(processedNextSelection);
+	const risonifiedNextSelection = risonifyValues(nextSelection);
+	const nextSearchParams = new URLSearchParams(risonifiedNextSelection);
 
 	return {
 		...ctx,

@@ -1,4 +1,6 @@
 <script>
+	import {getKey, makeMergeAppliedFnMap} from '@svizzle/utils';
+	import isEqual from 'just-compare';
 	import * as _ from 'lamb';
 
 	import CategorySelector
@@ -9,7 +11,53 @@
 	import {_filtersBar} from '$lib/stores/filters.js';
 	import {_selection} from '$lib/stores/navigation.js';
 	import {_rangeSlidersTheme} from '$lib/stores/theme.js';
-    import {mergeFilters} from '$lib/utils/filters.js';
+
+	const getSelectedCats = _.pipe([
+		_.filterWith(_.hasKeyValue('selected', true)),
+		_.mapWith(getKey)
+	]);
+
+	const enhanceCategories = (categories, selectedCats) => _.map(
+		categories,
+		makeMergeAppliedFnMap({
+			selected: ({key}) => selectedCats.length
+				? _.isIn(selectedCats, key)
+				: true
+		})
+	)
+
+	const makeOnRangeChanged = id => ({detail: {min, max}}) => {
+		const {filters: oldFilters} = $_selection;
+		const newFilters = {
+			...oldFilters,
+			[id]: {
+				gte: min,
+				lte: max
+			}
+		}
+
+		if (!isEqual(oldFilters, newFilters)) {
+			explorerActor.send({
+				type: 'SELECTION_CHANGED',
+				newValues: {filters: newFilters}
+			});
+		}
+	}
+
+	const makeOnCatsChanged = id => ({detail: categories}) => {
+		const {filters: oldFilters} = $_selection;
+		const newFilters = {
+			...oldFilters,
+			[id]: getSelectedCats(categories)
+		}
+
+		if (!isEqual(oldFilters, newFilters)) {
+			explorerActor.send({
+				type: 'SELECTION_CHANGED',
+				newValues: {filters: newFilters}
+			});
+		}
+	}
 </script>
 
 {#if $_filtersBar}
@@ -18,6 +66,7 @@
 			<h2>{entity}</h2>
 			<ul>
 				{#each metrics as metric}
+				{@const queryValue = $_selection.filters[metric.id]}
 					{#if metric.id !== 'installation_date'}
 						<li>
 							<div class='slider'>
@@ -25,42 +74,18 @@
 								{#if metric.type === 'number'}
 									<RangeSlider
 										formatFn={metric.formatFn}
-										Max={metric.Max}
-										max={metric.max}
-										Min={metric.Min}
-										min={metric.min}
-										on:changed={({detail: range}) => {
-											const newFilters = mergeFilters(
-												$_filtersBar,
-												entity,
-												metric.id,
-												range
-											);
-											explorerActor.send({
-												type: 'SELECTION_CHANGED',
-												newValues: {filters: newFilters}
-											});
-										}}
+										Max={metric.max}
+										max={queryValue?.lte || metric.max}
+										Min={metric.min}
+										min={queryValue?.gte || metric.min}
+										on:changed={makeOnRangeChanged(metric.id)}
 										theme={$_rangeSlidersTheme}
 									/>
 								{:else if metric.type === 'category'}
 									<CategorySelector
 										label={metric.label}
-										categories={metric.values}
-										on:applied={({detail: categories}) => {
-											const newFilters = mergeFilters(
-												$_filtersBar,
-												entity,
-												metric.id,
-												{values: categories}
-											);
-											explorerActor.send({
-												type: 'SELECTION_CHANGED',
-												newValues: {filters: newFilters}
-											});
-/* 											$_filters[metric.id].values = detail;
-											sendFiltersChanged();
- */										}}
+										categories={enhanceCategories(metric.values, queryValue || [])}
+										on:applied={makeOnCatsChanged(metric.id)}
 									/>
 								{/if}
 							</div>

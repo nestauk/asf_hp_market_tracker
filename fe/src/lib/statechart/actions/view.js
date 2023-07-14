@@ -1,5 +1,4 @@
 import {isObjNotEmpty} from '@svizzle/utils';
-// import * as _ from 'lamb';
 import {RISON} from 'rison2';
 import {get} from 'svelte/store';
 import {assign} from 'xstate';
@@ -11,7 +10,6 @@ import {
 	_currentPage,
 } from '$lib/stores/navigation.js';
 import {_isViewLoading, _viewData} from '$lib/stores/view.js';
-import {getQueryFromFilters} from '$lib/utils/filters.js';
 
 /* loading icon */
 
@@ -315,12 +313,8 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 	let viewQueryPath = endpoint;
 
 	const {filters} = ctx.selection;
-	if (filters !== {}) {
-		const query = getQueryFromFilters(filters);
-
-		const queryRison = isObjNotEmpty(query) ? RISON.stringify(query) : '';
-
-		params.filter = queryRison;
+	if (isObjNotEmpty(filters)) {
+		params.filter = RISON.stringify(filters);
 	}
 
 	if (isObjNotEmpty(params)) {

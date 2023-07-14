@@ -3,14 +3,14 @@
 	import {getKey} from '@svizzle/utils';
 	import {extent} from 'd3-array';
 	import {scaleLinear, scaleUtc} from 'd3-scale';
+	import isEqual from 'just-compare';
 	import * as _ from 'lamb';
 
 	import {explorerActor} from '$lib/statechart/index.js';
 	import {_staticData} from '$lib/stores/data.js';
 	import {_selection} from '$lib/stores/navigation.js';
-	import {_filtersBar} from '$lib/stores/filters.js';
+	import {_installationDateExtent} from '$lib/stores/filters.js';
 	import {formatDate} from '$lib/utils/date.js';
-    import {findInFiltersBar, mergeFilters} from '$lib/utils/filters.js';
 	import {getDocCount} from '$lib/utils/getters.js';
 
 	const geometry = {
@@ -57,6 +57,7 @@
 		}
 		min = binsTicks[minIndex];
 	}
+
 	const handleMaxDrag = event => {
 		const value = xScale.invert(event.offsetX - geometry.safetyLeft);
 		let maxIndex = getClosestTickIndex(binsTicks, value);
@@ -73,28 +74,26 @@
 		event.target.onpointermove = isMinKnob ? handleMinDrag : handleMaxDrag;
 		event.target.setPointerCapture(event.pointerId);
 	}
+
 	const stopDragging = event => {
 		event.target.onpointermove = null;
 		event.target.releasePointerCapture(event.pointerId);
-/* 		$_filters.installation_date = {
-			...$_filters.installation_date,
-			min: min.getTime(),
-			max: max.getTime()
-		};
-		sendFiltersChanged(); */
-		const newFilters = mergeFilters(
-			$_filtersBar,
-			'Installation',
-			'installation_date',
-			{
-				min: min.getTime(),
-				max: max.getTime()
+
+		const {filters: oldFilters} = $_selection;
+		const newFilters = {
+			...oldFilters,
+			installation_date: {
+				gte: min.getTime(),
+				lte: max.getTime()
 			}
-		);
-		explorerActor.send({
-			type: 'SELECTION_CHANGED',
-			newValues: {filters: newFilters}
-		});
+		}
+
+		if (!isEqual(oldFilters, newFilters)) {
+			explorerActor.send({
+				type: 'SELECTION_CHANGED',
+				newValues: {filters: newFilters}
+			});
+		}
 	}
 
 	let bbox;
@@ -113,23 +112,19 @@
 	let xTicks;
 	let yScale;
 
-	$: installation_date = findInFiltersBar(
-		$_filtersBar,
-		'Installation',
-		'installation_date'
-	);
-	$: if (installation_date) {
-		Max = installation_date.Max;
-		Min = installation_date.Min;
-		max = installation_date.max;
-		min = installation_date.min;
-	}
 	$: ({inlineSize: width, blockSize: height} = $_size);
-	$: if ($_staticData?.timelines) {
+
+	$: if ($_installationDateExtent) {
 		items = $_staticData.timelines[$_selection.interval];
+		Max = $_installationDateExtent.Max;
+		Min = $_installationDateExtent.Min;
 	}
 
-	$: if (items && height && width && Min && Max) {
+	$: selectedRange = $_selection.filters.installation_date
+	$: max = selectedRange?.lte || Max;
+	$: min = selectedRange?.gte || Min;
+
+	$: if (items && $_size && $_installationDateExtent) {
 
 		/* geometry */
 

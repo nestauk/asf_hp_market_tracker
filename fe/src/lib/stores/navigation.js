@@ -7,6 +7,7 @@ import {
 	metricTitleById,
 } from '$lib/data/metrics.js';
 import {context} from '$lib/statechart/context.js';
+import {risonifyValues} from '$lib/utils/svizzle/url.js';
 
 export const _activeViewType = writable('stats');
 export const _currentMetricId = writable(defaultMetric.id);
@@ -33,5 +34,9 @@ export const _selection = writable(context.selection);
 
 export const _searchParams = derived(
 	_selection,
-	selection => new URLSearchParams(selection)
+	selection => {
+		const serialisedSelection = risonifyValues(selection);
+
+		return new URLSearchParams(serialisedSelection)
+	}
 );
