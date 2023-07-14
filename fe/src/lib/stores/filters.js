@@ -1,6 +1,7 @@
 import {
 	applyFnMap,
 	concatValues,
+	isNotNil,
 	mergeWithMerge,
 } from '@svizzle/utils';
 import {extent} from 'd3-array';
@@ -75,12 +76,11 @@ const getTimelinesExtent = _.pipe([
 
 export const _installationDateExtent = derived(
 	_staticData,
-	staticData => {
-		const timelineFilter = mergeWithMerge(
-			dateMetricsById.installation_date,
-			getTimelinesExtent(staticData.timelines)
-		);
-
-		return timelineFilter;
-	}
+	_.when(
+		isNotNil,
+		_.pipe([
+			_.getKey('timelines'),
+			getTimelinesExtent
+		])
+	)
 );

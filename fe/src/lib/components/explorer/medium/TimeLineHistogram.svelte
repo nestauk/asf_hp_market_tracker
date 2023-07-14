@@ -8,7 +8,7 @@
 	import {explorerActor} from '$lib/statechart/index.js';
 	import {_staticData} from '$lib/stores/data.js';
 	import {_selection} from '$lib/stores/navigation.js';
-	import {_filtersBar} from '$lib/stores/filters.js';
+	import {_installationDateExtent} from '$lib/stores/filters.js';
 	import {formatDate} from '$lib/utils/date.js';
 	import {getDocCount} from '$lib/utils/getters.js';
 
@@ -30,31 +30,6 @@
 		_writable: _size,
 		resizeObserver: sizeObserver
 	} = setupResizeObserver();
-
-	const findInFiltersBar = (filtersBar, entityName, fieldName) => {
-		if (!filtersBar) {
-			return {};
-		}
-		const entityIndex = _.findIndex(
-			filtersBar,
-			_.hasKeyValue('key', entityName)
-		);
-
-		if (entityIndex === -1) {
-			return {};
-		}
-		const fieldIndex = _.findIndex(
-			filtersBar[entityIndex].values,
-			_.hasKeyValue('id', fieldName)
-		);
-
-		if (fieldIndex === -1) {
-			return {};
-		}
-		const filter = filtersBar[entityIndex].values[fieldIndex] || {};
-
-		return filter;
-	}
 
 	/* range selection */
 
@@ -134,17 +109,13 @@
 	let xTicks;
 	let yScale;
 
-	$: installation_date = findInFiltersBar(
-		$_filtersBar,
-		'Installation',
-		'installation_date'
-	);
+	$: console.log('extent', $_installationDateExtent)
 	$: queryValues = $_selection.filters.installation_date
-	$: if (installation_date && queryValues) {
-		Max = installation_date.max;
-		Min = installation_date.min;
-		max = queryValues.lte || installation_date.max;
-		min = queryValues.gte || installation_date.min;
+	$: if ($_installationDateExtent && queryValues) {
+		Max = $_installationDateExtent.Max;
+		Min = $_installationDateExtent.min;
+		max = queryValues.lte || Max;
+		min = queryValues.gte || Min;
 	}
 	$: ({inlineSize: width, blockSize: height} = $_size);
 	$: if ($_staticData?.timelines) {
