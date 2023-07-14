@@ -19,34 +19,35 @@ const formatFilters = _.pipe([
 	objectToKeyValuesArray
 ]);
 
-const getFiltersBar = staticData => {
-	const numFiltersById = mergeWithMerge(
-		numericMetricsById,
-		staticData.numStats
-	);
-	const numFilters = _.values(numFiltersById);
-
-	const catFiltersById = mergeWithMerge(
-		categoricalMetricsById,
-		getWrappedCategoricalFilters(staticData.catStats)
-	);
-	const catFilters = _.values(catFiltersById);
-
-	const timelineFilter = mergeWithMerge(
-		dateMetricsById.installation_date,
-		getTimelinesExtent(staticData.timelines)
-	);
-
-	const defaultFilters = formatFilters([
-		...numFilters,
-		...catFilters,
-		timelineFilter
-	]);
-
-	return defaultFilters;
-}
-
 export const _filtersBar = derived(
-	[_staticData],
-	([staticData]) => staticData ? getFiltersBar(staticData) : []
+	_staticData,
+	staticData => {
+		if (!staticData) {
+			return [];
+		}
+		const numFiltersById = mergeWithMerge(
+			numericMetricsById,
+			staticData.numStats
+		);
+		const numFilters = _.values(numFiltersById);
+
+		const catFiltersById = mergeWithMerge(
+			categoricalMetricsById,
+			getWrappedCategoricalFilters(staticData.catStats)
+		);
+		const catFilters = _.values(catFiltersById);
+
+		const timelineFilter = mergeWithMerge(
+			dateMetricsById.installation_date,
+			getTimelinesExtent(staticData.timelines)
+		);
+
+		const defaultFilters = formatFilters([
+			...numFilters,
+			...catFilters,
+			timelineFilter
+		]);
+
+		return defaultFilters;
+	}
 );
