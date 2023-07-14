@@ -5,11 +5,12 @@
 	import {scaleLinear, scaleUtc} from 'd3-scale';
 	import * as _ from 'lamb';
 
+	import {explorerActor} from '$lib/statechart/index.js';
 	import {_staticData} from '$lib/stores/data.js';
 	import {_selection} from '$lib/stores/navigation.js';
 	import {_filtersBar} from '$lib/stores/filters.js';
 	import {formatDate} from '$lib/utils/date.js';
-    import {findInFiltersBar} from '$lib/utils/filters.js';
+    import {findInFiltersBar, mergeFilters} from '$lib/utils/filters.js';
 	import {getDocCount} from '$lib/utils/getters.js';
 
 	const geometry = {
@@ -81,6 +82,19 @@
 			max: max.getTime()
 		};
 		sendFiltersChanged(); */
+		const newFilters = mergeFilters(
+			$_filtersBar,
+			'Installation',
+			'installation_date',
+			{
+				min: min.getTime(),
+				max: max.getTime()
+			}
+		);
+		explorerActor.send({
+			type: 'SELECTION_CHANGED',
+			newValues: {filters: newFilters}
+		});
 	}
 
 	let bbox;

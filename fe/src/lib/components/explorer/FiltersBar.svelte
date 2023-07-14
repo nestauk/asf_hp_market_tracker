@@ -4,12 +4,13 @@
 	import CategorySelector
 		from '$lib/components/explorer/CategorySelector.svelte';
 	import RangeSlider from '$lib/components/svizzle/RangeSlider.svelte';
-	import {explorerActor} from '$lib/statechart/index.js';
 	import Scroller from '$lib/components/svizzle/Scroller.svelte';
+	import {explorerActor} from '$lib/statechart/index.js';
 	import {_staticData} from '$lib/stores/data.js';
 	import {_filtersBar} from '$lib/stores/filters.js';
 	import {_selection} from '$lib/stores/navigation.js';
 	import {_rangeSlidersTheme} from '$lib/stores/theme.js';
+    import {mergeFilters} from '$lib/utils/filters.js';
 </script>
 
 {#if $_filtersBar}
@@ -30,9 +31,16 @@
 										Min={metric.Min}
 										min={metric.min}
 										on:changed={({detail: range}) => {
-/* 											$_filters[metric.id].max = max;
-											$_filters[metric.id].min = min;
-											sendFiltersChanged(); */
+											const newFilters = mergeFilters(
+												$_filtersBar,
+												entity,
+												metric.id,
+												range
+											);
+											explorerActor.send({
+												type: 'SELECTION_CHANGED',
+												newValues: {filters: newFilters}
+											});
 										}}
 										theme={$_rangeSlidersTheme}
 									/>
@@ -40,7 +48,17 @@
 									<CategorySelector
 										label={metric.label}
 										categories={metric.values}
-										on:applied={({detail}) => {
+										on:applied={({detail: categories}) => {
+											const newFilters = mergeFilters(
+												$_filtersBar,
+												entity,
+												metric.id,
+												{values: categories}
+											);
+											explorerActor.send({
+												type: 'SELECTION_CHANGED',
+												newValues: {filters: newFilters}
+											});
 /* 											$_filters[metric.id].values = detail;
 											sendFiltersChanged();
  */										}}

@@ -109,3 +109,22 @@ export const findInFiltersBar = (filtersBar, entityName, fieldName) => {
 
 	return filter;
 }
+
+export const mergeFilters = (filters, entityName, fieldName, objToMerge) => {
+	const entityIndex = _.findIndex(
+		filters,
+		_.hasKeyValue('key', entityName)
+	);
+	const fieldIndex = _.findIndex(
+		filters[entityIndex].values,
+		_.hasKeyValue('id', fieldName)
+	);
+	const field = filters[entityIndex].values[fieldIndex];
+
+	filters[entityIndex].values[fieldIndex] = {
+		...field,
+		...objToMerge
+	};
+
+	return filters;
+}

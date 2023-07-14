@@ -55,10 +55,18 @@ export const _filtersBar = derived(
 		if (staticData) {
 			const defaultFilters = getDefaultFiltersBar(staticData);
 
+			/*
 			filtersBar = [
 				...defaultFilters,
 				...filters
 			];
+			*/
+
+			// temporary
+			filtersBar = filters.length > 0
+				? filters
+				: defaultFilters;
+
 		}
 		return filtersBar;
 	}
