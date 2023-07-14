@@ -13,7 +13,7 @@ import {pluckKeySorted} from '$lib/utils/svizzle/utils';
 
 /* categorical filters */
 
-export const getCategoricalFiltersPresets = _.mapValuesWith(
+export const getWrappedCategoricalFilters = _.mapValuesWith(
 	applyFnMap({
 		values: _.identity,
 	})

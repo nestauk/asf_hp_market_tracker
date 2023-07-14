@@ -10,7 +10,7 @@ import {
 import {_staticData} from '$lib/stores/data.js';
 import {objectToKeyValuesArray} from '$lib/utils/svizzle/utils';
 import {
-	getCategoricalFiltersPresets,
+	getWrappedCategoricalFilters,
 	getTimelinesExtent,
 } from '$lib/utils/filters.js';
 
@@ -19,7 +19,7 @@ const formatFilters = _.pipe([
 	objectToKeyValuesArray
 ]);
 
-const getDefaultFiltersBar = staticData => {
+const getFiltersBar = staticData => {
 	const numFiltersById = mergeWithMerge(
 		numericMetricsById,
 		staticData.numStats
@@ -28,7 +28,7 @@ const getDefaultFiltersBar = staticData => {
 
 	const catFiltersById = mergeWithMerge(
 		categoricalMetricsById,
-		getCategoricalFiltersPresets(staticData.catStats)
+		getWrappedCategoricalFilters(staticData.catStats)
 	);
 	const catFilters = _.values(catFiltersById);
 
@@ -48,5 +48,5 @@ const getDefaultFiltersBar = staticData => {
 
 export const _filtersBar = derived(
 	[_staticData],
-	([staticData]) => staticData ? getDefaultFiltersBar(staticData) : []
+	([staticData]) => staticData ? getFiltersBar(staticData) : []
 );
