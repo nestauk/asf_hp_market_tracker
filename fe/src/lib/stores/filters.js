@@ -66,7 +66,6 @@ export const _filtersBar = derived(
 			filtersBar = filters.length > 0
 				? filters
 				: defaultFilters;
-
 		}
 		return filtersBar;
 	}

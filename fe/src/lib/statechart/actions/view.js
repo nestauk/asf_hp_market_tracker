@@ -1,9 +1,6 @@
-import {
-	getId,
-	isObjNotEmpty,
-	mergeWithMerge
-} from '@svizzle/utils';
-import * as _ from 'lamb';
+import {isObjNotEmpty} from '@svizzle/utils';
+// import * as _ from 'lamb';
+import {RISON} from 'rison2';
 import {get} from 'svelte/store';
 import {assign} from 'xstate';
 
@@ -317,14 +314,14 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 
 	let viewQueryPath = endpoint;
 
-/* 	if (ctx.selection.filters !== '') {
-		const filters = RISON.parse(ctx.selection.filters);
+	const {filters} = ctx.selection;
+	if (filters !== {}) {
 		const query = getQueryFromFilters(filters);
 
 		const queryRison = isObjNotEmpty(query) ? RISON.stringify(query) : '';
 
 		params.filter = queryRison;
-	} */
+	}
 
 	if (isObjNotEmpty(params)) {
 		viewQueryPath = `${endpoint}?${new URLSearchParams(params)}`;

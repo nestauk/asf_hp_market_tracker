@@ -2,6 +2,7 @@ import {
 	applyFnMap,
 	concatValues,
 	getKey,
+	getValues,
 	isObjNotEmpty,
 	makeMergeAppliedFnMap,
 	mergeObj,
@@ -77,11 +78,13 @@ const getQueryForFilter = filter => {
 		}
 	}
 
-	return value;
+	return [filter.id, value];
 }
 
 export const getQueryFromFilters = _.pipe([
-	_.mapValuesWith(getQueryForFilter),
+	_.flatMapWith(getValues),
+	_.mapWith(getQueryForFilter),
+	_.fromPairs,
 	_.skipIf(_.isUndefined)
 ]);
 
