@@ -22,6 +22,33 @@
 			selected: ({key}) => _.isIn(selectedCats, key)
 		})
 	)
+
+	const makeOnRangeChanged = id => ({detail: {min, max}}) => {
+		const {filters: oldFilters} = $_selection;
+		const newFilters = {
+			...oldFilters,
+			[id]: {
+				gte: min,
+				lte: max
+			}
+		}
+		explorerActor.send({
+			type: 'SELECTION_CHANGED',
+			newValues: {filters: newFilters}
+		});
+	}
+
+	const makeOnCatsChanged = id => ({detail: categories}) => {
+		const {filters: oldFilters} = $_selection;
+		const newFilters = {
+			...oldFilters,
+			[id]: getSelectedCats(categories)
+		}
+		explorerActor.send({
+			type: 'SELECTION_CHANGED',
+			newValues: {filters: newFilters}
+		});
+	}
 </script>
 
 {#if $_filtersBar}
@@ -42,37 +69,14 @@
 										max={queryValue?.lte || metric.max}
 										Min={metric.min}
 										min={queryValue?.gte || metric.min}
-										on:changed={({detail: {min, max}}) => {
-											const {filters: oldFilters} = $_selection;
-											const newFilters = {
-												...oldFilters,
-												[metric.id]: {
-													gte: min,
-													lte: max
-												}
-											}
-											explorerActor.send({
-												type: 'SELECTION_CHANGED',
-												newValues: {filters: newFilters}
-											});
-										}}
+										on:changed={makeOnRangeChanged(metric.id)}
 										theme={$_rangeSlidersTheme}
 									/>
 								{:else if metric.type === 'category'}
 									<CategorySelector
 										label={metric.label}
 										categories={enhanceCategories(metric.values, queryValue || [])}
-										on:applied={({detail: categories}) => {
-											const {filters: oldFilters} = $_selection;
-											const newFilters = {
-												...oldFilters,
-												[metric.id]: getSelectedCats(categories)
-											}
-											explorerActor.send({
-												type: 'SELECTION_CHANGED',
-												newValues: {filters: newFilters}
-											});
-										}}
+										on:applied={makeOnCatsChanged(metric.id)}
 									/>
 								{/if}
 							</div>
