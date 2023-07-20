@@ -9,3 +9,14 @@
 [functions]
 	# temporary workaround for https://github.com/sveltejs/kit/issues/6462
 	node_bundler = "esbuild"
+
+# see `fe/src/lib/env.js`
+
+[context.dev]
+	VITE_BE_ENV = "dev"
+
+[context.staging]
+	VITE_BE_ENV = "staging"
+
+[context.production]
+	VITE_BE_ENV = "production"
