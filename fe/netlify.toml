@@ -3,20 +3,21 @@
 	publish = ".svelte-kit/netlify"
 
 [build.environment]
-	NODE_VERSION = "18.13.0"
 	ADAPTER = "netlify"
+	NODE_VERSION = "18.13.0"
+	VITE_BE_ENV = "dev"
 
 [functions]
 	# temporary workaround for https://github.com/sveltejs/kit/issues/6462
 	node_bundler = "esbuild"
 
-# see `fe/src/lib/env.js`
-
-[context.dev]
+[context.dev.environment]
 	VITE_BE_ENV = "dev"
 
-[context.staging]
+[context.staging.environment]
 	VITE_BE_ENV = "staging"
 
-[context.production]
+[context.production.environment]
 	VITE_BE_ENV = "production"
+
+# re: `VITE_BE_ENV` please see `fe/src/lib/env.js`
