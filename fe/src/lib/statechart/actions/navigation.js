@@ -10,7 +10,7 @@ import {
 	_currentPage,
 	_selection,
 } from '$lib/stores/navigation.js';
-import {risonifyValues} from '$lib/utils/svizzle/url.js';
+import {objectToSearchParams, risonifyValues} from '$lib/utils/svizzle/url.js';
 
 // PAGE_CHANGED
 
@@ -48,7 +48,7 @@ export const navigateToFullSearchParams = ctx => {
 	const risonifiedSelection = risonifyValues(ctx.selection);
 	const searchParams =
 		_.fromPairs(Array.from(ctx.page.url.searchParams.entries()));
-	const fullSearchParams = new URLSearchParams({
+	const fullSearchParams = objectToSearchParams({
 		...risonifiedSelection,
 		...searchParams,
 	});
@@ -69,7 +69,7 @@ export const setCtxNextValues = assign((ctx, {newValues}) => {
 	const nextSelection = {...ctx.selection, ...newValues};
 
 	const risonifiedNextSelection = risonifyValues(nextSelection);
-	const nextSearchParams = new URLSearchParams(risonifiedNextSelection);
+	const nextSearchParams = objectToSearchParams(risonifiedNextSelection);
 
 	return {
 		...ctx,
