@@ -43,6 +43,8 @@ export const hasFullSearchParams = ctx => {
 
 		pass =
 			_.has(parsedSearchParams, 'filters') &&
+			_.has(parsedSearchParams.filters, 'installerRegionNames') &&
+			_.has(parsedSearchParams.filters, 'installerRegionType');
 			_.has(parsedSearchParams.filters, 'propertyRegionNames') &&
 			_.has(parsedSearchParams.filters, 'propertyRegionType');
 	}

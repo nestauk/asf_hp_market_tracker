@@ -318,12 +318,24 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 
 	const {filters} = ctx.selection;
 	if (isObjNotEmpty(filters)) {
-		const {propertyRegionNames, propertyRegionType} = filters;
+		const {
+			installerRegionNames,
+			installerRegionType,
+			propertyRegionNames,
+			propertyRegionType,
+		} = filters;
+
 		let processedFilters = _.skipIn(filters, [
+			'installerRegionNames',
+			'installerRegionType',
 			'propertyRegionNames',
 			'propertyRegionType',
 		]);
 
+		if (isIterableNotEmpty(installerRegionNames)) {
+			const installerGeoField = `installer_geo_region_${installerRegionType}_name`;
+			processedFilters[installerGeoField] = installerRegionNames;
+		};
 		if (isIterableNotEmpty(propertyRegionNames)) {
 			const propertyGeoField = `property_geo_region_${propertyRegionType}_name`;
 			processedFilters[propertyGeoField] = propertyRegionNames;

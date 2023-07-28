@@ -6,8 +6,10 @@ export const context = {
 		categsStreamgraphsSorting: 'off',
 		categsTimeGraph: 'trends',
 		filters: {
+			installerRegionNames: [],
+			installerRegionType: 'country21',
 			propertyRegionNames: [],
-			propertyRegionType: 'itl21_1',
+			propertyRegionType: 'country21',
 		},
 		interval: '1y',
 		numTimeGraph: 'percentiles',

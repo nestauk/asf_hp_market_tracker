@@ -60,6 +60,24 @@
 		}
 	}
 
+	/* installer regions */
+
+	const onInstallerRegionsChanged = ({detail: {regionNames, regionType}}) => {
+		const {filters: oldFilters} = $_selection;
+		const newFilters = {
+			...oldFilters,
+			installerRegionNames: regionNames,
+			installerRegionType: regionType,
+		}
+
+		if (!isEqual(oldFilters, newFilters)) {
+			explorerActor.send({
+				type: 'SELECTION_CHANGED',
+				newValues: {filters: newFilters}
+			});
+		}
+	}
+
 	/* property regions */
 
 	const onPropertyRegionsChanged = ({detail: {regionNames, regionType}}) => {
@@ -81,6 +99,12 @@
 
 {#if $_filtersBar}
 	<Scroller>
+		<RegionFilter
+			on:apply={onInstallerRegionsChanged}
+			targetRegionNames={$_selection.filters.installerRegionNames}
+			targetRegionType={$_selection.filters.installerRegionType}
+			title='Installer regions'
+		/>
 		<RegionFilter
 			on:apply={onPropertyRegionsChanged}
 			targetRegionNames={$_selection.filters.propertyRegionNames}
