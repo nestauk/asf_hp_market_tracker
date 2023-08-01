@@ -8,17 +8,13 @@ import {extent} from 'd3-array';
 import * as _ from 'lamb';
 import {derived} from 'svelte/store';
 
-import {
-	categoricalMetricsById,
-	dateMetricsById,
-	numericMetricsById,
-} from '$lib/data/metrics.js';
+import {categoricalMetricsById, numericMetricsById} from '$lib/data/metrics.js';
 import {_staticData} from '$lib/stores/data.js';
 import {objectToKeyValuesArray, pluckKeySorted} from '$lib/utils/svizzle/utils';
 
 /* categorical filters */
 
-const getWrappedCategoricalFilters = _.mapValuesWith(
+const getValuesArray = _.mapValuesWith(
 	applyFnMap({
 		values: _.identity,
 	})
@@ -35,15 +31,19 @@ export const _filtersBar = derived(
 		if (!staticData) {
 			return [];
 		}
+		const numData = mergeWithMerge(
+			staticData.numStats,
+			getValuesArray(staticData.numHists)
+		)
 		const numFiltersById = mergeWithMerge(
 			numericMetricsById,
-			staticData.numStats
+			numData,
 		);
 		const numFilters = _.values(numFiltersById);
 
 		const catFiltersById = mergeWithMerge(
 			categoricalMetricsById,
-			getWrappedCategoricalFilters(staticData.catStats)
+			getValuesArray(staticData.catStats)
 		);
 		const catFilters = _.values(catFiltersById);
 

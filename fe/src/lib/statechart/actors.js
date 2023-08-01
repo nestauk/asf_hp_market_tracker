@@ -33,6 +33,18 @@ export const queryStaticData = () => {
 		return promise;
 	});
 
+	const numHistPromises = _.map(numericMetrics, ({id: field}) => {
+		const endpoint = 'histogram';
+		const params = {
+			bins: 10,
+			field,
+		};
+		const queryPath = `${endpoint}?${new URLSearchParams(params)}`;
+		const promise = query(queryPath);
+
+		return promise;
+	});
+
 	const catTermsPromises = _.map(categoricalMetrics, ({id: field}) => {
 		const endpoint = 'terms';
 		const params = {
@@ -46,15 +58,14 @@ export const queryStaticData = () => {
 	});
 
 	return Promise.all([
-		...timelinesPromises,
-		...numStatsPromises,
-		...catTermsPromises
+		Promise.all(timelinesPromises),
+		Promise.all(numStatsPromises),
+		Promise.all(catTermsPromises),
+		Promise.all(numHistPromises),
 	]).then(applyFnMap({
-		timelines: _.take(intervals.length),
-		numStats: _.pipe([
-			_.drop(intervals.length),
-			_.take(numericMetrics.length)
-		]),
-		catStats: _.drop(intervals.length + numericMetrics.length)
+		timelines: _.getAt(0),
+		numStats: _.getAt(1),
+		catStats: _.getAt(2),
+		numHists: _.getAt(3),
 	}));
 };

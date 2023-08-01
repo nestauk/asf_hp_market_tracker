@@ -1,15 +1,22 @@
 <script>
 	import {makeStyleVars} from '@svizzle/dom';
 	import {setupResizeObserver} from '@svizzle/ui';
+	import {getKey} from '@svizzle/utils';
+	import {extent} from 'd3-array';
 	import {scaleLinear} from 'd3-scale';
+	import * as _ from 'lamb';
 	import {createEventDispatcher} from 'svelte';
 
+	import {getDocCount} from '$lib/utils/getters.js';
+
 	export let formatFn;
+	export let items;
 	export let max;
 	export let Max;
 	export let min;
 	export let Min;
 	export let theme;
+	export let geometry;
 
 	const dispatch = createEventDispatcher();
 
@@ -21,16 +28,35 @@
 	const defaultTheme = {
 		knobFill: 'white',
 		knobStroke: 'black',
-		knobStrokeWidth: 1,
+		knobStrokeWidth: 1.5,
 		lineColor: 'gray',
-		textColor: 'black'
+		textColor: 'black',
 	}
 
-	let height;
-	let isDraggingMin = false;
-	let width;
+	const defaultGeometry = {
+		histogramHeight: 40,
+		knobRadius: 5,
+		safetyBottom: 8,
+		safetyLeft: 0,
+		safetyRight: 0,
+		safetyTop: 8,
+	}
 
-	$: ({blockSize: height, inlineSize: width} = $_size);
+	let bbox;
+	let bins;
+	let binsTicks;
+	let binWidth;
+	let isDraggingMin = false;
+	let layout;
+	let maxX;
+	let minX;
+	let proceed;
+	let style;
+	let width;
+	let xScale;
+	let yScale;
+
+	$: ({inlineSize: width} = $_size);
 
 	$: Min = Min ?? 0;
 	$: Max = Max ?? 100;
@@ -39,23 +65,24 @@
 	$: max < min && (max = min);
 
 	$: theme = {...defaultTheme, ...theme};
-	$: knobRadius = Math.max(0, height / 2 - theme.knobStrokeWidth / 2);
-	$: geometry = {x1: theme.knobStrokeWidth / 2 + knobRadius};
-	$: geometry.x2 = width - geometry.x1;
-	$: style = makeStyleVars({...theme, x1: `${geometry.x1}px`});
+	$: geometry = {...defaultGeometry, ...geometry};
 
-	$: scale = scaleLinear().domain([Min, Max]).range([geometry.x1, geometry.x2]);
+	$: knobRadius = geometry.knobRadius + theme.knobStrokeWidth;
+	$: knobOffset = knobRadius + theme.knobStrokeWidth / 2;
+
+	// FIXME duplicate of xScale?
+	$: scale = scaleLinear().domain([Min, Max]).range([layout.x1, layout.x2]);
 
 	const handleMinDrag = event => {
 		const value = Math.min(
-			Math.max(geometry.x1, event.offsetX),
+			Math.max(layout.x1, event.offsetX),
 			scale(max)
 		);
 		min = scale.invert(value);
 	}
 	const handleMaxDrag = event => {
 		const value = Math.max(
-			Math.min(geometry.x2, event.offsetX),
+			Math.min(layout.x2, event.offsetX),
 			scale(min)
 		);
 		max = scale.invert(value);
@@ -69,7 +96,64 @@
 	const stopDragging = event => {
 		event.target.onpointermove = null;
 		event.target.releasePointerCapture(event.pointerId);
+
 		dispatch('changed', {min, max});
+	}
+
+	$: if (items && $_size) {
+
+		// FIXME refactor bbox & layout
+
+		/* layout */
+
+		bbox = {
+			// blx: geometry.safetyLeft,
+			// bly: geometry.histogramHeight + geometry.safetyTop,
+			height: geometry.histogramHeight,
+			// trx: width - geometry.safetyRight,
+			try: geometry.safetyTop,
+			width: width + geometry.safetyLeft - geometry.safetyRight - knobRadius * 2,
+		};
+		layout = {
+			x1: geometry.safetyLeft + knobOffset,
+			x2: width - geometry.safetyRight - knobOffset,
+			sliderY: geometry.histogramHeight + geometry.safetyTop,
+			height: geometry.histogramHeight + geometry.safetyBottom + geometry.safetyTop
+		};
+		style = makeStyleVars({
+			...theme,
+			height: `${layout.height}px`,
+			x1: `${layout.x1}px`,
+		});
+
+		/* scales, ticks */
+
+		xScale =
+			scaleLinear()
+			.domain([Min, Max])
+			.range([geometry.safetyLeft + knobRadius, bbox.width]);
+		binWidth = xScale(getKey(items[1])) - xScale(getKey(items[0]));
+		binsTicks = xScale.ticks(items.length + 1);
+
+		const [, dMax] = extent(items, getDocCount);
+		yScale = scaleLinear().domain([0, dMax]).range([0, bbox.height]);
+
+		proceed = true;
+	}
+
+	$: if (proceed) {
+		bins = _.map(items, ({key, doc_count}) => {
+			const binHeight = yScale(doc_count);
+			const x = xScale(key);
+
+			return {
+				height: binHeight,
+				selected: x >= minX && x < maxX,
+				width: binWidth,
+				x,
+				y: bbox.height - binHeight + geometry.safetyTop,
+			}
+		});
 	}
 </script>
 
@@ -84,28 +168,47 @@
 		class='slider'
 		use:sizeObserver
 	>
-		<svg {height} {width}>
+		<svg height={geometry.height} {width}>
+
+			<!-- bins -->
+
+			<g class='bins'>
+				{#each bins as {height, selected, width, x, y}}
+					<rect
+						{height}
+						{width}
+						{x}
+						{y}
+						class:selected
+					/>
+				{/each}
+			</g>
+
+			<!-- slider -->
+
 			<line
-				x1={geometry.x1}
-				x2={geometry.x2}
-				y1={geometry.x1}
-				y2={geometry.x1}
+				x1={layout.x1}
+				x2={layout.x2}
+				y1={layout.sliderY}
+				y2={layout.sliderY}
 			/>
 			<circle
 				class='knob min'
 				cx={scale(min)}
-				cy={geometry.x1}
+				cy={layout.sliderY}
 				on:pointerdown={createStartDragging({isMinKnob: true})}
 				on:pointerup={stopDragging}
 				r={knobRadius}
+				stroke-width={theme.knobStrokeWidth}
 			/>
 			<circle
 				class='knob max'
 				cx={scale(max)}
-				cy={geometry.x1}
+				cy={layout.sliderY}
 				on:pointerdown={createStartDragging({isMinKnob: false})}
 				on:pointerup={stopDragging}
 				r={knobRadius}
+				stroke-width={theme.knobStrokeWidth}
 			/>
 		</svg>
 	</div>
@@ -128,7 +231,7 @@
 
 	.slider {
 		user-select: none;
-		height: 1.1em;
+		height: var(--height);
 		width: 100%;
 	}
 	text {
@@ -151,4 +254,14 @@
 		align-items: center;
 		padding: 0 var(--x1)
 	}
+
+	.bins rect {
+		fill: var(--colorTimelineInactiveBinFill);
+		stroke: var(--colorTimelineInactiveBinStroke);
+	}
+	.bins rect.selected {
+		fill: var(--colorTimelineActiveBinFill);
+		stroke: var(--colorTimelineActiveBinStroke);
+	}
+
 </style>
