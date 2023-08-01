@@ -99,24 +99,26 @@
 
 {#if $_filtersBar}
 	<Scroller>
-		<RegionFilter
-			on:apply={onInstallerRegionsChanged}
-			targetRegionNames={$_selection.filters.installerRegionNames}
-			targetRegionType={$_selection.filters.installerRegionType}
-			title='Installer regions'
-		/>
-		<RegionFilter
-			on:apply={onPropertyRegionsChanged}
-			targetRegionNames={$_selection.filters.propertyRegionNames}
-			targetRegionType={$_selection.filters.propertyRegionType}
-			title='Property regions'
-		/>
 		{#each $_filtersBar as {key: entity, values: metrics}}
 			<h2>{entity}</h2>
 			<ul>
 				{#each metrics as metric}
 					{@const queryValue = $_selection.filters[metric.id]}
-					{#if metric.id !== 'installation_date'}
+					{#if metric.id === 'installer_geo_region'}
+						<RegionFilter
+							on:apply={onInstallerRegionsChanged}
+							targetRegionNames={$_selection.filters.installerRegionNames}
+							targetRegionType={$_selection.filters.installerRegionType}
+							title='Installer regions'
+						/>
+					{:else if metric.id === 'property_geo_region'}
+						<RegionFilter
+							on:apply={onPropertyRegionsChanged}
+							targetRegionNames={$_selection.filters.propertyRegionNames}
+							targetRegionType={$_selection.filters.propertyRegionType}
+							title='Property regions'
+						/>
+					{:else if metric.id !== 'installation_date'}
 						<li>
 							<div class='slider'>
 								<h3>{metric.label}</h3>

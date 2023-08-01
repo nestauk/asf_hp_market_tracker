@@ -1,6 +1,8 @@
 import {
 	applyFnMap,
 	concatValues,
+	getId,
+	getKey,
 	isNotNil,
 	mergeWithMerge,
 } from '@svizzle/utils';
@@ -10,7 +12,11 @@ import {derived} from 'svelte/store';
 
 import {categoricalMetricsById, numericMetricsById} from '$lib/data/metrics.js';
 import {_staticData} from '$lib/stores/data.js';
-import {objectToKeyValuesArray, pluckKeySorted} from '$lib/utils/svizzle/utils';
+import {getEntity} from '$lib/utils/getters.js';
+import {
+	objectToKeyValuesArray,
+	pluckKeySorted,
+} from '$lib/utils/svizzle/utils.js';
 
 /* categorical filters */
 
@@ -21,8 +27,10 @@ const getValuesArray = _.mapValuesWith(
 );
 
 const formatFilters = _.pipe([
-	_.groupBy(_.getKey('entity')),
-	objectToKeyValuesArray
+	_.groupBy(getEntity),
+	_.mapValuesWith(_.sortWith([getId])),
+	objectToKeyValuesArray,
+	_.sortWith([getKey]),
 ]);
 
 export const _filtersBar = derived(
@@ -50,6 +58,8 @@ export const _filtersBar = derived(
 		const defaultFilters = formatFilters([
 			...numFilters,
 			...catFilters,
+			{entity: 'Installer', id: 'installer_geo_region'},
+			{entity: 'Property', id: 'property_geo_region'}
 		]);
 
 		return defaultFilters;
