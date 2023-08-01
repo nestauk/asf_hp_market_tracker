@@ -5,8 +5,8 @@
 
 	import CategorySelector
 		from '$lib/components/explorer/CategorySelector.svelte';
-	import RangeSlider from '$lib/components/svizzle/RangeSlider.svelte';
 	import RegionFilter from '$lib/components/explorer/RegionFilter.svelte';
+	import RangeSlider from '$lib/components/svizzle/RangeSlider.svelte';
 	import Scroller from '$lib/components/svizzle/Scroller.svelte';
 	import {explorerActor} from '$lib/statechart/index.js';
 	import {_filtersBar} from '$lib/stores/filters.js';
@@ -123,6 +123,7 @@
 								{#if metric.type === 'number'}
 									<RangeSlider
 										formatFn={metric.formatFn}
+										items={metric.values}
 										Max={metric.max}
 										max={queryValue?.lte || metric.max}
 										Min={metric.min}
