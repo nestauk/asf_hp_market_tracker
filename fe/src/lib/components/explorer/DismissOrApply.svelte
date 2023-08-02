@@ -1,7 +1,7 @@
 <script>
 	import * as _ from 'lamb';
 
-	export let isApplyDisabled;
+	export let isApplyDisabled = false;
 	export let onApply;
 	export let onDismiss;
 </script>

@@ -41,15 +41,16 @@
 			regionNames,
 			targetRegionNames
 		]);
-	$: isApplyDisabled =
-		isIterableEmpty(regionNames) && regionType === targetRegionType;
 
 	const onDismiss = () => {
 		regionNames = targetRegionNames;
 		regionType = targetRegionType;
 	};
 	const onApply = () => {
-		dispatch('apply', {regionNames, regionType})
+		dispatch('apply', {
+			regionNames: _.sort(regionNames),
+			regionType
+		})
 	};
 
 	/* region type change */
@@ -180,8 +181,8 @@
 
 	<!-- list of regions -->
 
-	{#each regionNames as name}
-		<ul>
+	<ul>
+		{#each regionNames as name}
 			<li>
 				<span>{name}</span>
 				<div
@@ -194,14 +195,13 @@
 					/>
 				</div>
 			</li>
-		</ul>
-	{/each}
+		{/each}
+	</ul>
 
 	<!-- confirmation buttons -->
 
 	{#if isDirty}
 		<DismissOrApply
-			{isApplyDisabled}
 			{onApply}
 			{onDismiss}
 		/>
@@ -234,13 +234,11 @@
 		color: var(--colorAuxText); /* global theme */
 	}
 
-	ul {
-		margin-bottom: 1em;
-	}
 	li {
 		align-items: center;
 		display: flex;
 		justify-content: space-between;
+		margin-bottom: 1em;
 	}
 	.iconButton {
 		cursor: pointer;
