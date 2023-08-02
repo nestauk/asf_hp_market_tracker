@@ -39,6 +39,17 @@ export const _currThemeVars = derived(
 
 /* components */
 
+export const _bannersTheme = derived(
+	_currThemeVars,
+	currThemeVars => ({
+		border: currThemeVars['--borderAux'],
+		colorBackdropSensor: currThemeVars['--colorBackdropSensor'],
+		colorBackground: currThemeVars['--colorBackground'],
+		colorBoxShadow: currThemeVars['--colorShadow'],
+		colorText: currThemeVars['--colorText'],
+	})
+);
+
 export const _barchartsTheme = derived(
 	_currThemeVars,
 	currThemeVars => ({
@@ -57,14 +68,13 @@ export const _barchartsTheme = derived(
 	})
 );
 
-export const _bannersTheme = derived(
+export const _framesTheme = derived(
 	_currThemeVars,
 	currThemeVars => ({
-		border: currThemeVars['--borderAux'],
-		colorBackdropSensor: currThemeVars['--colorBackdropSensor'],
-		colorBackground: currThemeVars['--colorBackground'],
-		colorBoxShadow: currThemeVars['--colorShadow'],
-		colorText: currThemeVars['--colorText'],
+		frameStroke: currThemeVars['--colorBorder'],
+		gridStroke: currThemeVars['--colorBorder'],
+		gridStrokeDasharray: currThemeVars['--gridStrokeDasharray'],
+		textColor: currThemeVars['--colorText'],
 	})
 );
 
@@ -90,22 +100,28 @@ export const _legendsTheme = derived(
 	})
 );
 
-export const _xorSelectorTheme = derived(
+export const _pillTheme = derived(
 	_currThemeVars,
 	currThemeVars => ({
-		borderColor: currThemeVars['--colorBorder'],
-		selectedColor: currThemeVars['--colorSelectedBackground'],
-		selectedTextColor: currThemeVars['--colorSelectedText'],
+		backgroundColor: currThemeVars['--colorIcon'],
+		border: `thin solid ${currThemeVars['--colorBorderAux']}`,
+		textColor: currThemeVars['--colorTextInverted'],
+	})
+);
+
+export const _rangeSlidersTheme = derived(
+	_currThemeVars,
+	currThemeVars => ({
+		knobFill: currThemeVars['--colorSwitchKnob'],
+		knobStroke: currThemeVars['--colorBorderAux'],
+		lineColor: currThemeVars['--colorBorder'],
 		textColor: currThemeVars['--colorText'],
 	})
 );
-export const _xorNavigatorTheme = derived(
+
+export const _stackedBarchartTheme = derived(
 	_currThemeVars,
 	currThemeVars => ({
-		border: currThemeVars['--border'],
-		colorBackground: currThemeVars['--colorBackground'],
-		colorIcon: currThemeVars['--colorIcon'],
-		colorIconDisabled: currThemeVars['--colorIconDisabled'],
 		textColor: currThemeVars['--colorText'],
 	})
 );
@@ -120,29 +136,23 @@ export const _switchTheme = derived(
 	})
 );
 
-export const _framesTheme = derived(
+export const _xorNavigatorTheme = derived(
 	_currThemeVars,
 	currThemeVars => ({
-		frameStroke: currThemeVars['--colorBorder'],
-		gridStroke: currThemeVars['--colorBorder'],
-		gridStrokeDasharray: currThemeVars['--gridStrokeDasharray'],
+		border: currThemeVars['--border'],
+		colorBackground: currThemeVars['--colorBackground'],
+		colorIcon: currThemeVars['--colorIcon'],
+		colorIconDisabled: currThemeVars['--colorIconDisabled'],
 		textColor: currThemeVars['--colorText'],
 	})
 );
 
-export const _stackedBarchartTheme = derived(
+export const _xorSelectorTheme = derived(
 	_currThemeVars,
 	currThemeVars => ({
-		textColor: currThemeVars['--colorText'],
-	})
-);
-
-export const _rangeSlidersTheme = derived(
-	_currThemeVars,
-	currThemeVars => ({
-		knobFill: currThemeVars['--colorSwitchKnob'],
-		knobStroke: currThemeVars['--colorBorderAux'],
-		lineColor: currThemeVars['--colorBorder'],
+		borderColor: currThemeVars['--colorBorder'],
+		selectedColor: currThemeVars['--colorSelectedBackground'],
+		selectedTextColor: currThemeVars['--colorSelectedText'],
 		textColor: currThemeVars['--colorText'],
 	})
 );

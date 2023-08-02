@@ -21,7 +21,7 @@ export const onRequest = async (request, reply) => {
 			reply.noData = true;
 			reply.send({
 				code: 100,
-				message: 'no documents found for given filter'
+				message: 'No documents found for given filter'
 			});
 			return reply;
 		}
@@ -43,7 +43,7 @@ export const formatPayload = async (request, reply, payload) => {
 		: {
 			code: 200,
 			data: payload,
-			message: 'aggregation successful',
+			message: 'Aggregation successful',
 			request: {
 				agg: {
 					id: request.routerPath.slice(1),

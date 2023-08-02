@@ -4,15 +4,29 @@
 	import * as metricInfos from '$lib/_content/metrics/index.js';
 	import ViewSelector from '$lib/components/explorer/medium/ViewSelector.svelte';
 	import Banner from '$lib/components/svizzle/Banner.svelte'
+	import Pill from '$lib/components/svizzle/ui/Pill.svelte'
+	import {noDataMessage} from '$lib/config/text.js';
 	import {_currentMetricId, _currentMetricTitle} from '$lib/stores/navigation.js';
-	import {_bannersTheme, _currThemeVars} from '$lib/stores/theme.js';
-	import {_isViewLoading} from '$lib/stores/view.js';
+	import {
+		_bannersTheme,
+		_currThemeVars,
+		_pillTheme,
+	} from '$lib/stores/theme.js';
+	import {
+		_isViewLoading,
+		_isViewReady,
+		_showMessage,
+		_viewDataMessage
+	} from '$lib/stores/view.js';
 
 	let isInfoBannerVisible = false;
 
 	const toggleInfoModal = () => {
 		isInfoBannerVisible = !isInfoBannerVisible;
 	};
+
+	// keep this log on in production to know the specifics of a no data message
+	$: $_showMessage && console.log('[backend]:', $_viewDataMessage);
 </script>
 
 <div class='ViewMedium'>
@@ -40,8 +54,8 @@
 			coverage
 		</div>
 
-		{#if $_isViewLoading}
-			<div class='loading'>
+		<div class='overlay'>
+			{#if $_isViewLoading}
 				<CenteredView
 					backgroundColor={$_currThemeVars['--colorBackdropSensor']}
 					color={$_currThemeVars['--colorText']}
@@ -51,8 +65,20 @@
 						stroke={$_currThemeVars['--colorText']}
 					/>
 				</CenteredView>
-			</div>
-		{/if}
+			{:else if $_showMessage}
+				<CenteredView
+					backgroundColor={$_currThemeVars['--colorBackground']}
+				>
+					<Pill
+						label={noDataMessage}
+						theme={{
+							...$_pillTheme,
+							fontSize: '1.1em'
+						}}
+					/>
+				</CenteredView>
+			{/if}
+		</div>
 
 		{#if isInfoBannerVisible}
 			<Banner
@@ -103,7 +129,7 @@
 		padding: 0 1em 1em;
 		width: 100%;
 	}
-	.loading {
+	.overlay {
 		height: 100%;
 		position: absolute;
 		width: 100%;
