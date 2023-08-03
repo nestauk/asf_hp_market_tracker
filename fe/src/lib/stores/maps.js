@@ -1,20 +1,11 @@
 import {derived, writable} from 'svelte/store';
 
-import {
-	DEFAULT_BBOX_WS_EN,
-	regionTypeToFeatureNameId
-} from '$lib/config/map.js';
+import {regionTypeToFeatureNameId} from '$lib/config/map.js';
 import {_selection} from '$lib/stores/navigation.js';
 import {_currThemeVars} from '$lib/stores/theme.js';
 
 
-/* bounding box, zoom */
-
-export const _bbox_WS_EN = writable(DEFAULT_BBOX_WS_EN);
-export const _bbox_WSEN = derived(
-	_bbox_WS_EN,
-	([[w, s], [e, n]]) => [w, s, e, n]
-);
+/* zoom */
 
 export const _zoom = writable(0);
 

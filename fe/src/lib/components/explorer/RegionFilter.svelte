@@ -6,7 +6,7 @@
 
 	import DismissOrApply from '$lib/components/explorer/DismissOrApply.svelte';
 	import {
-		DEFAULT_BBOX_WS_EN,
+		DEFAULT_BBOX_WSEN,
 		MAPBOXGL_ACCESSTOKEN as accessToken,
 		regionTypeToFeatureNameId,
 	} from '$lib/config/map.js';
@@ -143,7 +143,7 @@
 			{accessToken}
 			{eventsHandlers}
 			{getFeatureState}
-			bounds={DEFAULT_BBOX_WS_EN}
+			bounds={DEFAULT_BBOX_WSEN}
 			isAnimated={false}
 			isDblClickEnabled={false}
 			isInteractive={true}

@@ -1,6 +1,6 @@
 /* map bounding box (UK) */
 
-export const DEFAULT_BBOX_WS_EN = [[-8.61752, 49.90774], [1.76229, 60.84585]];
+export const DEFAULT_BBOX_WSEN = [-8.61752, 49.90774, 1.76229, 60.84585];
 
 /* mapbox */
 

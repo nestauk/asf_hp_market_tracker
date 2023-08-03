@@ -13,10 +13,7 @@
 		from '$lib/components/explorer/medium/SelectorRegionType.svelte';
 	import Grid3Columns from '$lib/components/svizzle/Grid3Columns.svelte';
 	import Grid2Rows from '$lib/components/svizzle/Grid2Rows.svelte';
-	import {
-		DEFAULT_BBOX_WS_EN,
-		MAPBOXGL_ACCESSTOKEN as accessToken,
-	} from '$lib/config/map.js';
+	import {MAPBOXGL_ACCESSTOKEN as accessToken} from '$lib/config/map.js';
 	import {
 		_featureNameId,
 		_mapStyle,
@@ -24,6 +21,7 @@
 	} from '$lib/stores/maps.js';
 	import {_currentMetric, _selection} from '$lib/stores/navigation.js';
 	import {_barchartsTheme, _legendsTheme} from '$lib/stores/theme.js';
+	import {_selectedBbox} from '$lib/stores/view.js';
 
 	export let amountOfBins = 5;
 	export let formatFn;
@@ -118,9 +116,9 @@
 				{_zoom}
 				{accessToken}
 				{getFeatureState}
-				bounds={DEFAULT_BBOX_WS_EN}
+				bounds={$_selectedBbox}
 				isAnimated={false}
-				isInteractive={true}
+				isInteractive={false}
 				reactiveLayers={[regionType]}
 				slot='col1'
 				style={$_mapStyle}
