@@ -1,5 +1,6 @@
 <script>
 	import {BarchartVDiv} from '@svizzle/barchart';
+	import {makeStyleVars} from '@svizzle/dom';
 	import {ColorBinsDiv} from '@svizzle/legend';
 	import {getKey, makeWithKeys} from '@svizzle/utils';
 	import {pairs} from 'd3-array';
@@ -20,7 +21,11 @@
 		_zoom,
 	} from '$lib/stores/maps.js';
 	import {_currentMetric, _selection} from '$lib/stores/navigation.js';
-	import {_barchartsTheme, _legendsTheme} from '$lib/stores/theme.js';
+	import {
+		_barchartsTheme,
+		_currThemeVars,
+		_legendsTheme,
+	} from '$lib/stores/theme.js';
 	import {_selectedBbox} from '$lib/stores/view.js';
 
 	export let amountOfBins = 5;
@@ -38,6 +43,7 @@
 	let domain;
 	let getFeatureState;
 	let legendBins;
+	let regionKindStyle;
 	let regionType;
 
 	$: if (items?.length > 0) {
@@ -82,6 +88,11 @@
 			return featureState;
 		}
 
+		regionKindStyle = makeStyleVars({
+			backgroundColor: $_currThemeVars['--colorBackground'],
+			border: $_currThemeVars['--borderAux'],
+		});
+
 		doDraw = true;
 	}
 </script>
@@ -95,7 +106,10 @@
 			percents={[10, 60, 30]}
 			gap='0.25em'
 		>
-			<div slot='col0' class='col0'>
+			<div
+				class='col0'
+				slot='col0'
+			>
 				<div class='legend'>
 					<ColorBinsDiv
 						bins={legendBins}
@@ -112,20 +126,29 @@
 					/>
 				</div>
 			</div>
-			<Mapbox
-				{_zoom}
-				{accessToken}
-				{getFeatureState}
-				bounds={$_selectedBbox}
-				isAnimated={false}
-				isInteractive={false}
-				reactiveLayers={[regionType]}
+
+			<div
+				class='col1'
 				slot='col1'
-				style={$_mapStyle}
-				visibleLayers={['nuts21_0', regionType]}
-				withScaleControl={false}
-				withZoomControl={false}
-			/>
+			>
+				<Mapbox
+					{_zoom}
+					{accessToken}
+					{getFeatureState}
+					bounds={$_selectedBbox}
+					isAnimated={false}
+					isInteractive={false}
+					reactiveLayers={[regionType]}
+					style={$_mapStyle}
+					visibleLayers={['nuts21_0', regionType]}
+					withScaleControl={false}
+					withZoomControl={false}
+				/>
+				<span style={regionKindStyle}>
+					{$_currentMetric.geoPrefix} regions
+				</span>
+			</div>
+
 			<BarchartVDiv
 				{formatFn}
 				{title}
@@ -151,5 +174,20 @@
 	.legend {
 		height: 50%;
 		width: 100%;
+	}
+
+	.col1 {
+		position: relative;
+		height: 100%;
+		width: 100%;
+	}
+	.col1 > span {
+		background-color: var(--backgroundColor);
+		border: var(--border);
+		bottom: 0;
+		margin: 0.5em;
+		padding: 0.1em 0.5em;
+		position: absolute;
+		right: 0;
 	}
 </style>
