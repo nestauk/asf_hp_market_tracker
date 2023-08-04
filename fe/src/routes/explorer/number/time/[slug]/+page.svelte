@@ -3,8 +3,6 @@
 		applyFnMap,
 		getKey,
 		isNotNil,
-		makeSplitBy,
-		sliceStringAt,
 	} from '@svizzle/utils';
 	import * as _ from 'lamb';
 
@@ -22,7 +20,6 @@
 	import {_currThemeVars, _framesTheme} from '$lib/stores/theme.js';
 	import {_isViewReady, _viewData} from '$lib/stores/view.js';
 	import {getKeyAsString} from '$lib/utils/getters.js';
-	import {formatDate} from '$lib/utils/date.js';
 
 	const keyAccessor = getKeyAsString;
 	const valueAccessor = _.pipe([
@@ -39,11 +36,6 @@
 	const filterItems = _.filterWith(
 		_.pipe([_.getPath('values.avg'), isNotNil])
 	);
-	const keyFormatFn = _.pipe([
-		makeSplitBy('-'),
-		_.head,
-		sliceStringAt([2, 4])
-	]);
 
 	$: proceed =
 		$_isViewReady &&
@@ -89,13 +81,10 @@
 		{#if $_selection.numTimeGraph === 'percentiles'}
 			<PercentilesTrendsView
 				{items}
-				{keyFormatFn}
 				valueFormatFn={$_currentMetric?.formatFn}
-				preformatDate={formatDate}
 			/>
 		{:else}
 			<Trends
-				{keyFormatFn}
 				{trends}
 				geometry={{
 					safetyBottom: 50,
@@ -104,7 +93,6 @@
 					safetyTop: 50,
 				}}
 				keyType='date'
-				preformatDate={formatDate}
 				theme={{
 					...$_framesTheme,
 					curveStroke: $_currThemeVars['--colorBorderAux']

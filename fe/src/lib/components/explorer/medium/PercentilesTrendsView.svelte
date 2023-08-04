@@ -9,7 +9,6 @@
 
 	export let items;
 	export let keyFormatFn;
-	export let preformatDate;
 	export let valueFormatFn;
 
 	$: items = items ?? [];
@@ -98,7 +97,6 @@
 		{areaLowKeyToColor}
 		{items}
 		{keyFormatFn}
-		{preformatDate}
 		{valueFormatFn}
 		config={{areas, trends: ['avg']}}
 		geometry={{

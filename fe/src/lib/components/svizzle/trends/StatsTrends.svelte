@@ -13,6 +13,8 @@
 
 	import {pluckKey} from '$lib/utils/svizzle/utils.js';
 
+	import {getDateTimeFormat} from './utils.js';
+
 	const defaultGeometry = {
 		safetyBottom: 20,
 		safetyLeft: 20,
@@ -42,7 +44,6 @@
 	export let keyFormatFn = _.identity;
 	export let keyToColorFn;
 	export let keyType;
-	export let preformatDate = _.identity;
 	export let theme = null;
 	export let valueFormatFn;
 	export let yTicksCount = 10;
@@ -52,7 +53,6 @@
 
 	$: items = items ?? defaultItems;
 	$: keyFormatFn = keyFormatFn ?? _.identity;
-	$: preformatDate = preformatDate ?? _.identity;
 	$: yTicksCount = yTicksCount ?? 10;
 
 	/* theme */
@@ -124,10 +124,18 @@
 			const timeDomain = _.map(keyDomain, keyRankFn);
 			const timeScale = scaleTime().domain(timeDomain).range(xRange);
 
-			keyTicks = _.map(timeScale.ticks(), preformatDate);
+			const ticks = timeScale.ticks();
+			const tickDurationInSecs =
+				(timeDomain[1] - timeDomain[0]) / 1000 / (ticks.length - 1);
+			const timeFormat = getDateTimeFormat(tickDurationInSecs);
+			keyTicks = _.map(ticks, _.collect([_.identity, timeFormat]));
+
 			xScale = _.pipe([keyRankFn, timeScale]);
 		} else {
-			keyTicks = keyFilterFn ? _.filter(allKeys, keyFilterFn) : allKeys;
+			keyTicks =  _.map(
+				keyFilterFn ? _.filter(allKeys, keyFilterFn) : allKeys,
+				_.collect([_.identity, keyFormatFn])
+			);
 			xScale = scalePoint().domain(allKeys).range(xRange);
 		}
 
@@ -177,7 +185,7 @@
 			<!-- grid -->
 			<g class='grid'>
 				<g class='vertical'>
-					{#each keyTicks as key}
+					{#each keyTicks as [key]}
 						<line
 							x1={xScale(key)}
 							x2={xScale(key)}
@@ -200,7 +208,7 @@
 
 			<!-- x-ticks -->
 			<g class='x-ticks'>
-				{#each keyTicks as key}
+				{#each keyTicks as [key, label]}
 					<g class='ticks'>
 						<text
 							class='centered'
@@ -208,7 +216,7 @@
 							x={xScale(key)}
 							y={bbox.bly}
 						>
-							{keyFormatFn?.(key) ?? key}
+							{label}
 						</text>
 						<text
 							class='centered'
@@ -216,7 +224,7 @@
 							x={xScale(key)}
 							y={bbox.try}
 						>
-							{keyFormatFn?.(key) ?? key}
+							{label}
 						</text>
 					</g>
 				{/each}
