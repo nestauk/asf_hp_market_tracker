@@ -125,3 +125,23 @@ export const skipIfKeyWith = predicate => _.pipe([
 	_.filterWith(_.pipe([_.head, _.not(predicate)])),
 	_.fromPairs
 ]); // now unused here but quite useful
+
+
+/**
+* @module @svizzle/utils/string-string
+*/
+
+/**
+ * Decapitalise the input string (makes the first letter lowercase)
+ *
+ * @function
+ * @arg {string}
+ * @return {string}
+ *
+ * @example
+> decapitalize('HAha')
+'hAha'
+ *
+ * @since 0.20.0
+ */
+export const decapitalize = s => s.charAt(0).toLowerCase() + s.slice(1);

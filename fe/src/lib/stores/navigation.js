@@ -8,15 +8,22 @@ import {
 } from '$lib/data/metrics.js';
 import {context} from '$lib/statechart/context.js';
 import {objectToSearchParams, risonifyValues} from '$lib/utils/svizzle/url.js';
+import {decapitalize} from '$lib/utils/svizzle/utils.js';
 
 export const _activeViewType = writable('stats');
+
 export const _currentMetricId = writable(defaultMetric.id);
 export const _currentMetric = derived(_currentMetricId, id => metricById[id]);
 export const _currentMetricTitle = derived(
-	_currentMetric,
-	({id, unitOfMeasure}) => {
+	[_activeViewType, _currentMetric],
+	([activeViewType, {id, type, unitOfMeasure}]) => {
+		const metricTitle = metricTitleById[id];
+		const title = activeViewType === 'geo' && type === 'number'
+			? `Average ${decapitalize(metricTitle)}`
+			: metricTitle;
 		const unitOfMeasureLabel = unitOfMeasure ? ` [${unitOfMeasure}]` : '';
-		return `${metricTitleById[id]}${unitOfMeasureLabel}`
+
+		return `${title}${unitOfMeasureLabel}`;
 	}
 );
 
