@@ -20,6 +20,8 @@
 		pluckKeySorted
 	} from '$lib/utils/svizzle/utils.js';
 
+	import {getDateTimeFormat} from './utils.js';
+
 	const defaultGeometry = {
 		safetyBottom: 20,
 		safetyLeft: 20,
@@ -42,7 +44,6 @@
 	export let keyFormatFn = _.identity;
 	export let keyType;
 	export let points = []; // {group, key, value}[]
-	export let preformatDate = _.identity;
 	export let sorting = 'off';
 	export let theme;
 	export let valueFormatFn;
@@ -52,7 +53,6 @@
 	let width;
 
 	$: keyFormatFn = keyFormatFn ?? _.identity;
-	$: preformatDate = preformatDate ?? _.identity;
 	$: yTicksCount = yTicksCount ?? 10;
 
 	/* theme */
@@ -187,10 +187,17 @@
 			const timeDomain = _.map(keyDomain, keyRankFn);
 			const timeScale = scaleTime().domain(timeDomain).range(xRange);
 
-			keyTicks = _.map(timeScale.ticks(), preformatDate);
+			const ticks = timeScale.ticks();
+			const tickWidth = (timeDomain[1] - timeDomain[0]) / 1000 / (ticks.length - 1);
+			const timeFormat = getDateTimeFormat(tickWidth);
+			keyTicks = _.map(ticks, _.collect([_.identity, timeFormat]));
+
 			xScale = _.pipe([keyRankFn, timeScale]);
 		} else {
-			keyTicks = keyFilterFn ? _.filter(allKeys, keyFilterFn) : allKeys;
+			keyTicks =  _.map(
+				keyFilterFn ? _.filter(allKeys, keyFilterFn) : allKeys,
+				_.collect([_.identity, keyFormatFn])
+			);
 			xScale = scalePoint().domain(allKeys).range(xRange);
 		}
 
@@ -216,7 +223,7 @@
 	>
 		<!-- grid -->
 		<g class='grid'>
-			{#each keyTicks as key}
+			{#each keyTicks as [key]}
 				<line
 					x1={xScale(key)}
 					x2={xScale(key)}
@@ -236,7 +243,7 @@
 
 		<!-- x-ticks -->
 		<g class='x-ticks'>
-			{#each keyTicks as key}
+			{#each keyTicks as [key, label]}
 				<g class='ticks'>
 					<text
 						class='centered'
@@ -244,7 +251,7 @@
 						x={xScale(key)}
 						y={bbox.bly}
 					>
-						{keyFormatFn(key)}
+						{label}
 					</text>
 					<text
 						class='centered'
@@ -252,7 +259,7 @@
 						x={xScale(key)}
 						y={bbox.try}
 					>
-						{keyFormatFn(key)}
+						{label}
 					</text>
 				</g>
 			{/each}

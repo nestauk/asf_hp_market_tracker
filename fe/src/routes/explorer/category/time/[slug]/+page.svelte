@@ -4,8 +4,6 @@
 		getKey,
 		getValue,
 		getValues,
-		makeSplitBy,
-		sliceStringAt
 	} from '@svizzle/utils';
 	import {scaleOrdinal} from 'd3-scale';
 	import {interpolateSpectral as interpolateColor} from 'd3-scale-chromatic';
@@ -29,7 +27,6 @@
 		getKeyAsString,
 		getTermsBuckets
 	} from '$lib/utils/getters.js';
-	import {formatDate} from '$lib/utils/date.js';
 
 	const keyAccessor = getKeyAsString;
 	const valueAccessor = getTermsBuckets;
@@ -37,12 +34,6 @@
 	const valueAccessor2 = getDocCount;
 
 	/* common */
-
-	const keyFormatFn = _.pipe([
-		makeSplitBy('-'),
-		_.head,
-		sliceStringAt([2, 4])
-	]);
 
 	const flattenItems = _.flatMapWith(
 		_.pipe([
@@ -150,7 +141,6 @@
 					<StreamGraph
 						{groups}
 						{groupToColorFn}
-						{keyFormatFn}
 						{points}
 						{valueFormatFn}
 						geometry={{
@@ -160,14 +150,12 @@
 							safetyTop: 50,
 						}}
 						keyType='date'
-						preformatDate={formatDate}
 						sorting={$_selection.categsStreamgraphsSorting}
 						theme={$_framesTheme}
 					/>
 
 				{:else}
 					<Trends
-						{keyFormatFn}
 						{trends}
 						{valueFormatFn}
 						geometry={{
@@ -178,7 +166,6 @@
 						}}
 						keyToColorFn={groupToColorFn}
 						keyType='date'
-						preformatDate={formatDate}
 						slot='col1'
 						theme={{
 							...$_framesTheme,

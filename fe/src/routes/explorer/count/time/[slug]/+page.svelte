@@ -3,8 +3,6 @@
 		applyFnMap,
 		getValue,
 		isNotNil,
-		makeSplitBy,
-		sliceStringAt,
 	} from '@svizzle/utils';
 	import * as _ from 'lamb';
 
@@ -19,7 +17,6 @@
 	import {_currentMetric, _selection} from '$lib/stores/navigation.js';
 	import {_currThemeVars, _framesTheme} from '$lib/stores/theme.js';
 	import {_isViewReady, _viewData} from '$lib/stores/view.js';
-	import {formatDate} from '$lib/utils/date.js';
 	import {
 		getCardinalityValue,
 		getCertifiedValue,
@@ -44,11 +41,6 @@
 		property_supply_photovoltaic_sum: getStatsSum,
 	}
 	const filterOutNils = _.filterWith(_.pipe([getValue, isNotNil]));
-	const keyFormatFn = _.pipe([
-		makeSplitBy('-'),
-		_.head,
-		sliceStringAt([2, 4])
-	]);
 
 	let doDraw = false;
 	let trends;
@@ -97,7 +89,6 @@
 
 	{#if doDraw}
 		<Trends
-			{keyFormatFn}
 			{trends}
 			{trendType}
 			{valueFormatFn}
@@ -108,7 +99,6 @@
 				safetyTop: 50,
 			}}
 			keyType='date'
-			preformatDate={formatDate}
 			theme={{
 				...$_framesTheme,
 				curveStroke: $_currThemeVars['--colorBorderAux']
