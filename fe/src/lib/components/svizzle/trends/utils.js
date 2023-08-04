@@ -25,10 +25,3 @@ export const getDateTimeFormat = tickDurationInSecs => _.find(
 	timeFormats,
 	([maxSeconds]) => tickDurationInSecs >= maxSeconds
 )[1];
-
-/*
-export const getFormatOptions = tickDurationInSecs => _.find(
-	formatOptions,
-	([maxSeconds]) => tickDurationInSecs >= maxSeconds
-)[1];
-*/
