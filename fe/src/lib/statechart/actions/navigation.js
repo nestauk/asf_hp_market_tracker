@@ -1,15 +1,19 @@
 import {isNotNaN} from '@svizzle/utils';
 import * as _ from 'lamb';
 import {RISON} from 'rison2';
+import {get} from 'svelte/store';
 import {assign} from 'xstate';
 
 import {goto} from '$app/navigation';
+import {metricById} from '$lib/data/metrics.js';
 import {
 	_activeViewType,
+	_currentMetric,
 	_currentMetricId,
 	_currentPage,
 	_selection,
 } from '$lib/stores/navigation.js';
+import {getRegionsSelection} from '$lib/utils/regions.js';
 import {objectToSearchParams, risonifyValues} from '$lib/utils/svizzle/url.js';
 
 // PAGE_CHANGED
@@ -18,7 +22,9 @@ export const updateNavStores = assign((ctx, {page}) => {
 	// '/explorer/category/stats/[slug]' => 'stats'
 	_activeViewType.set(page.route.id.split('/')[3]);
 
-	_currentMetricId.set(page.params.slug);
+	const metricId = page.params.slug;
+	_currentMetricId.set(metricId);
+	_currentMetric.set(metricById[metricId]);
 	_currentPage.set(page);
 
 	return {...ctx, page};
@@ -37,7 +43,18 @@ export const updateCtxSelectionFromPage = assign(ctx => {
 		}
 	);
 
-	const selection = {...ctx.selection, ...parsedSearchParams};
+	let selection = {...ctx.selection, ...parsedSearchParams};
+
+	const regionsSelection = getRegionsSelection({
+		currentMetric: get(_currentMetric),
+		filters: selection.filters,
+		regionType: selection.regionType
+	});
+
+	selection = {
+		...selection,
+		...regionsSelection,
+	};
 
 	_selection.set(selection);
 
@@ -59,16 +76,26 @@ export const navigateToFullSearchParams = ctx => {
 		}
 	);
 
-	/* merge selection & parsedSearchParams */
+	/* merge selection & parsedSearchParams: FIXME make this generic */
 
 	const newFilters = RISON.stringify({
 		...ctx.selection.filters,
 		...parsedSearchParams.filters,
 	});
+
+	// these are arrays, we need a fn to merge properly
+	const newRegionTypes = RISON.stringify(
+		_.sort(_.uniques([
+			...ctx.selection.regionTypes,
+			...(parsedSearchParams.regionTypes || []),
+		]))
+	);
+
 	const newSelection = {
 		...ctx.selection,
 		...parsedSearchParams,
-		filters: newFilters
+		filters: newFilters,
+		regionTypes: newRegionTypes
 	};
 
 	/* serialise values and navigate */

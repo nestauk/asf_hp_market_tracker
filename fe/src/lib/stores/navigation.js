@@ -13,7 +13,7 @@ import {decapitalize} from '$lib/utils/svizzle/utils.js';
 export const _activeViewType = writable('stats');
 
 export const _currentMetricId = writable(defaultMetric.id);
-export const _currentMetric = derived(_currentMetricId, id => metricById[id]);
+export const _currentMetric = writable(metricById[defaultMetric.id]);
 export const _currentMetricTitle = derived(
 	[_activeViewType, _currentMetric],
 	([activeViewType, {id, type, unitOfMeasure}]) => {

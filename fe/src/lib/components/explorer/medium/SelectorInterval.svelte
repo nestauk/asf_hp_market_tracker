@@ -1,5 +1,5 @@
 <script>
-	import SelectionXor from './SelectionXor.svelte';
+	import SelectionXor from '$lib/components/explorer/medium/SelectionXor.svelte';
 </script>
 
 <SelectionXor

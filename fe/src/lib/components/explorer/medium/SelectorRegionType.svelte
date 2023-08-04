@@ -1,16 +1,9 @@
 <script>
-	import SelectionXor from './SelectionXor.svelte';
+	import SelectionXor from '$lib/components/explorer/medium/SelectionXor.svelte';
+	import {_selection} from '$lib/stores/navigation.js';
 </script>
 
 <SelectionXor
 	name='regionType'
-	values={[
-		'country21',
-		'itl21_1',
-		'itl21_2',
-		'itl21_3',
-		'lad21',
-		// 'lsoa11',
-		// 'msoa11',
-	]}
+	values={$_selection.regionTypes}
 />

@@ -8,9 +8,10 @@
 	import RegionFilter from '$lib/components/explorer/RegionFilter.svelte';
 	import RangeSlider from '$lib/components/svizzle/RangeSlider.svelte';
 	import Scroller from '$lib/components/svizzle/Scroller.svelte';
+	import {getRegionsSelection} from '$lib/utils/regions.js';
 	import {explorerActor} from '$lib/statechart/index.js';
 	import {_filtersBar} from '$lib/stores/filters.js';
-	import {_selection} from '$lib/stores/navigation.js';
+	import {_currentMetric, _selection} from '$lib/stores/navigation.js';
 	import {_rangeSlidersTheme} from '$lib/stores/theme.js';
 
 	const getSelectedCats = _.pipe([
@@ -70,10 +71,19 @@
 			installerRegionType: regionType,
 		}
 
+		const regionsSelection = getRegionsSelection({
+			currentMetric: $_currentMetric,
+			filters: newFilters,
+			regionType: $_selection.regionType
+		});
+
 		if (!isEqual(oldFilters, newFilters)) {
 			explorerActor.send({
 				type: 'SELECTION_CHANGED',
-				newValues: {filters: newFilters}
+				newValues: {
+					filters: newFilters,
+					...regionsSelection
+				}
 			});
 		}
 	}
@@ -88,10 +98,19 @@
 			propertyRegionType: regionType,
 		}
 
+		const regionsSelection = getRegionsSelection({
+			currentMetric: $_currentMetric,
+			filters: newFilters,
+			regionType: $_selection.regionType
+		});
+
 		if (!isEqual(oldFilters, newFilters)) {
 			explorerActor.send({
 				type: 'SELECTION_CHANGED',
-				newValues: {filters: newFilters}
+				newValues: {
+					filters: newFilters,
+					...regionsSelection
+				}
 			});
 		}
 	}

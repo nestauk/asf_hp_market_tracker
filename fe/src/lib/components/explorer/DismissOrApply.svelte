@@ -35,6 +35,7 @@
 		cursor: pointer;
 		font-size: 1em;
 		padding: 0.5em 1em;
+		user-select: none;
 	}
 	.dismiss {
 		background-color: var(--colorBackgroundDismiss);

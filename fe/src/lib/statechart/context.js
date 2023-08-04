@@ -1,3 +1,5 @@
+import {allRegionTypes} from '$lib/utils/regions.js';
+
 export const context = {
 	nextSearchParams: '',
 	nextSelection: {},
@@ -13,7 +15,8 @@ export const context = {
 		},
 		interval: '1y',
 		numTimeGraph: 'percentiles',
-		regionType: 'itl21_1',
+		regionType: 'country21',
+		regionTypes: allRegionTypes,
 		stackedBarsExtents: 'absolute',
 		stringsGeoSortBy: 'total',
 		stringsStreamgraphsSorting: 'off',
