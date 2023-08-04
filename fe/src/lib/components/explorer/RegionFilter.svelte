@@ -176,26 +176,32 @@
 		class='hoveredRegion'
 		class:active={hoveredRegionName}
 	>
-		Hovering: {hoveredRegionName || 'none'}
+		{hoveredRegionName || 'Zoom + Pan + Click to (de)select'}
 	</div>
 
 	<!-- list of regions -->
 
 	<ul>
-		{#each regionNames as name}
+		{#if areAllRegionsSelected}
 			<li>
-				<span>{name}</span>
-				<div
-					class='iconButton'
-					on:click={makeDeselectRegionName(name)}
-				>
-					<Icon
-						glyph={XCircle}
-						size=20
-					/>
-				</div>
+				<span>All regions selected</span>
 			</li>
-		{/each}
+		{:else}
+			{#each regionNames as name}
+				<li>
+					<span>{name}</span>
+					<div
+						class='iconButton'
+						on:click={makeDeselectRegionName(name)}
+					>
+						<Icon
+							glyph={XCircle}
+							size=20
+						/>
+					</div>
+				</li>
+			{/each}
+		{/if}
 	</ul>
 
 	<!-- confirmation buttons -->
@@ -211,8 +217,12 @@
 <style>
 	.RegionFilter {
 		display: grid;
-		padding: 1em;
+		padding: 0 1em;
 		width: 100%;
+	}
+
+	h3 {
+		margin-bottom: 0.5em;
 	}
 
 	.map {
