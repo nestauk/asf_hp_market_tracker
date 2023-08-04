@@ -188,8 +188,9 @@
 			const timeScale = scaleTime().domain(timeDomain).range(xRange);
 
 			const ticks = timeScale.ticks();
-			const tickWidth = (timeDomain[1] - timeDomain[0]) / 1000 / (ticks.length - 1);
-			const timeFormat = getDateTimeFormat(tickWidth);
+			const tickDurationInSecs =
+				(timeDomain[1] - timeDomain[0]) / 1000 / (ticks.length - 1);
+			const timeFormat = getDateTimeFormat(tickDurationInSecs);
 			keyTicks = _.map(ticks, _.collect([_.identity, timeFormat]));
 
 			xScale = _.pipe([keyRankFn, timeScale]);

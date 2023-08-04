@@ -21,14 +21,14 @@ const timeFormats = _.map(
 	]
 );
 
-export const getDateTimeFormat = tickWidth => _.find(
+export const getDateTimeFormat = tickDurationInSecs => _.find(
 	timeFormats,
-	([maxSeconds]) => tickWidth >= maxSeconds
+	([maxSeconds]) => tickDurationInSecs >= maxSeconds
 )[1];
 
 /*
-export const getFormatOptions = tickWidth => _.find(
+export const getFormatOptions = tickDurationInSecs => _.find(
 	formatOptions,
-	([maxSeconds]) => tickWidth >= maxSeconds
+	([maxSeconds]) => tickDurationInSecs >= maxSeconds
 )[1];
 */
