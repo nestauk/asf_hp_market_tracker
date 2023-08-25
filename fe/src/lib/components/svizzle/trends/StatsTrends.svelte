@@ -24,7 +24,7 @@
 
 	const defaultTheme = {
 		curveStroke: 'black',
-		curveStrokeWidth: 2,
+		curveStrokeWidth: 1,
 
 		// frame theme
 		frameFill: 'none',

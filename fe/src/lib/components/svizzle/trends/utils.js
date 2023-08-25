@@ -7,14 +7,14 @@ const DAY = 24 * HOUR;
 const MONTH = 28 * DAY; // shortest month
 const YEAR = 365 * DAY; // shortest year
 
-// TODO add formatting options for shorter time spans
+// TODO Svizzle: add formatting options for shorter time spans
 const formatOptions = [
 	[YEAR, {year: '2-digit'}],
 	[MONTH, {year: '2-digit', month: '2-digit'}],
 	[DAY, {year: '2-digit', month: '2-digit', day: '2-digit'}],
 ];
 
-// TODO use a module such as `luxor` instead of `Intl.DateTimeFormat`
+// TODO use a module such as `luxon` instead of `Intl.DateTimeFormat`
 const timeFormats = _.map(
 	formatOptions,
 	([maxSeconds, options]) => [
@@ -23,7 +23,17 @@ const timeFormats = _.map(
 	]
 );
 
-export const getDateTimeFormat = tickDurationInSecs => _.find(
-	timeFormats,
-	([maxSeconds]) => tickDurationInSecs >= maxSeconds
-)[1];
+export const getDateTimeFormat = tickDurationInSecs => {
+	let timeFormat;
+
+	if (!tickDurationInSecs) {
+		timeFormat = _.last(timeFormats)[1];
+	} else {
+		timeFormat =  _.find(
+			timeFormats,
+			([maxSeconds]) => tickDurationInSecs >= maxSeconds
+		)[1];
+	}
+
+	return timeFormat;
+};
