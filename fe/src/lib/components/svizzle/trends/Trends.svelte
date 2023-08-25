@@ -17,6 +17,7 @@
 	import {getDateTimeFormat} from './utils.js';
 
 	const defaultGeometry = {
+		dotRadius: 2,
 		safetyBottom: 20,
 		safetyLeft: 20,
 		safetyRight: 20,
@@ -25,7 +26,7 @@
 
 	const defaultTheme = {
 		curveStroke: 'black',
-		curveStrokeWidth: 2,
+		curveStrokeWidth: 1,
 
 		// frame theme
 		frameFill: 'none',
@@ -127,6 +128,7 @@
 
 	let bbox;
 	let doDraw = false;
+	let dotRadius;
 	let keyTicks;
 	let lineGenerator;
 	let xScale;
@@ -163,6 +165,13 @@
 			);
 			xScale = scalePoint().domain(allKeys).range(xRange);
 		}
+
+		dotRadius = allKeys.length === 1
+			? geometry.dotRadius
+			: Math.min(
+				(xScale(allKeys[1]) - xScale(allKeys[0])) / 3,
+				geometry.dotRadius
+			);
 
 		yScale = scaleLinear().domain(yDomain).range([bbox.bly, bbox.try]);
 
@@ -272,6 +281,15 @@
 					fill='none'
 					stroke={keyToColorFn?.(key) ?? 'var(--curveStroke)'}
 				/>
+
+				{#each values as v}
+					<circle
+						cx={xScale(getKey(v))}
+						cy={yScale(getValue(v))}
+						r={dotRadius}
+						fill={keyToColorFn?.(key) ?? 'var(--curveStroke)'}
+					/>
+				{/each}
 			{/each}
 
 		</svg>
