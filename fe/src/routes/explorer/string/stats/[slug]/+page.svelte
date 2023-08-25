@@ -113,7 +113,7 @@
 		width: 100%;
 	}
 	.treemap {
-		height: 95%;
+		height: 100%;
 		width: 100%;
 	}
 </style>
