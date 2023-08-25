@@ -11,6 +11,7 @@
 	import {getStatsAvg} from '$lib/utils/getters.js';
 
 	const valueAccessor = getStatsAvg;
+
 	const filter = _.filterWith(_.pipe([valueAccessor, isNotNil]));
 	const makeDomain = _.pipe([filter, arr => extent(arr, valueAccessor)]);
 	const makeBarchartItems = _.pipe([

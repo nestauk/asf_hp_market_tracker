@@ -1,0 +1,300 @@
+<script>
+	import {BarchartVDiv} from '@svizzle/barchart';
+	import {makeStyleVars} from '@svizzle/dom';
+	import {ColorBinsDiv} from '@svizzle/legend';
+	import {
+		applyFnMap,
+		arraySumWith,
+		getKey,
+		getValue,
+		getValues,
+		makeArrayToObjectWith,
+		makeWithKeys,
+	} from '@svizzle/utils';
+	import {extent, pairs} from 'd3-array';
+	import {scaleQuantize} from 'd3-scale';
+	import * as _ from 'lamb';
+
+	import {Mapbox} from '@svizzle/mapbox'; // workspace
+
+	import FlexBar from '$lib/components/explorer/FlexBar.svelte';
+	import SelectorRegionType
+		from '$lib/components/explorer/medium/SelectorRegionType.svelte';
+	import Grid3Columns from '$lib/components/svizzle/Grid3Columns.svelte';
+	import Grid2Rows from '$lib/components/svizzle/Grid2Rows.svelte';
+	import XorNavigator from '$lib/components/svizzle/ui/XorNavigator.svelte';
+	import {MAPBOXGL_ACCESSTOKEN as accessToken} from '$lib/config/map.js';
+	import {
+		_featureNameId,
+		_mapStyle,
+		_zoom,
+	} from '$lib/stores/maps.js';
+	import {_currentMetric, _selection} from '$lib/stores/navigation.js';
+	import {
+		_barchartsTheme,
+		_legendsTheme,
+		_regionKindTheme,
+		_xorNavigatorTheme,
+	} from '$lib/stores/theme.js';
+	import {_selectedBbox} from '$lib/stores/view.js';
+	import {pluckKey} from '$lib/utils/svizzle/utils.js';
+
+	export let amountOfBins = 5;
+	export let formatFn;
+	export let interpolateColor;
+	export let items;
+	export let keyAccessor;
+	export let keyAccessor2;
+	export let makeDomain;
+	export let title;
+	export let valueAccessor;
+	export let valueAccessor2;
+
+	const getOverallExtent = _.pipe([
+		_.flatMapWith(
+			_.pipe([
+				valueAccessor,
+				_.mapWith(valueAccessor2)
+			])
+		),
+		extent
+	]);
+
+	const reshapeItems = _.mapWith(
+		applyFnMap({
+			key: keyAccessor,
+			values: _.pipe([
+				valueAccessor,
+				_.mapWith(applyFnMap({
+					key: keyAccessor2,
+					value: valueAccessor2
+				}))
+			])
+		})
+	);
+
+	const getItemSum = _.pipe([getValues, arraySumWith(getValue)]);
+
+	/* categories */
+
+	const getInnerCategs = _.pipe([
+		_.flatMapWith(
+			_.pipe([getValues, pluckKey])
+		),
+		_.uniques,
+		_.sortWith()
+	]);
+
+	const getValuesToLabels = makeArrayToObjectWith(
+		_.collect([_.identity, _.identity])
+	);
+	const indexByInnerKey = _.pipe([
+		_.flatMapWith(
+			({key: outerKey, values}) => _.map(values,
+				({key, value}) => ({key, outerKey, value})
+			)
+		),
+		_.groupBy(getKey),
+		_.mapValuesWith(
+			_.pipe([
+				_.mapWith(({outerKey, value}) => ({key: outerKey, value})),
+				_.sortWith([_.sorterDesc(getValue)])
+			])
+		)
+	]);
+
+	let colorScale;
+	let currentItems;
+	let currentKey;
+	let doDraw = false;
+	let getFeatureState;
+	let legendBins;
+	let regionType;
+	let valuesToLabels;
+
+	const onKeyChange = ({detail}) => {currentKey = detail};
+
+	$: regionKindStyle = makeStyleVars($_regionKindTheme);
+	$: sortItems = $_selection.categsGeoSortBy === 'regionName'
+		? _.sortWith([getKey])
+		: _.sortWith([_.sorterDesc(getItemSum)]);
+
+	$: if (items?.length > 0) {
+
+		/* common */
+
+		const reshapedItems = sortItems(reshapeItems(items));
+		const itemsByInnerKey = indexByInnerKey(reshapedItems);
+		const categories = getInnerCategs(reshapedItems);
+		const domain = getOverallExtent(items);
+
+		/* color */
+
+		const colorScheme = _.map(
+			_.range(0, 1, 1 / (amountOfBins - 1)).concat(1),
+			interpolateColor
+		);
+		colorScale = scaleQuantize().domain(domain).range(colorScheme);
+
+		/* legend */
+
+		const ranges = pairs([
+			domain[0],
+			...colorScale.thresholds(),
+			domain[1]
+		]);
+		legendBins = _.map(
+			_.zip(ranges, colorScheme),
+			makeWithKeys(['range', 'color'])
+		);
+
+		/* navigator */
+
+		valuesToLabels = getValuesToLabels(categories);
+
+		if (!categories.includes(currentKey)) {
+			currentKey = categories[0];
+		}
+
+		currentItems = itemsByInnerKey[currentKey] || [];
+
+		/* map */
+
+		regionType = $_selection.regionType;
+
+		const itemsIndex = _.index(currentItems, getKey);
+		getFeatureState = feature => {
+			const {properties: {[$_featureNameId]: featureName}} = feature;
+			const item = itemsIndex[featureName];
+			const featureState = {
+				fill: item ? colorScale(getValue(item)) : null
+			}
+
+			return featureState;
+		}
+
+		doDraw = true;
+	}
+</script>
+
+<Grid2Rows percents={[10, 90]}>
+	<FlexBar>
+		<SelectorRegionType />
+	</FlexBar>
+	{#if doDraw}
+		<Grid3Columns
+			percents={[10, 60, 30]}
+			gap='0.25em'
+		>
+			<div
+				class='col0'
+				slot='col0'
+			>
+				<div class='legend'>
+					<ColorBinsDiv
+						bins={legendBins}
+						flags={{
+							isVertical: true,
+						}}
+						geometry={{
+							left: 0,
+							right: 50,
+						}}
+						padding=0
+						theme={$_legendsTheme}
+						ticksFormatFn={formatFn}
+					/>
+				</div>
+			</div>
+
+			<div
+				class='col1'
+				slot='col1'
+			>
+				<div class='map'>
+					<Mapbox
+						{_zoom}
+						{accessToken}
+						{getFeatureState}
+						bounds={$_selectedBbox}
+						isAnimated={false}
+						isInteractive={false}
+						reactiveLayers={[regionType]}
+						style={$_mapStyle}
+						visibleLayers={['nuts21_0', regionType]}
+						withScaleControl={false}
+						withZoomControl={false}
+					/>
+					<span style={regionKindStyle}>
+						{$_currentMetric.geoPrefix} regions
+					</span>
+				</div>
+				<XorNavigator
+					{valuesToLabels}
+					currentValue={currentKey}
+					on:changed={onKeyChange}
+					theme={$_xorNavigatorTheme}
+				/>
+			</div>
+			<BarchartVDiv
+				{formatFn}
+				{title}
+				items={currentItems}
+				shouldResetScroll={true}
+				slot='col2'
+				theme={$_barchartsTheme}
+				valueToColorFn={colorScale}
+			/>
+		</Grid3Columns>
+	{/if}
+</Grid2Rows>
+
+<style>
+	.main {
+		display: grid;
+		grid-template-rows: min-content 1fr;
+		height: 100%;
+		overflow: hidden;
+	}
+	.threeRows {
+		display: grid;
+		gap: 1.5em;
+		grid-template-rows: min-content min-content 1fr;
+		height: 100%;
+		overflow: hidden;
+		width: 100%;
+	}
+	.col0 {
+		align-items: center;
+		display: flex;
+		height: 100%;
+		justify-content: center;
+		padding: 0;
+		width: 100%;
+	}
+	.legend {
+		height: 50%;
+		width: 100%;
+	}
+
+	.col1 {
+		display: grid;
+		gap: 0.25em;
+		grid-template-rows: 1fr min-content;
+		height: 100%;
+		overflow: hidden;
+		width: 100%;
+	}
+	.map {
+		position: relative;
+	}
+	.map > span {
+		background-color: var(--backgroundColor);
+		border: var(--border);
+		bottom: 0;
+		margin: 0.5em;
+		padding: 0.1em 0.5em;
+		position: absolute;
+		right: 0;
+	}
+</style>

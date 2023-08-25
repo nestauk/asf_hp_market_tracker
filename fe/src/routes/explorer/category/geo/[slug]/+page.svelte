@@ -5,7 +5,7 @@
 	import * as _ from 'lamb';
 
 	import {page as _page} from '$app/stores';
-	import CatGeoView from '$lib/components/explorer/medium/CatGeoView.svelte';
+	import CatGeoView2 from '$lib/components/explorer/medium/CatGeoView2.svelte';
 	import {_currentMetric} from '$lib/stores/navigation.js';
 	import {_isViewReady, _viewData} from '$lib/stores/view.js';
 	import {getDocCount, getTermsBuckets} from '$lib/utils/getters.js';
@@ -36,7 +36,7 @@
 	}
 </script>
 
-<CatGeoView
+<CatGeoView2
 	{interpolateColor}
 	{items}
 	{keyAccessor}

@@ -25,6 +25,7 @@
 		_barchartsTheme,
 		_currThemeVars,
 		_legendsTheme,
+		_regionKindTheme,
 	} from '$lib/stores/theme.js';
 	import {_selectedBbox} from '$lib/stores/view.js';
 
@@ -40,17 +41,16 @@
 	let barchartItems;
 	let colorScale;
 	let doDraw = false;
-	let domain;
 	let getFeatureState;
 	let legendBins;
-	let regionKindStyle;
 	let regionType;
 
+	$: regionKindStyle = makeStyleVars($_regionKindTheme);
 	$: if (items?.length > 0) {
 
 		/* common */
 
-		domain = makeDomain(items);
+		const domain = makeDomain(items);
 		const colorScheme = _.map(
 			_.range(0, 1, 1 / (amountOfBins - 1)).concat(1),
 			interpolateColor
@@ -87,11 +87,6 @@
 
 			return featureState;
 		}
-
-		regionKindStyle = makeStyleVars({
-			backgroundColor: $_currThemeVars['--colorBackground'],
-			border: $_currThemeVars['--borderAux'],
-		});
 
 		doDraw = true;
 	}
@@ -153,8 +148,8 @@
 				{formatFn}
 				{title}
 				items={barchartItems}
-				slot='col2'
 				shouldResetScroll={true}
+				slot='col2'
 				theme={$_barchartsTheme}
 				valueToColorFn={colorScale}
 			/>

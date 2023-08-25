@@ -119,6 +119,14 @@ export const _rangeSlidersTheme = derived(
 	})
 );
 
+export const _regionKindTheme = derived(
+	_currThemeVars,
+	currThemeVars => ({
+		backgroundColor: currThemeVars['--colorBackground'],
+		border: currThemeVars['--borderAux'],
+	})
+);
+
 export const _stackedBarchartTheme = derived(
 	_currThemeVars,
 	currThemeVars => ({
