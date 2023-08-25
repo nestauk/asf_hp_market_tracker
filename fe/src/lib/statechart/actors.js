@@ -48,8 +48,7 @@ export const queryStaticData = () => {
 	const catTermsPromises = _.map(categoricalMetrics, ({id: field}) => {
 		const endpoint = 'terms';
 		const params = {
-			field: `${field}.keyword`,
-			missing: 'Unknown'
+			field: `${field}.keyword`
 		};
 		const queryPath = `${endpoint}?${new URLSearchParams(params)}`;
 		const promise = query(queryPath);
