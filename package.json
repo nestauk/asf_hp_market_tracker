@@ -10,7 +10,7 @@
 		"clearall": "npm run clearmodules && npm run clearlockfile",
 		"reinstall": "npm run clearall && npm install"
 	},
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"workspaces": [
 		"be",
 		"fe",
