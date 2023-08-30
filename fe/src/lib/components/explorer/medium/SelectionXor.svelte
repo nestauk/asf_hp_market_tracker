@@ -1,12 +1,14 @@
 <script>
-	import {XorSelector} from '@svizzle/ui';
-
+	import XorSelector from '$lib/components/svizzle/ui/XorSelector.svelte';
 	import {explorerActor} from '$lib/statechart/index.js';
 	import {_selection} from '$lib/stores/navigation.js';
 	import {_xorSelectorTheme} from '$lib/stores/theme.js';
 
 	export let name;
+
+	// alternative props
 	export let values;
+	export let valuesToLabels;
 
 	const makeSetSelectionValue = paramName => ({detail: newValue}) => {
 		if (newValue !== $_selection[paramName]) {
@@ -21,8 +23,9 @@
 </script>
 
 <XorSelector
-	on:changed={makeSetSelectionValue(name)}
-	theme={$_xorSelectorTheme}
 	{value}
 	{values}
+	{valuesToLabels}
+	on:changed={makeSetSelectionValue(name)}
+	theme={$_xorSelectorTheme}
 />

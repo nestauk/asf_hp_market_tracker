@@ -1,8 +1,9 @@
 <script>
 	import SelectionXor from '$lib/components/explorer/medium/SelectionXor.svelte';
+	import {intervalToLabel} from '$lib/config/labels.js';
 </script>
 
 <SelectionXor
 	name='interval'
-	values={['1M', '1q', '1y']}
+	valuesToLabels={intervalToLabel}
 />

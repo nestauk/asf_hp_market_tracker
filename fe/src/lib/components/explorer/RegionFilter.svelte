@@ -5,6 +5,7 @@
 	import {createEventDispatcher} from 'svelte';
 
 	import DismissOrApply from '$lib/components/explorer/DismissOrApply.svelte';
+	import {regionTypeToLabel} from '$lib/config/labels.js';
 	import {
 		DEFAULT_BBOX_WSEN,
 		MAPBOXGL_ACCESSTOKEN as accessToken,
@@ -161,13 +162,7 @@
 		currentValue={regionType}
 		on:changed={onRegionTypeChange}
 		theme={$_xorNavigatorTheme}
-		valuesToLabels={{
-			country21: 'Country',
-			itl21_1: 'ITL 1',
-			itl21_2: 'ITL 2',
-			itl21_3: 'ITL 3',
-			lad21: 'LAD',
-		}}
+		valuesToLabels={regionTypeToLabel}
 	/>
 
 	<!-- hovered region -->
