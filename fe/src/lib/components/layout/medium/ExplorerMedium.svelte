@@ -8,8 +8,14 @@
 </script>
 
 <div class='ExplorerMedium'>
+	<nav class='colHeader filtersHeader'>
+		Filter the data
+	</nav>
 	<nav class='filters'>
 		<FiltersBar />
+	</nav>
+	<nav class='colHeader metricsHeader'>
+		Choose the output
 	</nav>
 	<nav class='metrics'>
 		<MetricSelector />
@@ -28,10 +34,11 @@
 	.ExplorerMedium {
 		display: grid;
 		grid-template-areas:
+			"filtersHeader view metricsHeader"
 			"filters view metrics"
 			"filters timeline metrics";
 		grid-template-columns: 18% 67% 15%;
-		grid-template-rows: 90% 10%;
+		grid-template-rows: 4% 86% 10%;
 		height: 100%;
 		width: 100%;
 	}
@@ -41,17 +48,31 @@
 		position: relative;
 	}
 
+	.colHeader {
+		align-items: center;
+		display: flex;
+		justify-content: center;
+		border-bottom: var(--border);
+	}
+	.filtersHeader {
+		border-right: var(--border);
+		grid-area: filtersHeader;
+	}
 	.filters {
-		border-right: thin solid var(--colorBorder);
+		border-right: var(--border);
 		grid-area: filters;
 	}
+	.metricsHeader {
+		border-left: var(--border);
+		grid-area: metricsHeader;
+	}
 	.metrics {
-		border-left: thin solid var(--colorBorder);
+		border-left: var(--border);
 		grid-area: metrics;
 	}
 	.timeline {
 		align-items: stretch;
-		border-top: thin solid var(--colorBorder);
+		border-top: var(--border);
 		display: flex;
 		grid-area: timeline;
 		justify-content: stretch;
