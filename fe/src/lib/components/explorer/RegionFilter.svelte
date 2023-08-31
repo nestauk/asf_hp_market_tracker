@@ -212,7 +212,6 @@
 <style>
 	.RegionFilter {
 		display: grid;
-		padding: 0 1em;
 		width: 100%;
 	}
 

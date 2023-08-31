@@ -39,6 +39,7 @@
 		display: flex;
 		padding: 0.2em 0.4em;
 		text-align: center;
+		user-select: none;
 	}
 
 	.label {

@@ -6,8 +6,8 @@
 
 	const {_writable, resizeObserver} = setupResizeObserver();
 
-	$: blockSize = $_writable?.blockSize;
-	$: inlineSize = $_writable?.inlineSize;
+	$: blockSize = $_writable?.blockSize; // TODO rename to `height`
+	$: inlineSize = $_writable?.inlineSize; // TODO rename to `width`
 </script>
 
 <div

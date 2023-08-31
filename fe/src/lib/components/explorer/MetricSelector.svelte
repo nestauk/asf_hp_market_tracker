@@ -1,25 +1,15 @@
 <script>
 	import {Link} from '@svizzle/ui';
-	import {tick} from 'svelte';
 
 	import Scroller from '$lib/components/svizzle/Scroller.svelte';
+	import {scrollIntoViewIfTrue}
+		from '$lib/components/svizzle/ui/actions/scrollIntoView.js';
 	import {metricGroups} from '$lib/data/metrics.js';
 	import {
 		_activeViewType,
 		_currentMetricId,
 		_searchParams,
 	} from '$lib/stores/navigation.js';
-
-	const scrollIntoViewIfTrue = async (node, doScroll) => {
-		await tick();
-		if (node && doScroll) {
-			if (node.scrollIntoViewIfNeeded) {
-				node.scrollIntoViewIfNeeded(); // Chrome/Safari/Edge
-			} else {
-				node.scrollIntoView(); // FF
-			}
-		}
-	}
 </script>
 
 <Scroller>

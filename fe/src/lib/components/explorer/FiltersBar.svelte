@@ -5,14 +5,19 @@
 
 	import CategorySelector
 		from '$lib/components/explorer/CategorySelector.svelte';
+	import FiltersNavigator
+		from '$lib/components/explorer/FiltersNavigator.svelte';
 	import RegionFilter from '$lib/components/explorer/RegionFilter.svelte';
 	import RangeSlider from '$lib/components/svizzle/RangeSlider.svelte';
 	import Scroller from '$lib/components/svizzle/Scroller.svelte';
+	import ScrollIntoView from '$lib/components/svizzle/ui/ScrollIntoView.svelte';
 	import {getRegionsSelection} from '$lib/utils/regions.js';
 	import {explorerActor} from '$lib/statechart/index.js';
 	import {_filtersBar} from '$lib/stores/filters.js';
 	import {_currentMetric, _selection} from '$lib/stores/navigation.js';
 	import {_rangeSlidersTheme} from '$lib/stores/theme.js';
+
+	import SizeSensor from '$lib/components/svizzle/SizeSensor.svelte';
 
 	const getSelectedCats = _.pipe([
 		_.filterWith(_.hasKeyValue('selected', true)),
@@ -114,61 +119,150 @@
 			});
 		}
 	}
+
+	/* filters navigator */
+
+	const removeFilter = id => {
+		const {filters: oldFilters} = $_selection;
+
+		let newFilters;
+		if (id === 'installer_geo_region') {
+			newFilters = _.setIn(oldFilters, 'installerRegionNames', [])
+		} else if (id === 'property_geo_region') {
+			newFilters = _.setIn(oldFilters, 'propertyRegionNames', [])
+		} else {
+			newFilters = _.skipIn(oldFilters, [id]);
+		}
+
+		if (!isEqual(oldFilters, newFilters)) {
+			explorerActor.send({
+				type: 'SELECTION_CHANGED',
+				newValues: {
+					filters: newFilters,
+				}
+			});
+		}
+	}
+
+	const resetAllFilters = () => {
+		const {filters: oldFilters} = $_selection;
+
+		const newFilters = {
+			installerRegionNames: [],
+			installerRegionType: $_selection.filters.installerRegionType,
+			propertyRegionNames: [],
+			propertyRegionType: $_selection.filters.propertyRegionType,
+		}
+
+		if (!isEqual(oldFilters, newFilters)) {
+			explorerActor.send({
+				type: 'SELECTION_CHANGED',
+				newValues: {
+					filters: newFilters,
+				}
+			});
+		}
+	}
+
+	let activeFilterId;
+
+	const onSelectId = ({detail: id}) => {
+		activeFilterId = id;
+	}
+	const onResetId = ({detail: id}) => {
+		removeFilter(id);
+	};
+
+	let navHeight;
+
+	$: style = `--navHeight:${navHeight}px`;
 </script>
 
-{#if $_filtersBar}
-	<Scroller>
-		{#each $_filtersBar as {key: entity, values: metrics}}
-			<h2>{entity}</h2>
-			<ul>
-				{#each metrics as metric}
-					{@const queryValue = $_selection.filters[metric.id]}
-					{#if metric.id === 'installer_geo_region'}
-						<RegionFilter
-							on:apply={onInstallerRegionsChanged}
-							targetRegionNames={$_selection.filters.installerRegionNames}
-							targetRegionType={$_selection.filters.installerRegionType}
-							title='Installer regions'
-						/>
-					{:else if metric.id === 'property_geo_region'}
-						<RegionFilter
-							on:apply={onPropertyRegionsChanged}
-							targetRegionNames={$_selection.filters.propertyRegionNames}
-							targetRegionType={$_selection.filters.propertyRegionType}
-							title='Property regions'
-						/>
-					{:else if metric.id !== 'installation_date'}
-						<li>
-							<div class='slider'>
-								<h3>{metric.label}</h3>
-								{#if metric.type === 'number'}
-									<RangeSlider
-										formatFn={metric.formatFn}
-										items={metric.values}
-										Max={metric.max}
-										max={queryValue?.lte || metric.max}
-										Min={metric.min}
-										min={queryValue?.gte || metric.min}
-										on:changed={makeOnRangeChanged(metric.id)}
-										theme={$_rangeSlidersTheme}
-									/>
-								{:else if metric.type === 'category'}
-									<CategorySelector
-										label={metric.label}
-										categories={enhanceCategories(metric.values, queryValue || [])}
-										on:applied={makeOnCatsChanged(metric.id)}
-									/>
-								{/if}
-							</div>
-						</li>
-					{/if}
+<div
+	{style}
+	class='FiltersBar'
+>
+	<div class='navigator'>
+		<SizeSensor bind:blockSize={navHeight}>
+			<FiltersNavigator
+				on:selectId={onSelectId}
+				on:resetId={onResetId}
+				on:resetAll={resetAllFilters}
+			/>
+		</SizeSensor>
+	</div>
+	<div class='filters'>
+		{#if $_filtersBar}
+			<Scroller>
+				{#each $_filtersBar as {key: entity, values: metrics}}
+					<h2>{entity}</h2>
+					<ul>
+						{#each metrics as metric}
+							{@const queryValue = $_selection.filters[metric.id]}
+							<li>
+								<ScrollIntoView
+									alignToTop={true}
+									doIt={metric.id === activeFilterId}
+								>
+									{#if metric.id === 'installer_geo_region'}
+										<RegionFilter
+											on:apply={onInstallerRegionsChanged}
+											targetRegionNames={$_selection.filters.installerRegionNames}
+											targetRegionType={$_selection.filters.installerRegionType}
+											title='Installer regions'
+										/>
+									{:else if metric.id === 'property_geo_region'}
+										<RegionFilter
+											on:apply={onPropertyRegionsChanged}
+											targetRegionNames={$_selection.filters.propertyRegionNames}
+											targetRegionType={$_selection.filters.propertyRegionType}
+											title='Property regions'
+										/>
+									{:else if metric.id !== 'installation_date'}
+										<h3>{metric.label}</h3>
+										{#if metric.type === 'number'}
+											<RangeSlider
+												formatFn={metric.formatFn}
+												items={metric.values}
+												Max={metric.max}
+												max={queryValue?.lte || metric.max}
+												Min={metric.min}
+												min={queryValue?.gte || metric.min}
+												on:changed={makeOnRangeChanged(metric.id)}
+												theme={$_rangeSlidersTheme}
+											/>
+										{:else if metric.type === 'category'}
+											<CategorySelector
+												label={metric.label}
+												categories={enhanceCategories(metric.values, queryValue || [])}
+												on:applied={makeOnCatsChanged(metric.id)}
+											/>
+										{/if}
+									{/if}
+								</ScrollIntoView>
+							</li>
+						{/each}
+					</ul>
 				{/each}
-			</ul>
-		{/each}
-	</Scroller>
-{/if}
+			</Scroller>
+		{/if}
+	</div>
+</div>
 
 <style>
+	.FiltersBar {
+		display: grid;
+		grid-template-columns: 100%;
+		grid-template-rows: var(--navHeight) calc(100% - var(--navHeight));
+		height: 100%;
+		width: 100%;
+	}
+
+	.navigator,
+	.filters {
+		width: 100%;
+	}
+
 	h2 {
 		padding: 0 1rem 0.7em;
 		padding-top: 0.7rem;
@@ -181,10 +275,5 @@
 	}
 	li:first-child {
 		padding-top: 0;
-	}
-
-	.slider {
-		overflow: hidden;
-		width: 100%;
 	}
 </style>

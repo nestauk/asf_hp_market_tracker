@@ -105,7 +105,6 @@
 	}
 
 	header {
-		/* border-bottom: thin solid lightgrey; */
 		align-items: center;
 		display: flex;
 		justify-content: space-between;
@@ -123,7 +122,6 @@
 		padding: 1em;
 	}
 	.coverage {
-		/* border-top: thin solid lightgrey; */
 		align-items: center;
 		display: flex;
 		height: 100%;

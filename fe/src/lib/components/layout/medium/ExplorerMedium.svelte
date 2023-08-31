@@ -50,9 +50,9 @@
 
 	.colHeader {
 		align-items: center;
+		border-bottom: var(--border);
 		display: flex;
 		justify-content: center;
-		border-bottom: var(--border);
 	}
 	.filtersHeader {
 		border-right: var(--border);
