@@ -1,6 +1,7 @@
 <script>
 	import {page as _page} from '$app/stores';
 	import ExplorerMedium from '$lib/components/layout/medium/ExplorerMedium.svelte';
+	import ExplorerSmall from '$lib/components/layout/small/ExplorerSmall.svelte';
 	import View from '$lib/components/viewports/View.svelte';
 	import ViewsXor from '$lib/components/viewports/ViewsXor.svelte';
 	import {toolName} from '$lib/config.js';
@@ -10,8 +11,6 @@
 	explorerActor.send({type: 'MOUNTED'});
 
 	$: explorerActor.send({type: 'PAGE_CHANGED', page: $_page});
-
-	// $: console.log('🟥 LAYOUT $_page', JSON.stringify($_page))
 </script>
 
 <svelte:head>
@@ -29,6 +28,8 @@
 		</ExplorerMedium>
 	</View>
 	<View id='small'>
-		<slot />
+		<ExplorerSmall>
+			<slot />
+		</ExplorerSmall>
 	</View>
 </ViewsXor>
