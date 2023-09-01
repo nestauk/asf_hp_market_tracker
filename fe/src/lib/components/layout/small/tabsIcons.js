@@ -4,9 +4,22 @@ import {
 	Info,
 	List,
 	MapPin,
+	PieChart,
 } from '@svizzle/ui';
 
 const tabsByRoute = {
+	'category/stats': [
+		{
+			glyph: PieChart,
+			id: 'stats',
+			transform: '',
+		},
+		{
+			glyph: BarChart,
+			id: 'barchart',
+			transform: 'rotate(90deg) rotateY(180deg)',
+		},
+	],
 	'count/geo': [
 		{
 			glyph: MapPin,
