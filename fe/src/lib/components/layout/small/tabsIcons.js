@@ -5,7 +5,10 @@ import {
 	List,
 	MapPin,
 	PieChart,
+	TrendingUp,
 } from '@svizzle/ui';
+
+import Legend from '$lib/components/svizzle/ui/glyphs/Legend.svelte';
 
 const tabsByRoute = {
 	'category/stats': [
@@ -18,6 +21,18 @@ const tabsByRoute = {
 			glyph: BarChart,
 			id: 'barchart',
 			transform: 'rotate(90deg) rotateY(180deg)',
+		},
+	],
+	'category/time': [
+		{
+			glyph: TrendingUp,
+			id: 'trends',
+			transform: '',
+		},
+		{
+			glyph: Legend,
+			id: 'legend',
+			transform: '',
 		},
 	],
 	'count/geo': [
