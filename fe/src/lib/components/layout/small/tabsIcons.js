@@ -73,6 +73,18 @@ const tabsByRoute = {
 			transform: '',
 		},
 	],
+	'number/geo': [
+		{
+			glyph: MapPin,
+			id: 'map',
+			transform: '',
+		},
+		{
+			glyph: BarChart,
+			id: 'barchart',
+			transform: 'rotate(90deg) rotateY(180deg)',
+		},
+	],
 }
 
 export const getTabsIcons = route => {
