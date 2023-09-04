@@ -111,6 +111,18 @@ const tabsByRoute = {
 			transform: '',
 		},
 	],
+	'string/stats': [
+		{
+			glyph: PieChart,
+			id: 'stats',
+			transform: '',
+		},
+		{
+			glyph: Legend,
+			id: 'legend',
+			transform: '',
+		},
+	],
 }
 
 export const getTabsIcons = route => {

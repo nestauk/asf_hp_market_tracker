@@ -7,8 +7,13 @@
 	import * as _ from 'lamb';
 
 	import {page as _page} from '$app/stores';
+    import MetricTitle from '$lib/components/explorer/MetricTitle.svelte';
 	import Grid2Columns from '$lib/components/svizzle/Grid2Columns.svelte';
+    import GridRows from '$lib/components/svizzle/GridRows.svelte';
+	import Scroller from '$lib/components/svizzle/Scroller.svelte';
 	import Treemap from '$lib/components/svizzle/Treemap.svelte';
+	import View from '$lib/components/viewports/View.svelte';
+    import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {_barchartsTheme} from '$lib/stores/theme.js';
 	import {_isViewReady, _viewData} from '$lib/stores/view.js';
 	import {_currentMetric, _selection} from '$lib/stores/navigation.js';
@@ -71,32 +76,63 @@
 </script>
 
 {#if doDraw}
-	<Grid2Columns
-		percents={[70, 30]}
-		gap='0.5em'
-	>
-		<div slot='col0' class='col'>
-			<div class='treemap'>
+	{#if $_isSmallScreen}
+		<View id='stats'>
+			<GridRows rowLayout='min-content 1fr'>
+				<MetricTitle />
+
 				<Treemap
 					{items}
 					{keyToColorFn}
 					{keyToColorLabelFn}
 					{valueAccessor}
 				/>
+			</GridRows>
+		</View>
+
+		<View id='legend'>
+			<GridRows rowLayout='min-content 1fr'>
+				<MetricTitle />
+
+				<Scroller>
+					<BarchartVDiv
+						{keyToColorFn}
+						items={barchartItems}
+						shouldResetScroll={true}
+						theme={$_barchartsTheme}
+						title={barchartTitle}
+					/>
+				</Scroller>
+			</GridRows>
+		</View>
+	{:else}
+		<Grid2Columns
+			percents={[70, 30]}
+			gap='0.5em'
+		>
+			<div slot='col0' class='col'>
+				<div class='treemap'>
+					<Treemap
+						{items}
+						{keyToColorFn}
+						{keyToColorLabelFn}
+						{valueAccessor}
+					/>
+				</div>
 			</div>
-		</div>
-		<div slot='col1' class='col'>
-			<div class='barchart'>
-				<BarchartVDiv
-					{keyToColorFn}
-					items={barchartItems}
-					shouldResetScroll={true}
-					theme={$_barchartsTheme}
-					title={barchartTitle}
-				/>
+			<div slot='col1' class='col'>
+				<div class='barchart'>
+					<BarchartVDiv
+						{keyToColorFn}
+						items={barchartItems}
+						shouldResetScroll={true}
+						theme={$_barchartsTheme}
+						title={barchartTitle}
+					/>
+				</div>
 			</div>
-		</div>
-	</Grid2Columns>
+		</Grid2Columns>
+	{/if}
 {/if}
 
 <style>
