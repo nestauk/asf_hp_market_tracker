@@ -11,6 +11,18 @@ import {
 import Legend from '$lib/components/svizzle/ui/glyphs/Legend.svelte';
 
 const tabsByRoute = {
+	'category/geo': [
+		{
+			glyph: MapPin,
+			id: 'map',
+			transform: '',
+		},
+		{
+			glyph: BarChart,
+			id: 'barchart',
+			transform: 'rotate(90deg) rotateY(180deg)',
+		},
+	],
 	'category/stats': [
 		{
 			glyph: PieChart,
