@@ -104,6 +104,13 @@ const tabsByRoute = {
 			transform: '',
 		},
 	],
+	'string/geo': [
+		{
+			glyph: MapPin,
+			id: 'strings',
+			transform: '',
+		},
+	],
 }
 
 export const getTabsIcons = route => {
