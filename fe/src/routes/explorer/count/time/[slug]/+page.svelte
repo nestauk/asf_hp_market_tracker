@@ -8,12 +8,16 @@
 
 	import {page as _page} from '$app/stores';
 	import FlexBar from '$lib/components/explorer/FlexBar.svelte';
+    import MetricTitle from '$lib/components/explorer/MetricTitle.svelte';
 	import SelectionXor
 		from '$lib/components/explorer/medium/SelectionXor.svelte';
 	import SelectorInterval
 		from '$lib/components/explorer/medium/SelectorInterval.svelte';
 	import Grid2Rows from '$lib/components/svizzle/Grid2Rows.svelte';
+    import GridRows from '$lib/components/svizzle/GridRows.svelte';
 	import Trends from '$lib/components/svizzle/trends/Trends.svelte';
+	import View from '$lib/components/viewports/View.svelte';
+	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {_currentMetric, _selection} from '$lib/stores/navigation.js';
 	import {_currThemeVars, _framesTheme} from '$lib/stores/theme.js';
 	import {_isViewReady, _viewData} from '$lib/stores/view.js';
@@ -75,34 +79,72 @@
 	}
 </script>
 
-<Grid2Rows percents={[10, 90]}>
-	<FlexBar>
-		<SelectorInterval />
+{#if $_isSmallScreen}
+	{#if doDraw}
+		<View id='trends'>
+			<GridRows rowLayout='min-content 1fr min-content'>
+				<MetricTitle />
 
-		{#if $_currentMetric.isCumulative}
-			<SelectionXor
-				name='trendType'
-				values={['progressive', 'cumulative']}
+				<Trends
+					{trends}
+					{trendType}
+					{valueFormatFn}
+					geometry={{
+						safetyBottom: 50,
+						safetyLeft: 80,
+						safetyRight: 80,
+						safetyTop: 50,
+					}}
+					keyType='date'
+					theme={{
+						...$_framesTheme,
+						curveStroke: $_currThemeVars['--colorBorderAux']
+					}}
+				/>
+
+				<FlexBar canWrap shouldWrapUp>
+					<SelectorInterval />
+
+					{#if $_currentMetric.isCumulative}
+						<SelectionXor
+							name='trendType'
+							values={['progressive', 'cumulative']}
+						/>
+					{/if}
+				</FlexBar>
+			</GridRows>
+		</View>
+	{/if}
+{:else}
+	<Grid2Rows percents={[10, 90]}>
+		<FlexBar>
+			<SelectorInterval />
+
+			{#if $_currentMetric.isCumulative}
+				<SelectionXor
+					name='trendType'
+					values={['progressive', 'cumulative']}
+				/>
+			{/if}
+		</FlexBar>
+
+		{#if doDraw}
+			<Trends
+				{trends}
+				{trendType}
+				{valueFormatFn}
+				geometry={{
+					safetyBottom: 50,
+					safetyLeft: 80,
+					safetyRight: 80,
+					safetyTop: 50,
+				}}
+				keyType='date'
+				theme={{
+					...$_framesTheme,
+					curveStroke: $_currThemeVars['--colorBorderAux']
+				}}
 			/>
 		{/if}
-	</FlexBar>
-
-	{#if doDraw}
-		<Trends
-			{trends}
-			{trendType}
-			{valueFormatFn}
-			geometry={{
-				safetyBottom: 50,
-				safetyLeft: 80,
-				safetyRight: 80,
-				safetyTop: 50,
-			}}
-			keyType='date'
-			theme={{
-				...$_framesTheme,
-				curveStroke: $_currThemeVars['--colorBorderAux']
-			}}
-		/>
-	{/if}
-</Grid2Rows>
+	</Grid2Rows>
+{/if}
