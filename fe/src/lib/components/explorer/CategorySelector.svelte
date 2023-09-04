@@ -11,7 +11,7 @@
 
 	import Checkboxed from '$lib/components/explorer/Checkboxed.svelte';
 	import DismissOrApply from '$lib/components/explorer/DismissOrApply.svelte';
-	import {getDocCount} from '$lib/utils/getters.js';
+	import {getDocCount, getSelected} from '$lib/utils/getters.js';
 	import {areAllFalsyWith} from '$lib/utils/svizzle/utils.js';
 
 	export let categories;
@@ -20,7 +20,6 @@
 	const dispatch = createEventDispatcher();
 
 	const getMaxDocCount = arrayMaxWith(getDocCount);
-	const getSelected = _.getKey('selected');
 	const areAllDeselected = areAllFalsyWith(getSelected);
 	const getInputStateCopy = _.pick(['key', 'doc_count', 'selected']);
 	const getInputStatesCopy = _.mapWith(getInputStateCopy);

@@ -1,5 +1,5 @@
 <script>
-	import {getKey, makeMergeAppliedFnMap} from '@svizzle/utils';
+	import {getKey, isObjEmpty, makeMergeAppliedFnMap} from '@svizzle/utils';
 	import isEqual from 'just-compare';
 	import * as _ from 'lamb';
 
@@ -10,37 +10,35 @@
 	import RegionFilter from '$lib/components/explorer/RegionFilter.svelte';
 	import RangeSlider from '$lib/components/svizzle/RangeSlider.svelte';
 	import Scroller from '$lib/components/svizzle/Scroller.svelte';
+	import SizeSensor from '$lib/components/svizzle/SizeSensor.svelte';
 	import ScrollIntoView from '$lib/components/svizzle/ui/ScrollIntoView.svelte';
 	import {getRegionsSelection} from '$lib/utils/regions.js';
 	import {explorerActor} from '$lib/statechart/index.js';
+	import {_staticData} from '$lib/stores/data.js';
 	import {_filtersBar} from '$lib/stores/filters.js';
 	import {_currentMetric, _selection} from '$lib/stores/navigation.js';
 	import {_rangeSlidersTheme} from '$lib/stores/theme.js';
+	import {getSelected} from '$lib/utils/getters.js';
 
-	import SizeSensor from '$lib/components/svizzle/SizeSensor.svelte';
-
-	const getSelectedCats = _.pipe([
-		_.filterWith(_.hasKeyValue('selected', true)),
-		_.mapWith(getKey)
-	]);
-
-	const enhanceCategories = (categories, selectedCats) => _.map(
-		categories,
-		makeMergeAppliedFnMap({
-			selected: ({key}) => selectedCats.length
-				? _.isIn(selectedCats, key)
-				: true
-		})
-	);
+	/* numbers */
 
 	const makeOnRangeChanged = id => ({detail: {min, max}}) => {
 		const {filters: oldFilters} = $_selection;
-		const newFilters = {
-			...oldFilters,
-			[id]: {
-				gte: min,
-				lte: max
-			}
+		const idStats = $_staticData.numStats[id];
+
+		const criteria = {};
+		if (min !== idStats.min) {
+			criteria.gte = min;
+		}
+		if (max !== idStats.max) {
+			criteria.lte = max;
+		}
+
+		let newFilters;
+		if (isObjEmpty(criteria)) {
+			newFilters = _.skipIn(oldFilters, [id]);
+		} else {
+			newFilters = _.setIn(oldFilters, id, criteria);
 		}
 
 		if (!isEqual(oldFilters, newFilters)) {
@@ -51,11 +49,31 @@
 		}
 	}
 
+	/* categories */
+
+	const enhanceCategories = (categories, selectedCats) => _.map(
+		categories,
+		makeMergeAppliedFnMap({
+			selected: ({key}) => selectedCats.length
+				? _.isIn(selectedCats, key)
+				: true
+		})
+	);
+
+	const getSelectedCats = _.pipe([
+		_.filterWith(_.hasKeyValue('selected', true)),
+		_.mapWith(getKey)
+	]);
 	const makeOnCatsChanged = id => ({detail: categories}) => {
 		const {filters: oldFilters} = $_selection;
-		const newFilters = {
-			...oldFilters,
-			[id]: getSelectedCats(categories)
+		const selectedCats = _.filter(categories, getSelected);
+		const catStats = $_staticData.catStats[id];
+
+		let newFilters;
+		if (selectedCats.length === catStats.length) {
+			newFilters = _.skipIn(oldFilters, [id]);
+		} else {
+			newFilters = _.setIn(oldFilters, id, getSelectedCats(categories));
 		}
 
 		if (!isEqual(oldFilters, newFilters)) {
@@ -127,9 +145,9 @@
 
 		let newFilters;
 		if (id === 'installer_geo_region') {
-			newFilters = _.setIn(oldFilters, 'installerRegionNames', [])
+			newFilters = _.setIn(oldFilters, 'installerRegionNames', []);
 		} else if (id === 'property_geo_region') {
-			newFilters = _.setIn(oldFilters, 'propertyRegionNames', [])
+			newFilters = _.setIn(oldFilters, 'propertyRegionNames', []);
 		} else {
 			newFilters = _.skipIn(oldFilters, [id]);
 		}
