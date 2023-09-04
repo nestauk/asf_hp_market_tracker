@@ -85,6 +85,18 @@ const tabsByRoute = {
 			transform: 'rotate(90deg) rotateY(180deg)',
 		},
 	],
+	'number/stats': [
+		{
+			glyph: PieChart,
+			id: 'stats',
+			transform: '',
+		},
+		{
+			glyph: BarChart,
+			id: 'barchart',
+			transform: 'rotate(90deg) rotateY(180deg)',
+		},
+	],
 }
 
 export const getTabsIcons = route => {

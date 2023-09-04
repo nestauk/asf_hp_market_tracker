@@ -8,12 +8,16 @@
 	import * as _ from 'lamb';
 
 	import {page as _page} from '$app/stores';
+    import MetricTitle from '$lib/components/explorer/MetricTitle.svelte';
 	import Grid2Columns from '$lib/components/svizzle/Grid2Columns.svelte';
+    import GridRows from '$lib/components/svizzle/GridRows.svelte';
 	import Treemap from '$lib/components/svizzle/Treemap.svelte';
+	import View from '$lib/components/viewports/View.svelte';
 	import {_currentMetric} from '$lib/stores/navigation.js';
 	import {_isViewReady, _viewData} from '$lib/stores/view.js';
 	import {_histogramsTheme} from '$lib/stores/theme.js';
 	import {getDocCount} from '$lib/utils/getters.js';
+    import { _isSmallScreen } from '$lib/stores/layout.js';
 
 	const valueAccessor = getDocCount;
 
@@ -95,22 +99,24 @@
 </script>
 
 {#if doDraw}
-	<Grid2Columns
-		percents={[70, 30]}
-		gap='0.5em'
-	>
-		<div slot='col0' class='col'>
-			<div class='treemap'>
+	{#if $_isSmallScreen}
+		<View id='stats'>
+			<GridRows rowLayout='min-content 1fr'>
+				<MetricTitle />
+
 				<Treemap
 					{keyToColorFn}
 					{keyToColorLabelFn}
 					items={bins}
 					keyAccessor={treemapKeyAccessor}
 				/>
-			</div>
-		</div>
-		<div slot='col1' class='col'>
-			<div class='histogram'>
+			</GridRows>
+		</View>
+
+		<View id='barchart'>
+			<GridRows rowLayout='min-content 1fr'>
+				<MetricTitle />
+
 				<HistogramDiv
 					{bins}
 					{binsFill}
@@ -120,9 +126,38 @@
 					}}
 					theme={$_histogramsTheme}
 				/>
+			</GridRows>
+		</View>
+	{:else}
+		<Grid2Columns
+			percents={[70, 30]}
+			gap='0.5em'
+		>
+			<div slot='col0' class='col'>
+				<div class='treemap'>
+					<Treemap
+						{keyToColorFn}
+						{keyToColorLabelFn}
+						items={bins}
+						keyAccessor={treemapKeyAccessor}
+					/>
+				</div>
 			</div>
-		</div>
-	</Grid2Columns>
+			<div slot='col1' class='col'>
+				<div class='histogram'>
+					<HistogramDiv
+						{bins}
+						{binsFill}
+						geometry={{
+							safetyXTicks: 100, // TODO calc based on order of magn of ticks
+							safetyXValues: 50, // TODO calc based on order of magn of values
+						}}
+						theme={$_histogramsTheme}
+					/>
+				</div>
+			</div>
+		</Grid2Columns>
+	{/if}
 {/if}
 
 <style>
