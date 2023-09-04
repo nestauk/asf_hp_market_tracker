@@ -123,6 +123,18 @@ const tabsByRoute = {
 			transform: '',
 		},
 	],
+	'string/time': [
+		{
+			glyph: TrendingUp,
+			id: 'trends',
+			transform: '',
+		},
+		{
+			glyph: Legend,
+			id: 'legend',
+			transform: '',
+		},
+	],
 }
 
 export const getTabsIcons = route => {
