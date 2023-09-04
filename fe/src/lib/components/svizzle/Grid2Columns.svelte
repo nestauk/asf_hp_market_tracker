@@ -26,6 +26,7 @@
 		gap: var(--gap);
 		grid-template-columns: var(--p0) var(--p1);
 		height: 100%;
+		overflow: hidden;
 		width: 100%;
 	}
 	.col {

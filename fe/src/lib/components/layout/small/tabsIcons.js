@@ -97,6 +97,13 @@ const tabsByRoute = {
 			transform: 'rotate(90deg) rotateY(180deg)',
 		},
 	],
+	'number/time': [
+		{
+			glyph: TrendingUp,
+			id: 'trends',
+			transform: '',
+		},
+	],
 }
 
 export const getTabsIcons = route => {
