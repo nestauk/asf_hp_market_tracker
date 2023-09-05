@@ -1,3 +1,4 @@
+import {decapitalize} from '@svizzle/utils';
 import * as _ from 'lamb';
 import {derived, writable} from 'svelte/store';
 
@@ -8,7 +9,6 @@ import {
 } from '$lib/data/metrics.js';
 import {context} from '$lib/statechart/context.js';
 import {objectToSearchParams, risonifyValues} from '$lib/utils/svizzle/url.js';
-import {decapitalize} from '$lib/utils/svizzle/utils.js';
 
 export const _activeViewType = writable('stats');
 
