@@ -1,4 +1,5 @@
 <script>
+	import {makeStyleVars} from '@svizzle/dom';
 	import {isIterableEmpty} from '@svizzle/utils';
 	import {Icon, X} from '@svizzle/ui';
 	import * as _ from 'lamb';
@@ -6,6 +7,7 @@
 
 	import {metricLabelById} from '$lib/data/metrics.js';
 	import {_selection} from '$lib/stores/navigation.js';
+	import {_filtersNavigatorTheme} from '$lib/stores/theme.js';
 
 	const dispatch = createEventDispatcher();
 
@@ -47,9 +49,14 @@
 	$: activeFilterIds = getActiveFilterIds($_selection.filters);
 	$: hasFilters = activeFilterIds.length >= 1;
 	$: hasMultipleFilters = activeFilterIds.length >= 2;
+
+	$: style = makeStyleVars($_filtersNavigatorTheme);
 </script>
 
-<div class='FiltersNavigator'>
+<div
+	{style}
+	class='FiltersNavigator'
+>
 	{#if hasFilters}
 		<div
 			class='list'
@@ -62,7 +69,7 @@
 				on:mouseleave={clearMessage}
 			>
 				{#each activeFilterIds as id}
-					<div class='flex listItem clickable'>
+					<div class='flex listItem selection clickable'>
 						<span
 							class='label'
 							on:mouseenter={hoveredId(id)}
@@ -130,11 +137,15 @@
 
 	.list {
 		border-bottom: var(--border);
-		padding: 0.3em;
 	}
 	.listItem {
 		justify-content: space-between;
-		padding: 0.4em;
+		padding: 0.5em 0.7em;
+	}
+	.selection {
+		background-color: var(--backgroundColor);
+		border-bottom: var(--border);
+		color: var(--textColor);
 	}
 	.label {
 		flex: 1;

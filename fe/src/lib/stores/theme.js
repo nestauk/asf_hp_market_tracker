@@ -68,6 +68,14 @@ export const _barchartsTheme = derived(
 	})
 );
 
+export const _filtersNavigatorTheme = derived(
+	_currThemeVars,
+	currThemeVars => ({
+		backgroundColor: currThemeVars['--colorSelectedBackground'],
+		textColor: currThemeVars['--colorSelectedText'],
+	})
+);
+
 export const _framesTheme = derived(
 	_currThemeVars,
 	currThemeVars => ({
