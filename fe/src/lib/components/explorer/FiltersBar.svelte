@@ -16,6 +16,7 @@
 	import {explorerActor} from '$lib/statechart/index.js';
 	import {_staticData} from '$lib/stores/data.js';
 	import {_filtersBar} from '$lib/stores/filters.js';
+	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {_currentMetric, _selection} from '$lib/stores/navigation.js';
 	import {_rangeSlidersTheme} from '$lib/stores/theme.js';
 	import {getSelected} from '$lib/utils/getters.js';
@@ -199,6 +200,7 @@
 <div
 	{style}
 	class='FiltersBar'
+	class:small={$_isSmallScreen}
 >
 	<div class='navigator'>
 		<SizeSensor bind:blockSize={navHeight}>
@@ -209,6 +211,7 @@
 			/>
 		</SizeSensor>
 	</div>
+
 	<div class='filters'>
 		{#if $_filtersBar}
 			<Scroller>
@@ -270,10 +273,16 @@
 <style>
 	.FiltersBar {
 		display: grid;
+		grid-template-areas: "navigator" "filters";
 		grid-template-columns: 100%;
 		grid-template-rows: var(--navHeight) calc(100% - var(--navHeight));
 		height: 100%;
 		width: 100%;
+	}
+
+	.FiltersBar.small {
+		grid-template-areas: "filters" "navigator";
+		grid-template-rows: calc(100% - var(--navHeight)) var(--navHeight);
 	}
 
 	.navigator,
@@ -281,6 +290,12 @@
 		width: 100%;
 	}
 
+	.navigator {
+		grid-area: navigator;
+	}
+	.filter {
+		grid-area: filters;
+	}
 	h2 {
 		padding: 0 1rem 0.7em;
 		padding-top: 0.7rem;

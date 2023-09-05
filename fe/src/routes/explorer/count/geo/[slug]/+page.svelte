@@ -5,7 +5,7 @@
 	import * as _ from 'lamb';
 
 	import {page as _page} from '$app/stores';
-	import NumGeoView from '$lib/components/explorer/medium/NumGeoView.svelte';
+	import NumGeoView from '$lib/components/explorer/NumGeoView.svelte';
 	import {_viewCache} from '$lib/stores/data.js';
 	import {_currentMetric} from '$lib/stores/navigation.js';
 	import {_isViewReady, _viewData} from '$lib/stores/view.js';
