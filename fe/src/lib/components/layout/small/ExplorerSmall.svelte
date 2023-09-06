@@ -153,4 +153,7 @@
 		width: 100%;
 		height: 100%;
 	}
+	.info {
+		padding: 1.5em;
+	}
 </style>
