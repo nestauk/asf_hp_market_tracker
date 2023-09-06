@@ -17,6 +17,7 @@
     import MetricTitle from '$lib/components/explorer/MetricTitle.svelte';
 	import Grid2Columns from '$lib/components/svizzle/Grid2Columns.svelte';
 	import Grid2Rows from '$lib/components/svizzle/Grid2Rows.svelte';
+	import KeysLegend from '$lib/components/svizzle/legend/KeysLegend.svelte';
 	import Scroller from '$lib/components/svizzle/Scroller.svelte';
     import GridRows from '$lib/components/svizzle/GridRows.svelte';
 	import StreamGraph from '$lib/components/svizzle/trends/StreamGraph.svelte';
@@ -167,18 +168,10 @@
 				<MetricTitle />
 
 				<Scroller>
-					<ul>
-						{#each groups as group}
-							<li>
-								<!-- FIXME -->
-								<span
-									class='dot'
-									style='background-color:{groupToColorFn(group)}'
-								></span>
-								<span>{group}</span>
-							</li>
-						{/each}
-					</ul>
+					<KeysLegend
+						keyToColorFn={groupToColorFn}
+						keys={groups}
+					/>
 				</Scroller>
 
 				<FlexBar canWrap shouldWrapUp>
@@ -222,18 +215,10 @@
 					class='legend'
 					slot='col0'
 				>
-					<ul>
-						{#each groups as group}
-							<li>
-								<!-- FIXME -->
-								<span
-									class='dot'
-									style='background-color:{groupToColorFn(group)}'
-								></span>
-								<span>{group}</span>
-							</li>
-						{/each}
-					</ul>
+					<KeysLegend
+						keyToColorFn={groupToColorFn}
+						keys={groups}
+					/>
 				</div>
 				<div
 					class='col1'

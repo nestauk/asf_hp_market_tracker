@@ -4,7 +4,11 @@
 	import * as _ from 'lamb';
 
 	import Grid2Columns from '$lib/components/svizzle/Grid2Columns.svelte';
+	import GridRows from '$lib/components/svizzle/GridRows.svelte';
+	import KeysLegend from '$lib/components/svizzle/legend/KeysLegend.svelte';
+	import Scroller from '$lib/components/svizzle/Scroller.svelte';
 	import StatsTrends from '$lib/components/svizzle/trends/StatsTrends.svelte';
+	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {_framesTheme} from '$lib/stores/theme.js';
 
 	export let items;
@@ -14,105 +18,125 @@
 	$: items = items ?? [];
 
 	const areas = [
-		['min', '1.0'],
-		['1.0', '5.0'],
-		['5.0', '25.0'],
-		['25.0', '50.0'],
-		['50.0', '75.0'],
-		['75.0', '95.0'],
-		['95.0', '99.0'],
-		['99.0', 'max'],
+		['0', '1'],
+		['1', '5'],
+		['5', '25'],
+		['25', '50'],
+		['50', '75'],
+		['75', '95'],
+		['95', '99'],
+		['99', '100'],
 	];
 	const colorScheme = _.map(
 		areas,
 		(v, index) => interpolateColor(index / (areas.length - 1))
 	);
+	const avgTrendColor = 'magenta';
+
+	const areaLegendKeys = _.map(
+		_.reverse(areas),
+		([lowKey, highKey]) => `${lowKey}% - ${highKey}%`
+	);
 	const areaLowKeyToColor =
 		scaleOrdinal()
 		.domain(_.map(areas, _.head))
 		.range(colorScheme);
-	const avgTrendColor = 'magenta';
-
-	const trendLegendItems = [{color: avgTrendColor, label: 'Average'}];
-	const areaLegendItems = _.map(
-		_.reverse(areas),
-		([lowKey, highKey]) => {
-			const lowKeyString =
-				['min', 'max'].includes(lowKey) ? lowKey : `${lowKey}%`;
-			const highKeyString =
-				['min', 'max'].includes(highKey) ? highKey : `${highKey}%`;
-			const label = `${lowKeyString} - ${highKeyString}`;
-
-			return {
-				color: areaLowKeyToColor(lowKey),
-				label
-			}
-		}
-	);
+	const areaLegendKeysToColor =
+		scaleOrdinal()
+		.domain(areaLegendKeys)
+		.range(colorScheme);
 </script>
 
-<Grid2Columns
-	percents={[15, 85]}
-	gap='0.5em'
->
-	<!-- slot -->
+{#if $_isSmallScreen}
+	<GridRows rowLayout='1fr 2fr'>
+		<Scroller>
+			<div class='legend'>
+				<div class='legendBlock'>
+					<h3>Trends</h3>
+					<KeysLegend
+						keyToColorFn={_.always(avgTrendColor)}
+						keys={['Average']}
+					/>
+				</div>
+				<div class='legendBlock'>
+					<h3>Percentiles</h3>
+					<KeysLegend
+						keyToColorFn={areaLegendKeysToColor}
+						keys={areaLegendKeys}
+					/>
+				</div>
+			</div>
+		</Scroller>
 
-	<div
-		class='legend'
-		slot='col0'
+		<StatsTrends
+			{areaLowKeyToColor}
+			{items}
+			{keyFormatFn}
+			{valueFormatFn}
+			config={{areas, trends: ['avg']}}
+			geometry={{
+				safetyBottom: 50,
+				safetyLeft: 80,
+				safetyRight: 80,
+				safetyTop: 50,
+			}}
+			keyType='date'
+			theme={{
+				...$_framesTheme,
+				curveStroke: avgTrendColor
+			}}
+		/>
+	</GridRows>
+{:else}
+	<Grid2Columns
+		percents={[15, 85]}
+		gap='0.5em'
 	>
-		<div class='legendBlock'>
-			<h3>Trends</h3>
-			<ul>
-				{#each trendLegendItems as {color, label}}
-					<li>
-						<span
-							class='dot'
-							style='background-color:{color};border:thin solid var(--colorBorder);'
-						></span>
-						<span>{label}</span>
-					</li>
-				{/each}
-			</ul>
-		</div>
-		<div class='legendBlock'>
-			<h3>Percentiles</h3>
-			<ul>
-				{#each areaLegendItems as {color, label}}
-					<li>
-						<span
-							class='dot'
-							style='background-color:{color}'
-						></span>
-						<span>{label}</span>
-					</li>
-				{/each}
-			</ul>
-		</div>
-	</div>
+		<!-- slot -->
 
-	<!-- slot -->
+		<div
+			class='legend'
+			slot='col0'
+		>
+			<div class='legendBlock'>
+				<h3>Trends</h3>
+				<KeysLegend
+					keyToColorFn={_.always(avgTrendColor)}
+					keys={['Average']}
+				/>
+			</div>
+			<div class='legendBlock'>
+				<h3>Percentiles</h3>
+				<KeysLegend
+					keyToColorFn={areaLegendKeysToColor}
+					keys={areaLegendKeys}
+				/>
+			</div>
+		</div>
 
-	<StatsTrends
-		{areaLowKeyToColor}
-		{items}
-		{keyFormatFn}
-		{valueFormatFn}
-		config={{areas, trends: ['avg']}}
-		geometry={{
-			safetyBottom: 50,
-			safetyLeft: 80,
-			safetyRight: 80,
-			safetyTop: 50,
-		}}
-		keyType='date'
-		slot='col1'
-		theme={{
-			...$_framesTheme,
-			curveStroke: avgTrendColor
-		}}
-	/>
-</Grid2Columns>
+		<!-- slot -->
+
+		<StatsTrends
+			{areaLowKeyToColor}
+			{items}
+			{keyFormatFn}
+			{valueFormatFn}
+			config={{areas, trends: ['avg']}}
+			geometry={{
+				safetyBottom: 50,
+				safetyLeft: 80,
+				safetyRight: 80,
+				safetyTop: 50,
+			}}
+			keyType='date'
+			slot='col1'
+			theme={{
+				...$_framesTheme,
+				curveStroke: avgTrendColor
+			}}
+		/>
+	</Grid2Columns>
+{/if}
 
 <style>
 	.legend {

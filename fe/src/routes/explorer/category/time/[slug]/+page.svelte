@@ -18,6 +18,7 @@
 	import Grid2Columns from '$lib/components/svizzle/Grid2Columns.svelte';
 	import Grid2Rows from '$lib/components/svizzle/Grid2Rows.svelte';
 	import GridRows from '$lib/components/svizzle/GridRows.svelte';
+	import KeysLegend from '$lib/components/svizzle/legend/KeysLegend.svelte';
 	import StreamGraph from '$lib/components/svizzle/trends/StreamGraph.svelte';
 	import Trends from '$lib/components/svizzle/trends/Trends.svelte';
 	import View from '$lib/components/viewports/View.svelte';
@@ -171,21 +172,13 @@
 			<GridRows rowLayout='min-content 1fr'>
 				<MetricTitle />
 
-				<div
-					class='legend'
-				>
-					<ul>
-						{#each groups as group}
-							<li>
-								<span
-									class='dot'
-									style='background-color:{groupToColorFn(group)}'
-								></span>
-								<span>{group}</span>
-							</li>
-						{/each}
-					</ul>
+				<div class='small_legend'>
+					<KeysLegend
+						keyToColorFn={groupToColorFn}
+						keys={groups}
+					/>
 				</div>
+
 			</GridRows>
 		</View>
 	{/if}
@@ -213,17 +206,10 @@
 					class='legend'
 					slot='col0'
 				>
-					<ul>
-						{#each groups as group}
-							<li>
-								<span
-									class='dot'
-									style='background-color:{groupToColorFn(group)}'
-								></span>
-								<span>{group}</span>
-							</li>
-						{/each}
-					</ul>
+					<KeysLegend
+						keyToColorFn={groupToColorFn}
+						keys={groups}
+					/>
 				</div>
 				<div class='col1' slot='col1'>
 					{#if $_selection.categsTimeGraph === 'streams'}
@@ -294,6 +280,9 @@
 		width: 100%;
 	}
 
+	.small_legend {
+		text-align: center;
+	}
 	.two_rows {
 		display: grid;
 		grid-template-rows: 1fr min-content;
