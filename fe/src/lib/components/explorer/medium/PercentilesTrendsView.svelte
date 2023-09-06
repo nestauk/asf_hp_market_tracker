@@ -180,7 +180,7 @@
 	}
 
 	.col1 {
-		height: 95%;
+		height: 100%;
 		width: 100%;
 	}
 
