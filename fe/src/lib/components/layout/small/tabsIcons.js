@@ -1,5 +1,6 @@
 import {
 	BarChart,
+	BarChart2,
 	Filter,
 	Info,
 	Layout,
@@ -93,7 +94,7 @@ const tabsByRoute = {
 			transform: '',
 		},
 		{
-			glyph: BarChart,
+			glyph: BarChart2,
 			id: 'barchart',
 			transform: 'rotate(90deg) rotateY(180deg)',
 		},
