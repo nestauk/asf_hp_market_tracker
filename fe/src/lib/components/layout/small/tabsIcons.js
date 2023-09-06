@@ -2,6 +2,7 @@ import {
 	BarChart,
 	Filter,
 	Info,
+	Layout,
 	List,
 	MapPin,
 	PieChart,
@@ -25,7 +26,7 @@ const tabsByRoute = {
 	],
 	'category/stats': [
 		{
-			glyph: PieChart,
+			glyph: Layout,
 			id: 'stats',
 			transform: '',
 		},
