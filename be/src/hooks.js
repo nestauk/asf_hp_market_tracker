@@ -3,10 +3,11 @@ import rison from 'rison';
 import { minDocCount } from './conf.js';
 import { getDocumentCount } from './es.js';
 import { makeQuery } from './filter.js';
+import { calculateCoverage } from './util.js';
 
 // eslint-disable-next-line consistent-return
 export const onRequest = async (request, reply) => {
-	const { filter = null } = request.query;
+	const { field, field1, field2, filter = null } = request.query;
 
 	request.filter = filter
 		? makeQuery(rison.decode(filter))
@@ -14,27 +15,33 @@ export const onRequest = async (request, reply) => {
 
 	request.originalFilter = filter ? rison.decode(filter) : {};
 
+	const coverageFilter = filter ? request.filter.query.bool.filter : [];
+	const coverage = field
+		? await calculateCoverage(coverageFilter, field, null)
+		: await calculateCoverage(coverageFilter, field1, field2)
+	
+	reply.coverage = coverage;
 	reply.noData = false;
-	if (filter) {
-		const count = await getDocumentCount(request.filter);
-		if (count === 0) {
-			reply.noData = true;
-			reply.send({
-				code: 100,
-				message: 'No documents found for given filter'
-			});
-			return reply;
-		}
-		if (count < minDocCount) {
-			reply.noData = true;
-			reply.send({
-				code: 101,
-				data: { count },
-				message: 'minDocCount threshold exceeded',
-			});
-			return reply; // mandatory, so the request is not executed further
-		}
+	
+	const count = coverage.filtered;
+	if (count === 0) {
+		reply.noData = true;
+		reply.send({
+			code: 100,
+			message: 'No documents found for given filter'
+		});
+		return reply;
 	}
+	if (count < minDocCount) {
+		reply.noData = true;
+		reply.send({
+			code: 101,
+			data: { count },
+			message: 'minDocCount threshold exceeded',
+		});
+		return reply; // mandatory, so the request is not executed further
+	}
+	
 };
 
 export const formatPayload = async (request, reply, payload) => {
@@ -43,7 +50,8 @@ export const formatPayload = async (request, reply, payload) => {
 		: {
 			code: 200,
 			data: payload,
-			message: 'Aggregation successful',
+			coverage: reply.coverage,
+			message: 'aggregation successful',
 			request: {
 				agg: {
 					id: request.routerPath.slice(1),

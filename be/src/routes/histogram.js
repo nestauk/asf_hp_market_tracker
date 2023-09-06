@@ -8,7 +8,7 @@ export const getHistogram = async (request, reply) => {
 		field,
 	} = request.query;
 
-	const interval = await getIntervalForBins(index, field, bins);
+	const interval = await getIntervalForBins(field, bins);
 	request.meta = { interval };
 
 	const body = {
