@@ -18,14 +18,14 @@
 	$: items = items ?? [];
 
 	const areas = [
-		['0', '1'],
-		['1', '5'],
-		['5', '25'],
-		['25', '50'],
-		['50', '75'],
-		['75', '95'],
-		['95', '99'],
-		['99', '100'],
+		['min', '1.0'],
+		['1.0', '5.0'],
+		['5.0', '25.0'],
+		['25.0', '50.0'],
+		['50.0', '75.0'],
+		['75.0', '95.0'],
+		['95.0', '99.0'],
+		['99.0', 'max'],
 	];
 	const colorScheme = _.map(
 		areas,
@@ -35,7 +35,19 @@
 
 	const areaLegendKeys = _.map(
 		_.reverse(areas),
-		([lowKey, highKey]) => `${lowKey}% - ${highKey}%`
+		([lowKey, highKey]) => {
+			const lowKeyString =
+				['min', 'max'].includes(lowKey)
+					? lowKey
+					: `${lowKey.replace('.0', '')}%`;
+			const highKeyString =
+				['min', 'max'].includes(highKey)
+				? highKey
+				: `${highKey.replace('.0', '')}%`;
+			const label = `${lowKeyString} - ${highKeyString}`;
+
+			return label;
+		}
 	);
 	const areaLowKeyToColor =
 		scaleOrdinal()
