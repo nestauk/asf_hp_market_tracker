@@ -48,25 +48,29 @@
 </script>
 
 {#if $_isSmallScreen}
-	<GridRows rowLayout='1fr 2fr'>
-		<Scroller>
-			<div class='legend'>
-				<div class='legendBlock'>
-					<h3>Trends</h3>
-					<KeysLegend
-						keyToColorFn={_.always(avgTrendColor)}
-						keys={['Average']}
-					/>
-				</div>
-				<div class='legendBlock'>
-					<h3>Percentiles</h3>
-					<KeysLegend
-						keyToColorFn={areaLegendKeysToColor}
-						keys={areaLegendKeys}
-					/>
-				</div>
+	<GridRows rowLayout='1fr 3fr'>
+		<div class='small_legend'>
+			<h3 style:grid-area='avgTitle'>Trends</h3>
+			<div style:grid-area='avg'>
+				<KeysLegend
+					keyToColorFn={_.always(avgTrendColor)}
+					keys={['Average']}
+				/>
 			</div>
-		</Scroller>
+			<h3 style:grid-area='percentTitle'>Percentiles</h3>
+			<div style:grid-area='percentiles1'>
+				<KeysLegend
+					keyToColorFn={areaLegendKeysToColor}
+					keys={_.takeFrom(areaLegendKeys, 4)}
+				/>
+			</div>
+			<div style:grid-area='percentiles2'>
+				<KeysLegend
+					keyToColorFn={areaLegendKeysToColor}
+					keys={_.dropFrom(areaLegendKeys, 4)}
+				/>
+			</div>
+		</div>
 
 		<StatsTrends
 			{areaLowKeyToColor}
@@ -166,5 +170,14 @@
 	.col1 {
 		height: 95%;
 		width: 100%;
+	}
+
+	.small_legend {
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
+		grid-template-rows: min-content 1fr;
+		grid-template-areas:
+			"avgTitle percentTitle percentTitle"
+			"avg percentiles1 percentiles2";
 	}
 </style>

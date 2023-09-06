@@ -88,7 +88,7 @@ const tabsByRoute = {
 	],
 	'number/stats': [
 		{
-			glyph: PieChart,
+			glyph: Layout,
 			id: 'stats',
 			transform: '',
 		},
@@ -114,7 +114,7 @@ const tabsByRoute = {
 	],
 	'string/stats': [
 		{
-			glyph: PieChart,
+			glyph: Layout,
 			id: 'stats',
 			transform: '',
 		},
