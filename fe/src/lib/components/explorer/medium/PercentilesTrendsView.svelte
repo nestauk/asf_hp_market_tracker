@@ -38,11 +38,11 @@
 		([lowKey, highKey]) => {
 			const lowKeyString =
 				['min', 'max'].includes(lowKey)
-					? lowKey
+					? '0%'
 					: `${lowKey.replace('.0', '')}%`;
 			const highKeyString =
 				['min', 'max'].includes(highKey)
-				? highKey
+				? '100%'
 				: `${highKey.replace('.0', '')}%`;
 			const label = `${lowKeyString} - ${highKeyString}`;
 
