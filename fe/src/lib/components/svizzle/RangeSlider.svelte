@@ -88,6 +88,10 @@
 		max = scale.invert(value);
 	}
 
+	const cancelPanelTouchStart = event => {
+		event.preventDefault();
+	}
+
 	const createStartDragging = ({isMinKnob}) => event => {
 		isDraggingMin = isMinKnob;
 		event.target.onpointermove = isMinKnob ? handleMinDrag : handleMaxDrag;
@@ -160,6 +164,7 @@
 <div
 	{style}
 	class='RangeSlider'
+	on:touchstart={cancelPanelTouchStart}
 >
 	<div class='output'>
 		{formatFn?.(min) || min} - {formatFn?.(max) || max}
