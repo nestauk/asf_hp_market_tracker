@@ -39,7 +39,7 @@
 	const onResetAll = () => dispatch('resetAll');
 
 	const getActiveFilterIds = _.pipe([
-		_.skip(['installerRegionType', 'propertyRegionType']),
+		_.skip(['installation_date', 'installerRegionType', 'propertyRegionType']),
 		_.rename({
 			installerRegionNames: 'installer_geo_region',
 			propertyRegionNames: 'property_geo_region',
