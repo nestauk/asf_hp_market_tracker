@@ -11,13 +11,18 @@
 
 	import {page as _page} from '$app/stores';
 	import FlexBar from '$lib/components/explorer/FlexBar.svelte';
+    import MetricTitle from '$lib/components/explorer/MetricTitle.svelte';
 	import SelectionXor
 		from '$lib/components/explorer/medium/SelectionXor.svelte';
 	import SelectorInterval from '$lib/components/explorer/medium/SelectorInterval.svelte';
 	import Grid2Columns from '$lib/components/svizzle/Grid2Columns.svelte';
 	import Grid2Rows from '$lib/components/svizzle/Grid2Rows.svelte';
+	import GridRows from '$lib/components/svizzle/GridRows.svelte';
+	import KeysLegend from '$lib/components/svizzle/legend/KeysLegend.svelte';
 	import StreamGraph from '$lib/components/svizzle/trends/StreamGraph.svelte';
 	import Trends from '$lib/components/svizzle/trends/Trends.svelte';
+	import View from '$lib/components/viewports/View.svelte';
+	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {_currentMetric, _selection} from '$lib/stores/navigation.js';
 	import {_currThemeVars, _framesTheme} from '$lib/stores/theme.js';
 	import {_isViewReady, _viewData} from '$lib/stores/view.js';
@@ -101,42 +106,12 @@
 	}
 </script>
 
-<Grid2Rows percents={[10, 90]}>
-	<FlexBar>
-		<SelectorInterval />
-		<SelectionXor
-			name='categsTimeGraph'
-			values={['trends', 'streams']}
-		/>
-		{#if showStreams}
-			<SelectionXor
-				name='categsStreamgraphsSorting'
-				values={['off', 'asc', 'desc']}
-			/>
-		{/if}
-	</FlexBar>
+{#if $_isSmallScreen}
 	{#if doDraw}
-		<Grid2Columns
-			percents={[15, 85]}
-			gap='0.5em'
-		>
-			<div
-				class='legend'
-				slot='col0'
-			>
-				<ul>
-					{#each groups as group}
-						<li>
-							<span
-								class='dot'
-								style='background-color:{groupToColorFn(group)}'
-							></span>
-							<span>{group}</span>
-						</li>
-					{/each}
-				</ul>
-			</div>
-			<div class='col1' slot='col1'>
+		<View id='trends'>
+			<GridRows rowLayout='min-content 1fr min-content'>
+				<MetricTitle />
+
 				{#if $_selection.categsTimeGraph === 'streams'}
 					<StreamGraph
 						{groups}
@@ -153,7 +128,6 @@
 						sorting={$_selection.categsStreamgraphsSorting}
 						theme={$_framesTheme}
 					/>
-
 				{:else}
 					<Trends
 						{trends}
@@ -173,10 +147,112 @@
 						}}
 					/>
 				{/if}
-			</div>
-		</Grid2Columns>
+
+				<FlexBar
+					canWrap={true}
+					shouldWrapUp={true}
+				>
+					<SelectorInterval />
+					<SelectionXor
+						name='categsTimeGraph'
+						values={['trends', 'streams']}
+					/>
+					{#if showStreams}
+						<SelectionXor
+							name='categsStreamgraphsSorting'
+							values={['off', 'asc', 'desc']}
+						/>
+					{/if}
+				</FlexBar>
+			</GridRows>
+	
+		</View>
+
+		<View id='legend'>
+			<GridRows rowLayout='min-content 1fr'>
+				<MetricTitle />
+
+				<div class='small_legend'>
+					<KeysLegend
+						keyToColorFn={groupToColorFn}
+						keys={groups}
+					/>
+				</div>
+
+			</GridRows>
+		</View>
 	{/if}
-</Grid2Rows>
+{:else}
+	<Grid2Rows percents={[10, 90]}>
+		<FlexBar>
+			<SelectorInterval />
+			<SelectionXor
+				name='categsTimeGraph'
+				values={['trends', 'streams']}
+			/>
+			{#if showStreams}
+				<SelectionXor
+					name='categsStreamgraphsSorting'
+					values={['off', 'asc', 'desc']}
+				/>
+			{/if}
+		</FlexBar>
+		{#if doDraw}
+			<Grid2Columns
+				percents={[15, 85]}
+				gap='0.5em'
+			>
+				<div
+					class='legend'
+					slot='col0'
+				>
+					<KeysLegend
+						keyToColorFn={groupToColorFn}
+						keys={groups}
+					/>
+				</div>
+				<div class='col1' slot='col1'>
+					{#if $_selection.categsTimeGraph === 'streams'}
+						<StreamGraph
+							{groups}
+							{groupToColorFn}
+							{points}
+							{valueFormatFn}
+							geometry={{
+								safetyBottom: 50,
+								safetyLeft: 80,
+								safetyRight: 80,
+								safetyTop: 50,
+							}}
+							keyType='date'
+							sorting={$_selection.categsStreamgraphsSorting}
+							theme={$_framesTheme}
+						/>
+
+					{:else}
+						<Trends
+							{trends}
+							{valueFormatFn}
+							geometry={{
+								safetyBottom: 50,
+								safetyLeft: 80,
+								safetyRight: 80,
+								safetyTop: 50,
+							}}
+							keyToColorFn={groupToColorFn}
+							keyType='date'
+							slot='col1'
+							theme={{
+								...$_framesTheme,
+								curveStroke: $_currThemeVars['--colorBorderAux']
+							}}
+						/>
+					{/if}
+				</div>
+			</Grid2Columns>
+		{/if}
+	</Grid2Rows>
+{/if}
 
 <style>
 	.legend {
@@ -200,7 +276,18 @@
 	}
 
 	.col1 {
-		height: 95%;
+		height: 100%;
 		width: 100%;
+	}
+
+	.small_legend {
+		text-align: center;
+	}
+	.two_rows {
+		display: grid;
+		grid-template-rows: 1fr min-content;
+		height: 100%;
+		width: 100%;
+		overflow: hidden;
 	}
 </style>

@@ -18,12 +18,17 @@
 	import {Mapbox} from '@svizzle/mapbox'; // workspace
 
 	import FlexBar from '$lib/components/explorer/FlexBar.svelte';
+	import MetricTitle from '$lib/components/explorer/MetricTitle.svelte';
 	import SelectorRegionType
 		from '$lib/components/explorer/medium/SelectorRegionType.svelte';
 	import Grid3Columns from '$lib/components/svizzle/Grid3Columns.svelte';
 	import Grid2Rows from '$lib/components/svizzle/Grid2Rows.svelte';
+	import GridRows from '$lib/components/svizzle/GridRows.svelte';
+	import Scroller from '$lib/components/svizzle/Scroller.svelte';
+	import View from '$lib/components/viewports/View.svelte';
 	import XorNavigator from '$lib/components/svizzle/ui/XorNavigator.svelte';
 	import {MAPBOXGL_ACCESSTOKEN as accessToken} from '$lib/config/map.js';
+	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {
 		_featureNameId,
 		_mapStyle,
@@ -177,40 +182,27 @@
 	}
 </script>
 
-<Grid2Rows percents={[10, 90]}>
-	<FlexBar>
-		<SelectorRegionType />
-	</FlexBar>
+{#if $_isSmallScreen}
 	{#if doDraw}
-		<Grid3Columns
-			percents={[10, 60, 30]}
-			gap='0.25em'
-		>
-			<div
-				class='col0'
-				slot='col0'
-			>
-				<div class='legend'>
-					<ColorBinsDiv
-						bins={legendBins}
-						flags={{
-							isVertical: true,
-						}}
-						geometry={{
-							left: 0,
-							right: 50,
-						}}
-						padding=0
-						theme={$_legendsTheme}
-						ticksFormatFn={formatFn}
-					/>
-				</div>
-			</div>
+		<View id='map'>
+			<GridRows rowLayout='min-content 4em 1fr min-content min-content'>
+				<MetricTitle />
 
-			<div
-				class='col1'
-				slot='col1'
-			>
+				<ColorBinsDiv
+					bins={legendBins}
+					flags={{
+						isVertical: false,
+						showTicksExtentOnly: true
+					}}
+					geometry={{
+						left: 50,
+						right: 50,
+					}}
+					padding=0
+					theme={$_legendsTheme}
+					ticksFormatFn={formatFn}
+				/>
+
 				<div class='map'>
 					<Mapbox
 						{_zoom}
@@ -229,25 +221,121 @@
 						{$_currentMetric.geoPrefix} regions
 					</span>
 				</div>
+
 				<XorNavigator
 					{valuesToLabels}
 					currentValue={currentKey}
 					on:changed={onKeyChange}
 					theme={$_xorNavigatorTheme}
 				/>
-			</div>
-			<BarchartVDiv
-				{formatFn}
-				{title}
-				items={currentItems}
-				shouldResetScroll={true}
-				slot='col2'
-				theme={$_barchartsTheme}
-				valueToColorFn={colorScale}
-			/>
-		</Grid3Columns>
+
+				<FlexBar>
+					<SelectorRegionType />
+				</FlexBar>
+			</GridRows>
+		</View>
+
+		<View id='barchart'>
+			<GridRows rowLayout='min-content 1fr min-content min-content'>
+				<MetricTitle />
+
+				<Scroller>
+					<BarchartVDiv
+						{formatFn}
+						{title}
+						items={currentItems}
+						shouldResetScroll={true}
+						theme={$_barchartsTheme}
+						valueToColorFn={colorScale}
+					/>
+				</Scroller>
+	
+				<XorNavigator
+					{valuesToLabels}
+					currentValue={currentKey}
+					on:changed={onKeyChange}
+					theme={$_xorNavigatorTheme}
+				/>
+	
+				<FlexBar>
+					<SelectorRegionType />
+				</FlexBar>
+			</GridRows>
+		</View>
 	{/if}
-</Grid2Rows>
+{:else}
+	<Grid2Rows percents={[10, 90]}>
+		<FlexBar>
+			<SelectorRegionType />
+		</FlexBar>
+		{#if doDraw}
+			<Grid3Columns
+				percents={[10, 60, 30]}
+				gap='0.25em'
+			>
+				<div
+					class='col0'
+					slot='col0'
+				>
+					<div class='legend'>
+						<ColorBinsDiv
+							bins={legendBins}
+							flags={{
+								isVertical: true,
+							}}
+							geometry={{
+								left: 0,
+								right: 50,
+							}}
+							padding=0
+							theme={$_legendsTheme}
+							ticksFormatFn={formatFn}
+						/>
+					</div>
+				</div>
+
+				<div
+					class='col1'
+					slot='col1'
+				>
+					<div class='map'>
+						<Mapbox
+							{_zoom}
+							{accessToken}
+							{getFeatureState}
+							bounds={$_selectedBbox}
+							isAnimated={false}
+							isInteractive={false}
+							reactiveLayers={[regionType]}
+							style={$_mapStyle}
+							visibleLayers={['nuts21_0', regionType]}
+							withScaleControl={false}
+							withZoomControl={false}
+						/>
+						<span style={regionKindStyle}>
+							{$_currentMetric.geoPrefix} regions
+						</span>
+					</div>
+					<XorNavigator
+						{valuesToLabels}
+						currentValue={currentKey}
+						on:changed={onKeyChange}
+						theme={$_xorNavigatorTheme}
+					/>
+				</div>
+				<BarchartVDiv
+					{formatFn}
+					{title}
+					items={currentItems}
+					shouldResetScroll={true}
+					slot='col2'
+					theme={$_barchartsTheme}
+					valueToColorFn={colorScale}
+				/>
+			</Grid3Columns>
+		{/if}
+	</Grid2Rows>
+{/if}
 
 <style>
 	.main {
@@ -255,14 +343,6 @@
 		grid-template-rows: min-content 1fr;
 		height: 100%;
 		overflow: hidden;
-	}
-	.threeRows {
-		display: grid;
-		gap: 1.5em;
-		grid-template-rows: min-content min-content 1fr;
-		height: 100%;
-		overflow: hidden;
-		width: 100%;
 	}
 	.col0 {
 		align-items: center;
@@ -287,6 +367,7 @@
 	}
 	.map {
 		position: relative;
+		width: 100%;
 	}
 	.map > span {
 		background-color: var(--backgroundColor);

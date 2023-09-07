@@ -15,13 +15,17 @@
 	import KeysLegend
 		from '$lib/components/svizzle/legend/KeysLegend.svelte';
 	import FlexBar from '$lib/components/explorer/FlexBar.svelte';
+	import MetricTitle from '$lib/components/explorer/MetricTitle.svelte';
 	import StackedBarchart
 		from '$lib/components/svizzle/StackedBarchart.svelte';
 	import SelectionXor
 		from '$lib/components/explorer/medium/SelectionXor.svelte';
 	import SelectorRegionType
 		from '$lib/components/explorer/medium/SelectorRegionType.svelte';
+	import View from '$lib/components/viewports/View.svelte';
 	import Grid2Columns from '$lib/components/svizzle/Grid2Columns.svelte';
+    import GridRows from '$lib/components/svizzle/GridRows.svelte';
+    import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {_selection} from '$lib/stores/navigation.js';
 	import {_legendsTheme, _stackedBarchartTheme} from '$lib/stores/theme.js';
 	import {
@@ -118,46 +122,91 @@
 	}
 </script>
 
-<div class='twoRows'>
-	<FlexBar>
-		<SelectorRegionType />
-		<SelectionXor
-			name='stringsGeoSortBy'
-			values={['total', 'regionName']}
-		/>
-		<SelectionXor
-			name='stackedBarsExtents'
-			values={['absolute', 'percent']}
-		/>
-	</FlexBar>
-
+{#if $_isSmallScreen}
 	{#if doDraw}
-		<div class='gridcontainer'>
-			<Grid2Columns
-				percents={[25, 75]}
-				gap='0.25em'
-			>
-				<KeysLegend
-					keys={groupIds}
-					keyToColorFn={groupToColorFn}
-					slot='col0'
-				/>
+		<View id='strings'>
+			<GridRows rowLayout='min-content 1fr min-content'>
+				<MetricTitle />
 
-				<StackedBarchart
-					{domain}
-					{groupIds}
-					{groupToColorFn}
-					{stacks}
-					extentsType={$_selection.stackedBarsExtents}
-					groupSortBy={$_selection.stringsGeoSortBy}
-					shouldResetScroll={true}
-					slot='col1'
-					theme={$_stackedBarchartTheme}
-				/>
-			</Grid2Columns>
-		</div>
- 	{/if}
-</div>
+				<Grid2Columns
+					percents={[25, 75]}
+					gap='0.25em'
+				>
+					<KeysLegend
+						keys={groupIds}
+						keyToColorFn={groupToColorFn}
+						slot='col0'
+					/>
+
+					<StackedBarchart
+						{domain}
+						{groupIds}
+						{groupToColorFn}
+						{stacks}
+						extentsType={$_selection.stackedBarsExtents}
+						groupSortBy={$_selection.stringsGeoSortBy}
+						shouldResetScroll={true}
+						slot='col1'
+						theme={$_stackedBarchartTheme}
+					/>
+				</Grid2Columns>
+
+				<FlexBar canWrap shouldWrapUp>
+					<SelectorRegionType />
+					<SelectionXor
+						name='stringsGeoSortBy'
+						values={['total', 'regionName']}
+					/>
+					<SelectionXor
+						name='stackedBarsExtents'
+						values={['absolute', 'percent']}
+					/>		
+				</FlexBar>
+			</GridRows>
+		</View>
+	{/if}
+{:else}
+	<div class='twoRows'>
+		<FlexBar>
+			<SelectorRegionType />
+			<SelectionXor
+				name='stringsGeoSortBy'
+				values={['total', 'regionName']}
+			/>
+			<SelectionXor
+				name='stackedBarsExtents'
+				values={['absolute', 'percent']}
+			/>
+		</FlexBar>
+
+		{#if doDraw}
+			<div class='gridcontainer'>
+				<Grid2Columns
+					percents={[25, 75]}
+					gap='0.25em'
+				>
+					<KeysLegend
+						keys={groupIds}
+						keyToColorFn={groupToColorFn}
+						slot='col0'
+					/>
+
+					<StackedBarchart
+						{domain}
+						{groupIds}
+						{groupToColorFn}
+						{stacks}
+						extentsType={$_selection.stackedBarsExtents}
+						groupSortBy={$_selection.stringsGeoSortBy}
+						shouldResetScroll={true}
+						slot='col1'
+						theme={$_stackedBarchartTheme}
+					/>
+				</Grid2Columns>
+			</div>
+		{/if}
+	</div>
+{/if}
 
 <style>
 	.main {

@@ -1,4 +1,21 @@
-<div class='FlexBar'>
+<script>
+	export let canWrap;
+	export let shouldWrapUp;
+
+	$: canWrap = canWrap || false;
+	$: shouldWrapUp = shouldWrapUp || false;
+	$: console.log('shouldWrapUp', canWrap, shouldWrapUp)
+	$: wrap = canWrap
+		? shouldWrapUp
+			? 'wrap-reverse'
+			: 'wrap'
+		: 'nowrap';
+</script>
+
+<div
+	class='FlexBar'
+	style='flex-wrap: {wrap};'
+>
 	<slot />
 </div>
 

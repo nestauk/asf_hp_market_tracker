@@ -6,6 +6,7 @@
 	import {createEventDispatcher} from 'svelte';
 
 	import {metricLabelById} from '$lib/data/metrics.js';
+	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {_selection} from '$lib/stores/navigation.js';
 	import {_filtersNavigatorTheme} from '$lib/stores/theme.js';
 
@@ -114,7 +115,7 @@
 			{/if}
 		</div>
 	{/if}
-	{#if message}
+	{#if message && !$_isSmallScreen}
 		<div class='flex message'>
 			{message}
 		</div>

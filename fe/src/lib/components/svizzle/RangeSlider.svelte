@@ -149,7 +149,7 @@
 			return {
 				height: binHeight,
 				selected: x >= minX && x < maxX,
-				width: binWidth,
+				width: Math.max(0, binWidth),
 				x,
 				y: bbox.height - binHeight + geometry.safetyTop,
 			}

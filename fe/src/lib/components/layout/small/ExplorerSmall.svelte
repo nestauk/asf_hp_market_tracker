@@ -59,9 +59,14 @@
 				<GridRows rowLayout='min-content 1fr'>
 					<MetricTitle />
 
-					<div class='info'>
-						<svelte:component this={metricInfos[$_currentMetricId]} />
-					</div>	
+					<CenteredView
+						backgroundColor={$_currThemeVars['--colorBackground']}
+						color={$_currThemeVars['--colorText']}
+					>
+						<div class='info'>
+							<svelte:component this={metricInfos[$_currentMetricId]} />
+						</div>
+					</CenteredView>
 				</GridRows>
 			</View>
 
@@ -147,5 +152,8 @@
 		left: 0;
 		width: 100%;
 		height: 100%;
+	}
+	.info {
+		padding: 1.5em;
 	}
 </style>

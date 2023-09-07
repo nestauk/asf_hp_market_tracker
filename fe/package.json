@@ -2,7 +2,7 @@
 	"dependencies": {
 		"@svizzle/barchart": "^0.10.1",
 		"@svizzle/dom": "^0.7.2",
-		"@svizzle/histogram": "^0.6.4",
+		"@svizzle/histogram": "^0.6.5",
 		"@svizzle/legend": "^0.4.4",
 		"@svizzle/ui": "^0.10.0",
 		"@svizzle/utils": "^0.20.0",

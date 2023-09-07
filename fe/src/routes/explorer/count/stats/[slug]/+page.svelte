@@ -3,8 +3,13 @@
 	import * as _ from 'lamb';
 
 	import {page as _page} from '$app/stores';
+    import MetricTitle from '$lib/components/explorer/MetricTitle.svelte';
+    import GridRows from '$lib/components/svizzle/GridRows.svelte';
+	import View from '$lib/components/viewports/View.svelte';
 	import {_viewCache} from '$lib/stores/data.js';
 	import {_currentMetric} from '$lib/stores/navigation.js';
+	import {_isSmallScreen} from '$lib/stores/layout.js';
+	import {_currThemeVars} from '$lib/stores/theme.js';
 	import {_isViewReady, _viewData} from '$lib/stores/view.js';
 	import {
 		getCardinalityValue,
@@ -83,5 +88,23 @@
 </script>
 
 {#if doDraw}
-	<MessageView {text} />
+	{#if $_isSmallScreen}
+		<View id='stats' >
+			<GridRows rowLayout='min-content 1fr'>
+				<MetricTitle />
+		
+				<MessageView
+					backgroundColor={$_currThemeVars['--colorBackground']}
+					color={$_currThemeVars['--colorText']}
+					{text}
+				/>
+			</GridRows>
+		</View>
+	{:else}
+		<MessageView
+			backgroundColor={$_currThemeVars['--colorBackground']}
+			color={$_currThemeVars['--colorText']}
+			{text}
+		/>
+	{/if}	
 {/if}

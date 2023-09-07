@@ -14,8 +14,12 @@
 		from '$lib/components/explorer/medium/SelectionXor.svelte';
 	import SelectorInterval
 		from '$lib/components/explorer/medium/SelectorInterval.svelte';
+	import MetricTitle from '$lib/components/explorer/MetricTitle.svelte';
 	import Grid2Rows from '$lib/components/svizzle/Grid2Rows.svelte';
+    import GridRows from '$lib/components/svizzle/GridRows.svelte';
 	import Trends from '$lib/components/svizzle/trends/Trends.svelte';
+	import View from '$lib/components/viewports/View.svelte';
+    import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {_currentMetric, _selection} from '$lib/stores/navigation.js';
 	import {_currThemeVars, _framesTheme} from '$lib/stores/theme.js';
 	import {_isViewReady, _viewData} from '$lib/stores/view.js';
@@ -68,40 +72,81 @@
 	}
 </script>
 
-<Grid2Rows percents={[10, 90]}>
-	<FlexBar>
-		<SelectorInterval />
-		<SelectionXor
-			name='numTimeGraph'
-			values={['percentiles', 'average']}
-		/>
-	</FlexBar>
-
+{#if $_isSmallScreen}
 	{#if doDraw}
-		{#if $_selection.numTimeGraph === 'percentiles'}
-			<PercentilesTrendsView
-				{items}
-				valueFormatFn={$_currentMetric?.formatFn}
-			/>
-		{:else}
-			<Trends
-				{trends}
-				geometry={{
-					safetyBottom: 50,
-					safetyLeft: 80,
-					safetyRight: 80,
-					safetyTop: 50,
-				}}
-				keyType='date'
-				theme={{
-					...$_framesTheme,
-					curveStroke: $_currThemeVars['--colorBorderAux']
-				}}
-				valueFormatFn={$_currentMetric?.formatFn}
-			/>
-		{/if}
+		<View id='trends'>
+			<GridRows rowLayout='min-content 1fr min-content'>
+				<MetricTitle />
+
+				{#if $_selection.numTimeGraph === 'percentiles'}
+					<PercentilesTrendsView
+						{items}
+						valueFormatFn={$_currentMetric?.formatFn}
+					/>
+				{:else}
+					<Trends
+						{trends}
+						geometry={{
+							safetyBottom: 50,
+							safetyLeft: 80,
+							safetyRight: 80,
+							safetyTop: 50,
+						}}
+						keyType='date'
+						theme={{
+							...$_framesTheme,
+							curveStroke: $_currThemeVars['--colorBorderAux']
+						}}
+						valueFormatFn={$_currentMetric?.formatFn}
+					/>
+				{/if}
+
+				<FlexBar canWrap shouldWrapUp>
+					<SelectorInterval />
+					<SelectionXor
+						name='numTimeGraph'
+						values={['percentiles', 'average']}
+					/>
+				</FlexBar>		
+			</GridRows>
+		</View>
 	{/if}
-</Grid2Rows>
+{:else}
+	<Grid2Rows percents={[10, 90]}>
+		<FlexBar>
+			<SelectorInterval />
+			<SelectionXor
+				name='numTimeGraph'
+				values={['percentiles', 'average']}
+			/>
+		</FlexBar>
+
+		{#if doDraw}
+			{#if $_selection.numTimeGraph === 'percentiles'}
+				<PercentilesTrendsView
+					{items}
+					valueFormatFn={$_currentMetric?.formatFn}
+				/>
+			{:else}
+				<Trends
+					{trends}
+					geometry={{
+						safetyBottom: 50,
+						safetyLeft: 80,
+						safetyRight: 80,
+						safetyTop: 50,
+					}}
+					keyType='date'
+					theme={{
+						...$_framesTheme,
+						curveStroke: $_currThemeVars['--colorBorderAux']
+					}}
+					valueFormatFn={$_currentMetric?.formatFn}
+				/>
+			{/if}
+		{/if}
+	</Grid2Rows>
+{/if}
 
 <style>
 	.legend {
@@ -129,7 +174,7 @@
 	}
 
 	.col1 {
-		height: 95%;
+		height: 100%;
 		width: 100%;
 	}
 </style>
