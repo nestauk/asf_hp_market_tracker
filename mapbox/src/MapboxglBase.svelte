@@ -249,6 +249,7 @@
 
 			$_map = map;
 			$_projectFn = map.project.bind(map);
+			$_map.resize();
 		});
 
 		map.touchZoomRotate.disableRotation();
