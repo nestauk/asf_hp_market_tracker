@@ -7,7 +7,18 @@ import { calculateCoverage } from './util.js';
 
 // eslint-disable-next-line consistent-return
 export const onRequest = async (request, reply) => {
-	const { field, field1, field2, filter = null } = request.query;
+
+	let { field, field1, field2, filter = null } = request.query;
+
+	/* Special routes where field is not specified */
+	switch (request.routerPath) {
+		case '/count':
+			field = '_id' // all fields have _id so only the filter will affect outcomes
+			break
+		case '/certified':
+			field = 'installer_id_hash'
+			break
+	}
 
 	request.filter = filter
 		? makeQuery(rison.decode(filter))
