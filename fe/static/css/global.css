@@ -129,11 +129,12 @@ a {
 	--colorWarningBorder: darkorange;
 	--colorWarningText: white;
 
-	/* views */
+	/* quick stats */
 
-	--colorView1: rgb(36, 175, 217);
-	--colorView2: rgb(240, 176, 58);
-	--colorView3: rgb(113, 231, 144);
+	--colorStatsBorder: #333;
+	--colorStatsFiltered: rgb(113, 231, 144);
+	--colorStatsFilteredOut: rgb(240, 176, 58);
+	--colorStatsUnretrievable: rgb(36, 175, 217);
 
 	/* timeline */
 
@@ -205,11 +206,12 @@ a {
 	--colorWarningBorder: rgb(109, 60, 1);
 	--colorWarningText: #333;
 
-	/* views */
+	/* quick stats */
 
-	--colorView1: rgb(36, 175, 217);
-	--colorView2: rgb(240, 176, 58);
-	--colorView3: rgb(113, 231, 144);
+	--colorStatsBorder: white;
+	--colorStatsFiltered: rgb(113, 231, 144);
+	--colorStatsFilteredOut: rgb(240, 176, 58);
+	--colorStatsUnretrievable: rgb(36, 175, 217);
 
 	/* timeline */
 

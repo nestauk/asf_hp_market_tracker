@@ -2,11 +2,17 @@
 	import {CenteredView, Icon, Info, LoadingView} from '@svizzle/ui';
 
 	import * as metricInfos from '$lib/_content/metrics/index.js';
-	import ViewSelector from '$lib/components/explorer/medium/ViewSelector.svelte';
+	import QuickStatsMedium
+		from '$lib/components/explorer/medium/QuickStatsMedium.svelte';
+	import ViewSelector
+		from '$lib/components/explorer/medium/ViewSelector.svelte';
 	import Banner from '$lib/components/svizzle/Banner.svelte'
 	import Pill from '$lib/components/svizzle/ui/Pill.svelte'
 	import {noDataMessage} from '$lib/config/text.js';
-	import {_currentMetricId, _currentMetricTitle} from '$lib/stores/navigation.js';
+	import {
+		_currentMetricId,
+		_currentMetricTitle,
+	} from '$lib/stores/navigation.js';
 	import {
 		_bannersTheme,
 		_currThemeVars,
@@ -47,12 +53,16 @@
 		<ViewSelector />
 	</header>
 	<main>
+
+		<!-- main grid -->
+
 		<div class='charts'>
 			<slot />
 		</div>
-		<div class='coverage'>
-			coverage
-		</div>
+
+		<QuickStatsMedium />
+
+		<!-- overlays -->
 
 		{#if $_isViewLoading}
 			<div class='overlay'>
@@ -115,19 +125,11 @@
 	}
 	main {
 		display: grid;
-		grid-template-rows: 93% 7%;
+		grid-template-rows: 90% 10%;
 		position: relative;
 	}
 	.charts {
 		padding: 1em;
-	}
-	.coverage {
-		align-items: center;
-		display: flex;
-		height: 100%;
-		justify-content: center;
-		padding: 0 1em 1em;
-		width: 100%;
 	}
 	.overlay {
 		height: 100%;

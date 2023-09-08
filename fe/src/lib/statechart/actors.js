@@ -12,11 +12,24 @@ const query = backendPath =>
 export const queryViewData = ({viewQueryPath}) => query(viewQueryPath);
 
 export const queryStaticData = () => {
-	const timelinesPromises = _.map(intervals, calendar_interval => {
-		const endpoint = 'date_histogram';
+	const catTermsPromises = _.map(categoricalMetrics, ({id: field}) => {
+		const endpoint = 'terms';
 		const params = {
-			calendar_interval,
-			field: 'installation_date'
+			field: `${field}.keyword`
+		};
+		const queryPath = `${endpoint}?${new URLSearchParams(params)}`;
+		const promise = query(queryPath);
+
+		return promise;
+	});
+
+	const countPromise = query('count');
+
+	const numHistPromises = _.map(numericMetrics, ({id: field}) => {
+		const endpoint = 'histogram';
+		const params = {
+			bins: 10,
+			field,
 		};
 		const queryPath = `${endpoint}?${new URLSearchParams(params)}`;
 		const promise = query(queryPath);
@@ -33,22 +46,11 @@ export const queryStaticData = () => {
 		return promise;
 	});
 
-	const numHistPromises = _.map(numericMetrics, ({id: field}) => {
-		const endpoint = 'histogram';
+	const timelinesPromises = _.map(intervals, calendar_interval => {
+		const endpoint = 'date_histogram';
 		const params = {
-			bins: 10,
-			field,
-		};
-		const queryPath = `${endpoint}?${new URLSearchParams(params)}`;
-		const promise = query(queryPath);
-
-		return promise;
-	});
-
-	const catTermsPromises = _.map(categoricalMetrics, ({id: field}) => {
-		const endpoint = 'terms';
-		const params = {
-			field: `${field}.keyword`
+			calendar_interval,
+			field: 'installation_date'
 		};
 		const queryPath = `${endpoint}?${new URLSearchParams(params)}`;
 		const promise = query(queryPath);
@@ -57,14 +59,16 @@ export const queryStaticData = () => {
 	});
 
 	return Promise.all([
-		Promise.all(timelinesPromises),
-		Promise.all(numStatsPromises),
 		Promise.all(catTermsPromises),
+		countPromise,
 		Promise.all(numHistPromises),
+		Promise.all(numStatsPromises),
+		Promise.all(timelinesPromises),
 	]).then(applyFnMap({
-		timelines: _.getAt(0),
-		numStats: _.getAt(1),
-		catStats: _.getAt(2),
-		numHists: _.getAt(3),
+		catStats: _.getAt(0),
+		count: _.getAt(1),
+		numHists: _.getAt(2),
+		numStats: _.getAt(3),
+		timelines: _.getAt(4),
 	}));
 };

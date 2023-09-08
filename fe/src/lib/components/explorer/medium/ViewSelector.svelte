@@ -10,14 +10,11 @@
 	$: ({id, type} = $_currentMetric);
 </script>
 
-<!-- FIXME isUnderlined isn't working -->
-
 <nav class='ViewSelector'>
 	<div
 		class='target'
 		class:selected={$_activeViewType === 'stats'}
 	>
-		<div class='dot stats'></div>
 		<Link
 			href='/explorer/{type}/stats/{id}?{$_searchParams}'
 			isBold={$_activeViewType === 'stats'}
@@ -29,7 +26,6 @@
 		class='target'
 		class:selected={$_activeViewType === 'geo'}
 	>
-		<div class='dot region'></div>
 		<Link
 			href='/explorer/{type}/geo/{id}?{$_searchParams}'
 			isBold={$_activeViewType === 'geo'}
@@ -41,7 +37,6 @@
 		class='target'
 		class:selected={$_activeViewType === 'time'}
 	>
-		<div class='dot date'></div>
 		<Link
 			href='/explorer/{type}/time/{id}?{$_searchParams}'
 			isBold={$_activeViewType === 'time'}
@@ -68,20 +63,5 @@
 	.target.selected {
 		background-color: var(--colorSelectedBackground);
 		color: var(--colorSelectedText);
-	}
-	.dot {
-		border-radius: 50%;
-		height: 0.8em;
-		margin-right: 0.5em;
-		width: 0.8em;
-	}
-	.dot.stats {
-		background-color: var(--colorView1);
-	}
-	.dot.region {
-		background-color: var(--colorView2);
-	}
-	.dot.date {
-		background-color: var(--colorView3);
 	}
 </style>

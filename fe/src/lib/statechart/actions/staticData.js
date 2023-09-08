@@ -6,18 +6,6 @@ export const logStaticData = (ctx, {data}) => {
 	console.log('[logStaticData] response:', data);
 }
 
-const indexTimelines = _.pipe([
-	_.indexBy(_.getPath('request.agg.params.calendar_interval')),
-	_.mapValuesWith(_.getPath('data.date_histogram.buckets'))
-]);
-const indexNumStats = _.pipe([
-	_.indexBy(_.getPath('request.agg.params.field')),
-	_.mapValuesWith(_.getPath('data.stats')),
-]);
-const indexNumHists = _.pipe([
-	_.indexBy(_.getPath('request.agg.params.field')),
-	_.mapValuesWith(_.getPath('data.histogram.buckets'))
-]);
 const indexCatStats = _.pipe([
 	_.indexBy(_.pipe([
 		_.getPath('request.agg.params.field'),
@@ -25,11 +13,32 @@ const indexCatStats = _.pipe([
 	])),
 	_.mapValuesWith(_.getPath('data.terms.buckets')),
 ]);
-export const updateStaticDataStore = (ctx, {data: {timelines, numStats, catStats, numHists}}) => {
-	_staticData.set({
-		catStats: indexCatStats(catStats),
-		numStats: indexNumStats(numStats),
-		timelines: indexTimelines(timelines),
-		numHists: indexNumHists(numHists)
-	});
-}
+const getCount = _.getPath('data.count');
+const indexNumHists = _.pipe([
+	_.indexBy(_.getPath('request.agg.params.field')),
+	_.mapValuesWith(_.getPath('data.histogram.buckets'))
+]);
+const indexNumStats = _.pipe([
+	_.indexBy(_.getPath('request.agg.params.field')),
+	_.mapValuesWith(_.getPath('data.stats')),
+]);
+const indexTimelines = _.pipe([
+	_.indexBy(_.getPath('request.agg.params.calendar_interval')),
+	_.mapValuesWith(_.getPath('data.date_histogram.buckets'))
+]);
+export const updateStaticDataStore = (
+	ctx,
+	{data: {
+		catStats,
+		count,
+		numHists,
+		numStats,
+		timelines,
+	}}
+) => _staticData.set({
+	catStats: indexCatStats(catStats),
+	count: getCount(count),
+	numHists: indexNumHists(numHists),
+	numStats: indexNumStats(numStats),
+	timelines: indexTimelines(timelines),
+});

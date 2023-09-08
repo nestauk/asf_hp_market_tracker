@@ -4,7 +4,6 @@
 
 	$: canWrap = canWrap || false;
 	$: shouldWrapUp = shouldWrapUp || false;
-	$: console.log('shouldWrapUp', canWrap, shouldWrapUp)
 	$: wrap = canWrap
 		? shouldWrapUp
 			? 'wrap-reverse'
