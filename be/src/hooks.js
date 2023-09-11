@@ -1,7 +1,6 @@
 import rison from 'rison';
 
 import { minDocCount } from './conf.js';
-import { getDocumentCount } from './es.js';
 import { makeQuery } from './filter.js';
 import { calculateCoverage } from './util.js';
 
@@ -20,20 +19,26 @@ export const onRequest = async (request, reply) => {
 			break
 	}
 
-	request.filter = filter
-		? makeQuery(rison.decode(filter))
-		: { query: { match_all: {} } };
+	let coverageFilter;
+	if (filter) {
+		const decodedFilter = rison.decode(filter);
 
-	request.originalFilter = filter ? rison.decode(filter) : {};
+		request.filter = makeQuery(decodedFilter);
+		request.originalFilter = decodedFilter;
+		coverageFilter = request.filter.query.bool.filter;
+	} else {
+		request.filter = { query: { match_all: {} } };
+		request.originalFilter = {};
+		coverageFilter = [];
+	}
 
-	const coverageFilter = filter ? request.filter.query.bool.filter : [];
 	const coverage = field
-		? await calculateCoverage(coverageFilter, field, null)
-		: await calculateCoverage(coverageFilter, field1, field2)
-	
+		? await calculateCoverage(coverageFilter, request.originalFilter, field, null)
+		: await calculateCoverage(coverageFilter, request.originalFilter, field1, field2)
+
 	reply.coverage = coverage;
 	reply.noData = false;
-	
+
 	const count = coverage.filtered;
 	if (count === 0) {
 		reply.noData = true;
@@ -52,7 +57,7 @@ export const onRequest = async (request, reply) => {
 		});
 		return reply; // mandatory, so the request is not executed further
 	}
-	
+
 };
 
 export const formatPayload = async (request, reply, payload) => {
