@@ -10,5 +10,6 @@ export const makeQuery = filterRequest => {
 			{ [schema[k].type]: { [schema[k].name || k]: v } }],
 		[]
 	);
+
 	return { query: { bool: { filter } } };
 };
