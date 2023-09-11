@@ -13,7 +13,8 @@
 	import NoData from '$lib/components/explorer/NoData.svelte';
     import ViewSelector from '$lib/components/explorer/medium/ViewSelector.svelte';
     import GridRows from '$lib/components/svizzle/GridRows.svelte';
-	import {_currentMetricId} from '$lib/stores/navigation.js';
+	import {explorerActor} from '$lib/statechart/index.js';
+	import {_currentMetricId, _selection} from '$lib/stores/navigation.js';
 	import {_currThemeVars} from '$lib/stores/theme.js';
 	import {
 		_isViewLoading,
@@ -26,6 +27,7 @@
 	$: [,, field_type, chart_type] = $_page.route.id.split('/');
 	$: icons = getTabsIcons(`${field_type}/${chart_type}`);
 	$: iconsIds = _.map(icons, getId);
+	$: viewId = $_selection.viewId;
 	$: viewId = ['filters', 'metrics'].includes(viewId)
 		? viewId
 		: $_showMessage
@@ -38,8 +40,12 @@
 	$: $_showMessage && console.log('[backend]:', $_viewDataMessage);
 
 	const onViewSelected = ({detail: id}) => {
-		console.log('viewId', id)
-		viewId = id;
+		explorerActor.send({
+			type: 'SELECTION_CHANGED',
+			newValues: {
+				viewId: id
+			}
+		});
 	}
 </script>
 
