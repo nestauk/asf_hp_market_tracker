@@ -23,6 +23,7 @@ export const context = {
 		stringsTimeGraph: 'trends',
 		stringsTopCount: 20,
 		trendType: 'progressive',
+		viewId: '',
 	},
 	viewQueryPath: '',
 };
