@@ -45,16 +45,20 @@
 		const dataAccessor = dataAccessors[$_currentMetric.id];
 		const rawValue = dataAccessor($_viewData.response.data);
 		const value = $_currentMetric?.formatFn?.(rawValue) ?? rawValue;
+		const unitOfMeasure = $_currentMetric?.unitOfMeasure;
+		const fullValue = $_currentMetric?.unitOfMeasure
+			? `${value} [${unitOfMeasure}]`
+			: value;
 
 		switch ($_currentMetric.id) {
 			case 'hp_feature_power_capacity_sum':
-				text = `${value} total power capacity for the current filter`;
+				text = `${fullValue} total power capacity for the current filter`;
 				break;
 			case 'hp_feature_power_generation_sum':
-				text = `${value} total power generation for the current filter`;
+				text = `${fullValue} total power generation for the current filter`;
 				break;
 			case 'installation_cost_sum':
-				text = `Total of ${value} GBP spent on installations for the current filter`;
+				text = `Total of ${fullValue} spent on installations for the current filter`;
 				break;
 			case 'installations':
 				text = `${value} installations for the current filter`;
@@ -75,10 +79,10 @@
 				text = `${value} installers installed heat pumps for the current filter`;
 				break;
 			case 'property_feature_total_floor_area_sum':
-				text = `Total of ${value} m^2 of floor area for the current filter`;
+				text = `Total of ${fullValue} of floor area for the current filter`;
 				break;
 			case 'property_supply_photovoltaic_sum':
-				text = `${value} installed photovoltaic energy generation for the current filter`;
+				text = `${fullValue} installed photovoltaic energy generation for the current filter`;
 			default:
 				break;
 		}
@@ -92,7 +96,7 @@
 		<View id='stats' >
 			<GridRows rowLayout='min-content 1fr'>
 				<MetricTitle />
-		
+
 				<MessageView
 					backgroundColor={$_currThemeVars['--colorBackground']}
 					color={$_currThemeVars['--colorText']}
@@ -106,5 +110,5 @@
 			color={$_currThemeVars['--colorText']}
 			{text}
 		/>
-	{/if}	
+	{/if}
 {/if}
