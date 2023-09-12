@@ -62,29 +62,35 @@
 	});
 
 	/* updating layers */
+	const updateLayers = (layers_, reactiveLayers_, getFeatureState_) => {
+		if (!layers_) {
+			return;
+		}
+		layers_.forEach(layer => {
+			if (reactiveLayers_.includes(layer.id)) {
+				map
+				.querySourceFeatures(layer.source, {sourceLayer: layer.id})
+				.forEach(feature => {
+					const state = getFeatureState_(feature);
+					state && map.setFeatureState({
+						id: feature.id,
+						source: layer.source,
+						sourceLayer: layer.id,
+					}, state);
+				});
+			}
+
+			map?.setLayoutProperty(
+				layer.id,
+				'visibility',
+				visibleLayers.includes(layer.id) ? 'visible' : 'none'
+			);
+		});
+	}
 
 	$: map?.setStyle(style);
 	$: layers = $_map && style && $_map?.getStyle().layers;
-	$: layers?.forEach(layer => {
-		if (reactiveLayers.includes(layer.id)) {
-			map
-			.querySourceFeatures(layer.source, {sourceLayer: layer.id})
-			.forEach(feature => {
-				const state = getFeatureState(feature);
-				state && map.setFeatureState({
-					id: feature.id,
-					source: layer.source,
-					sourceLayer: layer.id,
-				}, state);
-			});
-		}
-
-		map?.setLayoutProperty(
-			layer.id,
-			'visibility',
-			visibleLayers.includes(layer.id) ? 'visible' : 'none'
-		);
-	});
+	$: updateLayers(layers, reactiveLayers, getFeatureState);
 	$: {
 		eventsHandlersRegistry.forEach(
 			({type, targetLayer, handler}) => {
@@ -250,6 +256,11 @@
 			$_map = map;
 			$_projectFn = map.project.bind(map);
 			$_map.resize();
+		})
+		.on('data', () => {
+			console.log('map data changed')
+			layers = $_map && style && $_map?.getStyle().layers;
+			updateLayers(layers, reactiveLayers, getFeatureState);
 		});
 
 		map.touchZoomRotate.disableRotation();
