@@ -16,6 +16,7 @@
 	import Grid3Columns from '$lib/components/svizzle/Grid3Columns.svelte';
 	import Grid2Rows from '$lib/components/svizzle/Grid2Rows.svelte';
 	import GridRows from '$lib/components/svizzle/GridRows.svelte';
+    import KeysLegend from '$lib/components/svizzle/legend/KeysLegend.svelte';
 	import Scroller from '$lib/components/svizzle/Scroller.svelte';
 	import View from '$lib/components/viewports/View.svelte';
 	import {MAPBOXGL_ACCESSTOKEN as accessToken} from '$lib/config/map.js';
@@ -34,7 +35,7 @@
 	} from '$lib/stores/theme.js';
 	import {_selectedBbox} from '$lib/stores/view.js';
 
-	export let amountOfBins = 5;
+	export let amountOfBins;
 	export let formatFn;
 	export let interpolateColor;
 	export let items;
@@ -47,17 +48,24 @@
 	let colorScale;
 	let doDraw = false;
 	let getFeatureState;
+	let isSingleValue;
+	let keyToColorFn;
 	let legendBins;
+	let legendKeys;
 	let regionType;
 
 	$: regionKindStyle = makeStyleVars($_regionKindTheme);
+	$: amountOfBins = amountOfBins || 5;
 	$: if (items?.length > 0) {
 
 		/* common */
 
 		const domain = makeDomain(items);
+		isSingleValue = domain[0] === domain[1];
+		let binCount = isSingleValue ? 1 : amountOfBins;
+
 		const colorScheme = _.map(
-			_.range(0, 1, 1 / (amountOfBins - 1)).concat(1),
+			_.range(0, 1, 1 / (binCount - 1)).concat(1),
 			interpolateColor
 		);
 		colorScale = scaleQuantize().domain(domain).range(colorScheme);
@@ -73,6 +81,11 @@
 			_.zip(ranges, colorScheme),
 			makeWithKeys(['range', 'color'])
 		);
+
+		if (isSingleValue) {
+			legendKeys = [formatFn(domain[0])];
+			keyToColorFn = _.always(colorScale(domain[0]));
+		}
 
 		/* barchart */
 
@@ -103,20 +116,29 @@
 			<GridRows rowLayout='min-content 4em 1fr min-content'>
 				<MetricTitle />
 
-				<ColorBinsDiv
-					bins={legendBins}
-					flags={{
-						isVertical: false,
-						showTicksExtentOnly: true
-					}}
-					geometry={{
-						left: 50,
-						right: 50,
-					}}
-					padding=0
-					theme={$_legendsTheme}
-					ticksFormatFn={formatFn}
-				/>
+				{#if isSingleValue}
+					<div class='keysLegend'>
+						<KeysLegend
+							{keyToColorFn}
+							keys={legendKeys}
+						/>
+					</div>
+				{:else}
+					<ColorBinsDiv
+						bins={legendBins}
+						flags={{
+							isVertical: false,
+							showTicksExtentOnly: true
+						}}
+						geometry={{
+							left: 50,
+							right: 50,
+						}}
+						padding=0
+						theme={$_legendsTheme}
+						ticksFormatFn={formatFn}
+					/>
+				{/if}
 
 				<div
 					class='col1'
@@ -146,20 +168,29 @@
 			<GridRows rowLayout='min-content 4em 1fr min-content'>
 				<MetricTitle />
 
-				<ColorBinsDiv
-					bins={legendBins}
-					flags={{
-						isVertical: false,
-						showTicksExtentOnly: true
-					}}
-					geometry={{
-						left: 50,
-						right: 50,
-					}}
-					padding=0
-					theme={$_legendsTheme}
-					ticksFormatFn={formatFn}
-				/>
+				{#if isSingleValue}
+					<div class='keysLegend'>
+						<KeysLegend
+							{keyToColorFn}
+							keys={legendKeys}
+						/>
+					</div>
+				{:else}
+					<ColorBinsDiv
+						bins={legendBins}
+						flags={{
+							isVertical: false,
+							showTicksExtentOnly: true
+						}}
+						geometry={{
+							left: 50,
+							right: 50,
+						}}
+						padding=0
+						theme={$_legendsTheme}
+						ticksFormatFn={formatFn}
+					/>
+				{/if}
 
 				<Scroller>
 					<BarchartVDiv
@@ -183,28 +214,37 @@
 		</FlexBar>
 		{#if doDraw}
 			<Grid3Columns
-				percents={[10, 60, 30]}
+				percents={[14, 56, 30]}
 				gap='0.25em'
 			>
 				<div
 					class='col0'
 					slot='col0'
 				>
-					<div class='legend'>
-						<ColorBinsDiv
-							bins={legendBins}
-							flags={{
-								isVertical: true,
-							}}
-							geometry={{
-								left: 0,
-								right: 50,
-							}}
-							padding=0
-							theme={$_legendsTheme}
-							ticksFormatFn={formatFn}
-						/>
-					</div>
+					{#if isSingleValue}
+						<div class='singleValue legend'>
+							<KeysLegend
+								{keyToColorFn}
+								keys={legendKeys}
+							/>
+						</div>
+					{:else}
+						<div class='legend'>
+							<ColorBinsDiv
+								bins={legendBins}
+								flags={{
+									isVertical: true,
+								}}
+								geometry={{
+									left: 0,
+									right: 50,
+								}}
+								padding=0
+								theme={$_legendsTheme}
+								ticksFormatFn={formatFn}
+							/>
+						</div>
+					{/if}
 				</div>
 
 				<div
@@ -255,6 +295,10 @@
 	.legend {
 		height: 50%;
 		width: 100%;
+	}
+	.singleValue.legend {
+		height: min-content;
+		margin: auto;
 	}
 
 	.col1 {
