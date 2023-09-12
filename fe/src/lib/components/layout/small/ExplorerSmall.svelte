@@ -40,12 +40,14 @@
 	$: $_showMessage && console.log('[backend]:', $_viewDataMessage);
 
 	const onViewSelected = ({detail: id}) => {
-		explorerActor.send({
-			type: 'SELECTION_CHANGED',
-			newValues: {
-				viewId: id
-			}
-		});
+		if (id !== viewId) {
+			explorerActor.send({
+				type: 'SELECTION_CHANGED',
+				newValues: {
+					viewId: id
+				}
+			});
+		}
 	}
 </script>
 
