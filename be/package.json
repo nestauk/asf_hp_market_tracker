@@ -13,6 +13,7 @@
 		"luxon": "^3.3.0",
 		"mkdirp": "^3.0.1",
 		"nodemon": "^2.0.21",
+		"pm2": "^5.3.0",
 		"rison": "^0.1.1"
 	},
 	"description": "Nesta HPMT backend",
@@ -30,6 +31,7 @@
 		"getTiles": "mkdirp tiles/mbtiles && sh src/bin/generateMbTiles.sh",
 		"lint": "eslint .",
 		"test": "tap --no-coverage",
+		"stop": "pm2 stop server",
 		"updateRouteTests": "node src/bin/updateRouteTestData.js",
 		"uploadTiles": "sh src/bin/uploadTiles.sh"
 	},
