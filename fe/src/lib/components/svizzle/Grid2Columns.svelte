@@ -11,7 +11,7 @@
 	});
 </script>
 
-<div class='Grid2Cols' {style}>
+<div class='Grid2Columns' {style}>
 	<div class='col'>
 		<slot name='col0'>Missing column 0</slot>
 	</div>
@@ -21,7 +21,7 @@
 </div>
 
 <style>
-	.Grid2Cols {
+	.Grid2Columns {
 		display: grid;
 		gap: var(--gap);
 		grid-template-columns: var(--p0) var(--p1);
@@ -30,7 +30,10 @@
 		width: 100%;
 	}
 	.col {
+		align-items: center;
+		display: flex;
 		height: 100%;
+		justify-content: center;
 		overflow-y: auto;
 		width: 100%;
 	}

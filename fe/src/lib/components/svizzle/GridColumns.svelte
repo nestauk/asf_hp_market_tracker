@@ -3,31 +3,31 @@
 
 	export let gap;
 	export let padding;
-	export let rowLayout;
+	export let colLayout;
 
 	$: gap = gap || '0.25em';
 	$: padding = padding || '0.5em';
-	$: rowLayout = rowLayout || '1fr';
+	$: colLayout = colLayout || '1fr';
 	$: style = makeStyleVars({
+		colLayout,
 		gap,
 		padding,
-		rowLayout,
 	});
 </script>
 
 <div
 	{style}
-	class='GridRows'
+	class='GridColumns'
 >
 	<slot />
 </div>
 
 <style>
-	.GridRows {
+	.GridColumns {
 		align-items: center;
 		display: grid;
 		gap: var(--gap);
-		grid-template-rows: var(--rowLayout);
+		grid-template-columns: var(--colLayout);
 		height: 100%;
 		justify-items: center;
 		overflow: hidden;

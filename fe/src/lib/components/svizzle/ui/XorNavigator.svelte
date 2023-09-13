@@ -8,6 +8,7 @@
 	export let currentValue;
 	export let theme;
 	export let valuesToLabels;
+	export let height;
 
 	const defaultTheme = {
 		border: 'solid 1px black',
@@ -28,8 +29,9 @@
 		}
 	}
 
+	$: height = height ?? '2.5em';
 	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
-	$: style = makeStyleVars(theme);
+	$: style = makeStyleVars({...theme, height});
 	$: values = _.keys(valuesToLabels);
 	$: currentLabel = valuesToLabels[currentValue];
 	$: currentValueIndex = _.findIndex(values, _.is(currentValue));
@@ -75,7 +77,9 @@
 		align-items: center;
 		border: var(--border);
 		display: flex;
+		height: var(--height);
 		user-select: none;
+		width: 100%;
 	}
 
 	.currentLabel {
@@ -90,8 +94,8 @@
 		border: none;
 		border-left: var(--border);
 		color: var(--colorIcon);
-		height: 2.5rem;
-		width: 2.5rem;
+		height: var(--height);
+		width: var(--height);
 	}
 	button:disabled {
 		color: var(--colorIconDisabled);

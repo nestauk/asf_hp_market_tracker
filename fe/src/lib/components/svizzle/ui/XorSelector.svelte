@@ -68,6 +68,7 @@
 		display: flex;
 		padding: 0.1rem;
 		user-select: none;
+		height: 100%;
 	}
 
 	span {
@@ -76,7 +77,7 @@
 		border-top: var(--border);
 		color: var(--textColor);
 		cursor: pointer;
-		padding: 0.3rem 0.6rem;
+		padding: 0.5rem 0.6rem;
 	}
 	span:first-child {
 		border-left: var(--border);

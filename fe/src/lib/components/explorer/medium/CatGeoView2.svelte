@@ -21,8 +21,9 @@
 	import MetricTitle from '$lib/components/explorer/MetricTitle.svelte';
 	import SelectorRegionType
 		from '$lib/components/explorer/medium/SelectorRegionType.svelte';
-	import Grid3Columns from '$lib/components/svizzle/Grid3Columns.svelte';
+	import GridColumns from '$lib/components/svizzle/GridColumns.svelte';
 	import Grid2Rows from '$lib/components/svizzle/Grid2Rows.svelte';
+	import Grid3Columns from '$lib/components/svizzle/Grid3Columns.svelte';
 	import GridRows from '$lib/components/svizzle/GridRows.svelte';
 	import Scroller from '$lib/components/svizzle/Scroller.svelte';
 	import View from '$lib/components/viewports/View.svelte';
@@ -249,14 +250,14 @@
 						valueToColorFn={colorScale}
 					/>
 				</Scroller>
-	
+
 				<XorNavigator
 					{valuesToLabels}
 					currentValue={currentKey}
 					on:changed={onKeyChange}
 					theme={$_xorNavigatorTheme}
 				/>
-	
+
 				<FlexBar>
 					<SelectorRegionType />
 				</FlexBar>
@@ -265,10 +266,16 @@
 	{/if}
 {:else}
 	<Grid2Rows percents={[10, 90]}>
-		<FlexBar>
-			<SelectorRegionType />
-		</FlexBar>
 		{#if doDraw}
+			<GridColumns colLayout='40% 1fr'>
+				<SelectorRegionType/>
+				<XorNavigator
+					{valuesToLabels}
+					currentValue={currentKey}
+					on:changed={onKeyChange}
+					theme={$_xorNavigatorTheme}
+				/>
+			</GridColumns>
 			<Grid3Columns
 				percents={[10, 60, 30]}
 				gap='0.25em'
@@ -316,12 +323,6 @@
 							{$_currentMetric.geoPrefix} regions
 						</span>
 					</div>
-					<XorNavigator
-						{valuesToLabels}
-						currentValue={currentKey}
-						on:changed={onKeyChange}
-						theme={$_xorNavigatorTheme}
-					/>
 				</div>
 				<BarchartVDiv
 					{formatFn}
@@ -358,14 +359,12 @@
 	}
 
 	.col1 {
-		display: grid;
-		gap: 0.25em;
-		grid-template-rows: 1fr min-content;
 		height: 100%;
 		overflow: hidden;
 		width: 100%;
 	}
 	.map {
+		height: 100%;
 		position: relative;
 		width: 100%;
 	}
