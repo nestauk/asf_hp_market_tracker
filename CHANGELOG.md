@@ -1,4 +1,10 @@
-# 0.3.0 (staging)
+# 0.3.1
+
+- Staging version for internal review ([milestone](https://github.com/nestauk/asf_hp_market_tracker/milestone/13?closed=1)):
+	- Fixes:
+		- Fix quick view failing when no data is returned from the backend (#333)
+
+# 0.3.0
 
 - Staging version for internal review ([milestone](https://github.com/nestauk/asf_hp_market_tracker/milestone/11?closed=1)):
 	- Data:
@@ -29,7 +35,7 @@
 	- Improvements:
 		- In the filters navigator, filters have now the same style as other selection UIs (#294)
 
-# 0.2.0 (staging)
+# 0.2.0
 
 - Staging version for internal review ([milestone](https://github.com/nestauk/asf_hp_market_tracker/milestone/9?closed=1)):
 	- Features:
@@ -40,7 +46,7 @@
 	- Fixes:
 		- Geographic and temporal selectors now show labels instead of ids (#282)
 
-# 0.1.1 (staging)
+# 0.1.1
 
 - Staging version for internal review ([milestone](https://github.com/nestauk/asf_hp_market_tracker/milestone/8?closed=1)):
 	- Fixes:
@@ -51,7 +57,7 @@
 	- Features:
 		- Added dots to trend charts (#272)
 
-# 0.1.0 (staging)
+# 0.1.0
 
 - Staging version for internal review ([milestone](https://github.com/nestauk/asf_hp_market_tracker/milestone/1?closed=1))
 
