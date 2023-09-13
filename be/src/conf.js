@@ -1,9 +1,9 @@
 // eslint-disable-next-line no-process-env
-const esEnv = process.env.BE_ENV || 'dev'; // dev, staging, production
+export const esEnv = process.env.BE_ENV || 'dev'; // dev, staging, production
 const domains = {
 	dev: 'https://hpmt.es.dev.dap-tools.uk:9200',
 	staging: 'https://hpmt.es.staging.dap-tools.uk:9200',
-	production: 'https://hpmt.es.production.dap-tools.uk:9200'
+	production: 'https://hpmt.es.production.dap-tools.uk:443'
 };
 export const domain = domains[esEnv];
 export const index = 'hpmt_gold_interim_v7';
