@@ -10,11 +10,15 @@ export const _isViewLoading = writable(false);
 export const _isViewReady = writable(false);
 export const _viewData = writable();
 
+export const _noDataReturned = derived(
+	_viewData,
+	viewData => [100, 101].includes(viewData?.response.code)
+	// see `be/README.md`: `Custom response codes`
+);
+
 export const _showMessage = derived(
-	[_isViewReady, _viewData],
-	([isViewReady, viewData]) =>
-		isViewReady && String(viewData?.response.code).startsWith('1')
-		// see `be/README.md`: `Custom response codes`
+	[_isViewReady, _noDataReturned],
+	([isViewReady, noDataReturned]) => isViewReady && noDataReturned
 );
 export const _viewDataMessage = derived(
 	_viewData,

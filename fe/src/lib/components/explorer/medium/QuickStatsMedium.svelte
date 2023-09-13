@@ -2,7 +2,7 @@
 	import {setupResizeObserver} from '@svizzle/ui';
 
 	import {_staticData} from '$lib/stores/data.js';
-	import {_viewData} from '$lib/stores/view.js';
+	import {_noDataReturned, _viewData} from '$lib/stores/view.js';
 
 	const {
 		_writable: _coverageSize,
@@ -25,7 +25,8 @@
 
 	const ratio = 0.8;
 
-	$: if ($_viewData && $_staticData && $_coverageSize) {
+	$: if ($_viewData && $_staticData && $_coverageSize && !$_noDataReturned) {
+	
 		({response: {coverage: {filtered, retreivable}}} = $_viewData);
 		({blockSize: svgSide} = $_coverageSize);
 
@@ -52,6 +53,7 @@
 		unretrievablesPercent = (100 * unretrievables / $_staticData.count).toFixed(1);
 
 		proceed = true;
+		
 	}
 </script>
 
