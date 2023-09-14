@@ -8,6 +8,14 @@ export const objectToSearchParams = _.pipe([
 	_.joinWith('&')
 ]);
 
+const escapeAmpersand = string => string.replace(/&/gu, '%26');
+
 export const risonifyValues = _.mapValuesWith(
-	_.when(_.anyOf([isArray, isObject]), RISON.stringify)
+	_.when(
+		_.anyOf([isArray, isObject]),
+		_.pipe([
+			RISON.stringify,
+			escapeAmpersand
+		])
+	)
 );
