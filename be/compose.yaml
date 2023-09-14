@@ -1,0 +1,10 @@
+services:
+  app:
+    image: hpmt-be
+    command: npm run dev
+    ports:
+      - "3000:3000"
+    environment:
+      - ELASTICSEARCH_PASSWORD
+    volumes:
+      - ./src:/app/src

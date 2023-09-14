@@ -1,3 +1,14 @@
+## Using Docker
+
+To build the image, use
+
+`docker build -t hpmt-be .`
+
+Once built, you can use the `docker-compose.yml` to run
+the image in dev mode.
+
+`docker compose up`
+
 ## Custom response codes
 
 ### 1xx
