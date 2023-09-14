@@ -57,16 +57,12 @@ git pull
 git checkout dev --force
 ```
 
-Create a new tmux session:
-
-`tmux new -s server`
+# Install pm2 globally
 
 **N.B** Make sure npm and node are installed on the server before the next
 step. The easiest way is to use [nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
 
-Run `npm install`, then `npm run dev`. 
-
-Finally, detach from the tmux server with `Ctrl-b d`
+`npm install -g pm2`
 
 The G.H. action should take care of the rest.
 

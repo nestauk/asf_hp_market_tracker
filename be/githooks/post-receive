@@ -8,8 +8,16 @@ do
     if [[ $ref =~ .*/$branch$ ]]; then
         echo "$branch ref received. Deploying $branch branch..."
         git --work-tree=$HOME/asf_hp_market_tracker --git-dir=$HOME/asf_hp_market_tracker.git checkout $branch -f
+        
+        
+        export PATH=$PATH:/home/ubuntu/.nvm/versions/node/v18.15.0/bin/
+        export ELASTICSEARCH_PASSWORD=
+
         cd $HOME/asf_hp_market_tracker/be
-        npm install
+        npm install        
+        
+        pm2 delete all
+        pm2 start src/server.js
     else
         echo "Ref $ref successfully received.  Doing nothing: only the $branch branch may be deployed on this server."
     fi
