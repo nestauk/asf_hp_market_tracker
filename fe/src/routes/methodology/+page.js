@@ -1,5 +1,5 @@
 import {redirect} from '@sveltejs/kit';
 
 export function load () {
-	throw redirect(301, '/methodology/dataset1');
+	throw redirect(301, '/methodology/dataProcessing');
 }

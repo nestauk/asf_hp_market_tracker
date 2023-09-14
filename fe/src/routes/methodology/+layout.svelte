@@ -13,10 +13,10 @@
 	import {page as _page} from '$app/stores';
 	import {_currThemeVars, _linkTheme0} from '$lib/stores/theme';
 
-	const segments = ['dataset1', 'dataset2'];
+	const segments = ['dataProcessing', 'geography'];
 	const titles = {
-		dataset1:'Dataset 1',
-		dataset2: 'Dataset 2',
+		dataProcessing: 'Data processing',
+		geography: 'Geography',
 	};
 
 	let contentElement;

@@ -1,0 +1,11 @@
+## Geography
+
+### Geolocation
+
+To map installations to standardised geographies, we use two sources from the Office for National Statistics (ONS) [Open Geography Portal](https://geoportal.statistics.gov.uk/).
+
+Firstly we use the National Statistics Postcode Lookup (NSPL). This allows us to map a postcode to a range of geographical hierarchies, including countries, Output Areas (OAs) and Local Authority Districts (LADs).
+
+We also use a lookup file provided by the ONS, the `Local Authority District (April 2021) to LAU1 to ITL3 to ITL2 to ITL1` file, which allows us to further map the installations onto International Territorial Level geographies.
+
+Through this, we are able to aggregate installations to these different geographies, and through the use of shapefiles, display these in the explorer as choropleths.

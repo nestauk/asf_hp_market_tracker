@@ -1,5 +1,5 @@
 <script>
-	import Aspect2 from '$lib/_content/methodology/Aspect2.svx';
+	import Geography from '$lib/_content/methodology/Geography.svx';
 
 	import {toolName} from '$lib/config';
 </script>
@@ -12,4 +12,4 @@
 	>
 </svelte:head>
 
-<Aspect2/>
+<Geography />
