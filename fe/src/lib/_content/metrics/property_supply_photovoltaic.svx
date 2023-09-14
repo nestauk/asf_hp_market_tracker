@@ -1,3 +1,5 @@
 #### Photovoltaic supply
 
-The photovoltaic (solar power) supply of the property (in kW).
+The photovoltaic area as a percentage of total roof area.
+
+0% indicates that a Photovoltaic Supply is not present in the property

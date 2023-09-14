@@ -30,13 +30,11 @@ export {default as property_feature_built_form} from './property_feature_built_f
 export {default as property_feature_glazed_area} from './property_feature_glazed_area.svx';
 export {default as property_feature_glazed_type} from './property_feature_glazed_type.svx';
 export {default as property_feature_number_habitable_rooms} from './property_feature_number_habitable_rooms.svx';
-export {default as property_feature_total_floor_area_sum} from './property_feature_total_floor_area_sum.svx';
 export {default as property_feature_total_floor_area} from './property_feature_total_floor_area.svx';
 export {default as property_feature_type} from './property_feature_type.svx';
 export {default as property_supply_heating_fuel_type} from './property_supply_heating_fuel_type.svx';
 export {default as property_supply_heating_system} from './property_supply_heating_system.svx';
 export {default as property_supply_mains_gas_flag} from './property_supply_mains_gas_flag.svx';
-export {default as property_supply_photovoltaic_sum} from './property_supply_photovoltaic_sum.svx';
 export {default as property_supply_photovoltaic} from './property_supply_photovoltaic.svx';
 export {default as property_supply_solar_water_heating_flag} from './property_supply_solar_water_heating_flag.svx';
 export {default as property_tenure} from './property_tenure.svx';

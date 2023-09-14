@@ -34,7 +34,7 @@ export const fields = [
 		formatSpecifier: '.3s',
 		label: 'Power generation',
 		type: 'number',
-		unitOfMeasure: 'kW',
+		unitOfMeasure: 'kWh',
 	},
 	{
 		entity: 'Heat pump',
@@ -385,10 +385,10 @@ export const fields = [
 		entity: 'Property',
 		geoPrefix: 'property',
 		id: 'property_supply_photovoltaic',
-		formatSpecifier: '.3s',
+		formatSpecifier: '.1f',
 		label: 'Photovoltaic supply',
 		type: 'number',
-		unitOfMeasure: 'kW',
+		unitOfMeasure: '%',
 	},
 	{
 		entity: 'Property',

@@ -93,8 +93,6 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 						case 'hp_feature_power_capacity_sum':
 						case 'hp_feature_power_generation_sum':
 						case 'installation_cost_sum':
-						case 'property_feature_total_floor_area_sum':
-						case 'property_supply_photovoltaic_sum':
 							endpoint = 'terms1_stats2';
 							params = {
 								field1: geoField,
@@ -149,8 +147,6 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 						case 'hp_feature_power_capacity_sum':
 						case 'hp_feature_power_generation_sum':
 						case 'installation_cost_sum':
-						case 'property_feature_total_floor_area_sum':
-						case 'property_supply_photovoltaic_sum':
 							endpoint = 'stats';
 							params = {
 								field,
@@ -203,8 +199,6 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 						case 'hp_feature_power_capacity_sum':
 						case 'hp_feature_power_generation_sum':
 						case 'installation_cost_sum':
-						case 'property_feature_total_floor_area_sum':
-						case 'property_supply_photovoltaic_sum':
 							endpoint = 'date_histogram1_stats2';
 							params = {
 								calendar_interval1: ctx.selection.interval,

@@ -22,7 +22,7 @@ export const counts = [
 		isCumulative: true,
 		label: 'Total power generation',
 		type: 'count',
-		unitOfMeasure: 'kW',
+		unitOfMeasure: 'kWh',
 	},
 
 	/* Installation */
@@ -95,30 +95,5 @@ export const counts = [
 		label: 'Amount of new/renewed certificates',
 		title: 'Amount of new/renewed certificates',
 		type: 'count'
-	},
-
-	/* Property */
-
-	{
-		entity: 'Property',
-		field: 'property_feature_total_floor_area',
-		formatSpecifier: '.2s',
-		geoPrefix: 'property',
-		id: 'property_feature_total_floor_area_sum',
-		isCumulative: true,
-		label: 'Total floor area',
-		type: 'count',
-		unitOfMeasure: 'm^2',
-	},
-	{
-		entity: 'Property',
-		field: 'property_supply_photovoltaic',
-		formatSpecifier: '.3s',
-		geoPrefix: 'property',
-		id: 'property_supply_photovoltaic_sum',
-		isCumulative: true,
-		label: 'Total photovoltaic supply',
-		type: 'count',
-		unitOfMeasure: 'kW',
 	},
 ];

@@ -6,7 +6,6 @@
 	import Grid2Columns from '$lib/components/svizzle/Grid2Columns.svelte';
 	import GridRows from '$lib/components/svizzle/GridRows.svelte';
 	import KeysLegend from '$lib/components/svizzle/legend/KeysLegend.svelte';
-	import Scroller from '$lib/components/svizzle/Scroller.svelte';
 	import StatsTrends from '$lib/components/svizzle/trends/StatsTrends.svelte';
 	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {_framesTheme} from '$lib/stores/theme.js';

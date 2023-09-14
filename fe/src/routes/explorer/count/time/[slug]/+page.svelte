@@ -41,8 +41,6 @@
 		installers_dropped_certifications: getCardinalityValue,
 		installers_new_certifications: getCardinalityValue,
 		installers: getCardinalityValue,
-		property_feature_total_floor_area_sum: getStatsSum,
-		property_supply_photovoltaic_sum: getStatsSum,
 	}
 	const filterOutNils = _.filterWith(_.pipe([getValue, isNotNil]));
 

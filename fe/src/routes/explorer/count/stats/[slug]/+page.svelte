@@ -28,8 +28,6 @@
 		installers_dropped_certifications: getCount,
 		installers_new_certifications: getCount,
 		installers: getCardinalityValue,
-		property_feature_total_floor_area_sum: getStatsSum,
-		property_supply_photovoltaic_sum: getStatsSum,
 	};
 
 	$: proceed =
@@ -78,11 +76,6 @@
 			case 'installers':
 				text = `${value} installers installed heat pumps for the current filter`;
 				break;
-			case 'property_feature_total_floor_area_sum':
-				text = `Total of ${fullValue} of floor area for the current filter`;
-				break;
-			case 'property_supply_photovoltaic_sum':
-				text = `${fullValue} installed photovoltaic energy generation for the current filter`;
 			default:
 				break;
 		}

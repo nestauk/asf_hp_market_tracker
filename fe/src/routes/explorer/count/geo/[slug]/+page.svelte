@@ -27,8 +27,6 @@
 		installers_dropped_certifications: getCertifiedValue,
 		installers_new_certifications: getCertifiedValue,
 		installers: getCardinalityValue,
-		property_feature_total_floor_area_sum: getStatsSum,
-		property_supply_photovoltaic_sum: getStatsSum,
 	}
 
 	$: proceed =

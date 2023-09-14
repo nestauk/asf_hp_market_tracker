@@ -1,3 +1,0 @@
-#### Total photovoltaic supply
-
-The total photovoltaic supply of all the properties (in kW).

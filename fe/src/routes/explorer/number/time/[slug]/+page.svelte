@@ -107,7 +107,7 @@
 						name='numTimeGraph'
 						values={['percentiles', 'average']}
 					/>
-				</FlexBar>		
+				</FlexBar>
 			</GridRows>
 		</View>
 	{/if}
