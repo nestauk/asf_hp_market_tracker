@@ -1,3 +1,33 @@
+# 0.4.0
+
+- Staging version for internal review ([milestone](https://github.com/nestauk/asf_hp_market_tracker/milestone/12?closed=1)):
+	- Data:
+		- Updates some metrics (#346):
+			- Estimated annual generation: updated unit of measure to `kWh`
+			- Property Photovoltaic supply: this is the photovoltaic area as a
+				percentage of total roof area.
+				0% indicates that a Photovoltaic Supply is not present in the property.
+			- Removed Total property Photovoltaic supply as given the above point
+				it doesn't make sense to sum it
+			- Removed `property_feature_total_floor_area_sum`
+
+	- Fixes:
+		- Fixed the app freezing when selected place names contain the `&` char
+			(e.g `Barking & Dagenham and Havering`) (#348)
+		- Back-end: fixed CI/CD (#339)
+		- Unified `be/src/filter.js` and `shared/fields.js`, which fixes
+			not being able to filter LAD regions (#354)
+
+	- Improvements:
+		- Categ/geo: moved the category navigator to the top on `medium` devices (#342)
+
+	- Docs:
+		- Added the methodology page for data processing (#344)
+
+	- Back-end:
+		- Dockerised the back-end (#340)
+
+
 # 0.3.1
 
 - Staging version for internal review ([milestone](https://github.com/nestauk/asf_hp_market_tracker/milestone/13?closed=1)):
