@@ -38,14 +38,15 @@
 	<!-- left: sponsors -->
 
 	<span>
+		<!-- Supported by MCS Certified -->
 		<Link
-			href='https://www.nesta.org.uk/'
+			href='https://mcscertified.com'
 			target='_blank'
 			theme={$_linkTheme0}
 		>
 			<img
-				alt='Nesta'
-				src={logos.nesta}
+				alt='MCS Certified'
+				src={logos.mcs}
 			/>
 		</Link>
 	</span>
