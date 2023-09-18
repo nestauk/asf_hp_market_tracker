@@ -1,13 +1,21 @@
+import {getId} from '@svizzle/utils';
 import * as _ from 'lamb';
 
-import { schema } from './schemas/filter.js';
+import {fields} from 'nesta_hpmt_shared/fields.js';
+
+const schema = _.index(fields, getId);
 
 export const makeQuery = filterRequest => {
 	const filter = _.reduce(
 		_.pairs(filterRequest),
-		(acc, [k, v]) => [
+		(acc, [key, value]) => [
 			...acc,
-			{ [schema[k].type]: { [schema[k].name || k]: v } }],
+			{
+				[schema[key].esType]: {
+					[schema[key].esKey || key]: value
+				}
+			}
+		],
 		[]
 	);
 
