@@ -37,6 +37,7 @@
 		_themeName,
 		_themeVars,
 	} from '$lib/stores/theme'
+	import {_tooltipTheme} from  '$lib/stores/theme';
 	import {_tooltip} from '$lib/stores/tooltip';
 
 	import Privacy from '$lib/_content/info/PrivacyBanner.svx';
@@ -180,6 +181,7 @@
 	<Tooltip
 		targetX={$_tooltip.x}
 		targetY={$_tooltip.y}
+		theme={$_tooltipTheme}
 	>
 		{$_tooltip.key}: {$_tooltip.value}
 	</Tooltip>
