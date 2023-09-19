@@ -21,6 +21,7 @@
 	import Footer from '$lib/components/layout/medium/Footer.svelte';
 	import Nav from '$lib/components/layout/Nav.svelte';
 	import ThemeEditor from '$lib/components/layout/medium/ThemeEditor.svelte';
+	import Tooltip from '$lib/components/svizzle/ui/Tooltip.svelte';
 	import {
 		bannersDefaultFooterText,
 		fontsInfo,
@@ -36,6 +37,7 @@
 		_themeName,
 		_themeVars,
 	} from '$lib/stores/theme'
+	import {_tooltip} from '$lib/stores/tooltip';
 
 	import Privacy from '$lib/_content/info/PrivacyBanner.svx';
 
@@ -173,6 +175,15 @@
 		</section>
 	{/if}
 </div>
+
+{#if $_tooltip?.key}
+	<Tooltip
+		targetX={$_tooltip.x}
+		targetY={$_tooltip.y}
+	>
+		{$_tooltip.key}: {$_tooltip.value}
+	</Tooltip>
+{/if}
 
 <style>
 	._layout {

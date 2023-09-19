@@ -24,8 +24,6 @@
 		_showMessage,
 		_viewDataMessage
 	} from '$lib/stores/view.js';
-	import Tooltip from '$lib/components/svizzle/ui/Tooltip.svelte';
-	import {_tooltip} from '$lib/stores/tooltip';
 
 	let isInfoBannerVisible = false;
 
@@ -91,17 +89,6 @@
 						}}
 					/>
 				</CenteredView>
-			</div>
-		{:else if $_tooltip?.key}
-			<div class='overlay'>
-				<Tooltip
-					targetX={$_tooltip.x}
-					targetY={$_tooltip.y}
-					targetWidth={$_tooltip.width}
-					targetHeight={$_tooltip.height}
-				>
-					{$_tooltip.key}: {$_tooltip.value}
-				</Tooltip>
 			</div>
 		{/if}
 

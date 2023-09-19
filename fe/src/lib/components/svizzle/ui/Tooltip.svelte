@@ -1,35 +1,57 @@
 <script>
+	import {makeStyle, makeStyleVars, toPx} from '@svizzle/dom';
+
 	export let targetX;
 	export let targetY;
-	export let targetWidth;
-	export let targetHeight;
+	export let theme;
+
+	const geometry = {
+		safetyLeft: 16,
+		safetyRight: 4,
+		safetyTop: 16,
+		safetyBottom: 4,
+	};
+
+	const defaultheme = {
+		backgroundColor: 'white',
+		border: 'thin solid black',
+		boxShadow: '0 0 5px 0 rgba(0, 0, 0, 0.5)',
+		textColor: 'black',
+		padding: '0.5em',
+	}
 
 	let tooltip;
-	let tooltipX;
-	let tooltipY;
+	let tooltipStyle = {};
 
+	$: theme = {
+		...defaultheme,
+		...theme
+	}
 	$: if (tooltip) {
 		const parent = tooltip.parentElement;
 		const parentRect = parent.getBoundingClientRect();
 		const parentWidth = parentRect.width;
 		const parentHeight = parentRect.height;
 
+		const x = targetX < parentWidth / 2
+			? {key: 'left', value: targetX + geometry.safetyLeft}
+			: {key: 'right', value: parentWidth - targetX + geometry.safetyRight};
+		const y = targetY < parentHeight / 2
+			? {key: 'top', value: targetY + geometry.safetyTop}
+			: {key: 'bottom', value: parentHeight - targetY + geometry.safetyBottom};
 
-		const tooltipWidth = tooltip?.offsetWidth;
-		const tooltipHeight = tooltip?.offsetHeight;
-	
-		tooltipX = targetX + targetWidth + tooltipWidth < parentWidth
-			? targetX + targetWidth
-			: targetX - tooltipWidth;
-		tooltipY = targetY + targetHeight + tooltipHeight > parentHeight
-			? targetY - tooltipHeight
-			: targetY + targetHeight;
+		tooltipStyle = {
+			[x.key]: toPx(x.value),
+			[y.key]: toPx(y.value)
+		};
 	}
+
+	$: style = `${makeStyleVars(theme)};${makeStyle(tooltipStyle)}`;
 </script>
 
 <div
 	class='Tooltip'
-	style='left: {tooltipX}px; top: {tooltipY}px;'
+	{style}
 	bind:this={tooltip}
 >
 	<slot />
@@ -39,12 +61,10 @@
 	.Tooltip {
 		position: absolute;
 		pointer-events: none;
-		background: white;
-		border: thin solid black;
-		box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
-		color: black;
-		padding: 0.5em;
-		z-index: 1000;
-		/* width: max(min-content, 10em); */
+		background: var(--backgroundColor);
+		border: var(--border);
+		box-shadow: var(--boxShadow);
+		color: var(--textColor);
+		padding: var(--padding);
 	}
 </style>
