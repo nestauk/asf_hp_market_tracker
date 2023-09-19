@@ -157,7 +157,7 @@ export const _tooltipTheme = derived(
 	currThemeVars => ({
 		backgroundColor: currThemeVars['--colorBackground'],
 		border: `thin solid ${currThemeVars['--colorBorderAux']}`,
-		boxShadow: currThemeVars['--shadow'],
+		boxShadow: currThemeVars['--boxShadowY'],
 		textColor: currThemeVars['--colorText'],
 	})
 );
