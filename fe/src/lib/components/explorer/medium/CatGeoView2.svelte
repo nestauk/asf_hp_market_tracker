@@ -346,7 +346,6 @@
 				</div>
 				<BarchartVDiv
 					{formatFn}
-					isInteractive={true}
 					items={currentItems}
 					shouldResetScroll={true}
 					slot='col2'
