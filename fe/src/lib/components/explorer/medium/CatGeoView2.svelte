@@ -53,7 +53,6 @@
 	export let keyAccessor;
 	export let keyAccessor2;
 	export let makeDomain;
-	// export let title;
 	export let valueAccessor;
 	export let valueAccessor2;
 
@@ -114,7 +113,6 @@
 		let item;
 		if (features.length > 0) {
 			const {properties: {[$_featureNameId]: featureName}} = features[0];
-			console.log(featureName);
 			item = itemsIndex[featureName];
 		}
 		if (item) {
@@ -124,8 +122,6 @@
 				value: formatFn ? formatFn(value) : value,
 				x,
 				y,
-				width: 16,
-				height: 16
 			};
 		} else {
 			$_tooltip = {};
@@ -143,15 +139,6 @@
 	let valuesToLabels;
 
 	const onKeyChange = ({detail}) => {currentKey = detail};
-
-	const onEntered = ({detail: {id}}) => {
-		console.log(id);
-		// $_tooltip = {key: id, value, x, y, width, height};
-	}
-
-	const onExited = () => {
-		// $_tooltip = {};
-	}
 
 	$: regionKindStyle = makeStyleVars($_regionKindTheme);
 	$: sortItems = $_selection.categsGeoSortBy === 'regionName'
@@ -365,8 +352,6 @@
 					slot='col2'
 					theme={$_barchartsTheme}
 					valueToColorFn={colorScale}
-					on:entered={onEntered}
-					on:exited={onExited}
 			/>
 			</Grid3Columns>
 		{/if}
