@@ -273,7 +273,6 @@
 			$_map.resize();
 		})
 		.on('data', () => {
-			console.log('map data changed')
 			layers = $_map && style && $_map?.getStyle().layers;
 			updateLayers(layers, reactiveLayers, getFeatureState);
 		});
