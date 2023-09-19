@@ -133,11 +133,9 @@
 	}
 	.overlay {
 		height: 100%;
-		position: fixed;
+		position: absolute;
 		width: 100%;
 		pointer-events: none;
-		top: 0;
-		left: 0;
 	}
 
 	button {
