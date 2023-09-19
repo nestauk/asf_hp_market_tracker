@@ -175,17 +175,16 @@
 			/>
 		</section>
 	{/if}
+	{#if $_tooltip?.key}
+		<Tooltip
+			targetX={$_tooltip.x}
+			targetY={$_tooltip.y}
+			theme={$_tooltipTheme}
+		>
+			{$_tooltip.key}: {$_tooltip.value}
+		</Tooltip>
+	{/if}
 </div>
-
-{#if $_tooltip?.key}
-	<Tooltip
-		targetX={$_tooltip.x}
-		targetY={$_tooltip.y}
-		theme={$_tooltipTheme}
-	>
-		{$_tooltip.key}: {$_tooltip.value}
-	</Tooltip>
-{/if}
 
 <style>
 	._layout {
