@@ -135,6 +135,7 @@
 		height: 100%;
 		position: absolute;
 		width: 100%;
+		pointer-events: none;
 	}
 
 	button {

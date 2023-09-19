@@ -152,6 +152,16 @@ export const _switchTheme = derived(
 	})
 );
 
+export const _tooltipTheme = derived(
+	_currThemeVars,
+	currThemeVars => ({
+		backgroundColor: currThemeVars['--colorBackground'],
+		border: currThemeVars['--borderAux'],
+		boxShadow: currThemeVars['--boxShadowY'],
+		textColor: currThemeVars['--colorText'],
+	})
+);
+
 export const _xorNavigatorTheme = derived(
 	_currThemeVars,
 	currThemeVars => ({

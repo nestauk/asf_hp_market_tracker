@@ -205,6 +205,21 @@
 		})
 		.on('click', () => {
 			dispatch('mapClick');
+		})
+		.on('mousemove', ({
+				lngLat, // geographic coordinates of the mouse position
+				originalEvent: {x, y}, // document pixel coordinates
+				point, // canvas pixel coordinates
+			}) => {
+			const features = map.queryRenderedFeatures(point);
+			const payload = {
+				features,
+				lngLat,
+				point,
+				x,
+				y,
+			}
+			dispatch('mapFeaturesHovered', payload);
 		});
 	}
 
@@ -258,7 +273,6 @@
 			$_map.resize();
 		})
 		.on('data', () => {
-			console.log('map data changed')
 			layers = $_map && style && $_map?.getStyle().layers;
 			updateLayers(layers, reactiveLayers, getFeatureState);
 		});

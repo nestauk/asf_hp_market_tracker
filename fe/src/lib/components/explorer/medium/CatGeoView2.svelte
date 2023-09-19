@@ -42,6 +42,7 @@
 		_regionKindTheme,
 		_xorNavigatorTheme,
 	} from '$lib/stores/theme.js';
+	import {_tooltip} from '$lib/stores/tooltip.js';
 	import {_selectedBbox} from '$lib/stores/view.js';
 	import {pluckKey} from '$lib/utils/svizzle/utils.js';
 
@@ -52,7 +53,6 @@
 	export let keyAccessor;
 	export let keyAccessor2;
 	export let makeDomain;
-	export let title;
 	export let valueAccessor;
 	export let valueAccessor2;
 
@@ -109,11 +109,37 @@
 		)
 	]);
 
+	const onMapFeaturesHovered = ({detail: {features, x, y}}) => {
+		let featureName;
+		if (features.length > 0) {
+			({properties: {[$_featureNameId]: featureName}} = features[0]);
+		}
+		if (featureName) {
+			let key;
+			let value;
+			if (featureName in itemsIndex) {
+				({key, value} = itemsIndex[featureName]);
+			} else {
+				key = featureName;
+				value = null;
+			}
+			$_tooltip = {
+				key,
+				value: formatFn ? formatFn(value) : value,
+				x,
+				y,
+			};
+		} else {
+			$_tooltip = {};
+		}
+	}
+
 	let colorScale;
 	let currentItems;
 	let currentKey;
 	let doDraw = false;
 	let getFeatureState;
+	let itemsIndex;
 	let legendBins;
 	let regionType;
 	let valuesToLabels;
@@ -168,7 +194,7 @@
 
 		regionType = $_selection.regionType;
 
-		const itemsIndex = _.index(currentItems, getKey);
+		itemsIndex = _.index(currentItems, getKey);
 		getFeatureState = feature => {
 			const {properties: {[$_featureNameId]: featureName}} = feature;
 			const item = itemsIndex[featureName];
@@ -243,7 +269,6 @@
 				<Scroller>
 					<BarchartVDiv
 						{formatFn}
-						{title}
 						items={currentItems}
 						shouldResetScroll={true}
 						theme={$_barchartsTheme}
@@ -313,6 +338,7 @@
 							bounds={$_selectedBbox}
 							isAnimated={false}
 							isInteractive={false}
+							on:mapFeaturesHovered={onMapFeaturesHovered}
 							reactiveLayers={[regionType]}
 							style={$_mapStyle}
 							visibleLayers={['nuts21_0', regionType]}
@@ -326,13 +352,12 @@
 				</div>
 				<BarchartVDiv
 					{formatFn}
-					{title}
 					items={currentItems}
 					shouldResetScroll={true}
 					slot='col2'
 					theme={$_barchartsTheme}
 					valueToColorFn={colorScale}
-				/>
+			/>
 			</Grid3Columns>
 		{/if}
 	</Grid2Rows>

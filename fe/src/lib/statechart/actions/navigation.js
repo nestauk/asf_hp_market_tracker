@@ -87,7 +87,7 @@ export const navigateToFullSearchParams = ctx => {
 	const newRegionTypes = RISON.stringify(
 		_.sort(_.uniques([
 			...ctx.selection.regionTypes,
-			...(parsedSearchParams.regionTypes || []),
+			...parsedSearchParams.regionTypes || [],
 		]))
 	);
 

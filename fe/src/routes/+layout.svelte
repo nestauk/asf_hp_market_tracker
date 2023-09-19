@@ -21,6 +21,7 @@
 	import Footer from '$lib/components/layout/medium/Footer.svelte';
 	import Nav from '$lib/components/layout/Nav.svelte';
 	import ThemeEditor from '$lib/components/layout/medium/ThemeEditor.svelte';
+	import Tooltip from '$lib/components/svizzle/ui/Tooltip.svelte';
 	import {
 		bannersDefaultFooterText,
 		fontsInfo,
@@ -35,7 +36,9 @@
 		_scrollbarTheme,
 		_themeName,
 		_themeVars,
+		_tooltipTheme,
 	} from '$lib/stores/theme'
+	import {_tooltip} from '$lib/stores/tooltip';
 
 	import Privacy from '$lib/_content/info/PrivacyBanner.svx';
 
@@ -171,6 +174,18 @@
 				theme={$_a11yMenuTheme}
 			/>
 		</section>
+	{/if}
+	{#if $_tooltip?.key}
+		<Tooltip
+			targetX={$_tooltip.x}
+			targetY={$_tooltip.y}
+			theme={$_tooltipTheme}
+		>
+			{$_tooltip.key}
+			{#if $_tooltip.value}
+				: {$_tooltip.value}
+			{/if}
+		</Tooltip>
 	{/if}
 </div>
 
