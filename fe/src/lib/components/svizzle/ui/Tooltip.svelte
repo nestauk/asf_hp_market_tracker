@@ -16,7 +16,7 @@
 		backgroundColor: 'white',
 		border: 'thin solid black',
 		boxShadow: '0 0 5px 0 rgba(0, 0, 0, 0.5)',
-		padding: '0.5em',
+		padding: '0.25em 0.5em',
 		textColor: 'black',
 	}
 
