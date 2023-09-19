@@ -8,19 +8,20 @@
 
 	import {explorerActor} from '$lib/statechart/index.js';
 	import {_staticData} from '$lib/stores/data.js';
+	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {_selection} from '$lib/stores/navigation.js';
 	import {_installationDateExtent} from '$lib/stores/filters.js';
-	import {formatDate} from '$lib/utils/date.js';
+	import {formatDateY2, formatDateY4M2} from '$lib/utils/date.js';
 	import {getDocCount} from '$lib/utils/getters.js';
 
-	const geometry = {
+	export let geometry;
+
+	const defaultGeometry = {
 		safetyBottom: 0,
 		safetyLeft: 40,
 		safetyRight: 40,
 		safetyTop: 30,
 	};
-	const fontSize = geometry.safetyTop / 2;
-
 	const knobStrokeWidth = 2;
 	const knobRadius = 6;
 	const sensors = {
@@ -112,7 +113,11 @@
 	let xTicks;
 	let yScale;
 
+	$: geometry = geometry ? {...defaultGeometry, ...geometry} : defaultGeometry;
+	$: fontSize = geometry.safetyTop / 2;
+
 	$: ({inlineSize: width, blockSize: height} = $_size);
+	$: formatDate = $_isSmallScreen ? formatDateY2 : formatDateY4M2;
 
 	$: if ($_installationDateExtent) {
 		items = $_staticData.timelines[$_selection.interval];
@@ -120,7 +125,7 @@
 		Min = $_installationDateExtent.Min;
 	}
 
-	$: selectedRange = $_selection.filters.installation_date
+	$: selectedRange = $_selection.filters.installation_date;
 	$: max = selectedRange?.lte || Max;
 	$: min = selectedRange?.gte || Min;
 
@@ -143,8 +148,8 @@
 		binWidth = xScale(getKey(items[1])) - xScale(getKey(items[0]));
 		binsTicks = xScale.ticks(items.length + 1);
 
-		const [, dMax] = extent(items, getDocCount);
-		yScale = scaleLinear().domain([0, dMax]).range([0, bbox.height]);
+		const [, maxDocCount] = extent(items, getDocCount);
+		yScale = scaleLinear().domain([0, maxDocCount]).range([0, bbox.height]);
 
 		/* x axis */
 
@@ -203,7 +208,8 @@
 
 <div
 	class='TimeLine'
-	style='font-size:{fontSize}; --knobStrokeWidth:{knobStrokeWidth}px;'
+	on:touchstart|preventDefault={null}
+	style='font-size:{fontSize};--knobStrokeWidth:{knobStrokeWidth}px;'
 	use:sizeObserver={'contentBoxSize'}
 >
 	{#if proceed}

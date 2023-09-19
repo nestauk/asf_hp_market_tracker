@@ -39,6 +39,7 @@ export const _filtersBar = derived(
 		if (!staticData) {
 			return [];
 		}
+
 		const numData = mergeWithMerge(
 			staticData.numStats,
 			getValuesArray(staticData.numHists)
@@ -58,6 +59,7 @@ export const _filtersBar = derived(
 		const defaultFilters = formatFilters([
 			...numFilters,
 			...catFilters,
+			{entity: 'Installation', id: 'installation_date'},
 			{entity: 'Installer', id: 'installer_geo_region'},
 			{entity: 'Property', id: 'property_geo_region'}
 		]);

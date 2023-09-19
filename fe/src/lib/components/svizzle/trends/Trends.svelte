@@ -68,6 +68,7 @@
 	/* geometry */
 
 	const labelsDx = 20;
+
 	$: geometry = geometry ? {...defaultGeometry, ...geometry} : defaultGeometry;
 	$: labelsDy = Math.min(geometry.safetyBottom, geometry.safetyTop) / 2;
 

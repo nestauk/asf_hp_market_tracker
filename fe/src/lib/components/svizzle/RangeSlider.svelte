@@ -65,7 +65,7 @@
 	$: max < min && (max = min);
 
 	$: theme = {...defaultTheme, ...theme};
-	$: geometry = {...defaultGeometry, ...geometry};
+	$: geometry = geometry ? {...defaultGeometry, ...geometry} : defaultGeometry;
 
 	$: knobRadius = geometry.knobRadius + theme.knobStrokeWidth;
 	$: knobOffset = knobRadius + theme.knobStrokeWidth / 2;
@@ -86,10 +86,6 @@
 			scale(min)
 		);
 		max = scale.invert(value);
-	}
-
-	const cancelPanelTouchStart = event => {
-		event.preventDefault();
 	}
 
 	const createStartDragging = ({isMinKnob}) => event => {
@@ -164,7 +160,7 @@
 <div
 	{style}
 	class='RangeSlider'
-	on:touchstart={cancelPanelTouchStart}
+	on:touchstart|preventDefault={null}
 >
 	<div class='output'>
 		{formatFn?.(min) || min} - {formatFn?.(max) || max}

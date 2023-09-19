@@ -7,6 +7,8 @@
 		from '$lib/components/explorer/CategorySelector.svelte';
 	import FiltersNavigator
 		from '$lib/components/explorer/FiltersNavigator.svelte';
+	import TimeLineHistogram
+		from '$lib/components/explorer/medium/TimeLineHistogram.svelte';
 	import RegionFilter from '$lib/components/explorer/RegionFilter.svelte';
 	import RangeSlider from '$lib/components/svizzle/RangeSlider.svelte';
 	import Scroller from '$lib/components/svizzle/Scroller.svelte';
@@ -239,6 +241,16 @@
 											targetRegionType={$_selection.filters.propertyRegionType}
 											title='Property regions'
 										/>
+									{:else if metric.id === 'installation_date' && $_isSmallScreen}
+										<h3>Date</h3>
+										<div class='timeline'>
+											<TimeLineHistogram
+												geometry={{
+													safetyLeft: 15,
+													safetyRight: 15,
+												}}
+											/>
+										</div>
 									{:else if metric.id !== 'installation_date'}
 										<h3>{metric.label}</h3>
 										{#if metric.type === 'number'}
@@ -308,5 +320,10 @@
 	}
 	li:first-child {
 		padding-top: 0;
+	}
+
+	.timeline {
+		height: 6em;
+		width: 100%;
 	}
 </style>
