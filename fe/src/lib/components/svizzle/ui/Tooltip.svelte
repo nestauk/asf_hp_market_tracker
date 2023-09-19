@@ -41,8 +41,6 @@
 			[x.key]: toPx(x.value),
 			[y.key]: toPx(y.value)
 		};
-	} else {
-		tooltipStyle = {};
 	}
 
 	$: style = `${makeStyleVars(theme)};${makeStyle(tooltipStyle)}`;
