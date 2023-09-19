@@ -6,29 +6,26 @@
 	export let theme;
 
 	const geometry = {
+		safetyBottom: 4,
 		safetyLeft: 16,
 		safetyRight: 4,
 		safetyTop: 16,
-		safetyBottom: 4,
 	};
 
-	const defaultheme = {
+	const defaultTheme = {
 		backgroundColor: 'white',
 		border: 'thin solid black',
 		boxShadow: '0 0 5px 0 rgba(0, 0, 0, 0.5)',
-		textColor: 'black',
 		padding: '0.5em',
+		textColor: 'black',
 	}
 
-	let tooltip;
+	let tooltipNode;
 	let tooltipStyle = {};
 
-	$: theme = {
-		...defaultheme,
-		...theme
-	}
-	$: if (tooltip) {
-		const parent = tooltip.parentElement;
+	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
+	$: if (tooltipNode) {
+		const parent = tooltipNode.parentElement;
 		const parentRect = parent.getBoundingClientRect();
 		const parentWidth = parentRect.width;
 		const parentHeight = parentRect.height;
@@ -44,27 +41,29 @@
 			[x.key]: toPx(x.value),
 			[y.key]: toPx(y.value)
 		};
+	} else {
+		tooltipStyle = {};
 	}
 
 	$: style = `${makeStyleVars(theme)};${makeStyle(tooltipStyle)}`;
 </script>
 
 <div
-	class='Tooltip'
 	{style}
-	bind:this={tooltip}
+	bind:this={tooltipNode}
+	class='Tooltip'
 >
 	<slot />
 </div>
 
 <style>
 	.Tooltip {
-		position: absolute;
-		pointer-events: none;
 		background: var(--backgroundColor);
 		border: var(--border);
 		box-shadow: var(--boxShadow);
 		color: var(--textColor);
 		padding: var(--padding);
+		pointer-events: none;
+		position: absolute;
 	}
 </style>
