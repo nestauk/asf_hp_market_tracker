@@ -70,3 +70,41 @@ If the pipeline runs OK but you get a message like
 Make sure the instance you're running this pipeline from has permissions to
 access the DB, e.g. that the IP is listed in the allowed incoming requests in
 the EC2/RDS security configuration.
+
+## Using the `ingest.sh` script
+
+To attempt to fully automate the process described above for all
+three environments (dev, staging and production), we have set 
+up a script that uses a dev server hosted on EC2 to run all
+the ingestion pipelines.
+
+To access, make sure you can ssh into `13.40.13.228`. If you 
+have access to the Nesta AWS, you can connect to the EC2 instance
+there and simply add your public key to the `authorized_keys` file,
+which will allow the script to run.
+
+The script does the following things:
+
+- Copies the latest pipeline configurations over to the server.
+- Sources the neccessary configurations for each environment.
+- Iterates through each env and ingests the data from the SQL
+    server to the given index (which you provide as a command line
+    argument)
+    
+Usage:
+
+`npm run runLogstashPipeline -- test`
+
+This will create an idex named `test` on
+
+- hpmt.es.dev.dap-tools.uk
+- hpmt.staging.dev.dap-tools.uk
+- hpmt.production.dev.dap-tools.uk
+
+Be careful about which index you specify, as the data will be
+overwritten if you specify an existing index.
+
+Also of note: If the passwords for any of the DBs change, you
+must ssh into the server and change the `{env}.rc` file,
+where `env` is the name of the enviroment whose DB's password
+has changed.
