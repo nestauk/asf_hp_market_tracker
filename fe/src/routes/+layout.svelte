@@ -36,6 +36,7 @@
 		_scrollbarTheme,
 		_themeName,
 		_themeVars,
+		_tooltipTheme,
 	} from '$lib/stores/theme'
 	import {_tooltipTheme} from  '$lib/stores/theme';
 	import {_tooltip} from '$lib/stores/tooltip';
