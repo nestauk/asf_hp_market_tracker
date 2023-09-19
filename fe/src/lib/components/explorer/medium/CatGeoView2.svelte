@@ -42,6 +42,7 @@
 		_regionKindTheme,
 		_xorNavigatorTheme,
 	} from '$lib/stores/theme.js';
+	import {_tooltip} from '$lib/stores/tooltip.js';
 	import {_selectedBbox} from '$lib/stores/view.js';
 	import {pluckKey} from '$lib/utils/svizzle/utils.js';
 
@@ -52,7 +53,7 @@
 	export let keyAccessor;
 	export let keyAccessor2;
 	export let makeDomain;
-	export let title;
+	// export let title;
 	export let valueAccessor;
 	export let valueAccessor2;
 
@@ -109,16 +110,48 @@
 		)
 	]);
 
+	const onMapFeaturesHovered = ({detail: {features, x, y}}) => {
+		let item;
+		if (features.length > 0) {
+			const {properties: {[$_featureNameId]: featureName}} = features[0];
+			console.log(featureName);
+			item = itemsIndex[featureName];
+		}
+		if (item) {
+			const {key, value} = item;
+			$_tooltip = {
+				key,
+				value: formatFn ? formatFn(value) : value,
+				x,
+				y,
+				width: 16,
+				height: 16
+			};
+		} else {
+			$_tooltip = {};
+		}
+	}
+
 	let colorScale;
 	let currentItems;
 	let currentKey;
 	let doDraw = false;
 	let getFeatureState;
+	let itemsIndex;
 	let legendBins;
 	let regionType;
 	let valuesToLabels;
 
 	const onKeyChange = ({detail}) => {currentKey = detail};
+
+	const onEntered = ({detail: {id}}) => {
+		console.log(id);
+		// $_tooltip = {key: id, value, x, y, width, height};
+	}
+
+	const onExited = () => {
+		// $_tooltip = {};
+	}
 
 	$: regionKindStyle = makeStyleVars($_regionKindTheme);
 	$: sortItems = $_selection.categsGeoSortBy === 'regionName'
@@ -168,7 +201,7 @@
 
 		regionType = $_selection.regionType;
 
-		const itemsIndex = _.index(currentItems, getKey);
+		itemsIndex = _.index(currentItems, getKey);
 		getFeatureState = feature => {
 			const {properties: {[$_featureNameId]: featureName}} = feature;
 			const item = itemsIndex[featureName];
@@ -243,7 +276,6 @@
 				<Scroller>
 					<BarchartVDiv
 						{formatFn}
-						{title}
 						items={currentItems}
 						shouldResetScroll={true}
 						theme={$_barchartsTheme}
@@ -313,6 +345,7 @@
 							bounds={$_selectedBbox}
 							isAnimated={false}
 							isInteractive={false}
+							on:mapFeaturesHovered={onMapFeaturesHovered}
 							reactiveLayers={[regionType]}
 							style={$_mapStyle}
 							visibleLayers={['nuts21_0', regionType]}
@@ -326,13 +359,15 @@
 				</div>
 				<BarchartVDiv
 					{formatFn}
-					{title}
+					isInteractive={true}
 					items={currentItems}
 					shouldResetScroll={true}
 					slot='col2'
 					theme={$_barchartsTheme}
 					valueToColorFn={colorScale}
-				/>
+					on:entered={onEntered}
+					on:exited={onExited}
+			/>
 			</Grid3Columns>
 		{/if}
 	</Grid2Rows>

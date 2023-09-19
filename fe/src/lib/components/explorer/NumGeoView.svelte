@@ -33,6 +33,7 @@
 		_legendsTheme,
 		_regionKindTheme,
 	} from '$lib/stores/theme.js';
+	import {_tooltip} from '$lib/stores/tooltip.js';
 	import {_selectedBbox} from '$lib/stores/view.js';
 
 	export let amountOfBins;
@@ -49,10 +50,32 @@
 	let doDraw = false;
 	let getFeatureState;
 	let isSingleValue;
+	let itemsIndex;
 	let keyToColorFn;
 	let legendBins;
 	let legendKeys;
 	let regionType;
+
+	const onMapFeaturesHovered = ({detail: {features, x, y}}) => {
+		let item;
+		if (features.length > 0) {
+			const {properties: {[$_featureNameId]: featureName}} = features[0];
+			item = itemsIndex[featureName];
+		}
+		if (item) {
+			const {key} = item;
+			$_tooltip = {
+				key,
+				value: formatFn(valueAccessor(item)),
+				x,
+				y,
+				width: 16,
+				height: 16
+			};
+		} else {
+			$_tooltip = {};
+		}
+	}
 
 	$: regionKindStyle = makeStyleVars($_regionKindTheme);
 	$: amountOfBins = amountOfBins || 5;
@@ -95,7 +118,7 @@
 
 		regionType = $_selection.regionType;
 
-		const itemsIndex = _.index(items, getKey);
+		itemsIndex = _.index(items, getKey);
 		getFeatureState = feature => {
 			const {properties: {[$_featureNameId]: featureName}} = feature;
 			const item = itemsIndex[featureName];
@@ -258,6 +281,7 @@
 						bounds={$_selectedBbox}
 						isAnimated={false}
 						isInteractive={false}
+						on:mapFeaturesHovered={onMapFeaturesHovered}
 						reactiveLayers={[regionType]}
 						style={$_mapStyle}
 						visibleLayers={['nuts21_0', regionType]}

@@ -205,6 +205,21 @@
 		})
 		.on('click', () => {
 			dispatch('mapClick');
+		})
+		.on('mousemove', ({
+				lngLat, // geographic coordinates of the mouse position
+				originalEvent: {x, y}, // document pixel coordinates
+				point, // canvas pixel coordinates
+			}) => {
+			const features = map.queryRenderedFeatures(point);
+			const payload = {
+				features,
+				lngLat,
+				point,
+				x,
+				y,
+			}
+			dispatch('mapFeaturesHovered', payload);
 		});
 	}
 

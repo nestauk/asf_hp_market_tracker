@@ -11,10 +11,10 @@
 	export let _zoom = null;
 	export let accessToken;
 	export let bounds;
-	export let eventsHandlers;
+	export let eventsHandlers = null;
 	export let getFeatureState;
 	export let isAnimated = true;
-	export let isDblClickEnabled;
+	export let isDblClickEnabled = true;
 	export let isInteractive = true;
 	export let reactiveLayers;
 	export let style;
@@ -43,6 +43,7 @@
 		{withZoomControl}
 		on:bboxChanged
 		on:mapClick
+		on:mapFeaturesHovered
 	>
 		<slot />
 	</MapboxglBase>

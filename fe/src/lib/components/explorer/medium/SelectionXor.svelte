@@ -7,8 +7,8 @@
 	export let name;
 
 	// alternative props
-	export let values;
-	export let valuesToLabels;
+	export let values = null;
+	export let valuesToLabels = null;
 
 	const makeSetSelectionValue = paramName => ({detail: newValue}) => {
 		if (newValue !== $_selection[paramName]) {
