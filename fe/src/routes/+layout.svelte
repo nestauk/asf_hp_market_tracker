@@ -181,7 +181,10 @@
 			targetY={$_tooltip.y}
 			theme={$_tooltipTheme}
 		>
-			{$_tooltip.key}: {$_tooltip.value}
+			{$_tooltip.key}
+			{#if $_tooltip.value}
+				: {$_tooltip.value}
+			{/if}
 		</Tooltip>
 	{/if}
 </div>

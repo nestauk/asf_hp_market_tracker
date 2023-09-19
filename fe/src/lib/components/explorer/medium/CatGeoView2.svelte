@@ -110,13 +110,19 @@
 	]);
 
 	const onMapFeaturesHovered = ({detail: {features, x, y}}) => {
-		let item;
+		let featureName;
 		if (features.length > 0) {
-			const {properties: {[$_featureNameId]: featureName}} = features[0];
-			item = itemsIndex[featureName];
+			({properties: {[$_featureNameId]: featureName}} = features[0]);
 		}
-		if (item) {
-			const {key, value} = item;
+		if (featureName) {
+			let key;
+			let value;
+			if (featureName in itemsIndex) {
+				({key, value} = itemsIndex[featureName]);
+			} else {
+				key = featureName;
+				value = null;
+			}
 			$_tooltip = {
 				key,
 				value: formatFn ? formatFn(value) : value,
