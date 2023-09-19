@@ -69,8 +69,6 @@
 				value: formatFn(valueAccessor(item)),
 				x,
 				y,
-				width: 16,
-				height: 16
 			};
 		} else {
 			$_tooltip = {};
