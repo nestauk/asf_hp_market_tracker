@@ -10,10 +10,13 @@
 	import {scaleLinear, scalePoint, scaleTime} from 'd3-scale';
 	import {area, line, curveMonotoneX} from 'd3-shape';
 	import * as _ from 'lamb';
+	import {createEventDispatcher} from 'svelte';
 
 	import {pluckKey} from '$lib/utils/svizzle/utils.js';
 
 	import {getDateTimeFormat} from './utils.js';
+
+	const dispatch = createEventDispatcher();
 
 	const defaultGeometry = {
 		safetyBottom: 20,
@@ -152,7 +155,9 @@
 					.y0(_.pipe([getValues, _.getKey(lowKey), yScale]))
 					.y1(_.pipe([getValues, _.getKey(highKey), yScale]))
 					.curve(curveMonotoneX),
-				lowKey
+				highKey,
+				key: `${lowKey} - ${highKey}`,
+				lowKey,
 			})
 		);
 
@@ -263,16 +268,23 @@
 			/>
 
 			<!-- areas -->
-			{#each areas as {color, generator, lowKey} (lowKey)}
+			{#each areas as {color, generator, key, lowKey} (lowKey)}
 				<path
 					d={generator(items)}
 					fill={color}
+					on:mousemove={({x, y}) => {
+						dispatch('areaHovered', {key, x, y})
+					}}
+					on:mouseout={({x, y}) => {
+						dispatch('areaExited', {key, x, y})
+					}}
 				/>
 			{/each}
 
 			<!-- lines -->
 			{#each lines as {generator, key} (key)}
 				<path
+					class='line'
 					d={generator(items)}
 					fill='none'
 					stroke={keyToColorFn?.(key) ?? 'var(--curveStroke)'}
@@ -318,5 +330,8 @@
 
 	path {
 		stroke-width: var(--curveStrokeWidth);
+	}
+	path.line {
+		pointer-events: none;
 	}
 </style>

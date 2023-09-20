@@ -18,6 +18,7 @@
 	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {_currentMetric, _selection} from '$lib/stores/navigation.js';
 	import {_currThemeVars, _framesTheme} from '$lib/stores/theme.js';
+	import {_tooltip} from '$lib/stores/tooltip.js';
 	import {_isViewReady, _viewData} from '$lib/stores/view.js';
 	import {
 		getCardinalityValue,
@@ -41,6 +42,19 @@
 		installers: getCardinalityValue,
 	}
 	const filterOutNils = _.filterWith(_.pipe([getValue, isNotNil]));
+
+	const onDotHovered = ({detail: {data: {key, value}, x, y}}) => {
+		$_tooltip = {
+			key: `@ ${key}`,
+			value,
+			x,
+			y,
+		};
+	};
+
+	const onDotExited = () => {
+		$_tooltip = null;
+	};
 
 	let doDraw = false;
 	let trends;
@@ -136,6 +150,8 @@
 					safetyTop: 50,
 				}}
 				keyType='date'
+				on:dotHovered={onDotHovered}
+				on:dotExited={onDotExited}
 				theme={{
 					...$_framesTheme,
 					curveStroke: $_currThemeVars['--colorBorderAux']

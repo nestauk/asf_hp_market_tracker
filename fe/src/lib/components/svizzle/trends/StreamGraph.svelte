@@ -14,6 +14,7 @@
 	import {pairs} from 'd3-array';
 	import {scaleLinear, scalePoint, scaleTime} from 'd3-scale';
 	import * as _ from 'lamb';
+	import {createEventDispatcher} from 'svelte';
 
 	import {
 		objectToKeyValuesArray,
@@ -21,6 +22,8 @@
 	} from '$lib/utils/svizzle/utils.js';
 
 	import {getDateTimeFormat} from './utils.js';
+
+	const dispatch = createEventDispatcher();
 
 	const defaultGeometry = {
 		safetyBottom: 20,
@@ -296,6 +299,12 @@
 				<path
 					d={p.path}
 					fill={p.fill}
+					on:mousemove={({x, y}) => {
+						dispatch('areaHovered', {key: p.category, x, y})
+					}}
+					on:mouseout={({x, y}) => {
+						dispatch('areaExited', {key: p.category, x, y})
+					}}
 					stroke={p.fill}
 				/>
 			{/each}

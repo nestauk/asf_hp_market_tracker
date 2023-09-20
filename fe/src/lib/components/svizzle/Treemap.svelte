@@ -2,6 +2,7 @@
 	import {getKey, getValue} from '@svizzle/utils';
 	import {hierarchy, stratify, treemap} from 'd3-hierarchy';
 	import * as _ from 'lamb';
+	import {createEventDispatcher} from 'svelte';
 
 	export let items;
 	export let keyAccessor = getKey;
@@ -14,6 +15,7 @@
 	let treemapHeight;
 	let treemapWidth;
 
+	const dispatch = createEventDispatcher();
 	const stratifyData = stratify().path(_.identity);
 
 	$: getHierarchy = stratified =>
@@ -41,13 +43,17 @@
 		{#each treemapLeaves
 			as {x0, x1, y0, y1, data: {data}}
 		}
-			<g transform='translate({x0},{y0})'>
+			<g
+				on:mousemove={({x, y}) => dispatch('leafHovered', {data, x, y})}
+				on:mouseout={({x, y}) => dispatch('leafExited', {data, x, y})}
+				transform='translate({x0},{y0})'
+			>
 				<rect
-					height={y1-y0}
-					width={x1-x0}
 					fill={keyToColorFn(keyAccessor(data))}
-					stroke='var(--colorBorderAux)'
+					height={y1-y0}
 					stroke-width={0.5}
+					stroke='var(--colorBorderAux)'
+					width={x1-x0}
 				/>
 				<text
 					dx={5}

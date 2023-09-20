@@ -11,10 +11,13 @@
 	import {scaleLinear, scalePoint, scaleTime} from 'd3-scale';
 	import {line, curveMonotoneX} from 'd3-shape';
 	import * as _ from 'lamb';
+	import {createEventDispatcher} from 'svelte';
 
 	import {pluckKey} from '$lib/utils/svizzle/utils.js';
 
 	import {getDateTimeFormat} from './utils.js';
+
+	const dispatch = createEventDispatcher();
 
 	const defaultGeometry = {
 		dotRadius: 2,
@@ -283,12 +286,18 @@
 					stroke={keyToColorFn?.(key) ?? 'var(--curveStroke)'}
 				/>
 
-				{#each values as v}
+				{#each values as data}
 					<circle
-						cx={xScale(getKey(v))}
-						cy={yScale(getValue(v))}
-						r={dotRadius}
+						cx={xScale(getKey(data))}
+						cy={yScale(getValue(data))}
 						fill={keyToColorFn?.(key) ?? 'var(--curveStroke)'}
+						on:mousemove={({x, y}) => {
+							dispatch('dotHovered', {data, x, y})
+						}}
+						on:mouseout={({x, y}) => {
+							dispatch('dotExited', {data, x, y})
+						}}
+						r={dotRadius}
 					/>
 				{/each}
 			{/each}

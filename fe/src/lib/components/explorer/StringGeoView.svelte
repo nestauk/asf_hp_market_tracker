@@ -27,14 +27,15 @@
 	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {_selection} from '$lib/stores/navigation.js';
 	import {_legendsTheme, _stackedBarchartTheme} from '$lib/stores/theme.js';
+	import {_tooltip} from '$lib/stores/tooltip.js';
 	import {
 		objectToKeyValuesArray,
 		pluckKeySorted
 	} from '$lib/utils/svizzle/utils.js';
 
+	export let items;
 	export let keyAccessor;
 	export let keyAccessor2;
-	export let items;
 	export let valueAccessor;
 	export let valueAccessor2;
 
@@ -82,6 +83,19 @@
 		])),
 		_.fromPairs
 	]);
+
+	const onBarHovered = ({detail: {subKey: key, value, x, y}}) => {
+		$_tooltip = {
+			key,
+			value,
+			x,
+			y,
+		};
+	};
+
+	const onBarExited = () => {
+		$_tooltip = null;
+	};
 
 	let doDraw = false;
 	let domain;
@@ -197,6 +211,8 @@
 						{stacks}
 						extentsType={$_selection.stackedBarsExtents}
 						groupSortBy={$_selection.stringsGeoSortBy}
+						on:barHovered={onBarHovered}
+						on:barExited={onBarExited}
 						shouldResetScroll={true}
 						slot='col1'
 						theme={$_stackedBarchartTheme}

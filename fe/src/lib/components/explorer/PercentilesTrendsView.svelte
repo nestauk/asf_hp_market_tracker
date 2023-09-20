@@ -144,6 +144,8 @@
 				safetyTop: 50,
 			}}
 			keyType='date'
+			on:areaHovered
+			on:areaExited
 			slot='col1'
 			theme={{
 				...$_framesTheme,

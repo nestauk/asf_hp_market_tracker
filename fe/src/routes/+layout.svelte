@@ -175,6 +175,7 @@
 			/>
 		</section>
 	{/if}
+
 	{#if $_tooltip?.key}
 		<Tooltip
 			targetX={$_tooltip.x}

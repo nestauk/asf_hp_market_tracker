@@ -14,7 +14,7 @@
 	} from '@svizzle/utils';
 	import {scaleLinear, scaleBand} from 'd3-scale';
 	import * as _ from 'lamb';
-	import {afterUpdate} from 'svelte';
+	import {afterUpdate, createEventDispatcher} from 'svelte';
 
 	import Scroller from '$lib/components/svizzle/Scroller.svelte';
 
@@ -40,6 +40,8 @@
 	const defaultTheme = {
 		textColor: 'black',
 	}
+
+	const dispatch = createEventDispatcher();
 
 	const defaultBarColorFn = () => 'black';
 
@@ -175,11 +177,17 @@
 					</text>
  					{#each values as {key: subKey, value, start}}
 						<rect
+							fill={groupToColorFn(subKey)}
+							height={yScale.bandwidth()}
+							on:mousemove={({x, y}) => {
+								dispatch('barHovered', {key, subKey, value, x, y})
+							}}
+							on:mouseout={({x, y}) => {
+								dispatch('barExited', {key, subKey, value, x, y})
+							}}
+							width={barScale(value)}
 							x={barScale(start)}
 							y={yScale(key)}
-							width={barScale(value)}
-							height={yScale.bandwidth()}
-							fill={groupToColorFn(subKey)}
 						/>
 					{/each}
 				{/each}

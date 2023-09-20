@@ -18,6 +18,7 @@
 	import {_isViewReady, _viewData} from '$lib/stores/view.js';
 	import {_histogramsTheme} from '$lib/stores/theme.js';
 	import {getDocCount} from '$lib/utils/getters.js';
+	import {_tooltip} from '$lib/stores/tooltip.js';
 
 	const valueAccessor = getDocCount;
 
@@ -46,6 +47,19 @@
 		([a, b]) => `${a}-${b}`
 	]);
 	const makeTreemapDomain = _.mapWith(treemapKeyAccessor);
+
+	const onLeafHovered = ({detail: {data, x, y}}) => {
+		$_tooltip = {
+			key: treemapKeyAccessor(data),
+			value: data.value,
+			x,
+			y,
+		};
+	};
+
+	const onLeafExited = () => {
+		$_tooltip = null;
+	};
 
 	$: proceed =
 		$_isViewReady &&
@@ -140,6 +154,8 @@
 						{keyToColorLabelFn}
 						items={bins}
 						keyAccessor={treemapKeyAccessor}
+						on:leafHovered={onLeafHovered}
+						on:leafExited={onLeafExited}
 					/>
 				</div>
 			</div>

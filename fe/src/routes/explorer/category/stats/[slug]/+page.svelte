@@ -15,12 +15,26 @@
 	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {_currentMetric} from '$lib/stores/navigation.js';
 	import {_barchartsTheme} from '$lib/stores/theme.js';
+	import {_tooltip} from '$lib/stores/tooltip.js';
 	import {_isViewReady, _viewData} from '$lib/stores/view.js';
 	import {getDocCount} from '$lib/utils/getters.js';
 	import {pluckKeySorted} from '$lib/utils/svizzle/utils.js';
 
 	const valueAccessor = getDocCount;
 	const filter = _.filterWith(_.pipe([valueAccessor, isNotNil]));
+
+	const onLeafHovered = ({detail: {data, x, y}}) => {
+		$_tooltip = {
+			key: data.key,
+			value: valueAccessor(data),
+			x,
+			y,
+		};
+	};
+
+	const onLeafExited = () => {
+		$_tooltip = null;
+	};
 
 	/* barchart */
 
@@ -108,6 +122,8 @@
 						{keyToColorFn}
 						{keyToColorLabelFn}
 						{valueAccessor}
+						on:leafHovered={onLeafHovered}
+						on:leafExited={onLeafExited}
 					/>
 				</div>
 			</div>

@@ -20,6 +20,7 @@
 	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {_currentMetric, _selection} from '$lib/stores/navigation.js';
 	import {_currThemeVars, _framesTheme} from '$lib/stores/theme.js';
+	import {_tooltip} from '$lib/stores/tooltip.js';
 	import {_isViewReady, _viewData} from '$lib/stores/view.js';
 	import {getKeyAsString} from '$lib/utils/getters.js';
 
@@ -38,6 +39,21 @@
 	const filterItems = _.filterWith(
 		_.pipe([_.getPath('values.avg'), isNotNil])
 	);
+
+	const onDotHovered = ({detail: {data: {key, value}, x, y}}) => {
+		$_tooltip = {
+			key: `@ ${key}`,
+			value,
+			x,
+			y,
+		};
+	};
+	const onAreaHovered = ({detail: {key, x, y}}) => {
+		$_tooltip = {key, x, y};
+	};
+	const onExited = () => {
+		$_tooltip = null;
+	};
 
 	$: proceed =
 		$_isViewReady &&
@@ -123,6 +139,8 @@
 			{#if $_selection.numTimeGraph === 'percentiles'}
 				<PercentilesTrendsView
 					{items}
+					on:areaHovered={onAreaHovered}
+					on:areaExited={onExited}
 					valueFormatFn={$_currentMetric?.formatFn}
 				/>
 			{:else}
@@ -135,6 +153,8 @@
 						safetyTop: 50,
 					}}
 					keyType='date'
+					on:dotHovered={onDotHovered}
+					on:dotExited={onExited}
 					theme={{
 						...$_framesTheme,
 						curveStroke: $_currThemeVars['--colorBorderAux']
