@@ -29,7 +29,7 @@
 		"dev": "nodemon src/server.js | pino-pretty",
 		"getBoundaries": "mkdirp tiles/geojson && npx downloadBoundaries -i tiles/config.json -o tiles/geojson && node src/bin/saveNuts0.js",
 		"getTiles": "mkdirp tiles/mbtiles && sh src/bin/generateMbTiles.sh",
-		"runLogstashPipeline": "sh src/bin/syncPipelineConfs.sh && ssh ubuntu@13.40.13.228 'bash -s' < src/bin/ingest.sh",
+		"runLogstashPipeline": "sh src/bin/ingest.sh",
 		"lint": "eslint .",
 		"test": "tap --no-coverage",
 		"stop": "pm2 stop server",
