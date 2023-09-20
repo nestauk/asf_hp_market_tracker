@@ -8,6 +8,7 @@ import {
 } from '@svizzle/utils';
 import {extent} from 'd3-array';
 import * as _ from 'lamb';
+import {DateTime, Duration} from 'luxon';
 import {derived} from 'svelte/store';
 
 import {categoricalMetricsById, numericMetricsById} from '$lib/data/metrics.js';
@@ -70,12 +71,21 @@ export const _filtersBar = derived(
 
 /* timeline filter */
 
-const getTimeDomain = _.pipe([
-	pluckKeySorted,
-	_.collect([_.take(2), _.last]),
-	([[first, second], last]) => [first, last + second - first]
-]);
+const durations = {
+	'1M': Duration.fromObject({months: 1}),
+	'1q': Duration.fromObject({quarters: 1}),
+	'1y': Duration.fromObject({years: 1}),
+};
+const getTimeDomain = (buckets, intervalKey) => {
+	const timestamps = pluckKeySorted(buckets);
+	const firstBinStartMs = timestamps[0];
+	const lastBinStartDateTime = DateTime.fromMillis(_.last(timestamps));
+	const duration = durations[intervalKey];
+	const lastBinEndMs = lastBinStartDateTime.plus(duration).toMillis();
+	const domain = [firstBinStartMs, lastBinEndMs];
 
+	return domain
+};
 const getTimelinesExtent = _.pipe([
 	_.mapValuesWith(getTimeDomain),
 	concatValues,
@@ -85,7 +95,6 @@ const getTimelinesExtent = _.pipe([
 		Min: _.head,
 	}),
 ]);
-
 export const _installationDateExtent = derived(
 	_staticData,
 	_.when(

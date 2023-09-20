@@ -1,6 +1,6 @@
 <script>
 	import {setupResizeObserver} from '@svizzle/ui';
-	import {getKey} from '@svizzle/utils';
+	import {getKey, isObjEmpty} from '@svizzle/utils';
 	import {extent} from 'd3-array';
 	import {scaleLinear, scaleUtc} from 'd3-scale';
 	import isEqual from 'just-compare';
@@ -35,10 +35,10 @@
 
 	/* range selection */
 
-	const getClosestTickIndex = (ticks, value) => {
+	const getClosestTickIndex = (ticks, time) => {
 		const diffs = _.map(
 			ticks,
-			(tick, i) => [Math.abs(tick.getTime() - value), i]
+			(tick, i) => [Math.abs(tick.getTime() - time), i]
 		);
 		const sorted = _.sort(diffs, [_.head]);
 		const [[, index]] = sorted;
@@ -47,11 +47,10 @@
 	}
 
 	const handleMinDrag = event => {
-		const value = xScale.invert(event.offsetX - geometry.safetyLeft);
-		let minIndex = getClosestTickIndex(binsTicks, value);
+		const utcTime = xScale.invert(event.offsetX - geometry.safetyLeft);
+		let minIndex = getClosestTickIndex(binsTicks, utcTime);
 
 		/* snap and limit left handle value */
-
 		const maxIndex = getClosestTickIndex(binsTicks, max);
 		if (minIndex >= maxIndex) {
 			minIndex = Math.max(0, maxIndex - 1);
@@ -60,8 +59,8 @@
 	}
 
 	const handleMaxDrag = event => {
-		const value = xScale.invert(event.offsetX - geometry.safetyLeft);
-		let maxIndex = getClosestTickIndex(binsTicks, value);
+		const utcTime = xScale.invert(event.offsetX - geometry.safetyLeft);
+		let maxIndex = getClosestTickIndex(binsTicks, utcTime);
 
 		/* snap and limit right handle value */
 		const minIndex = getClosestTickIndex(binsTicks, min);
@@ -81,13 +80,23 @@
 		event.target.releasePointerCapture(event.pointerId);
 
 		const {filters: oldFilters} = $_selection;
-		const newFilters = {
-			...oldFilters,
-			installation_date: {
-				gte: min.getTime(),
-				lte: max.getTime()
-			}
+		const minTime = min.getTime();
+		const maxTime = max.getTime();
+
+		const criteria = {};
+		if (minTime !== Min) {
+			criteria.gte = minTime;
 		}
+		if (maxTime !== Max) {
+			criteria.lte = maxTime;
+		}
+
+		let newFilters;
+		if (isObjEmpty(criteria)) {
+			newFilters = _.skipIn(oldFilters, ['installation_date']);
+		} else {
+			newFilters = _.setIn(oldFilters, 'installation_date', criteria);
+ 		}
 
 		if (!isEqual(oldFilters, newFilters)) {
 			explorerActor.send({

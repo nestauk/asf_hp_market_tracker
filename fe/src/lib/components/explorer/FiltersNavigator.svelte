@@ -17,6 +17,7 @@
 	const idToLabel = id =>
 		metricLabelById[id] ||
 		{
+			installation_date: 'Installation dates',
 			installer_geo_region: 'Installer regions',
 			property_geo_region: 'Property regions',
 		}[id];
@@ -26,7 +27,7 @@
 	}
 	const hoveredId = id => {
 		const label = idToLabel(id);
-		message = `Scroll to ${label}`;
+		message = `Scroll to: ${label}`;
 	}
 	const hoveredReset = id => {
 		const label = idToLabel(id);
@@ -39,7 +40,7 @@
 	const onResetAll = () => dispatch('resetAll');
 
 	const getActiveFilterIds = _.pipe([
-		_.skip(['installation_date', 'installerRegionType', 'propertyRegionType']),
+		_.skip(['installerRegionType', 'propertyRegionType']),
 		_.rename({
 			installerRegionNames: 'installer_geo_region',
 			propertyRegionNames: 'property_geo_region',

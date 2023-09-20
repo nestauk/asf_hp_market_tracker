@@ -143,7 +143,7 @@
 
 	/* filters navigator */
 
-	const removeFilter = id => {
+	const resetFilter = id => {
 		const {filters: oldFilters} = $_selection;
 
 		let newFilters;
@@ -191,7 +191,7 @@
 		activeFilterId = id;
 	}
 	const onResetId = ({detail: id}) => {
-		removeFilter(id);
+		resetFilter(id);
 	};
 
 	let navHeight;
