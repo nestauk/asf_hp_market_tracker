@@ -4,24 +4,23 @@
 	import * as _ from 'lamb';
 
 	import {page as _page} from '$app/stores';
-	import * as metricInfos from '$lib/_content/metrics/index.js';
 	import FiltersBar from '$lib/components/explorer/FiltersBar.svelte';
 	import MetricSelector from '$lib/components/explorer/MetricSelector.svelte';
-	import MetricTitle from '$lib/components/explorer/MetricTitle.svelte';
 	import NoData from '$lib/components/explorer/NoData.svelte';
 	import IconBar from '$lib/components/explorer/small/IconBar.svelte';
+	import InfoSmall from '$lib/components/explorer/small/InfoSmall.svelte';
 	import ViewSelectorMedium
 		from '$lib/components/explorer/medium/ViewSelectorMedium.svelte';
-	import GridRows from '$lib/components/svizzle/GridRows.svelte';
 	import View from '$lib/components/viewports/View.svelte';
 	import ViewsXor from '$lib/components/viewports/ViewsXor.svelte';
 	import {explorerActor} from '$lib/statechart/index.js';
-	import {_currentMetricId, _selection} from '$lib/stores/navigation.js';
+	import {_selection} from '$lib/stores/navigation.js';
 	import {_currThemeVars} from '$lib/stores/theme.js';
 	import {
 		_isViewLoading,
 		_showMessage,
-		_viewDataMessage
+		_viewData,
+		_viewDataMessage,
 	} from '$lib/stores/view.js';
 
 	import {getTabsIcons} from './tabsIcons.js';
@@ -41,6 +40,11 @@
 	// keep this log on in production to know the specifics of a no data message
 	$: $_showMessage && console.log('[backend]:', $_viewDataMessage);
 
+	let filtered;
+	$: if ($_viewData) {
+		({response: {coverage: {filtered}}} = $_viewData);
+	}
+
 	const onViewSelected = ({detail: id}) => {
 		if (id !== viewId) {
 			explorerActor.send({
@@ -54,9 +58,10 @@
 </script>
 
 <div class='ExplorerSmall'>
+
 	<div class='chosenView'>
-		<!-- IDEA investigate using ViewSlider (consider sliding when nodata) -->
 		<ViewsXor {viewId}>
+
 			<View id='filters'>
 				<nav class='filters'>
 					<FiltersBar />
@@ -66,18 +71,7 @@
 			<slot />
 
 			<View id='info'>
-				<GridRows rowLayout='min-content 1fr'>
-					<MetricTitle />
-
-					<CenteredView
-						backgroundColor={$_currThemeVars['--colorBackground']}
-						color={$_currThemeVars['--colorText']}
-					>
-						<div class='info'>
-							<svelte:component this={metricInfos[$_currentMetricId]} />
-						</div>
-					</CenteredView>
-				</GridRows>
+				<InfoSmall />
 			</View>
 
 			<View id='metrics'>
@@ -92,6 +86,13 @@
 		</ViewsXor>
 	</div>
 
+	<div class='filteredStat'>
+		{#if filtered}
+			<span class='number'>{filtered}</span>
+			<span class='label'>installations</span>
+		{/if}
+	</div>
+
 	<div class='tabs'>
 		<IconBar
 			activeIconId={viewId}
@@ -100,7 +101,7 @@
 		/>
 	</div>
 
-	<div class='view_selector'>
+	<div class='viewSelector'>
 		<ViewSelectorMedium />
 	</div>
 
@@ -126,7 +127,7 @@
 		display: grid;
 		grid-auto-flow: row;
 		grid-template-columns: 100%;
-		grid-template-rows: 1fr min-content min-content;
+		grid-template-rows: 1fr min-content min-content min-content;
 		height: 100%;
 		justify-content: stretch;
 	}
@@ -135,35 +136,36 @@
 		overflow: hidden;
 	}
 
-	/* TBD */
-	.scrollable {
+	.filters, .metrics {
 		height: 100%;
 		overflow: auto;
+		width: 100%;
 	}
 
-	.filters, .metrics {
-		overflow: auto;
-		height: 100%;
-		width: 100%;
-	}
-	.tworows {
-		display: grid;
-		grid-template-rows: 1fr min-content;
-		justify-items: center;
-		height: 100%;
-		overflow: hidden;
-	}
-	.view_selector {
+	.viewSelector {
 		margin: auto;
 	}
+
 	.overlay {
+		height: 100%;
+		left: 0;
 		position: absolute;
 		top: 0;
-		left: 0;
 		width: 100%;
-		height: 100%;
 	}
-	.info {
-		padding: 1.5em;
+
+	.filteredStat {
+		border-top: var(--border);
+		align-items: baseline;
+		display: flex;
+		justify-content: center;
+		min-height: 2em;
+	}
+	.filteredStat .number {
+		font-size: 1.5em;
+		font-weight: bolder;
+	}
+	.filteredStat .label {
+		padding-left: 0.5em;
 	}
 </style>

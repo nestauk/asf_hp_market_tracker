@@ -2,7 +2,11 @@
 	import {setupResizeObserver} from '@svizzle/ui';
 
 	import {_staticData} from '$lib/stores/data.js';
-	import {_noDataReturned, _viewData} from '$lib/stores/view.js';
+	import {
+		_noDataReturned,
+		_viewData,
+		_viewDataCoverage,
+	} from '$lib/stores/view.js';
 
 	const {
 		_writable: _coverageSize,
@@ -11,49 +15,43 @@
 
 	let filtered;
 	let filteredHeight;
+	let filteredOut;
 	let filteredOutHeight;
-	let filteredOuts;
+	let filteredRatio;
 	let originShift;
 	let proceed = false;
-	let retreivable;
+	let retreivableRatio;
 	let retreivableWidth;
 	let side;
 	let svgSide;
 	let unretrievables;
-	let unretrievablesPercent;
+	let unretrievablesPercentString;
 	let unretrievableWidth;
 
 	const ratio = 0.8;
 
-	$: if ($_viewData && $_staticData && $_coverageSize && !$_noDataReturned) {
-	
-		({response: {coverage: {filtered, retreivable}}} = $_viewData);
+	$: if ($_viewDataCoverage && $_coverageSize && !$_noDataReturned) {
+
 		({blockSize: svgSide} = $_coverageSize);
+		({
+			filtered,
+			filteredOut,
+			filteredRatio,
+			retreivableRatio,
+			unretrievables,
+			unretrievablesPercentString,
+		} = $_viewDataCoverage);
 
 		side = svgSide * ratio;
 		originShift = svgSide * (1 - ratio) / 2;
 
-		/* left */
-
-		// geometry
-		retreivableWidth = side * (retreivable / $_staticData.count);
-		filteredHeight = side * (filtered / retreivable); // top-left
+		retreivableWidth = retreivableRatio * side; // left
+		filteredHeight = filteredRatio * side; // top-left
 		filteredOutHeight = side - filteredHeight; // bottom-left
-
-		// value
-		filteredOuts = retreivable - filtered;
-
-		/* right */
-
-		// geometry
-		unretrievableWidth = side - retreivableWidth;
-
-		// values
-		unretrievables = $_staticData.count - retreivable;
-		unretrievablesPercent = (100 * unretrievables / $_staticData.count).toFixed(1);
+		unretrievableWidth = side - retreivableWidth; // right
 
 		proceed = true;
-		
+
 	}
 </script>
 
@@ -76,7 +74,7 @@
 		>
 			<div
 				class='left'
-				class:singleRow={!filteredOuts}
+				class:singleRow={!filteredOut}
 			>
 				<div class='flex justifyEnd'>
 					<div class='amount'>
@@ -85,10 +83,10 @@
 					</div>
 					<div class='square filtered'></div>
 				</div>
-				{#if filteredOuts}
+				{#if filteredOut}
 					<div class='flex justifyEnd'>
 						<div class='amount'>
-							<span class='number'>({filteredOuts})</span>
+							<span class='number'>({filteredOut})</span>
 							<span class='label'>excluded</span>
 						</div>
 						<div class='square filteredOut'></div>
@@ -115,9 +113,9 @@
 						/>
 						<rect
 							class='unretrievable'
-							x={retreivableWidth}
-							width={unretrievableWidth}
 							height={side}
+							width={unretrievableWidth}
+							x={retreivableWidth}
 						/>
 					</g>
 				</svg>
@@ -127,7 +125,7 @@
 				<div class='square unretrievable'></div>
 				<div class='amount'>
 					<span class='label'>unavail.</span>
-					<span class='number'>({unretrievables} | {unretrievablesPercent}%)</span>
+					<span class='number'>({unretrievables} | {unretrievablesPercentString}%)</span>
 				</div>
 			</div>
 		</div>

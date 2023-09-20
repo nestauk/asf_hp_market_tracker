@@ -14,7 +14,7 @@ We filter this data by looking for specific instances of where we believe a heat
 
 The **[Microgeneration Certification Scheme](https://mcscertified.com/)** (MCS) certifies low-carbon energy technologies and contractors – including heat pumps, solar, biomass, wind and battery storage. They have kindly provided us with their data on MCS certified heat pump installations and installation companies to use as part of our work. Specifically for this explorer, MCS registered installations of heat pumps, and details relating to the companies installing them.
 
-### Datasets merge
+### Merged dataset
 
 We have developed a method of combining these two datasets to give us a holistic view of all domestic heat pump installations we know about in the UK since 2007. We do this by merging the two datasets, and removing duplicates between the datasets. For example, an MCS certified installation may be followed by an EPC certificate renewal, and so appears in both datasets.
 
@@ -22,19 +22,22 @@ For more information on the Python based methodology behind this process, please
 
 ### EPC coverage and caveats
 
-EPC data goes back to 2008 and covers England, Wales and Scotland. Northern Ireland does not make their EPC data publicly available, through an API. Hence, our data does not cover Northern Ireland;
-Only rented, sold or newly built properties require an EPC assessment, resulting in the EPC register covering only over 50% of the UK's housing stock. According to the ONS, around 64% of all residential dwellings in England and 62% in Wales had at least one EPC registration since records began, as of March 2022;
-As properties only require an EPC assessment when they are sold or rented out, or if they are newly built (since 2008 for England/Wales and 2012 for Scotland), the dataset might result in an overrepresentation of rental and sold properties;
-The result of an EPC assessment may vary depending on the assessor and the EPC Register is known to include many errors. Studies estimate that between one third and two thirds of all EPC records possess errors;
-Additionally, EPC records are frequently incomplete, regularly showing unknown values in a range of features.
+- EPC data goes back to 2008 and covers England, Wales and Scotland. Northern Ireland does not make their EPC data publicly available, through an API. Hence, our data does not cover Northern Ireland;
+- Only rented, sold or newly built properties require an EPC assessment, resulting in the EPC register covering only over 50% of the UK's housing stock. According to the ONS, around 64% of all residential dwellings in England and 62% in Wales had at least one EPC registration since records began, as of March 2022;
+- As properties only require an EPC assessment when they are sold or rented out, or if they are newly built (since 2008 for England/Wales and 2012 for Scotland), the dataset might result in an overrepresentation of rental and sold properties;
+- The result of an EPC assessment may vary depending on the assessor and the EPC Register is known to include many errors. Studies estimate that between one third and two thirds of all EPC records possess errors;
+- Additionally, EPC records are frequently incomplete, regularly showing unknown values in a range of features.
 
 ### MCS coverage and caveats
 
-MCS data goes back to 2007 and covers England, Scotland and Wales - also including few entries for Northern Ireland;
-Heat pump installations in the MCS dataset represent only certified installations. We don’t have information about non-MCS certified installations other than what we can infer from EPC data;
-Most installations in new buildings will not be certified, as there is no legal obligation to do so. MCS-certified installations are more common in retrofits as most grant schemes, such as the Boiler Upgrade Scheme, require a certified installer.
+- MCS data goes back to 2007 and covers England, Scotland and Wales - also including few entries for Northern Ireland;
+- Heat pump installations in the MCS dataset represent only certified installations. We don’t have information about non-MCS certified installations other than what we can infer from EPC data;
+- Most installations in new buildings will not be certified, as there is no legal obligation to do so. MCS-certified installations are more common in retrofits as most grant schemes, such as the Boiler Upgrade Scheme, require a certified installer.
 
 ### Caveats in the merged dataset
 
-An address matching algorithm is used to match MCS heat pump installations to EPC records corresponding to the same house. As address information is sometimes incomplete or wrong (e.g. flat number missing), wrong matches might be formed. An example of this is when an EPC record is matched to multiple MCS heat pump installations (e.g. address in EPC assessment is missing flat number, so EPC record is matched to multiple flats with MCS heat pump installations in the same building). If that’s the case, the corresponding matches are considered wrong.
+An address matching algorithm is used to match MCS heat pump installations to EPC records corresponding to the same house. As address information is sometimes incomplete or wrong (e.g. flat number missing), wrong matches might be formed.
+
+An example of this is when an EPC record is matched to multiple MCS heat pump installations (e.g. address in EPC assessment is missing flat number, so EPC record is matched to multiple flats with MCS heat pump installations in the same building). If that’s the case, the corresponding matches are considered wrong.
+
 On the other hand, if an EPC assessment is not matched to the correct corresponding MCS heat pump installation, the resulting dataset will have the same house represented twice.
