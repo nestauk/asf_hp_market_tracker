@@ -54,9 +54,10 @@
 </script>
 
 <div class='ExplorerSmall'>
+
 	<div class='chosenView'>
-		<!-- IDEA investigate using ViewSlider (consider sliding when nodata) -->
 		<ViewsXor {viewId}>
+
 			<View id='filters'>
 				<nav class='filters'>
 					<FiltersBar />
@@ -100,7 +101,7 @@
 		/>
 	</div>
 
-	<div class='view_selector'>
+	<div class='viewSelector'>
 		<ViewSelectorMedium />
 	</div>
 
@@ -135,25 +136,16 @@
 		overflow: hidden;
 	}
 
-	/* TBD */
-	.scrollable {
-		height: 100%;
-		overflow: auto;
-	}
-
 	.filters, .metrics {
 		overflow: auto;
 		height: 100%;
 		width: 100%;
 	}
-	.tworows {
-		display: grid;
-		grid-template-rows: 1fr min-content;
-		justify-items: center;
-		height: 100%;
-		overflow: hidden;
+	.info {
+		padding: 1.5em;
 	}
-	.view_selector {
+
+	.viewSelector {
 		margin: auto;
 	}
 	.overlay {
@@ -162,8 +154,5 @@
 		left: 0;
 		width: 100%;
 		height: 100%;
-	}
-	.info {
-		padding: 1.5em;
 	}
 </style>
