@@ -104,6 +104,10 @@ This will create an idex named `test` on
 Be careful about which index you specify, as the data will be
 overwritten if you specify an existing index.
 
+You can also specify a single domain by supplying a second argument:
+
+`npm run runLogstashPipeline -- test staging`
+
 Also of note: If the passwords for any of the DBs change, you
 must ssh into the server and change the `{env}.rc` file,
 where `env` is the name of the enviroment whose DB's password
