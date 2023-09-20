@@ -4,8 +4,8 @@
 	import * as metricInfos from '$lib/_content/metrics/index.js';
 	import QuickStatsMedium
 		from '$lib/components/explorer/medium/QuickStatsMedium.svelte';
-	import ViewSelector
-		from '$lib/components/explorer/medium/ViewSelector.svelte';
+	import ViewSelectorMedium
+		from '$lib/components/explorer/medium/ViewSelectorMedium.svelte';
 	import Banner from '$lib/components/svizzle/Banner.svelte'
 	import Pill from '$lib/components/svizzle/ui/Pill.svelte'
 	import {noDataMessage} from '$lib/config/text.js';
@@ -50,7 +50,7 @@
 				</button>
 			{/if}
 		</h1>
-		<ViewSelector />
+		<ViewSelectorMedium />
 	</header>
 	<main>
 

@@ -3,8 +3,8 @@
 
 	import FiltersBar from '$lib/components/explorer/FiltersBar.svelte';
 	import MetricSelector from '$lib/components/explorer/MetricSelector.svelte';
+	import Timeline from '$lib/components/explorer/Timeline.svelte';
 	import ViewMedium from '$lib/components/explorer/medium/ViewMedium.svelte';
-	import TimeLineHistogram from '$lib/components/explorer/medium/TimeLineHistogram.svelte';
 </script>
 
 <div class='ExplorerMedium'>
@@ -21,7 +21,7 @@
 		<MetricSelector />
 	</nav>
 	<nav class='timeline'>
-		<TimeLineHistogram />
+		<Timeline />
 	</nav>
 	<section class='view'>
 		<ViewMedium>

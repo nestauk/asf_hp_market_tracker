@@ -8,13 +8,11 @@
 
 	import {page as _page} from '$app/stores';
 	import FlexBar from '$lib/components/explorer/FlexBar.svelte';
-    import MetricTitle from '$lib/components/explorer/MetricTitle.svelte';
-	import SelectionXor
-		from '$lib/components/explorer/medium/SelectionXor.svelte';
-	import SelectorInterval
-		from '$lib/components/explorer/medium/SelectorInterval.svelte';
+	import MetricTitle from '$lib/components/explorer/MetricTitle.svelte';
+	import SelectionXor from '$lib/components/explorer/SelectionXor.svelte';
+	import SelectorInterval from '$lib/components/explorer/SelectorInterval.svelte';
 	import Grid2Rows from '$lib/components/svizzle/Grid2Rows.svelte';
-    import GridRows from '$lib/components/svizzle/GridRows.svelte';
+	import GridRows from '$lib/components/svizzle/GridRows.svelte';
 	import Trends from '$lib/components/svizzle/trends/Trends.svelte';
 	import View from '$lib/components/viewports/View.svelte';
 	import {_isSmallScreen} from '$lib/stores/layout.js';

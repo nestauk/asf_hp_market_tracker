@@ -7,9 +7,8 @@
 		from '$lib/components/explorer/CategorySelector.svelte';
 	import FiltersNavigator
 		from '$lib/components/explorer/FiltersNavigator.svelte';
-	import TimeLineHistogram
-		from '$lib/components/explorer/medium/TimeLineHistogram.svelte';
 	import RegionFilter from '$lib/components/explorer/RegionFilter.svelte';
+	import Timeline from '$lib/components/explorer/Timeline.svelte';
 	import RangeSlider from '$lib/components/svizzle/RangeSlider.svelte';
 	import Scroller from '$lib/components/svizzle/Scroller.svelte';
 	import SizeSensor from '$lib/components/svizzle/SizeSensor.svelte';
@@ -244,7 +243,7 @@
 									{:else if metric.id === 'installation_date' && $_isSmallScreen}
 										<h3>Date</h3>
 										<div class='timeline'>
-											<TimeLineHistogram
+											<Timeline
 												geometry={{
 													safetyLeft: 15,
 													safetyRight: 15,

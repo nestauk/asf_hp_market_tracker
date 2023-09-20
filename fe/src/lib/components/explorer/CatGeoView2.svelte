@@ -20,7 +20,7 @@
 	import FlexBar from '$lib/components/explorer/FlexBar.svelte';
 	import MetricTitle from '$lib/components/explorer/MetricTitle.svelte';
 	import SelectorRegionType
-		from '$lib/components/explorer/medium/SelectorRegionType.svelte';
+		from '$lib/components/explorer/SelectorRegionType.svelte';
 	import GridColumns from '$lib/components/svizzle/GridColumns.svelte';
 	import Grid2Rows from '$lib/components/svizzle/Grid2Rows.svelte';
 	import Grid3Columns from '$lib/components/svizzle/Grid3Columns.svelte';

@@ -154,7 +154,7 @@
 </script>
 
 <div
-	class='ScrollableGrid'
+	class='StackedBarchart'
 	use:sizeObserver
 >
 	{#if doDraw}
@@ -189,7 +189,7 @@
 </div>
 
 <style>
-	.ScrollableGrid {
+	.StackedBarchart {
 		display: grid;
 		grid-template-rows: 1fr;
 		height: 100%;

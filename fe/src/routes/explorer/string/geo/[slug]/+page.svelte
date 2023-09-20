@@ -3,7 +3,7 @@
 	import * as _ from 'lamb';
 
 	import {page as _page} from '$app/stores';
-	import StringGeoView from '$lib/components/explorer/medium/StringGeoView.svelte';
+	import StringGeoView from '$lib/components/explorer/StringGeoView.svelte';
 	import {_viewData} from '$lib/stores/view.js';
 	import {getDocCount, getTermsBuckets} from '$lib/utils/getters.js';
 

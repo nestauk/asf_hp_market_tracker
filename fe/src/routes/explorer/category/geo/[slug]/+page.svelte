@@ -1,11 +1,11 @@
 <script>
-	import {applyFnMap, getKey, getValue, isNotNil} from '@svizzle/utils';
+	import {getKey, isNotNil} from '@svizzle/utils';
 	import {extent} from 'd3-array';
 	import {interpolateYlGnBu as interpolateColor} from 'd3-scale-chromatic';
 	import * as _ from 'lamb';
 
 	import {page as _page} from '$app/stores';
-	import CatGeoView2 from '$lib/components/explorer/medium/CatGeoView2.svelte';
+	import CatGeoView2 from '$lib/components/explorer/CatGeoView2.svelte';
 	import {_currentMetric} from '$lib/stores/navigation.js';
 	import {_isViewReady, _viewData} from '$lib/stores/view.js';
 	import {getDocCount, getTermsBuckets} from '$lib/utils/getters.js';

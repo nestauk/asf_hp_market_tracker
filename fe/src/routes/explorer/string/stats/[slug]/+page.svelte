@@ -7,13 +7,13 @@
 	import * as _ from 'lamb';
 
 	import {page as _page} from '$app/stores';
-    import MetricTitle from '$lib/components/explorer/MetricTitle.svelte';
+	import MetricTitle from '$lib/components/explorer/MetricTitle.svelte';
 	import Grid2Columns from '$lib/components/svizzle/Grid2Columns.svelte';
-    import GridRows from '$lib/components/svizzle/GridRows.svelte';
+	import GridRows from '$lib/components/svizzle/GridRows.svelte';
 	import Scroller from '$lib/components/svizzle/Scroller.svelte';
 	import Treemap from '$lib/components/svizzle/Treemap.svelte';
 	import View from '$lib/components/viewports/View.svelte';
-    import {_isSmallScreen} from '$lib/stores/layout.js';
+	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {_barchartsTheme} from '$lib/stores/theme.js';
 	import {_isViewReady, _viewData} from '$lib/stores/view.js';
 	import {_currentMetric, _selection} from '$lib/stores/navigation.js';

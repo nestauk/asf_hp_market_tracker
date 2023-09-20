@@ -11,10 +11,9 @@
 
 	import {page as _page} from '$app/stores';
 	import FlexBar from '$lib/components/explorer/FlexBar.svelte';
-    import MetricTitle from '$lib/components/explorer/MetricTitle.svelte';
-	import SelectionXor
-		from '$lib/components/explorer/medium/SelectionXor.svelte';
-	import SelectorInterval from '$lib/components/explorer/medium/SelectorInterval.svelte';
+	import MetricTitle from '$lib/components/explorer/MetricTitle.svelte';
+	import SelectionXor from '$lib/components/explorer/SelectionXor.svelte';
+	import SelectorInterval from '$lib/components/explorer/SelectorInterval.svelte';
 	import Grid2Columns from '$lib/components/svizzle/Grid2Columns.svelte';
 	import Grid2Rows from '$lib/components/svizzle/Grid2Rows.svelte';
 	import GridRows from '$lib/components/svizzle/GridRows.svelte';
@@ -165,7 +164,7 @@
 					{/if}
 				</FlexBar>
 			</GridRows>
-	
+
 		</View>
 
 		<View id='legend'>

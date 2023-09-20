@@ -26,7 +26,7 @@
 </div>
 
 <style>
-	.LabelsGrid  {
+	.LabelsGrid {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(var(--minCellWidth), 1fr));
 		gap: 0.5em;

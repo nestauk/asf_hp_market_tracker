@@ -18,14 +18,13 @@
 	import MetricTitle from '$lib/components/explorer/MetricTitle.svelte';
 	import StackedBarchart
 		from '$lib/components/svizzle/StackedBarchart.svelte';
-	import SelectionXor
-		from '$lib/components/explorer/medium/SelectionXor.svelte';
+	import SelectionXor from '$lib/components/explorer/SelectionXor.svelte';
 	import SelectorRegionType
-		from '$lib/components/explorer/medium/SelectorRegionType.svelte';
+		from '$lib/components/explorer/SelectorRegionType.svelte';
 	import View from '$lib/components/viewports/View.svelte';
 	import Grid2Columns from '$lib/components/svizzle/Grid2Columns.svelte';
-    import GridRows from '$lib/components/svizzle/GridRows.svelte';
-    import {_isSmallScreen} from '$lib/stores/layout.js';
+	import GridRows from '$lib/components/svizzle/GridRows.svelte';
+	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {_selection} from '$lib/stores/navigation.js';
 	import {_legendsTheme, _stackedBarchartTheme} from '$lib/stores/theme.js';
 	import {
@@ -160,7 +159,7 @@
 					<SelectionXor
 						name='stackedBarsExtents'
 						values={['absolute', 'percent']}
-					/>		
+					/>
 				</FlexBar>
 			</GridRows>
 		</View>

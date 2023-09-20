@@ -3,8 +3,8 @@
 	import * as _ from 'lamb';
 
 	import {page as _page} from '$app/stores';
-    import MetricTitle from '$lib/components/explorer/MetricTitle.svelte';
-    import GridRows from '$lib/components/svizzle/GridRows.svelte';
+	import MetricTitle from '$lib/components/explorer/MetricTitle.svelte';
+	import GridRows from '$lib/components/svizzle/GridRows.svelte';
 	import View from '$lib/components/viewports/View.svelte';
 	import {_viewCache} from '$lib/stores/data.js';
 	import {_currentMetric} from '$lib/stores/navigation.js';

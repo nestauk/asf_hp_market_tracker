@@ -12,11 +12,11 @@
 	import FlexBar from '$lib/components/explorer/FlexBar.svelte';
 	import MetricTitle from '$lib/components/explorer/MetricTitle.svelte';
 	import SelectorRegionType
-		from '$lib/components/explorer/medium/SelectorRegionType.svelte';
+		from '$lib/components/explorer/SelectorRegionType.svelte';
 	import Grid3Columns from '$lib/components/svizzle/Grid3Columns.svelte';
 	import Grid2Rows from '$lib/components/svizzle/Grid2Rows.svelte';
 	import GridRows from '$lib/components/svizzle/GridRows.svelte';
-    import KeysLegend from '$lib/components/svizzle/legend/KeysLegend.svelte';
+	import KeysLegend from '$lib/components/svizzle/legend/KeysLegend.svelte';
 	import Scroller from '$lib/components/svizzle/Scroller.svelte';
 	import View from '$lib/components/viewports/View.svelte';
 	import {MAPBOXGL_ACCESSTOKEN as accessToken} from '$lib/config/map.js';

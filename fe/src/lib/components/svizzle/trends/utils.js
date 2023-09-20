@@ -29,7 +29,7 @@ export const getDateTimeFormat = tickDurationInSecs => {
 	if (!tickDurationInSecs) {
 		timeFormat = _.last(timeFormats)[1];
 	} else {
-		timeFormat =  _.find(
+		timeFormat = _.find(
 			timeFormats,
 			([maxSeconds]) => tickDurationInSecs >= maxSeconds
 		)[1];

@@ -132,7 +132,7 @@
 
 			xScale = _.pipe([keyRankFn, timeScale]);
 		} else {
-			keyTicks =  _.map(
+			keyTicks = _.map(
 				keyFilterFn ? _.filter(allKeys, keyFilterFn) : allKeys,
 				_.collect([_.identity, keyFormatFn])
 			);

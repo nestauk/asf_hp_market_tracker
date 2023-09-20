@@ -11,19 +11,18 @@
 
 	import {page as _page} from '$app/stores';
 	import FlexBar from '$lib/components/explorer/FlexBar.svelte';
-	import SelectionXor
-		from '$lib/components/explorer/medium/SelectionXor.svelte';
-	import SelectorInterval from '$lib/components/explorer/medium/SelectorInterval.svelte';
-    import MetricTitle from '$lib/components/explorer/MetricTitle.svelte';
+	import SelectionXor from '$lib/components/explorer/SelectionXor.svelte';
+	import SelectorInterval from '$lib/components/explorer/SelectorInterval.svelte';
+	import MetricTitle from '$lib/components/explorer/MetricTitle.svelte';
 	import Grid2Columns from '$lib/components/svizzle/Grid2Columns.svelte';
 	import Grid2Rows from '$lib/components/svizzle/Grid2Rows.svelte';
 	import KeysLegend from '$lib/components/svizzle/legend/KeysLegend.svelte';
 	import Scroller from '$lib/components/svizzle/Scroller.svelte';
-    import GridRows from '$lib/components/svizzle/GridRows.svelte';
+	import GridRows from '$lib/components/svizzle/GridRows.svelte';
 	import StreamGraph from '$lib/components/svizzle/trends/StreamGraph.svelte';
 	import Trends from '$lib/components/svizzle/trends/Trends.svelte';
 	import View from '$lib/components/viewports/View.svelte';
-    import {_isSmallScreen} from '$lib/stores/layout.js';
+	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {_currentMetric, _selection} from '$lib/stores/navigation.js';
 	import {_currThemeVars, _framesTheme} from '$lib/stores/theme.js';
 	import {_isViewReady, _viewData} from '$lib/stores/view.js';

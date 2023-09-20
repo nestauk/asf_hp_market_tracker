@@ -7,12 +7,14 @@
 	import * as metricInfos from '$lib/_content/metrics/index.js';
 	import FiltersBar from '$lib/components/explorer/FiltersBar.svelte';
 	import MetricSelector from '$lib/components/explorer/MetricSelector.svelte';
+	import MetricTitle from '$lib/components/explorer/MetricTitle.svelte';
+	import NoData from '$lib/components/explorer/NoData.svelte';
+	import IconBar from '$lib/components/explorer/small/IconBar.svelte';
+	import ViewSelectorMedium
+		from '$lib/components/explorer/medium/ViewSelectorMedium.svelte';
+	import GridRows from '$lib/components/svizzle/GridRows.svelte';
 	import View from '$lib/components/viewports/View.svelte';
 	import ViewsXor from '$lib/components/viewports/ViewsXor.svelte';
-	import IconBar from '$lib/components/explorer/IconBar.svelte';
-	import NoData from '$lib/components/explorer/NoData.svelte';
-    import ViewSelector from '$lib/components/explorer/medium/ViewSelector.svelte';
-    import GridRows from '$lib/components/svizzle/GridRows.svelte';
 	import {explorerActor} from '$lib/statechart/index.js';
 	import {_currentMetricId, _selection} from '$lib/stores/navigation.js';
 	import {_currThemeVars} from '$lib/stores/theme.js';
@@ -21,8 +23,8 @@
 		_showMessage,
 		_viewDataMessage
 	} from '$lib/stores/view.js';
+
 	import {getTabsIcons} from './tabsIcons.js';
-    import MetricTitle from '$lib/components/explorer/MetricTitle.svelte';
 
 	$: [,, field_type, chart_type] = $_page.route.id.split('/');
 	$: icons = getTabsIcons(`${field_type}/${chart_type}`);
@@ -33,7 +35,7 @@
 		: $_showMessage
 			? 'nodata'
 			: iconsIds.includes(viewId)
-				? viewId // 
+				? viewId //
 				: iconsIds[1]; // default
 
 	// keep this log on in production to know the specifics of a no data message
@@ -99,7 +101,7 @@
 	</div>
 
 	<div class='view_selector'>
-		<ViewSelector />
+		<ViewSelectorMedium />
 	</div>
 
 	{#if $_isViewLoading}

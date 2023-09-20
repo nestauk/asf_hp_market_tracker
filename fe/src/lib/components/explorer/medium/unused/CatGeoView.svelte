@@ -14,13 +14,12 @@
 
 	import FlexBar from '$lib/components/explorer/FlexBar.svelte';
 	import LabelsGrid
-		from '$lib/components/explorer/medium/LabelsGrid.svelte';
+		from '$lib/components/explorer/medium/unused/LabelsGrid.svelte';
 	import ScrollableGrid
-		from '$lib/components/explorer/medium/ScrollableGrid/ScrollableGrid.svelte';
-	import SelectionXor
-		from '$lib/components/explorer/medium/SelectionXor.svelte';
+		from '$lib/components/explorer/medium/unused/ScrollableGrid/ScrollableGrid.svelte';
+	import SelectionXor from '$lib/components/explorer/SelectionXor.svelte';
 	import SelectorRegionType
-		from '$lib/components/explorer/medium/SelectorRegionType.svelte';
+		from '$lib/components/explorer/SelectorRegionType.svelte';
 	import Grid2Columns from '$lib/components/svizzle/Grid2Columns.svelte';
 	import {_selection} from '$lib/stores/navigation.js';
 	import {_legendsTheme} from '$lib/stores/theme.js';
