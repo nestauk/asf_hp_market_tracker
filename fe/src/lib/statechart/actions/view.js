@@ -46,14 +46,14 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 					params = {
 						field1: geoField,
 						field2: `${id}.keyword`,
-						missing2: 'Unknown'
+						// missing2: 'Unknown'
 					};
 					break;
 				case 'stats':
 					endpoint = 'terms';
 					params = {
 						field: `${id}.keyword`,
-						missing: 'Unknown'
+						// missing: 'Unknown'
 					};
 					break;
 				case 'time':
@@ -62,7 +62,7 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 						calendar_interval1: ctx.selection.interval,
 						field1: 'installation_date',
 						field2: `${id}.keyword`,
-						missing2: 'Unknown'
+						// missing2: 'Unknown'
 					};
 					break;
 				default:
@@ -219,6 +219,7 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 								field1: 'installer_certificate_date_end',
 								field2: 'installer_id_hash.keyword',
 								missing2: '2024-02-01'
+								// TODO this should be dynamic, i.e. taken from static data
 							};
 							break;
 						case 'installers_new_certifications':
@@ -281,14 +282,14 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 					params = {
 						field1: geoField,
 						field2: `${id}.keyword`,
-						missing2: 'Unknown',
+						// missing2: 'Unknown',
 					};
 					break;
 				case 'stats':
 					endpoint = 'terms';
 					params = {
 						field: `${id}.keyword`,
-						missing: 'Unknown',
+						// missing: 'Unknown',
 						size: ctx.selection.stringsTopCount
 					};
 					break;
