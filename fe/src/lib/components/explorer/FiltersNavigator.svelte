@@ -1,7 +1,7 @@
 <script>
 	import {makeStyleVars} from '@svizzle/dom';
 	import {isIterableEmpty} from '@svizzle/utils';
-	import {Icon, X} from '@svizzle/ui';
+	import {Icon, X, XCircle} from '@svizzle/ui';
 	import * as _ from 'lamb';
 	import {createEventDispatcher} from 'svelte';
 
@@ -9,10 +9,9 @@
 	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {_selection} from '$lib/stores/navigation.js';
 	import {_filtersNavigatorTheme} from '$lib/stores/theme.js';
+	import {_tooltip} from '$lib/stores/tooltip.js';
 
 	const dispatch = createEventDispatcher();
-
-	let message;
 
 	const idToLabel = id =>
 		metricLabelById[id] ||
@@ -22,20 +21,28 @@
 			property_geo_region: 'Property regions',
 		}[id];
 
-	const clearMessage = () => {
-		message = undefined;
+	const clearTooltip = () => {
+		$_tooltip = null;
 	}
 	const hoveredId = id => {
 		const label = idToLabel(id);
-		message = `Scroll to: ${label}`;
+		const key = `Scroll to: ${label}`;
+
+		return ({x, y}) => {
+			$_tooltip = {key, x, y}
+		}
 	}
 	const hoveredReset = id => {
 		const label = idToLabel(id);
-		message = `Reset ${label}`;
+		const key = `Reset: ${label}`;
+
+		return ({x, y}) => {
+			$_tooltip = {key, x, y}
+		}
 	}
 	const clickedReset = id => {
 		dispatch('resetId', id);
-		clearMessage();
+		clearTooltip();
 	}
 	const onResetAll = () => dispatch('resetAll');
 
@@ -62,19 +69,43 @@
 	{#if hasFilters}
 		<div
 			class='list'
-			on:mouseleave={clearMessage}
+			on:mouseleave={clearTooltip}
 		>
+
+			<!-- reset all: small -->
+
+			{#if hasMultipleFilters && $_isSmallScreen}
+				<div
+					class='flex listItem clickable'
+					on:click={onResetAll}
+					on:mouseleave={clearTooltip}
+				>
+					<span class='label resetAll'>
+						Reset all filters
+					</span>
+					<div
+						class='button'
+						on:click={onResetAll}
+					>
+						<Icon
+							glyph={XCircle}
+							size=16
+						/>
+					</div>
+				</div>
+			{/if}
+
 			<!-- current filters -->
 
 			<div
 				class='filters'
-				on:mouseleave={clearMessage}
+				on:mouseleave={clearTooltip}
 			>
 				{#each activeFilterIds as id}
 					<div class='flex listItem selection clickable'>
 						<span
 							class='label'
-							on:mouseenter={hoveredId(id)}
+							on:mousemove={hoveredId(id)}
 							on:click={() => dispatch('selectId', id)}
 						>
 							{idToLabel(id)}
@@ -92,13 +123,13 @@
 				{/each}
 			</div>
 
-			<!-- reset all -->
+			<!-- reset all: medium -->
 
-			{#if hasMultipleFilters}
+			{#if hasMultipleFilters && !$_isSmallScreen}
 				<div
 					class='flex listItem clickable'
 					on:click={onResetAll}
-					on:mouseleave={clearMessage}
+					on:mouseleave={clearTooltip}
 				>
 					<span class='label resetAll'>
 						Reset all filters
@@ -108,17 +139,12 @@
 						on:click={onResetAll}
 					>
 						<Icon
-							glyph={X}
+							glyph={XCircle}
 							size=16
 						/>
 					</div>
 				</div>
 			{/if}
-		</div>
-	{/if}
-	{#if message && !$_isSmallScreen}
-		<div class='flex message'>
-			{message}
 		</div>
 	{/if}
 </div>
@@ -157,14 +183,5 @@
 	}
 	.button {
 		margin-left: 1em;
-	}
-
-	.message {
-		border-bottom: var(--border);
-		height: 100%;
-		justify-content: center;
-		padding: 0.3em;
-		user-select: none;
-		width: 100%;
 	}
 </style>
