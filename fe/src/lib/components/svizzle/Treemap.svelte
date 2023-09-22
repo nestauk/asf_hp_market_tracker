@@ -46,6 +46,7 @@
 			<g
 				on:mousemove={({x, y}) => dispatch('leafHovered', {data, x, y})}
 				on:mouseout={({x, y}) => dispatch('leafExited', {data, x, y})}
+				on:touchstart={({x, y}) => dispatch('leafTouched', {data, x, y})}
 				transform='translate({x0},{y0})'
 			>
 				<rect

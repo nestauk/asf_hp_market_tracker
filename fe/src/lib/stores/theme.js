@@ -159,7 +159,8 @@ export const _tooltipTheme = derived(
 		border: currThemeVars['--borderAux'],
 		boxShadow: currThemeVars['--boxShadowY'],
 		textColor: currThemeVars['--colorText'],
-		zIndex: 1000,
+		zIndex: 3000,
+		zIndexBackdrop: 2000,
 	})
 );
 

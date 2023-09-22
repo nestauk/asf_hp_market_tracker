@@ -220,6 +220,21 @@
 				y,
 			}
 			dispatch('mapFeaturesHovered', payload);
+		})
+		.on('touchstart', ({
+				lngLat, // geographic coordinates of the mouse position
+				originalEvent: {x, y}, // document pixel coordinates
+				point, // canvas pixel coordinates
+			}) => {
+			const features = map.queryRenderedFeatures(point);
+			const payload = {
+				features,
+				lngLat,
+				point,
+				x,
+				y,
+			}
+			dispatch('mapFeaturesTouched', payload);
 		});
 	}
 

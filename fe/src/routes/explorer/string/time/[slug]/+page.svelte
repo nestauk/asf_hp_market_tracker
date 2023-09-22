@@ -161,6 +161,7 @@
 						}}
 						keyToColorFn={groupToColorFn}
 						keyType='date'
+						on:dotTouched={onDotHovered}
 						slot='col1'
 						theme={{
 							...$_framesTheme,

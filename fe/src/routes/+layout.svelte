@@ -58,6 +58,10 @@
 		resizeObserver: contentSizeObserver
 	} = setupResizeObserver();
 
+	const onTooltipClosed = () => {
+		$_tooltip = null;
+	};
+
 	let a11yHeight;
 	let fontLoadStatus;
 	let isLayoutUndefined = true;
@@ -181,6 +185,8 @@
 			targetX={$_tooltip.x}
 			targetY={$_tooltip.y}
 			theme={$_tooltipTheme}
+			useBackdrop={$_isSmallScreen}
+			on:closed={onTooltipClosed}
 		>
 			{$_tooltip.key}
 			{#if $_tooltip.value}

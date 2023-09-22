@@ -1,9 +1,13 @@
 <script>
 	import {makeStyle, makeStyleVars, toPx} from '@svizzle/dom';
+	import {createEventDispatcher} from 'svelte';
 
 	export let targetX;
 	export let targetY;
 	export let theme;
+	export let useBackdrop;
+
+	const dispatch = createEventDispatcher();
 
 	const geometry = {
 		safetyBottom: 4,
@@ -18,12 +22,19 @@
 		boxShadow: '0 0 5px 0 rgba(0, 0, 0, 0.5)',
 		padding: '0.25em 0.5em',
 		textColor: 'black',
-		zIndex: 1000,
+		zIndex: 3000,
+		zIndexBackdrop: 2000,
+	}
+
+	const onClick = e => {
+		e.stopPropagation();
+		dispatch('closed');
 	}
 
 	let tooltipNode;
 	let tooltipStyle = {};
 
+	$: useBackdrop = useBackdrop || false;
 	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
 	$: if (tooltipNode) {
 		const parent = tooltipNode.parentElement;
@@ -44,16 +55,34 @@
 		};
 	}
 
-	$: style = `${makeStyleVars(theme)};${makeStyle(tooltipStyle)};`;
+	$: styleVars = makeStyleVars(theme);
+	$: style = makeStyle(tooltipStyle);
 </script>
 
-<div
-	{style}
-	bind:this={tooltipNode}
-	class='Tooltip'
->
-	<slot />
-</div>
+{#if useBackdrop}
+	<div
+		class='TooltipBackdrop'
+		on:touchstart={onClick}
+		style={styleVars}
+	>
+		<div
+			{style}
+			bind:this={tooltipNode}
+			class:usingBackdrop={useBackdrop}
+			class='Tooltip'
+		>
+			<slot />
+		</div>
+	</div>
+{:else}
+	<div
+		bind:this={tooltipNode}
+		class='Tooltip'
+		style='{styleVars};{style};'
+	>
+		<slot />
+	</div>
+{/if}
 
 <style>
 	.Tooltip {
@@ -65,5 +94,21 @@
 		pointer-events: none;
 		position: absolute;
 		z-index: var(--zIndex);
+	}
+	.Tooltip.usingBackdrop {
+		pointer-events: auto;
+		position: static;
+	}
+	.TooltipBackdrop {
+		align-content: center;
+		background: rgba(0, 0, 0, 0.5);
+		display: grid;
+		height: 100%;
+		justify-content: center;
+		left: 0;
+		position: absolute;
+		top: 0;
+		width: 100%;
+		z-index: var(--zIndexBackdrop);
 	}
 </style>

@@ -106,6 +106,7 @@
 						safetyTop: 50,
 					}}
 					keyType='date'
+					on:dotTouched={onDotHovered}
 					theme={{
 						...$_framesTheme,
 						curveStroke: $_currThemeVars['--colorBorderAux']

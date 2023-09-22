@@ -123,6 +123,7 @@
 					{keyToColorLabelFn}
 					items={bins}
 					keyAccessor={treemapKeyAccessor}
+					on:leafTouched={onLeafHovered}
 				/>
 			</GridRows>
 		</View>

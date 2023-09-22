@@ -297,6 +297,9 @@
 						on:mouseout={({x, y}) => {
 							dispatch('dotExited', {data, x, y})
 						}}
+						on:touchstart={({x, y}) => {
+							dispatch('dotTouched', {data, x, y})
+						}}
 						r={dotRadius}
 					/>
 				{/each}

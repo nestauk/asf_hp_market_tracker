@@ -185,6 +185,9 @@
 							on:mouseout={({x, y}) => {
 								dispatch('barExited', {key, subKey, value, x, y})
 							}}
+							on:touchstart={({x, y}) => {
+								dispatch('barTouched', {key, subKey, value, x, y})
+							}}
 							width={barScale(value)}
 							x={barScale(start)}
 							y={yScale(key)}
