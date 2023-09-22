@@ -5,6 +5,8 @@
 
 	import CategorySelector
 		from '$lib/components/explorer/CategorySelector.svelte';
+	import FilterPaneBorder
+		from '$lib/components/explorer/FilterPaneBorder.svelte';
 	import FiltersNavigator
 		from '$lib/components/explorer/FiltersNavigator.svelte';
 	import RegionFilter from '$lib/components/explorer/RegionFilter.svelte';
@@ -227,46 +229,53 @@
 									doIt={metric.id === activeFilterId}
 								>
 									{#if metric.id === 'installer_geo_region'}
+										<h3>Installer regions</h3>
 										<RegionFilter
+											id={metric.id}
 											on:apply={onInstallerRegionsChanged}
 											targetRegionNames={$_selection.filters.installerRegionNames}
 											targetRegionType={$_selection.filters.installerRegionType}
-											title='Installer regions'
 										/>
 									{:else if metric.id === 'property_geo_region'}
+										<h3>Property regions</h3>
 										<RegionFilter
+											id={metric.id}
 											on:apply={onPropertyRegionsChanged}
 											targetRegionNames={$_selection.filters.propertyRegionNames}
 											targetRegionType={$_selection.filters.propertyRegionType}
-											title='Property regions'
 										/>
 									{:else if metric.id === 'installation_date' && $_isSmallScreen}
 										<h3>Date</h3>
-										<div class='timeline'>
-											<Timeline
-												geometry={{
-													safetyLeft: 15,
-													safetyRight: 15,
-												}}
-											/>
-										</div>
+										<FilterPaneBorder id={metric.id}>
+											<div class='timeline'>
+												<Timeline
+													geometry={{
+														safetyLeft: 15,
+														safetyRight: 15,
+													}}
+												/>
+											</div>
+										</FilterPaneBorder>
 									{:else if metric.id !== 'installation_date'}
 										<h3>{metric.label}</h3>
 										{#if metric.type === 'number'}
-											<RangeSlider
-												formatFn={metric.formatFn}
-												items={metric.values}
-												Max={metric.max}
-												max={queryValue?.lte || metric.max}
-												Min={metric.min}
-												min={queryValue?.gte || metric.min}
-												on:changed={makeOnRangeChanged(metric.id)}
-												theme={$_rangeSlidersTheme}
-											/>
+											<FilterPaneBorder id={metric.id}>
+												<RangeSlider
+													formatFn={metric.formatFn}
+													items={metric.values}
+													Max={metric.max}
+													max={queryValue?.lte || metric.max}
+													Min={metric.min}
+													min={queryValue?.gte || metric.min}
+													on:changed={makeOnRangeChanged(metric.id)}
+													theme={$_rangeSlidersTheme}
+												/>
+											</FilterPaneBorder>
 										{:else if metric.type === 'category'}
 											<CategorySelector
-												label={metric.label}
 												categories={enhanceCategories(metric.values, queryValue || [])}
+												id={metric.id}
+												label={metric.label}
 												on:applied={makeOnCatsChanged(metric.id)}
 											/>
 										{/if}
@@ -310,6 +319,9 @@
 	h2 {
 		padding: 0 1rem 0.7em;
 		padding-top: 0.7rem;
+	}
+	h3 {
+		margin-bottom: 0.25em;
 	}
 	ul {
 		list-style-type: none;

@@ -11,10 +11,13 @@
 
 	import Checkboxed from '$lib/components/explorer/Checkboxed.svelte';
 	import DismissOrApply from '$lib/components/explorer/DismissOrApply.svelte';
+	import FilterPaneBorder
+		from '$lib/components/explorer/FilterPaneBorder.svelte';
 	import {getDocCount, getSelected} from '$lib/utils/getters.js';
 	import {areAllFalsyWith} from '$lib/utils/svizzle/utils.js';
 
 	export let categories;
+	export let id;
 	export let label;
 
 	const dispatch = createEventDispatcher();
@@ -63,36 +66,44 @@
 	$: sortedInputStates = getSortedInputsStates(categories);
 	$: indexedCats = _.index(categories, getKey);
 	$: checkDirty = (key, value) => indexedCats[key].selected !== value;
-	$: isDirty = _.someIn(sortedInputStates, ({key, selected}) => checkDirty(key, selected));
+	$: isDirty = _.someIn(
+		sortedInputStates,
+		({key, selected}) => checkDirty(key, selected)
+	);
 	$: isApplyDisabled = areAllDeselected(sortedInputStates);
 </script>
 
-<div class='CategorySelector'>
-	{#each sortedInputStates as {key, selected, doc_count} (key)}
-		<span
-			class='category'
-			class:dirty={checkDirty(key, selected)}
-		>
-			<Checkboxed
-				checked={selected}
-				label={key}
-				on:click={makeOnClick(key)}
+<FilterPaneBorder
+	{id}
+	{isDirty}
+>
+	<div class='CategorySelector'>
+		{#each sortedInputStates as {key, selected, doc_count} (key)}
+			<span
+				class='category'
+				class:dirty={checkDirty(key, selected)}
 			>
-				<div>
-					<div>{key}</div>
-					<div class='bar' style:width='{scale(doc_count)}%'/>
-				</div>
-			</Checkboxed>
-		</span>
-	{/each}
-	{#if isDirty}
-		<DismissOrApply
-			{isApplyDisabled}
-			{onApply}
-			{onDismiss}
-		/>
-	{/if}
-</div>
+				<Checkboxed
+					checked={selected}
+					label={key}
+					on:click={makeOnClick(key)}
+				>
+					<div>
+						<div>{key}</div>
+						<div class='bar' style:width='{scale(doc_count)}%'/>
+					</div>
+				</Checkboxed>
+			</span>
+		{/each}
+		{#if isDirty}
+			<DismissOrApply
+				{isApplyDisabled}
+				{onApply}
+				{onDismiss}
+			/>
+		{/if}
+	</div>
+</FilterPaneBorder>
 
 <style>
 	.CategorySelector {

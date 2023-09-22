@@ -5,6 +5,8 @@
 	import {createEventDispatcher} from 'svelte';
 
 	import DismissOrApply from '$lib/components/explorer/DismissOrApply.svelte';
+	import FilterPaneBorder
+		from '$lib/components/explorer/FilterPaneBorder.svelte';
 	import {regionTypeToLabel} from '$lib/config/labels.js';
 	import {
 		DEFAULT_BBOX_WSEN,
@@ -18,10 +20,10 @@
 
 	import {Mapbox} from '@svizzle/mapbox'; // workspace
 
+	export let id;
 	export let mapHeight = '300px';
 	export let targetRegionNames;
 	export let targetRegionType;
-	export let title = 'Title here';
 
 	const dispatch = createEventDispatcher();
 
@@ -32,7 +34,6 @@
 	$: regionNames = targetRegionNames;
 	$: areAllRegionsSelected = isIterableEmpty(regionNames);
 	$: regionType = targetRegionType;
-	$: title = title ?? 'Title here';
 
 	/* confirmation buttons */
 
@@ -131,92 +132,91 @@
 	}
 </script>
 
-<div
-	class='RegionFilter'
-	style='--mapHeight:{mapHeight}'
+<FilterPaneBorder
+	{id}
+	{isDirty}
 >
-	<h3>{title}</h3>
-
-	<!-- map -->
-
-	<div class='map'>
-		<Mapbox
-			{accessToken}
-			{eventsHandlers}
-			{getFeatureState}
-			bounds={DEFAULT_BBOX_WSEN}
-			isAnimated={false}
-			isDblClickEnabled={false}
-			isInteractive={true}
-			reactiveLayers={[regionType]}
-			style={$_mapStyle}
-			visibleLayers={['nuts21_0', regionType]}
-			withScaleControl={false}
-			withZoomControl={false}
-		/>
-	</div>
-
-	<!-- region type selector -->
-
-	<XorNavigator
-		currentValue={regionType}
-		on:changed={onRegionTypeChange}
-		theme={$_xorNavigatorTheme}
-		valuesToLabels={regionTypeToLabel}
-	/>
-
-	<!-- hovered region -->
-
 	<div
-		class='hoveredRegion'
-		class:active={hoveredRegionName}
+		class='RegionFilter'
+		style='--mapHeight:{mapHeight}'
 	>
-		{hoveredRegionName || 'Zoom + Pan + Click to (de)select'}
-	</div>
+		<!-- map -->
 
-	<!-- list of regions -->
+		<div class='map'>
+			<Mapbox
+				{accessToken}
+				{eventsHandlers}
+				{getFeatureState}
+				bounds={DEFAULT_BBOX_WSEN}
+				isAnimated={false}
+				isDblClickEnabled={false}
+				isInteractive={true}
+				reactiveLayers={[regionType]}
+				style={$_mapStyle}
+				visibleLayers={['nuts21_0', regionType]}
+				withScaleControl={false}
+				withZoomControl={false}
+			/>
+		</div>
 
-	<ul>
-		{#if areAllRegionsSelected}
-			<li>
-				<span>All regions selected</span>
-			</li>
-		{:else}
-			{#each regionNames as name}
-				<li>
-					<span>{name}</span>
-					<div
-						class='iconButton'
-						on:click={makeDeselectRegionName(name)}
-					>
-						<Icon
-							glyph={XCircle}
-							size=20
-						/>
-					</div>
-				</li>
-			{/each}
-		{/if}
-	</ul>
+		<!-- region type selector -->
 
-	<!-- confirmation buttons -->
-
-	{#if isDirty}
-		<DismissOrApply
-			{onApply}
-			{onDismiss}
+		<XorNavigator
+			currentValue={regionType}
+			on:changed={onRegionTypeChange}
+			theme={$_xorNavigatorTheme}
+			valuesToLabels={regionTypeToLabel}
 		/>
-	{/if}
-</div>
+
+		<!-- hovered region -->
+
+		<div
+			class='hoveredRegion'
+			class:active={hoveredRegionName}
+		>
+			{hoveredRegionName || 'Zoom + Pan + Click to (de)select'}
+		</div>
+
+		<!-- list of regions -->
+
+		<ul>
+			{#if areAllRegionsSelected}
+				<li>
+					<span>All regions selected</span>
+				</li>
+			{:else}
+				{#each regionNames as name}
+					<li>
+						<span>{name}</span>
+						<div
+							class='iconButton'
+							on:click={makeDeselectRegionName(name)}
+						>
+							<Icon
+								glyph={XCircle}
+								size=20
+							/>
+						</div>
+					</li>
+				{/each}
+			{/if}
+		</ul>
+
+		<!-- confirmation buttons -->
+
+		{#if isDirty}
+			<DismissOrApply
+				{onApply}
+				{onDismiss}
+			/>
+		{/if}
+	</div>
+</FilterPaneBorder>
 
 <style>
 	.RegionFilter {
 		display: grid;
 		width: 100%;
-	}
-
-	h3 {
-		margin-bottom: 0.5em;
 	}
 
 	.map {
