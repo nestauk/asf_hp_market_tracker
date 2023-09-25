@@ -34,10 +34,10 @@
 	.ExplorerMedium {
 		display: grid;
 		grid-template-areas:
-			"filtersHeader view metricsHeader"
-			"filters view metrics"
-			"filters timeline metrics";
-		grid-template-columns: 18% 67% 15%;
+			"metricsHeader view filtersHeader"
+			"metrics view filters"
+			"metrics timeline filters";
+		grid-template-columns: 18% 62% 20%;
 		grid-template-rows: 4% 86% 10%;
 		height: 100%;
 		width: 100%;
@@ -55,19 +55,19 @@
 		justify-content: center;
 	}
 	.filtersHeader {
-		border-right: var(--border);
+		border-left: var(--border);
 		grid-area: filtersHeader;
 	}
 	.filters {
-		border-right: var(--border);
+		border-left: var(--border);
 		grid-area: filters;
 	}
 	.metricsHeader {
-		border-left: var(--border);
+		border-right: var(--border);
 		grid-area: metricsHeader;
 	}
 	.metrics {
-		border-left: var(--border);
+		border-right: var(--border);
 		grid-area: metrics;
 	}
 	.timeline {
