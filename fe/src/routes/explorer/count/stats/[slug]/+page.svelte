@@ -1,5 +1,4 @@
 <script>
-	import {MessageView} from '@svizzle/ui';
 	import * as _ from 'lamb';
 
 	import {page as _page} from '$app/stores';
@@ -37,44 +36,93 @@
 		$_viewData?.response.code === 200;
 
 	let doDraw = false;
-	let text;
+	let items;
 
 	$: if (proceed) {
 		const dataAccessor = dataAccessors[$_currentMetric.id];
 		const rawValue = dataAccessor($_viewData.response.data);
 		const value = $_currentMetric?.formatFn?.(rawValue) ?? rawValue;
 		const unitOfMeasure = $_currentMetric?.unitOfMeasure;
-		const fullValue = $_currentMetric?.unitOfMeasure
-			? `${value} [${unitOfMeasure}]`
-			: value;
 
 		switch ($_currentMetric.id) {
 			case 'hp_feature_power_capacity_sum':
-				text = `${fullValue} total power capacity for the current filter`;
+				items = [
+					{key: 'number', value: value},
+					{key: 'unitOfMeasure', value: unitOfMeasure},
+					{key: 'text', value: 'total power capacity for the current selection'},
+				];
 				break;
 			case 'hp_feature_power_generation_sum':
-				text = `${fullValue} total power generation for the current filter`;
+				items = [
+					{key: 'number', value: value},
+					{key: 'unitOfMeasure', value: unitOfMeasure},
+					{
+						key: 'text',
+						value: 'total power generation for the current selection'
+					},
+				];
 				break;
 			case 'installation_cost_sum':
-				text = `Total of ${fullValue} spent on installations for the current filter`;
+				items = [
+					{key: 'number', value: value},
+					{key: 'unitOfMeasure', value: unitOfMeasure},
+					{
+						key: 'text',
+						value: 'spent on installations for the current selection'
+					},
+				];
 				break;
 			case 'installations':
-				text = `${value} installations for the current filter`;
+				items = [
+					{key: 'number', value: value},
+					{key: 'text', value: 'installations for the current selection'},
+				];
 				break;
 			case 'installers_dropped_certifications':
-				text = `${value} certifications expired during the current filer`;
+				items = [
+					{key: 'number', value: value},
+					{
+						key: 'text',
+						value: 'certifications expired for the current selection'
+					},
+				];
 				break;
 			case 'installers_new_certifications':
-				text = `${value} new/renewed certifications during the current filer`;
+				items = [
+					{key: 'number', value: value},
+					{
+						key: 'text',
+						value: 'new/renewed certifications for the current selection'
+					},
+				];
 				break;
 			case 'installations_per_installer':
-				text = `Average of ${value} installations/installer for the current filter`;
+				items = [
+					{key: 'text', value: 'Average of '},
+					{key: 'number', value: value},
+					{
+						key: 'text',
+						value: 'installations/installer for the current selection'
+					},
+				];
 				break;
 			case 'installers_certified':
-				text = `${value} installers were certified for the current filter`;
+				items = [
+					{key: 'number', value: value},
+					{
+						key: 'text',
+						value: 'installers were certified for the current selection'
+					},
+				];
 				break;
 			case 'installers':
-				text = `${value} installers installed heat pumps for the current filter`;
+				items = [
+					{key: 'number', value: value},
+					{
+						key: 'text',
+						value: 'installers installed heat pumps for the current selection'
+					},
+				];
 				break;
 			default:
 				break;
@@ -90,18 +138,52 @@
 			<GridRows rowLayout='min-content 1fr'>
 				<MetricTitle />
 
-				<MessageView
-					backgroundColor={$_currThemeVars['--colorBackground']}
-					color={$_currThemeVars['--colorText']}
-					{text}
-				/>
+				<div class='container'>
+					<div class='content'>
+						{#each items as {key, value}}
+							<span class={key}>{value}</span>
+						{/each}
+					</div>
+				</div>
 			</GridRows>
 		</View>
 	{:else}
-		<MessageView
-			backgroundColor={$_currThemeVars['--colorBackground']}
-			color={$_currThemeVars['--colorText']}
-			{text}
-		/>
+		<div class='container'>
+			<div class='content'>
+				{#each items as {key, value}}
+					<span class={key}>{value}</span>
+				{/each}
+			</div>
+		</div>
 	{/if}
 {/if}
+
+<style>
+	.container {
+		align-items: center;
+		display: flex;
+		height: 100%;
+		justify-content: center;
+		padding: var(--padding);
+		text-align: center;
+		width: 100%;
+	}
+
+	.content {
+		align-items: baseline;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1em;
+		justify-content: center;
+	}
+	.number {
+		font-size: 3em;
+	}
+	.text {
+		font-size: 1.5em;
+	}
+	.unitOfMeasure {
+		font-size: 2em;
+	}
+
+</style>
