@@ -42,7 +42,10 @@
 	}
 	const clickedReset = id => {
 		dispatch('resetId', id);
-		clearTooltip();
+
+		if (!$_isSmallScreen) {
+			clearTooltip();
+		}
 	}
 	const onResetAll = () => dispatch('resetAll');
 
@@ -68,6 +71,7 @@
 >
 	{#if hasFilters}
 		<div
+			class:small={$_isSmallScreen}
 			class='list'
 			on:mouseleave={clearTooltip}
 		>
@@ -78,15 +82,11 @@
 				<div
 					class='flex listItem clickable'
 					on:click={onResetAll}
-					on:mouseleave={clearTooltip}
 				>
 					<span class='label resetAll'>
 						Reset all filters
 					</span>
-					<div
-						class='button'
-						on:click={onResetAll}
-					>
+					<div class='button marginLeft'>
 						<Icon
 							glyph={XCircle}
 							size=16
@@ -105,13 +105,13 @@
 					<div class='flex listItem selection clickable'>
 						<span
 							class='label'
-							on:mousemove={hoveredId(id)}
+							on:mousemove={$_isSmallScreen ? null : hoveredId(id)}
 							on:click={() => dispatch('selectId', id)}
 						>
 							{idToLabel(id)}
 						</span>
 						<div class='button'
-							on:mouseenter={hoveredReset(id)}
+							on:mouseenter={$_isSmallScreen ? null : hoveredReset(id)}
 							on:click={clickedReset(id)}
 						>
 							<Icon
@@ -135,7 +135,7 @@
 						Reset all filters
 					</span>
 					<div
-						class='button'
+						class='button marginLeft'
 						on:click={onResetAll}
 					>
 						<Icon
@@ -166,6 +166,10 @@
 	.list {
 		border-bottom: var(--border);
 	}
+	.list.small {
+		border-bottom: none;
+		border-top: var(--border);
+	}
 	.listItem {
 		justify-content: space-between;
 		padding: 0.5em 0.7em;
@@ -175,13 +179,17 @@
 		border-bottom: var(--border);
 		color: var(--textColor);
 	}
+	.small .selection {
+		border-bottom: none;
+		border-top: var(--border);
+	}
 	.label {
 		flex: 1;
 	}
 	.label.resetAll {
 		text-align: end;
 	}
-	.button {
+	.marginLeft {
 		margin-left: 1em;
 	}
 </style>

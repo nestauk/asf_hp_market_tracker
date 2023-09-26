@@ -293,7 +293,7 @@
 <style>
 	.FiltersBar {
 		display: grid;
-		grid-template-areas: "navigator" "filters";
+		grid-template-areas: 'navigator' 'filters';
 		grid-template-columns: 100%;
 		grid-template-rows: var(--navHeight) calc(100% - var(--navHeight));
 		height: 100%;
@@ -301,7 +301,7 @@
 	}
 
 	.FiltersBar.small {
-		grid-template-areas: "filters" "navigator";
+		grid-template-areas: 'filters' 'navigator';
 		grid-template-rows: calc(100% - var(--navHeight)) var(--navHeight);
 	}
 
