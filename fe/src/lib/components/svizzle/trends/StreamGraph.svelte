@@ -305,6 +305,14 @@
 					on:mouseout={({x, y}) => {
 						dispatch('areaExited', {key: p.category, x, y})
 					}}
+					on:touchstart|preventDefault={({targetTouches: [touch]}) => {
+						const {clientX: x, clientY: y} = touch;
+						console.log('touchstart', x, y)
+						dispatch('areaTouched', {key: p.category, x, y})
+					}}
+					on:touchend={() => {
+						dispatch('areaUntouched', {key: p.category})
+					}}
 					stroke={p.fill}
 				/>
 			{/each}
