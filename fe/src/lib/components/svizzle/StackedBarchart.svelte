@@ -185,8 +185,12 @@
 							on:mouseout={({x, y}) => {
 								dispatch('barExited', {key, subKey, value, x, y})
 							}}
-							on:touchstart={({x, y}) => {
+							on:touchstart|preventDefault={({targetTouches: [touch]}) => {
+								const {clientX: x, clientY: y} = touch;
 								dispatch('barTouched', {key, subKey, value, x, y})
+							}}
+							on:touchend={() => {
+								dispatch('barUntouched', {key, subKey, value})
 							}}
 							width={barScale(value)}
 							x={barScale(start)}

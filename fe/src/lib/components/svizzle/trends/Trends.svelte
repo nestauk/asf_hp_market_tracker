@@ -297,8 +297,12 @@
 						on:mouseout={({x, y}) => {
 							dispatch('dotExited', {data, x, y})
 						}}
-						on:touchstart={({x, y}) => {
+						on:touchstart|preventDefault={({targetTouches: [touch]}) => {
+							const {clientX: x, clientY: y} = touch;
 							dispatch('dotTouched', {data, x, y})
+						}}
+						on:touchend={() => {
+							dispatch('dotUntouched', {data})
 						}}
 						r={dotRadius}
 					/>
