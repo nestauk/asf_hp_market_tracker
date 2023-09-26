@@ -1,0 +1,6 @@
+    **/node_modules
+    **/test
+    be/tiles
+    be/es
+    fe
+    mapbox
