@@ -78,10 +78,10 @@
 
 		const featureState = {
 			fill: areAllRegionsSelected || regionNames.includes(featureName)
-				? $_currThemeVars['--colorMapRegionFillSelected']
+				? $_currThemeVars['--colorGeoFilterFillSelected']
 				: null,
 			stroke: areAllRegionsSelected || regionNames.includes(featureName)
-				? $_currThemeVars['--colorMapRegionStrokeSelected']
+				? $_currThemeVars['--colorGeoFilterStrokeSelected']
 				: null
 		};
 

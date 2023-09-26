@@ -38,6 +38,7 @@
 	import {_currentMetric, _selection} from '$lib/stores/navigation.js';
 	import {
 		_barchartsTheme,
+		_currThemeVars,
 		_legendsTheme,
 		_regionKindTheme,
 		_xorNavigatorTheme,
@@ -199,7 +200,8 @@
 			const {properties: {[$_featureNameId]: featureName}} = feature;
 			const item = itemsIndex[featureName];
 			const featureState = {
-				fill: item ? colorScale(getValue(item)) : null
+				fill: item ? colorScale(getValue(item)) : null,
+				stroke: item ? $_currThemeVars['--colorMapStrokeSelected'] : null
 			}
 
 			return featureState;

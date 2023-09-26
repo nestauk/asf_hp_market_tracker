@@ -155,9 +155,13 @@ a {
 
 	/* region filters */
 
-	--colorMapRegionFillNuts: #eee;
-	--colorMapRegionFillSelected: #555;
-	--colorMapRegionStrokeSelected: orange;
+	--colorGeoFilterFillSelected: #555;
+	--colorGeoFilterStrokeSelected: orange;
+
+	/* maps */
+
+	--colorMapFillNuts: #eee;
+	--colorMapStrokeSelected: black;
 }
 
 .themeDark {
@@ -232,7 +236,11 @@ a {
 
 	/* region filters */
 
-	--colorMapRegionFillNuts: #eee;
-	--colorMapRegionFillSelected: #555;
-	--colorMapRegionStrokeSelected: orange;
+	--colorGeoFilterFillSelected: #555;
+	--colorGeoFilterStrokeSelected: orange;
+
+	/* maps */
+
+	--colorMapFillNuts: #eee;
+	--colorMapStrokeSelected: black;
 }

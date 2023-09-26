@@ -27,7 +27,7 @@ export const _baseLayers = derived(
 			'source-layer': 'nuts21_0',
 			type: 'fill',
 			paint: {
-				'fill-color': currThemeVars['--colorMapRegionFillNuts'],
+				'fill-color': currThemeVars['--colorMapFillNuts'],
 				'fill-outline-color': currThemeVars['--colorBorder'],
 			}
 		}

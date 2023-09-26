@@ -121,7 +121,8 @@
 			const {properties: {[$_featureNameId]: featureName}} = feature;
 			const item = itemsIndex[featureName];
 			const featureState = {
-				fill: item ? colorScale(valueAccessor(item)) : null
+				fill: item ? colorScale(valueAccessor(item)) : null,
+				stroke: item ? $_currThemeVars['--colorMapStrokeSelected'] : null
 			}
 
 			return featureState;
