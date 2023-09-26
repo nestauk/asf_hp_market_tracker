@@ -19,7 +19,7 @@
 	import {
 		_isViewLoading,
 		_showMessage,
-		_viewData,
+		_viewDataCoverage,
 		_viewDataMessage,
 	} from '$lib/stores/view.js';
 
@@ -41,8 +41,8 @@
 	$: $_showMessage && console.log('[backend]:', $_viewDataMessage);
 
 	let filtered;
-	$: if ($_viewData) {
-		({response: {coverage: {filtered}}} = $_viewData);
+	$: if ($_viewDataCoverage) {
+		({filtered} = $_viewDataCoverage);
 	}
 
 	const onViewSelected = ({detail: id}) => {

@@ -10,7 +10,7 @@ export const onRequest = async (request, reply) => {
 	let { field, field1, field2, filter = null } = request.query;
 
 	/* Special routes where field is not specified */
-	switch (request.routerPath) {
+	switch (request.routeOptions.url) {
 		case '/count':
 			field = '_id' // all fields have _id so only the filter will affect outcomes
 			break
@@ -70,7 +70,7 @@ export const formatPayload = async (request, reply, payload) => {
 			message: 'aggregation successful',
 			request: {
 				agg: {
-					id: request.routerPath.slice(1),
+					id: request.routeOptions.url.slice(1),
 					params: request.query
 				},
 				filter: request.filter
