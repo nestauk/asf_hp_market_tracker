@@ -2,11 +2,7 @@
 	import {setupResizeObserver} from '@svizzle/ui';
 
 	import {_staticData} from '$lib/stores/data.js';
-	import {
-		_noDataReturned,
-		_viewData,
-		_viewDataCoverage,
-	} from '$lib/stores/view.js';
+	import {_viewData, _viewDataCoverage} from '$lib/stores/view.js';
 
 	const {
 		_writable: _coverageSize,
@@ -30,7 +26,7 @@
 
 	const ratio = 0.8;
 
-	$: if ($_viewDataCoverage && $_coverageSize && !$_noDataReturned) {
+	$: if ($_viewDataCoverage && $_coverageSize) {
 
 		({blockSize: svgSide} = $_coverageSize);
 		({

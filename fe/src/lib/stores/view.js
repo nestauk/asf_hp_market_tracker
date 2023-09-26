@@ -29,9 +29,9 @@ export const _viewDataMessage = derived(
 /* coverage */
 
 export const _viewDataCoverage = derived(
-	[_staticData, _viewData],
-	([staticData, viewData]) => {
-		if (!viewData || !staticData) {
+	[_staticData, _viewData, _noDataReturned],
+	([staticData, viewData, noDataReturned]) => {
+		if (!viewData || !staticData || noDataReturned) {
 			return
 		}
 
