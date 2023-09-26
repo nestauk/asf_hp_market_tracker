@@ -1,3 +1,15 @@
+# 0.5.1
+
+Staging release ([milestone](https://github.com/nestauk/asf_hp_market_tracker/milestone/16?closed=1)):
+
+- Fixes:
+	- Fixed the filters navigator on `small` devices (#398)
+	- Prevent the app from freezing when no data is returned (#396)
+
+- Backend:
+	- Add Github actions for AWS ECS CI/CD (#368)
+
+
 # 0.5.0
 
 Staging release ([milestone](https://github.com/nestauk/asf_hp_market_tracker/milestone/15?closed=1)):
