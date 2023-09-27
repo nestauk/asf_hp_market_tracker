@@ -2,6 +2,8 @@
 	import {makeStyle, makeStyleVars, toPx} from '@svizzle/dom';
 	import {createEventDispatcher} from 'svelte';
 
+	export let isTouchDevice;
+	export let geometry;
 	export let targetX;
 	export let targetY;
 	export let theme;
@@ -9,7 +11,7 @@
 
 	const dispatch = createEventDispatcher();
 
-	const geometry = {
+	const defaultGeometry = {
 		safetyBottom: 4,
 		safetyLeft: 16,
 		safetyRight: 4,
@@ -34,6 +36,8 @@
 	let tooltipNode;
 	let tooltipStyle = {};
 
+	$: geometry = geometry ? {...defaultGeometry, ...geometry} : defaultGeometry;
+	$: layout = layout || 'towards-center';
 	$: useBackdrop = useBackdrop || false;
 	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
 	$: if (tooltipNode) {
@@ -45,8 +49,10 @@
 		const x = targetX < parentWidth / 2
 			? {key: 'left', value: targetX + geometry.safetyLeft}
 			: {key: 'right', value: parentWidth - targetX + geometry.safetyRight};
-		const y = targetY < parentHeight / 2
-			? {key: 'top', value: targetY + geometry.safetyTop}
+		const y = !isTouchDevice
+			? targetY < parentHeight / 2
+				? {key: 'top', value: targetY + geometry.safetyTop}
+				: {key: 'bottom', value: parentHeight - targetY + geometry.safetyBottom}
 			: {key: 'bottom', value: parentHeight - targetY + geometry.safetyBottom};
 
 		tooltipStyle = {
@@ -62,7 +68,7 @@
 {#if useBackdrop}
 	<div
 		class='TooltipBackdrop'
-		on:touchstart={onClick}
+		on:touchstart|preventDefault={onClick}
 		style={styleVars}
 	>
 		<div
@@ -97,11 +103,10 @@
 	}
 	.Tooltip.usingBackdrop {
 		pointer-events: auto;
-		position: static;
 	}
 	.TooltipBackdrop {
 		align-content: center;
-		background: rgba(0, 0, 0, 0.5);
+		background: rgba(0, 0, 0, 0.25);
 		display: grid;
 		height: 100%;
 		justify-content: center;

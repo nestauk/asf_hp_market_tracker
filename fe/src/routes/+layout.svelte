@@ -182,6 +182,10 @@
 
 	{#if $_tooltip?.key}
 		<Tooltip
+			isTouchDevice={$_isSmallScreen}
+			geometry={{
+				safetyBottom: 30,
+			}}
 			targetX={$_tooltip.x}
 			targetY={$_tooltip.y}
 			theme={$_tooltipTheme}
