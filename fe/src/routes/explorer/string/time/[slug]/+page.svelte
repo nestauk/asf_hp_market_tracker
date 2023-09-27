@@ -146,6 +146,7 @@
 							safetyTop: 50,
 						}}
 						keyType='date'
+						on:areaTouched={onAreaHovered}
 						sorting={$_selection.stringsStreamgraphsSorting}
 						theme={$_framesTheme}
 						valueFormatFn={Math.round}

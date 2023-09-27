@@ -148,6 +148,7 @@
 							safetyTop: 50,
 						}}
 						keyType='date'
+						on:areaTouched={onAreaHovered}
 						sorting={$_selection.categsStreamgraphsSorting}
 						theme={$_framesTheme}
 					/>
