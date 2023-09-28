@@ -96,6 +96,8 @@
 				safetyTop: 50,
 			}}
 			keyType='date'
+			on:areaTouched
+			on:areaHovered
 			theme={{
 				...$_framesTheme,
 				curveStroke: avgTrendColor

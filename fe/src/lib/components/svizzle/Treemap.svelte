@@ -46,7 +46,13 @@
 			<g
 				on:mousemove={({x, y}) => dispatch('leafHovered', {data, x, y})}
 				on:mouseout={({x, y}) => dispatch('leafExited', {data, x, y})}
-				on:touchstart={({x, y}) => dispatch('leafTouched', {data, x, y})}
+				on:touchstart|preventDefault={({targetTouches: [touch]}) => {
+					const {clientX: x, clientY: y} = touch;
+					dispatch('leafTouched', {data, x, y})
+				}}
+				on:touchend={() => {
+					dispatch('leafUntouched', {data})
+				}}
 				transform='translate({x0},{y0})'
 			>
 				<rect

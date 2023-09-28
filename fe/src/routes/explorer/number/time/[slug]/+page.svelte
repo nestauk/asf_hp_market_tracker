@@ -95,6 +95,7 @@
 				{#if $_selection.numTimeGraph === 'percentiles'}
 					<PercentilesTrendsView
 						{items}
+						on:areaTouched={onAreaHovered}
 						valueFormatFn={$_currentMetric?.formatFn}
 					/>
 				{:else}
