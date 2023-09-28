@@ -1,5 +1,5 @@
 <script>
-	import {makeStyleVars} from '@svizzle/dom';
+	import {makeStyleVars, toPx} from '@svizzle/dom';
 	import {getKey, getValue} from '@svizzle/utils';
 	import {hierarchy, stratify, treemap} from 'd3-hierarchy';
 	import * as _ from 'lamb';
@@ -40,14 +40,16 @@
 		([rect, {x0, x1, y0, y1}]) => {
 			if (!rect) return false;
 			return [
-				rect.width < x1 - x0 - padding * 2,
+				rect.width < x1 - x0 - padding * 2
+				&& rect.height < y1 - y0 - padding * 2,
 				rect.width < y1 - y0 - padding * 2
+				&& rect.height < x1 - x0 - padding * 2
 			];
 		}
 	);
 	$: style = makeStyleVars({
-		lineHeight: `${lineHeight}px`,
-		padding: `${padding}px`,
+		lineHeight: toPx(lineHeight),
+		padding: toPx(padding),
 	});
 </script>
 
