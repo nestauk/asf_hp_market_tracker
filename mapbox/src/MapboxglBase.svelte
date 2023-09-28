@@ -234,7 +234,7 @@
 				x,
 				y,
 			}
-			dispatch('mapFeaturesTouched', payload);
+			dispatch('mapFeaturesTouchStarted', payload);
 		});
 	}
 

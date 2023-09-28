@@ -95,7 +95,7 @@
 				{#if $_selection.numTimeGraph === 'percentiles'}
 					<PercentilesTrendsView
 						{items}
-						on:areaTouched={onAreaHovered}
+						on:areaTouchStarted={onAreaHovered}
 						valueFormatFn={$_currentMetric?.formatFn}
 					/>
 				{:else}
@@ -108,7 +108,7 @@
 							safetyTop: 50,
 						}}
 						keyType='date'
-						on:dotTouched={onDotHovered}
+						on:dotTouchStarted={onDotHovered}
 						theme={{
 							...$_framesTheme,
 							curveStroke: $_currThemeVars['--colorBorderAux']

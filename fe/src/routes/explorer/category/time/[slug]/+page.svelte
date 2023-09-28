@@ -148,7 +148,7 @@
 							safetyTop: 50,
 						}}
 						keyType='date'
-						on:areaTouched={onAreaHovered}
+						on:areaTouchStarted={onAreaHovered}
 						sorting={$_selection.categsStreamgraphsSorting}
 						theme={$_framesTheme}
 					/>
@@ -164,7 +164,7 @@
 						}}
 						keyToColorFn={groupToColorFn}
 						keyType='date'
-						on:dotTouched={onDotHovered}
+						on:dotTouchStarted={onDotHovered}
 						slot='col1'
 						theme={{
 							...$_framesTheme,

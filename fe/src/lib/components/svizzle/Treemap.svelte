@@ -48,10 +48,10 @@
 				on:mouseout={({x, y}) => dispatch('leafExited', {data, x, y})}
 				on:touchstart|preventDefault={({targetTouches: [touch]}) => {
 					const {clientX: x, clientY: y} = touch;
-					dispatch('leafTouched', {data, x, y})
+					dispatch('leafTouchStarted', {data, x, y})
 				}}
 				on:touchend={() => {
-					dispatch('leafUntouched', {data})
+					dispatch('leafTouchEnded', {data})
 				}}
 				transform='translate({x0},{y0})'
 			>

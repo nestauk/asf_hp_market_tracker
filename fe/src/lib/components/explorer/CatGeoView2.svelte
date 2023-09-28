@@ -238,7 +238,7 @@
 						bounds={$_selectedBbox}
 						isAnimated={false}
 						isInteractive={false}
-						on:mapFeaturesTouched={onMapFeaturesHovered}
+						on:mapFeaturesTouchStarted={onMapFeaturesHovered}
 						reactiveLayers={[regionType]}
 						style={$_mapStyle}
 						visibleLayers={['nuts21_0', regionType]}

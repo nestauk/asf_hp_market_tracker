@@ -280,10 +280,10 @@
 					}}
 					on:touchstart|preventDefault={({targetTouches: [touch]}) => {
 						const {clientX: x, clientY: y} = touch;
-						dispatch('areaTouched', {key, x, y})
+						dispatch('areaTouchStarted', {key, x, y})
 					}}
 					on:touchend={() => {
-						dispatch('areaUntouched', {key})
+						dispatch('areaTouchEnded', {key})
 					}}
 				/>
 			{/each}
