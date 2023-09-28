@@ -17,8 +17,13 @@
 	import GridRows from '$lib/components/svizzle/GridRows.svelte';
 	import Trends from '$lib/components/svizzle/trends/Trends.svelte';
 	import View from '$lib/components/viewports/View.svelte';
+	import {intervalToAxisLabel} from '$lib/config/labels.js';
 	import {_isSmallScreen} from '$lib/stores/layout.js';
-	import {_currentMetric, _selection} from '$lib/stores/navigation.js';
+	import {
+		_currentMetric,
+		_currentMetricTitle,
+		_selection
+	} from '$lib/stores/navigation.js';
 	import {_currThemeVars, _framesTheme} from '$lib/stores/theme.js';
 	import {_tooltip, clearTooltip} from '$lib/stores/tooltip.js';
 	import {_isViewReady, _viewData} from '$lib/stores/view.js';
@@ -58,6 +63,9 @@
 		$_viewData.page.route.id === $_page.route.id &&
 		$_viewData?.response.code === 200;
 
+	$: xAxisLabel = intervalToAxisLabel[$_selection.interval];
+	$: yAxisLabel = `Average ${$_currentMetricTitle}`;
+
 	let doDraw = false;
 	let items;
 	let trends;
@@ -94,6 +102,8 @@
 						{items}
 						on:areaTouchStarted={onAreaHovered}
 						valueFormatFn={$_currentMetric?.formatFn}
+						{xAxisLabel}
+						{yAxisLabel}
 					/>
 				{:else}
 					<Trends
@@ -111,6 +121,8 @@
 							curveStroke: $_currThemeVars['--colorBorderAux']
 						}}
 						valueFormatFn={$_currentMetric?.formatFn}
+						{xAxisLabel}
+						{yAxisLabel}
 					/>
 				{/if}
 
@@ -141,7 +153,9 @@
 					on:areaHovered={onAreaHovered}
 					on:areaExited={clearTooltip}
 					valueFormatFn={$_currentMetric?.formatFn}
-				/>
+					{xAxisLabel}
+					{yAxisLabel}
+			/>
 			{:else}
 				<Trends
 					{trends}
@@ -159,6 +173,8 @@
 						curveStroke: $_currThemeVars['--colorBorderAux']
 					}}
 					valueFormatFn={$_currentMetric?.formatFn}
+					{xAxisLabel}
+					{yAxisLabel}
 				/>
 			{/if}
 		{/if}

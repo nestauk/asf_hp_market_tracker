@@ -13,6 +13,8 @@
 	export let items;
 	export let keyFormatFn;
 	export let valueFormatFn;
+	export let xAxisLabel;
+	export let yAxisLabel;
 
 	$: items = items ?? [];
 
@@ -102,6 +104,8 @@
 				...$_framesTheme,
 				curveStroke: avgTrendColor
 			}}
+			{xAxisLabel}
+			{yAxisLabel}
 		/>
 	</GridRows>
 {:else}
@@ -153,6 +157,8 @@
 				...$_framesTheme,
 				curveStroke: avgTrendColor
 			}}
+			{xAxisLabel}
+			{yAxisLabel}
 		/>
 	</Grid2Columns>
 {/if}

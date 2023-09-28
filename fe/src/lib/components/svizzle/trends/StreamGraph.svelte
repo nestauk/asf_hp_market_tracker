@@ -50,6 +50,8 @@
 	export let sorting = 'off';
 	export let theme;
 	export let valueFormatFn;
+	export let xAxisLabel;
+	export let yAxisLabel;
 	export let yTicksCount = 10;
 
 	let height;
@@ -216,124 +218,163 @@
 
 <div
 	{style}
-	bind:clientHeight={height}
-	bind:clientWidth={width}
 	class='StreamGraph'
->
-	{#if doDraw}
-	<svg
-		{height}
-		{width}
 	>
-		<!-- grid -->
-		<g class='grid'>
-			{#each keyTicks as [key]}
-				<line
-					x1={xScale(key)}
-					x2={xScale(key)}
-					y1={bbox.bly}
-					y2={bbox.try}
-				/>
-			{/each}
-			{#each yTicks as value}
-				<line
-					x1={bbox.blx}
-					x2={bbox.trx}
-					y1={yScale(value)}
-					y2={yScale(value)}
-				/>
-			{/each}
-		</g>
-
-		<!-- x-ticks -->
-		<g class='x-ticks'>
-			{#each keyTicks as [key, label]}
-				<g class='ticks'>
-					<text
-						class='centered'
-						dy={labelsDy}
-						x={xScale(key)}
-						y={bbox.bly}
-					>
-						{label}
-					</text>
-					<text
-						class='centered'
-						dy={-labelsDy}
-						x={xScale(key)}
-						y={bbox.try}
-					>
-						{label}
-					</text>
+	<div
+		bind:clientHeight={height}
+		bind:clientWidth={width}
+		class='chart'
+	>
+		{#if doDraw}
+			<svg
+				{height}
+				{width}
+			>
+				<!-- grid -->
+				<g class='grid'>
+					{#each keyTicks as [key]}
+						<line
+							x1={xScale(key)}
+							x2={xScale(key)}
+							y1={bbox.bly}
+							y2={bbox.try}
+						/>
+					{/each}
+					{#each yTicks as value}
+						<line
+							x1={bbox.blx}
+							x2={bbox.trx}
+							y1={yScale(value)}
+							y2={yScale(value)}
+						/>
+					{/each}
 				</g>
-			{/each}
-		</g>
 
-		<!-- y-ticks -->
-		<g class='y-ticks'>
-			{#each yTicks as value}
-				<g class='ticks'>
-					<text
-						class='left'
-						dx={-labelsDx}
-						x={bbox.blx}
-						y={yScale(value)}
-					>
-						{valueFormatFn(value)}
-					</text>
-					<text
-						class='right'
-						dx={labelsDx}
-						x={bbox.trx}
-						y={yScale(value)}
-					>
-						{valueFormatFn(value)}
-					</text>
+				<!-- x-ticks -->
+				<g class='x-ticks'>
+					{#each keyTicks as [key, label]}
+						<g class='ticks'>
+							<text
+								class='centered'
+								dy={labelsDy}
+								x={xScale(key)}
+								y={bbox.bly}
+							>
+								{label}
+							</text>
+							<text
+								class='centered'
+								dy={-labelsDy}
+								x={xScale(key)}
+								y={bbox.try}
+							>
+								{label}
+							</text>
+						</g>
+					{/each}
 				</g>
-			{/each}
-		</g>
 
-		<!-- paths -->
-		<g class='path'>
-			{#each paths as p (p.id)}
-				<path
-					d={p.path}
-					fill={p.fill}
-					on:mousemove={({x, y}) => {
-						dispatch('areaHovered', {key: p.category, x, y})
-					}}
-					on:mouseout={({x, y}) => {
-						dispatch('areaExited', {key: p.category, x, y})
-					}}
-					on:touchstart|preventDefault={({targetTouches: [touch]}) => {
-						const {clientX: x, clientY: y} = touch;
-						console.log('touchstart', x, y)
-						dispatch('areaTouchStarted', {key: p.category, x, y})
-					}}
-					on:touchend={() => {
-						dispatch('areaTouchEnded', {key: p.category})
-					}}
-					stroke={p.fill}
+				<!-- y-ticks -->
+				<g class='y-ticks'>
+					{#each yTicks as value}
+						<g class='ticks'>
+							<text
+								class='left'
+								dx={-labelsDx}
+								x={bbox.blx}
+								y={yScale(value)}
+							>
+								{valueFormatFn(value)}
+							</text>
+							<text
+								class='right'
+								dx={labelsDx}
+								x={bbox.trx}
+								y={yScale(value)}
+							>
+								{valueFormatFn(value)}
+							</text>
+						</g>
+					{/each}
+				</g>
+
+				<!-- paths -->
+				<g class='path'>
+					{#each paths as p (p.id)}
+						<path
+							d={p.path}
+							fill={p.fill}
+							on:mousemove={({x, y}) => {
+								dispatch('areaHovered', {key: p.category, x, y})
+							}}
+							on:mouseout={({x, y}) => {
+								dispatch('areaExited', {key: p.category, x, y})
+							}}
+							on:touchstart|preventDefault={({targetTouches: [touch]}) => {
+								const {clientX: x, clientY: y} = touch;
+								dispatch('areaTouchStarted', {key: p.category, x, y})
+							}}
+							on:touchend={() => {
+								dispatch('areaTouchEnded', {key: p.category})
+							}}
+							stroke={p.fill}
+						/>
+					{/each}
+				</g>
+
+				<!-- frame -->
+				<rect
+					x={bbox.blx}
+					y={bbox.try}
+					width={bbox.width}
+					height={bbox.height}
 				/>
-			{/each}
-		</g>
-
-		<!-- frame -->
-		<rect
-			x={bbox.blx}
-			y={bbox.try}
-			width={bbox.width}
-			height={bbox.height}
-		/>
-	</svg>
+			</svg>
+		{/if}
+	</div>
+	{#if xAxisLabel}
+		<div class='xAxisLabel'>
+			{xAxisLabel}
+		</div>
+	{/if}
+	{#if yAxisLabel}
+		<div class='yAxisLabel'>
+			{yAxisLabel}
+		</div>
 	{/if}
 </div>
 
 <style>
-	.StreamGraph, svg {
+	.StreamGraph {
 		height: 100%;
 		width: 100%;
 		overflow: hidden;
+		display: grid;
+		grid-template-areas:
+			'tlcorner topLabel trcorner'
+			'leftLabel chart rightLabel'
+			'blcorner bottomLabel brcorner';
+		grid-template-columns: min-content 1fr min-content;
+		grid-template-rows: min-content 1fr min-content;
+	}
+	svg {
+		height: 100%;
+		width: 100%;
+	}
+	.chart {
+		grid-area: chart;
+		overflow: hidden;
+	}
+	.xAxisLabel {
+		grid-area: bottomLabel;
+		text-align: center;
+	}
+	.yAxisLabel {
+		grid-area: rightLabel;
+		text-align: center;
+		writing-mode: vertical-lr;
+		transform: rotate(180deg);
+		transform-origin: 41% 50%;
 	}
 
 	.grid line {

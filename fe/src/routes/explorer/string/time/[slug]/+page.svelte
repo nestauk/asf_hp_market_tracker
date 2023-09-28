@@ -21,9 +21,14 @@
 	import GridRows from '$lib/components/svizzle/GridRows.svelte';
 	import StreamGraph from '$lib/components/svizzle/trends/StreamGraph.svelte';
 	import Trends from '$lib/components/svizzle/trends/Trends.svelte';
+	import {intervalToAxisLabel} from '$lib/config/labels.js';
 	import View from '$lib/components/viewports/View.svelte';
 	import {_isSmallScreen} from '$lib/stores/layout.js';
-	import {_currentMetric, _selection} from '$lib/stores/navigation.js';
+	import {
+		_currentMetric,
+		_currentMetricTitle,
+		_selection
+	} from '$lib/stores/navigation.js';
 	import {_currThemeVars, _framesTheme} from '$lib/stores/theme.js';
 	import {_tooltip, clearTooltip} from '$lib/stores/tooltip.js';
 	import {_isViewReady, _viewData} from '$lib/stores/view.js';
@@ -102,6 +107,9 @@
 		$_viewData.page.route.id === $_page.route.id &&
 		$_viewData?.response.code === 200;
 
+	$: xAxisLabel = intervalToAxisLabel[$_selection.interval];
+	$: yAxisLabel = $_currentMetricTitle;
+
 	let doDraw = false;
 	let groups;
 	let groupToColorFn;
@@ -147,6 +155,8 @@
 						sorting={$_selection.stringsStreamgraphsSorting}
 						theme={$_framesTheme}
 						valueFormatFn={Math.round}
+						{xAxisLabel}
+						{yAxisLabel}
 					/>
 				{:else}
 					<Trends
@@ -166,6 +176,8 @@
 							curveStroke: $_currThemeVars['--colorBorderAux']
 						}}
 						valueFormatFn={Math.round}
+						{xAxisLabel}
+						{yAxisLabel}
 					/>
 				{/if}
 
@@ -263,6 +275,8 @@
 							sorting={$_selection.stringsStreamgraphsSorting}
 							theme={$_framesTheme}
 							valueFormatFn={Math.round}
+							{xAxisLabel}
+							{yAxisLabel}
 						/>
 					{:else}
 						<Trends
@@ -283,6 +297,8 @@
 								curveStroke: $_currThemeVars['--colorBorderAux']
 							}}
 							valueFormatFn={Math.round}
+							{xAxisLabel}
+							{yAxisLabel}
 						/>
 					{/if}
 				</div>

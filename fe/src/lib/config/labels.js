@@ -4,6 +4,12 @@ export const intervalToLabel = {
 	'1y': 'yearly',
 }
 
+export const intervalToAxisLabel = {
+	'1M': 'Months',
+	'1q': 'Quarters',
+	'1y': 'Years',
+}
+
 export const regionTypeToLabel = {
 	country21: 'Country',
 	itl21_1: 'ITL 1',

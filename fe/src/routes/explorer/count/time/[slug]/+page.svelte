@@ -15,8 +15,13 @@
 	import GridRows from '$lib/components/svizzle/GridRows.svelte';
 	import Trends from '$lib/components/svizzle/trends/Trends.svelte';
 	import View from '$lib/components/viewports/View.svelte';
+	import {intervalToAxisLabel} from '$lib/config/labels.js';
 	import {_isSmallScreen} from '$lib/stores/layout.js';
-	import {_currentMetric, _selection} from '$lib/stores/navigation.js';
+	import {
+		_currentMetric,
+		_currentMetricTitle,
+		_selection
+	} from '$lib/stores/navigation.js';
 	import {_currThemeVars, _framesTheme} from '$lib/stores/theme.js';
 	import {_tooltip, clearTooltip} from '$lib/stores/tooltip.js';
 	import {_isViewReady, _viewData} from '$lib/stores/view.js';
@@ -65,6 +70,9 @@
 		$_currentMetric?.id === $_page.params.slug &&
 		$_viewData.page.route.id === $_page.route.id &&
 		$_viewData?.response.code === 200;
+	
+	$: xAxisLabel = intervalToAxisLabel[$_selection.interval];
+	$: yAxisLabel = $_currentMetricTitle;
 
 	$: if (proceed) {
 		const rawItems = $_viewData?.response.data.date_histogram.buckets || [];
@@ -107,6 +115,8 @@
 						...$_framesTheme,
 						curveStroke: $_currThemeVars['--colorBorderAux']
 					}}
+					{xAxisLabel}
+					{yAxisLabel}
 				/>
 
 				<FlexBar canWrap shouldWrapUp>
@@ -153,6 +163,8 @@
 					...$_framesTheme,
 					curveStroke: $_currThemeVars['--colorBorderAux']
 				}}
+				{xAxisLabel}
+				{yAxisLabel}
 			/>
 		{/if}
 	</Grid2Rows>
