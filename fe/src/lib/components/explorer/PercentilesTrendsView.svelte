@@ -96,7 +96,7 @@
 				safetyTop: 50,
 			}}
 			keyType='date'
-			on:areaTouched
+			on:areaTouchStarted
 			on:areaHovered
 			theme={{
 				...$_framesTheme,

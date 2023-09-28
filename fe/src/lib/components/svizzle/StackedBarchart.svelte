@@ -187,10 +187,10 @@
 							}}
 							on:touchstart|preventDefault={({targetTouches: [touch]}) => {
 								const {clientX: x, clientY: y} = touch;
-								dispatch('barTouched', {key, subKey, value, x, y})
+								dispatch('barTouchStarted', {key, subKey, value, x, y})
 							}}
 							on:touchend={() => {
-								dispatch('barUntouched', {key, subKey, value})
+								dispatch('barTouchEnded', {key, subKey, value})
 							}}
 							width={barScale(value)}
 							x={barScale(start)}

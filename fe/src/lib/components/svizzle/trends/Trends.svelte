@@ -299,10 +299,10 @@
 						}}
 						on:touchstart|preventDefault={({targetTouches: [touch]}) => {
 							const {clientX: x, clientY: y} = touch;
-							dispatch('dotTouched', {data, x, y})
+							dispatch('dotTouchStarted', {data, x, y})
 						}}
 						on:touchend={() => {
-							dispatch('dotUntouched', {data})
+							dispatch('dotTouchEnded', {data})
 						}}
 						r={dotRadius}
 					/>

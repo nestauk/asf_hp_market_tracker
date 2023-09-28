@@ -100,7 +100,7 @@
 					{keyToColorFn}
 					{keyToColorLabelFn}
 					{valueAccessor}
-					on:leafTouched={onLeafHovered}
+					on:leafTouchStarted={onLeafHovered}
 				/>
 			</GridRows>
 		</View>

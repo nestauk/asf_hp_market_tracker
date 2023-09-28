@@ -308,10 +308,10 @@
 					on:touchstart|preventDefault={({targetTouches: [touch]}) => {
 						const {clientX: x, clientY: y} = touch;
 						console.log('touchstart', x, y)
-						dispatch('areaTouched', {key: p.category, x, y})
+						dispatch('areaTouchStarted', {key: p.category, x, y})
 					}}
 					on:touchend={() => {
-						dispatch('areaUntouched', {key: p.category})
+						dispatch('areaTouchEnded', {key: p.category})
 					}}
 					stroke={p.fill}
 				/>

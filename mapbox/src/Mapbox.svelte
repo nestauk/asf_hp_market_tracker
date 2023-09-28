@@ -44,7 +44,7 @@
 		on:bboxChanged
 		on:mapClick
 		on:mapFeaturesHovered
-		on:mapFeaturesTouched
+		on:mapFeaturesTouchStarted
 	>
 		<slot />
 	</MapboxglBase>
