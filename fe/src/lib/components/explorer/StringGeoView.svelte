@@ -159,7 +159,6 @@
 						extentsType={$_selection.stackedBarsExtents}
 						groupSortBy={$_selection.stringsGeoSortBy}
 						on:barTouched={onBarHovered}
-						on:barUntouched={onBarExited}
 						shouldResetScroll={true}
 						slot='col1'
 						theme={$_stackedBarchartTheme}
