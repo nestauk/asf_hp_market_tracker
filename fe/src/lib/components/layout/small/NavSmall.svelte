@@ -278,7 +278,7 @@
 	.sponsors {
 		align-items: center;
 		display: grid;
-		grid-template-columns: 1fr 1fr 1fr;
+		grid-template-columns: 1fr;
 		grid-gap: 1em;
 		justify-items: center;
 		padding: 1em;
