@@ -239,19 +239,10 @@
 		</FlexBar>
 		{#if doDraw}
 			<Grid2Columns
-				percents={[15, 85]}
+				percents={[85, 15]}
 				gap='0.5em'
 			>
-				<div
-					class='legend'
-					slot='col0'
-				>
-					<KeysLegend
-						keyToColorFn={groupToColorFn}
-						keys={groups}
-					/>
-				</div>
-				<div class='col1' slot='col1'>
+				<div class='col0' slot='col0'>
 					{#if $_selection.categsTimeGraph === 'streams'}
 						<StreamGraph
 							{axesLabels}
@@ -295,6 +286,16 @@
 						/>
 					{/if}
 				</div>
+
+				<div
+					class='legend'
+					slot='col1'
+				>
+					<KeysLegend
+						keyToColorFn={groupToColorFn}
+						keys={groups}
+					/>
+				</div>
 			</Grid2Columns>
 		{/if}
 	</Grid2Rows>
@@ -321,7 +322,7 @@
 		min-width: 1em;
 	}
 
-	.col1 {
+	.col0 {
 		height: 100%;
 		width: 100%;
 	}

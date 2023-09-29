@@ -108,31 +108,9 @@
 	</GridRows>
 {:else}
 	<Grid2Columns
-		percents={[15, 85]}
+		percents={[85, 15]}
 		gap='0.5em'
 	>
-		<!-- slot -->
-
-		<div
-			class='legend'
-			slot='col0'
-		>
-			<div class='legendBlock'>
-				<h3>Trends</h3>
-				<KeysLegend
-					keyToColorFn={_.always(avgTrendColor)}
-					keys={['Average']}
-				/>
-			</div>
-			<div class='legendBlock'>
-				<h3>Percentiles</h3>
-				<KeysLegend
-					keyToColorFn={areaLegendKeysToColor}
-					keys={areaLegendKeys}
-				/>
-			</div>
-		</div>
-
 		<!-- slot -->
 
 		<StatsTrends
@@ -151,12 +129,34 @@
 			keyType='date'
 			on:areaHovered
 			on:areaExited
-			slot='col1'
+			slot='col0'
 			theme={{
 				...$_framesTheme,
 				curveStroke: avgTrendColor
 			}}
 		/>
+
+		<!-- slot -->
+
+		<div
+			class='legend'
+			slot='col1'
+		>
+			<div class='legendBlock'>
+				<h3>Trends</h3>
+				<KeysLegend
+					keyToColorFn={_.always(avgTrendColor)}
+					keys={['Average']}
+				/>
+			</div>
+			<div class='legendBlock'>
+				<h3>Percentiles</h3>
+				<KeysLegend
+					keyToColorFn={areaLegendKeysToColor}
+					keys={areaLegendKeys}
+				/>
+			</div>
+		</div>
 	</Grid2Columns>
 {/if}
 
