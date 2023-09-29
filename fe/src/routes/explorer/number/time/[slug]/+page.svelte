@@ -209,9 +209,4 @@
 	h3 {
 		padding: 0.25em;
 	}
-
-	.col1 {
-		height: 100%;
-		width: 100%;
-	}
 </style>
