@@ -223,9 +223,10 @@
 		})
 		.on('touchstart', ({
 				lngLat, // geographic coordinates of the mouse position
-				originalEvent: {x, y}, // document pixel coordinates
+				originalEvent: {targetTouches: [touch]}, // document pixel coordinates
 				point, // canvas pixel coordinates
 			}) => {
+			const {clientX: x, clientY: y} = touch;
 			const features = map.queryRenderedFeatures(point);
 			const payload = {
 				features,
