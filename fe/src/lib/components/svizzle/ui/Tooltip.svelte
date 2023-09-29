@@ -28,7 +28,7 @@
 		zIndexBackdrop: 2000,
 	}
 
-	const onClick = e => dispatch('closed');
+	const onClick = () => dispatch('closed');
 
 	let tooltipNode;
 	let tooltipStyle = {};
