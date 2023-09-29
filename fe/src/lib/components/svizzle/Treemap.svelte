@@ -4,20 +4,27 @@
 	import * as _ from 'lamb';
 	import {createEventDispatcher} from 'svelte';
 
+	export let geometry;
 	export let items;
 	export let keyAccessor = getKey;
 	export let keyToColorFn;
 	export let keyToColorLabelFn;
-	export let paddingInner = 5;
-	export let paddingOuter = 2;
 	export let valueAccessor = getValue;
 
 	let treemapHeight;
 	let treemapWidth;
 
+	const defaultGeometry = {
+		lineHeight: 20,
+		paddingInner: 5,
+		paddingOuter: 2,
+		textPadding: 8
+	};
+
 	const dispatch = createEventDispatcher();
 	const stratifyData = stratify().path(_.identity);
 
+	$: geometry = geometry ? {...defaultGeometry, ...geometry} : defaultGeometry;
 	$: getHierarchy = stratified =>
 		hierarchy(stratified)
 		.sum(x => x.data ? valueAccessor(x.data) : 0); // root.data = null
@@ -25,10 +32,24 @@
 	$: getTreemap =
 		treemap()
 		.size([treemapWidth, treemapHeight])
-		.paddingOuter(paddingOuter)
-		.paddingInner(paddingInner);
+		.paddingOuter(geometry.paddingOuter)
+		.paddingInner(geometry.paddingInner);
 	$: treeRoot = getTreeRoot(items);
 	$: treemapLeaves = getTreemap(treeRoot).leaves();
+	$: textGroup = textGroup || new Array(treemapLeaves.length);
+	$: rects = _.map(textGroup, gNode => gNode?.getBBox());
+	$: doesTextFit = _.map(
+		_.zip(rects, treemapLeaves),
+		([rect, {x0, x1, y0, y1}]) => {
+			if (!rect) return false;
+			return [
+				rect.width < x1 - x0 - geometry.textPadding * 2
+				&& rect.height < y1 - y0 - geometry.textPadding * 2,
+				rect.width < y1 - y0 - geometry.textPadding * 2
+				&& rect.height < x1 - x0 - geometry.textPadding * 2
+			];
+		}
+	);
 </script>
 
 <div
@@ -41,7 +62,7 @@
 		width={treemapWidth}
 	>
 		{#each treemapLeaves
-			as {x0, x1, y0, y1, data: {data}}
+			as {x0, x1, y0, y1, data: {data}}, i
 		}
 			<g
 				on:mousemove={({x, y}) => dispatch('leafHovered', {data, x, y})}
@@ -62,16 +83,27 @@
 					stroke='var(--colorBorderAux)'
 					width={x1-x0}
 				/>
-				<text
-					dx={5}
-					dy={5}
-					fill={keyToColorLabelFn(keyAccessor(data))}
-				>{keyAccessor(data)}</text>
-				<text
-					dx={5}
-					dy={25}
-					fill={keyToColorLabelFn(keyAccessor(data))}
-				>{valueAccessor(data)}</text>
+				<g
+					bind:this={textGroup[i]}
+					transform={!doesTextFit[i][0] && doesTextFit[i][1]
+						? `translate(0,${y1-y0}) rotate(-90)`
+						: ''
+					}
+					class:tooLarge={!doesTextFit[i][0] && !doesTextFit[i][1]}
+				>
+					<text
+						dx={geometry.textPadding}
+						dy={geometry.textPadding}
+						fill={keyToColorLabelFn(keyAccessor(data))}
+						maxHeight={y1-y0}
+						maxWidth={x1-x0}
+					>{keyAccessor(data)}</text>
+					<text
+						dx={geometry.textPadding}
+						dy={geometry.textPadding + geometry.lineHeight}
+						fill={keyToColorLabelFn(keyAccessor(data))}
+					>{valueAccessor(data)}</text>
+				</g>
 			</g>
 		{/each}
 	</svg>
@@ -87,5 +119,9 @@
 	text {
 		dominant-baseline: hanging;
 		stroke: none;
+	}
+
+	g.tooLarge {
+		visibility: hidden;
 	}
 </style>
