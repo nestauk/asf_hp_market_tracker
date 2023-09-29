@@ -1,4 +1,5 @@
 <script>
+	import {CenteredView} from '@svizzle/ui';
 	import {
 		arraySumWith,
 		getId,
@@ -14,6 +15,7 @@
 
 	import KeysLegend
 		from '$lib/components/svizzle/legend/KeysLegend.svelte';
+	import Scroller from '$lib/components/svizzle/Scroller.svelte';
 	import FlexBar from '$lib/components/explorer/FlexBar.svelte';
 	import MetricTitle from '$lib/components/explorer/MetricTitle.svelte';
 	import StackedBarchart
@@ -26,7 +28,11 @@
 	import GridRows from '$lib/components/svizzle/GridRows.svelte';
 	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {_selection} from '$lib/stores/navigation.js';
-	import {_legendsTheme, _stackedBarchartTheme} from '$lib/stores/theme.js';
+	import {
+		_legendsTheme,
+		_stackedBarchartTheme,
+		_currThemeVars,
+	} from '$lib/stores/theme.js';
 	import {_tooltip} from '$lib/stores/tooltip.js';
 	import {
 		objectToKeyValuesArray,
@@ -137,20 +143,31 @@
 
 {#if $_isSmallScreen}
 	{#if doDraw}
-		<View id='strings'>
-			<GridRows rowLayout='min-content 1fr min-content'>
+		<View id='legend'>
+			<GridRows
+				alignContent='start'
+				rowLayout='min-content 1fr'
+			>
 				<MetricTitle />
 
-				<Grid2Columns
-					percents={[25, 75]}
-					gap='0.25em'
-				>
-					<KeysLegend
-						keys={groupIds}
-						keyToColorFn={groupToColorFn}
-						slot='col0'
-					/>
+				<Scroller>
+					<CenteredView
+						backgroundColor={$_currThemeVars['--colorBackground']}
+					>
+						<KeysLegend
+							keys={groupIds}
+							keyToColorFn={groupToColorFn}
+						/>
+					</CenteredView>
+				</Scroller>
+			</GridRows>
+		</View>
 
+		<View id='barchart'>
+			<GridRows rowLayout='min-content 1fr'>
+				<MetricTitle />
+
+				<Scroller>
 					<StackedBarchart
 						{domain}
 						{groupIds}
@@ -160,22 +177,31 @@
 						groupSortBy={$_selection.stringsGeoSortBy}
 						on:barTouchStarted={onBarHovered}
 						shouldResetScroll={true}
-						slot='col1'
 						theme={$_stackedBarchartTheme}
 					/>
-				</Grid2Columns>
+				</Scroller>
+			</GridRows>
+		</View>
 
-				<FlexBar canWrap shouldWrapUp>
-					<SelectorRegionType />
-					<SelectionXor
-						name='stringsGeoSortBy'
-						values={['total', 'regionName']}
-					/>
-					<SelectionXor
-						name='stackedBarsExtents'
-						values={['absolute', 'percent']}
-					/>
-				</FlexBar>
+		<View id='settings'>
+			<GridRows rowLayout='min-content 1fr'>
+				<MetricTitle />
+
+				<Scroller>
+					<CenteredView
+						backgroundColor={$_currThemeVars['--colorBackground']}
+					>
+						<SelectorRegionType />
+						<SelectionXor
+							name='stringsGeoSortBy'
+							values={['total', 'regionName']}
+						/>
+						<SelectionXor
+							name='stackedBarsExtents'
+							values={['absolute', 'percent']}
+						/>
+					</CenteredView>
+				</Scroller>
 			</GridRows>
 		</View>
 	{/if}

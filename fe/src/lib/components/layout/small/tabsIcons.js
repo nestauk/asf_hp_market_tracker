@@ -7,6 +7,7 @@ import {
 	List,
 	MapPin,
 	PieChart,
+	Sliders,
 	TrendingUp,
 } from '@svizzle/ui';
 
@@ -108,10 +109,20 @@ const tabsByRoute = {
 	],
 	'string/geo': [
 		{
-			glyph: MapPin,
-			id: 'strings',
+			glyph: Legend,
+			id: 'legend',
 			transform: '',
 		},
+		{
+			glyph: BarChart,
+			id: 'barchart',
+			transform: 'rotate(90deg) rotateY(180deg)',
+		},
+		{
+			glyph: Sliders,
+			id: 'settings',
+			transform: '',
+		}
 	],
 	'string/stats': [
 		{

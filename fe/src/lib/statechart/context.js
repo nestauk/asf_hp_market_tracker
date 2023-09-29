@@ -21,7 +21,7 @@ export const context = {
 		stringsGeoSortBy: 'total',
 		stringsStreamgraphsSorting: 'off',
 		stringsTimeGraph: 'trends',
-		stringsTopCount: 20,
+		stringsTopCount: 10,
 		trendType: 'progressive',
 		viewId: '',
 	},
