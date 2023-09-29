@@ -21,9 +21,14 @@
 	import GridRows from '$lib/components/svizzle/GridRows.svelte';
 	import StreamGraph from '$lib/components/svizzle/trends/StreamGraph.svelte';
 	import Trends from '$lib/components/svizzle/trends/Trends.svelte';
+	import {intervalToAxisLabel} from '$lib/config/labels.js';
 	import View from '$lib/components/viewports/View.svelte';
 	import {_isSmallScreen} from '$lib/stores/layout.js';
-	import {_currentMetric, _selection} from '$lib/stores/navigation.js';
+	import {
+		_currentMetric,
+		_currentMetricTitle,
+		_selection
+	} from '$lib/stores/navigation.js';
 	import {_currThemeVars, _framesTheme} from '$lib/stores/theme.js';
 	import {_tooltip, clearTooltip} from '$lib/stores/tooltip.js';
 	import {_isViewReady, _viewData} from '$lib/stores/view.js';
@@ -102,6 +107,17 @@
 		$_viewData.page.route.id === $_page.route.id &&
 		$_viewData?.response.code === 200;
 
+	$: axesLabels = [
+		{
+			label: intervalToAxisLabel[$_selection.interval],
+			areas: ['bottom']
+		},
+		{
+			label: $_currentMetricTitle,
+			areas: ['left']
+		},
+	];
+
 	let doDraw = false;
 	let groups;
 	let groupToColorFn;
@@ -133,6 +149,7 @@
 
 				{#if showStreams}
 					<StreamGraph
+						{axesLabels}
 						{groups}
 						{groupToColorFn}
 						{points}
@@ -150,6 +167,7 @@
 					/>
 				{:else}
 					<Trends
+						{axesLabels}
 						{trends}
 						geometry={{
 							safetyBottom: 50,
@@ -230,24 +248,16 @@
 
 		{#if doDraw}
 			<Grid2Columns
-				percents={[20, 80]}
+				percents={[80, 20]}
 				gap='0.5em'
 			>
 				<div
-					class='legend'
+					class='col0'
 					slot='col0'
-				>
-					<KeysLegend
-						keyToColorFn={groupToColorFn}
-						keys={groups}
-					/>
-				</div>
-				<div
-					class='col1'
-					slot='col1'
 				>
 					{#if showStreams}
 						<StreamGraph
+							{axesLabels}
 							{groups}
 							{groupToColorFn}
 							{points}
@@ -266,6 +276,7 @@
 						/>
 					{:else}
 						<Trends
+							{axesLabels}
 							{trends}
 							geometry={{
 								safetyBottom: 50,
@@ -286,6 +297,17 @@
 						/>
 					{/if}
 				</div>
+
+				<div
+					class='legend'
+					slot='col1'
+				>
+					<KeysLegend
+						keyToColorFn={groupToColorFn}
+						keys={groups}
+					/>
+				</div>
+
 			</Grid2Columns>
 		{/if}
 	</Grid2Rows>
@@ -315,7 +337,7 @@
 		min-width: 1em;
 	}
 
-	.col1 {
+	.col0 {
 		height: 100%;
 		width: 100%;
 	}

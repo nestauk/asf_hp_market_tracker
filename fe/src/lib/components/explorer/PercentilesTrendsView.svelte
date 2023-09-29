@@ -10,6 +10,7 @@
 	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {_framesTheme} from '$lib/stores/theme.js';
 
+	export let axesLabels;
 	export let items;
 	export let keyFormatFn;
 	export let valueFormatFn;
@@ -84,6 +85,7 @@
 		</div>
 
 		<StatsTrends
+			{axesLabels}
 			{areaLowKeyToColor}
 			{items}
 			{keyFormatFn}
@@ -106,14 +108,39 @@
 	</GridRows>
 {:else}
 	<Grid2Columns
-		percents={[15, 85]}
+		percents={[85, 15]}
 		gap='0.5em'
 	>
 		<!-- slot -->
 
+		<StatsTrends
+			{axesLabels}
+			{areaLowKeyToColor}
+			{items}
+			{keyFormatFn}
+			{valueFormatFn}
+			config={{areas, trends: ['avg']}}
+			geometry={{
+				safetyBottom: 50,
+				safetyLeft: 80,
+				safetyRight: 80,
+				safetyTop: 50,
+			}}
+			keyType='date'
+			on:areaHovered
+			on:areaExited
+			slot='col0'
+			theme={{
+				...$_framesTheme,
+				curveStroke: avgTrendColor
+			}}
+		/>
+
+		<!-- slot -->
+
 		<div
 			class='legend'
-			slot='col0'
+			slot='col1'
 		>
 			<div class='legendBlock'>
 				<h3>Trends</h3>
@@ -130,30 +157,6 @@
 				/>
 			</div>
 		</div>
-
-		<!-- slot -->
-
-		<StatsTrends
-			{areaLowKeyToColor}
-			{items}
-			{keyFormatFn}
-			{valueFormatFn}
-			config={{areas, trends: ['avg']}}
-			geometry={{
-				safetyBottom: 50,
-				safetyLeft: 80,
-				safetyRight: 80,
-				safetyTop: 50,
-			}}
-			keyType='date'
-			on:areaHovered
-			on:areaExited
-			slot='col1'
-			theme={{
-				...$_framesTheme,
-				curveStroke: avgTrendColor
-			}}
-		/>
 	</Grid2Columns>
 {/if}
 

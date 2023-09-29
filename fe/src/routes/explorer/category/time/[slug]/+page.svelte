@@ -21,8 +21,13 @@
 	import StreamGraph from '$lib/components/svizzle/trends/StreamGraph.svelte';
 	import Trends from '$lib/components/svizzle/trends/Trends.svelte';
 	import View from '$lib/components/viewports/View.svelte';
+	import {intervalToAxisLabel} from '$lib/config/labels.js';
 	import {_isSmallScreen} from '$lib/stores/layout.js';
-	import {_currentMetric, _selection} from '$lib/stores/navigation.js';
+	import {
+		_currentMetric,
+		_currentMetricTitle,
+		_selection
+	} from '$lib/stores/navigation.js';
 	import {_currThemeVars, _framesTheme} from '$lib/stores/theme.js';
 	import {_tooltip, clearTooltip} from '$lib/stores/tooltip.js';
 	import {_isViewReady, _viewData} from '$lib/stores/view.js';
@@ -107,6 +112,17 @@
 		$_viewData.page.route.id === $_page.route.id &&
 		$_viewData?.response.code === 200;
 
+	$: axesLabels = [
+		{
+			label: intervalToAxisLabel[$_selection.interval],
+			areas: ['bottom']
+		},
+		{
+			label: $_currentMetricTitle,
+			areas: ['left']
+		},
+	];
+
 	$: if (proceed) {
 		const rawItems = $_viewData?.response.data.date_histogram.buckets || [];
 		const allPoints = flattenItems(rawItems);
@@ -134,6 +150,7 @@
 
 				{#if $_selection.categsTimeGraph === 'streams'}
 					<StreamGraph
+						{axesLabels}
 						{groups}
 						{groupToColorFn}
 						{points}
@@ -151,6 +168,7 @@
 					/>
 				{:else}
 					<Trends
+						{axesLabels}
 						{trends}
 						{valueFormatFn}
 						geometry={{
@@ -221,21 +239,13 @@
 		</FlexBar>
 		{#if doDraw}
 			<Grid2Columns
-				percents={[15, 85]}
+				percents={[85, 15]}
 				gap='0.5em'
 			>
-				<div
-					class='legend'
-					slot='col0'
-				>
-					<KeysLegend
-						keyToColorFn={groupToColorFn}
-						keys={groups}
-					/>
-				</div>
-				<div class='col1' slot='col1'>
+				<div class='col0' slot='col0'>
 					{#if $_selection.categsTimeGraph === 'streams'}
 						<StreamGraph
+							{axesLabels}
 							{groups}
 							{groupToColorFn}
 							{points}
@@ -255,6 +265,7 @@
 
 					{:else}
 						<Trends
+							{axesLabels}
 							{trends}
 							{valueFormatFn}
 							geometry={{
@@ -274,6 +285,16 @@
 							}}
 						/>
 					{/if}
+				</div>
+
+				<div
+					class='legend'
+					slot='col1'
+				>
+					<KeysLegend
+						keyToColorFn={groupToColorFn}
+						keys={groups}
+					/>
 				</div>
 			</Grid2Columns>
 		{/if}
@@ -301,7 +322,7 @@
 		min-width: 1em;
 	}
 
-	.col1 {
+	.col0 {
 		height: 100%;
 		width: 100%;
 	}

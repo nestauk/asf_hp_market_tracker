@@ -43,6 +43,7 @@
 	// outer key is the trend name, inner key is the x key
 	const defaultTrends = [{key: 'trend', values: []}];
 
+	export let axesLabels;
 	export let geometry;
 	export let keyFilterFn;
 	export let keyFormatFn = _.identity;
@@ -58,6 +59,7 @@
 	let height;
 	let width;
 
+	$: axesLabels = axesLabels ?? [];
 	$: keyFormatFn = keyFormatFn ?? _.identity;
 	$: preformatDate = preformatDate ?? _.identity;
 	$: valueFormatFn = valueFormatFn ?? _.identity;
@@ -190,136 +192,185 @@
 
 <div
 	{style}
-	bind:clientHeight={height}
-	bind:clientWidth={width}
 	class='Trends'
 >
-	{#if doDraw}
-		<svg
-			{height}
-			{width}
-		>
-			<!-- grid -->
-			<g class='grid'>
-				<g class='vertical'>
-					{#each keyTicks as [key]}
-						<line
-							x1={xScale(key)}
-							x2={xScale(key)}
-							y1={bbox.bly}
-							y2={bbox.try}
-						/>
+	<div
+		bind:clientHeight={height}
+		bind:clientWidth={width}
+		class='chart'
+	>
+		{#if doDraw}
+			<svg
+				{height}
+				{width}
+			>
+				<!-- grid -->
+				<g class='grid'>
+					<g class='vertical'>
+						{#each keyTicks as [key]}
+							<line
+								x1={xScale(key)}
+								x2={xScale(key)}
+								y1={bbox.bly}
+								y2={bbox.try}
+							/>
+						{/each}
+					</g>
+					<g class='horizontal'>
+						{#each yTicks as value}
+							<line
+								x1={bbox.blx}
+								x2={bbox.trx}
+								y1={yScale(value)}
+								y2={yScale(value)}
+							/>
+						{/each}
+					</g>
+				</g>
+
+				<!-- x-ticks -->
+				<g class='x-ticks'>
+					{#each keyTicks as [key, label]}
+						<g class='ticks'>
+							<text
+								class='centered'
+								dy={labelsDy}
+								x={xScale(key)}
+								y={bbox.bly}
+							>
+								{label}
+							</text>
+							<text
+								class='centered'
+								dy={-labelsDy}
+								x={xScale(key)}
+								y={bbox.try}
+							>
+								{label}
+							</text>
+						</g>
 					{/each}
 				</g>
-				<g class='horizontal'>
+
+				<!-- y-ticks -->
+				<g class='y-ticks'>
 					{#each yTicks as value}
-						<line
-							x1={bbox.blx}
-							x2={bbox.trx}
-							y1={yScale(value)}
-							y2={yScale(value)}
-						/>
+						<g class='ticks'>
+							<text
+								class='left'
+								dx={-labelsDx}
+								x={bbox.blx}
+								y={yScale(value)}
+							>
+								{valueFormatFn(value)}
+							</text>
+							<text
+								class='right'
+								dx={labelsDx}
+								x={bbox.trx}
+								y={yScale(value)}
+							>
+								{valueFormatFn(value)}
+							</text>
+						</g>
 					{/each}
 				</g>
-			</g>
 
-			<!-- x-ticks -->
-			<g class='x-ticks'>
-				{#each keyTicks as [key, label]}
-					<g class='ticks'>
-						<text
-							class='centered'
-							dy={labelsDy}
-							x={xScale(key)}
-							y={bbox.bly}
-						>
-							{label}
-						</text>
-						<text
-							class='centered'
-							dy={-labelsDy}
-							x={xScale(key)}
-							y={bbox.try}
-						>
-							{label}
-						</text>
-					</g>
-				{/each}
-			</g>
 
-			<!-- y-ticks -->
-			<g class='y-ticks'>
-				{#each yTicks as value}
-					<g class='ticks'>
-						<text
-							class='left'
-							dx={-labelsDx}
-							x={bbox.blx}
-							y={yScale(value)}
-						>
-							{valueFormatFn(value)}
-						</text>
-						<text
-							class='right'
-							dx={labelsDx}
-							x={bbox.trx}
-							y={yScale(value)}
-						>
-							{valueFormatFn(value)}
-						</text>
-					</g>
-				{/each}
-			</g>
-
-			<!-- frame -->
-			<rect
-				x={bbox.blx}
-				y={bbox.try}
-				width={bbox.width}
-				height={bbox.height}
-			/>
-
-			{#each trends as {key, values} (key)}
-				<path
-					d={lineGenerator(values)}
-					fill='none'
-					stroke={keyToColorFn?.(key) ?? 'var(--curveStroke)'}
+				<!-- frame -->
+				<rect
+					x={bbox.blx}
+					y={bbox.try}
+					width={bbox.width}
+					height={bbox.height}
 				/>
 
-				{#each values as data}
-					<circle
-						cx={xScale(getKey(data))}
-						cy={yScale(getValue(data))}
-						fill={keyToColorFn?.(key) ?? 'var(--curveStroke)'}
-						on:mousemove={({x, y}) => {
-							dispatch('dotHovered', {data, x, y})
-						}}
-						on:mouseout={({x, y}) => {
-							dispatch('dotExited', {data, x, y})
-						}}
-						on:touchstart|preventDefault={({targetTouches: [touch]}) => {
-							const {clientX: x, clientY: y} = touch;
-							dispatch('dotTouchStarted', {data, x, y})
-						}}
-						on:touchend={() => {
-							dispatch('dotTouchEnded', {data})
-						}}
-						r={dotRadius}
+				{#each trends as {key, values} (key)}
+					<path
+						d={lineGenerator(values)}
+						fill='none'
+						stroke={keyToColorFn?.(key) ?? 'var(--curveStroke)'}
 					/>
-				{/each}
-			{/each}
 
-		</svg>
-	{/if}
+					{#each values as data}
+						<circle
+							cx={xScale(getKey(data))}
+							cy={yScale(getValue(data))}
+							fill={keyToColorFn?.(key) ?? 'var(--curveStroke)'}
+							on:mousemove={({x, y}) => {
+								dispatch('dotHovered', {data, x, y})
+							}}
+							on:mouseout={({x, y}) => {
+								dispatch('dotExited', {data, x, y})
+							}}
+							on:touchstart|preventDefault={({targetTouches: [touch]}) => {
+								const {clientX: x, clientY: y} = touch;
+								dispatch('dotTouchStarted', {data, x, y})
+							}}
+							on:touchend={() => {
+								dispatch('dotTouchEnded', {data})
+							}}
+							r={dotRadius}
+						/>
+
+					{/each}
+				{/each}
+			
+			</svg>
+		{/if}
+	</div>
+
+	{#each axesLabels as {label, areas}}
+		{#each areas as area}
+			<div class='{area} area'>
+				{label}
+			</div>
+		{/each}
+	{/each}
 </div>
 
 <style>
-	.Trends, svg {
+	.Trends{
 		height: 100%;
 		width: 100%;
 		overflow: hidden;
+		display: grid;
+		grid-template-areas:
+			'tl top tr'
+			'left chart right'
+			'bl bottom br';
+		grid-template-columns: min-content 1fr min-content;
+		grid-template-rows: min-content 1fr min-content;
 	}
-
+	svg {
+		height: 100%;
+		width: 100%;
+	}
+	.chart {
+		grid-area: chart;
+		overflow: hidden;
+	}
+	.bottom.area {
+		grid-area: bottom;
+	}
+	.left.area {
+		grid-area: left;
+	}
+	.right.area {
+		grid-area: right;
+	}
+	.top.area {
+		grid-area: top;
+	}
+	.left.area, .right.area, .top.area, .bottom.area {
+		text-align: center;
+	}
+	.left.area, .right.area {
+		writing-mode: vertical-lr;
+		transform: rotate(180deg);
+		transform-origin: 41% 50%;
+	}
+	
 	.grid line {
 		stroke: var(--gridStroke);
 		stroke-dasharray: var(--gridStrokeDasharray);
