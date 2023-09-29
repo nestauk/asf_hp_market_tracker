@@ -155,8 +155,8 @@ export const getTabsIcons = route => {
 
 	return [
 		{
-			glyph: Filter,
-			id: 'filters',
+			glyph: List,
+			id: 'metrics',
 			transform: '',
 		},
 		...currentRouteTabs,
@@ -166,8 +166,8 @@ export const getTabsIcons = route => {
 			transform: '',
 		},
 		{
-			glyph: List,
-			id: 'metrics',
+			glyph: Filter,
+			id: 'filters',
 			transform: '',
 		},
 	];
