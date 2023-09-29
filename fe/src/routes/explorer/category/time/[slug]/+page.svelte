@@ -91,8 +91,8 @@
 		$_tooltip = {
 			key: `${group} @ ${key}`,
 			value,
-			x: x,
-			y: y,
+			x,
+			y,
 		};
 	};
 	const onAreaHovered = ({detail: {key, x, y}}) => {
