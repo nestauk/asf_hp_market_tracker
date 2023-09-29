@@ -17,8 +17,8 @@
 	import {_currentMetric} from '$lib/stores/navigation.js';
 	import {_isViewReady, _viewData} from '$lib/stores/view.js';
 	import {_histogramsTheme} from '$lib/stores/theme.js';
+	import {_tooltip, clearTooltip} from '$lib/stores/tooltip.js';
 	import {getDocCount} from '$lib/utils/getters.js';
-	import {_tooltip} from '$lib/stores/tooltip.js';
 
 	const valueAccessor = getDocCount;
 
@@ -55,10 +55,6 @@
 			x,
 			y,
 		};
-	};
-
-	const onLeafExited = () => {
-		$_tooltip = null;
 	};
 
 	$: proceed =
@@ -156,7 +152,7 @@
 						items={bins}
 						keyAccessor={treemapKeyAccessor}
 						on:leafHovered={onLeafHovered}
-						on:leafExited={onLeafExited}
+						on:leafExited={clearTooltip}
 					/>
 				</div>
 			</div>

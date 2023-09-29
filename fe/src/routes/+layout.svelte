@@ -38,7 +38,7 @@
 		_themeVars,
 		_tooltipTheme,
 	} from '$lib/stores/theme'
-	import {_tooltip} from '$lib/stores/tooltip';
+	import {_tooltip, clearTooltip} from '$lib/stores/tooltip';
 
 	import Privacy from '$lib/_content/info/PrivacyBanner.svx';
 
@@ -57,10 +57,6 @@
 		_writable: _contentSize,
 		resizeObserver: contentSizeObserver
 	} = setupResizeObserver();
-
-	const onTooltipClosed = () => {
-		$_tooltip = null;
-	};
 
 	let a11yHeight;
 	let fontLoadStatus;
@@ -180,21 +176,28 @@
 		</section>
 	{/if}
 
-	{#if $_tooltip?.key}
+	{#if $_tooltip}
 		<Tooltip
 			isTouchDevice={$_isSmallScreen}
-			geometry={{
-				safetyBottom: 30,
-			}}
+			geometry={$_isSmallScreen
+				? {
+					safetyBottom: 30,
+				}
+				: null
+			}
 			targetX={$_tooltip.x}
 			targetY={$_tooltip.y}
 			theme={$_tooltipTheme}
 			useBackdrop={$_isSmallScreen}
-			on:closed={onTooltipClosed}
+			on:closed={clearTooltip}
 		>
-			{$_tooltip.key}
-			{#if $_tooltip.value}
-				: {$_tooltip.value}
+			{#if $_tooltip.key}
+				{$_tooltip.key}
+				{#if $_tooltip.value}
+					: {$_tooltip.value}
+				{/if}
+			{:else if $_tooltip.component}
+				<svelte:component this={$_tooltip.component} />
 			{/if}
 		</Tooltip>
 	{/if}

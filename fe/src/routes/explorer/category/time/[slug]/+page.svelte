@@ -24,7 +24,7 @@
 	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {_currentMetric, _selection} from '$lib/stores/navigation.js';
 	import {_currThemeVars, _framesTheme} from '$lib/stores/theme.js';
-	import {_tooltip} from '$lib/stores/tooltip.js';
+	import {_tooltip, clearTooltip} from '$lib/stores/tooltip.js';
 	import {_isViewReady, _viewData} from '$lib/stores/view.js';
 	import {objectToKeyValuesArray} from '$lib/utils/svizzle/utils.js';
 	import {
@@ -92,9 +92,6 @@
 	};
 	const onAreaHovered = ({detail: {key, x, y}}) => {
 		$_tooltip = {key, x, y};
-	};
-	const onExited = () => {
-		$_tooltip = null;
 	};
 
 	let doDraw = false;
@@ -251,7 +248,7 @@
 							}}
 							keyType='date'
 							on:areaHovered={onAreaHovered}
-							on:areaExited={onExited}
+							on:areaExited={clearTooltip}
 							sorting={$_selection.categsStreamgraphsSorting}
 							theme={$_framesTheme}
 						/>
@@ -269,7 +266,7 @@
 							keyToColorFn={groupToColorFn}
 							keyType='date'
 							on:dotHovered={onDotHovered}
-							on:dotExited={onExited}
+							on:dotExited={clearTooltip}
 							slot='col1'
 							theme={{
 								...$_framesTheme,

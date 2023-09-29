@@ -1,15 +1,29 @@
 <script>
 	import {Link} from '@svizzle/ui';
 
+	import * as metricInfos from '$lib/_content/metrics/index.js';
 	import Scroller from '$lib/components/svizzle/Scroller.svelte';
 	import {scrollIntoViewIfTrue}
 		from '$lib/components/svizzle/ui/actions/scrollIntoView.js';
 	import {metricGroups} from '$lib/data/metrics.js';
+	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {
 		_activeViewType,
 		_currentMetricId,
 		_searchParams,
 	} from '$lib/stores/navigation.js';
+	import {_tooltip, clearTooltip} from '$lib/stores/tooltip.js';
+
+	$: makeOnMouseMove = id => $_isSmallScreen
+		? null
+		: ({x,y}) => {
+			$_tooltip = {
+				component: metricInfos[id],
+				x,
+				y,
+			}
+		}
+	$: onMouseOut = $_isSmallScreen ? null : clearTooltip;
 </script>
 
 <Scroller>
@@ -22,6 +36,8 @@
 						<div
 							class:selected={id === $_currentMetricId}
 							class='item'
+							on:mousemove={makeOnMouseMove(id)}
+							on:mouseout={onMouseOut}
 							use:scrollIntoViewIfTrue={id === $_currentMetricId}
 						>
 							{label}

@@ -43,7 +43,7 @@
 		_regionKindTheme,
 		_xorNavigatorTheme,
 	} from '$lib/stores/theme.js';
-	import {_tooltip} from '$lib/stores/tooltip.js';
+	import {_tooltip, clearTooltip} from '$lib/stores/tooltip.js';
 	import {_selectedBbox} from '$lib/stores/view.js';
 	import {pluckKey} from '$lib/utils/svizzle/utils.js';
 
@@ -131,7 +131,7 @@
 				y,
 			};
 		} else {
-			$_tooltip = {};
+			clearTooltip();
 		}
 	}
 

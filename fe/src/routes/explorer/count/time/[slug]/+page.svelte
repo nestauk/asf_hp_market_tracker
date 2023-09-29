@@ -18,7 +18,7 @@
 	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {_currentMetric, _selection} from '$lib/stores/navigation.js';
 	import {_currThemeVars, _framesTheme} from '$lib/stores/theme.js';
-	import {_tooltip} from '$lib/stores/tooltip.js';
+	import {_tooltip, clearTooltip} from '$lib/stores/tooltip.js';
 	import {_isViewReady, _viewData} from '$lib/stores/view.js';
 	import {
 		getCardinalityValue,
@@ -50,10 +50,6 @@
 			x,
 			y,
 		};
-	};
-
-	const onDotExited = () => {
-		$_tooltip = null;
 	};
 
 	let doDraw = false;
@@ -152,7 +148,7 @@
 				}}
 				keyType='date'
 				on:dotHovered={onDotHovered}
-				on:dotExited={onDotExited}
+				on:dotExited={clearTooltip}
 				theme={{
 					...$_framesTheme,
 					curveStroke: $_currThemeVars['--colorBorderAux']
