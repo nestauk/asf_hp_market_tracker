@@ -20,7 +20,7 @@
 	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {_currentMetric, _selection} from '$lib/stores/navigation.js';
 	import {_currThemeVars, _framesTheme} from '$lib/stores/theme.js';
-	import {_tooltip} from '$lib/stores/tooltip.js';
+	import {_tooltip, clearTooltip} from '$lib/stores/tooltip.js';
 	import {_isViewReady, _viewData} from '$lib/stores/view.js';
 	import {getKeyAsString} from '$lib/utils/getters.js';
 
@@ -50,9 +50,6 @@
 	};
 	const onAreaHovered = ({detail: {key, x, y}}) => {
 		$_tooltip = {key, x, y};
-	};
-	const onExited = () => {
-		$_tooltip = null;
 	};
 
 	$: proceed =
@@ -142,7 +139,7 @@
 				<PercentilesTrendsView
 					{items}
 					on:areaHovered={onAreaHovered}
-					on:areaExited={onExited}
+					on:areaExited={clearTooltip}
 					valueFormatFn={$_currentMetric?.formatFn}
 				/>
 			{:else}
@@ -156,7 +153,7 @@
 					}}
 					keyType='date'
 					on:dotHovered={onDotHovered}
-					on:dotExited={onExited}
+					on:dotExited={clearTooltip}
 					theme={{
 						...$_framesTheme,
 						curveStroke: $_currThemeVars['--colorBorderAux']

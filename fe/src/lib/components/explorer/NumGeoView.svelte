@@ -33,7 +33,7 @@
 		_legendsTheme,
 		_regionKindTheme,
 	} from '$lib/stores/theme.js';
-	import {_tooltip} from '$lib/stores/tooltip.js';
+	import {_tooltip, clearTooltip} from '$lib/stores/tooltip.js';
 	import {_selectedBbox} from '$lib/stores/view.js';
 
 	export let amountOfBins;
@@ -71,7 +71,7 @@
 				y,
 			};
 		} else {
-			$_tooltip = {};
+			clearTooltip();
 		}
 	}
 

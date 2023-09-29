@@ -15,7 +15,7 @@
 	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {_currentMetric} from '$lib/stores/navigation.js';
 	import {_barchartsTheme} from '$lib/stores/theme.js';
-	import {_tooltip} from '$lib/stores/tooltip.js';
+	import {_tooltip, clearTooltip} from '$lib/stores/tooltip.js';
 	import {_isViewReady, _viewData} from '$lib/stores/view.js';
 	import {getDocCount} from '$lib/utils/getters.js';
 	import {pluckKeySorted} from '$lib/utils/svizzle/utils.js';
@@ -30,10 +30,6 @@
 			x,
 			y,
 		};
-	};
-
-	const onLeafExited = () => {
-		$_tooltip = null;
 	};
 
 	/* barchart */
@@ -124,7 +120,7 @@
 						{keyToColorLabelFn}
 						{valueAccessor}
 						on:leafHovered={onLeafHovered}
-						on:leafExited={onLeafExited}
+						on:leafExited={clearTooltip}
 					/>
 				</div>
 			</div>

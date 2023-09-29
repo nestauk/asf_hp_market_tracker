@@ -25,7 +25,7 @@
 	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {_currentMetric, _selection} from '$lib/stores/navigation.js';
 	import {_currThemeVars, _framesTheme} from '$lib/stores/theme.js';
-	import {_tooltip} from '$lib/stores/tooltip.js';
+	import {_tooltip, clearTooltip} from '$lib/stores/tooltip.js';
 	import {_isViewReady, _viewData} from '$lib/stores/view.js';
 	import {
 		getDocCount,
@@ -92,9 +92,6 @@
 	};
 	const onAreaHovered = ({detail: {key, x, y}}) => {
 		$_tooltip = {key, x, y};
-	};
-	const onExited = () => {
-		$_tooltip = null;
 	};
 
 	$: cropTrends = _.take($_selection.stringsTopCount);
@@ -262,7 +259,7 @@
 							}}
 							keyType='date'
 							on:areaHovered={onAreaHovered}
-							on:areaExited={onExited}
+							on:areaExited={clearTooltip}
 							sorting={$_selection.stringsStreamgraphsSorting}
 							theme={$_framesTheme}
 							valueFormatFn={Math.round}
@@ -279,7 +276,7 @@
 							keyToColorFn={groupToColorFn}
 							keyType='date'
 							on:dotHovered={onDotHovered}
-							on:dotExited={onExited}
+							on:dotExited={clearTooltip}
 							slot='col1'
 							theme={{
 								...$_framesTheme,

@@ -9,7 +9,7 @@
 	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {_selection} from '$lib/stores/navigation.js';
 	import {_filtersNavigatorTheme} from '$lib/stores/theme.js';
-	import {_tooltip} from '$lib/stores/tooltip.js';
+	import {_tooltip, clearTooltip} from '$lib/stores/tooltip.js';
 
 	const dispatch = createEventDispatcher();
 
@@ -21,9 +21,6 @@
 			property_geo_region: 'Property regions',
 		}[id];
 
-	const clearTooltip = () => {
-		$_tooltip = null;
-	}
 	const hoveredId = id => {
 		const label = idToLabel(id);
 		const key = `Scroll to: ${label}`;

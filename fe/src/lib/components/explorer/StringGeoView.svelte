@@ -33,7 +33,7 @@
 		_stackedBarchartTheme,
 		_currThemeVars,
 	} from '$lib/stores/theme.js';
-	import {_tooltip} from '$lib/stores/tooltip.js';
+	import {_tooltip, clearTooltip} from '$lib/stores/tooltip.js';
 	import {
 		objectToKeyValuesArray,
 		pluckKeySorted
@@ -97,10 +97,6 @@
 			x,
 			y,
 		};
-	};
-
-	const onBarExited = () => {
-		$_tooltip = null;
 	};
 
 	let doDraw = false;
@@ -240,7 +236,7 @@
 						extentsType={$_selection.stackedBarsExtents}
 						groupSortBy={$_selection.stringsGeoSortBy}
 						on:barHovered={onBarHovered}
-						on:barExited={onBarExited}
+						on:barExited={clearTooltip}
 						shouldResetScroll={true}
 						slot='col1'
 						theme={$_stackedBarchartTheme}
