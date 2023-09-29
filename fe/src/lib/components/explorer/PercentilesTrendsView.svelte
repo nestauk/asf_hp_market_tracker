@@ -33,7 +33,7 @@
 	const avgTrendColor = 'magenta';
 
 	const areaLegendKeys = _.map(
-		_.reverse(areas),
+		areas,
 		([lowKey, highKey]) => {
 			const lowKeyString =
 				['min', 'max'].includes(lowKey)
@@ -60,7 +60,7 @@
 
 {#if $_isSmallScreen}
 	<GridRows rowLayout='1fr 3fr'>
-		<div class='small_legend'>
+		<div class='smallLegend'>
 			<h3 style:grid-area='avgTitle'>Trends</h3>
 			<div style:grid-area='avg'>
 				<KeysLegend
@@ -187,7 +187,7 @@
 		width: 100%;
 	}
 
-	.small_legend {
+	.smallLegend {
 		display: grid;
 		grid-template-columns: 1fr 1fr 1fr;
 		grid-template-rows: min-content 1fr;
