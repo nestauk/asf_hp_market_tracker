@@ -153,6 +153,7 @@
 				<Scroller>
 					<CenteredView
 						backgroundColor={$_currThemeVars['--colorBackground']}
+						color={$_currThemeVars['--colorText']}
 					>
 						<KeysLegend
 							keys={groupIds}
