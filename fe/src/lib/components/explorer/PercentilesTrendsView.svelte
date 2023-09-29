@@ -10,11 +10,10 @@
 	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {_framesTheme} from '$lib/stores/theme.js';
 
+	export let axesLabels;
 	export let items;
 	export let keyFormatFn;
 	export let valueFormatFn;
-	export let xAxisLabel;
-	export let yAxisLabel;
 
 	$: items = items ?? [];
 
@@ -86,6 +85,7 @@
 		</div>
 
 		<StatsTrends
+			{axesLabels}
 			{areaLowKeyToColor}
 			{items}
 			{keyFormatFn}
@@ -104,8 +104,6 @@
 				...$_framesTheme,
 				curveStroke: avgTrendColor
 			}}
-			{xAxisLabel}
-			{yAxisLabel}
 		/>
 	</GridRows>
 {:else}
@@ -138,6 +136,7 @@
 		<!-- slot -->
 
 		<StatsTrends
+			{axesLabels}
 			{areaLowKeyToColor}
 			{items}
 			{keyFormatFn}
@@ -157,8 +156,6 @@
 				...$_framesTheme,
 				curveStroke: avgTrendColor
 			}}
-			{xAxisLabel}
-			{yAxisLabel}
 		/>
 	</Grid2Columns>
 {/if}

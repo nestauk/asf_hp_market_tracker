@@ -112,8 +112,16 @@
 		$_viewData.page.route.id === $_page.route.id &&
 		$_viewData?.response.code === 200;
 
-	$: xAxisLabel = intervalToAxisLabel[$_selection.interval];
-	$: yAxisLabel = $_currentMetricTitle;
+	$: axesLabels = [
+		{
+			label: intervalToAxisLabel[$_selection.interval],
+			areas: ['bottom']
+		},
+		{
+			label: $_currentMetricTitle,
+			areas: ['left']
+		},
+	];
 
 	$: if (proceed) {
 		const rawItems = $_viewData?.response.data.date_histogram.buckets || [];
@@ -142,6 +150,7 @@
 
 				{#if $_selection.categsTimeGraph === 'streams'}
 					<StreamGraph
+						{axesLabels}
 						{groups}
 						{groupToColorFn}
 						{points}
@@ -156,11 +165,10 @@
 						on:areaTouchStarted={onAreaHovered}
 						sorting={$_selection.categsStreamgraphsSorting}
 						theme={$_framesTheme}
-						{xAxisLabel}
-						{yAxisLabel}
 					/>
 				{:else}
 					<Trends
+						{axesLabels}
 						{trends}
 						{valueFormatFn}
 						geometry={{
@@ -177,8 +185,6 @@
 							...$_framesTheme,
 							curveStroke: $_currThemeVars['--colorBorderAux']
 						}}
-						{xAxisLabel}
-						{yAxisLabel}
 					/>
 				{/if}
 
@@ -248,6 +254,7 @@
 				<div class='col1' slot='col1'>
 					{#if $_selection.categsTimeGraph === 'streams'}
 						<StreamGraph
+							{axesLabels}
 							{groups}
 							{groupToColorFn}
 							{points}
@@ -263,12 +270,11 @@
 							on:areaExited={clearTooltip}
 							sorting={$_selection.categsStreamgraphsSorting}
 							theme={$_framesTheme}
-							{xAxisLabel}
-							{yAxisLabel}
 						/>
 
 					{:else}
 						<Trends
+							{axesLabels}
 							{trends}
 							{valueFormatFn}
 							geometry={{
@@ -286,8 +292,6 @@
 								...$_framesTheme,
 								curveStroke: $_currThemeVars['--colorBorderAux']
 							}}
-							{xAxisLabel}
-							{yAxisLabel}
 						/>
 					{/if}
 				</div>

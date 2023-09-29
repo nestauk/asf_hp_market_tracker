@@ -71,8 +71,16 @@
 		$_viewData.page.route.id === $_page.route.id &&
 		$_viewData?.response.code === 200;
 	
-	$: xAxisLabel = intervalToAxisLabel[$_selection.interval];
-	$: yAxisLabel = $_currentMetricTitle;
+	$: axesLabels = [
+		{
+			label: intervalToAxisLabel[$_selection.interval],
+			areas: ['bottom']
+		},
+		{
+			label: $_currentMetricTitle,
+			areas: ['left']
+		},
+	];
 
 	$: if (proceed) {
 		const rawItems = $_viewData?.response.data.date_histogram.buckets || [];
@@ -100,6 +108,7 @@
 				<MetricTitle />
 
 				<Trends
+					{axesLabels}
 					{trends}
 					{trendType}
 					{valueFormatFn}
@@ -115,8 +124,6 @@
 						...$_framesTheme,
 						curveStroke: $_currThemeVars['--colorBorderAux']
 					}}
-					{xAxisLabel}
-					{yAxisLabel}
 				/>
 
 				<FlexBar canWrap shouldWrapUp>
@@ -147,6 +154,7 @@
 
 		{#if doDraw}
 			<Trends
+				{axesLabels}
 				{trends}
 				{trendType}
 				{valueFormatFn}
@@ -163,8 +171,6 @@
 					...$_framesTheme,
 					curveStroke: $_currThemeVars['--colorBorderAux']
 				}}
-				{xAxisLabel}
-				{yAxisLabel}
 			/>
 		{/if}
 	</Grid2Rows>

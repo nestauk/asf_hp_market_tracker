@@ -107,8 +107,16 @@
 		$_viewData.page.route.id === $_page.route.id &&
 		$_viewData?.response.code === 200;
 
-	$: xAxisLabel = intervalToAxisLabel[$_selection.interval];
-	$: yAxisLabel = $_currentMetricTitle;
+	$: axesLabels = [
+		{
+			label: intervalToAxisLabel[$_selection.interval],
+			areas: ['bottom']
+		},
+		{
+			label: $_currentMetricTitle,
+			areas: ['left']
+		},
+	];
 
 	let doDraw = false;
 	let groups;
@@ -141,6 +149,7 @@
 
 				{#if showStreams}
 					<StreamGraph
+						{axesLabels}
 						{groups}
 						{groupToColorFn}
 						{points}
@@ -155,11 +164,10 @@
 						sorting={$_selection.stringsStreamgraphsSorting}
 						theme={$_framesTheme}
 						valueFormatFn={Math.round}
-						{xAxisLabel}
-						{yAxisLabel}
 					/>
 				{:else}
 					<Trends
+						{axesLabels}
 						{trends}
 						geometry={{
 							safetyBottom: 50,
@@ -176,8 +184,6 @@
 							curveStroke: $_currThemeVars['--colorBorderAux']
 						}}
 						valueFormatFn={Math.round}
-						{xAxisLabel}
-						{yAxisLabel}
 					/>
 				{/if}
 
@@ -260,6 +266,7 @@
 				>
 					{#if showStreams}
 						<StreamGraph
+							{axesLabels}
 							{groups}
 							{groupToColorFn}
 							{points}
@@ -275,11 +282,10 @@
 							sorting={$_selection.stringsStreamgraphsSorting}
 							theme={$_framesTheme}
 							valueFormatFn={Math.round}
-							{xAxisLabel}
-							{yAxisLabel}
 						/>
 					{:else}
 						<Trends
+							{axesLabels}
 							{trends}
 							geometry={{
 								safetyBottom: 50,
@@ -297,8 +303,6 @@
 								curveStroke: $_currThemeVars['--colorBorderAux']
 							}}
 							valueFormatFn={Math.round}
-							{xAxisLabel}
-							{yAxisLabel}
 						/>
 					{/if}
 				</div>

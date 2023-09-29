@@ -63,8 +63,16 @@
 		$_viewData.page.route.id === $_page.route.id &&
 		$_viewData?.response.code === 200;
 
-	$: xAxisLabel = intervalToAxisLabel[$_selection.interval];
-	$: yAxisLabel = `Average ${$_currentMetricTitle}`;
+	$: axesLabels = [
+		{
+			label: intervalToAxisLabel[$_selection.interval],
+			areas: ['bottom']
+		},
+		{
+			label: $_currentMetricTitle,
+			areas: ['left']
+		},
+	];
 
 	let doDraw = false;
 	let items;
@@ -99,14 +107,14 @@
 
 				{#if $_selection.numTimeGraph === 'percentiles'}
 					<PercentilesTrendsView
+						{axesLabels}
 						{items}
 						on:areaTouchStarted={onAreaHovered}
 						valueFormatFn={$_currentMetric?.formatFn}
-						{xAxisLabel}
-						{yAxisLabel}
 					/>
 				{:else}
 					<Trends
+						{axesLabels}
 						{trends}
 						geometry={{
 							safetyBottom: 50,
@@ -121,8 +129,6 @@
 							curveStroke: $_currThemeVars['--colorBorderAux']
 						}}
 						valueFormatFn={$_currentMetric?.formatFn}
-						{xAxisLabel}
-						{yAxisLabel}
 					/>
 				{/if}
 
@@ -149,15 +155,15 @@
 		{#if doDraw}
 			{#if $_selection.numTimeGraph === 'percentiles'}
 				<PercentilesTrendsView
+					{axesLabels}
 					{items}
 					on:areaHovered={onAreaHovered}
 					on:areaExited={clearTooltip}
 					valueFormatFn={$_currentMetric?.formatFn}
-					{xAxisLabel}
-					{yAxisLabel}
 			/>
 			{:else}
 				<Trends
+					{axesLabels}
 					{trends}
 					geometry={{
 						safetyBottom: 50,
@@ -173,8 +179,6 @@
 						curveStroke: $_currThemeVars['--colorBorderAux']
 					}}
 					valueFormatFn={$_currentMetric?.formatFn}
-					{xAxisLabel}
-					{yAxisLabel}
 				/>
 			{/if}
 		{/if}

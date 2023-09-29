@@ -40,6 +40,7 @@
 		textColor: 'black',
 	}
 
+	export let axesLabels;
 	export let geometry;
 	export let groups;
 	export let groupToColorFn;
@@ -50,13 +51,12 @@
 	export let sorting = 'off';
 	export let theme;
 	export let valueFormatFn;
-	export let xAxisLabel;
-	export let yAxisLabel;
 	export let yTicksCount = 10;
 
 	let height;
 	let width;
 
+	$: axesLabels = axesLabels ?? [];
 	$: keyFormatFn = keyFormatFn ?? _.identity;
 	$: yTicksCount = yTicksCount ?? 10;
 
@@ -332,16 +332,16 @@
 			</svg>
 		{/if}
 	</div>
-	{#if xAxisLabel}
-		<div class='xAxisLabel'>
-			{xAxisLabel}
-		</div>
-	{/if}
-	{#if yAxisLabel}
-		<div class='yAxisLabel'>
-			{yAxisLabel}
-		</div>
-	{/if}
+
+	{#each axesLabels as {label, areas}}
+		{#each areas as area}
+			<div
+				class='{area}_area'
+			>
+				{label}
+			</div>
+		{/each}
+	{/each}
 </div>
 
 <style>
@@ -351,9 +351,9 @@
 		overflow: hidden;
 		display: grid;
 		grid-template-areas:
-			'tlcorner topLabel trcorner'
-			'leftLabel chart rightLabel'
-			'blcorner bottomLabel brcorner';
+			'tl top tr'
+			'left chart right'
+			'bl bottom br';
 		grid-template-columns: min-content 1fr min-content;
 		grid-template-rows: min-content 1fr min-content;
 	}
@@ -365,13 +365,22 @@
 		grid-area: chart;
 		overflow: hidden;
 	}
-	.xAxisLabel {
-		grid-area: bottomLabel;
+	.bottom_area {
+		grid-area: bottom;
+	}
+	.left_area {
+		grid-area: left;
+	}
+	.right_area {
+		grid-area: right;
+	}
+	.top_area {
+		grid-area: top;
+	}
+	.left_area, .right_area, .top_area, .bottom_area {
 		text-align: center;
 	}
-	.yAxisLabel {
-		grid-area: rightLabel;
-		text-align: center;
+	.left_area, .right_area {
 		writing-mode: vertical-lr;
 		transform: rotate(180deg);
 		transform-origin: 41% 50%;
