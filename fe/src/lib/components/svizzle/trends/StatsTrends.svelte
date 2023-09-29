@@ -309,9 +309,7 @@
 
 	{#each axesLabels as {label, areas}}
 		{#each areas as area}
-			<div
-				class='{area}_area'
-			>
+			<div class='{area} area'>
 				{label}
 			</div>
 		{/each}
@@ -339,22 +337,22 @@
 		grid-area: chart;
 		overflow: hidden;
 	}
-	.bottom_area {
+	.bottom.area {
 		grid-area: bottom;
 	}
-	.left_area {
+	.left.area {
 		grid-area: left;
 	}
-	.right_area {
+	.right.area {
 		grid-area: right;
 	}
-	.top_area {
+	.top.area {
 		grid-area: top;
 	}
-	.left_area, .right_area, .top_area, .bottom_area {
+	.left.area, .right.area, .top.area, .bottom.area {
 		text-align: center;
 	}
-	.left_area, .right_area {
+	.left.area, .right.area {
 		writing-mode: vertical-lr;
 		transform: rotate(180deg);
 		transform-origin: 41% 50%;
