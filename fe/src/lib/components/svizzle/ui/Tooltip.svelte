@@ -28,16 +28,12 @@
 		zIndexBackdrop: 2000,
 	}
 
-	const onClick = e => {
-		e.stopPropagation();
-		dispatch('closed');
-	}
+	const onClick = e => dispatch('closed');
 
 	let tooltipNode;
 	let tooltipStyle = {};
 
 	$: geometry = geometry ? {...defaultGeometry, ...geometry} : defaultGeometry;
-	$: layout = layout || 'towards-center';
 	$: useBackdrop = useBackdrop || false;
 	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
 	$: if (tooltipNode) {
@@ -68,7 +64,7 @@
 {#if useBackdrop}
 	<div
 		class='TooltipBackdrop'
-		on:touchstart|preventDefault={onClick}
+		on:touchstart|preventDefault|stopPropagation={onClick}
 		style={styleVars}
 	>
 		<div
