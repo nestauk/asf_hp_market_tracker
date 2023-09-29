@@ -248,21 +248,12 @@
 
 		{#if doDraw}
 			<Grid2Columns
-				percents={[20, 80]}
+				percents={[80, 20]}
 				gap='0.5em'
 			>
 				<div
-					class='legend'
+					class='col0'
 					slot='col0'
-				>
-					<KeysLegend
-						keyToColorFn={groupToColorFn}
-						keys={groups}
-					/>
-				</div>
-				<div
-					class='col1'
-					slot='col1'
 				>
 					{#if showStreams}
 						<StreamGraph
@@ -306,6 +297,17 @@
 						/>
 					{/if}
 				</div>
+
+				<div
+					class='legend'
+					slot='col1'
+				>
+					<KeysLegend
+						keyToColorFn={groupToColorFn}
+						keys={groups}
+					/>
+				</div>
+
 			</Grid2Columns>
 		{/if}
 	</Grid2Rows>
@@ -335,7 +337,7 @@
 		min-width: 1em;
 	}
 
-	.col1 {
+	.col0 {
 		height: 100%;
 		width: 100%;
 	}
