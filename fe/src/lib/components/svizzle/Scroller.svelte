@@ -9,6 +9,7 @@
 		bottomShadowGeometry: 'inset 0px -12px 13px -13px',
 		shadowColor: 'lightgrey',
 		topShadowGeometry: 'inset 0px 12px 13px -13px',
+		zIndex: 1,
 	};
 
 	export let extraWidth = 0;
@@ -80,7 +81,7 @@
 		overflow: auto;
 		position: relative;
 		width: 100%;
-		z-index: 1;
+		z-index: var(--zIndex);
 	}
 
 	.shadowTop {
