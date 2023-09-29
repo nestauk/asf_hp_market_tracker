@@ -67,7 +67,7 @@
 		{#if $_isViewLoading}
 			<div class='overlay'>
 				<CenteredView
-					backgroundColor={$_currThemeVars['--colorBackdropSensor']}
+					backgroundColor={$_currThemeVars['--colorBackground']}
 					color={$_currThemeVars['--colorText']}
 				>
 					<LoadingView
