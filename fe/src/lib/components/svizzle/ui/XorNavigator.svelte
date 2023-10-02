@@ -1,14 +1,14 @@
 <script>
-	import {makeStyleVars} from '@svizzle/dom';
+	import {makeStyleVars, toPx} from '@svizzle/dom';
 	import {ChevronLeft, ChevronRight, Icon} from '@svizzle/ui';
 	import {isNotNil} from '@svizzle/utils';
 	import * as _ from 'lamb';
 	import {createEventDispatcher} from 'svelte';
 
 	export let currentValue;
+	export let label;
 	export let theme;
 	export let valuesToLabels;
-	export let height;
 
 	const defaultTheme = {
 		border: 'solid 1px black',
@@ -29,9 +29,11 @@
 		}
 	}
 
-	$: height = height ?? '2.5em';
+	let height;
+
+	$: console.log('height', height)
 	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
-	$: style = makeStyleVars({...theme, height});
+	$: style = makeStyleVars({...theme, height: toPx(height)});
 	$: values = _.keys(valuesToLabels);
 	$: currentLabel = valuesToLabels[currentValue];
 	$: currentValueIndex = _.findIndex(values, _.is(currentValue));
@@ -49,36 +51,53 @@
 	{style}
 	class='XorNavigator'
 >
-	<div class='currentLabel'>{currentLabel}</div>
-	<button
-		aria-label={hasPrevValue ? 'Previous value' : null}
-		class:clickable={hasPrevValue}
-		class='prev'
-		disabled={!hasPrevValue}
-		on:click={clickedPrev}
-		on:keydown={onKeyDownPrev}
+	{#if label}
+		<label>{label}</label>
+	{/if}
+	<div
+		class='navigator'
+		bind:offsetHeight={height}
 	>
-		<Icon glyph={ChevronLeft} />
-	</button>
-	<button
-		aria-label={hasNextValue ? 'Next value' : null}
-		class:clickable={hasNextValue}
-		class='next'
-		disabled={!hasNextValue}
-		on:click={clickedNext}
-		on:keydown={onKeyDownNext}
-	>
-		<Icon glyph={ChevronRight} />
-	</button>
+		<div class='currentLabel'>{currentLabel}</div>
+		<button
+			aria-label={hasPrevValue ? 'Previous value' : null}
+			class:clickable={hasPrevValue}
+			class='prev'
+			disabled={!hasPrevValue}
+			on:click={clickedPrev}
+			on:keydown={onKeyDownPrev}
+		>
+			<Icon glyph={ChevronLeft} />
+		</button>
+		<button
+			aria-label={hasNextValue ? 'Next value' : null}
+			class:clickable={hasNextValue}
+			class='next'
+			disabled={!hasNextValue}
+			on:click={clickedNext}
+			on:keydown={onKeyDownNext}
+		>
+			<Icon glyph={ChevronRight} />
+		</button>
+	</div>
 </div>
 
 <style>
 	.XorNavigator {
+		display: grid;
+		grid-template-rows: min-content min-content;
+		user-select: none;
+		width: 100%;
+		height: 100%;
+		padding: 0.1rem;
+	}
+
+	.navigator {
 		align-items: center;
 		border: var(--border);
-		display: flex;
-		height: var(--height);
-		user-select: none;
+		display: grid;
+		grid-template-columns: 1fr min-content min-content;
+		height: 100%;
 		width: 100%;
 	}
 
@@ -87,6 +106,9 @@
 		display: block;
 		flex: 1;
 		padding: 0.5em 1em;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		overflow: hidden;
 	}
 
 	button {
@@ -94,7 +116,7 @@
 		border: none;
 		border-left: var(--border);
 		color: var(--colorIcon);
-		height: var(--height);
+		height: 100%;
 		width: var(--height);
 	}
 	button:disabled {

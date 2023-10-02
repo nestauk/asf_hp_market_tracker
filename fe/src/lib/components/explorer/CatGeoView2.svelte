@@ -253,6 +253,7 @@
 				</div>
 
 				<XorNavigator
+					label='Region'
 					{valuesToLabels}
 					currentValue={currentKey}
 					on:changed={onKeyChange}
@@ -280,6 +281,7 @@
 				</Scroller>
 
 				<XorNavigator
+					label='Region'
 					{valuesToLabels}
 					currentValue={currentKey}
 					on:changed={onKeyChange}
@@ -293,11 +295,12 @@
 		</View>
 	{/if}
 {:else}
-	<Grid2Rows percents={[10, 90]}>
+	<GridRows rowLayout='min-content 1fr'>
 		{#if doDraw}
-			<GridColumns colLayout='40% 1fr'>
+			<GridColumns colLayout='min-content 1fr'>
 				<SelectorRegionType/>
 				<XorNavigator
+					label='Region'
 					{valuesToLabels}
 					currentValue={currentKey}
 					on:changed={onKeyChange}
@@ -363,7 +366,7 @@
 			/>
 			</Grid3Columns>
 		{/if}
-	</Grid2Rows>
+	</GridRows>
 {/if}
 
 <style>

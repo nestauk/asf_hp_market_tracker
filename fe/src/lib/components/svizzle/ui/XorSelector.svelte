@@ -16,11 +16,13 @@
 
 	export let theme = null;
 	export let value = null;
+	export let label;
 
 	// alternative props
 	export let values = null;
 	export let valuesToLabels = null;
 
+	$: label = label || null;
 	$: values = valuesToLabels ? _.keys(valuesToLabels) : values;
 	$: currentValue = value ?? values[0];
 
@@ -50,34 +52,45 @@
 	{style}
 	class='XorSelector'
 >
-	{#each values as val}
-		<span
-			class:selected={currentValue === val}
-			on:click={onClick(val)}
-			on:keydown={onKeyDown(val)}
-			on:mouseenter={({x, y}) => {
-				dispatch('mouseenter', {key: val, x, y})
-			}}
-			on:mouseleave={({x, y}) => {
-				dispatch('mouseleave', {key: val, x, y})
-			}}
-			on:mousemove={({x, y}) => {
-				dispatch('mousemove', {key: val, x, y})
-			}}
-		>
-			{valuesToLabels ? valuesToLabels[val] : val}
-		</span>
-	{/each}
+	{#if label}
+		<label>{label}</label>
+	{/if}
+	<div class='selector'>
+		{#each values as val}
+			<span
+				class:selected={currentValue === val}
+				on:click={onClick(val)}
+				on:keydown={onKeyDown(val)}
+				on:mouseenter={({x, y}) => {
+					dispatch('mouseenter', {key: val, x, y})
+				}}
+				on:mouseleave={({x, y}) => {
+					dispatch('mouseleave', {key: val, x, y})
+				}}
+				on:mousemove={({x, y}) => {
+					dispatch('mousemove', {key: val, x, y})
+				}}
+			>
+				{valuesToLabels ? valuesToLabels[val] : val}
+			</span>
+		{/each}
+	</div>
 </div>
 
 <style>
 	.XorSelector {
 		--border: var(--borderWidth) solid var(--borderColor);
 		align-items: center;
-		display: flex;
+		display: grid;
+		grid-template-rows: min-content min-content;
 		padding: 0.1rem;
 		user-select: none;
 		height: 100%;
+	}
+
+	.selector {
+		align-items: center;
+		display: flex;
 	}
 
 	span {
@@ -87,6 +100,7 @@
 		color: var(--textColor);
 		cursor: pointer;
 		padding: 0.5rem 0.6rem;
+		white-space: nowrap;
 	}
 	span:first-child {
 		border-left: var(--border);
