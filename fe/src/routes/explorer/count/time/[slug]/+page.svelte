@@ -48,7 +48,9 @@
 	}
 	const filterOutNils = _.filterWith(_.pipe([getValue, isNotNil]));
 
-	const onDotHovered = ({detail: {data: {key, value}, x, y}}) => {
+	const onDotHovered = ({detail: {data, x, y}}) => {
+		const {key, value} = data;
+		hero = data;
 		$_tooltip = {
 			key: `@ ${key}`,
 			value,
@@ -57,9 +59,20 @@
 		};
 	};
 
+	const clearHero = () => {
+		hero = null;
+	}
+	const clearHeroAndTooltip = () => {
+		clearHero();
+		clearTooltip();
+	}
+
 	let doDraw = false;
+	let hero;
 	let trends;
 	let valueFormatFn;
+
+	$: !$_tooltip && clearHero();
 
 	$: trendType = $_currentMetric.isCumulative
 		? $_selection.trendType
@@ -109,6 +122,7 @@
 
 				<Trends
 					{axesLabels}
+					{hero}
 					{trends}
 					{trendType}
 					{valueFormatFn}
@@ -161,6 +175,7 @@
 		{#if doDraw}
 			<Trends
 				{axesLabels}
+				{hero}
 				{trends}
 				{trendType}
 				{valueFormatFn}
@@ -172,7 +187,7 @@
 				}}
 				keyType='date'
 				on:dotHovered={onDotHovered}
-				on:dotExited={clearTooltip}
+				on:dotExited={clearHeroAndTooltip}
 				theme={{
 					...$_framesTheme,
 					curveStroke: $_currThemeVars['--colorBorderAux']

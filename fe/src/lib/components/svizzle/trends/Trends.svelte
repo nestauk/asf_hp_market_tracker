@@ -46,6 +46,7 @@
 
 	export let axesLabels;
 	export let geometry;
+	export let hero;
 	export let keyFilterFn;
 	export let keyFormatFn = _.identity;
 	export let keyToColorFn;
@@ -80,9 +81,6 @@
 
 	/* quadtree */
 
-	let selectedGroup;
-	let selectedKey;
-
 	const selectNearestDot = ({target, x, y}) => {
 		const {left, top} = target.parentElement.getBoundingClientRect();
 
@@ -90,9 +88,6 @@
 		const y1 = y - top;
 
 		const data = quadTree.find(x1, y1);
-
-		selectedGroup = data.group;
-		selectedKey = data.key;
 
 		return {
 			data,
@@ -105,8 +100,6 @@
 		dispatch('dotHovered', payload)
 	}
 	const onFrameExited = ({x, y}) => {
-		selectedGroup = null;
-		selectedKey = null;
 		dispatch('dotExited')
 	}
 
@@ -116,8 +109,6 @@
 		dispatch('dotTouchStarted', payload)
 	}
 	const onFrameTouchEnded = () => {
-		selectedGroup = null;
-		selectedKey = null;
 		dispatch('dotTouchEnded')
 	}
 
@@ -152,6 +143,11 @@
 	const getMaxValue = arrayMaxWith(getValue);
 	const getMinValue = arrayMinWith(getValue);
 
+	$: trends = _.map(trends, ({key, values}) => ({
+		key,
+		values: _.map(values, _.setKey('trendKey', key))
+	}));
+	$: console.log('trends', trends);
 	$: allData = _.flatMap(trends, getValues);
 	$: maxValue = getMaxValue(allData);
 	$: maxValueSign = Math.sign(maxValue);
@@ -249,6 +245,7 @@
 		class='chart'
 	>
 		{#if doDraw}
+
 			<svg
 				{height}
 				{width}
@@ -346,16 +343,27 @@
 					/>
 
 					{#each values as data}
-						{@const isSelectedDot = data.group === selectedGroup && data.key === selectedKey}
 						<circle
 							cx={xScale(getKey(data))}
 							cy={yScale(getValue(data))}
 							fill={keyToColorFn?.(key) ?? 'var(--curveStroke)'}
-							r={isSelectedDot ? dotRadius * 2 : dotRadius}
+							r={dotRadius}
 						/>
 					{/each}
 				{/each}
-			
+
+				{#if hero}
+					{#if getKey(hero)}
+						<circle
+							class='hero'
+							cx={xScale(getKey(hero))}
+							cy={yScale(getValue(hero))}
+							fill={keyToColorFn?.(hero.trendKey) ?? 'var(--curveStroke)'}
+							r={dotRadius * 2}
+						/>
+					{/if}
+				{/if}
+
 			</svg>
 		{/if}
 	</div>
