@@ -325,7 +325,7 @@
 			bind:this={mapcontainer}
 			class='mapcontainer'
 			use:mapgl
-		></div>
+		/>
 	</div>
 	{#if $_map}
 		<slot />
