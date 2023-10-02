@@ -12,7 +12,10 @@
 		MAPBOXGL_MIN_ZOOM,
 		MAPBOXGL_TILE_SIZE
 	} from './consts';
+	import MapboxglUnsupported from './MapboxglUnsupported.svelte';
 	import {ws_en_to_wsen} from './util';
+
+	const isMapboxGLSupported = mapboxgl.supported();
 
 	const dispatch = createEventDispatcher();
 
@@ -316,16 +319,21 @@
 
 <svelte:window on:resize={onResize} />
 
-<div class='MapboxglBase'>
-	<div
-		bind:this={mapcontainer}
-		class='mapcontainer'
-		use:mapgl
-	></div>
-</div>
-{#if $_map}
-	<slot />
+{#if isMapboxGLSupported}
+	<div class='MapboxglBase'>
+		<div
+			bind:this={mapcontainer}
+			class='mapcontainer'
+			use:mapgl
+		></div>
+	</div>
+	{#if $_map}
+		<slot />
+	{/if}
+{:else}
+	<MapboxglUnsupported />
 {/if}
+
 
 <style>
 	.MapboxglBase {
