@@ -10,6 +10,7 @@
 	} from '@svizzle/utils';
 	import {scaleLinear, scalePoint, scaleTime} from 'd3-scale';
 	import {line, curveMonotoneX} from 'd3-shape';
+	import {quadtree} from 'd3-quadtree';
 	import * as _ from 'lamb';
 	import {createEventDispatcher} from 'svelte';
 
@@ -77,6 +78,49 @@
 	$: geometry = geometry ? {...defaultGeometry, ...geometry} : defaultGeometry;
 	$: labelsDy = Math.min(geometry.safetyBottom, geometry.safetyTop) / 2;
 
+	/* quadtree */
+
+	let selectedGroup;
+	let selectedKey;
+
+	const selectNearestDot = ({target, x, y}) => {
+		const {left, top} = target.parentElement.getBoundingClientRect();
+
+		const x1 = x - left;
+		const y1 = y - top;
+
+		const data = quadTree.find(x1, y1);
+
+		selectedGroup = data.group;
+		selectedKey = data.key;
+
+		return {
+			data,
+			x: left + xScale(getKey(data)),
+			y: top + yScale(getValue(data))
+		};
+	}
+	const onFrameHovered = ({target, x, y}) => {
+		const payload = selectNearestDot({target, x, y});
+		dispatch('dotHovered', payload)
+	}
+	const onFrameExited = ({x, y}) => {
+		selectedGroup = null;
+		selectedKey = null;
+		dispatch('dotExited')
+	}
+
+	const onFrameTouchStarted = ({target, targetTouches: [touch]}) => {
+		const {clientX: x, clientY: y} = touch;
+		const payload = selectNearestDot({target, x, y});
+		dispatch('dotTouchStarted', payload)
+	}
+	const onFrameTouchEnded = () => {
+		selectedGroup = null;
+		selectedKey = null;
+		dispatch('dotTouchEnded')
+	}
+
 	/* data */
 
 	$: trends = trends ?? defaultTrends;
@@ -137,6 +181,7 @@
 	let dotRadius;
 	let keyTicks;
 	let lineGenerator;
+	let quadTree;
 	let xScale;
 	let yScale;
 
@@ -186,6 +231,10 @@
 			.y(d => yScale(getValue(d)))
 			.curve(curveMonotoneX);
 
+		quadTree = quadtree()
+			.x(d => xScale(getKey(d)))
+			.y(d => yScale(getValue(d)))
+			.addAll(allData);
 		doDraw = true;
 	}
 </script>
@@ -276,13 +325,17 @@
 					{/each}
 				</g>
 
-
 				<!-- frame -->
 				<rect
+					class='frame'
+					height={bbox.height}
+					on:mousemove|capture={onFrameHovered}
+					on:mouseout={onFrameExited}
+					on:touchstart={onFrameTouchStarted}
+					on:touchend={onFrameTouchEnded}
+					width={bbox.width}
 					x={bbox.blx}
 					y={bbox.try}
-					width={bbox.width}
-					height={bbox.height}
 				/>
 
 				{#each trends as {key, values} (key)}
@@ -293,26 +346,13 @@
 					/>
 
 					{#each values as data}
+						{@const isSelectedDot = data.group === selectedGroup && data.key === selectedKey}
 						<circle
 							cx={xScale(getKey(data))}
 							cy={yScale(getValue(data))}
 							fill={keyToColorFn?.(key) ?? 'var(--curveStroke)'}
-							on:mousemove={({x, y}) => {
-								dispatch('dotHovered', {data, x, y})
-							}}
-							on:mouseout={({x, y}) => {
-								dispatch('dotExited', {data, x, y})
-							}}
-							on:touchstart|preventDefault={({targetTouches: [touch]}) => {
-								const {clientX: x, clientY: y} = touch;
-								dispatch('dotTouchStarted', {data, x, y})
-							}}
-							on:touchend={() => {
-								dispatch('dotTouchEnded', {data})
-							}}
-							r={dotRadius}
+							r={isSelectedDot ? dotRadius * 2 : dotRadius}
 						/>
-
 					{/each}
 				{/each}
 			
@@ -382,6 +422,9 @@
 		stroke: none;
 		font-size: 0.75em;
 	}
+	.frame {
+		pointer-events: all;
+	}
 	text.centered {
 		text-anchor: middle;
 	}
@@ -399,5 +442,9 @@
 
 	path {
 		stroke-width: var(--curveStrokeWidth);
+	}
+
+	svg * {
+		pointer-events: none;
 	}
 </style>
