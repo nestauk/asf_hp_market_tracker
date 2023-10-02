@@ -178,18 +178,13 @@
 
 	{#if $_tooltip}
 		<Tooltip
+			geometry={$_isSmallScreen ? {safetyBottom: 30} : null}
 			isTouchDevice={$_isSmallScreen}
-			geometry={$_isSmallScreen
-				? {
-					safetyBottom: 30,
-				}
-				: null
-			}
+			on:closed={clearTooltip}
 			targetX={$_tooltip.x}
 			targetY={$_tooltip.y}
 			theme={$_tooltipTheme}
 			useBackdrop={$_isSmallScreen}
-			on:closed={clearTooltip}
 		>
 			{#if $_tooltip.key}
 				{$_tooltip.key}

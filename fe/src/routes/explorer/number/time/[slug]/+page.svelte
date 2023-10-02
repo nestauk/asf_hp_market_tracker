@@ -136,7 +136,10 @@
 					<SelectorInterval />
 					<SelectionXor
 						name='numTimeGraph'
-						values={['percentiles', 'average']}
+						valuesToLabels={{
+							percentiles: 'Percentiles',
+							average: 'Average',
+						}}
 					/>
 				</FlexBar>
 			</GridRows>
@@ -148,7 +151,10 @@
 			<SelectorInterval />
 			<SelectionXor
 				name='numTimeGraph'
-				values={['percentiles', 'average']}
+				valuesToLabels={{
+					percentiles: 'Percentiles',
+					average: 'Average',
+				}}
 			/>
 		</FlexBar>
 

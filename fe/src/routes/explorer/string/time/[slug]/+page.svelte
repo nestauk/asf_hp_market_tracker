@@ -191,12 +191,19 @@
 					<SelectorInterval/>
 					<SelectionXor
 						name='stringsTimeGraph'
-						values={['trends', 'streams']}
+						valuesToLabels={{
+							trends: 'Trends',
+							streams: 'Streams',
+						}}
 					/>
 					{#if showStreams}
 						<SelectionXor
 							name='stringsStreamgraphsSorting'
-							values={['off', 'asc', 'desc']}
+							valuesToLabels={{
+								off: 'Off',
+								asc: 'Asc',
+								desc: 'Desc',
+							}}
 						/>
 					{/if}
 				</FlexBar>
@@ -218,12 +225,19 @@
 					<SelectorInterval/>
 					<SelectionXor
 						name='stringsTimeGraph'
-						values={['trends', 'streams']}
+						valuesToLabels={{
+							trends: 'Trends',
+							streams: 'Streams'
+						}}
 					/>
 					{#if showStreams}
 						<SelectionXor
 							name='stringsStreamgraphsSorting'
-							values={['off', 'asc', 'desc']}
+							valuesToLabels={{
+								off: 'Off',
+								asc: 'Asc',
+								desc: 'Desc',
+							}}
 						/>
 					{/if}
 				</FlexBar>
@@ -236,12 +250,19 @@
 			<SelectorInterval/>
 			<SelectionXor
 				name='stringsTimeGraph'
-				values={['trends', 'streams']}
+				valuesToLabels={{
+					trends: 'Trends',
+					streams: 'Streams'
+				}}
 			/>
 			{#if showStreams}
 				<SelectionXor
 					name='stringsStreamgraphsSorting'
-					values={['off', 'asc', 'desc']}
+					valuesToLabels={{
+						off: 'Off',
+						asc: 'Asc',
+						desc: 'Desc',
+					}}
 				/>
 			{/if}
 		</FlexBar>

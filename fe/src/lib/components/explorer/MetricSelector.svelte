@@ -16,7 +16,7 @@
 
 	$: makeOnMouseMove = id => $_isSmallScreen
 		? null
-		: ({x,y}) => {
+		: ({x, y}) => {
 			$_tooltip = {
 				component: metricInfos[id],
 				x,

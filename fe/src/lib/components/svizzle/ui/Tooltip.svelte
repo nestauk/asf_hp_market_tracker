@@ -2,8 +2,8 @@
 	import {makeStyle, makeStyleVars, toPx} from '@svizzle/dom';
 	import {createEventDispatcher} from 'svelte';
 
-	export let isTouchDevice;
 	export let geometry;
+	export let isTouchDevice;
 	export let targetX;
 	export let targetY;
 	export let theme;

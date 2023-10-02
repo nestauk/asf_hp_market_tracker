@@ -70,7 +70,7 @@
 		$_currentMetric?.id === $_page.params.slug &&
 		$_viewData.page.route.id === $_page.route.id &&
 		$_viewData?.response.code === 200;
-	
+
 	$: axesLabels = [
 		{
 			label: intervalToAxisLabel[$_selection.interval],
@@ -132,7 +132,10 @@
 					{#if $_currentMetric.isCumulative}
 						<SelectionXor
 							name='trendType'
-							values={['progressive', 'cumulative']}
+							valuesToLabels={{
+								progressive: 'Progressive',
+								cumulative: 'Cumulative',
+							}}
 						/>
 					{/if}
 				</FlexBar>
@@ -147,7 +150,10 @@
 			{#if $_currentMetric.isCumulative}
 				<SelectionXor
 					name='trendType'
-					values={['progressive', 'cumulative']}
+					valuesToLabels={{
+						progressive: 'Progressive',
+						cumulative: 'Cumulative',
+					}}
 				/>
 			{/if}
 		</FlexBar>

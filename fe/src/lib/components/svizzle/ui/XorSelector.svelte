@@ -55,6 +55,15 @@
 			class:selected={currentValue === val}
 			on:click={onClick(val)}
 			on:keydown={onKeyDown(val)}
+			on:mouseenter={({x, y}) => {
+				dispatch('mouseenter', {key: val, x, y})
+			}}
+			on:mouseleave={({x, y}) => {
+				dispatch('mouseleave', {key: val, x, y})
+			}}
+			on:mousemove={({x, y}) => {
+				dispatch('mousemove', {key: val, x, y})
+			}}
 		>
 			{valuesToLabels ? valuesToLabels[val] : val}
 		</span>

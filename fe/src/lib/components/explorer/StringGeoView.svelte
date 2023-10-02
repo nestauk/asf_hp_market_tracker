@@ -191,11 +191,17 @@
 						<SelectorRegionType />
 						<SelectionXor
 							name='stringsGeoSortBy'
-							values={['total', 'regionName']}
+							valuesToLabels={{
+								total: 'Total',
+								regionName: 'Region name'
+							}}
 						/>
 						<SelectionXor
 							name='stackedBarsExtents'
-							values={['absolute', 'percent']}
+							valuesToLabels={{
+								absolute: 'Absolute',
+								percent: 'Percent'
+							}}
 						/>
 					</CenteredView>
 				</Scroller>
@@ -208,11 +214,17 @@
 			<SelectorRegionType />
 			<SelectionXor
 				name='stringsGeoSortBy'
-				values={['total', 'regionName']}
+				valuesToLabels={{
+					total: 'Total',
+					regionName: 'Region name'
+				}}
 			/>
 			<SelectionXor
 				name='stackedBarsExtents'
-				values={['absolute', 'percent']}
+				valuesToLabels={{
+					absolute: 'Absolute',
+					percent: 'Percent'
+				}}
 			/>
 		</FlexBar>
 

@@ -6,4 +6,5 @@
 <SelectionXor
 	name='interval'
 	valuesToLabels={intervalToLabel}
+	showTooltip={false}
 />
