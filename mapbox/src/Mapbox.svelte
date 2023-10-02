@@ -25,7 +25,7 @@
 	const _map = writable();
 	const _projectFn = writable(x => x);
 
-	setContext('mapBox', {
+	setContext('Mapbox', {
 		_bbox,
 		_map,
 		_projectFn
