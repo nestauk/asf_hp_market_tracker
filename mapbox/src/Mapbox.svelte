@@ -320,7 +320,7 @@
 <svelte:window on:resize={onResize} />
 
 {#if isMapboxGLSupported}
-	<div class='MapboxglBase'>
+	<div class='Mapboxgl'>
 		<div
 			bind:this={mapcontainer}
 			class='mapcontainer'
@@ -336,7 +336,7 @@
 
 
 <style>
-	.MapboxglBase {
+	.Mapboxgl {
 		height: 100%;
 		position: relative;
 		width: 100%;
@@ -351,10 +351,10 @@
 		Outlines inside of MapboxGL instances must be themed directly
 		using its own CSS classes.
 	*/
-	.MapboxglBase :global(.mapboxgl-canvas:focus-visible),
-	.MapboxglBase :global(.mapboxgl-ctrl-group button:focus:focus-visible),
-	.MapboxglBase :global(.mapboxgl-ctrl-logo:focus:focus-visible),
-	.MapboxglBase :global(.mapboxgl-ctrl-attrib-button:focus) {
+	.Mapboxgl :global(.mapboxgl-canvas:focus-visible),
+	.Mapboxgl :global(.mapboxgl-ctrl-group button:focus:focus-visible),
+	.Mapboxgl :global(.mapboxgl-ctrl-logo:focus:focus-visible),
+	.Mapboxgl :global(.mapboxgl-ctrl-attrib-button:focus) {
 		box-shadow: none !important;
 		/* box-shadow: var(--focusShadow) !important; */
 		outline: var(--outline);
