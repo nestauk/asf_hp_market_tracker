@@ -1,3 +1,15 @@
+#### What's visualised
+
+The number of installations by walls heat energy efficiency.
+
 #### Walls heat energy efficiency
 
 A qualitative description of the energy efficiency of the walls of the property.
+
+One of:
+
+- Very Poor
+- Poor
+- Average
+- Good
+- Very Good

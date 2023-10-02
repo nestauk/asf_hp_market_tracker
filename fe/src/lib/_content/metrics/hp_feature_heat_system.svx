@@ -1,3 +1,0 @@
-#### Heat system
-
-The type of system that the heat pump uses to distribute heat.

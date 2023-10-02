@@ -1,3 +1,7 @@
+#### What's visualised
+
+The number of installations by glazed type.
+
 #### Glazed type
 
 The type of glazing used in the property (double-glazing, triple-glazing, etc.).

@@ -1,3 +1,7 @@
+#### What's visualised
+
+Power capacity values (in kW).
+
 #### Total power capacity
 
 The sum of the power capacity for all selected heat pumps (in kW).

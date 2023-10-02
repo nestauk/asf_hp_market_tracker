@@ -1,3 +1,15 @@
+#### What's visualised
+
+The number of installations by main heat energy efficiency.
+
 #### Main heat energy efficiency
 
 A qualitative description of the energy efficiency of the main heating system of the property.
+
+One of:
+
+- Very Poor
+- Poor
+- Average
+- Good
+- Very Good

@@ -1,3 +1,7 @@
+#### What's visualised
+
+The number of installations by tenure.
+
 #### Tenure
 
-The type of legal rights (tenure) the occupant has over the property (e.g., ownership, rental).
+The type of legal rights (tenure) the occupant has over the property (e.g. ownership, rental).

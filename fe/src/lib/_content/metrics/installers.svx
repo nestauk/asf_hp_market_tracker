@@ -1,3 +1,3 @@
-#### Amount of active installers
+#### What's visualised
 
-The total number of installers that istalled a heat pump.
+The total number of installers that installed a heat pump.

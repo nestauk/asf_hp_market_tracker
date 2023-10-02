@@ -1,3 +1,7 @@
+#### What's visualised
+
+Installation cost (in GBP).
+
 #### Cost
 
-Cost of installation of a heat pump (in GBP).
+The cost of installation of a heat pump (in GBP).

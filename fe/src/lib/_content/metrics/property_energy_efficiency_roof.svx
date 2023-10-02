@@ -1,3 +1,15 @@
+#### What's visualised
+
+The number of installations by roof heat energy efficiency.
+
 #### Roof heat energy efficiency
 
 A qualitative description of the energy efficiency of the roof of the property.
+
+One of:
+
+- Very Poor
+- Poor
+- Average
+- Good
+- Very Good

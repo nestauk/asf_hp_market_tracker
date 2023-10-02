@@ -1,8 +1,13 @@
+#### What's visualised
+
+The number of installations by property age band.
+
 #### Age band
 
 Age band when building part constructed. England & Wales only.
 
 One of:
+
 - before 1900
 - 1900-1929
 - 1930-1949

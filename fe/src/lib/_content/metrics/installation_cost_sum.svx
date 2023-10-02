@@ -1,3 +1,7 @@
+#### What's visualised
+
+Heat pumps market value (in GBP).
+
 #### Market value
 
 The sum of the installation cost of all selected heat pumps (in GBP).

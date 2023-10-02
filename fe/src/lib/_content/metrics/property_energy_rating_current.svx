@@ -1,3 +1,9 @@
+#### What's visualised
+
+The number of installations by current energy rating.
+
 #### Current energy rating
 
 The current energy rating of the property.
+
+One of: A, B, C, D, E, F, G.

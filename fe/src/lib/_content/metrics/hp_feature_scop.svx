@@ -1,3 +1,7 @@
+#### What's visualised
+
+SCOP values.
+
 #### SCOP
 
 Manufacturer-provided Seasonal Coefficient of Performance.

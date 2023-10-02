@@ -1,3 +1,15 @@
+#### What's visualised
+
+The number of installations by hot water energy efficiency.
+
 #### Hot water energy efficiency
 
 A qualitative description of the energy efficiency of the hot water system of the property.
+
+One of:
+
+- Very Poor
+- Poor
+- Average
+- Good
+- Very Good

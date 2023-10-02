@@ -1,3 +1,7 @@
+#### What's visualised
+
+Energy values (in kWh).
+
 #### Power generation
 
 Estimated energy produced by the heat pump in a year (in kWh).

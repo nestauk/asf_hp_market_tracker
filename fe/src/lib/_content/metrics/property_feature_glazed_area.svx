@@ -1,3 +1,15 @@
+#### What's visualised
+
+The number of installations by glazed area values.
+
 #### Glazed area
 
 Ranged estimate of the total glazed area of the Habitable Area.
+
+It's a category with values between 1 and 5, representing:
+
+- 1: Much Less Than Typical
+- 2: Less Than Typical
+- 3: Normal
+- 4: More Than Typical
+- 5: Much More Than Typical

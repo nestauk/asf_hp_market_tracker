@@ -1,3 +1,13 @@
+#### What's visualised
+
+The number of installations by heat pump design.
+
 #### Design
 
 What the heat pump has been designed and installed to provide.
+
+This can be:
+- Domestic Hot Water (here abbreaviated as `DHW`)
+- Space Heat
+- Another purpose
+- a combination of the above purposes

@@ -1,5 +1,7 @@
+#### What's visualised
+
+The number of installations by photovoltaic supply.
+
 #### Photovoltaic supply
 
-The photovoltaic area as a percentage of total roof area.
-
-0% indicates that a Photovoltaic Supply is not present in the property
+The photovoltaic area as a percentage of total roof area: 0% indicates that a Photovoltaic Supply is not present in the property.

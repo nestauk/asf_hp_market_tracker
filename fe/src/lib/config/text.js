@@ -1,1 +1,1 @@
-export const noDataMessage = 'No results with current filters';
+export const noDataMessage = 'No results for the current selection';

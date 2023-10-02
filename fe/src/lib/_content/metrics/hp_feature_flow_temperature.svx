@@ -1,3 +1,7 @@
+#### What's visualised
+
+Flow temperature values (in °C).
+
 #### Flow temperature
 
-Flow temperature at which heat pump is set.
+Flow temperature at which heat pump is set (in °C).

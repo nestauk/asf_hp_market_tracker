@@ -1,3 +1,7 @@
+#### What's visualised
+
+The number of installations by floor area, in square meters.
+
 #### Floor area
 
 This is the total floor area of the property, measured in square meters.

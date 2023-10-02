@@ -1,3 +1,3 @@
-#### Amount of certified installers
+#### What's visualised
 
 The total number of installers with a valid certification.

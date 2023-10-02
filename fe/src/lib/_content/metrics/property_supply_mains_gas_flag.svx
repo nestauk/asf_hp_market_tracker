@@ -1,3 +1,9 @@
+#### What's visualised
+
+The number of installations by presence of heating mains gas.
+
 #### Heating mains gas?
 
-Whether the property has a mains gas supply (represented by a Boolean flag).
+Whether the property has a mains gas supply:
+- Y: Yes
+- N: No

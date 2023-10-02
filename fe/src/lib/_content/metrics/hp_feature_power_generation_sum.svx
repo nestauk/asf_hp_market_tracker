@@ -1,3 +1,7 @@
+#### What's visualised
+
+Energy values (in kWh).
+
 #### Total power generation
 
 The sum of the estimated energy produced in a year by all selected heat pumps (in kWh).

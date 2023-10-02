@@ -1,3 +1,7 @@
+#### What's visualised
+
+The number of installations by heat pump brand.
+
 #### Brand
 
 Brand of the manufacturer of heat pumps.

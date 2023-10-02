@@ -1,3 +1,9 @@
+#### What's visualised
+
+The number of installations by potential energy rating.
+
 #### Potential energy rating
 
 The potential energy rating that the property could achieve with improvements.
+
+One of: A, B, C, D, E, F, G.

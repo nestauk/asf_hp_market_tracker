@@ -1,3 +1,0 @@
-#### Heating fuel type
-
-This denotes the type of fuel used by the heating system of the property.

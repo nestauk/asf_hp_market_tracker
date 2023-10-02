@@ -1,3 +1,15 @@
+#### What's visualised
+
+The number of installations by floor energy efficiency.
+
 #### Floor energy efficiency
 
 A qualitative description of the energy efficiency of the floor of the property.
+
+One of:
+
+- Very Poor
+- Poor
+- Average
+- Good
+- Very Good
