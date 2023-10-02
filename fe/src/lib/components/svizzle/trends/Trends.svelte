@@ -37,6 +37,8 @@
 		frameStroke: 'black',
 		gridStroke: 'lightgrey',
 		gridStrokeDasharray: '4 8',
+
+		heroStrokeWidth: 2,
 		textColor: 'black',
 	}
 
@@ -353,6 +355,13 @@
 				{/each}
 
 				{#if hero}
+					<path
+						d={lineGenerator(_.find(trends, _.pipe([_.getKey('key'), _.is(hero.trendKey)]))?.values ?? [])}
+						fill='none'
+						style:stroke-width={theme.heroStrokeWidth}
+						stroke={keyToColorFn?.(hero.trendKey) ?? 'var(--curveStroke)'}
+					/>
+
 					{#if getKey(hero)}
 						<circle
 							class='hero'
