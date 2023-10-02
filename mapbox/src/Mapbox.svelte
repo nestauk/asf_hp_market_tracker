@@ -19,6 +19,20 @@
 
 	const dispatch = createEventDispatcher();
 
+	/* context */
+
+	const _bbox = writable($_bbox_WS_EN);
+	const _map = writable();
+	const _projectFn = writable(x => x);
+
+	setContext('mapBox', {
+		_bbox,
+		_map,
+		_projectFn
+	});
+
+	/* props */
+
 	export let _bbox_WS_EN = null; // store
 	export let _bbox_WSEN = null; // store
 	export let _zoom = null; // store
@@ -35,8 +49,6 @@
 	export let withScaleControl = true;
 	export let withZoomControl = true;
 
-	/* props sanitisation */
-
 	$: isDblClickEnabled = isDblClickEnabled ?? true;
 	$: isAnimated = isAnimated ?? true;
 	$: isInteractive = isInteractive ?? true;
@@ -46,7 +58,7 @@
 	$: visibleLayers = visibleLayers || [];
 	$: reactiveLayers = reactiveLayers || [];
 
-	/* props */
+	/* local vars */
 
 	let eventsHandlersRegistry = [];
 	let height = 0;
@@ -54,17 +66,8 @@
 	let mapcontainer;
 	let width = 0;
 
-	const _bbox = writable($_bbox_WS_EN);
-	const _map = writable();
-	const _projectFn = writable(x => x);
-
-	setContext('mapBox', {
-		_bbox,
-		_map,
-		_projectFn
-	});
-
 	/* updating layers */
+
 	const updateLayers = (layers_, reactiveLayers_, getFeatureState_) => {
 		if (!layers_) {
 			return;
@@ -111,6 +114,8 @@
 	/* bbox */
 
 	$: $_bbox = $_bbox_WS_EN
+
+	// FIXME supports Mercator projection only
 	$: viewport = geoViewport.viewport(
 		ws_en_to_wsen($_bbox_WS_EN),
 		[width, height],
