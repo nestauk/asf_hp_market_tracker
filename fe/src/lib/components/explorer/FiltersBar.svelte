@@ -223,28 +223,33 @@
 					<ul>
 						{#each metrics as metric}
 							{@const queryValue = $_selection.filters[metric.id]}
-							<li>
-								<ScrollIntoView
-									alignToTop={true}
-									doIt={metric.id === activeFilterId}
-								>
-									{#if metric.id === 'installer_geo_region'}
-										<h3>Installer regions</h3>
+
+							<ScrollIntoView
+								alignToTop={true}
+								doIt={metric.id === activeFilterId}
+							>
+								{#if metric.id === 'installer_geo_region'}
+									<li>
+										<h3>Regions</h3>
 										<RegionFilter
 											id={metric.id}
 											on:apply={onInstallerRegionsChanged}
 											targetRegionNames={$_selection.filters.installerRegionNames}
 											targetRegionType={$_selection.filters.installerRegionType}
 										/>
-									{:else if metric.id === 'property_geo_region'}
-										<h3>Property regions</h3>
+									</li>
+								{:else if metric.id === 'property_geo_region'}
+									<li>
+										<h3>Regions</h3>
 										<RegionFilter
 											id={metric.id}
 											on:apply={onPropertyRegionsChanged}
 											targetRegionNames={$_selection.filters.propertyRegionNames}
 											targetRegionType={$_selection.filters.propertyRegionType}
 										/>
-									{:else if metric.id === 'installation_date' && $_isSmallScreen}
+									</li>
+								{:else if metric.id === 'installation_date' && $_isSmallScreen}
+									<li>
 										<h3>Date</h3>
 										<FilterPaneBorder id={metric.id}>
 											<div class='timeline'>
@@ -256,7 +261,9 @@
 												/>
 											</div>
 										</FilterPaneBorder>
-									{:else if metric.id !== 'installation_date'}
+									</li>
+								{:else if metric.id !== 'installation_date'}
+									<li>
 										<h3>{metric.label}</h3>
 										{#if metric.type === 'number'}
 											<FilterPaneBorder id={metric.id}>
@@ -279,9 +286,9 @@
 												on:applied={makeOnCatsChanged(metric.id)}
 											/>
 										{/if}
-									{/if}
-								</ScrollIntoView>
-							</li>
+									</li>
+								{/if}
+							</ScrollIntoView>
 						{/each}
 					</ul>
 				{/each}

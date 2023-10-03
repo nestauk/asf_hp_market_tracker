@@ -93,21 +93,21 @@ export const fields = [
 	/* Installer */
 
 	{
-		entity: 'Installer',
+		entity: 'Installation companies',
 		esType: 'range',
 		id: 'installer_certificate_date_end',
 		type: 'date',
 		use: 'time',
 	},
 	{
-		entity: 'Installer',
+		entity: 'Installation companies',
 		esType: 'range',
 		id: 'installer_certificate_date_start',
 		type: 'date',
 		use: 'time',
 	},
 	{
-		entity: 'Installer',
+		entity: 'Installation companies',
 		esKey: 'installer_geo_region_country21_name.keyword',
 		esType: 'terms',
 		id: 'installer_geo_region_country21_name',
@@ -115,7 +115,7 @@ export const fields = [
 		use: 'regionId',
 	},
 	{
-		entity: 'Installer',
+		entity: 'Installation companies',
 		esKey: 'installer_geo_region_itl21_1_id.keyword',
 		esType: 'terms',
 		id: 'installer_geo_region_itl21_1_id',
@@ -123,7 +123,7 @@ export const fields = [
 		use: 'regionId',
 	},
 	{
-		entity: 'Installer',
+		entity: 'Installation companies',
 		esKey: 'installer_geo_region_itl21_1_name.keyword',
 		esType: 'terms',
 		id: 'installer_geo_region_itl21_1_name',
@@ -131,7 +131,7 @@ export const fields = [
 		use: 'regionName',
 	},
 	{
-		entity: 'Installer',
+		entity: 'Installation companies',
 		esKey: 'installer_geo_region_itl21_2_id.keyword',
 		esType: 'terms',
 		id: 'installer_geo_region_itl21_2_id',
@@ -139,7 +139,7 @@ export const fields = [
 		use: 'regionId',
 	},
 	{
-		entity: 'Installer',
+		entity: 'Installation companies',
 		esKey: 'installer_geo_region_itl21_2_name.keyword',
 		esType: 'terms',
 		id: 'installer_geo_region_itl21_2_name',
@@ -147,7 +147,7 @@ export const fields = [
 		use: 'regionName',
 	},
 	{
-		entity: 'Installer',
+		entity: 'Installation companies',
 		esKey: 'installer_geo_region_itl21_3_id.keyword',
 		esType: 'terms',
 		id: 'installer_geo_region_itl21_3_id',
@@ -155,7 +155,7 @@ export const fields = [
 		use: 'regionId',
 	},
 	{
-		entity: 'Installer',
+		entity: 'Installation companies',
 		esKey: 'installer_geo_region_itl21_3_name.keyword',
 		esType: 'terms',
 		id: 'installer_geo_region_itl21_3_name',
@@ -163,7 +163,7 @@ export const fields = [
 		use: 'regionName',
 	},
 	{
-		entity: 'Installer',
+		entity: 'Installation companies',
 		esKey: 'installer_geo_region_lad21_id.keyword',
 		esType: 'terms',
 		id: 'installer_geo_region_lad21_id',
@@ -171,7 +171,7 @@ export const fields = [
 		use: 'regionId',
 	},
 	{
-		entity: 'Installer',
+		entity: 'Installation companies',
 		esKey: 'installer_geo_region_lad21_name.keyword',
 		esType: 'terms',
 		id: 'installer_geo_region_lad21_name',
@@ -179,7 +179,7 @@ export const fields = [
 		use: 'regionName',
 	},
 	{
-		entity: 'Installer',
+		entity: 'Installation companies',
 		esKey: 'installer_geo_region_lsoa11_id.keyword',
 		esType: 'terms',
 		id: 'installer_geo_region_lsoa11_id',
@@ -187,7 +187,7 @@ export const fields = [
 		use: 'regionId',
 	},
 	{
-		entity: 'Installer',
+		entity: 'Installation companies',
 		esKey: 'installer_geo_region_lsoa11_name.keyword',
 		esType: 'terms',
 		id: 'installer_geo_region_lsoa11_name',
@@ -195,7 +195,7 @@ export const fields = [
 		use: 'regionName',
 	},
 	{
-		entity: 'Installer',
+		entity: 'Installation companies',
 		esKey: 'installer_geo_region_msoa11_id.keyword',
 		esType: 'terms',
 		id: 'installer_geo_region_msoa11_id',
@@ -203,7 +203,7 @@ export const fields = [
 		use: 'regionId',
 	},
 	{
-		entity: 'Installer',
+		entity: 'Installation companies',
 		esKey: 'installer_geo_region_msoa11_name.keyword',
 		esType: 'terms',
 		id: 'installer_geo_region_msoa11_name',
@@ -211,7 +211,7 @@ export const fields = [
 		use: 'regionName',
 	},
 	{
-		entity: 'Installer',
+		entity: 'Installation companies',
 		id: 'installer_id_hash',
 		type: 'string',
 		use: 'installerId'

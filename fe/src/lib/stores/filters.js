@@ -1,23 +1,25 @@
 import {
 	applyFnMap,
 	concatValues,
-	getId,
-	getKey,
+	getValues,
+	isIterableNotEmpty,
 	isNotNil,
 	mergeWithMerge,
+	transformValues,
 } from '@svizzle/utils';
 import {extent} from 'd3-array';
 import * as _ from 'lamb';
 import {DateTime, Duration} from 'luxon';
 import {derived} from 'svelte/store';
 
-import {categoricalMetricsById, numericMetricsById} from '$lib/data/metrics.js';
+import {
+	categoricalMetricsById,
+	metricGroups,
+	numericMetricsById,
+} from '$lib/data/metrics.js';
 import {_staticData} from '$lib/stores/data.js';
 import {getEntity} from '$lib/utils/getters.js';
-import {
-	objectToKeyValuesArray,
-	pluckKeySorted,
-} from '$lib/utils/svizzle/utils.js';
+import {pluckKeySorted} from '$lib/utils/svizzle/utils.js';
 
 /* categorical filters */
 
@@ -27,12 +29,17 @@ const getValuesArray = _.mapValuesWith(
 	})
 );
 
-const formatFilters = _.pipe([
-	_.groupBy(getEntity),
-	_.mapValuesWith(_.sortWith([getId])),
-	objectToKeyValuesArray,
-	_.sortWith([getKey]),
+/* filter groups */
+
+const isFilterableField = _.anyOf([
+	_.hasKeyValue('type', 'category'),
+	_.hasKeyValue('type', 'number'),
 ]);
+const extraFiltersByEntity = _.group([
+	{entity: 'Installation', id: 'installation_date'},
+	{entity: 'Installation company', id: 'installer_geo_region'},
+	{entity: 'Property features', id: 'property_geo_region'}
+], getEntity);
 
 export const _filtersBar = derived(
 	_staticData,
@@ -44,28 +51,49 @@ export const _filtersBar = derived(
 		const numData = mergeWithMerge(
 			staticData.numStats,
 			getValuesArray(staticData.numHists)
-		)
+		);
 		const numFiltersById = mergeWithMerge(
 			numericMetricsById,
 			numData,
 		);
-		const numFilters = _.values(numFiltersById);
 
 		const catFiltersById = mergeWithMerge(
 			categoricalMetricsById,
 			getValuesArray(staticData.catStats)
 		);
-		const catFilters = _.values(catFiltersById);
 
-		const defaultFilters = formatFilters([
-			...numFilters,
-			...catFilters,
-			{entity: 'Installation', id: 'installation_date'},
-			{entity: 'Installer', id: 'installer_geo_region'},
-			{entity: 'Property', id: 'property_geo_region'}
+		const getFilterGroups = _.pipe([
+			_.mapWith(_.pipe([
+				transformValues({
+					value: _.filterWith(isFilterableField)
+				}),
+				({key, value}) => {
+					let values = _.map(value, ({id, type}) => {
+						let filter;
+						if (type === 'category') {
+							filter = catFiltersById[id];
+						} else if (type === 'number') {
+							filter = numFiltersById[id];
+						}
+
+						return filter;
+					});
+
+					if (key in extraFiltersByEntity) {
+						values = [
+							...extraFiltersByEntity[key],
+							...values
+						];
+					}
+
+					return {key, values};
+				},
+			])),
+			_.filterWith(_.pipe([getValues, isIterableNotEmpty]))
 		]);
+		const filterGroups = getFilterGroups(metricGroups);
 
-		return defaultFilters;
+		return filterGroups;
 	}
 );
 

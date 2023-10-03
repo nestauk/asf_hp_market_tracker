@@ -3,17 +3,17 @@ import * as _ from 'lamb';
 import {derived, writable} from 'svelte/store';
 
 import {
-	defaultMetric,
+	defaultMetricId,
 	metricById,
 	metricTitleById,
 } from '$lib/data/metrics.js';
 import {context} from '$lib/statechart/context.js';
 import {objectToSearchParams, risonifyValues} from '$lib/utils/svizzle/url.js';
 
-export const _activeViewType = writable('stats');
+export const _activeViewType = writable('geo');
 
-export const _currentMetricId = writable(defaultMetric.id);
-export const _currentMetric = writable(metricById[defaultMetric.id]);
+export const _currentMetricId = writable(defaultMetricId);
+export const _currentMetric = writable(metricById[defaultMetricId]);
 export const _currentMetricTitle = derived(
 	[_activeViewType, _currentMetric],
 	([activeViewType, {id, type, unitOfMeasure}]) => {

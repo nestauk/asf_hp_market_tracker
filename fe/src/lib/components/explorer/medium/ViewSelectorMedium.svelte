@@ -13,17 +13,6 @@
 <nav class='ViewSelector'>
 	<div
 		class='target'
-		class:selected={$_activeViewType === 'stats'}
-	>
-		<Link
-			href='/explorer/{type}/stats/{id}?{$_searchParams}'
-			isBold={$_activeViewType === 'stats'}
-		>
-			Stats
-		</Link>
-	</div>
-	<div
-		class='target'
 		class:selected={$_activeViewType === 'geo'}
 	>
 		<Link
@@ -42,6 +31,17 @@
 			isBold={$_activeViewType === 'time'}
 		>
 			Time
+		</Link>
+	</div>
+	<div
+		class='target'
+		class:selected={$_activeViewType === 'stats'}
+	>
+		<Link
+			href='/explorer/{type}/stats/{id}?{$_searchParams}'
+			isBold={$_activeViewType === 'stats'}
+		>
+			Stats
 		</Link>
 	</div>
 </nav>
