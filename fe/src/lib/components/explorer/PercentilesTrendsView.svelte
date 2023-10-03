@@ -3,8 +3,9 @@
 	import {interpolateSpectral as interpolateColor} from 'd3-scale-chromatic';
 	import * as _ from 'lamb';
 
-	import Grid2Columns from '$lib/components/svizzle/Grid2Columns.svelte';
+	import GridColumns from '$lib/components/svizzle/GridColumns.svelte';
 	import GridRows from '$lib/components/svizzle/GridRows.svelte';
+	import Scroller from '$lib/components/svizzle/Scroller.svelte';
 	import KeysLegend from '$lib/components/svizzle/legend/KeysLegend.svelte';
 	import StatsTrends from '$lib/components/svizzle/trends/StatsTrends.svelte';
 	import {_isSmallScreen} from '$lib/stores/layout.js';
@@ -107,12 +108,10 @@
 		/>
 	</GridRows>
 {:else}
-	<Grid2Columns
-		percents={[85, 15]}
+	<GridColumns
+		colLayout='85% 15%'
 		gap='0.5em'
 	>
-		<!-- slot -->
-
 		<StatsTrends
 			{axesLabels}
 			{areaLowKeyToColor}
@@ -129,35 +128,31 @@
 			keyType='date'
 			on:areaHovered
 			on:areaExited
-			slot='col0'
 			theme={{
 				...$_framesTheme,
 				curveStroke: avgTrendColor
 			}}
 		/>
 
-		<!-- slot -->
-
-		<div
-			class='legend'
-			slot='col1'
-		>
-			<div class='legendBlock'>
-				<h3>Trends</h3>
-				<KeysLegend
-					keyToColorFn={_.always(avgTrendColor)}
-					keys={['Average']}
-				/>
+		<Scroller>
+			<div class='legend'>
+				<div class='legendBlock'>
+					<h3>Trends</h3>
+					<KeysLegend
+						keyToColorFn={_.always(avgTrendColor)}
+						keys={['Average']}
+					/>
+				</div>
+				<div class='legendBlock'>
+					<h3>Percentiles</h3>
+					<KeysLegend
+						keyToColorFn={areaLegendKeysToColor}
+						keys={areaLegendKeys}
+					/>
+				</div>
 			</div>
-			<div class='legendBlock'>
-				<h3>Percentiles</h3>
-				<KeysLegend
-					keyToColorFn={areaLegendKeysToColor}
-					keys={areaLegendKeys}
-				/>
-			</div>
-		</div>
-	</Grid2Columns>
+		</Scroller>
+	</GridColumns>
 {/if}
 
 <style>
@@ -165,7 +160,8 @@
 		align-items: start;
 		display: flex;
 		flex-direction: column;
-		height: 100%;
+		height: min-content;
+		min-height: 100%;
 		justify-content: space-evenly;
 		width: 100%;
 		padding: 0;

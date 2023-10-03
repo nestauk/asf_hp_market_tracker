@@ -20,7 +20,7 @@
 	import SelectionXor from '$lib/components/explorer/SelectionXor.svelte';
 	import SelectorRegionType
 		from '$lib/components/explorer/SelectorRegionType.svelte';
-	import Grid2Columns from '$lib/components/svizzle/Grid2Columns.svelte';
+	import GridColumns from '$lib/components/svizzle/GridColumns.svelte';
 	import {_selection} from '$lib/stores/navigation.js';
 	import {_legendsTheme} from '$lib/stores/theme.js';
 	import {pluckKey} from '$lib/utils/svizzle/utils.js';
@@ -145,11 +145,11 @@
 			minCellWidth = '15%'
 		/>
 		<div class='gridcontainer'>
-			<Grid2Columns
-				percents={[15, 85]}
+			<GridColumns
+				colLayout='15% 85%'
 				gap='0.25em'
 			>
-				<div slot='col0' class='col0'>
+				<div class='col0'>
 					<div class='legend'>
 						<ColorBinsDiv
 							bins={legendBins}
@@ -173,9 +173,8 @@
 					{labelsByCategory}
 					items={gridItems}
 					shouldResetScroll={true}
-					slot='col1'
 				/>
-			</Grid2Columns>
+			</GridColumns>
 		</div>
  	{/if}
 </div>

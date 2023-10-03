@@ -209,8 +209,8 @@
 		</View>
 	{/if}
 {:else}
-	<div class='twoRows'>
-		<FlexBar>
+	<GridRows rowLayout='min-content 1fr'>
+		<FlexBar canWrap>
 			<SelectorRegionType />
 			<SelectionXor
 				name='stringsGeoSortBy'
@@ -229,32 +229,32 @@
 		</FlexBar>
 
 		{#if doDraw}
-			<div class='gridcontainer'>
-				<GridColumns
-					colLayout='25% 75%'
-					gap='0.25em'
-				>
+			<GridColumns
+				colLayout='25% 75%'
+				gap='0.25em'
+			>
+				<Scroller>
 					<KeysLegend
 						keys={groupIds}
 						keyToColorFn={groupToColorFn}
 					/>
+				</Scroller>
 
-					<StackedBarchart
-						{domain}
-						{groupIds}
-						{groupToColorFn}
-						{stacks}
-						extentsType={$_selection.stackedBarsExtents}
-						groupSortBy={$_selection.stringsGeoSortBy}
-						on:barHovered={onBarHovered}
-						on:barExited={clearTooltip}
-						shouldResetScroll={true}
-						theme={$_stackedBarchartTheme}
-					/>
-				</GridColumns>
-			</div>
+				<StackedBarchart
+					{domain}
+					{groupIds}
+					{groupToColorFn}
+					{stacks}
+					extentsType={$_selection.stackedBarsExtents}
+					groupSortBy={$_selection.stringsGeoSortBy}
+					on:barHovered={onBarHovered}
+					on:barExited={clearTooltip}
+					shouldResetScroll={true}
+					theme={$_stackedBarchartTheme}
+				/>
+			</GridColumns>
 		{/if}
-	</div>
+	</GridRows>
 {/if}
 
 <style>
