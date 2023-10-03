@@ -239,7 +239,7 @@
 		</View>
 	{/if}
 {:else}
-	<GridRows rowLayout='min-content 11fr'>
+	<GridRows rowLayout='min-content 1fr'>
 		<FlexBar>
 			<SelectorInterval />
 			<SelectionXor
@@ -260,6 +260,7 @@
 				/>
 			{/if}
 		</FlexBar>
+
 		{#if doDraw}
 			<GridColumns
 				colLayout='85% 15%'
@@ -322,18 +323,6 @@
 {/if}
 
 <style>
-	li {
-		align-items: center;
-		display: flex;
-		padding: 0.25em;
-	}
-	.dot {
-		border-radius: 50%;
-		margin-right: 0.5em;
-		min-height: 1em;
-		min-width: 1em;
-	}
-
 	.col0 {
 		height: 100%;
 		width: 100%;
@@ -343,12 +332,5 @@
 		width: 100%;
 		display: grid;
 		justify-content: center;
-	}
-	.two_rows {
-		display: grid;
-		grid-template-rows: 1fr min-content;
-		height: 100%;
-		width: 100%;
-		overflow: hidden;
 	}
 </style>

@@ -330,28 +330,12 @@
 						keys={groups}
 					/>
 				</Scroller>
-
 			</GridColumns>
 		{/if}
 	</GridRows>
 {/if}
 
 <style>
-	ul {
-		overflow-y: auto;
-	}
-	li {
-		align-items: center;
-		display: flex;
-		padding: 0.25em;
-	}
-	.dot {
-		border-radius: 50%;
-		margin-right: 0.5em;
-		min-height: 1em;
-		min-width: 1em;
-	}
-
 	.col0 {
 		height: 100%;
 		width: 100%;
