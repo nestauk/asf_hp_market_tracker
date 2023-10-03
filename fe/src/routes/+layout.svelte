@@ -179,7 +179,6 @@
 	{#if $_tooltip}
 		<Tooltip
 			geometry={$_isSmallScreen ? {safetyBottom: 30} : null}
-			isTouchDevice={$_isSmallScreen}
 			on:closed={clearTooltip}
 			targetX={$_tooltip.x}
 			targetY={$_tooltip.y}
