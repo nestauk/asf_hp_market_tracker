@@ -252,7 +252,7 @@
 		</View>
 	{/if}
 {:else}
-	<GridRows percents='min-content 1fr'>
+	<GridRows rowLayout='min-content 1fr'>
 		<FlexBar>
 			<SelectorInterval/>
 			<SelectionXor
