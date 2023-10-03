@@ -1,3 +1,44 @@
+# 0.6.0
+
+Staging release ([milestone](https://github.com/nestauk/asf_hp_market_tracker/milestone/17?closed=1)):
+
+- Improvements:
+	- Sorted metrics and filters bars as per feedback (#436)
+	- Added tooltips on `medium` devices to:
+		- all selectors (#429)
+		- the metrics bar (#415, #427, #433)
+	- Added labels near selectors (e.g. Region Type, Graph type) (#431)
+	- Temporal charts:
+		- Added chart axes labels (#411)
+		- Enhanced tooltips usability by automatically detecting and highlighting
+			the nearest point and curve (#402)
+	- Treemaps: improved readability by trying rotating labels to fit them or
+		hiding them otherwise (#392)
+	- Maps: improved readability in dark mode by using darker borders (#419)
+	- Set the `LoadingView` background to opaque (#417)
+	- Responsiveness:
+		- Added touch support to all charts (#404)
+		- Moved the legend to its own view on `small` devices in the `string/geo`
+			view (#393)
+		- Inverted the filter and metrics buttons on mobile devices to keep consistency
+			with the desktop app (#424)
+		- Show tooltips above finger on screen so that they're not occluded by the
+			hand (#405)
+
+- Fixes:
+	- Fixed percentiles chart's legend color scheme being inverted (#416)
+	- Fixed other occurrences of no data being returned (#396, #438)
+	- Centered the Nesta logo on mobile navigation menu (#422)
+
+- Backend:
+	- Created a script to ingest to all of the ES domains we have for our
+		different environments (#359)
+
+- Tech debt:
+	- Unified Mapbox components (#425)
+	- Adopted an uniform event naming convention (#409)
+
+
 # 0.5.1
 
 Staging release ([milestone](https://github.com/nestauk/asf_hp_market_tracker/milestone/16?closed=1)):
