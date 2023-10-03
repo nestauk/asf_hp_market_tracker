@@ -14,7 +14,6 @@
 	import SelectorRegionType
 		from '$lib/components/explorer/SelectorRegionType.svelte';
 	import Grid3Columns from '$lib/components/svizzle/Grid3Columns.svelte';
-	import Grid2Rows from '$lib/components/svizzle/Grid2Rows.svelte';
 	import GridRows from '$lib/components/svizzle/GridRows.svelte';
 	import KeysLegend from '$lib/components/svizzle/legend/KeysLegend.svelte';
 	import Scroller from '$lib/components/svizzle/Scroller.svelte';
@@ -231,7 +230,7 @@
 		</View>
 	{/if}
 {:else}
-	<Grid2Rows percents={[10, 90]}>
+	<GridRows rowLayout='min-content 1fr'>
 		<FlexBar>
 			<SelectorRegionType />
 		</FlexBar>
@@ -304,7 +303,7 @@
 				/>
 			</Grid3Columns>
 		{/if}
-	</Grid2Rows>
+	</GridRows>
 {/if}
 
 <style>

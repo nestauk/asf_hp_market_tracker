@@ -22,7 +22,6 @@
 	import SelectorRegionType
 		from '$lib/components/explorer/SelectorRegionType.svelte';
 	import GridColumns from '$lib/components/svizzle/GridColumns.svelte';
-	import Grid2Rows from '$lib/components/svizzle/Grid2Rows.svelte';
 	import Grid3Columns from '$lib/components/svizzle/Grid3Columns.svelte';
 	import GridRows from '$lib/components/svizzle/GridRows.svelte';
 	import Scroller from '$lib/components/svizzle/Scroller.svelte';
@@ -253,7 +252,7 @@
 				</div>
 
 				<XorNavigator
-					label='Region'
+					label='Category'
 					{valuesToLabels}
 					currentValue={currentKey}
 					on:changed={onKeyChange}
@@ -281,7 +280,7 @@
 				</Scroller>
 
 				<XorNavigator
-					label='Region'
+					label='Category'
 					{valuesToLabels}
 					currentValue={currentKey}
 					on:changed={onKeyChange}
@@ -300,7 +299,7 @@
 			<GridColumns colLayout='min-content 1fr'>
 				<SelectorRegionType/>
 				<XorNavigator
-					label='Region'
+					label='Category'
 					{valuesToLabels}
 					currentValue={currentKey}
 					on:changed={onKeyChange}
