@@ -24,7 +24,7 @@
 	import SelectorRegionType
 		from '$lib/components/explorer/SelectorRegionType.svelte';
 	import View from '$lib/components/viewports/View.svelte';
-	import Grid2Columns from '$lib/components/svizzle/Grid2Columns.svelte';
+	import GridColumns from '$lib/components/svizzle/GridColumns.svelte';
 	import GridRows from '$lib/components/svizzle/GridRows.svelte';
 	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {_selection} from '$lib/stores/navigation.js';
@@ -230,14 +230,13 @@
 
 		{#if doDraw}
 			<div class='gridcontainer'>
-				<Grid2Columns
-					percents={[25, 75]}
+				<GridColumns
+					colLayout='25% 75%'
 					gap='0.25em'
 				>
 					<KeysLegend
 						keys={groupIds}
 						keyToColorFn={groupToColorFn}
-						slot='col0'
 					/>
 
 					<StackedBarchart
@@ -250,10 +249,9 @@
 						on:barHovered={onBarHovered}
 						on:barExited={clearTooltip}
 						shouldResetScroll={true}
-						slot='col1'
 						theme={$_stackedBarchartTheme}
 					/>
-				</Grid2Columns>
+				</GridColumns>
 			</div>
 		{/if}
 	</div>
