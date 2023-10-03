@@ -97,21 +97,26 @@
 			y: top + yScale(getValue(data))
 		};
 	}
+
+	/* frame event handlers */
+
 	const onFrameHovered = ({target, x, y}) => {
 		const payload = selectNearestDot({target, x, y});
-		dispatch('dotHovered', payload)
+
+		dispatch('dotHovered', payload);
 	}
-	const onFrameExited = ({x, y}) => {
-		dispatch('dotExited')
+	const onFrameExited = () => {
+		dispatch('dotExited');
 	}
 
 	const onFrameTouchStarted = ({target, targetTouches: [touch]}) => {
 		const {clientX: x, clientY: y} = touch;
 		const payload = selectNearestDot({target, x, y});
-		dispatch('dotTouchStarted', payload)
+
+		dispatch('dotTouchStarted', payload);
 	}
 	const onFrameTouchEnded = () => {
-		dispatch('dotTouchEnded')
+		dispatch('dotTouchEnded');
 	}
 
 	/* data */
@@ -427,7 +432,7 @@
 		transform: rotate(180deg);
 		transform-origin: 41% 50%;
 	}
-	
+
 	.grid line {
 		stroke: var(--gridStroke);
 		stroke-dasharray: var(--gridStrokeDasharray);
