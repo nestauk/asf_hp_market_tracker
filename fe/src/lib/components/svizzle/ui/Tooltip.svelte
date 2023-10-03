@@ -3,7 +3,6 @@
 	import {createEventDispatcher} from 'svelte';
 
 	export let geometry;
-	export let isTouchDevice;
 	export let targetX;
 	export let targetY;
 	export let theme;
@@ -45,10 +44,8 @@
 		const x = targetX < parentWidth / 2
 			? {key: 'left', value: targetX + geometry.safetyLeft}
 			: {key: 'right', value: parentWidth - targetX + geometry.safetyRight};
-		const y = !isTouchDevice
-			? targetY < parentHeight / 2
-				? {key: 'top', value: targetY + geometry.safetyTop}
-				: {key: 'bottom', value: parentHeight - targetY + geometry.safetyBottom}
+		const y = targetY < parentHeight / 2
+			? {key: 'top', value: targetY + geometry.safetyTop}
 			: {key: 'bottom', value: parentHeight - targetY + geometry.safetyBottom};
 
 		tooltipStyle = {

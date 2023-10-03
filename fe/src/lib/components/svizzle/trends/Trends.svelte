@@ -154,7 +154,6 @@
 		key,
 		values: _.map(values, _.setKey('trendKey', key))
 	}));
-	$: console.log('trends', trends);
 	$: allData = _.flatMap(trends, getValues);
 	$: maxValue = getMaxValue(allData);
 	$: maxValueSign = Math.sign(maxValue);
