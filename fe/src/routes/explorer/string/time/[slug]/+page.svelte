@@ -79,15 +79,9 @@
 		_.sortWith([getKey]),
 	]);
 
-	const onDotHovered = ({detail: {
-		data: {
-			group,
-			key,
-			value
-		},
-		x,
-		y
-	}}) => {
+	const onDotHovered = ({detail: {data, x, y}}) => {
+		const {key, group, value} = data;
+		hero = data;
 		$_tooltip = {
 			key: `${group} @ ${key}`,
 			value,
@@ -98,6 +92,14 @@
 	const onAreaHovered = ({detail: {key, x, y}}) => {
 		$_tooltip = {key, x, y};
 	};
+
+	const clearHero = () => {
+		hero = null;
+	}
+	const clearHeroAndTooltip = () => {
+		clearHero();
+		clearTooltip();
+	}
 
 	$: cropTrends = _.take($_selection.stringsTopCount);
 	$: showStreams = $_selection.stringsTimeGraph === 'streams';
@@ -121,8 +123,11 @@
 	let doDraw = false;
 	let groups;
 	let groupToColorFn;
+	let hero;
 	let points;
 	let trends;
+
+	$: !$_tooltip && clearHero();
 
 	$: if (proceed) {
 		const rawItems = $_viewData?.response.data.date_histogram?.buckets || [];
@@ -168,6 +173,7 @@
 				{:else}
 					<Trends
 						{axesLabels}
+						{hero}
 						{trends}
 						geometry={{
 							safetyBottom: 50,
@@ -298,6 +304,7 @@
 					{:else}
 						<Trends
 							{axesLabels}
+							{hero}
 							{trends}
 							geometry={{
 								safetyBottom: 50,
@@ -308,7 +315,7 @@
 							keyToColorFn={groupToColorFn}
 							keyType='date'
 							on:dotHovered={onDotHovered}
-							on:dotExited={clearTooltip}
+							on:dotExited={clearHeroAndTooltip}
 							slot='col1'
 							theme={{
 								...$_framesTheme,

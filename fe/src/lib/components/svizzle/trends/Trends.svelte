@@ -10,6 +10,7 @@
 	} from '@svizzle/utils';
 	import {scaleLinear, scalePoint, scaleTime} from 'd3-scale';
 	import {line, curveMonotoneX} from 'd3-shape';
+	import {quadtree} from 'd3-quadtree';
 	import * as _ from 'lamb';
 	import {createEventDispatcher} from 'svelte';
 
@@ -36,6 +37,8 @@
 		frameStroke: 'black',
 		gridStroke: 'lightgrey',
 		gridStrokeDasharray: '4 8',
+
+		heroStrokeWidth: 2,
 		textColor: 'black',
 	}
 
@@ -45,6 +48,7 @@
 
 	export let axesLabels;
 	export let geometry;
+	export let hero;
 	export let keyFilterFn;
 	export let keyFormatFn = _.identity;
 	export let keyToColorFn;
@@ -77,6 +81,44 @@
 	$: geometry = geometry ? {...defaultGeometry, ...geometry} : defaultGeometry;
 	$: labelsDy = Math.min(geometry.safetyBottom, geometry.safetyTop) / 2;
 
+	/* quadtree */
+
+	const selectNearestDot = ({target, x, y}) => {
+		const {left, top} = target.parentElement.getBoundingClientRect();
+
+		const x1 = x - left;
+		const y1 = y - top;
+
+		const data = quadTree.find(x1, y1);
+
+		return {
+			data,
+			x: left + xScale(getKey(data)),
+			y: top + yScale(getValue(data))
+		};
+	}
+
+	/* frame event handlers */
+
+	const onFrameHovered = ({target, x, y}) => {
+		const payload = selectNearestDot({target, x, y});
+
+		dispatch('dotHovered', payload);
+	}
+	const onFrameExited = () => {
+		dispatch('dotExited');
+	}
+
+	const onFrameTouchStarted = ({target, targetTouches: [touch]}) => {
+		const {clientX: x, clientY: y} = touch;
+		const payload = selectNearestDot({target, x, y});
+
+		dispatch('dotTouchStarted', payload);
+	}
+	const onFrameTouchEnded = () => {
+		dispatch('dotTouchEnded');
+	}
+
 	/* data */
 
 	$: trends = trends ?? defaultTrends;
@@ -108,6 +150,10 @@
 	const getMaxValue = arrayMaxWith(getValue);
 	const getMinValue = arrayMinWith(getValue);
 
+	$: trends = _.map(trends, ({key, values}) => ({
+		key,
+		values: _.map(values, _.setKey('trendKey', key))
+	}));
 	$: allData = _.flatMap(trends, getValues);
 	$: maxValue = getMaxValue(allData);
 	$: maxValueSign = Math.sign(maxValue);
@@ -137,6 +183,7 @@
 	let dotRadius;
 	let keyTicks;
 	let lineGenerator;
+	let quadTree;
 	let xScale;
 	let yScale;
 
@@ -186,6 +233,10 @@
 			.y(d => yScale(getValue(d)))
 			.curve(curveMonotoneX);
 
+		quadTree = quadtree()
+			.x(d => xScale(getKey(d)))
+			.y(d => yScale(getValue(d)))
+			.addAll(allData);
 		doDraw = true;
 	}
 </script>
@@ -200,6 +251,7 @@
 		class='chart'
 	>
 		{#if doDraw}
+
 			<svg
 				{height}
 				{width}
@@ -276,13 +328,17 @@
 					{/each}
 				</g>
 
-
 				<!-- frame -->
 				<rect
+					class='frame'
+					height={bbox.height}
+					on:mousemove|capture={onFrameHovered}
+					on:mouseout={onFrameExited}
+					on:touchstart={onFrameTouchStarted}
+					on:touchend={onFrameTouchEnded}
+					width={bbox.width}
 					x={bbox.blx}
 					y={bbox.try}
-					width={bbox.width}
-					height={bbox.height}
 				/>
 
 				{#each trends as {key, values} (key)}
@@ -297,25 +353,30 @@
 							cx={xScale(getKey(data))}
 							cy={yScale(getValue(data))}
 							fill={keyToColorFn?.(key) ?? 'var(--curveStroke)'}
-							on:mousemove={({x, y}) => {
-								dispatch('dotHovered', {data, x, y})
-							}}
-							on:mouseout={({x, y}) => {
-								dispatch('dotExited', {data, x, y})
-							}}
-							on:touchstart|preventDefault={({targetTouches: [touch]}) => {
-								const {clientX: x, clientY: y} = touch;
-								dispatch('dotTouchStarted', {data, x, y})
-							}}
-							on:touchend={() => {
-								dispatch('dotTouchEnded', {data})
-							}}
 							r={dotRadius}
 						/>
-
 					{/each}
 				{/each}
-			
+
+				{#if hero}
+					<path
+						d={lineGenerator(_.find(trends, _.pipe([_.getKey('key'), _.is(hero.trendKey)]))?.values ?? [])}
+						fill='none'
+						style:stroke-width={theme.heroStrokeWidth}
+						stroke={keyToColorFn?.(hero.trendKey) ?? 'var(--curveStroke)'}
+					/>
+
+					{#if getKey(hero)}
+						<circle
+							class='hero'
+							cx={xScale(getKey(hero))}
+							cy={yScale(getValue(hero))}
+							fill={keyToColorFn?.(hero.trendKey) ?? 'var(--curveStroke)'}
+							r={dotRadius * 2}
+						/>
+					{/if}
+				{/if}
+
 			</svg>
 		{/if}
 	</div>
@@ -370,7 +431,7 @@
 		transform: rotate(180deg);
 		transform-origin: 41% 50%;
 	}
-	
+
 	.grid line {
 		stroke: var(--gridStroke);
 		stroke-dasharray: var(--gridStrokeDasharray);
@@ -381,6 +442,9 @@
 		fill: var(--textColor);
 		stroke: none;
 		font-size: 0.75em;
+	}
+	.frame {
+		pointer-events: all;
 	}
 	text.centered {
 		text-anchor: middle;
@@ -399,5 +463,9 @@
 
 	path {
 		stroke-width: var(--curveStrokeWidth);
+	}
+
+	svg * {
+		pointer-events: none;
 	}
 </style>

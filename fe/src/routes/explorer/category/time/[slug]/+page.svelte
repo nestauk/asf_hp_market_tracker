@@ -79,31 +79,37 @@
 	]);
 	const valueFormatFn = Math.round;
 
-	const onDotHovered = ({detail: {
-		data: {
-			group,
-			key,
-			value
-		},
-		x,
-		y
-	}}) => {
+	const onDotHovered = ({detail: {data, x, y}}) => {
+		const {group, key, value} = data;
+		hero = data;
 		$_tooltip = {
 			key: `${group} @ ${key}`,
 			value,
 			x,
 			y,
-		};
-	};
+		}
+	}
+
+	const clearHero = () => {
+		hero = null;
+	}
+	const clearHeroAndTooltip = () => {
+		clearHero();
+		clearTooltip();
+	}
+
 	const onAreaHovered = ({detail: {key, x, y}}) => {
 		$_tooltip = {key, x, y};
-	};
+	}
 
 	let doDraw = false;
 	let groups;
 	let groupToColorFn;
+	let hero;
 	let points;
 	let trends;
+
+	$: !$_tooltip && clearHero();
 
 	$: showStreams = $_selection.categsTimeGraph === 'streams';
 	$: proceed =
@@ -169,6 +175,7 @@
 				{:else}
 					<Trends
 						{axesLabels}
+						{hero}
 						{trends}
 						{valueFormatFn}
 						geometry={{
@@ -280,6 +287,7 @@
 					{:else}
 						<Trends
 							{axesLabels}
+							{hero}
 							{trends}
 							{valueFormatFn}
 							geometry={{
@@ -291,7 +299,7 @@
 							keyToColorFn={groupToColorFn}
 							keyType='date'
 							on:dotHovered={onDotHovered}
-							on:dotExited={clearTooltip}
+							on:dotExited={clearHeroAndTooltip}
 							slot='col1'
 							theme={{
 								...$_framesTheme,

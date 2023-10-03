@@ -45,7 +45,9 @@
 		_.pipe([_.getPath('values.avg'), isNotNil])
 	);
 
-	const onDotHovered = ({detail: {data: {key, value}, x, y}}) => {
+	const onDotHovered = ({detail: {data, x, y}}) => {
+		const {key, value} = data;
+		hero = data;
 		$_tooltip = {
 			key: `@ ${key}`,
 			value,
@@ -56,6 +58,14 @@
 	const onAreaHovered = ({detail: {key, x, y}}) => {
 		$_tooltip = {key, x, y};
 	};
+
+	const clearHero = () => {
+		hero = null;
+	}
+	const clearHeroAndTooltip = () => {
+		clearHero();
+		clearTooltip();
+	}
 
 	$: proceed =
 		$_isViewReady &&
@@ -75,8 +85,11 @@
 	];
 
 	let doDraw = false;
+	let hero;
 	let items;
 	let trends;
+
+	$: !$_tooltip && clearHero();
 
 	$: if (proceed) {
 		const rawItems = $_viewData?.response.data.date_histogram?.buckets || [];
@@ -115,6 +128,7 @@
 				{:else}
 					<Trends
 						{axesLabels}
+						{hero}
 						{trends}
 						geometry={{
 							safetyBottom: 50,
@@ -170,6 +184,7 @@
 			{:else}
 				<Trends
 					{axesLabels}
+					{hero}
 					{trends}
 					geometry={{
 						safetyBottom: 50,
@@ -179,7 +194,7 @@
 					}}
 					keyType='date'
 					on:dotHovered={onDotHovered}
-					on:dotExited={clearTooltip}
+					on:dotExited={clearHeroAndTooltip}
 					theme={{
 						...$_framesTheme,
 						curveStroke: $_currThemeVars['--colorBorderAux']
