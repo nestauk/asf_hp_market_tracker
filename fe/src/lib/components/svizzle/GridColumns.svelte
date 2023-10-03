@@ -28,6 +28,7 @@
 		display: grid;
 		gap: var(--gap);
 		grid-template-columns: var(--colLayout);
+		grid-template-rows: 100%;
 		height: 100%;
 		justify-items: center;
 		overflow: hidden;
