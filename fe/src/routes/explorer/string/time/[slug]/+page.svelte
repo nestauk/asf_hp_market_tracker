@@ -251,7 +251,7 @@
 		</View>
 	{/if}
 {:else}
-	<Grid2Rows percents={[10, 90]}>
+	<GridRows percents='min-content 1fr'>
 		<FlexBar>
 			<SelectorInterval/>
 			<SelectionXor
@@ -338,7 +338,7 @@
 
 			</Grid2Columns>
 		{/if}
-	</Grid2Rows>
+	</GridRows>
 {/if}
 
 <style>
