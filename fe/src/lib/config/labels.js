@@ -18,16 +18,15 @@ export const regionTypeToLabel = {
 }
 
 export const settingToLabel = {
-	category: 'Category',
 	interval: 'Interval',
 	regionType: 'Region type',
 	numTimeGraph: 'Graph type',
 	trendType: 'Trend type',
 	categsTimeGraph: 'Graph type',
-	categsStreamgraphsSorting: 'Sort order',
-	stringsStreamgraphsSorting: 'Sort order',
+	categsStreamgraphsSorting: 'Sorting',
+	stringsStreamgraphsSorting: 'Sorting',
 	stringsTimeGraph: 'Graph type',
-	stringsGeoSortBy: 'Sort order',
+	stringsGeoSortBy: 'Sorting',
 	stackedBarsExtents: 'Extents',
 }
 
