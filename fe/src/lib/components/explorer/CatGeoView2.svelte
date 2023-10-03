@@ -250,6 +250,7 @@
 					</span>
 				</div>
 
+				
 				<XorNavigator
 					label='Category'
 					{valuesToLabels}
@@ -258,9 +259,7 @@
 					theme={$_xorNavigatorTheme}
 				/>
 
-				<FlexBar>
-					<SelectorRegionType />
-				</FlexBar>
+				<SelectorRegionType />
 			</GridRows>
 		</View>
 
@@ -286,9 +285,7 @@
 					theme={$_xorNavigatorTheme}
 				/>
 
-				<FlexBar>
-					<SelectorRegionType />
-				</FlexBar>
+				<SelectorRegionType />
 			</GridRows>
 		</View>
 	{/if}
