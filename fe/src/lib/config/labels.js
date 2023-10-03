@@ -1,14 +1,13 @@
-export const intervalToLabel = {
-	'1M': 'Monthly',
-	'1q': 'Quarterly',
-	'1y': 'Yearly',
-}
+import {capitalize} from '@svizzle/utils';
+import * as _ from 'lamb';
 
 export const intervalToAxisLabel = {
-	'1M': 'Months',
-	'1q': 'Quarters',
-	'1y': 'Years',
+	'1M': 'monthly',
+	'1q': 'quarterly',
+	'1y': 'yearly',
 }
+
+export const intervalToLabel = _.mapValues(intervalToAxisLabel, capitalize);
 
 export const regionTypeToLabel = {
 	country21: 'Country',
@@ -39,16 +38,16 @@ export const uiTooltips = {
 
 	/* stringsTimeGraph */
 
-	stringsTimeGraph_trends: 'For each category, show a curve of its value over time',
-	stringsTimeGraph_streams: 'For each category, show the contribution of its value to the total over time',
+	stringsTimeGraph_trends: 'For each group, show a curve of its value over time',
+	stringsTimeGraph_streams: 'For each group, show the contribution of its value to the total over time',
 	stringsStreamgraphsSorting_off: 'Don\'t sort groups',
 	stringsStreamgraphsSorting_asc: 'Sort groups in ascending order',
 	stringsStreamgraphsSorting_desc: 'Sort groups in descending order',
 
 	/* categsTimeGraph */
 
-	categsTimeGraph_trends: 'Trends: for each category, show a curve of its value over time',
-	categsTimeGraph_streams: 'Streamgraph: for each category, show the contribution of its value to the total over time',
+	categsTimeGraph_trends: 'For each category, show a curve of its value over time',
+	categsTimeGraph_streams: 'For each category, show the contribution of its value to the total over time',
 	categsStreamgraphsSorting_off: 'Don\'t sort categories',
 	categsStreamgraphsSorting_asc: 'Sort categories in ascending order',
 	categsStreamgraphsSorting_desc: 'Sort categories in descending order',

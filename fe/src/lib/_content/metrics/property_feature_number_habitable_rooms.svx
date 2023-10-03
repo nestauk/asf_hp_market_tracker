@@ -1,7 +1,3 @@
 #### What's visualised
 
-The number of installations by number of habitable rooms.
-
-#### Number of habitable rooms
-
 The total number of habitable rooms in the property.

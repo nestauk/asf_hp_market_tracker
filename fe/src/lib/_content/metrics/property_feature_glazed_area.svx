@@ -1,6 +1,6 @@
 #### What's visualised
 
-The number of installations by glazed area values.
+The value of the property glazed area.
 
 #### Glazed area
 

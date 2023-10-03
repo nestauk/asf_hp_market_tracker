@@ -1,6 +1,6 @@
 #### What's visualised
 
-The number of installations by photovoltaic supply.
+The photovoltaic supply value.
 
 #### Photovoltaic supply
 

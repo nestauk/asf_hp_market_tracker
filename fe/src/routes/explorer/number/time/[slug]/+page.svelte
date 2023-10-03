@@ -75,7 +75,7 @@
 
 	$: axesLabels = [
 		{
-			label: intervalToAxisLabel[$_selection.interval],
+			label: `Time (sampled ${intervalToAxisLabel[$_selection.interval]})`,
 			areas: ['bottom']
 		},
 		{

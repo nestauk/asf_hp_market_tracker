@@ -7,7 +7,7 @@ The number of installations by heat pump design.
 What the heat pump has been designed and installed to provide.
 
 This can be:
-- Domestic Hot Water (here abbreaviated as `DHW`)
+- Domestic Hot Water (here abbreviated as `DHW`)
 - Space Heat
 - Another purpose
 - a combination of the above purposes
