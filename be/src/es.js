@@ -48,7 +48,6 @@ if (esEnv === 'production') {
 }
 
 export const getDocumentCount = async filter => {
-	console.log('filter', JSON.stringify(filter, null, 2));
 	const { count } = await client.count({ index, body: filter });
 	return count;
 };
