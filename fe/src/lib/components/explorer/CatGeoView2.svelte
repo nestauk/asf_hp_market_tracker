@@ -250,7 +250,6 @@
 					</span>
 				</div>
 
-				
 				<XorNavigator
 					label='Category'
 					{valuesToLabels}
@@ -306,9 +305,7 @@
 				colLayout='10% 60% 30%'
 				gap='0.25em'
 			>
-				<div
-					class='col0'
-				>
+				<div class='col0'>
 					<div class='legend'>
 						<ColorBinsDiv
 							bins={legendBins}
@@ -326,9 +323,7 @@
 					</div>
 				</div>
 
-				<div
-					class='col1'
-				>
+				<div class='col1'>
 					<div class='map'>
 						<Mapbox
 							{_zoom}
@@ -349,13 +344,14 @@
 						</span>
 					</div>
 				</div>
+
 				<BarchartVDiv
 					{formatFn}
 					items={currentItems}
 					shouldResetScroll={true}
 					theme={$_barchartsTheme}
 					valueToColorFn={colorScale}
-			/>
+				/>
 			</GridColumns>
 		{/if}
 	</GridRows>
