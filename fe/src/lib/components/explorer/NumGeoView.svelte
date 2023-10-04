@@ -239,9 +239,7 @@
 				colLayout='14% 56% 30%'
 				gap='0.25em'
 			>
-				<div
-					class='col0'
-				>
+				<div class='col0'>
 					{#if isSingleValue}
 						<div class='singleValue legend'>
 							<KeysLegend
@@ -268,9 +266,7 @@
 					{/if}
 				</div>
 
-				<div
-					class='col1'
-				>
+				<div class='col1'>
 					<Mapbox
 						{_zoom}
 						{accessToken}
