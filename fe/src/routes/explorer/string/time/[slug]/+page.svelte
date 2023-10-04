@@ -14,11 +14,10 @@
 	import SelectionXor from '$lib/components/explorer/SelectionXor.svelte';
 	import SelectorInterval from '$lib/components/explorer/SelectorInterval.svelte';
 	import MetricTitle from '$lib/components/explorer/MetricTitle.svelte';
-	import Grid2Columns from '$lib/components/svizzle/Grid2Columns.svelte';
-	import Grid2Rows from '$lib/components/svizzle/Grid2Rows.svelte';
+	import GridColumns from '$lib/components/svizzle/GridColumns.svelte';
+	import GridRows from '$lib/components/svizzle/GridRows.svelte';
 	import KeysLegend from '$lib/components/svizzle/legend/KeysLegend.svelte';
 	import Scroller from '$lib/components/svizzle/Scroller.svelte';
-	import GridRows from '$lib/components/svizzle/GridRows.svelte';
 	import StreamGraph from '$lib/components/svizzle/trends/StreamGraph.svelte';
 	import Trends from '$lib/components/svizzle/trends/Trends.svelte';
 	import {intervalToAxisLabel} from '$lib/config/labels.js';
@@ -221,10 +220,12 @@
 				<MetricTitle />
 
 				<Scroller>
-					<KeysLegend
-						keyToColorFn={groupToColorFn}
-						keys={groups}
-					/>
+					<div class='small_legend'>
+						<KeysLegend
+							keyToColorFn={groupToColorFn}
+							keys={groups}
+						/>
+					</div>
 				</Scroller>
 
 				<FlexBar canWrap shouldWrapUp>
@@ -251,8 +252,8 @@
 		</View>
 	{/if}
 {:else}
-	<Grid2Rows percents={[10, 90]}>
-		<FlexBar>
+	<GridRows rowLayout='min-content 1fr'>
+		<FlexBar canWrap>
 			<SelectorInterval/>
 			<SelectionXor
 				name='stringsTimeGraph'
@@ -274,14 +275,11 @@
 		</FlexBar>
 
 		{#if doDraw}
-			<Grid2Columns
-				percents={[80, 20]}
+			<GridColumns
+				colLayout='80% 20%'
 				gap='0.5em'
 			>
-				<div
-					class='col0'
-					slot='col0'
-				>
+				<div class='col0'>
 					{#if showStreams}
 						<StreamGraph
 							{axesLabels}
@@ -326,47 +324,26 @@
 					{/if}
 				</div>
 
-				<div
-					class='legend'
-					slot='col1'
-				>
+				<Scroller>
 					<KeysLegend
 						keyToColorFn={groupToColorFn}
 						keys={groups}
 					/>
-				</div>
-
-			</Grid2Columns>
+				</Scroller>
+			</GridColumns>
 		{/if}
-	</Grid2Rows>
+	</GridRows>
 {/if}
 
 <style>
-	.legend {
-		align-items: center;
-		display: flex;
-		height: 100%;
-		justify-content: center;
-		width: 100%;
-		padding: 0;
-	}
-	ul {
-		overflow-y: auto;
-	}
-	li {
-		align-items: center;
-		display: flex;
-		padding: 0.25em;
-	}
-	.dot {
-		border-radius: 50%;
-		margin-right: 0.5em;
-		min-height: 1em;
-		min-width: 1em;
-	}
-
 	.col0 {
 		height: 100%;
 		width: 100%;
+	}
+
+	.small_legend {
+		width: 100%;
+		display: grid;
+		justify-content: center;
 	}
 </style>

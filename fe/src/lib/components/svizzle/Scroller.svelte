@@ -15,6 +15,7 @@
 	export let extraWidth = 0;
 	export let outerScrollTop = 0;
 	export let theme;
+	export let overflowX;
 
 	let hasBottomShadow;
 	let hasTopShadow;
@@ -52,6 +53,7 @@
 		}
 	};
 
+	$: overflowX = overflowX || 'auto';
 	$: scroller && $_size && onScroll();
 	$: if (previousScrollTop !== outerScrollTop) {
 		scroller.scrollTop = outerScrollTop;
@@ -60,7 +62,11 @@
 	$: rgb = color(theme.shadowColor).rgb();
 	$: bottomShadow = `${theme.bottomShadowGeometry} rgba(${rgb.r},${rgb.g},${rgb.b},${shadowOpacityBottom})`;
 	$: topShadow = `${theme.topShadowGeometry} rgba(${rgb.r},${rgb.g},${rgb.b},${shadowOpacityTop})`;
-	$: style = makeStyleVars({bottomShadow, topShadow});
+	$: style = makeStyleVars({
+		bottomShadow,
+		overflowX,
+		topShadow
+	});
 </script>
 
 <div
@@ -82,6 +88,7 @@
 		position: relative;
 		width: 100%;
 		z-index: var(--zIndex);
+		overflow-x: var(--overflowX);
 	}
 
 	.shadowTop {

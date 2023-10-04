@@ -27,6 +27,7 @@
 		align-items: center;
 		display: grid;
 		gap: var(--gap);
+		grid-template-columns: 100%;
 		grid-template-rows: var(--rowLayout);
 		height: 100%;
 		justify-items: center;

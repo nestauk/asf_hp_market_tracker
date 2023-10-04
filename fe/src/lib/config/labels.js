@@ -17,6 +17,19 @@ export const regionTypeToLabel = {
 	lad21: 'LAD',
 }
 
+export const settingToLabel = {
+	interval: 'Interval',
+	regionType: 'Region type',
+	numTimeGraph: 'Graph type',
+	trendType: 'Trend type',
+	categsTimeGraph: 'Graph type',
+	categsStreamgraphsSorting: 'Sorting',
+	stringsStreamgraphsSorting: 'Sorting',
+	stringsTimeGraph: 'Graph type',
+	stringsGeoSortBy: 'Sorting',
+	stackedBarsExtents: 'Extents',
+}
+
 export const uiTooltips = {
 	/* regionType */
 

@@ -163,6 +163,7 @@
 		<Scroller
 			bind:extraWidth
 			bind:outerScrollTop={scrollTop}
+			overflowX='hidden'
 		>
 			<svg {width} {height}>
 				{#each augmentedItems as {key, values}}

@@ -13,7 +13,6 @@
 	import SelectionXor from '$lib/components/explorer/SelectionXor.svelte';
 	import SelectorInterval from '$lib/components/explorer/SelectorInterval.svelte';
 	import MetricTitle from '$lib/components/explorer/MetricTitle.svelte';
-	import Grid2Rows from '$lib/components/svizzle/Grid2Rows.svelte';
 	import GridRows from '$lib/components/svizzle/GridRows.svelte';
 	import Trends from '$lib/components/svizzle/trends/Trends.svelte';
 	import View from '$lib/components/viewports/View.svelte';
@@ -160,7 +159,7 @@
 		</View>
 	{/if}
 {:else}
-	<Grid2Rows percents={[10, 90]}>
+	<GridRows rowLayout='min-content'>
 		<FlexBar>
 			<SelectorInterval />
 			<SelectionXor
@@ -203,7 +202,7 @@
 				/>
 			{/if}
 		{/if}
-	</Grid2Rows>
+	</GridRows>
 {/if}
 
 <style>

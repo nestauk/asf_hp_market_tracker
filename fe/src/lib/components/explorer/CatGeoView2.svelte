@@ -22,8 +22,6 @@
 	import SelectorRegionType
 		from '$lib/components/explorer/SelectorRegionType.svelte';
 	import GridColumns from '$lib/components/svizzle/GridColumns.svelte';
-	import Grid2Rows from '$lib/components/svizzle/Grid2Rows.svelte';
-	import Grid3Columns from '$lib/components/svizzle/Grid3Columns.svelte';
 	import GridRows from '$lib/components/svizzle/GridRows.svelte';
 	import Scroller from '$lib/components/svizzle/Scroller.svelte';
 	import View from '$lib/components/viewports/View.svelte';
@@ -253,15 +251,14 @@
 				</div>
 
 				<XorNavigator
+					label='Category'
 					{valuesToLabels}
 					currentValue={currentKey}
 					on:changed={onKeyChange}
 					theme={$_xorNavigatorTheme}
 				/>
 
-				<FlexBar>
-					<SelectorRegionType />
-				</FlexBar>
+				<SelectorRegionType />
 			</GridRows>
 		</View>
 
@@ -269,7 +266,7 @@
 			<GridRows rowLayout='min-content 1fr min-content min-content'>
 				<MetricTitle />
 
-				<Scroller>
+				<Scroller overflowX='hidden'>
 					<BarchartVDiv
 						{formatFn}
 						items={currentItems}
@@ -280,38 +277,35 @@
 				</Scroller>
 
 				<XorNavigator
+					label='Category'
 					{valuesToLabels}
 					currentValue={currentKey}
 					on:changed={onKeyChange}
 					theme={$_xorNavigatorTheme}
 				/>
 
-				<FlexBar>
-					<SelectorRegionType />
-				</FlexBar>
+				<SelectorRegionType />
 			</GridRows>
 		</View>
 	{/if}
 {:else}
-	<Grid2Rows percents={[10, 90]}>
+	<GridRows rowLayout='min-content 1fr'>
 		{#if doDraw}
-			<GridColumns colLayout='40% 1fr'>
+			<GridColumns colLayout='min-content 1fr'>
 				<SelectorRegionType/>
 				<XorNavigator
+					label='Category'
 					{valuesToLabels}
 					currentValue={currentKey}
 					on:changed={onKeyChange}
 					theme={$_xorNavigatorTheme}
 				/>
 			</GridColumns>
-			<Grid3Columns
-				percents={[10, 60, 30]}
+			<GridColumns
+				colLayout='10% 60% 30%'
 				gap='0.25em'
 			>
-				<div
-					class='col0'
-					slot='col0'
-				>
+				<div class='col0'>
 					<div class='legend'>
 						<ColorBinsDiv
 							bins={legendBins}
@@ -329,10 +323,7 @@
 					</div>
 				</div>
 
-				<div
-					class='col1'
-					slot='col1'
-				>
+				<div class='col1'>
 					<div class='map'>
 						<Mapbox
 							{_zoom}
@@ -353,17 +344,17 @@
 						</span>
 					</div>
 				</div>
+
 				<BarchartVDiv
 					{formatFn}
 					items={currentItems}
 					shouldResetScroll={true}
-					slot='col2'
 					theme={$_barchartsTheme}
 					valueToColorFn={colorScale}
-			/>
-			</Grid3Columns>
+				/>
+			</GridColumns>
 		{/if}
-	</Grid2Rows>
+	</GridRows>
 {/if}
 
 <style>

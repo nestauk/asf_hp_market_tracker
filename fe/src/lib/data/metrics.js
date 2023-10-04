@@ -87,9 +87,9 @@ export const metricIdsGroups = [
 			'hp_feature_power_generation',
 			'hp_feature_power_generation_sum',
 			'hp_feature_scop',
+			'hp_feature_design',
 			'hp_id_brand',
 			'hp_id_model',
-			'hp_feature_design',
 		]
 	},
 ];

@@ -14,10 +14,10 @@
 	import MetricTitle from '$lib/components/explorer/MetricTitle.svelte';
 	import SelectionXor from '$lib/components/explorer/SelectionXor.svelte';
 	import SelectorInterval from '$lib/components/explorer/SelectorInterval.svelte';
-	import Grid2Columns from '$lib/components/svizzle/Grid2Columns.svelte';
-	import Grid2Rows from '$lib/components/svizzle/Grid2Rows.svelte';
+	import GridColumns from '$lib/components/svizzle/GridColumns.svelte';
 	import GridRows from '$lib/components/svizzle/GridRows.svelte';
 	import KeysLegend from '$lib/components/svizzle/legend/KeysLegend.svelte';
+	import Scroller from '$lib/components/svizzle/Scroller.svelte';
 	import StreamGraph from '$lib/components/svizzle/trends/StreamGraph.svelte';
 	import Trends from '$lib/components/svizzle/trends/Trends.svelte';
 	import View from '$lib/components/viewports/View.svelte';
@@ -226,18 +226,20 @@
 			<GridRows rowLayout='min-content 1fr'>
 				<MetricTitle />
 
-				<div class='small_legend'>
-					<KeysLegend
-						keyToColorFn={groupToColorFn}
-						keys={groups}
-					/>
-				</div>
+				<Scroller>
+					<div class='smallLegend'>
+						<KeysLegend
+							keyToColorFn={groupToColorFn}
+							keys={groups}
+						/>
+					</div>
+				</Scroller>
 
 			</GridRows>
 		</View>
 	{/if}
 {:else}
-	<Grid2Rows percents={[10, 90]}>
+	<GridRows rowLayout='min-content 1fr'>
 		<FlexBar>
 			<SelectorInterval />
 			<SelectionXor
@@ -258,12 +260,13 @@
 				/>
 			{/if}
 		</FlexBar>
+
 		{#if doDraw}
-			<Grid2Columns
-				percents={[85, 15]}
+			<GridColumns
+				colLayout='85% 15%'
 				gap='0.5em'
 			>
-				<div class='col0' slot='col0'>
+				<div class='col0'>
 					{#if $_selection.categsTimeGraph === 'streams'}
 						<StreamGraph
 							{axesLabels}
@@ -283,7 +286,6 @@
 							sorting={$_selection.categsStreamgraphsSorting}
 							theme={$_framesTheme}
 						/>
-
 					{:else}
 						<Trends
 							{axesLabels}
@@ -309,54 +311,26 @@
 					{/if}
 				</div>
 
-				<div
-					class='legend'
-					slot='col1'
-				>
+				<Scroller>
 					<KeysLegend
 						keyToColorFn={groupToColorFn}
 						keys={groups}
 					/>
-				</div>
-			</Grid2Columns>
+				</Scroller>
+			</GridColumns>
 		{/if}
-	</Grid2Rows>
+	</GridRows>
 {/if}
 
 <style>
-	.legend {
-		align-items: center;
-		display: flex;
-		height: 100%;
-		justify-content: center;
-		width: 100%;
-		padding: 0;
-	}
-	li {
-		align-items: center;
-		display: flex;
-		padding: 0.25em;
-	}
-	.dot {
-		border-radius: 50%;
-		margin-right: 0.5em;
-		min-height: 1em;
-		min-width: 1em;
-	}
-
 	.col0 {
 		height: 100%;
 		width: 100%;
 	}
 
-	.small_legend {
-		text-align: center;
-	}
-	.two_rows {
-		display: grid;
-		grid-template-rows: 1fr min-content;
-		height: 100%;
+	.smallLegend {
 		width: 100%;
-		overflow: hidden;
+		display: grid;
+		justify-content: center;
 	}
 </style>

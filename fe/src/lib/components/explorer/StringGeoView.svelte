@@ -24,7 +24,7 @@
 	import SelectorRegionType
 		from '$lib/components/explorer/SelectorRegionType.svelte';
 	import View from '$lib/components/viewports/View.svelte';
-	import Grid2Columns from '$lib/components/svizzle/Grid2Columns.svelte';
+	import GridColumns from '$lib/components/svizzle/GridColumns.svelte';
 	import GridRows from '$lib/components/svizzle/GridRows.svelte';
 	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {_selection} from '$lib/stores/navigation.js';
@@ -209,8 +209,8 @@
 		</View>
 	{/if}
 {:else}
-	<div class='twoRows'>
-		<FlexBar>
+	<GridRows rowLayout='min-content 1fr'>
+		<FlexBar canWrap>
 			<SelectorRegionType />
 			<SelectionXor
 				name='stringsGeoSortBy'
@@ -229,65 +229,30 @@
 		</FlexBar>
 
 		{#if doDraw}
-			<div class='gridcontainer'>
-				<Grid2Columns
-					percents={[25, 75]}
-					gap='0.25em'
-				>
+			<GridColumns
+				colLayout='25% 75%'
+				gap='0.25em'
+			>
+				<Scroller>
 					<KeysLegend
 						keys={groupIds}
 						keyToColorFn={groupToColorFn}
-						slot='col0'
 					/>
+				</Scroller>
 
-					<StackedBarchart
-						{domain}
-						{groupIds}
-						{groupToColorFn}
-						{stacks}
-						extentsType={$_selection.stackedBarsExtents}
-						groupSortBy={$_selection.stringsGeoSortBy}
-						on:barHovered={onBarHovered}
-						on:barExited={clearTooltip}
-						shouldResetScroll={true}
-						slot='col1'
-						theme={$_stackedBarchartTheme}
-					/>
-				</Grid2Columns>
-			</div>
+				<StackedBarchart
+					{domain}
+					{groupIds}
+					{groupToColorFn}
+					{stacks}
+					extentsType={$_selection.stackedBarsExtents}
+					groupSortBy={$_selection.stringsGeoSortBy}
+					on:barHovered={onBarHovered}
+					on:barExited={clearTooltip}
+					shouldResetScroll={true}
+					theme={$_stackedBarchartTheme}
+				/>
+			</GridColumns>
 		{/if}
-	</div>
+	</GridRows>
 {/if}
-
-<style>
-	.main {
-		display: grid;
-		grid-template-rows: min-content 1fr;
-		height: 100%;
-		overflow: hidden;
-	}
-	.twoRows {
-		display: grid;
-		gap: 1.5em;
-		grid-template-rows: min-content 1fr;
-		height: 100%;
-		overflow: hidden;
-		width: 100%;
-	}
-	.col0 {
-		align-items: center;
-		display: flex;
-		height: 100%;
-		justify-content: center;
-		padding: 0;
-		width: 100%;
-	}
-	.col1 {
-		height: 100%;
-		overflow: hidden;
-		width: 100%;
-	}
-	.gridcontainer {
-		overflow: hidden;
-	}
-</style>

@@ -23,5 +23,6 @@
 		align-items: center;
 		display: flex;
 		justify-content: space-evenly;
+		width: 100%;
 	}
 </style>

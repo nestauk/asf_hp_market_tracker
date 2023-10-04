@@ -5,7 +5,7 @@
 	import {_selection} from '$lib/stores/navigation.js';
 	import {_xorSelectorTheme} from '$lib/stores/theme.js';
 	import {_tooltip, clearTooltip} from '$lib/stores/tooltip.js';
-	import {uiTooltips} from '$lib/config/labels.js';
+	import {uiTooltips, settingToLabel} from '$lib/config/labels.js';
 
 	export let name;
 	export let showTooltip = true;
@@ -33,9 +33,11 @@
 				y
 			}
 		}
+	$: label = settingToLabel[name];
 </script>
 
 <XorSelector
+	{label}
 	{value}
 	{values}
 	{valuesToLabels}
