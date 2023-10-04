@@ -41,6 +41,7 @@ if (esEnv === 'production') {
 			if ('aggregations' in result) {
 				return result.aggregations;
 			}
+
 			throw new Error('Unexpected result from ES client');
 		};
 
