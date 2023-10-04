@@ -1,22 +1,20 @@
+<script>
+	import Ul from '$lib/components/mdsvex/ul.svelte';
+	import {ageBandOrder} from '$lib/utils/ordering.js';
+</script>
+
 #### What's visualised
 
 The number of installations by property age band.
 
 #### Age band
 
-Age band when building part constructed. England & Wales only.
+Age band when building part constructed.
 
 One of:
 
-- before 1900
-- 1900-1929
-- 1930-1949
-- 1950-1966
-- 1967-1975
-- 1976-1982
-- 1983-1990
-- 1991-1995
-- 1996-2002
-- 2003-2006
-- 2007-2011
-- 2012 onwards.
+<Ul>
+	{#each ageBandOrder as key}
+		<li>{key}</li>
+	{/each}
+</Ul>

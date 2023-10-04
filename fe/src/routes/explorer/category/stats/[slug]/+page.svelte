@@ -18,6 +18,7 @@
 	import {_tooltip, clearTooltip} from '$lib/stores/tooltip.js';
 	import {_isViewReady, _viewData} from '$lib/stores/view.js';
 	import {getDocCount} from '$lib/utils/getters.js';
+	import {sorters} from '$lib/utils/ordering.js';
 	import {pluckKeySorted} from '$lib/utils/svizzle/utils.js';
 
 	const valueAccessor = getDocCount;
@@ -37,7 +38,6 @@
 	const makeBarchartItems = _.pipe([
 		filter,
 		_.mapWith(applyFnMap({key: getKey, value: valueAccessor})),
-		_.sortWith([_.sorterDesc(getValue)])
 	]);
 
 	$: proceed =
@@ -53,6 +53,9 @@
 	let keyToColorFn;
 	let keyToColorLabelFn;
 
+	$: sortBars = $_currentMetric?.id in sorters
+		? sorters[$_currentMetric?.id].itemsSorter
+		: _.sortWith([_.sorterDesc(getValue)]);
 	$: if (proceed) {
 		items = $_viewData?.response.data.terms?.buckets || [];
 
@@ -74,7 +77,7 @@
 
 		/* barchart */
 
-		barchartItems = makeBarchartItems(items) || [];
+		barchartItems = sortBars(makeBarchartItems(items)) || [];
 
 		doDraw = true;
 	}
@@ -85,7 +88,7 @@
 		<View id='stats'>
 			<GridRows rowLayout='min-content 1fr'>
 				<MetricTitle />
-	
+
 				<Treemap
 					{items}
 					{keyToColorFn}
@@ -98,7 +101,7 @@
 		<View id='barchart'>
 			<GridRows rowLayout='min-content 1fr'>
 				<MetricTitle />
-	
+
 				<BarchartVDiv
 					{keyToColorFn}
 					items={barchartItems}

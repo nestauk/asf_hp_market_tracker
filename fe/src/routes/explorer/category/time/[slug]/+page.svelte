@@ -37,6 +37,7 @@
 		getKeyAsString,
 		getTermsBuckets
 	} from '$lib/utils/getters.js';
+	import {getSorters} from '$lib/utils/ordering.js';
 
 	const keyAccessor = getKeyAsString;
 	const valueAccessor = getTermsBuckets;
@@ -57,13 +58,6 @@
 			)
 		])
 	); // {group, key, value}[]
-
-	// {group, key, value}[] => group[]
-	const getGroups = _.pipe([
-		_.pluck('group'),
-		_.uniques,
-		_.sortWith()
-	]);
 
 	/* trends */
 
@@ -112,6 +106,11 @@
 	$: !$_tooltip && clearHero();
 
 	$: showStreams = $_selection.categsTimeGraph === 'streams';
+	$: sortGroups = getSorters($_currentMetric?.id).keySorter;
+
+	// {group, key, value}[] => group[]
+	$: getGroups = _.pipe([_.pluck('group'), _.uniques, sortGroups]);
+
 	$: proceed =
 		$_isViewReady &&
 		$_currentMetric?.id === $_page.params.slug &&

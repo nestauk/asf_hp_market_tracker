@@ -17,7 +17,6 @@
 
 	import {Mapbox} from '@svizzle/mapbox'; // workspace
 
-	import FlexBar from '$lib/components/explorer/FlexBar.svelte';
 	import MetricTitle from '$lib/components/explorer/MetricTitle.svelte';
 	import SelectorRegionType
 		from '$lib/components/explorer/SelectorRegionType.svelte';
@@ -41,6 +40,7 @@
 		_regionKindTheme,
 		_xorNavigatorTheme,
 	} from '$lib/stores/theme.js';
+	import {getSorters} from '$lib/utils/ordering.js';
 	import {_tooltip, clearTooltip} from '$lib/stores/tooltip.js';
 	import {_selectedBbox} from '$lib/stores/view.js';
 	import {pluckKey} from '$lib/utils/svizzle/utils.js';
@@ -87,7 +87,6 @@
 			_.pipe([getValues, pluckKey])
 		),
 		_.uniques,
-		_.sortWith()
 	]);
 
 	const getValuesToLabels = makeArrayToObjectWith(
@@ -150,13 +149,14 @@
 		? _.sortWith([getKey])
 		: _.sortWith([_.sorterDesc(getItemSum)]);
 
+	$: sorter = getSorters($_currentMetric?.id).keySorter;
 	$: if (items?.length > 0) {
 
 		/* common */
 
 		const reshapedItems = sortItems(reshapeItems(items));
 		const itemsByInnerKey = indexByInnerKey(reshapedItems);
-		const categories = getInnerCategs(reshapedItems);
+		const categories = sorter(getInnerCategs(reshapedItems));
 		const domain = getOverallExtent(items);
 
 		/* color */
@@ -251,9 +251,9 @@
 				</div>
 
 				<XorNavigator
-					label='Category'
 					{valuesToLabels}
 					currentValue={currentKey}
+					label='Category'
 					on:changed={onKeyChange}
 					theme={$_xorNavigatorTheme}
 				/>
@@ -277,9 +277,9 @@
 				</Scroller>
 
 				<XorNavigator
-					label='Category'
 					{valuesToLabels}
 					currentValue={currentKey}
+					label='Category'
 					on:changed={onKeyChange}
 					theme={$_xorNavigatorTheme}
 				/>
@@ -294,9 +294,9 @@
 			<GridColumns colLayout='min-content 1fr'>
 				<SelectorRegionType/>
 				<XorNavigator
-					label='Category'
 					{valuesToLabels}
 					currentValue={currentKey}
+					label='Category'
 					on:changed={onKeyChange}
 					theme={$_xorNavigatorTheme}
 				/>

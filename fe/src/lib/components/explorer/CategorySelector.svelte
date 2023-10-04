@@ -14,6 +14,7 @@
 	import FilterPaneBorder
 		from '$lib/components/explorer/FilterPaneBorder.svelte';
 	import {getDocCount, getSelected} from '$lib/utils/getters.js';
+	import {getSorters} from '$lib/utils/ordering.js';
 	import {areAllFalsyWith} from '$lib/utils/svizzle/utils.js';
 
 	export let categories;
@@ -26,10 +27,6 @@
 	const areAllDeselected = areAllFalsyWith(getSelected);
 	const getInputStateCopy = _.pick(['key', 'doc_count', 'selected']);
 	const getInputStatesCopy = _.mapWith(getInputStateCopy);
-	const getSortedInputsStates = _.pipe([
-		getInputStatesCopy,
-		_.sortWith([getKey])
-	]);
 
 	const makeIsKey = key => _.pipe([getKey, _.is(key)]);
 	const makeClearAllBut = key => _.mapWith(
@@ -63,6 +60,9 @@
 
 	$: maxDocCount = getMaxDocCount(categories);
 	$: scale = scaleLinear().domain([0, maxDocCount]).range([0, 100]);
+
+	$: sortCategories = getSorters(id).itemsSorter;
+	$: getSortedInputsStates = _.pipe([getInputStatesCopy, sortCategories]);
 	$: sortedInputStates = getSortedInputsStates(categories);
 	$: indexedCats = _.index(categories, getKey);
 	$: checkDirty = (key, value) => indexedCats[key].selected !== value;

@@ -1,3 +1,8 @@
+<script>
+	import Ul from '$lib/components/mdsvex/ul.svelte';
+	import {energyEfficiencyOrder} from '$lib/utils/ordering.js';
+</script>
+
 #### What's visualised
 
 The number of installations by main heat energy efficiency.
@@ -8,8 +13,8 @@ A qualitative description of the energy efficiency of the main heating system of
 
 One of:
 
-- Very Poor
-- Poor
-- Average
-- Good
-- Very Good
+<Ul>
+	{#each energyEfficiencyOrder as key}
+		<li>{key}</li>
+	{/each}
+</Ul>
