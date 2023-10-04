@@ -85,10 +85,10 @@
 	.XorNavigator {
 		display: grid;
 		grid-template-rows: min-content min-content;
-		user-select: none;
-		width: 100%;
 		height: 100%;
 		padding: 0.1rem;
+		user-select: none;
+		width: 100%;
 	}
 
 	.navigator {
@@ -104,16 +104,16 @@
 		color: var(--textColor);
 		display: block;
 		flex: 1;
-		padding: 0.5em 1em;
-		white-space: nowrap;
-		text-overflow: ellipsis;
 		overflow: hidden;
+		padding: 0.5em 1em;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 
 	button {
 		background: var(--colorBackground);
-		border: none;
 		border-left: var(--border);
+		border: none;
 		color: var(--colorIcon);
 		height: 100%;
 		width: var(--height);
