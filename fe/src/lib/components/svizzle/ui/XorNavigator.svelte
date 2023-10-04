@@ -31,7 +31,6 @@
 
 	let height;
 
-	$: console.log('height', height)
 	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
 	$: style = makeStyleVars({...theme, height: toPx(height)});
 	$: values = _.keys(valuesToLabels);

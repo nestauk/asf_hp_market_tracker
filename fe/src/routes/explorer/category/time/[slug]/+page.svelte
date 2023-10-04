@@ -227,7 +227,7 @@
 				<MetricTitle />
 
 				<Scroller>
-					<div class='small_legend'>
+					<div class='smallLegend'>
 						<KeysLegend
 							keyToColorFn={groupToColorFn}
 							keys={groups}
@@ -328,7 +328,7 @@
 		width: 100%;
 	}
 
-	.small_legend {
+	.smallLegend {
 		width: 100%;
 		display: grid;
 		justify-content: center;
