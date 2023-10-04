@@ -112,8 +112,8 @@
 
 	button {
 		background: var(--colorBackground);
-		border-left: var(--border);
 		border: none;
+		border-left: var(--border);
 		color: var(--colorIcon);
 		height: 100%;
 		width: var(--height);
