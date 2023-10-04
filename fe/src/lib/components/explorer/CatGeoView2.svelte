@@ -267,7 +267,7 @@
 			<GridRows rowLayout='min-content 1fr min-content min-content'>
 				<MetricTitle />
 
-				<Scroller>
+				<Scroller overflowX='hidden'>
 					<BarchartVDiv
 						{formatFn}
 						items={currentItems}
