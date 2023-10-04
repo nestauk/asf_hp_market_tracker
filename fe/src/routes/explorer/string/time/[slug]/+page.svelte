@@ -253,7 +253,7 @@
 	{/if}
 {:else}
 	<GridRows rowLayout='min-content 1fr'>
-		<FlexBar>
+		<FlexBar canWrap>
 			<SelectorInterval/>
 			<SelectionXor
 				name='stringsTimeGraph'
