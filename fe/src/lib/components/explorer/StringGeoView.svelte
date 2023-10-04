@@ -256,36 +256,3 @@
 		{/if}
 	</GridRows>
 {/if}
-
-<style>
-	.main {
-		display: grid;
-		grid-template-rows: min-content 1fr;
-		height: 100%;
-		overflow: hidden;
-	}
-	.twoRows {
-		display: grid;
-		gap: 1.5em;
-		grid-template-rows: min-content 1fr;
-		height: 100%;
-		overflow: hidden;
-		width: 100%;
-	}
-	.col0 {
-		align-items: center;
-		display: flex;
-		height: 100%;
-		justify-content: center;
-		padding: 0;
-		width: 100%;
-	}
-	.col1 {
-		height: 100%;
-		overflow: hidden;
-		width: 100%;
-	}
-	.gridcontainer {
-		overflow: hidden;
-	}
-</style>
