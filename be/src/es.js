@@ -34,16 +34,18 @@ if (esEnv === 'production') {
 	client.search = (function(_super) {
 		return async function() {
 			const result = await _super.apply(this, arguments);
-			
+
 			if ('body' in result) {
 				return result.body;
 			}
 			if ('aggregations' in result) {
 				return result.aggregations;
 			}
-		};         
-	
-	})(client.search);
+
+			throw new Error('Unexpected result from ES client');
+		};
+
+	}(client.search));
 }
 
 export const getDocumentCount = async filter => {

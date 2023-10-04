@@ -12,11 +12,14 @@ export const onRequest = async (request, reply) => {
 	/* Special routes where field is not specified */
 	switch (request.routeOptions.url) {
 		case '/count':
-			field = '_id' // all fields have _id so only the filter will affect outcomes
-			break
+		case '/date_histogram1_certified2':
+			field = '_id'; // all fields have _id so only the filter will affect outcomes
+			break;
 		case '/certified':
-			field = 'installer_id_hash'
-			break
+			field = 'installer_id_hash';
+			break;
+		default:
+			break;
 	}
 
 	let coverageFilter;
