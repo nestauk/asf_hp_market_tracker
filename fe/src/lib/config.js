@@ -38,6 +38,8 @@ export const LOGOS = {
 export const lighthouseUrls = {
 	Home: '/',
 	Guides: '/guides/app',
+	Methodology: '/methodology/dataProcessing',
+	Explorer: '/explorer/count/geo/installations?categsGeoSortBy=total&categsStreamgraphsSorting=off&categsTimeGraph=trends&filters=(installerRegionNames:!(),installerRegionType:country21,propertyRegionNames:!(),propertyRegionType:country21)&interval=1y&numTimeGraph=percentiles&regionType=country21&regionTypes=!(country21,itl21_1,itl21_2,itl21_3,lad21)&stackedBarsExtents=absolute&stringsGeoSortBy=total&stringsStreamgraphsSorting=off&stringsTimeGraph=trends&stringsTopCount=10&trendType=progressive&viewId='
 };
 
 export const fontsInfo = [
