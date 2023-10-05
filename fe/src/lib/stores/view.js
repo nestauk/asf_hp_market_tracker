@@ -11,15 +11,12 @@ export const _isViewLoading = writable(false);
 export const _isViewReady = writable(false);
 export const _viewData = writable();
 
-export const _noDataReturned = derived(
-	_viewData,
-	viewData => [100, 101].includes(viewData?.response.code)
-	// see `be/README.md`: `Custom response codes`
-);
+const isNoDataReturned =
+	viewData => [100, 101].includes(viewData?.response.code);
 
 export const _showMessage = derived(
-	[_isViewReady, _noDataReturned],
-	([isViewReady, noDataReturned]) => isViewReady && noDataReturned
+	[_isViewReady, _viewData],
+	([isViewReady, viewData]) => isViewReady && isNoDataReturned(viewData)
 );
 export const _viewDataMessage = derived(
 	_viewData,
@@ -29,9 +26,9 @@ export const _viewDataMessage = derived(
 /* coverage */
 
 export const _viewDataCoverage = derived(
-	[_staticData, _viewData, _noDataReturned],
-	([staticData, viewData, noDataReturned]) => {
-		if (!viewData || !staticData || noDataReturned) {
+	[_staticData, _viewData],
+	([staticData, viewData]) => {
+		if (!viewData || !staticData || isNoDataReturned(viewData)) {
 			return
 		}
 
