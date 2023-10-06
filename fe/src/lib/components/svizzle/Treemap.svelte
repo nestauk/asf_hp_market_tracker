@@ -36,18 +36,31 @@
 		.paddingInner(geometry.paddingInner);
 	$: treeRoot = getTreeRoot(items);
 	$: treemapLeaves = getTreemap(treeRoot).leaves();
-	$: textGroup = textGroup || new Array(treemapLeaves.length);
-	$: rects = _.map(textGroup, gNode => gNode?.getBBox());
-	$: doesTextFit = _.map(
-		_.zip(rects, treemapLeaves),
-		([rect, {x0, x1, y0, y1}]) => {
-			if (!rect) return false;
-			return [
-				rect.width < x1 - x0 - geometry.textPadding * 2
-				&& rect.height < y1 - y0 - geometry.textPadding * 2,
-				rect.width < y1 - y0 - geometry.textPadding * 2
-				&& rect.height < x1 - x0 - geometry.textPadding * 2
-			];
+
+	let textGroups;
+	$: if (textGroups && treemapLeaves.length > textGroups.length) {
+		textGroups = [
+			...textGroups,
+			...new Array(treemapLeaves.length - textGroups.length)
+		]
+	} else if (!textGroups) {
+		textGroups = new Array(treemapLeaves.length)
+	}
+
+	$: textBboxes = _.map(textGroups, gNode => gNode?.getBBox());
+	$: leavesChecks = _.map(
+		_.zip(textBboxes, treemapLeaves),
+		([textBbox, {x0, x1, y0, y1}]) => {
+			const totalPadding = geometry.textPadding * 2;
+			const availableWidth = x1 - x0 - totalPadding;
+			const availableHeight = y1 - y0 - totalPadding;
+
+			return textBbox
+				? [
+					textBbox.width < availableWidth && textBbox.height < availableHeight,
+					textBbox.width < availableHeight && textBbox.height < availableWidth
+				]
+				: [false, false]
 		}
 	);
 </script>
@@ -84,12 +97,12 @@
 					width={x1-x0}
 				/>
 				<g
-					bind:this={textGroup[i]}
-					transform={!doesTextFit[i][0] && doesTextFit[i][1]
+					bind:this={textGroups[i]}
+					transform={!leavesChecks[i][0] && leavesChecks[i][1]
 						? `translate(0,${y1-y0}) rotate(-90)`
 						: ''
 					}
-					class:tooLarge={!doesTextFit[i][0] && !doesTextFit[i][1]}
+					class:tooLarge={!leavesChecks[i][0] && !leavesChecks[i][1]}
 				>
 					<text
 						dx={geometry.textPadding}
