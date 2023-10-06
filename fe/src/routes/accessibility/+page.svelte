@@ -4,13 +4,16 @@
 	import * as _ from 'lamb';
 	import {onMount} from 'svelte';
 
+	import A from '$lib/components/mdsvex/A.svelte';
 	import H2 from '$lib/components/mdsvex/h2.svelte';
+	import UL from '$lib/components/mdsvex/ul.svelte';
 	// import P from '$lib/components/mdsvex/p.svelte';
 	import {
 		lighthouseUrls,
 		toolName,
 	} from '$lib/config';
 	import {_currThemeVars, _extLinkTheme} from '$lib/stores/theme';
+	/*
 	import {
 		getTest,
 		getTestResultsFilename,
@@ -18,20 +21,18 @@
 		testResultsBaseURL,
 		summarizeResults
 	} from '$lib/utils/tests';
+	*/
 
 	import Accessibility from '$lib/_content/Accessibility.svx';
 
 	const reportNames = _.keys(lighthouseUrls)
 
-	let [currentreport] = reportNames;
-	let environment;
-	let loadingResults = false;
+	// let environment;
 	/*
 	let testResults = {
 		tested: false,
 		passed: false
 	};
-	*/
 
 	async function loadResults (env) {
 		const fileName = getTestResultsFilename(env);
@@ -43,19 +44,14 @@
 			testResults = summarizeResults(test);
 		}
 	}
+	*/
 
 	const getAuditUrl = id =>  `/audits/lighthouse/${id}.html`
 
 	onMount(() => {
-		environment = Bowser.parse(window.navigator.userAgent);
-		loadResults(environment);
+		// environment = Bowser.parse(window.navigator.userAgent);
+		// loadResults(environment);
 	})
-
-	$: {
-		currentreport; // eslint-disable-line no-unused-expressions
-
-		loadingResults = true;
-	}
 </script>
 
 <svelte:head>
@@ -121,17 +117,17 @@
 
 		<H2>Quality audits</H2>
 		<menu class='tabs'>
-			<ul>
+			<UL>
 				{#each reportNames as id}
 					<li>
-						<Link
+						<A
 							href={getAuditUrl(id)}
 						>
 							{id}
-						</Link>
+						</A>
 					</li>
 				{/each}
-			</ul>
+			</UL>
 		</menu>
 	</section>
 </main>
