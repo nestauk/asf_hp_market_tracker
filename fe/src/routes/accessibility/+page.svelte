@@ -1,18 +1,11 @@
 <script>
-	import {
-		_screen,
-		ChevronLeft,
-		ChevronRight,
-		Icon,
-		LoadingView,
-	} from '@svizzle/ui';
-	import {isNotNil} from '@svizzle/utils';
+	import {_screen, Link} from '@svizzle/ui';
 	import Bowser from 'bowser';
 	import * as _ from 'lamb';
 	import {onMount} from 'svelte';
 
 	import H2 from '$lib/components/mdsvex/h2.svelte';
-	import P from '$lib/components/mdsvex/p.svelte';
+	// import P from '$lib/components/mdsvex/p.svelte';
 	import {
 		lighthouseUrls,
 		toolName,
@@ -32,16 +25,13 @@
 
 	let [currentreport] = reportNames;
 	let environment;
-	let lighthouseFrame;
 	let loadingResults = false;
+	/*
 	let testResults = {
 		tested: false,
 		passed: false
 	};
-
-	function updateCurrentReport (id) {
-		currentreport = id
-	}
+	*/
 
 	async function loadResults (env) {
 		const fileName = getTestResultsFilename(env);
@@ -54,10 +44,7 @@
 		}
 	}
 
-	function resizeIFrameToFitContent (iFrame) {
-		loadingResults = false
-		iFrame.height = iFrame.contentWindow.document.body.scrollHeight;
-	}
+	const getAuditUrl = id =>  `/audits/lighthouse/${id}.html`
 
 	onMount(() => {
 		environment = Bowser.parse(window.navigator.userAgent);
@@ -69,19 +56,6 @@
 
 		loadingResults = true;
 	}
-	$: currentValueIndex = _.findIndex(
-		reportNames,
-		_.is(currentreport)
-	);
-	$: prevValue = reportNames[currentValueIndex - 1];
-	$: nextValue = reportNames[currentValueIndex + 1];
-	$: hasPrevValue = isNotNil(prevValue);
-	$: hasNextValue = isNotNil(nextValue);
-	$: clickedPrev =
-		() => hasPrevValue && updateCurrentReport(prevValue);
-	$: clickedNext =
-		() => hasNextValue && updateCurrentReport(nextValue);
-	$: reportUrl = `/audits/lighthouse/${currentreport}.html`;
 </script>
 
 <svelte:head>
@@ -96,6 +70,7 @@
 	<section>
 		<Accessibility/>
 
+		<!--
 		<H2>Detected Browsing Environment</H2>
 		<dl>
 			<dt>Platform</dt>
@@ -142,81 +117,22 @@
 				{/if}
 			</P>
 		{/if}
+		-->
 
 		<H2>Quality audits</H2>
 		<menu class='tabs'>
-			{#if $_screen?.sizes?.medium}
-				<ul>
-					{#each reportNames as id}
-						<li>
-							<input
-								{id}
-								type='radio'
-								bind:group={currentreport}
-								value={id}
-							>
-							<label for={id} class='clickable'>
-								{id}
-							</label>
-						</li>
-					{/each}
-					{#if loadingResults}
-						<li class='meta'>
-							<div class='spinner'>
-								<LoadingView
-									size={24}
-									stroke={$_currThemeVars['--colorIcon']}
-									strokeWidth={1}
-								/>
-							</div>
-						</li>
-					{/if}
-				</ul>
-			{:else}
-				<div class='tab-selector'>
-					<label for=''>
-						{currentreport}
-						{#if loadingResults}
-							<div class='spinner'>
-								<LoadingView
-									size={24}
-									stroke={$_currThemeVars['--colorIcon']}
-									strokeWidth={1}
-								/>
-							</div>
-						{/if}
-					</label>
-
-					<button
-						aria-label={hasPrevValue ? 'Previous Result' : null}
-						class:clickable={hasPrevValue}
-						disabled={!hasPrevValue}
-						on:click={clickedPrev}
-					>
-						<Icon glyph={ChevronLeft} />
-					</button>
-					<button
-						aria-label={hasNextValue ? 'Next Result' : null}
-						class:clickable={hasNextValue}
-						disabled={!hasNextValue}
-						on:click={clickedNext}
-					>
-						<Icon glyph={ChevronRight} />
-					</button>
-				</div>
-			{/if}
+			<ul>
+				{#each reportNames as id}
+					<li>
+						<Link
+							href={getAuditUrl(id)}
+						>
+							{id}
+						</Link>
+					</li>
+				{/each}
+			</ul>
 		</menu>
-		<iframe
-			bind:this={lighthouseFrame}
-			frameborder='0'
-			marginheight='0'
-			marginwidth='0'
-			src={reportUrl}
-			title='Accessibility validation results'
-			on:load={() => resizeIFrameToFitContent(lighthouseFrame)}
-		>
-			Loading...
-		</iframe>
 	</section>
 </main>
 
@@ -270,57 +186,5 @@
 	}
 	dd:not(:last-child) {
 		border-bottom: none;
-	}
-	.tabs ul {
-		border-bottom: var(--border);
-		display: flex;
-		flex-direction: row;
-		list-style-type: none;
-		margin: 0;
-	}
-	.tabs input {
-		display: none;
-	}
-	.tabs input[type="radio"] + label, .tabs div label, .tabs li .spinner {
-		display: block;
-		padding: 0.5em 1em;
-	}
-	.tabs li {
-		color: var(--colorLink);
-	}
-	.tabs li:first-child {
-		border-left: var(--border);
-	}
-	.tabs li {
-		border-top: var(--border);
-		border-right: var(--border);
-	}
-	.tabs li.meta {
-		align-items: center;
-		border: none;
-		display: flex;
-	}
-	.tabs input[type="radio"]:checked + label {
-		background: var(--colorText);
-		color: var(--colorBackground);
-	}
-
-	.tabs .tab-selector {
-		border: var(--border);
-		display: grid;
-		grid-template-columns: 1fr min-content min-content;
-	}
-	.tabs button {
-		background: var(--colorBackground);
-		border: none;
-		border-left: var(--border);
-		height: 2.5rem;
-		width: 2.5rem;
-	}
-	.spinner {
-		display: inline-block !important;
-		margin-left: 1em;
-		height: 1rem;
-		width: 1rem;
 	}
 </style>
