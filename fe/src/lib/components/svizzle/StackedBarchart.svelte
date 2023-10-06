@@ -33,7 +33,7 @@
 		padding: 0.9,
 		safetyBottom: 8,
 		safetyLeft: 8,
-		safetyRight: 24,
+		safetyRight: 8,
 		safetyTop: 8,
 	}
 
@@ -53,14 +53,29 @@
 	const getSum = _.pipe([getValues, arraySumWith(getValue)]);
 	const getMaxSum = arrayMaxWith(getSum);
 
+	const truncate = (str, L) => str.length > L
+		? `${str.substring(0, L - 3)}...`
+		: str;
+
+	const truncateToPx = (str, maxWidth, charWidth) => {
+		const pxLength = str.length * charWidth;
+		if (pxLength > maxWidth) {
+			const L = Math.floor(maxWidth / charWidth) + 3;  // Adding 3 for ellipsis
+			return truncate(str, L);
+		}
+		return str;
+	}
+
 	let allKeys;
 	let augmentedItems;
+	let availableLabelWidth;
 	let barsScaleByKey;
 	let doDraw = false;
 	let extraWidth = 0;
 	let height;
 	let keyHeight;
 	let maxSum;
+	let maxSumPxLength;
 	let previousItems;
 	let scrollTop;
 	let width;
@@ -83,6 +98,7 @@
 	$: shouldResetScroll = shouldResetScroll || false;
 	$: width = $_size.inlineSize - extraWidth;
 	$: keyHeight = geometry.keyHeightEm * em;
+	$: charWidth = $_screen?.glyph.width || 8;
 
 	$: valueSortingFn = _.sortWith([_.sorterDesc(getValue)]);
 	$: groupSortingFn = groupSortBy === 'total'
@@ -122,6 +138,10 @@
 	$: if (stacks && augmentItems) {
 		maxSum = getMaxSum(stacks);
 		augmentedItems = augmentItems(stacks);
+		const maxSumStringLength = maxSum.toString().length;
+		maxSumPxLength = maxSumStringLength * charWidth;
+		availableLabelWidth =
+			width - geometry.safetyLeft - geometry.safetyRight - maxSumPxLength;
 		allKeys = _.map(augmentedItems, getKey)
 	}
 	$: if (allKeys && width) {
@@ -166,16 +186,30 @@
 			overflowX='hidden'
 		>
 			<svg {width} {height}>
-				{#each augmentedItems as {key, values}}
+				{#each augmentedItems as {key, values, sum}}
 					{@const barScale = barsScaleByKey?.[key] || xScale}
+
+					<!-- label -->
 					<text
 						class='key'
+						fill={theme.textColor}
 						x={geometry.safetyLeft}
 						y={yScale(key) - 10}
-						fill={theme.textColor}
 					>
-						{key}
+						{truncateToPx(key, availableLabelWidth, charWidth)}
 					</text>
+
+					<!-- number -->
+					<text
+						class='sum'
+						fill={theme.textColor}
+						x={geometry.safetyLeft + width - geometry.safetyRight}
+						y={yScale(key) - 10}
+					>
+						{sum}
+					</text>
+
+					<!-- bar rects -->
  					{#each values as {key: subKey, value, start}}
 						<rect
 							fill={groupToColorFn(subKey)}
@@ -210,5 +244,9 @@
 		grid-template-rows: 1fr;
 		height: 100%;
 		width: 100%;
+	}
+
+	text.sum {
+		text-anchor: end;
 	}
 </style>
