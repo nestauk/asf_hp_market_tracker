@@ -199,7 +199,7 @@
 					<text
 						class='sum'
 						fill={theme.textColor}
-						x={width - geometry.safetyRight}
+						x={geometry.safetyLeft + width - geometry.safetyRight}
 						y={yScale(key) - 10}
 					>
 						{sum}
