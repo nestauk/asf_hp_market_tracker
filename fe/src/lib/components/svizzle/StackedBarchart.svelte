@@ -33,7 +33,7 @@
 		padding: 0.9,
 		safetyBottom: 8,
 		safetyLeft: 8,
-		safetyRight: 24,
+		safetyRight: 8,
 		safetyTop: 8,
 	}
 
@@ -65,7 +65,7 @@
 		}
 		return str;
 	}
-	
+
 	let allKeys;
 	let augmentedItems;
 	let availableLabelWidth;
@@ -190,18 +190,17 @@
 					{@const barScale = barsScaleByKey?.[key] || xScale}
 					<text
 						class='key'
+						fill={theme.textColor}
 						x={geometry.safetyLeft}
 						y={yScale(key) - 10}
-						fill={theme.textColor}
 					>
 						{truncateToPx(key, availableLabelWidth, charWidth)}
 					</text>
 					<text
 						class='sum'
+						fill={theme.textColor}
 						x={width - geometry.safetyRight}
 						y={yScale(key) - 10}
-						fill={theme.textColor}
-						text-anchor='end'
 					>
 						{sum}
 					</text>
@@ -239,5 +238,9 @@
 		grid-template-rows: 1fr;
 		height: 100%;
 		width: 100%;
+	}
+
+	text.sum {
+		text-anchor: end;
 	}
 </style>
