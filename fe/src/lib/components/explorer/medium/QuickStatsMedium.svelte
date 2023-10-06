@@ -1,7 +1,9 @@
 <script>
 	import {setupResizeObserver} from '@svizzle/ui';
 
+	import {coverageTooltips} from '$lib/config/labels.js';
 	import {_staticData} from '$lib/stores/data.js';
+	import {_tooltip, clearTooltip} from '$lib/stores/tooltip.js';
 	import {_viewData, _viewDataCoverage} from '$lib/stores/view.js';
 
 	const {
@@ -99,17 +101,38 @@
 						<rect
 							class='filtered'
 							height={filteredHeight}
+							on:mousemove={({x, y}) => {
+								_tooltip.set({
+									key: coverageTooltips.filtered,
+									x, y
+								})
+							}}
+							on:mouseleave={clearTooltip}
 							width={retreivableWidth}
 						/>
 						<rect
 							class='filteredOut'
 							height={filteredOutHeight}
+							on:mousemove={({x, y}) => {
+								_tooltip.set({
+									key: coverageTooltips.filteredOut,
+									x, y
+								})
+							}}
+							on:mouseleave={clearTooltip}
 							width={retreivableWidth}
 							y={filteredHeight}
 						/>
 						<rect
 							class='unretrievable'
 							height={side}
+							on:mousemove={({x, y}) => {
+								_tooltip.set({
+									key: coverageTooltips.unretrievable,
+									x, y
+								})
+							}}
+							on:mouseleave={clearTooltip}
 							width={unretrievableWidth}
 							x={retreivableWidth}
 						/>

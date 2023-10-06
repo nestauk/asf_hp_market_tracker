@@ -1,6 +1,8 @@
 <script>
 	import {setupResizeObserver} from '@svizzle/ui';
 
+	import {coverageTooltips} from '$lib/config/labels.js';
+	import {_tooltip} from '$lib/stores/tooltip.js';
 	import {_viewDataCoverage} from '$lib/stores/view.js';
 
 	const {
@@ -56,6 +58,13 @@
 					<rect
 						class='filtered'
 						height={filteredHeight}
+						on:touchstart|preventDefault={({targetTouches: [touch]}) => {
+							const {clientX: x, clientY: y} = touch;
+							_tooltip.set({
+								key: coverageTooltips.filtered,
+								x, y
+							})
+						}}
 						width={retreivableWidth}
 					/>
 
@@ -63,6 +72,13 @@
 					<rect
 						class='filteredOut'
 						height={filteredOutHeight}
+						on:touchstart|preventDefault={({targetTouches: [touch]}) => {
+							const {clientX: x, clientY: y} = touch;
+							_tooltip.set({
+								key: coverageTooltips.filteredOut,
+								x, y
+							})
+						}}
 						width={retreivableWidth}
 						y={filteredHeight}
 					/>
@@ -71,6 +87,13 @@
 					<rect
 						class='unretrievable'
 						height={side}
+						on:touchstart|preventDefault={({targetTouches: [touch]}) => {
+							const {clientX: x, clientY: y} = touch;
+							_tooltip.set({
+								key: coverageTooltips.unretrievable,
+								x, y
+							})
+						}}
 						width={unretrievableWidth}
 						x={retreivableWidth}
 					/>

@@ -75,3 +75,9 @@ export const uiTooltips = {
 	numTimeGraph_percentiles: 'Show percentiles over time',
 	numTimeGraph_average: 'Show the trend of the average value',
 }
+
+export const coverageTooltips = {
+	unretrievable: 'The portion of the UK installations lacking the info required by the current view and filters',
+	filteredOut: 'The portion of the usable data that has been filtered out',
+	filtered: 'The portion of the usable data fulfilling the criteria required by current filters (if any)',
+}
