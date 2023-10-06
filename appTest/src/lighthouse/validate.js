@@ -4,7 +4,8 @@ import lighthouse from 'lighthouse';
 import * as chromeLauncher from 'chrome-launcher';
 import Queue from 'queue-promise';
 
-import {lighthouseUrls, urlBases} from '../../../fe/src/lib/config.js';
+import {lighthouseUrls} from '../../../fe/src/lib/config.js';
+import {urlBases} from '../config.js';
 
 const queue = new Queue({
 	concurrent: 1
@@ -50,7 +51,7 @@ const auditURL = async (id, url) => {
 		const reportHtml = runnerResult.report.replaceAll(urlBases.development, urlBases.production);
 	
 		// eslint-disable-next-line no-sync
-		fs.writeFileSync(`static/audits/lighthouse/${id}.html`, reportHtml);
+		fs.writeFileSync(`../fe/static/audits/lighthouse/${id}.html`, reportHtml);
 	
 		// `.lhr` is the Lighthouse Result as a JS object
 		console.log(
@@ -66,7 +67,8 @@ const auditURL = async (id, url) => {
 		console.error('Error!', e);
 	}
 	finally {
-		await chrome.kill();
+		// await chrome.kill();
+		await chromeLauncher.killAll();
 		console.log('Killed chrome.');
 	}
 }
