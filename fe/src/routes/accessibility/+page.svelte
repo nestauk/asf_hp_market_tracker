@@ -4,7 +4,7 @@
 	import * as _ from 'lamb';
 	import {onMount} from 'svelte';
 
-	import A from '$lib/components/mdsvex/A.svelte';
+	import A from '$lib/components/mdsvex/a.svelte';
 	import H2 from '$lib/components/mdsvex/h2.svelte';
 	import Ul from '$lib/components/mdsvex/ul.svelte';
 	// import P from '$lib/components/mdsvex/p.svelte';
