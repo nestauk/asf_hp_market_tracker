@@ -188,6 +188,8 @@
 			<svg {width} {height}>
 				{#each augmentedItems as {key, values, sum}}
 					{@const barScale = barsScaleByKey?.[key] || xScale}
+
+					<!-- label -->
 					<text
 						class='key'
 						fill={theme.textColor}
@@ -196,6 +198,8 @@
 					>
 						{truncateToPx(key, availableLabelWidth, charWidth)}
 					</text>
+
+					<!-- number -->
 					<text
 						class='sum'
 						fill={theme.textColor}
@@ -204,6 +208,8 @@
 					>
 						{sum}
 					</text>
+
+					<!-- bar rects -->
  					{#each values as {key: subKey, value, start}}
 						<rect
 							fill={groupToColorFn(subKey)}
