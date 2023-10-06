@@ -6,7 +6,7 @@
 
 	import A from '$lib/components/mdsvex/A.svelte';
 	import H2 from '$lib/components/mdsvex/h2.svelte';
-	import UL from '$lib/components/mdsvex/ul.svelte';
+	import Ul from '$lib/components/mdsvex/ul.svelte';
 	// import P from '$lib/components/mdsvex/p.svelte';
 	import {
 		lighthouseUrls,
@@ -117,7 +117,7 @@
 
 		<H2>Quality audits</H2>
 		<menu class='tabs'>
-			<UL>
+			<Ul>
 				{#each reportNames as id}
 					<li>
 						<A
@@ -127,7 +127,7 @@
 						</A>
 					</li>
 				{/each}
-			</UL>
+			</Ul>
 		</menu>
 	</section>
 </main>
