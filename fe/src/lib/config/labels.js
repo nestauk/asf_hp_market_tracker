@@ -79,5 +79,5 @@ export const uiTooltips = {
 export const coverageTooltips = {
 	unretrievable: 'The portion of the UK installations lacking the info required by the current view and filters',
 	filteredOut: 'The portion of the usable data that has been filtered out',
-	filtered: 'The portion of the usable data fulfilling the criteria required by current filters (if any)',
+	filtered: 'The portion of the usable data fulfilling the criteria required by current filters',
 }

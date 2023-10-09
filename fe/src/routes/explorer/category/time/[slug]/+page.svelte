@@ -123,7 +123,7 @@
 			areas: ['bottom']
 		},
 		{
-			label: $_currentMetricTitle,
+			label: 'Number of installations',
 			areas: ['left']
 		},
 	];

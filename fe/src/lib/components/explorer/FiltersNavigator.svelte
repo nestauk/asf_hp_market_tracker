@@ -22,6 +22,12 @@
 		}[id];
 
 	const hoveredId = id => {
+		if (id === 'installation_date') {
+			clearTooltip();
+
+			return;
+		}
+
 		const label = idToLabel(id);
 		const key = `Scroll to: ${label}`;
 

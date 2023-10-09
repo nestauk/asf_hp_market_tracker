@@ -15,6 +15,7 @@
 		setupResizeObserver,
 		StyleSensor
 	} from '@svizzle/ui';
+	import {isNotNil} from '@svizzle/utils';
 	import {beforeUpdate, onMount, tick} from 'svelte';
 
 	import {page as _page} from '$app/stores';
@@ -187,7 +188,7 @@
 		>
 			{#if $_tooltip.key}
 				{$_tooltip.key}
-				{#if $_tooltip.value}
+				{#if isNotNil($_tooltip.value)}
 					: {$_tooltip.value}
 				{/if}
 			{:else if $_tooltip.component}
