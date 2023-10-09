@@ -24,6 +24,8 @@
 	const valueAccessor = getDocCount;
 	const filter = _.filterWith(_.pipe([valueAccessor, isNotNil]));
 
+	let heroKey;
+
 	const onLeafHovered = ({detail: {data, x, y}}) => {
 		$_tooltip = {
 			key: data.key,
@@ -31,6 +33,15 @@
 			x,
 			y,
 		};
+
+		// barchart
+		heroKey = data.key;
+	};
+	const onLeafExited = () => {
+		clearTooltip();
+
+		// barchart
+		heroKey = null;
 	};
 
 	/* barchart */
@@ -123,7 +134,7 @@
 						{keyToColorLabelFn}
 						{valueAccessor}
 						on:leafHovered={onLeafHovered}
-						on:leafExited={clearTooltip}
+						on:leafExited={onLeafExited}
 					/>
 				</div>
 			</div>
@@ -131,8 +142,10 @@
 				<div class='barchart'>
 					<BarchartVDiv
 						{keyToColorFn}
+						{heroKey}
 						items={barchartItems}
 						shouldResetScroll={true}
+						shouldScrollToHeroKey={true}
 						theme={$_barchartsTheme}
 					/>
 				</div>

@@ -48,6 +48,7 @@
 	let colorScale;
 	let doDraw = false;
 	let getFeatureState;
+	let heroKey;
 	let isSingleValue;
 	let itemsIndex;
 	let keyToColorFn;
@@ -63,14 +64,21 @@
 		}
 		if (item) {
 			const {key} = item;
+
 			$_tooltip = {
 				key,
 				value: formatFn(valueAccessor(item)),
 				x,
 				y,
 			};
+
+			// barchart
+			heroKey = key;
 		} else {
 			clearTooltip();
+
+			// barchart
+			heroKey = null;
 		}
 	}
 
@@ -288,9 +296,11 @@
 
 				<BarchartVDiv
 					{formatFn}
+					{heroKey}
 					{title}
 					items={barchartItems}
 					shouldResetScroll={true}
+					shouldScrollToHeroKey={true}
 					theme={$_barchartsTheme}
 					valueToColorFn={colorScale}
 				/>

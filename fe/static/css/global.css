@@ -92,12 +92,6 @@ a {
 	--colorAuxText: #222;
 	--colorBackdropSensor: rgba(0, 0, 0, 0.25);
 	--colorBackground: white; /* back to --colorMain? */
-	--colorBarchartHoveredItemBackground: var(--colorAux);
-	--colorBarchartHoveredItemBar: #333;
-	--colorBarchartHoveredItemText: var(--colorAuxText);
-	--colorBarchartItemBar: #333;
-	--colorBarchartSelectedItemBackground: #fff4e5;
-	--colorBarchartSelectedItemText: #333;
 	--colorBorder: #ccc;
 	--colorBorderAux: #333; /* FIXME needed by a11y menu */
 	--colorIcon: #333;
@@ -128,6 +122,18 @@ a {
 	--colorWarningBackground: orange;
 	--colorWarningBorder: darkorange;
 	--colorWarningText: white;
+
+	/* bar chart */
+
+	--colorBarchartHeroItemBackground: var(--colorAux);
+	--colorBarchartHeroItemBar: #333;
+	--colorBarchartHeroItemText: var(--colorAuxText);
+	--colorBarchartHoveredItemBackground: var(--colorAux);
+	--colorBarchartHoveredItemBar: #333;
+	--colorBarchartHoveredItemText: var(--colorAuxText);
+	--colorBarchartItemBar: #333;
+	--colorBarchartSelectedItemBackground: #fff4e5;
+	--colorBarchartSelectedItemText: #333;
 
 	/* quick stats */
 
@@ -173,12 +179,6 @@ a {
 	--colorAuxText: #eee;
 	--colorBackdropSensor: rgba(255, 255, 255, 0.25);
 	--colorBackground: #111; /* back to --colorMain? */
-	--colorBarchartHoveredItemBackground: var(--colorAux);
-	--colorBarchartHoveredItemBar: white;
-	--colorBarchartHoveredItemText: var(--colorAuxText);
-	--colorBarchartItemBar: white;
-	--colorBarchartSelectedItemBackground: #002c66;
-	--colorBarchartSelectedItemText: white;
 	--colorBorder: #444; /* FIXME needed by a11y menu */
 	--colorBorderAux: #ccc; /* FIXME needed by a11y menu */
 	--colorIcon: #ccc;
@@ -209,6 +209,18 @@ a {
 	--colorWarningBackground: rgb(117, 76, 0);
 	--colorWarningBorder: rgb(109, 60, 1);
 	--colorWarningText: #333;
+
+	/* bar chart */
+
+	--colorBarchartHeroItemBackground: var(--colorAux);
+	--colorBarchartHeroItemBar: white;
+	--colorBarchartHeroItemText: var(--colorAuxText);
+	--colorBarchartHoveredItemBackground: var(--colorAux);
+	--colorBarchartHoveredItemBar: white;
+	--colorBarchartHoveredItemText: var(--colorAuxText);
+	--colorBarchartItemBar: white;
+	--colorBarchartSelectedItemBackground: #002c66;
+	--colorBarchartSelectedItemText: white;
 
 	/* quick stats */
 
