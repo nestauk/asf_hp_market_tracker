@@ -107,6 +107,8 @@
 		)
 	]);
 
+	let heroKey;
+
 	const onMapFeaturesHovered = ({detail: {features, x, y}}) => {
 		let featureName;
 		if (features.length > 0) {
@@ -127,8 +129,14 @@
 				x,
 				y,
 			};
+
+			// barchart
+			heroKey = key;
 		} else {
 			clearTooltip();
+
+			// barchart
+			heroKey = null;
 		}
 	}
 
@@ -347,8 +355,10 @@
 
 				<BarchartVDiv
 					{formatFn}
+					{heroKey}
 					items={currentItems}
 					shouldResetScroll={true}
+					shouldScrollToHeroKey={true}
 					theme={$_barchartsTheme}
 					valueToColorFn={colorScale}
 				/>
