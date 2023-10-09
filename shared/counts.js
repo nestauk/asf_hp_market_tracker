@@ -71,7 +71,7 @@ export const counts = [
 	},
 	{
 		entity: 'Installation companies',
-		formatSpecifier: '.3s',
+		formatSpecifier: '.2s',
 		geoPrefix: 'installer',
 		id: 'installers_certified',
 		label: 'Number of certified installers',
@@ -80,7 +80,7 @@ export const counts = [
 	},
 	{
 		entity: 'Installation companies',
-		formatSpecifier: '.3s',
+		formatSpecifier: '.2s',
 		geoPrefix: 'installer',
 		id: 'installers_dropped_certifications',
 		label: 'Number of expired certificates',
@@ -89,7 +89,7 @@ export const counts = [
 	},
 	{
 		entity: 'Installation companies',
-		formatSpecifier: '.3s',
+		formatSpecifier: '.2s',
 		geoPrefix: 'installer',
 		id: 'installers_new_certifications',
 		label: 'Number of new/renewed certificates',

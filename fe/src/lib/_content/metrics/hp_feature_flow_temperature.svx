@@ -4,4 +4,4 @@ Flow temperature values (in °C).
 
 #### Flow temperature
 
-Flow temperature at which heat pump is set (in °C).
+The flow temperature at which the heat pump is set (in °C).
