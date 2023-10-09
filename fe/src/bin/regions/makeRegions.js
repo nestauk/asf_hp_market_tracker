@@ -11,6 +11,7 @@ import {
 	splitByDot,
 } from '@svizzle/utils';
 import getBBox from '@turf/bbox';
+import getCentroid from '@turf/centroid';
 import * as _ from 'lamb';
 
 const IN_DIR_PATH_GEOJSONS = '../be/tiles/geojson';
@@ -71,13 +72,14 @@ The expected features' `properties` only contain the id:
 	]
 }
 */
-const getBboxesIndexWith = idKey => _.pipe([
+const getGeometryIndexWith = idKey => _.pipe([
 	_.getKey('features'),
 	_.mapWith(feature => {
 		const id = feature.properties[idKey];
 		const bbox = getBBox(feature); // [W, S, E, N]
+		const centroid = getCentroid(feature).geometry.coordinates;
 
-		return [id, {bbox}];
+		return [id, {bbox, centroid}];
 	}),
 	_.fromPairs
 ]);
@@ -91,11 +93,11 @@ const processRegions = ([lookup, geojsonByRegionType]) => {
 			]);
 			const regionNames = getRegionNames(lookup);
 
-			const getBboxesIndex = getBboxesIndexWith(idKey);
-			const bboxes = getBboxesIndex(geojsonByRegionType[regionType]);
+			const getGeometryIndex = getGeometryIndexWith(idKey);
+			const geometryIndex = getGeometryIndex(geojsonByRegionType[regionType]);
 
 			const regions = _.index(
-				_.values(mergeWithMerge(bboxes, regionNames)),
+				_.values(mergeWithMerge(geometryIndex, regionNames)),
 				_.getKey('name')
 			);
 

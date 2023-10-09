@@ -6,6 +6,7 @@
 		"@svizzle/legend": "^0.4.5",
 		"@svizzle/ui": "^0.10.0",
 		"@svizzle/utils": "^0.20.0",
+		"@turf/centroid": "^6.5.0",
 		"d3-array": "^3.2.4",
 		"d3-color": "^3.1.0",
 		"d3-format": "^3.1.0",

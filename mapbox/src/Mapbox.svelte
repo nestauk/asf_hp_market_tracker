@@ -23,7 +23,7 @@
 
 	const _bbox = writable($_bbox_WS_EN);
 	const _map = writable();
-	const _projectFn = writable(x => x);
+	export const _projectFn = writable(x => x);
 
 	setContext('Mapbox', {
 		_bbox,
@@ -43,9 +43,9 @@
 	export let isAnimated = true;
 	export let isDblClickEnabled = true;
 	export let isInteractive = true;
-	export let reactiveLayers = [];
+	export let reactiveLayersIds = [];
 	export let style;
-	export let visibleLayers = [];
+	export let visibleLayersIds = [];
 	export let withScaleControl = true;
 	export let withZoomControl = true;
 
@@ -55,8 +55,8 @@
 	$: _bbox_WS_EN = _bbox_WS_EN || writable([[-180, -90], [180, 90]]);
 	$: _bbox_WSEN = _bbox_WSEN || derived(_bbox_WS_EN, bbox_WS_EN => bbox_WS_EN.length ?? ws_en_to_wsen(bbox_WS_EN));
 	$: _zoom = _zoom || writable(0);
-	$: visibleLayers = visibleLayers || [];
-	$: reactiveLayers = reactiveLayers || [];
+	$: visibleLayersIds = visibleLayersIds || [];
+	$: reactiveLayersIds = reactiveLayersIds || [];
 
 	/* local vars */
 
@@ -68,20 +68,20 @@
 
 	/* updating layers */
 
-	const updateLayers = (layers_, reactiveLayers_, getFeatureState_) => {
+	const updateLayers = (layers_, reactiveLayersIds_, getFeatureState_) => {
 		if (!layers_) {
 			return;
 		}
 		layers_.forEach(layer => {
-			if (reactiveLayers_.includes(layer.id)) {
+			if (reactiveLayersIds_.includes(layer.id)) {
 				map
-				.querySourceFeatures(layer.source, {sourceLayer: layer.id})
+				.querySourceFeatures(layer.source, {sourceLayer: layer['source-layer']})
 				.forEach(feature => {
 					const state = getFeatureState_(feature);
 					state && map.setFeatureState({
 						id: feature.id,
 						source: layer.source,
-						sourceLayer: layer.id,
+						sourceLayer: layer['source-layer'],
 					}, state);
 				});
 			}
@@ -89,14 +89,14 @@
 			map?.setLayoutProperty(
 				layer.id,
 				'visibility',
-				visibleLayers.includes(layer.id) ? 'visible' : 'none'
+				visibleLayersIds.includes(layer.id) ? 'visible' : 'none'
 			);
 		});
 	}
 
 	$: map?.setStyle(style);
 	$: layers = $_map && style && $_map?.getStyle().layers;
-	$: updateLayers(layers, reactiveLayers, getFeatureState);
+	$: updateLayers(layers, reactiveLayersIds, getFeatureState);
 	$: {
 		eventsHandlersRegistry.forEach(
 			({type, targetLayer, handler}) => {
@@ -298,7 +298,7 @@
 		})
 		.on('data', () => {
 			layers = $_map && style && $_map?.getStyle().layers;
-			updateLayers(layers, reactiveLayers, getFeatureState);
+			updateLayers(layers, reactiveLayersIds, getFeatureState);
 		});
 
 		map.touchZoomRotate.disableRotation();

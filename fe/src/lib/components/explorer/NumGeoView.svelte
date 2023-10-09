@@ -17,8 +17,14 @@
 	import GridRows from '$lib/components/svizzle/GridRows.svelte';
 	import KeysLegend from '$lib/components/svizzle/legend/KeysLegend.svelte';
 	import Scroller from '$lib/components/svizzle/Scroller.svelte';
+	import {setupGeometryObserver}
+		from '$lib/components/svizzle/ui/geometryObserver.js';
 	import View from '$lib/components/viewports/View.svelte';
-	import {MAPBOXGL_ACCESSTOKEN as accessToken} from '$lib/config/map.js';
+	import {
+		heroRegionStrokeWidth,
+		MAPBOXGL_ACCESSTOKEN as accessToken,
+	} from '$lib/config/map.js';
+	import regionsByType from '$lib/data/regions.js';
 	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {
 		_featureNameId,
@@ -44,6 +50,7 @@
 	export let title;
 	export let valueAccessor;
 
+	let _projectFn;
 	let barchartItems;
 	let colorScale;
 	let doDraw = false;
@@ -55,6 +62,11 @@
 	let legendBins;
 	let legendKeys;
 	let regionType;
+
+	const {
+		_geometry: _mapGeometry,
+		geometryObserver
+	} = setupGeometryObserver();
 
 	const onMapFeaturesHovered = ({detail: {features, x, y}}) => {
 		let item;
@@ -82,6 +94,23 @@
 		}
 	}
 
+	const onBarEntered = ({detail: {id}}) => {
+		heroKey = id;
+
+		const centroid = regionsByType[regionType]?.regions[id]?.centroid;
+		const {x, y} = $_projectFn(centroid);
+
+		$_tooltip = {
+			key: id,
+			x: $_mapGeometry.left + x,
+			y: $_mapGeometry.top + y,
+		};
+	}
+	const onBarExited = ({detail: {id}}) => {
+		heroKey = null;
+	}
+
+	$: regionType = $_selection.regionType;
 	$: regionKindStyle = makeStyleVars($_regionKindTheme);
 	$: amountOfBins = amountOfBins || 5;
 	$: if (items?.length > 0) {
@@ -121,15 +150,15 @@
 
 		/* map */
 
-		regionType = $_selection.regionType;
-
 		itemsIndex = _.index(items, getKey);
 		getFeatureState = feature => {
 			const {properties: {[$_featureNameId]: featureName}} = feature;
 			const item = itemsIndex[featureName];
+			const isHero = heroKey === featureName;
 			const featureState = {
 				fill: item ? colorScale(valueAccessor(item)) : null,
-				stroke: item ? $_currThemeVars['--colorMapStrokeSelected'] : null
+				lineWidth: isHero ? heroRegionStrokeWidth : null,
+				stroke: item ? $_currThemeVars['--colorMapStrokeSelected'] : null,
 			}
 
 			return featureState;
@@ -169,9 +198,7 @@
 					/>
 				{/if}
 
-				<div
-					class='col1'
-				>
+				<div class='col1'>
 					<Mapbox
 						{_zoom}
 						{accessToken}
@@ -180,9 +207,9 @@
 						isAnimated={false}
 						isInteractive={false}
 						on:mapFeaturesTouchStarted={onMapFeaturesHovered}
-						reactiveLayers={[regionType]}
+						reactiveLayersIds={[regionType]}
 						style={$_mapStyle}
-						visibleLayers={['nuts21_0', regionType]}
+						visibleLayersIds={['nuts21_0', regionType]}
 						withScaleControl={false}
 						withZoomControl={false}
 					/>
@@ -275,30 +302,39 @@
 				</div>
 
 				<div class='col1'>
-					<Mapbox
-						{_zoom}
-						{accessToken}
-						{getFeatureState}
-						bounds={$_selectedBbox}
-						isAnimated={false}
-						isInteractive={false}
-						on:mapFeaturesHovered={onMapFeaturesHovered}
-						reactiveLayers={[regionType]}
-						style={$_mapStyle}
-						visibleLayers={['nuts21_0', regionType]}
-						withScaleControl={false}
-						withZoomControl={false}
-					/>
-					<span style={regionKindStyle}>
-						{$_currentMetric.geoPrefix} regions
-					</span>
+					<div
+						class='map'
+						use:geometryObserver
+					>
+						<Mapbox
+							{_zoom}
+							{accessToken}
+							{getFeatureState}
+							bind:_projectFn
+							bounds={$_selectedBbox}
+							isAnimated={false}
+							isInteractive={false}
+							on:mapFeaturesHovered={onMapFeaturesHovered}
+							reactiveLayersIds={[regionType, `${regionType}_line`]}
+							style={$_mapStyle}
+							visibleLayersIds={['nuts21_0', regionType, `${regionType}_line`]}
+							withScaleControl={false}
+							withZoomControl={false}
+						/>
+						<span style={regionKindStyle}>
+							{$_currentMetric.geoPrefix} regions
+						</span>
+					</div>
 				</div>
 
 				<BarchartVDiv
 					{formatFn}
 					{heroKey}
 					{title}
+					isInteractive={true}
 					items={barchartItems}
+					on:entered={onBarEntered}
+					on:exited={onBarExited}
 					shouldResetScroll={true}
 					shouldScrollToHeroKey={true}
 					theme={$_barchartsTheme}
@@ -328,11 +364,16 @@
 	}
 
 	.col1 {
-		position: relative;
 		height: 100%;
+		overflow: hidden;
 		width: 100%;
 	}
-	.col1 > span {
+	.map {
+		height: 100%;
+		position: relative;
+		width: 100%;
+	}
+	.map > span {
 		background-color: var(--backgroundColor);
 		border: var(--border);
 		bottom: 0;

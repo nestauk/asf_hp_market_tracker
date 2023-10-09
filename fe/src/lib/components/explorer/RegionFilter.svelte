@@ -151,9 +151,9 @@
 				isAnimated={false}
 				isDblClickEnabled={false}
 				isInteractive={true}
-				reactiveLayers={[regionType]}
+				reactiveLayersIds={[regionType]}
 				style={$_mapStyle}
-				visibleLayers={['nuts21_0', regionType]}
+				visibleLayersIds={['nuts21_0', regionType]}
 				withScaleControl={false}
 				withZoomControl={false}
 			/>

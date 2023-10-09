@@ -18,7 +18,7 @@ export const _featureNameId = derived(
 
 /* style */
 
-export const _baseLayers = derived(
+const _baseLayers = derived(
 	_currThemeVars,
 	currThemeVars => [
 		{
@@ -34,7 +34,7 @@ export const _baseLayers = derived(
 	]
 );
 
-const _defaultLayerPaint = derived(
+const _fillLayerPaint = derived(
 	_currThemeVars,
 	currThemeVars => ({
 		'fill-color': [
@@ -49,76 +49,141 @@ const _defaultLayerPaint = derived(
 		],
 	})
 );
-export const _regionLayers = derived(
-	_defaultLayerPaint,
-	defaultLayerPaint => [
+const _fillLayers = derived(
+	_fillLayerPaint,
+	fillLayerPaint => [
 		{
 			id: 'country21',
 			source: 'protomaps',
 			'source-layer': 'country21',
 			type: 'fill',
-			paint: defaultLayerPaint
+			paint: fillLayerPaint
 		},
 		{
 			id: 'itl21_1',
 			source: 'protomaps',
 			'source-layer': 'itl21_1',
 			type: 'fill',
-			paint: defaultLayerPaint
+			paint: fillLayerPaint
 		},
 		{
 			id: 'itl21_2',
 			source: 'protomaps',
 			'source-layer': 'itl21_2',
 			type: 'fill',
-			paint: defaultLayerPaint
+			paint: fillLayerPaint
 		},
 		{
 			id: 'itl21_3',
 			source: 'protomaps',
 			'source-layer': 'itl21_3',
 			type: 'fill',
-			paint: defaultLayerPaint
+			paint: fillLayerPaint
 		},
 		{
 			id: 'lad21',
 			source: 'protomaps',
 			'source-layer': 'lad21',
 			type: 'fill',
-			paint: defaultLayerPaint
+			paint: fillLayerPaint
 		},
-		{
-			id: 'lsoa11',
-			source: 'protomaps',
-			'source-layer': 'lsoa11',
-			type: 'fill',
-			paint: defaultLayerPaint
-		},
-		{
-			id: 'msoa11',
-			source: 'protomaps',
-			'source-layer': 'msoa11',
-			type: 'fill',
-			paint: defaultLayerPaint
-		},
+		// {
+		// 	id: 'lsoa11',
+		// 	source: 'protomaps',
+		// 	'source-layer': 'lsoa11',
+		// 	type: 'fill',
+		// 	paint: fillLayerPaint
+		// },
+		// {
+		// 	id: 'msoa11',
+		// 	source: 'protomaps',
+		// 	'source-layer': 'msoa11',
+		// 	type: 'fill',
+		// 	paint: fillLayerPaint
+		// },
 	]
 );
 
+const _lineLayerPaint = derived(
+	_currThemeVars,
+	currThemeVars => ({
+		'line-width': [
+			'case',
+			['!=', ['feature-state', 'lineWidth'], null], ['feature-state', 'lineWidth'],
+			0
+		],
+		'line-color': currThemeVars['--colorMapHeroStroke'],
+	})
+);
+const _lineLayers = derived(
+	_lineLayerPaint,
+	lineLayerPaint => [
+	{
+		id: 'country21_line',
+		source: 'protomaps',
+		'source-layer': 'country21',
+		type: 'line',
+		paint: lineLayerPaint
+	},
+	{
+		id: 'itl21_1_line',
+		source: 'protomaps',
+		'source-layer': 'itl21_1',
+		type: 'line',
+		paint: lineLayerPaint
+	},
+	{
+		id: 'itl21_2_line',
+		source: 'protomaps',
+		'source-layer': 'itl21_2',
+		type: 'line',
+		paint: lineLayerPaint
+	},
+	{
+		id: 'itl21_3_line',
+		source: 'protomaps',
+		'source-layer': 'itl21_3',
+		type: 'line',
+		paint: lineLayerPaint
+	},
+	{
+		id: 'lad21_line',
+		source: 'protomaps',
+		'source-layer': 'lad21',
+		type: 'line',
+		paint: lineLayerPaint
+	},
+	// {
+	// 	id: 'lsoa11_line',
+	// 	source: 'protomaps',
+	// 	'source-layer': 'lsoa11',
+	// 	type: 'line',
+	// 	paint: lineLayerPaint
+	// },
+	// {
+	// 	id: 'msoa11_line',
+	// 	source: 'protomaps',
+	// 	'source-layer': 'msoa11',
+	// 	type: 'line',
+	// 	paint: lineLayerPaint
+	// },
+]);
+
 export const _mapStyle = derived(
-	[_baseLayers, _regionLayers],
-	([baseLayers, regionLayers]) => ({
-		version: 8,
+	[_baseLayers, _fillLayers, _lineLayers],
+	([baseLayers, fillLayers, lineLayers]) => ({
 		layers: [
 			...baseLayers,
-			...regionLayers
+			...fillLayers,
+			...lineLayers,
 		],
-		// sources
 		sources: {
 			protomaps: {
 				type: 'vector',
 				tiles: ['https://d21cr7yltjd5j0.cloudfront.net/nuts21_0_country21_itl21_1_itl21_2_itl21_3_lad21_msoa11_lsoa11/{z}/{x}/{y}.mvt'],
 				maxzoom: 14
 			}
-		}
+		},
+		version: 8,
 	})
 );

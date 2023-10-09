@@ -23,9 +23,15 @@
 	import GridColumns from '$lib/components/svizzle/GridColumns.svelte';
 	import GridRows from '$lib/components/svizzle/GridRows.svelte';
 	import Scroller from '$lib/components/svizzle/Scroller.svelte';
+	import {setupGeometryObserver}
+		from '$lib/components/svizzle/ui/geometryObserver.js';
 	import View from '$lib/components/viewports/View.svelte';
 	import XorNavigator from '$lib/components/svizzle/ui/XorNavigator.svelte';
-	import {MAPBOXGL_ACCESSTOKEN as accessToken} from '$lib/config/map.js';
+	import {
+		heroRegionStrokeWidth,
+		MAPBOXGL_ACCESSTOKEN as accessToken,
+	} from '$lib/config/map.js';
+	import regionsByType from '$lib/data/regions.js';
 	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {
 		_featureNameId,
@@ -54,6 +60,13 @@
 	export let makeDomain;
 	export let valueAccessor;
 	export let valueAccessor2;
+
+	let _projectFn;
+
+	const {
+		_geometry: _mapGeometry,
+		geometryObserver
+	} = setupGeometryObserver();
 
 	const getOverallExtent = _.pipe([
 		_.flatMapWith(
@@ -140,6 +153,22 @@
 		}
 	}
 
+	const onBarEntered = ({detail: {id}}) => {
+		heroKey = id;
+
+		const centroid = regionsByType[regionType]?.regions[id]?.centroid;
+		const {x, y} = $_projectFn(centroid);
+
+		$_tooltip = {
+			key: id,
+			x: $_mapGeometry.left + x,
+			y: $_mapGeometry.top + y,
+		};
+	}
+	const onBarExited = () => {
+		heroKey = null;
+	}
+
 	let colorScale;
 	let currentItems;
 	let currentKey;
@@ -152,6 +181,7 @@
 
 	const onKeyChange = ({detail}) => {currentKey = detail};
 
+	$: regionType = $_selection.regionType;
 	$: regionKindStyle = makeStyleVars($_regionKindTheme);
 	$: sortItems = $_selection.categsGeoSortBy === 'regionName'
 		? _.sortWith([getKey])
@@ -199,15 +229,15 @@
 
 		/* map */
 
-		regionType = $_selection.regionType;
-
 		itemsIndex = _.index(currentItems, getKey);
 		getFeatureState = feature => {
 			const {properties: {[$_featureNameId]: featureName}} = feature;
 			const item = itemsIndex[featureName];
+			const isHero = heroKey === featureName;
 			const featureState = {
 				fill: item ? colorScale(getValue(item)) : null,
-				stroke: item ? $_currThemeVars['--colorMapStrokeSelected'] : null
+				lineWidth: isHero ? heroRegionStrokeWidth : null,
+				stroke: item ? $_currThemeVars['--colorMapStrokeSelected'] : null,
 			}
 
 			return featureState;
@@ -247,9 +277,9 @@
 						isAnimated={false}
 						isInteractive={false}
 						on:mapFeaturesTouchStarted={onMapFeaturesHovered}
-						reactiveLayers={[regionType]}
+						reactiveLayersIds={[regionType]}
 						style={$_mapStyle}
-						visibleLayers={['nuts21_0', regionType]}
+						visibleLayersIds={['nuts21_0', regionType]}
 						withScaleControl={false}
 						withZoomControl={false}
 					/>
@@ -332,18 +362,22 @@
 				</div>
 
 				<div class='col1'>
-					<div class='map'>
+					<div
+						class='map'
+						use:geometryObserver
+					>
 						<Mapbox
 							{_zoom}
 							{accessToken}
 							{getFeatureState}
+							bind:_projectFn
 							bounds={$_selectedBbox}
 							isAnimated={false}
 							isInteractive={false}
 							on:mapFeaturesHovered={onMapFeaturesHovered}
-							reactiveLayers={[regionType]}
+							reactiveLayersIds={[regionType, `${regionType}_line`]}
 							style={$_mapStyle}
-							visibleLayers={['nuts21_0', regionType]}
+							visibleLayersIds={['nuts21_0', regionType, `${regionType}_line`]}
 							withScaleControl={false}
 							withZoomControl={false}
 						/>
@@ -356,7 +390,10 @@
 				<BarchartVDiv
 					{formatFn}
 					{heroKey}
+					isInteractive={true}
 					items={currentItems}
+					on:entered={onBarEntered}
+					on:exited={onBarExited}
 					shouldResetScroll={true}
 					shouldScrollToHeroKey={true}
 					theme={$_barchartsTheme}

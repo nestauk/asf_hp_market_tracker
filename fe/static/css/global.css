@@ -168,6 +168,7 @@ a {
 
 	--colorMapFillNuts: #eee;
 	--colorMapStrokeSelected: black;
+	--colorMapHeroStroke: #333;
 }
 
 .themeDark {
@@ -233,7 +234,7 @@ a {
 
 	--colorTimelineActiveBinFill: #333;
 	--colorTimelineActiveBinStroke: #ccc;
-	--colorTimelineInactiveBinFill: black;
+	--colorTimelineInactiveBinFill: #333;
 	--colorTimelineInactiveBinStroke: #555;
 
 	/* cat filters */
@@ -254,5 +255,6 @@ a {
 	/* maps */
 
 	--colorMapFillNuts: #eee;
-	--colorMapStrokeSelected: black;
+	--colorMapStrokeSelected: #333;
+	--colorMapHeroStroke: white;
 }
