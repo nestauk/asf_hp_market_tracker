@@ -1,6 +1,5 @@
 <script>
 	import {scaleOrdinal} from 'd3-scale';
-	import {interpolateSpectral as interpolateColor} from 'd3-scale-chromatic';
 	import * as _ from 'lamb';
 
 	import GridColumns from '$lib/components/svizzle/GridColumns.svelte';
@@ -8,6 +7,7 @@
 	import Scroller from '$lib/components/svizzle/Scroller.svelte';
 	import KeysLegend from '$lib/components/svizzle/legend/KeysLegend.svelte';
 	import StatsTrends from '$lib/components/svizzle/trends/StatsTrends.svelte';
+	import {interpolateColor} from '$lib/config/colors.js';
 	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {_framesTheme} from '$lib/stores/theme.js';
 

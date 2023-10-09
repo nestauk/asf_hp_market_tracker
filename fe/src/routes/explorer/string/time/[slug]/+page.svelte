@@ -6,7 +6,6 @@
 		getValues,
 	} from '@svizzle/utils';
 	import {scaleOrdinal} from 'd3-scale';
-	import {interpolateSpectral as interpolateColor} from 'd3-scale-chromatic';
 	import * as _ from 'lamb';
 
 	import {page as _page} from '$app/stores';
@@ -20,6 +19,7 @@
 	import Scroller from '$lib/components/svizzle/Scroller.svelte';
 	import StreamGraph from '$lib/components/svizzle/trends/StreamGraph.svelte';
 	import Trends from '$lib/components/svizzle/trends/Trends.svelte';
+	import {interpolateColor} from '$lib/config/colors.js';
 	import {intervalToAxisLabel} from '$lib/config/labels.js';
 	import View from '$lib/components/viewports/View.svelte';
 	import {_isSmallScreen} from '$lib/stores/layout.js';

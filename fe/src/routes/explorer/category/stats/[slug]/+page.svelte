@@ -3,7 +3,6 @@
 	import {applyFnMap, getKey, getValue, isNotNil} from '@svizzle/utils';
 	import {hsl} from 'd3-color';
 	import {scaleOrdinal} from 'd3-scale';
-	import {interpolateSpectral as interpolateColor} from 'd3-scale-chromatic';
 	import * as _ from 'lamb';
 
 	import {page as _page} from '$app/stores';
@@ -12,6 +11,7 @@
 	import GridRows from '$lib/components/svizzle/GridRows.svelte';
 	import Treemap from '$lib/components/svizzle/Treemap.svelte';
 	import View from '$lib/components/viewports/View.svelte';
+	import {interpolateColor} from '$lib/config/colors.js';
 	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {_currentMetric} from '$lib/stores/navigation.js';
 	import {_barchartsTheme} from '$lib/stores/theme.js';

@@ -1,11 +1,11 @@
 <script>
 	import {applyFnMap, getKey, getValue, isNotNil} from '@svizzle/utils';
 	import {extent} from 'd3-array';
-	import {interpolateYlGnBu as interpolateColor} from 'd3-scale-chromatic';
 	import * as _ from 'lamb';
 
 	import {page as _page} from '$app/stores';
 	import NumGeoView from '$lib/components/explorer/NumGeoView.svelte';
+	import {interpolateColor} from '$lib/config/colors.js';
 	import {_viewCache} from '$lib/stores/data.js';
 	import {_currentMetric} from '$lib/stores/navigation.js';
 	import {_isViewReady, _viewData} from '$lib/stores/view.js';
