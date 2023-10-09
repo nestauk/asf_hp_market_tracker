@@ -7,6 +7,7 @@
 		getValue,
 		getValues,
 		inclusiveRange,
+		isIterableLongerThan1,
 	} from '@svizzle/utils';
 	import {scaleLinear, scalePoint, scaleTime} from 'd3-scale';
 	import {line, curveMonotoneX} from 'd3-shape';
@@ -22,6 +23,7 @@
 
 	const defaultGeometry = {
 		dotRadius: 2,
+		heroDotRadius: 4,
 		safetyBottom: 20,
 		safetyLeft: 20,
 		safetyRight: 20,
@@ -160,6 +162,11 @@
 	$: minValue = getMinValue(allData);
 	$: minValueSign = Math.sign(minValue);
 
+	$: doHighlightHeroCurve = isIterableLongerThan1(trends);
+	$: heroCurveValues = hero
+		?	_.find(trends, _.pipe([getKey, _.is(hero.trendKey)]))?.values
+		: [];
+
 	let yDelta;
 	let yDomain;
 	let yTicks;
@@ -237,6 +244,7 @@
 			.x(d => xScale(getKey(d)))
 			.y(d => yScale(getValue(d)))
 			.addAll(allData);
+
 		doDraw = true;
 	}
 </script>
@@ -344,7 +352,6 @@
 				{#each trends as {key, values} (key)}
 					<path
 						d={lineGenerator(values)}
-						fill='none'
 						stroke={keyToColorFn?.(key) ?? 'var(--curveStroke)'}
 					/>
 
@@ -359,22 +366,22 @@
 				{/each}
 
 				{#if hero}
-					<path
-						d={lineGenerator(_.find(trends, _.pipe([_.getKey('key'), _.is(hero.trendKey)]))?.values ?? [])}
-						fill='none'
-						style:stroke-width={theme.heroStrokeWidth}
-						stroke={keyToColorFn?.(hero.trendKey) ?? 'var(--curveStroke)'}
-					/>
-
-					{#if getKey(hero)}
-						<circle
-							class='hero'
-							cx={xScale(getKey(hero))}
-							cy={yScale(getValue(hero))}
-							fill={keyToColorFn?.(hero.trendKey) ?? 'var(--curveStroke)'}
-							r={dotRadius * 2}
+					<g class='hero'>
+						<path
+							d={lineGenerator(heroCurveValues)}
+							class:highlighted={doHighlightHeroCurve}
+							stroke={keyToColorFn?.(hero.trendKey) ?? 'var(--curveStroke)'}
 						/>
-					{/if}
+
+						{#if getKey(hero)}
+							<circle
+								cx={xScale(getKey(hero))}
+								cy={yScale(getValue(hero))}
+								fill={keyToColorFn?.(hero.trendKey) ?? 'var(--curveStroke)'}
+								r={geometry.heroDotRadius}
+							/>
+						{/if}
+					</g>
 				{/if}
 
 			</svg>
@@ -407,6 +414,10 @@
 		height: 100%;
 		width: 100%;
 	}
+	svg * {
+		pointer-events: none;
+	}
+
 	.chart {
 		grid-area: chart;
 		overflow: hidden;
@@ -462,10 +473,11 @@
 	}
 
 	path {
+		fill: none;
 		stroke-width: var(--curveStrokeWidth);
 	}
 
-	svg * {
-		pointer-events: none;
+	path.highlighted {
+		stroke-width: var(--heroStrokeWidth);
 	}
 </style>
