@@ -19,7 +19,6 @@
 	import Scroller from '$lib/components/svizzle/Scroller.svelte';
 
 	export let axesLabels;
-	export let domain;
 	export let extentsType;
 	export let geometry;
 	export let groupIds;

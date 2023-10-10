@@ -19,7 +19,6 @@
 
 	export let categories;
 	export let id;
-	export let label;
 
 	const dispatch = createEventDispatcher();
 

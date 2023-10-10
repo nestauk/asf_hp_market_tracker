@@ -57,7 +57,6 @@
 	export let items;
 	export let keyAccessor;
 	export let keyAccessor2;
-	export let makeDomain;
 	export let valueAccessor;
 	export let valueAccessor2;
 
