@@ -50,6 +50,12 @@
 		}
 	};
 
+	const makeOnKeyDown = handlerFn => event => {
+		if (event.key === 'Enter') {
+			handlerFn(event);
+		}
+	};
+
 	const onDismiss = () => {
 		sortedInputStates = getSortedInputsStates(categories);
 	};
@@ -86,6 +92,7 @@
 					checked={selected}
 					label={key}
 					on:click={makeOnClick(key)}
+					on:keydown={makeOnKeyDown(makeOnClick(key))}
 				>
 					<div>
 						<div>{key}</div>

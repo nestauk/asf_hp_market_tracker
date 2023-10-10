@@ -214,7 +214,9 @@
 
 						<!-- bar rects -->
 						{#each values as {key: subKey, value, start}}
+							<!-- svelte-ignore a11y-mouse-events-have-key-events -->
 							<rect
+								role='none'
 								fill={groupToColorFn(subKey)}
 								height={yScale.bandwidth()}
 								on:mousemove={({x, y}) => {

@@ -108,6 +108,7 @@
 								})
 							}}
 							on:mouseleave={clearTooltip}
+							role='none'
 							width={retreivableWidth}
 						/>
 						<rect
@@ -120,6 +121,7 @@
 								})
 							}}
 							on:mouseleave={clearTooltip}
+							role='none'
 							width={retreivableWidth}
 							y={filteredHeight}
 						/>
@@ -133,6 +135,7 @@
 								})
 							}}
 							on:mouseleave={clearTooltip}
+							role='none'
 							width={unretrievableWidth}
 							x={retreivableWidth}
 						/>

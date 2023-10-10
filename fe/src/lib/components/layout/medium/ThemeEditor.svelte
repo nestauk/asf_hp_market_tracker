@@ -51,10 +51,15 @@
 		{#each $_themeNames as name}
 			<li
 				class:selected={name === $_themeName}
-				on:click={() => {$_themeName = name}}
-				on:keydown={makeOnKeyDown(name)}
 			>
-				{name}
+				<span
+					role='button'
+					on:click={() => {$_themeName = name}}
+					on:keydown={makeOnKeyDown(name)}
+					tabindex='0'
+				>
+					{name}
+				</span>
 			</li>
 		{/each}
 	</ul>

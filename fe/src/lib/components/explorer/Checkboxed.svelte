@@ -8,6 +8,9 @@
 <div
 	class='Checkboxed'
 	on:click
+	on:keydown
+	role='button'
+	tabindex='0'
 >
 	<Icon
 		glyph={checked ? CheckSquare : Square}

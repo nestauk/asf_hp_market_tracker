@@ -51,7 +51,7 @@
 	class='XorNavigator'
 >
 	{#if label}
-		<label>{label}</label>
+		<div>{label}</div>
 	{/if}
 	<div
 		class='navigator'

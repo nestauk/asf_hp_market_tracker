@@ -34,6 +34,8 @@
 			class='button clickable'
 			on:click={onSelect(id)}
 			on:keydown={makeOnKeyDown(id)}
+			role='button'
+			tabindex='0'
 		>
 			<div style='transform: {transform}'>
 				<Icon

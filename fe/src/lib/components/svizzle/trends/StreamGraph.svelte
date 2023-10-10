@@ -301,7 +301,9 @@
 				<!-- paths -->
 				<g class='path'>
 					{#each paths as p (p.id)}
+						<!-- svelte-ignore a11y-mouse-events-have-key-events -->
 						<path
+							role='none'
 							d={p.path}
 							fill={p.fill}
 							on:mousemove={({x, y}) => {
