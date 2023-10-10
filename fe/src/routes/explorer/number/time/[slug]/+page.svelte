@@ -74,12 +74,12 @@
 
 	$: axesLabels = [
 		{
+			areas: ['bottom'],
 			label: `Time (sampled ${intervalToAxisLabel[$_selection.interval]})`,
-			areas: ['bottom']
 		},
 		{
+			areas: ['left'],
 			label: $_currentMetricTitle,
-			areas: ['left']
 		},
 	];
 

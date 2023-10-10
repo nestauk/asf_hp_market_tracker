@@ -119,12 +119,12 @@
 
 	$: axesLabels = [
 		{
+			areas: ['bottom'],
 			label: `Time (sampled ${intervalToAxisLabel[$_selection.interval]})`,
-			areas: ['bottom']
 		},
 		{
+			areas: ['left'],
 			label: 'Number of installations',
-			areas: ['left']
 		},
 	];
 

@@ -18,6 +18,7 @@
 
 	import Scroller from '$lib/components/svizzle/Scroller.svelte';
 
+	export let axesLabels;
 	export let domain;
 	export let extentsType;
 	export let geometry;
@@ -88,6 +89,8 @@
 			previousItems = stacks;
 		}
 	});
+
+	$: axesLabels = axesLabels ?? [];
 
 	// FIXME 1.5 is typical line-height, take from accessibility menu store?
 	$: em = $_screen?.glyph.height / 1.5 || 16;
@@ -175,78 +178,118 @@
 	}
 </script>
 
-<div
-	class='StackedBarchart'
-	use:sizeObserver
->
-	{#if doDraw}
-		<Scroller
-			bind:extraWidth
-			bind:outerScrollTop={scrollTop}
-			overflowX='hidden'
-		>
-			<svg {width} {height}>
-				{#each augmentedItems as {key, values, sum}}
-					{@const barScale = barsScaleByKey?.[key] || xScale}
+<div class='StackedBarchart'>
+	<div
+		class='chart'
+		use:sizeObserver
+	>
+		{#if doDraw}
+			<Scroller
+				bind:extraWidth
+				bind:outerScrollTop={scrollTop}
+				overflowX='hidden'
+			>
+				<svg {width} {height}>
+					{#each augmentedItems as {key, values, sum}}
+						{@const barScale = barsScaleByKey?.[key] || xScale}
 
-					<!-- label -->
-					<text
-						class='key'
-						fill={theme.textColor}
-						x={geometry.safetyLeft}
-						y={yScale(key) - 10}
-					>
-						{truncateToPx(key, availableLabelWidth, charWidth)}
-					</text>
+						<!-- label -->
+						<text
+							class='key'
+							fill={theme.textColor}
+							x={geometry.safetyLeft}
+							y={yScale(key) - 10}
+						>
+							{truncateToPx(key, availableLabelWidth, charWidth)}
+						</text>
 
-					<!-- number -->
-					<text
-						class='sum'
-						fill={theme.textColor}
-						x={geometry.safetyLeft + width - geometry.safetyRight}
-						y={yScale(key) - 10}
-					>
-						{sum}
-					</text>
+						<!-- number -->
+						<text
+							class='sum'
+							fill={theme.textColor}
+							x={geometry.safetyLeft + width - geometry.safetyRight}
+							y={yScale(key) - 10}
+						>
+							{sum}
+						</text>
 
-					<!-- bar rects -->
- 					{#each values as {key: subKey, value, start}}
-						<rect
-							fill={groupToColorFn(subKey)}
-							height={yScale.bandwidth()}
-							on:mousemove={({x, y}) => {
-								dispatch('barHovered', {key, subKey, value, x, y})
-							}}
-							on:mouseout={({x, y}) => {
-								dispatch('barExited', {key, subKey, value, x, y})
-							}}
-							on:touchstart|preventDefault={({targetTouches: [touch]}) => {
-								const {clientX: x, clientY: y} = touch;
-								dispatch('barTouchStarted', {key, subKey, value, x, y})
-							}}
-							on:touchend={() => {
-								dispatch('barTouchEnded', {key, subKey, value})
-							}}
-							width={barScale(value)}
-							x={barScale(start)}
-							y={yScale(key)}
-						/>
+						<!-- bar rects -->
+						{#each values as {key: subKey, value, start}}
+							<rect
+								fill={groupToColorFn(subKey)}
+								height={yScale.bandwidth()}
+								on:mousemove={({x, y}) => {
+									dispatch('barHovered', {key, subKey, value, x, y})
+								}}
+								on:mouseout={({x, y}) => {
+									dispatch('barExited', {key, subKey, value, x, y})
+								}}
+								on:touchstart|preventDefault={({targetTouches: [touch]}) => {
+									const {clientX: x, clientY: y} = touch;
+									dispatch('barTouchStarted', {key, subKey, value, x, y})
+								}}
+								on:touchend={() => {
+									dispatch('barTouchEnded', {key, subKey, value})
+								}}
+								width={barScale(value)}
+								x={barScale(start)}
+								y={yScale(key)}
+							/>
+						{/each}
 					{/each}
-				{/each}
-			</svg>
-		</Scroller>
-	{/if}
+				</svg>
+			</Scroller>
+		{/if}
+	</div>
+
+	{#each axesLabels as {label, areas}}
+		{#each areas as area}
+			<div class='{area} area'>
+				{label}
+			</div>
+		{/each}
+	{/each}
 </div>
 
 <style>
 	.StackedBarchart {
 		display: grid;
-		grid-template-rows: 1fr;
+		grid-template-areas:
+			'tl top tr'
+			'left chart right'
+			'bl bottom br';
+		grid-template-columns: min-content 1fr min-content;
+		grid-template-rows: min-content 1fr min-content;
 		height: 100%;
 		width: 100%;
 	}
 
 	text.sum {
 		text-anchor: end;
+	}
+
+	.chart {
+		grid-area: chart;
+		overflow: hidden;
+	}
+	.bottom.area {
+		grid-area: bottom;
+	}
+	.left.area {
+		grid-area: left;
+	}
+	.right.area {
+		grid-area: right;
+	}
+	.top.area {
+		grid-area: top;
+	}
+	.left.area, .right.area, .top.area, .bottom.area {
+		text-align: center;
+	}
+	.left.area, .right.area {
+		writing-mode: vertical-lr;
+		transform: rotate(180deg);
+		transform-origin: 41% 50%;
 	}
 </style>

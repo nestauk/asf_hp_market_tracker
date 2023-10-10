@@ -45,6 +45,17 @@
 	export let valueAccessor;
 	export let valueAccessor2;
 
+	const axesLabels = [
+		{
+			areas: ['top'],
+			label: 'Sum of the number of installations of selected brands in each region',
+		},
+		{
+			areas: ['left'],
+			label: 'Regions',
+		},
+	];
+
 	const flattenItems = _.flatMapWith(
 		_.pipe([
 			_.collect([keyAccessor, valueAccessor]),
@@ -241,6 +252,7 @@
 				</Scroller>
 
 				<StackedBarchart
+					{axesLabels}
 					{domain}
 					{groupIds}
 					{groupToColorFn}
