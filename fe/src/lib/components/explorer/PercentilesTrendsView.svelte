@@ -166,24 +166,8 @@
 		width: 100%;
 		padding: 0;
 	}
-	li {
-		align-items: center;
-		display: flex;
-		padding: 0.25em;
-	}
-	.dot {
-		border-radius: 50%;
-		margin-right: 0.5em;
-		min-height: 1em;
-		min-width: 1em;
-	}
 	h3 {
 		padding: 0.25em;
-	}
-
-	.col1 {
-		height: 100%;
-		width: 100%;
 	}
 
 	.smallLegend {

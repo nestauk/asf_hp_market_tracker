@@ -208,9 +208,6 @@
 	.coverage .left.singleRow {
 		grid-template-rows: 100%;
 	}
-	.coverage .mid {
-		grid-area: mid;
-	}
 	.coverage .right {
 		grid-area: right;
 		padding-left: 0.5em;

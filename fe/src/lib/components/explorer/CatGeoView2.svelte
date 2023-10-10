@@ -405,12 +405,6 @@
 {/if}
 
 <style>
-	.main {
-		display: grid;
-		grid-template-rows: min-content 1fr;
-		height: 100%;
-		overflow: hidden;
-	}
 	.col0 {
 		align-items: center;
 		display: flex;

@@ -150,7 +150,8 @@
 		padding: 2rem;
 	}
 
-	figure {
+/*
+ 	figure {
 		background: var(--colorWarningBackground);
 		border: thin solid var(--colorWarningBorder);
 		color: var(--colorWarningText);
@@ -183,4 +184,5 @@
 	dd:not(:last-child) {
 		border-bottom: none;
 	}
+*/
 </style>
