@@ -54,13 +54,13 @@ export const orderedCategoriesByFieldId = {
 const makeItemsSorter = orderedKeys => array => {
 	const index = _.index(array, getKey);
 
-	return _.map(orderedKeys, key => {
+	return _.reduce(orderedKeys, (acc, key) => {
 		if (_.has(index, key)) {
-			return index[key];
+			acc.push(index[key]);
 		}
 
-		throw new Error('Unexpected ordering key');
-	});
+		return acc;
+	}, []);
 };
 
 const makeKeysSorter = orderedKeys => array => {
