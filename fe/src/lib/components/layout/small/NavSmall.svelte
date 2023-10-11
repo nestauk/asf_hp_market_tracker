@@ -106,6 +106,7 @@
 	</button>
 	{#if showMenu || isServerSide}
 		<div
+			class='menuContainer'
 			on:click={closeMenu}
 			on:keydown={onKeyDown}
 			role='button'
@@ -267,14 +268,17 @@
 	button:focus-visible {
 		outline: var(--outline);
 	}
+	.menuContainer {
+		left: 0;
+		position: fixed;
+		top: 0;
+		width: 100%;
+	}
 	menu {
 		background: var(--colorBackground);
 		display: grid;
 		grid-template-rows: min-content 1fr;
 		height: var(--content-height);
-		left: 0;
-		position: fixed;
-		top: 0;
 		width: 100%;
 	}
 	.sponsors {

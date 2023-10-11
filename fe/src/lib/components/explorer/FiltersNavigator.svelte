@@ -155,7 +155,6 @@
 					<!-- svelte-ignore a11y-click-events-have-key-events -->
 					<div
 						class='button marginLeft'
-						on:click={onResetAll}
 						role='none'
 					>
 						<Icon
