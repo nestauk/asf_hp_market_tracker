@@ -49,7 +49,7 @@
 		hero = data;
 		$_tooltip = {
 			key: `@ ${key}`,
-			value,
+			value: valueFormatFn(value),
 			x,
 			y,
 		};
@@ -87,12 +87,15 @@
 	let hero;
 	let items;
 	let trends;
+	let valueFormatFn = _.identity;
 
 	$: !$_tooltip && clearHero();
 
 	$: if (proceed) {
 		const rawItems = $_viewData?.response.data.date_histogram?.buckets || [];
 		items = filterItems(reshapeItems(rawItems));
+
+		valueFormatFn = $_currentMetric?.formatFn;
 
 		if ($_selection.numTimeGraph !== 'percentiles') {
 			trends = [{
@@ -121,14 +124,15 @@
 					<PercentilesTrendsView
 						{axesLabels}
 						{items}
+						{valueFormatFn}
 						on:areaTouchStarted={onAreaHovered}
-						valueFormatFn={$_currentMetric?.formatFn}
 					/>
 				{:else}
 					<Trends
 						{axesLabels}
 						{hero}
 						{trends}
+						{valueFormatFn}
 						geometry={{
 							safetyBottom: 50,
 							safetyLeft: 80,
@@ -141,7 +145,6 @@
 							...$_framesTheme,
 							curveStroke: $_currThemeVars['--colorBorderAux']
 						}}
-						valueFormatFn={$_currentMetric?.formatFn}
 					/>
 				{/if}
 
@@ -176,15 +179,16 @@
 				<PercentilesTrendsView
 					{axesLabels}
 					{items}
+					{valueFormatFn}
 					on:areaHovered={onAreaHovered}
 					on:areaExited={clearTooltip}
-					valueFormatFn={$_currentMetric?.formatFn}
 			/>
 			{:else}
 				<Trends
 					{axesLabels}
 					{hero}
 					{trends}
+					{valueFormatFn}
 					geometry={{
 						safetyBottom: 50,
 						safetyLeft: 80,
@@ -198,7 +202,6 @@
 						...$_framesTheme,
 						curveStroke: $_currThemeVars['--colorBorderAux']
 					}}
-					valueFormatFn={$_currentMetric?.formatFn}
 				/>
 			{/if}
 		{/if}

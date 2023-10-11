@@ -18,8 +18,8 @@ Staging release ([milestone](https://github.com/nestauk/asf_hp_market_tracker/mi
 
 ### Fixes
 
-- Fixed navigating to a filter that returnds no data (#444)
-- Fixed navigating to a metric with more categs errors in `category/stats` (#450)
+- Fixed navigating to a filter that returns no data (#444)
+- Fixed navigating to a metric with more categories errors in `category/stats` (#450)
 - Various small fixes (#456)
 	- coverage: removed `(if any)` from the `filtered` tooltp (this can appear only
 		when filtering)
