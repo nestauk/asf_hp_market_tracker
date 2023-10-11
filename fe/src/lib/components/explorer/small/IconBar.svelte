@@ -14,7 +14,7 @@
 	}
 
 	const makeOnKeyDown = viewId => event => {
-		if (['Enter', ' '].includes(event.key)) {
+		if (event.key === 'Enter') {
 			event.preventDefault();
 			onSelect(viewId);
 		}

@@ -22,7 +22,7 @@
 	$: varNames = $_currThemeVars ? getVarNames($_currThemeVars) : [];
 
 	const makeOnKeyDown = themeName => event => {
-		if (['Enter', ' '].includes(event.key)) {
+		if (event.key === 'Enter') {
 			event.preventDefault();
 			$_themeName = themeName;
 		}
