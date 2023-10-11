@@ -7,6 +7,7 @@
 	import DismissOrApply from '$lib/components/explorer/DismissOrApply.svelte';
 	import FilterPaneBorder
 		from '$lib/components/explorer/FilterPaneBorder.svelte';
+	import {makeOnKeyDown} from '$lib/components/svizzle/ui/handlers.js';
 	import {regionTypeToLabel} from '$lib/config/labels.js';
 	import {
 		DEFAULT_BBOX_WSEN,
@@ -106,13 +107,6 @@
 	const onMouseLeave = event => {
 		hoveredRegionName = null;
 		event.target.getCanvas().style.cursor = '';
-	}
-
-	const makeOnKeyDown = handlerFn => event => {
-		if (event.key === 'Enter') {
-			event.preventDefault();
-			handlerFn(event);
-		}
 	}
 
 	$: eventsHandlers = [

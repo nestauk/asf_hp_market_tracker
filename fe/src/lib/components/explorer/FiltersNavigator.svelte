@@ -5,6 +5,7 @@
 	import * as _ from 'lamb';
 	import {createEventDispatcher} from 'svelte';
 
+	import {makeOnKeyDown} from '$lib/components/svizzle/ui/handlers.js';
 	import {metricLabelById} from '$lib/data/metrics.js';
 	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {_selection} from '$lib/stores/navigation.js';
@@ -51,13 +52,6 @@
 		}
 	}
 	const onResetAll = () => dispatch('resetAll');
-
-	const makeOnKeyDown = handlerFn => event => {
-		if (event.key === 'Enter') {
-			event.preventDefault();
-			handlerFn(event);
-		}
-	}
 
 	const getActiveFilterIds = _.pipe([
 		_.skip(['installerRegionType', 'propertyRegionType']),

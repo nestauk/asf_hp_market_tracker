@@ -13,6 +13,7 @@
 	import DismissOrApply from '$lib/components/explorer/DismissOrApply.svelte';
 	import FilterPaneBorder
 		from '$lib/components/explorer/FilterPaneBorder.svelte';
+	import {makeOnKeyDown} from '$lib/components/svizzle/ui/handlers.js';
 	import {getDocCount, getSelected} from '$lib/utils/getters.js';
 	import {getSorters} from '$lib/utils/ordering.js';
 	import {areAllFalsyWith} from '$lib/utils/svizzle/utils.js';
@@ -47,13 +48,6 @@
 			sortedInputStates = makeClearAllBut(key)(sortedInputStates);
 		} else {
 			sortedInputStates = makeToggleSelected(key)(sortedInputStates);
-		}
-	};
-
-	const makeOnKeyDown = handlerFn => event => {
-		if (event.key === 'Enter') {
-			event.preventDefault();
-			handlerFn(event);
 		}
 	};
 
