@@ -13,6 +13,7 @@
 		X
 	} from '@svizzle/ui';
 
+	import {makeOnKeyDown} from '$lib/components/svizzle/ui/handlers.js';
 	import {changelogUrl, LOGOS} from '$lib/config';
 	import {
 		_a11yIconFillColor,
@@ -46,13 +47,6 @@
 
 	$: themeIconGlyph = $_themeName === 'themeLight' ? Moon : Sun;
 	$: logos = LOGOS[$_themeName];
-
-	const onKeyDown = event => {
-		if (['Enter', ' '].includes(event.key)) {
-			event.preventDefault();
-			closeMenu();
-		}
-	}
 </script>
 
 <nav
@@ -105,130 +99,133 @@
 		{/if}
 	</button>
 	{#if showMenu || isServerSide}
-		<menu
+		<div
+			class='menuContainer'
 			on:click={closeMenu}
-			on:keydown={onKeyDown}
+			on:keydown={makeOnKeyDown(closeMenu)}
+			role='button'
+			tabindex='0'
 		>
-			<div
-				class='sponsors'
-				role='none'
-			>
-				<Link
-					href='https://www.nesta.org.uk/'
-					theme={$_linkTheme0}
-				>
-					<img src={logos.nesta} alt='Nesta' />
-				</Link>
-			</div>
-			<ul role='none'>
-				<li
-					aria-label='Source code repository'
+			<menu>
+				<div
+					class='sponsors'
 					role='none'
 				>
 					<Link
-						href={changelogUrl}
-						type='external'
-						theme={$_extLinkTheme}
+						href='https://www.nesta.org.uk/'
+						theme={$_linkTheme0}
 					>
-						{version}
+						<img src={logos.nesta} alt='Nesta' />
 					</Link>
-				</li>
-				<li role='none'>
-					<Link
-						href='/info'
-						rel='prefetch'
-						theme={{
-							...$_linkTheme0,
-							color: $_getNavLinkColor(segment, 'info'),
-						}}
+				</div>
+				<ul role='none'>
+					<li role='none'>
+						<Link
+							ariaLabel='Change log'
+							href={changelogUrl}
+							type='external'
+							theme={$_extLinkTheme}
+						>
+							{version}
+						</Link>
+					</li>
+					<li role='none'>
+						<Link
+							href='/info'
+							rel='prefetch'
+							theme={{
+								...$_linkTheme0,
+								color: $_getNavLinkColor(segment, 'info'),
+							}}
+						>
+							Info
+							<Icon
+								glyph={Info}
+								size=20
+								stroke={$_currThemeVars['--colorIcon']}
+								strokeWidth=1.5
+							/>
+						</Link>
+					</li>
+					<li role='none'>
+						<Link
+							href='/feedback'
+							rel='prefetch'
+							theme={{
+								...$_linkTheme0,
+								color: $_getNavLinkColor(segment, 'feedback'),
+							}}
+						>
+							Feedback
+							<Icon
+								glyph={Send}
+								size=20
+								stroke={$_currThemeVars['--colorIcon']}
+								strokeWidth=1.5
+							/>
+						</Link>
+					</li>
+					<li
+						class='sectionStart'
+						role='none'
 					>
-						Info
-						<Icon
-							glyph={Info}
-							size=20
-							stroke={$_currThemeVars['--colorIcon']}
-							strokeWidth=1.5
-						/>
-					</Link>
-				</li>
-				<li role='none'>
-					<Link
-						href='/feedback'
-						rel='prefetch'
-						theme={{
-							...$_linkTheme0,
-							color: $_getNavLinkColor(segment, 'feedback'),
-						}}
-					>
-						Feedback
-						<Icon
-							glyph={Send}
-							size=20
-							stroke={$_currThemeVars['--colorIcon']}
-							strokeWidth=1.5
-						/>
-					</Link>
-				</li>
-				<li
-					class='sectionStart'
-					role='none'
-				>
-					<Link
-						href='/accessibility'
-						theme={{
-							...$_linkTheme0,
-							color: $_getNavLinkColor(segment, 'accessibility'),
-						}}
-					>
-						Accessibility
-					</Link>
-				</li>
-				<li role='none'>
-					<Link
-						href='/guides'
-						theme={{
-							...$_linkTheme0,
-							color: $_getNavLinkColor(segment, 'guides'),
-						}}
-					>
-						Guides
-					</Link>
-				</li>
-				<li role='none'>
-					<Link
-						href='/methodology'
-						theme={{
-							...$_linkTheme0,
-							color: $_getNavLinkColor(segment, 'methodology'),
-						}}
-					>
-						Methodology
-					</Link>
-				</li>
-				<li role='none'>
-					<Link
-						href='/explorer'
-						theme={{
-							...$_linkTheme0,
-							color: $_getNavLinkColor(segment, 'explorer'),
-						}}
-					>
-						Explorer
-					</Link>
-				</li>
-				<li role='none'>
-					<Link
-						href='/'
-						theme={{
-							...$_linkTheme0,
-							color: $_getNavLinkColor(segment, ''),
-						}}
-					>
-						Home
-					</Link>
-				</li>
-			</ul>
-		</menu>
+						<Link
+							href='/accessibility'
+							theme={{
+								...$_linkTheme0,
+								color: $_getNavLinkColor(segment, 'accessibility'),
+							}}
+						>
+							Accessibility
+						</Link>
+					</li>
+					<li role='none'>
+						<Link
+							href='/guides'
+							theme={{
+								...$_linkTheme0,
+								color: $_getNavLinkColor(segment, 'guides'),
+							}}
+						>
+							Guides
+						</Link>
+					</li>
+					<li role='none'>
+						<Link
+							href='/methodology'
+							theme={{
+								...$_linkTheme0,
+								color: $_getNavLinkColor(segment, 'methodology'),
+							}}
+						>
+							Methodology
+						</Link>
+					</li>
+					<li role='none'>
+						<Link
+							href='/explorer'
+							theme={{
+								...$_linkTheme0,
+								color: $_getNavLinkColor(segment, 'explorer'),
+							}}
+						>
+							Explorer
+						</Link>
+					</li>
+					<li role='none'>
+						<Link
+							href='/'
+							theme={{
+								...$_linkTheme0,
+								color: $_getNavLinkColor(segment, ''),
+							}}
+						>
+							Home
+						</Link>
+					</li>
+				</ul>
+			</menu>
+		</div>
 	{/if}
 </nav>
 
@@ -265,14 +262,17 @@
 	button:focus-visible {
 		outline: var(--outline);
 	}
+	.menuContainer {
+		left: 0;
+		position: fixed;
+		top: 0;
+		width: 100%;
+	}
 	menu {
 		background: var(--colorBackground);
 		display: grid;
 		grid-template-rows: min-content 1fr;
 		height: var(--content-height);
-		left: 0;
-		position: fixed;
-		top: 0;
 		width: 100%;
 	}
 	.sponsors {

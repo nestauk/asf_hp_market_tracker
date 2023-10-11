@@ -108,6 +108,7 @@
 								})
 							}}
 							on:mouseleave={clearTooltip}
+							role='none'
 							width={retreivableWidth}
 						/>
 						<rect
@@ -120,6 +121,7 @@
 								})
 							}}
 							on:mouseleave={clearTooltip}
+							role='none'
 							width={retreivableWidth}
 							y={filteredHeight}
 						/>
@@ -133,6 +135,7 @@
 								})
 							}}
 							on:mouseleave={clearTooltip}
+							role='none'
 							width={unretrievableWidth}
 							x={retreivableWidth}
 						/>
@@ -207,9 +210,6 @@
 	}
 	.coverage .left.singleRow {
 		grid-template-rows: 100%;
-	}
-	.coverage .mid {
-		grid-area: mid;
 	}
 	.coverage .right {
 		grid-area: right;

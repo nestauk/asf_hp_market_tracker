@@ -271,10 +271,12 @@
 					width={bbox.width}
 					height={bbox.height}
 				/>
-	
+
 				<!-- areas -->
 				{#each areas as {color, generator, key, lowKey} (lowKey)}
+					<!-- svelte-ignore a11y-mouse-events-have-key-events -->
 					<path
+						role='none'
 						d={generator(items)}
 						fill={color}
 						on:mousemove={({x, y}) => {

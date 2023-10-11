@@ -57,7 +57,6 @@
 	export let items;
 	export let keyAccessor;
 	export let keyAccessor2;
-	export let makeDomain;
 	export let valueAccessor;
 	export let valueAccessor2;
 
@@ -405,12 +404,6 @@
 {/if}
 
 <style>
-	.main {
-		display: grid;
-		grid-template-rows: min-content 1fr;
-		height: 100%;
-		overflow: hidden;
-	}
 	.col0 {
 		align-items: center;
 		display: flex;

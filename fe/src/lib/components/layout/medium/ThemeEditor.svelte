@@ -3,6 +3,7 @@
 	import {containsOneOf} from '@svizzle/utils';
 	import * as _ from 'lamb';
 
+	import {makeOnKeyDown} from '$lib/components/svizzle/ui/handlers.js';
 	import {
 		_currThemeVars,
 		_themeName,
@@ -20,13 +21,6 @@
 	};
 
 	$: varNames = $_currThemeVars ? getVarNames($_currThemeVars) : [];
-
-	const makeOnKeyDown = themeName => event => {
-		if (['Enter', ' '].includes(event.key)) {
-			event.preventDefault();
-			$_themeName = themeName;
-		}
-	}
 </script>
 
 <StyleDriver
@@ -49,12 +43,15 @@
 
 	<ul class='themeList'>
 		{#each $_themeNames as name}
-			<li
-				class:selected={name === $_themeName}
-				on:click={() => {$_themeName = name}}
-				on:keydown={makeOnKeyDown(name)}
-			>
-				{name}
+			<li class:selected={name === $_themeName}>
+				<span
+					role='button'
+					on:click={() => {$_themeName = name}}
+					on:keydown={makeOnKeyDown(name)}
+					tabindex='0'
+				>
+					{name}
+				</span>
 			</li>
 		{/each}
 	</ul>

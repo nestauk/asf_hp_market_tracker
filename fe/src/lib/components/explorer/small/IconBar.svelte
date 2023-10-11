@@ -2,6 +2,7 @@
 	import {Icon} from '@svizzle/ui';
 	import {createEventDispatcher} from 'svelte';
 
+	import {makeOnKeyDown} from '$lib/components/svizzle/ui/handlers.js';
 	import {_getIconColor} from '$lib/stores/theme';
 
 	const dispatch = createEventDispatcher();
@@ -11,13 +12,6 @@
 
 	const onSelect = id => {
 		dispatch('selected', id);
-	}
-
-	const makeOnKeyDown = viewId => event => {
-		if (['Enter', ' '].includes(event.key)) {
-			event.preventDefault();
-			onSelect(viewId);
-		}
 	}
 
 	$: icons = icons || [];
@@ -34,6 +28,8 @@
 			class='button clickable'
 			on:click={onSelect(id)}
 			on:keydown={makeOnKeyDown(id)}
+			role='button'
+			tabindex='0'
 		>
 			<div style='transform: {transform}'>
 				<Icon

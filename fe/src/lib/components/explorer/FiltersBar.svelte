@@ -320,9 +320,6 @@
 	.navigator {
 		grid-area: navigator;
 	}
-	.filter {
-		grid-area: filters;
-	}
 	h2 {
 		padding: 0 1rem 0.7em;
 		padding-top: 0.7rem;

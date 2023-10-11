@@ -337,7 +337,9 @@
 				</g>
 
 				<!-- frame -->
+				<!-- svelte-ignore a11y-mouse-events-have-key-events -->
 				<rect
+					role='none'
 					class='frame'
 					height={bbox.height}
 					on:mousemove|capture={onFrameHovered}

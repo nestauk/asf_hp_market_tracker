@@ -7,6 +7,7 @@
 	import DismissOrApply from '$lib/components/explorer/DismissOrApply.svelte';
 	import FilterPaneBorder
 		from '$lib/components/explorer/FilterPaneBorder.svelte';
+	import {makeOnKeyDown} from '$lib/components/svizzle/ui/handlers.js';
 	import {regionTypeToLabel} from '$lib/config/labels.js';
 	import {
 		DEFAULT_BBOX_WSEN,
@@ -107,6 +108,7 @@
 		hoveredRegionName = null;
 		event.target.getCanvas().style.cursor = '';
 	}
+
 	$: eventsHandlers = [
 		{
 			type: 'mousemove',
@@ -191,6 +193,9 @@
 						<div
 							class='iconButton'
 							on:click={makeDeselectRegionName(name)}
+							on:keydown={makeOnKeyDown(makeDeselectRegionName(name))}
+							role='button'
+							tabindex='0'
 						>
 							<Icon
 								glyph={XCircle}
@@ -247,5 +252,9 @@
 	.iconButton {
 		cursor: pointer;
 		padding-left: 1em;
+	}
+
+	.iconButton:focus-visible {
+		outline: var(--outline);
 	}
 </style>

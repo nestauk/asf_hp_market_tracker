@@ -5,6 +5,7 @@
 	import * as _ from 'lamb';
 	import {createEventDispatcher} from 'svelte';
 
+	import {makeOnKeyDown} from '$lib/components/svizzle/ui/handlers.js';
 	import {metricLabelById} from '$lib/data/metrics.js';
 	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {_selection} from '$lib/stores/navigation.js';
@@ -77,6 +78,7 @@
 			class:small={$_isSmallScreen}
 			class='list'
 			on:mouseleave={clearTooltip}
+			role='none'
 		>
 
 			<!-- reset all: small -->
@@ -85,6 +87,9 @@
 				<div
 					class='flex listItem clickable'
 					on:click={onResetAll}
+					on:keydown={makeOnKeyDown(onResetAll)}
+					role='button'
+					tabindex='0'
 				>
 					<span class='label resetAll'>
 						Reset all filters
@@ -103,6 +108,7 @@
 			<div
 				class='filters'
 				on:mouseleave={clearTooltip}
+				role='none'
 			>
 				{#each activeFilterIds as id}
 					<div class='flex listItem selection clickable'>
@@ -110,12 +116,18 @@
 							class='label'
 							on:mousemove={$_isSmallScreen ? null : hoveredId(id)}
 							on:click={() => dispatch('selectId', id)}
+							on:keydown={makeOnKeyDown(() => dispatch('selectId', id))}
+							role='button'
+							tabindex='0'
 						>
 							{idToLabel(id)}
 						</span>
 						<div class='button'
 							on:mouseenter={$_isSmallScreen ? null : hoveredReset(id)}
-							on:click={clickedReset(id)}
+							on:click={() => clickedReset(id)}
+							on:keydown={makeOnKeyDown(() => clickedReset(id))}
+							role='button'
+							tabindex='0'
 						>
 							<Icon
 								glyph={X}
@@ -132,14 +144,18 @@
 				<div
 					class='flex listItem clickable'
 					on:click={onResetAll}
+					on:keydown={makeOnKeyDown(onResetAll)}
 					on:mouseleave={clearTooltip}
+					role='button'
+					tabindex='0'
 				>
 					<span class='label resetAll'>
 						Reset all filters
 					</span>
+					<!-- svelte-ignore a11y-click-events-have-key-events -->
 					<div
 						class='button marginLeft'
-						on:click={onResetAll}
+						role='none'
 					>
 						<Icon
 							glyph={XCircle}

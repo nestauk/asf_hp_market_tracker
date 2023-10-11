@@ -235,9 +235,6 @@
 		height: var(--height);
 		width: 100%;
 	}
-	text {
-		fill: var(--textColor);
-	}
 	line {
 		stroke-width: 1;
 		stroke: var(--lineColor);

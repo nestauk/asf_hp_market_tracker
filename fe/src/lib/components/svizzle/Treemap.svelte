@@ -77,7 +77,9 @@
 		{#each treemapLeaves
 			as {x0, x1, y0, y1, data: {data}}, i
 		}
+			<!-- svelte-ignore a11y-mouse-events-have-key-events -->
 			<g
+				role='none'
 				on:mousemove={({x, y}) => dispatch('leafHovered', {data, x, y})}
 				on:mouseout={({x, y}) => dispatch('leafExited', {data, x, y})}
 				on:touchstart|preventDefault={({targetTouches: [touch]}) => {

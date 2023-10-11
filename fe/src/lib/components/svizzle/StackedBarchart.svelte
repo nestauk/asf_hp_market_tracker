@@ -19,7 +19,6 @@
 	import Scroller from '$lib/components/svizzle/Scroller.svelte';
 
 	export let axesLabels;
-	export let domain;
 	export let extentsType;
 	export let geometry;
 	export let groupIds;
@@ -215,7 +214,9 @@
 
 						<!-- bar rects -->
 						{#each values as {key: subKey, value, start}}
+							<!-- svelte-ignore a11y-mouse-events-have-key-events -->
 							<rect
+								role='none'
 								fill={groupToColorFn(subKey)}
 								height={yScale.bandwidth()}
 								on:mousemove={({x, y}) => {

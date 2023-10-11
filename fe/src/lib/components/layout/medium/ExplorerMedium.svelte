@@ -42,11 +42,6 @@
 		height: 100%;
 		width: 100%;
 	}
-	.ExplorerMedium > div {
-		max-height: 100%;
-		overflow: hidden;
-		position: relative;
-	}
 
 	.colHeader {
 		align-items: center;

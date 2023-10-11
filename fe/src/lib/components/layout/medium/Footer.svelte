@@ -52,11 +52,9 @@
 
 	<!-- center: version -->
 
-	<div
-		aria-label='Source code repository'
-		role='none'
-	>
+	<div role='none'>
 		<Link
+			ariaLabel='Change log'
 			href={changelogUrl}
 			type='external'
 			theme={$_extLinkTheme}

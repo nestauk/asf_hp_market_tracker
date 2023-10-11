@@ -1,6 +1,6 @@
 <script>
-	import {_screen, Link} from '@svizzle/ui';
-	import Bowser from 'bowser';
+	import {_screen} from '@svizzle/ui';
+	// import Bowser from 'bowser';
 	import * as _ from 'lamb';
 	import {onMount} from 'svelte';
 
@@ -150,7 +150,8 @@
 		padding: 2rem;
 	}
 
-	figure {
+/*
+ 	figure {
 		background: var(--colorWarningBackground);
 		border: thin solid var(--colorWarningBorder);
 		color: var(--colorWarningText);
@@ -183,4 +184,5 @@
 	dd:not(:last-child) {
 		border-bottom: none;
 	}
+*/
 </style>

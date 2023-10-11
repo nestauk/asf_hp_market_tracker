@@ -41,7 +41,7 @@
 	}
 	const onClick = val => () => updateValue(val);
 	const onKeyDown = val => event => {
-		if (['Enter', ' '].includes(event.key)) {
+		if (event.key === 'Enter') {
 			event.preventDefault();
 			updateValue(val);
 		}
@@ -53,11 +53,12 @@
 	class='XorSelector'
 >
 	{#if label}
-		<label>{label}</label>
+		<div>{label}</div>
 	{/if}
 	<div class='selector'>
 		{#each values as val}
 			<span
+				role='button'
 				class:selected={currentValue === val}
 				on:click={onClick(val)}
 				on:keydown={onKeyDown(val)}
@@ -70,6 +71,7 @@
 				on:mousemove={({x, y}) => {
 					dispatch('mousemove', {key: val, x, y})
 				}}
+				tabindex='0'
 			>
 				{valuesToLabels ? valuesToLabels[val] : val}
 			</span>

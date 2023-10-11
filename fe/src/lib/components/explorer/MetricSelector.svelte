@@ -33,11 +33,13 @@
 			{#each value as {id, label, type}}
 				<li>
 					<Link href='/explorer/{type}/{$_activeViewType}/{id}?{$_searchParams}'>
+						<!-- svelte-ignore a11y-mouse-events-have-key-events -->
 						<div
 							class:selected={id === $_currentMetricId}
 							class='item'
 							on:mousemove={makeOnMouseMove(id)}
 							on:mouseout={onMouseOut}
+							role='none'
 							use:scrollIntoViewIfTrue={id === $_currentMetricId}
 						>
 							{label}

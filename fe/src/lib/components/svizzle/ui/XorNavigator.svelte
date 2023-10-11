@@ -23,7 +23,7 @@
 		dispatch('changed', val);
 	}
 	const onKeyDown = (event, val) => {
-		if (['Enter', ' '].includes(event.key)) {
+		if (event.key === 'Enter') {
 			event.preventDefault();
 			updateValue(val);
 		}
@@ -51,7 +51,7 @@
 	class='XorNavigator'
 >
 	{#if label}
-		<label>{label}</label>
+		<div>{label}</div>
 	{/if}
 	<div
 		class='navigator'
