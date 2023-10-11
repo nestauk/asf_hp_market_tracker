@@ -13,6 +13,7 @@
 		X
 	} from '@svizzle/ui';
 
+	import {makeOnKeyDown} from '$lib/components/svizzle/ui/handlers.js';
 	import {changelogUrl, LOGOS} from '$lib/config';
 	import {
 		_a11yIconFillColor,
@@ -46,13 +47,6 @@
 
 	$: themeIconGlyph = $_themeName === 'themeLight' ? Moon : Sun;
 	$: logos = LOGOS[$_themeName];
-
-	const onKeyDown = event => {
-		if (event.key === 'Enter') {
-			event.preventDefault();
-			closeMenu();
-		}
-	}
 </script>
 
 <nav
@@ -108,7 +102,7 @@
 		<div
 			class='menuContainer'
 			on:click={closeMenu}
-			on:keydown={onKeyDown}
+			on:keydown={makeOnKeyDown(closeMenu)}
 			role='button'
 			tabindex='0'
 		>

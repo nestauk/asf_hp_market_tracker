@@ -43,9 +43,7 @@
 
 	<ul class='themeList'>
 		{#each $_themeNames as name}
-			<li
-				class:selected={name === $_themeName}
-			>
+			<li class:selected={name === $_themeName}>
 				<span
 					role='button'
 					on:click={() => {$_themeName = name}}

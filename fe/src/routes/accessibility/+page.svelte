@@ -1,6 +1,6 @@
 <script>
-	import {_screen, Link} from '@svizzle/ui';
-	import Bowser from 'bowser';
+	import {_screen} from '@svizzle/ui';
+	// import Bowser from 'bowser';
 	import * as _ from 'lamb';
 	import {onMount} from 'svelte';
 
