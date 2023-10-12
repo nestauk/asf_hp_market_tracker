@@ -22,6 +22,8 @@
 			property_geo_region: 'Property regions',
 		}[id];
 
+	/* hover */
+
 	const hoveredId = id => {
 		if (id === 'installation_date') {
 			clearTooltip();
@@ -43,6 +45,16 @@
 		return ({x, y}) => {
 			$_tooltip = {key, x, y}
 		}
+	}
+
+	/* click */
+
+	const clickedId = id => {
+		if (!$_isSmallScreen && id === 'installation_date') {
+			return;
+		}
+
+		dispatch('selectId', id);
 	}
 	const clickedReset = id => {
 		dispatch('resetId', id);
@@ -111,18 +123,19 @@
 				role='none'
 			>
 				{#each activeFilterIds as id}
-					<div class='flex listItem selection clickable'>
+					<div class='flex listItem selection'>
 						<span
+							class:clickable={$_isSmallScreen || id !== 'installation_date'}
 							class='label'
-							on:mousemove={$_isSmallScreen ? null : hoveredId(id)}
-							on:click={() => dispatch('selectId', id)}
+							on:click={clickedId(id)}
 							on:keydown={makeOnKeyDown(() => dispatch('selectId', id))}
+							on:mousemove={$_isSmallScreen ? null : hoveredId(id)}
 							role='button'
 							tabindex='0'
 						>
 							{idToLabel(id)}
 						</span>
-						<div class='button'
+						<div class='button clickable'
 							on:mouseenter={$_isSmallScreen ? null : hoveredReset(id)}
 							on:click={() => clickedReset(id)}
 							on:keydown={makeOnKeyDown(() => clickedReset(id))}
