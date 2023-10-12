@@ -146,8 +146,8 @@
 		/>
 		<div class='gridcontainer'>
 			<GridColumns
-				colLayout='15% 85%'
-				gap='0.25em'
+				colLayout='15% 84%'
+				gap='1%'
 			>
 				<div class='col0'>
 					<div class='legend'>

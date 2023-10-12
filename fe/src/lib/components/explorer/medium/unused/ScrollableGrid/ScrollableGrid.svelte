@@ -1,9 +1,9 @@
 <script>
+	import {Scroller} from '@svizzle/ui';
 	import {applyFnMap, getKey, getValue, getValues} from '@svizzle/utils';
 	import * as _ from 'lamb';
 	import {afterUpdate} from 'svelte';
 
-	import Scroller from '$lib/components/svizzle/Scroller.svelte';
 	import SizeSensor from '$lib/components/svizzle/SizeSensor.svelte';
 
 	import ColumnNames from './ColumnNames.svelte';
@@ -27,10 +27,10 @@
 	}));
 
 	let doDraw = false;
-	let extraWidth;
 	let maxSize;
 	let previousItems;
 	let reshapedItems;
+	let scrollbarWidth;
 	let scrollTop;
 
 	afterUpdate(() => {
@@ -58,15 +58,15 @@
 		<SizeSensor bind:blockSize={maxSize}>
 			<ColumnNames
 				{categories}
-				{extraWidth}
 				{labelsByCategory}
+				{scrollbarWidth}
 			/>
 		</SizeSensor>
 
 		<!-- content -->
 		<Scroller
-			bind:extraWidth
 			bind:outerScrollTop={scrollTop}
+			bind:scrollbarWidth
 		>
 			{#each reshapedItems as {key, values}}
 				<div class='valueRow'>
@@ -92,8 +92,8 @@
 		<!-- footer -->
 		<ColumnNames
 			{categories}
-			{extraWidth}
 			{labelsByCategory}
+			{scrollbarWidth}
 		/>
 	</div>
 {/if}

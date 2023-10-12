@@ -13,3 +13,4 @@ export const _isSmallScreen = derived(
 	s => s && (s.sizes.small && !s.sizes.medium)
 );
 export const _screenClasses = derived(_screen, s => s?.classes);
+export const _glyph = derived(_screen, s => s?.glyph);

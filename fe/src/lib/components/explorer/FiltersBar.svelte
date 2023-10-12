@@ -1,4 +1,5 @@
 <script>
+	import {Scroller} from '@svizzle/ui';
 	import {getKey, isObjEmpty, makeMergeAppliedFnMap} from '@svizzle/utils';
 	import isEqual from 'just-compare';
 	import * as _ from 'lamb';
@@ -12,7 +13,6 @@
 	import RegionFilter from '$lib/components/explorer/RegionFilter.svelte';
 	import Timeline from '$lib/components/explorer/Timeline.svelte';
 	import RangeSlider from '$lib/components/svizzle/RangeSlider.svelte';
-	import Scroller from '$lib/components/svizzle/Scroller.svelte';
 	import SizeSensor from '$lib/components/svizzle/SizeSensor.svelte';
 	import ScrollIntoView from '$lib/components/svizzle/ui/ScrollIntoView.svelte';
 	import {getRegionsSelection} from '$lib/utils/regions.js';

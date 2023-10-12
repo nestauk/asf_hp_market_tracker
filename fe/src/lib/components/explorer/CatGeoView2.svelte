@@ -22,7 +22,6 @@
 		from '$lib/components/explorer/SelectorRegionType.svelte';
 	import GridColumns from '$lib/components/svizzle/GridColumns.svelte';
 	import GridRows from '$lib/components/svizzle/GridRows.svelte';
-	import Scroller from '$lib/components/svizzle/Scroller.svelte';
 	import {setupGeometryObserver}
 		from '$lib/components/svizzle/ui/geometryObserver.js';
 	import View from '$lib/components/viewports/View.svelte';
@@ -32,6 +31,7 @@
 		MAPBOXGL_ACCESSTOKEN as accessToken,
 	} from '$lib/config/map.js';
 	import regionsByType from '$lib/data/regions.js';
+	import {_barchartGeometry} from '$lib/stores/geometry.js';
 	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {
 		_featureNameId,
@@ -152,14 +152,15 @@
 		}
 	}
 
-	const onBarEntered = ({detail: {id}}) => {
-		heroKey = id;
+	const onBarEntered = ({detail: {key, displayValue}}) => {
+		heroKey = key;
 
-		const centroid = regionsByType[regionType]?.regions[id]?.centroid;
+		const centroid = regionsByType[regionType]?.regions[key]?.centroid;
 		const {x, y} = $_projectFn(centroid);
 
 		$_tooltip = {
-			key: id,
+			key,
+			value: displayValue,
 			x: $_mapGeometry.left + x,
 			y: $_mapGeometry.top + y,
 		};
@@ -306,15 +307,14 @@
 			<GridRows rowLayout='min-content 1fr min-content min-content'>
 				<MetricTitle />
 
-				<Scroller overflowX='hidden'>
-					<BarchartVDiv
-						{formatFn}
-						items={currentItems}
-						shouldResetScroll={true}
-						theme={$_barchartsTheme}
-						valueToColorFn={colorScale}
-					/>
-				</Scroller>
+				<BarchartVDiv
+					{formatFn}
+					geometry={$_barchartGeometry}
+					items={currentItems}
+					shouldResetScroll={true}
+					theme={$_barchartsTheme}
+					valueToColorFn={colorScale}
+				/>
 
 				<XorNavigator
 					{valuesToLabels}
@@ -342,8 +342,8 @@
 				/>
 			</GridColumns>
 			<GridColumns
-				colLayout='10% 60% 30%'
-				gap='0.25em'
+				colLayout='10% 58% 30%'
+				gap='1%'
 			>
 				<div class='col0'>
 					<div class='legend'>
@@ -392,6 +392,7 @@
 				<BarchartVDiv
 					{formatFn}
 					{heroKey}
+					geometry={$_barchartGeometry}
 					isInteractive={true}
 					items={currentItems}
 					on:entered={onBarEntered}

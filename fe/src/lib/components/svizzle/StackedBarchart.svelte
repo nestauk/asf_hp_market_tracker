@@ -1,5 +1,5 @@
 <script>
-	import {_screen, setupResizeObserver} from '@svizzle/ui';
+	import {setupResizeObserver, Scroller} from '@svizzle/ui';
 	import {
 		applyFnMap,
 		arrayMaxWith,
@@ -16,8 +16,6 @@
 	import * as _ from 'lamb';
 	import {afterUpdate, createEventDispatcher} from 'svelte';
 
-	import Scroller from '$lib/components/svizzle/Scroller.svelte';
-
 	export let axesLabels;
 	export let extentsType;
 	export let geometry;
@@ -29,8 +27,11 @@
 	export let theme;
 
 	const defaultGeometry = {
+		glyphHeight: 16,
+		glyphWidth: 8,
 		keyHeightEm: 3,
-		padding: 0.9,
+		paddingInner: 0.9,
+		paddingOuter: 0.2,
 		safetyBottom: 8,
 		safetyLeft: 8,
 		safetyRight: 8,
@@ -57,10 +58,10 @@
 		? `${str.substring(0, L - 3)}...`
 		: str;
 
-	const truncateToPx = (str, maxWidth, charWidth) => {
-		const pxLength = str.length * charWidth;
+	const truncateToPx = (str, maxWidth, glyphWidth) => {
+		const pxLength = str.length * glyphWidth;
 		if (pxLength > maxWidth) {
-			const L = Math.floor(maxWidth / charWidth) + 3;  // Adding 3 for ellipsis
+			const L = Math.floor(maxWidth / glyphWidth) + 3; // Adding 3 for ellipsis
 			return truncate(str, L);
 		}
 		return str;
@@ -71,12 +72,12 @@
 	let availableLabelWidth;
 	let barsScaleByKey;
 	let doDraw = false;
-	let extraWidth = 0;
 	let height;
 	let keyHeight;
 	let maxSum;
 	let maxSumPxLength;
 	let previousItems;
+	let scrollbarWidth = 0;
 	let scrollTop;
 	let width;
 	let xScale;
@@ -91,16 +92,13 @@
 
 	$: axesLabels = axesLabels ?? [];
 
-	// FIXME 1.5 is typical line-height, take from accessibility menu store?
-	$: em = $_screen?.glyph.height / 1.5 || 16;
 	$: theme = {...defaultTheme, ...theme};
 	$: geometry = {...defaultGeometry, ...geometry};
 	$: groupToColorFn = groupToColorFn || defaultBarColorFn;
 	$: groupSortBy = groupSortBy || 'total';
 	$: shouldResetScroll = shouldResetScroll || false;
-	$: width = $_size.inlineSize - extraWidth;
-	$: keyHeight = geometry.keyHeightEm * em;
-	$: charWidth = $_screen?.glyph.width || 8;
+	$: width = $_size.inlineSize - scrollbarWidth;
+	$: keyHeight = geometry.keyHeightEm * geometry.glyphHeight;
 
 	$: valueSortingFn = _.sortWith([_.sorterDesc(getValue)]);
 	$: groupSortingFn = groupSortBy === 'total'
@@ -141,7 +139,7 @@
 		maxSum = getMaxSum(stacks);
 		augmentedItems = augmentItems(stacks);
 		const maxSumStringLength = maxSum.toString().length;
-		maxSumPxLength = maxSumStringLength * charWidth;
+		maxSumPxLength = maxSumStringLength * geometry.glyphWidth;
 		availableLabelWidth =
 			width - geometry.safetyLeft - geometry.safetyRight - maxSumPxLength;
 		allKeys = _.map(augmentedItems, getKey)
@@ -170,8 +168,8 @@
 			.domain(allKeys)
 			.range([geometry.safetyTop, height - geometry.safetyBottom])
 			.align(1)
-			.paddingOuter(0.2)
-			.paddingInner(geometry.padding);
+			.paddingOuter(geometry.paddingOuter)
+			.paddingInner(geometry.paddingInner);
 
 		doDraw = true;
 	}
@@ -184,9 +182,8 @@
 	>
 		{#if doDraw}
 			<Scroller
-				bind:extraWidth
 				bind:outerScrollTop={scrollTop}
-				overflowX='hidden'
+				bind:scrollbarWidth
 			>
 				<svg {width} {height}>
 					{#each augmentedItems as {key, values, sum}}
@@ -199,7 +196,7 @@
 							x={geometry.safetyLeft}
 							y={yScale(key) - 10}
 						>
-							{truncateToPx(key, availableLabelWidth, charWidth)}
+							{truncateToPx(key, availableLabelWidth, geometry.glyphWidth)}
 						</text>
 
 						<!-- number -->

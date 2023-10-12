@@ -1,9 +1,10 @@
 <script>
+	import {Scroller} from '@svizzle/ui';
+
 	import * as metricInfos from '$lib/_content/metrics/index.js';
 	import CoverageSmall from '$lib/components/explorer/small/CoverageSmall.svelte';
 	import MetricTitle from '$lib/components/explorer/MetricTitle.svelte';
 	import GridRows from '$lib/components/svizzle/GridRows.svelte';
-	import Scroller from '$lib/components/svizzle/Scroller.svelte';
 	import {_currentMetricId} from '$lib/stores/navigation.js';
 </script>
 

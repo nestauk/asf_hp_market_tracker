@@ -1,8 +1,7 @@
 <script>
-	import {Link} from '@svizzle/ui';
+	import {Link, Scroller} from '@svizzle/ui';
 
 	import * as metricInfos from '$lib/_content/metrics/index.js';
-	import Scroller from '$lib/components/svizzle/Scroller.svelte';
 	import {scrollIntoViewIfTrue}
 		from '$lib/components/svizzle/ui/actions/scrollIntoView.js';
 	import {metricGroups} from '$lib/data/metrics.js';

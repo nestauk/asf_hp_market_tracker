@@ -1,5 +1,5 @@
 <script>
-	import {CenteredView} from '@svizzle/ui';
+	import {CenteredView, Scroller} from '@svizzle/ui';
 	import {
 		arraySumWith,
 		getId,
@@ -14,7 +14,6 @@
 
 	import KeysLegend
 		from '$lib/components/svizzle/legend/KeysLegend.svelte';
-	import Scroller from '$lib/components/svizzle/Scroller.svelte';
 	import FlexBar from '$lib/components/explorer/FlexBar.svelte';
 	import MetricTitle from '$lib/components/explorer/MetricTitle.svelte';
 	import StackedBarchart
@@ -26,6 +25,7 @@
 	import GridColumns from '$lib/components/svizzle/GridColumns.svelte';
 	import GridRows from '$lib/components/svizzle/GridRows.svelte';
 	import {interpolateColor} from '$lib/config/colors.js';
+	import {_glyphGeometry} from '$lib/stores/geometry.js';
 	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {_selection} from '$lib/stores/navigation.js';
 	import {
@@ -175,19 +175,18 @@
 			<GridRows rowLayout='min-content 1fr'>
 				<MetricTitle />
 
-				<Scroller>
-					<StackedBarchart
-						{domain}
-						{groupIds}
-						{groupToColorFn}
-						{stacks}
-						extentsType={$_selection.stackedBarsExtents}
-						groupSortBy={$_selection.stringsGeoSortBy}
-						on:barTouchStarted={onBarHovered}
-						shouldResetScroll={true}
-						theme={$_stackedBarchartTheme}
-					/>
-				</Scroller>
+				<StackedBarchart
+					{domain}
+					{groupIds}
+					{groupToColorFn}
+					{stacks}
+					extentsType={$_selection.stackedBarsExtents}
+					geometry={$_glyphGeometry}
+					groupSortBy={$_selection.stringsGeoSortBy}
+					on:barTouchStarted={onBarHovered}
+					shouldResetScroll={true}
+					theme={$_stackedBarchartTheme}
+				/>
 			</GridRows>
 		</View>
 

@@ -12,6 +12,7 @@
 	import Treemap from '$lib/components/svizzle/Treemap.svelte';
 	import View from '$lib/components/viewports/View.svelte';
 	import {interpolateColor} from '$lib/config/colors.js';
+	import {_barchartGeometry} from '$lib/stores/geometry.js';
 	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {_currentMetric} from '$lib/stores/navigation.js';
 	import {_barchartsTheme} from '$lib/stores/theme.js';
@@ -115,6 +116,7 @@
 
 				<BarchartVDiv
 					{keyToColorFn}
+					geometry={$_barchartGeometry}
 					items={barchartItems}
 					shouldResetScroll={true}
 					theme={$_barchartsTheme}
@@ -143,6 +145,7 @@
 					<BarchartVDiv
 						{keyToColorFn}
 						{heroKey}
+						geometry={$_barchartGeometry}
 						items={barchartItems}
 						shouldResetScroll={true}
 						shouldScrollToHeroKey={true}

@@ -1,6 +1,6 @@
+import {_isA11yDirty} from '@svizzle/ui';
 import * as _ from 'lamb';
 import {derived, writable} from 'svelte/store';
-import {_isA11yDirty} from '@svizzle/ui';
 
 import {makeSegmentToCssVar} from '$lib/utils/theme';
 

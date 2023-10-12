@@ -1,10 +1,10 @@
 <script>
+	import {Scroller} from '@svizzle/ui';
 	import {scaleOrdinal} from 'd3-scale';
 	import * as _ from 'lamb';
 
 	import GridColumns from '$lib/components/svizzle/GridColumns.svelte';
 	import GridRows from '$lib/components/svizzle/GridRows.svelte';
-	import Scroller from '$lib/components/svizzle/Scroller.svelte';
 	import KeysLegend from '$lib/components/svizzle/legend/KeysLegend.svelte';
 	import StatsTrends from '$lib/components/svizzle/trends/StatsTrends.svelte';
 	import {interpolateColor} from '$lib/config/colors.js';
@@ -109,8 +109,8 @@
 	</GridRows>
 {:else}
 	<GridColumns
-		colLayout='85% 15%'
-		gap='0.5em'
+		colLayout='84% 15%'
+		gap='1%'
 	>
 		<StatsTrends
 			{axesLabels}

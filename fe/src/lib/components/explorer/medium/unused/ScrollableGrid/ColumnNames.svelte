@@ -2,13 +2,13 @@
 	import Bullet from '$lib/components/explorer/Bullet.svelte';
 
 	export let categories;
-	export let extraWidth;
 	export let labelsByCategory;
+	export let scrollbarWidth;
 </script>
 
 <div
 	class='ColumnNames'
-	style='padding-right: {extraWidth}px'
+	style='padding-right: {scrollbarWidth}px'
 >
 	{#each categories as category}
 		<Bullet

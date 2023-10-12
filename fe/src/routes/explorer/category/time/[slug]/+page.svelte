@@ -1,4 +1,5 @@
 <script>
+	import {Scroller} from '@svizzle/ui';
 	import {
 		arraySumWith,
 		getKey,
@@ -16,7 +17,6 @@
 	import GridColumns from '$lib/components/svizzle/GridColumns.svelte';
 	import GridRows from '$lib/components/svizzle/GridRows.svelte';
 	import KeysLegend from '$lib/components/svizzle/legend/KeysLegend.svelte';
-	import Scroller from '$lib/components/svizzle/Scroller.svelte';
 	import StreamGraph from '$lib/components/svizzle/trends/StreamGraph.svelte';
 	import Trends from '$lib/components/svizzle/trends/Trends.svelte';
 	import View from '$lib/components/viewports/View.svelte';
@@ -262,8 +262,8 @@
 
 		{#if doDraw}
 			<GridColumns
-				colLayout='85% 15%'
-				gap='0.5em'
+				colLayout='84% 15%'
+				gap='1%'
 			>
 				<div class='col0'>
 					{#if $_selection.categsTimeGraph === 'streams'}
