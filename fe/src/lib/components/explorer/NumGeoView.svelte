@@ -106,7 +106,10 @@
 			y: $_mapGeometry.top + y,
 		};
 	}
-	const onBarExited = ({detail: {id}}) => {
+	const onBarExited = () => {
+		clearTooltip();
+
+		// barchart
 		heroKey = null;
 	}
 

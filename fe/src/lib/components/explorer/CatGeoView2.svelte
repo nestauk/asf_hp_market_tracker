@@ -165,6 +165,9 @@
 		};
 	}
 	const onBarExited = () => {
+		clearTooltip();
+
+		// barchart
 		heroKey = null;
 	}
 
