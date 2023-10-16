@@ -308,6 +308,9 @@
 		addControls();
 	};
 
+	const onMouseEnter = () => dispatch('entered');
+	const onMouseLeave = () => dispatch('exited');
+
 	/* lifecycle */
 
 	onMount(() => {
@@ -325,7 +328,12 @@
 <svelte:window on:resize={onResize} />
 
 {#if isMapboxGLSupported}
-	<div class='Mapboxgl'>
+	<div
+		class='Mapboxgl'
+		on:mouseenter={onMouseEnter}
+		on:mouseleave={onMouseLeave}
+		role='none'
+	>
 		<div
 			bind:this={mapcontainer}
 			class='mapcontainer'

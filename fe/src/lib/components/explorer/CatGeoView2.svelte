@@ -119,22 +119,26 @@
 		)
 	]);
 
+	/* handlers */
+
 	let heroKey;
 
+	const clearHero = () => {
+		clearTooltip();
+
+		// barchart
+		heroKey = null;
+	}
+
 	const onMapFeaturesHovered = ({detail: {features, x, y}}) => {
-		let featureName;
+		let item;
 		if (features.length > 0) {
-			({properties: {[$_featureNameId]: featureName}} = features[0]);
+			const {properties: {[$_featureNameId]: featureName}} = features[0];
+			item = itemsIndex[featureName];
 		}
-		if (featureName) {
-			let key;
-			let value;
-			if (featureName in itemsIndex) {
-				({key, value} = itemsIndex[featureName]);
-			} else {
-				key = featureName;
-				value = null;
-			}
+		if (item) {
+			const {key, value} = item;
+
 			$_tooltip = {
 				key,
 				value: formatFn ? formatFn(value) : value,
@@ -145,10 +149,7 @@
 			// barchart
 			heroKey = key;
 		} else {
-			clearTooltip();
-
-			// barchart
-			heroKey = null;
+			clearHero();
 		}
 	}
 
@@ -164,12 +165,6 @@
 			x: $_mapGeometry.left + x,
 			y: $_mapGeometry.top + y,
 		};
-	}
-	const onBarExited = () => {
-		clearTooltip();
-
-		// barchart
-		heroKey = null;
 	}
 
 	let colorScale;
@@ -377,6 +372,7 @@
 							isAnimated={false}
 							isInteractive={false}
 							on:mapFeaturesHovered={onMapFeaturesHovered}
+							on:exited={clearHero}
 							reactiveLayersIds={[regionType, `${regionType}_line`]}
 							style={$_mapStyle}
 							visibleLayersIds={['nuts21_0', regionType, `${regionType}_line`]}
@@ -396,7 +392,7 @@
 					isInteractive={true}
 					items={currentItems}
 					on:entered={onBarEntered}
-					on:exited={onBarExited}
+					on:exited={clearHero}
 					shouldResetScroll={true}
 					shouldScrollToHeroKey={true}
 					theme={$_barchartsTheme}

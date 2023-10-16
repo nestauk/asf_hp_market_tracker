@@ -68,6 +68,15 @@
 		geometryObserver
 	} = setupGeometryObserver();
 
+	/* handlers */
+
+	const clearHero = () => {
+		clearTooltip();
+
+		// barchart
+		heroKey = null;
+	}
+
 	const onMapFeaturesHovered = ({detail: {features, x, y}}) => {
 		let item;
 		if (features.length > 0) {
@@ -87,10 +96,7 @@
 			// barchart
 			heroKey = key;
 		} else {
-			clearTooltip();
-
-			// barchart
-			heroKey = null;
+			clearHero();
 		}
 	}
 
@@ -106,12 +112,6 @@
 			x: $_mapGeometry.left + x,
 			y: $_mapGeometry.top + y,
 		};
-	}
-	const onBarExited = () => {
-		clearTooltip();
-
-		// barchart
-		heroKey = null;
 	}
 
 	$: regionType = $_selection.regionType;
@@ -318,6 +318,7 @@
 							isAnimated={false}
 							isInteractive={false}
 							on:mapFeaturesHovered={onMapFeaturesHovered}
+							on:exited={clearHero}
 							reactiveLayersIds={[regionType, `${regionType}_line`]}
 							style={$_mapStyle}
 							visibleLayersIds={['nuts21_0', regionType, `${regionType}_line`]}
@@ -338,7 +339,7 @@
 					isInteractive={true}
 					items={barchartItems}
 					on:entered={onBarEntered}
-					on:exited={onBarExited}
+					on:exited={clearHero}
 					shouldResetScroll={true}
 					shouldScrollToHeroKey={true}
 					theme={$_barchartsTheme}
