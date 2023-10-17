@@ -1,6 +1,10 @@
 <script>
 	import {Icon, XCircle} from '@svizzle/ui';
-	import {isIterableEmpty, toggleItem} from '@svizzle/utils';
+	import {
+		isIterableEmpty,
+		isIterableNotEmpty,
+		toggleItem,
+	} from '@svizzle/utils';
 	import * as _ from 'lamb';
 	import {createEventDispatcher} from 'svelte';
 
@@ -15,6 +19,7 @@
 		regionTypeToFeatureNameId,
 	} from '$lib/config/map.js';
 	import {_mapStyle} from '$lib/stores/maps.js';
+	import {_selection} from '$lib/stores/navigation.js';
 	import {_currThemeVars, _xorNavigatorTheme} from '$lib/stores/theme.js';
 	import XorNavigator from '$lib/components/svizzle/ui/XorNavigator.svelte';
 	import {doPairItemsContainSameValues} from '$lib/utils/svizzle/utils.js';
@@ -36,7 +41,7 @@
 	$: areAllRegionsSelected = isIterableEmpty(regionNames);
 	$: regionType = targetRegionType;
 
-	/* confirmation buttons */
+	/* status */
 
 	$: isDirty =
 		regionType !== targetRegionType ||
@@ -44,6 +49,15 @@
 			regionNames,
 			targetRegionNames
 		]);
+
+	let isEdited;
+	$: if (id === 'installer_geo_region') {
+		isEdited = isIterableNotEmpty($_selection.filters.installerRegionNames);
+	} else if (id === 'property_geo_region') {
+		isEdited = isIterableNotEmpty($_selection.filters.propertyRegionNames);
+	}
+
+	/* confirmation buttons */
 
 	const onDismiss = () => {
 		regionNames = targetRegionNames;
@@ -135,8 +149,8 @@
 </script>
 
 <FilterPaneBorder
-	{id}
 	{isDirty}
+	{isEdited}
 >
 	<div
 		class='RegionFilter'

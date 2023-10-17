@@ -21,24 +21,26 @@ import {_staticData} from '$lib/stores/data.js';
 import {getEntity} from '$lib/utils/getters.js';
 import {pluckKeySorted} from '$lib/utils/svizzle/utils.js';
 
-/* categorical filters */
+/* utils: numbers / categories */
 
-const getValuesArray = _.mapValuesWith(
+const valuesToValuesKey = _.mapValuesWith(
 	applyFnMap({
 		values: _.identity,
 	})
 );
 
-/* filter groups */
+/* utils: filter groups */
 
 const isFilterableField = _.anyOf([
 	_.hasKeyValue('type', 'category'),
 	_.hasKeyValue('type', 'number'),
 ]);
+
 const extraFiltersByEntity = _.group([
 	{entity: 'Installation', id: 'installation_date'},
 	{entity: 'Installation company', id: 'installer_geo_region'},
-	{entity: 'Property features', id: 'property_geo_region'}
+	{entity: 'Property features', id: 'property_geo_region'},
+	{entity: 'Heat pump features', id: 'heat_pump_brands_models'}
 ], getEntity);
 
 export const _filtersBar = derived(
@@ -48,19 +50,25 @@ export const _filtersBar = derived(
 			return [];
 		}
 
+		/* numbers */
+
 		const numData = mergeWithMerge(
-			staticData.numStats,
-			getValuesArray(staticData.numHists)
+			staticData.numStatsById,
+			valuesToValuesKey(staticData.numHistsById)
 		);
 		const numFiltersById = mergeWithMerge(
 			numericMetricsById,
 			numData,
 		);
 
+		/* categories */
+
 		const catFiltersById = mergeWithMerge(
 			categoricalMetricsById,
-			getValuesArray(staticData.catStats)
+			valuesToValuesKey(staticData.catStatsById)
 		);
+
+		/* groups */
 
 		const getFilterGroups = _.pipe([
 			_.mapWith(_.pipe([

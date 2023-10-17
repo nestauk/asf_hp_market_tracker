@@ -3,7 +3,7 @@
 	import {getKey, isObjEmpty} from '@svizzle/utils';
 	import {extent} from 'd3-array';
 	import {scaleLinear, scaleUtc} from 'd3-scale';
-	import isEqual from 'just-compare';
+	import areEqual from 'just-compare';
 	import * as _ from 'lamb';
 
 	import {explorerActor} from '$lib/statechart/index.js';
@@ -98,7 +98,7 @@
 			newFilters = _.setIn(oldFilters, 'installation_date', criteria);
  		}
 
-		if (!isEqual(oldFilters, newFilters)) {
+		if (!areEqual(oldFilters, newFilters)) {
 			explorerActor.send({
 				type: 'SELECTION_CHANGED',
 				newValues: {filters: newFilters}

@@ -18,6 +18,7 @@ export const context = {
 		regionType: 'country21',
 		regionTypes: allRegionTypes,
 		stackedBarsExtents: 'absolute',
+		stringsFilters: [],
 		stringsGeoSortBy: 'total',
 		stringsStreamgraphsSorting: 'off',
 		stringsTimeGraph: 'trends',

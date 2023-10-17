@@ -1,26 +1,12 @@
 <script>
-	import {isIterableNotEmpty} from '@svizzle/utils';
-	import * as _ from 'lamb';
-
-	import {_selection} from '$lib/stores/navigation.js';
-
-	export let id;
 	export let isDirty;
-
-	let isEdited;
-	$: if (id === 'installer_geo_region') {
-		isEdited = isIterableNotEmpty($_selection.filters.installerRegionNames);
-	} else if (id === 'property_geo_region') {
-		isEdited = isIterableNotEmpty($_selection.filters.propertyRegionNames);
-	} else {
-		isEdited = _.has($_selection.filters, id);
-	}
+	export let isEdited;
 </script>
 
 <div
-	class='FilterPaneBorder'
-	class:edited={isEdited}
 	class:dirty={isDirty}
+	class:edited={isEdited}
+	class='FilterPaneBorder'
 >
 	<slot/>
 </div>

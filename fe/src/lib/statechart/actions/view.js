@@ -311,7 +311,7 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 
 	let viewQueryPath = endpoint;
 
-	const {filters} = ctx.selection;
+	const {filters, stringsFilters} = ctx.selection;
 	if (isObjNotEmpty(filters)) {
 		const {
 			installerRegionNames,
@@ -338,6 +338,8 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 
 		params.filter = RISON.stringify(processedFilters);
 	}
+
+	params.stringsFilters = RISON.stringify(stringsFilters);
 
 	if (isObjNotEmpty(params)) {
 		viewQueryPath = `${endpoint}?${new URLSearchParams(params)}`;

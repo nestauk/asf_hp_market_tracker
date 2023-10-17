@@ -1,3 +1,4 @@
+import {isObjNotEmpty} from '@svizzle/utils';
 import * as _ from 'lamb';
 import rison from 'rison';
 
@@ -26,9 +27,8 @@ export const onRequest = async (request, reply) => {
 	let allFilters = [];
 	let allFiltersFields = [];
 
-	if (filter) {
-		const decodedFilter = rison.decode(filter);
-
+	const decodedFilter = filter && rison.decode(filter);
+	if (decodedFilter && isObjNotEmpty(decodedFilter)) {
 		const filterQuery = getFilterQuery(decodedFilter);
 		allFilters.push(...filterQuery);
 		allFiltersFields.push(..._.keys(decodedFilter));
@@ -38,9 +38,8 @@ export const onRequest = async (request, reply) => {
 		request.originalFilter = {};
 	}
 
-	if (stringsFilters) {
-		const decodedStringsFilters = rison.decode(stringsFilters);
-
+	const decodedStringsFilters = stringsFilters && rison.decode(stringsFilters);
+	if (decodedStringsFilters?.length) {
 		const stringsFiltersQuery = {
 			bool: {
 				must: getStringsFiltersQuery(decodedStringsFilters)

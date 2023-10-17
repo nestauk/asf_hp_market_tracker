@@ -2,7 +2,6 @@
 	import {setupResizeObserver} from '@svizzle/ui';
 
 	import {coverageTooltips} from '$lib/config/labels.js';
-	import {_staticData} from '$lib/stores/data.js';
 	import {_tooltip, clearTooltip} from '$lib/stores/tooltip.js';
 	import {_viewData, _viewDataCoverage} from '$lib/stores/view.js';
 

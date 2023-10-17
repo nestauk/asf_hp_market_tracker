@@ -167,8 +167,20 @@ a {
 	/* maps */
 
 	--colorMapFillNuts: #eee;
-	--colorMapStrokeSelected: black;
+	--colorMapStrokeSelected: #333;
 	--colorMapHeroStroke: #333;
+
+	/* brands models */
+
+	--colorClauseActiveBackground: #333;
+	--colorClauseActiveIcon: white;
+	--colorClauseHover: #333;
+	--colorClauseHoverBackground: #eee;
+	--colorClauseIcon: #333;
+	--colorDiscardedBackground: #ffeecc;
+	--colorDiscardedText: #333;
+	--colorKeptBackground: #e4ffdb;
+	--colorKeptText: #333;
 }
 
 .themeDark {
@@ -257,4 +269,16 @@ a {
 	--colorMapFillNuts: #eee;
 	--colorMapStrokeSelected: #333;
 	--colorMapHeroStroke: white;
+
+	/* brands models */
+
+	--colorClauseActiveBackground: white;
+	--colorClauseActiveIcon: black;
+	--colorClauseHover: white;
+	--colorClauseHoverBackground: darkgrey;
+	--colorClauseIcon: white;
+	--colorDiscardedBackground: #78591b;
+	--colorDiscardedText: #eee;
+	--colorKeptBackground: #185f00;
+	--colorKeptText: #eee;
 }

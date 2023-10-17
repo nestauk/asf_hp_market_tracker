@@ -14,6 +14,7 @@
 	import FilterPaneBorder
 		from '$lib/components/explorer/FilterPaneBorder.svelte';
 	import {makeOnKeyDown} from '$lib/components/svizzle/ui/handlers.js';
+	import {_selection} from '$lib/stores/navigation.js';
 	import {getDocCount, getSelected} from '$lib/utils/getters.js';
 	import {getSorters} from '$lib/utils/ordering.js';
 	import {areAllFalsyWith} from '$lib/utils/svizzle/utils.js';
@@ -74,8 +75,8 @@
 </script>
 
 <FilterPaneBorder
-	{id}
 	{isDirty}
+	isEdited={_.has($_selection.filters, id)}
 >
 	<div class='CategorySelector'>
 		{#each sortedInputStates as {key, selected, doc_count} (key)}

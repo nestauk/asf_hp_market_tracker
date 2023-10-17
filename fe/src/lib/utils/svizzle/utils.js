@@ -107,3 +107,9 @@ export const doPairItemsContainSameValues = _.allOf([
 		areAllTruthy
 	])
 ]);
+
+export const makeTrimmedSplitBy = separator => _.pipe([
+	trim, // FIX: trim before splitting too
+	_.splitBy(separator),
+	_.mapWith(trim)
+]);

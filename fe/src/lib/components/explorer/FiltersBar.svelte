@@ -1,9 +1,11 @@
 <script>
 	import {Scroller} from '@svizzle/ui';
 	import {getKey, isObjEmpty, makeMergeAppliedFnMap} from '@svizzle/utils';
-	import isEqual from 'just-compare';
+	import areEqual from 'just-compare';
 	import * as _ from 'lamb';
 
+	import BrandsModelsSelector
+		from '$lib/components/explorer/BrandsModelsSelector.svelte';
 	import CategorySelector
 		from '$lib/components/explorer/CategorySelector.svelte';
 	import FilterPaneBorder
@@ -28,7 +30,7 @@
 
 	const makeOnRangeChanged = id => ({detail: {min, max}}) => {
 		const {filters: oldFilters} = $_selection;
-		const idStats = $_staticData.numStats[id];
+		const idStats = $_staticData.numStatsById[id];
 
 		const criteria = {};
 		if (min !== idStats.min) {
@@ -45,7 +47,7 @@
 			newFilters = _.setIn(oldFilters, id, criteria);
 		}
 
-		if (!isEqual(oldFilters, newFilters)) {
+		if (!areEqual(oldFilters, newFilters)) {
 			explorerActor.send({
 				type: 'SELECTION_CHANGED',
 				newValues: {filters: newFilters}
@@ -71,7 +73,7 @@
 	const makeOnCatsChanged = id => ({detail: categories}) => {
 		const {filters: oldFilters} = $_selection;
 		const selectedCats = _.filter(categories, getSelected);
-		const catStats = $_staticData.catStats[id];
+		const catStats = $_staticData.catStatsById[id];
 
 		let newFilters;
 		if (selectedCats.length === catStats.length) {
@@ -80,7 +82,7 @@
 			newFilters = _.setIn(oldFilters, id, getSelectedCats(categories));
 		}
 
-		if (!isEqual(oldFilters, newFilters)) {
+		if (!areEqual(oldFilters, newFilters)) {
 			explorerActor.send({
 				type: 'SELECTION_CHANGED',
 				newValues: {filters: newFilters}
@@ -104,7 +106,7 @@
 			regionType: $_selection.regionType
 		});
 
-		if (!isEqual(oldFilters, newFilters)) {
+		if (!areEqual(oldFilters, newFilters)) {
 			explorerActor.send({
 				type: 'SELECTION_CHANGED',
 				newValues: {
@@ -131,12 +133,27 @@
 			regionType: $_selection.regionType
 		});
 
-		if (!isEqual(oldFilters, newFilters)) {
+		if (!areEqual(oldFilters, newFilters)) {
 			explorerActor.send({
 				type: 'SELECTION_CHANGED',
 				newValues: {
 					filters: newFilters,
 					...regionsSelection
+				}
+			});
+		}
+	}
+
+	/* HP brands & models */
+
+	const onBrandsModelsChanged = ({detail: stringsFilters}) => {
+		const {stringsFilters: oldStringsFilters} = $_selection;
+
+		if (!areEqual(oldStringsFilters, stringsFilters)) {
+			explorerActor.send({
+				type: 'SELECTION_CHANGED',
+				newValues: {
+					stringsFilters
 				}
 			});
 		}
@@ -156,7 +173,7 @@
 			newFilters = _.skipIn(oldFilters, [id]);
 		}
 
-		if (!isEqual(oldFilters, newFilters)) {
+		if (!areEqual(oldFilters, newFilters)) {
 			explorerActor.send({
 				type: 'SELECTION_CHANGED',
 				newValues: {
@@ -176,7 +193,7 @@
 			propertyRegionType: $_selection.filters.propertyRegionType,
 		}
 
-		if (!isEqual(oldFilters, newFilters)) {
+		if (!areEqual(oldFilters, newFilters)) {
 			explorerActor.send({
 				type: 'SELECTION_CHANGED',
 				newValues: {
@@ -198,6 +215,7 @@
 	let navHeight;
 
 	$: style = `--navHeight:${navHeight}px`;
+	$: selectedBrandsModels = $_selection.stringsFilters;
 </script>
 
 <div
@@ -224,7 +242,7 @@
 						<ul>
 							{#each metrics as metric}
 								{@const queryValue = $_selection.filters[metric.id]}
-	
+
 								<ScrollIntoView
 									alignToTop={true}
 									doIt={metric.id === activeFilterId}
@@ -232,7 +250,7 @@
 									{#if metric.id === 'installer_geo_region'}
 										<li>
 											<section>
-												<header class='h3'>Regions</header>
+												<header class='h3'>Region</header>
 												<RegionFilter
 													id={metric.id}
 													on:apply={onInstallerRegionsChanged}
@@ -244,7 +262,7 @@
 									{:else if metric.id === 'property_geo_region'}
 										<li>
 											<section>
-												<header class='h3'>Regions</header>
+												<header class='h3'>Region</header>
 												<RegionFilter
 													id={metric.id}
 													on:apply={onPropertyRegionsChanged}
@@ -253,11 +271,24 @@
 												/>
 											</section>
 										</li>
+									{:else if metric.id === 'heat_pump_brands_models'}
+										<li>
+											<section>
+												<header class='h3'>Brands & Models</header>
+												<BrandsModelsSelector
+													{selectedBrandsModels}
+													id='heat_pump_brands_models'
+													on:apply={onBrandsModelsChanged}
+												/>
+											</section>
+										</li>
 									{:else if metric.id === 'installation_date' && $_isSmallScreen}
 										<li>
 											<section>
 												<header class='h3'>Date</header>
-												<FilterPaneBorder id={metric.id}>
+												<FilterPaneBorder
+													isEdited={_.has($_selection.filters, metric.id)}
+												>
 													<div class='timeline'>
 														<Timeline
 															geometry={{
@@ -274,7 +305,9 @@
 											<section>
 												<header class='h3'>{metric.label}</header>
 												{#if metric.type === 'number'}
-													<FilterPaneBorder id={metric.id}>
+													<FilterPaneBorder
+														isEdited={_.has($_selection.filters, metric.id)}
+													>
 														<RangeSlider
 															formatFn={metric.formatFn}
 															items={metric.values}

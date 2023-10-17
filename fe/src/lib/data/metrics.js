@@ -81,6 +81,8 @@ export const metricIdsGroups = [
 	{
 		key: 'Heat pump features',
 		value: [
+			'hp_id_brand',
+			'hp_id_model',
 			'hp_feature_flow_temperature',
 			'hp_feature_power_capacity',
 			'hp_feature_power_capacity_sum',
@@ -88,8 +90,6 @@ export const metricIdsGroups = [
 			'hp_feature_power_generation_sum',
 			'hp_feature_scop',
 			'hp_feature_design',
-			'hp_id_brand',
-			'hp_id_model',
 		]
 	},
 ];

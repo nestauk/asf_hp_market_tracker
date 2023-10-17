@@ -188,6 +188,15 @@ export const _xorSelectorTheme = derived(
 	})
 );
 
+export const _searchInputTheme = derived(
+	_currThemeVars,
+	currThemeVars => ({
+		colorIcon: currThemeVars['--colorIcon'],
+		colorText: currThemeVars['--colorText'],
+		outline: currThemeVars['--outline']
+	})
+);
+
 /* icons */
 
 export const _getIconColor = derived(
