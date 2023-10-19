@@ -47,7 +47,7 @@
 				<span
 					role='button'
 					on:click={() => {$_themeName = name}}
-					on:keydown={makeOnKeyDown(name)}
+					on:keydown={makeOnKeyDown(() => {$_themeName = name})}
 					tabindex='0'
 				>
 					{name}

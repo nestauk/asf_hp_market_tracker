@@ -8,6 +8,11 @@
 </script>
 
 <div class='ExplorerMedium'>
+	<section class='view'>
+		<ViewMedium>
+			<slot />
+		</ViewMedium>
+	</section>
 	<nav class='colHeader filtersHeader'>
 		Filter the data
 	</nav>
@@ -23,11 +28,6 @@
 	<nav class='timeline'>
 		<Timeline />
 	</nav>
-	<section class='view'>
-		<ViewMedium>
-			<slot />
-		</ViewMedium>
-	</section>
 </div>
 
 <style>

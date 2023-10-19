@@ -233,7 +233,7 @@
 
 	.hoveredRegion {
 		align-items: center;
-		color: var(--colorTextDisabled); /* global theme */
+		color: var(--colorText); /* global theme */
 		display: flex;
 		justify-content: center;
 		min-height: 4em;

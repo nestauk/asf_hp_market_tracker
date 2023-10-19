@@ -2,42 +2,23 @@
 
 This workspace is currently being moved from its original location inside
 of `fe/` to `appTest/` in order to make make installation of its dependencies
-optional. However this operation is not complete and the workspace is not
-currently functional.
+optional.
 
-# Testing on the browser
+# Setting up and running the tests
 
-`npm run selenium` will launch all unit tests cointained in 
-`test/browserstack/scripts/automate`.
+The server must be runing in the background for the tests to run.
 
-The `gauge-displays` directory contains code created for determining layout
-breakpoints across display devices and configurations. Though this code is not 
-well organized nor easy to read, it's serving as the basis for running more 
-tests directly in the browser through Browserstack using Selenium.
+```
+npm i
+cd fe
+npm run build
+npm run preview &
 
-However, it still needs some heavy refactoring and cleanup.
+cd ../appTest
+npm i
+npm run lighthouse
+npm run pa11y
+```
 
-A Github action is configured to run the Selenium tests on pull requests to the
-`dev` branch. As a consequence, it's not recommended that commits be pushed
-directly to the `dev` branch so that the tests can be run before merging. The
-action can be found at `.github/workflows/browsersupport.yml` and may be
-triggered to run in a Github action runner by adding `RUN_BROWSERSTACK`
-anywhere in a commit message.
-
-Test results for the original repository can be found here:
-https://gist.github.com/NestaTestUser/8fb890ee1ebf84435539faa7996b140e .
-
-Forks of the repository should be configured with the following action secrets
-in `org/repo/settings/secrets/actions` in Github:
-
- * `BROWSERSTACK_USERNAME`: The account name to use in Browserstack.
- * `BROWSERSTACK_ACCESS_KEY`: The access key provided by Browserstack.
- * `BROWSERSTACK_GIST_TOKEN`: A Github token authorized to create Gists.
-
-TODO:
-
- * Rewrite test runner in functional style, separating test-list generation from 
-   test running.
- * Add Browserstack session & queue management.
- * Describe testing setup procedure on Browserstack and Github.
- * Run on all os/browser/version configurations available on Browserstack.
+After running the tests you'll find the reports in `fe/static/audits/`. These
+reports will be linked from the accessibility in the running app.
