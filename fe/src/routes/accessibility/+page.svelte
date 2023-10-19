@@ -46,7 +46,8 @@
 	}
 	*/
 
-	const getAuditUrl = id =>  `/audits/lighthouse/${id}.html`
+	const getLighthouseAuditUrl = id =>  `/audits/lighthouse/${id}.html`
+	const getPa11yAuditUrl = id =>  `/audits/pa11y/${id}.html`
 
 	onMount(() => {
 		// environment = Bowser.parse(window.navigator.userAgent);
@@ -66,69 +67,34 @@
 	<section>
 		<Accessibility/>
 
-		<!--
-		<H2>Detected Browsing Environment</H2>
-		<dl>
-			<dt>Platform</dt>
-			<dd>{environment?.platform?.type}</dd>
-			<dt>Operating System</dt>
-			<dd>
-				{environment?.os?.name}
-				{#if environment?.os?.versionName}
-					- {environment.os.versionName}
-				{/if}
-			</dd>
-			<dt>Browser</dt>
-			<dd>
-				{environment?.browser.name}
-				{#if environment?.browser?.version}
-					- {environment.browser.version}
-				{/if}
-			</dd>
-			<dt>Engine</dt>
-			<dd>
-				{environment?.engine.name}
-				{#if environment?.engine?.version}
-					- {environment.engine.version}
-				{/if}
-			</dd>
-		</dl>
-
-		{#if testResults?.tested}
-			<P>
-				{#if testResults.passed}
-					This browsing environment has been tested and is supported.
-				{:else}
-					This browsing environment has been tested but some tests
-					have failed and it may not be fully supported.
-				{/if}
-			</P>
-		{:else}
-			<P>
-				This browsing environment hasn't been tested and user experience
-				may vary.
-				{#if environment?.os?.name === 'Linux'}
-					Browserstack does not offer testing under Linux operating
-					systems
-				{/if}
-			</P>
-		{/if}
-		-->
-
-		<H2>Quality audits</H2>
+		<H2>Quality audits (lighthouse)</H2>
 		<menu class='tabs'>
 			<Ul>
+				
 				{#each reportNames as id}
 					<li>
-						<A
-							href={getAuditUrl(id)}
-						>
+						<A href={getLighthouseAuditUrl(id)}>
 							{id}
 						</A>
 					</li>
 				{/each}
 			</Ul>
 		</menu>
+
+		<H2>Quality audits (Pa11y)</H2>
+		<menu class='tabs'>
+			<Ul>
+				
+				{#each reportNames as id}
+					<li>
+						<A href={getPa11yAuditUrl(id)}>
+							{id}
+						</A>
+					</li>
+				{/each}
+			</Ul>
+		</menu>
+
 	</section>
 </main>
 

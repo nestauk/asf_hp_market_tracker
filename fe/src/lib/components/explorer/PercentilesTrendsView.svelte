@@ -63,26 +63,31 @@
 {#if $_isSmallScreen}
 	<GridRows rowLayout='1fr 3fr'>
 		<div class='smallLegend'>
-			<h3 style:grid-area='avgTitle'>Trends</h3>
-			<div style:grid-area='avg'>
+			<section class='legendAvg'>
+				<header class='h3'>
+					Trends
+				</header>
 				<KeysLegend
 					keyToColorFn={_.always(avgTrendColor)}
 					keys={['Average']}
 				/>
-			</div>
-			<h3 style:grid-area='percentTitle'>Percentiles</h3>
-			<div style:grid-area='percentiles1'>
+			</section>
+			<section class='legendPercent'>
+				<header
+					class='h3'
+					style:grid-area='title'
+				>
+					Percentiles
+				</header>
 				<KeysLegend
-					keyToColorFn={areaLegendKeysToColor}
 					keys={_.takeFrom(areaLegendKeys, 4)}
-				/>
-			</div>
-			<div style:grid-area='percentiles2'>
-				<KeysLegend
 					keyToColorFn={areaLegendKeysToColor}
-					keys={_.dropFrom(areaLegendKeys, 4)}
 				/>
-			</div>
+				<KeysLegend
+					keys={_.dropFrom(areaLegendKeys, 4)}
+					keyToColorFn={areaLegendKeysToColor}
+				/>
+			</section>
 		</div>
 
 		<StatsTrends
@@ -136,20 +141,30 @@
 
 		<Scroller>
 			<div class='legend'>
-				<div class='legendBlock'>
-					<h3>Trends</h3>
+				<section class='legendBlock'>
+					<header
+						class='h3'
+						style:grid-area='percentTitle'
+					>
+						Trends
+					</header>
 					<KeysLegend
-						keyToColorFn={_.always(avgTrendColor)}
 						keys={['Average']}
+						keyToColorFn={_.always(avgTrendColor)}
 					/>
-				</div>
-				<div class='legendBlock'>
-					<h3>Percentiles</h3>
+				</section>
+				<section class='legendBlock'>
+					<header
+						class='h3'
+						style:grid-area='percentTitle'
+					>
+						Percentiles
+					</header>
 					<KeysLegend
-						keyToColorFn={areaLegendKeysToColor}
 						keys={areaLegendKeys}
+						keyToColorFn={areaLegendKeysToColor}
 					/>
-				</div>
+				</section>
 			</div>
 		</Scroller>
 	</GridColumns>
@@ -161,21 +176,30 @@
 		display: flex;
 		flex-direction: column;
 		height: min-content;
-		min-height: 100%;
 		justify-content: space-evenly;
-		width: 100%;
+		min-height: 100%;
 		padding: 0;
+		width: 100%;
 	}
-	h3 {
+	.h3 {
+		font-size: 1.2em;
 		padding: 0.25em;
 	}
 
 	.smallLegend {
 		display: grid;
-		grid-template-columns: 1fr 1fr 1fr;
+		grid-template-areas:"legendAvg legendPercent";
+		grid-template-columns: 1fr 2fr;
+	}
+	.legendAvg {
+		display: grid;
 		grid-template-rows: min-content 1fr;
+	}
+	.legendPercent {
+		display: grid;
 		grid-template-areas:
-			"avgTitle percentTitle percentTitle"
-			"avg percentiles1 percentiles2";
+			'title title'
+			'legend1 legend2';
+		grid-template-rows: min-content 1fr;
 	}
 </style>

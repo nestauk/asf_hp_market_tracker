@@ -59,7 +59,7 @@
 	>
 		<div class='currentLabel'>{currentLabel}</div>
 		<button
-			aria-label={hasPrevValue ? 'Previous value' : null}
+			aria-label='Previous value'
 			class:clickable={hasPrevValue}
 			class='prev'
 			disabled={!hasPrevValue}
@@ -69,7 +69,7 @@
 			<Icon glyph={ChevronLeft} />
 		</button>
 		<button
-			aria-label={hasNextValue ? 'Next value' : null}
+			aria-label='Next value'
 			class:clickable={hasNextValue}
 			class='next'
 			disabled={!hasNextValue}

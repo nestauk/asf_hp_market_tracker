@@ -40,7 +40,10 @@
 		<h1>
 			{$_currentMetricTitle}
 			{#if $_currentMetricId in metricInfos}
-				<button on:click={toggleInfoModal}>
+				<button
+					aria-label='Metric info'
+					on:click={toggleInfoModal}
+				>
 					<Icon
 						glyph={Info}
 						size=30

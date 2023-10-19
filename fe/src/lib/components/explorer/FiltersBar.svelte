@@ -219,78 +219,88 @@
 		{#if $_filtersBar}
 			<Scroller>
 				{#each $_filtersBar as {key: entity, values: metrics}}
-					<h2>{entity}</h2>
-					<ul>
-						{#each metrics as metric}
-							{@const queryValue = $_selection.filters[metric.id]}
-
-							<ScrollIntoView
-								alignToTop={true}
-								doIt={metric.id === activeFilterId}
-							>
-								{#if metric.id === 'installer_geo_region'}
-									<li>
-										<h3>Regions</h3>
-										<RegionFilter
-											id={metric.id}
-											on:apply={onInstallerRegionsChanged}
-											targetRegionNames={$_selection.filters.installerRegionNames}
-											targetRegionType={$_selection.filters.installerRegionType}
-										/>
-									</li>
-								{:else if metric.id === 'property_geo_region'}
-									<li>
-										<h3>Regions</h3>
-										<RegionFilter
-											id={metric.id}
-											on:apply={onPropertyRegionsChanged}
-											targetRegionNames={$_selection.filters.propertyRegionNames}
-											targetRegionType={$_selection.filters.propertyRegionType}
-										/>
-									</li>
-								{:else if metric.id === 'installation_date' && $_isSmallScreen}
-									<li>
-										<h3>Date</h3>
-										<FilterPaneBorder id={metric.id}>
-											<div class='timeline'>
-												<Timeline
-													geometry={{
-														safetyLeft: 15,
-														safetyRight: 15,
-													}}
+					<section>
+						<header class='h2'>{entity}</header>
+						<ul>
+							{#each metrics as metric}
+								{@const queryValue = $_selection.filters[metric.id]}
+	
+								<ScrollIntoView
+									alignToTop={true}
+									doIt={metric.id === activeFilterId}
+								>
+									{#if metric.id === 'installer_geo_region'}
+										<li>
+											<section>
+												<header class='h3'>Regions</header>
+												<RegionFilter
+													id={metric.id}
+													on:apply={onInstallerRegionsChanged}
+													targetRegionNames={$_selection.filters.installerRegionNames}
+													targetRegionType={$_selection.filters.installerRegionType}
 												/>
-											</div>
-										</FilterPaneBorder>
-									</li>
-								{:else if metric.id !== 'installation_date'}
-									<li>
-										<h3>{metric.label}</h3>
-										{#if metric.type === 'number'}
-											<FilterPaneBorder id={metric.id}>
-												<RangeSlider
-													formatFn={metric.formatFn}
-													items={metric.values}
-													Max={metric.max}
-													max={queryValue?.lte || metric.max}
-													Min={metric.min}
-													min={queryValue?.gte || metric.min}
-													on:changed={makeOnRangeChanged(metric.id)}
-													theme={$_rangeSlidersTheme}
+											</section>
+										</li>
+									{:else if metric.id === 'property_geo_region'}
+										<li>
+											<section>
+												<header class='h3'>Regions</header>
+												<RegionFilter
+													id={metric.id}
+													on:apply={onPropertyRegionsChanged}
+													targetRegionNames={$_selection.filters.propertyRegionNames}
+													targetRegionType={$_selection.filters.propertyRegionType}
 												/>
-											</FilterPaneBorder>
-										{:else if metric.type === 'category'}
-											<CategorySelector
-												categories={enhanceCategories(metric.values, queryValue || [])}
-												id={metric.id}
-												label={metric.label}
-												on:applied={makeOnCatsChanged(metric.id)}
-											/>
-										{/if}
-									</li>
-								{/if}
-							</ScrollIntoView>
-						{/each}
-					</ul>
+											</section>
+										</li>
+									{:else if metric.id === 'installation_date' && $_isSmallScreen}
+										<li>
+											<section>
+												<header class='h3'>Date</header>
+												<FilterPaneBorder id={metric.id}>
+													<div class='timeline'>
+														<Timeline
+															geometry={{
+																safetyLeft: 15,
+																safetyRight: 15,
+															}}
+														/>
+													</div>
+												</FilterPaneBorder>
+											</section>
+										</li>
+									{:else if metric.id !== 'installation_date'}
+										<li>
+											<section>
+												<header class='h3'>{metric.label}</header>
+												{#if metric.type === 'number'}
+													<FilterPaneBorder id={metric.id}>
+														<RangeSlider
+															formatFn={metric.formatFn}
+															items={metric.values}
+															Max={metric.max}
+															max={queryValue?.lte || metric.max}
+															Min={metric.min}
+															min={queryValue?.gte || metric.min}
+															on:changed={makeOnRangeChanged(metric.id)}
+															theme={$_rangeSlidersTheme}
+														/>
+													</FilterPaneBorder>
+												{:else if metric.type === 'category'}
+													<CategorySelector
+														categories={enhanceCategories(metric.values, queryValue || [])}
+														id={metric.id}
+														label={metric.label}
+														on:applied={makeOnCatsChanged(metric.id)}
+													/>
+												{/if}
+											</section>
+										</li>
+									{/if}
+								</ScrollIntoView>
+							{/each}
+						</ul>
+					</section>
 				{/each}
 			</Scroller>
 		{/if}
@@ -320,11 +330,15 @@
 	.navigator {
 		grid-area: navigator;
 	}
-	h2 {
+	.h2 {
+		font-size: 1.5em;
+		font-weight: 400;
 		padding: 0 1rem 0.7em;
 		padding-top: 0.7rem;
 	}
-	h3 {
+	.h3 {
+		font-size: 1.2em;
+		font-weight: 400;
 		margin-bottom: 0.25em;
 	}
 	ul {

@@ -4,7 +4,8 @@ import pa11y from 'pa11y';
 import htmlReporter from 'pa11y-reporter-html';
 import Queue from 'queue-promise';
 
-import {lighthouseUrls, urlBases} from '../../src/lib/config.js';
+import {lighthouseUrls} from '../../../fe/src/lib/config.js';
+import {urlBases} from '../config.js';
 
 const queue = new Queue({
 	concurrent: 1
@@ -18,14 +19,16 @@ const auditURL = async (id, url) => {
 	const options = {
 		standard: 'WCAG2AAA'
 	};
+	console.log('Auditing', url);
 	const runnerResult = await pa11y(
 		urlBases.development + url,
 		options
 	);
+	console.log('Auditing done for', url);
 	const reportHtml = await htmlReporter.results(runnerResult, url);
 
 	// eslint-disable-next-line no-sync
-	fs.writeFileSync(`static/audits/pa11y/${id}.html`, reportHtml);
+	fs.writeFileSync(`../fe/static/audits/pa11y/${id}.html`, reportHtml);
 
 	// `.lhr` is the Lighthouse Result as a JS object
 	console.log(
