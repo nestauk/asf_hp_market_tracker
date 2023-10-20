@@ -26,9 +26,11 @@ export const survey2FormUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSdavNF1d
 
 export const LOGOS = {
 	themeLight: {
+		mcs: '/logos/MCS_light.svg',
 		nesta: '/logos/Nesta-light.svg',
 	},
 	themeDark: {
+		mcs: '/logos/MCS_dark.svg',
 		nesta: '/logos/Nesta-dark.svg',
 	}
 }
