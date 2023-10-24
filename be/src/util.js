@@ -9,7 +9,7 @@ export const getIntervalForBins = async (field, bins) => {
 	return Math.max(Math.round((max - min) / (bins - 1)), 1);
 };
 
-export const calculateCoverage = async (filter, originalFilter, field1, field2) => {
+export const calculateCoverage = async (filter, fieldsInvolved, field1, field2) => {
 
 	// 100 docs
 	// 50 docs have design prop
@@ -22,7 +22,7 @@ export const calculateCoverage = async (filter, originalFilter, field1, field2) 
 	const retrievableFilter = [
 		{ exists: { field: field1 } },
 		...(field2 ? [{ exists: { field: field2 } }] : []),
-		...(_.map(_.keys(originalFilter), f => ({ exists: { field: f }})))
+		...(_.map(fieldsInvolved, f => ({ exists: { field: f }}))),
 	]
 
 	const retreivableQuery = {

@@ -1,13 +1,14 @@
+import * as _ from 'lamb';
 import rison from 'rison';
 
 import { minDocCount } from './conf.js';
-import { makeQuery } from './filter.js';
+import { makeQuery, makeQueryFromStringsFilters } from './filter.js';
 import { calculateCoverage } from './util.js';
 
 // eslint-disable-next-line consistent-return
 export const onRequest = async (request, reply) => {
 
-	let { field, field1, field2, filter = null } = request.query;
+	let { field, field1, field2, filter = null, stringsFilters = null } = request.query;
 
 	/* Special routes where field is not specified */
 	switch (request.routeOptions.url) {
@@ -22,22 +23,48 @@ export const onRequest = async (request, reply) => {
 			break;
 	}
 
-	let coverageFilter;
+	let allFilters = [];
+	let fieldsInvolved = [];
+
 	if (filter) {
 		const decodedFilter = rison.decode(filter);
 
-		request.filter = makeQuery(decodedFilter);
+		fieldsInvolved.push(..._.keys(decodedFilter));
+		const filterQuery = makeQuery(decodedFilter);
+		allFilters.push(...filterQuery);
+
 		request.originalFilter = decodedFilter;
-		coverageFilter = request.filter.query.bool.filter;
 	} else {
-		request.filter = { query: { match_all: {} } };
 		request.originalFilter = {};
-		coverageFilter = [];
 	}
 
+	if (stringsFilters) {
+		const decodedStringsFilters = rison.decode(stringsFilters);
+
+		fieldsInvolved.push(..._.flatMap(
+			decodedStringsFilters,
+			_.getKey('field')
+		));
+		const stringsFiltersQuery = {
+			bool: {
+				must: makeQueryFromStringsFilters(decodedStringsFilters)
+			}
+		}
+		allFilters.push(stringsFiltersQuery);
+	}
+
+	if (allFilters.length) {
+		request.filter = { query: { bool: { filter: allFilters } } };
+	} else {
+		request.filter = { query: { match_all: {} } };
+	}
+
+	// not needed currently, but allows for more flexibility in the future
+	fieldsInvolved = _.uniques(fieldsInvolved);
+
 	const coverage = field
-		? await calculateCoverage(coverageFilter, request.originalFilter, field, null)
-		: await calculateCoverage(coverageFilter, request.originalFilter, field1, field2)
+		? await calculateCoverage(allFilters, fieldsInvolved, field, null)
+		: await calculateCoverage(allFilters, fieldsInvolved, field1, field2)
 
 	reply.coverage = coverage;
 	reply.noData = false;
