@@ -23,60 +23,22 @@
 	}
 </script>
 
-# Accessibility
+## Web Accessibility Statement
 
-Ensuring greater access to technologies by meeting the needs of people with
-disabilities lays the foundation for inclusive work cultures that empower
-individuals and teams to thrive.
+### General
+Nesta HPMT tool is committed to improving accessibility and usability for all
+users, including those relying on screen readers.
 
-Therefore, the {toolName} tool is committed to making its best effort towards continually
-improving the accessibility of all the information provided in this website.
+However, it's important to note that many of our site's visual components, such
+as charts and maps, are not fully accessible. We're working on implementing
+technology and measures to address these limitations.
 
-## Support
+### Disclaimer
+Our efforts to enhance accessibility are ongoing. While automated tests indicate
+AAA compliance, limitations in visual components may affect full accessibility.
+Your understanding is appreciated.
 
-We follow the recommendations of the [WCAG 2.1 guidelines]({wcag21Url}). Also:
-	* Ensure that the choices of colour provide sufficient contrast for
-	  comfortable reading.
-	* Offer a selection of typefaces for improved legibility, including one
-	  widely believed to improve comprehension among people with
-	  [Dyslexia]({openDyslexicUrl}).
-	* Wherever it's possible, enhance the semantic meta information of each page
-	  to improve the reach of tools such as screen readers.
-	* We regularly measure our site using a variety of methods, such as
-	  third-party automated and manual audits across a range of different
-	  browsers and devices. You can review some of those results in the
-	  "Quality audits" section below.
-
-## WCAG compliance rating
-
-According to automated testing using the
-[Pa11y accessibility testing tool]({pa11yUrl}), no accessibility issues were
-detected and this website is reported to have a WCAG 2.0 AA compliance level.
-This website also passes the accessibility audits checked by
-[Google's Lighthouse tool]({lighthouseUrl}).
-
-## Limitations
-
-Although we continually revise the website for proper support, we recognize that
-some pages may present occasional accessibility problems. Also, just as
-technology improves and standards evolve, our work is also never done and we
-continually strive to achieve the highest levels of compliance with the
-requirements and recommendations.
-
-Meeting all of the WCAG criteria requires evaluating some of them manually. Due
-to time constraints, we might not have been able to test all of the
-recommendations listed in the section "Additional items to manually check" in
-the "Accessibility" part of each audit below, in the "Quality audits" section of
-this page. In particular at this time ARIA and keyboard navigation are only
-partially supported.
-
-While we aim to make the information provided as accessible as possible, this
-website presents data mostly as interactive charts which at the moment do not
-also render a text alternative, so those aren't accessible by screen readers.
-
-## Feedback
-
-If you see any errors or have other suggestions on how we can further improve
-the accessibility of our site, please contact us at
-[{contactEmail}](mailto:{contactEmail}).
-
+### Contact Us
+For concerns or suggestions about accessibility, contact us at 
+[{contactEmail}](mailto:{contactEmail}). Specify the web page and issue for
+prompt remediation. Thank you for visiting.
