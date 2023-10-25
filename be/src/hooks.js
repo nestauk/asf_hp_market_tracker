@@ -24,12 +24,12 @@ export const onRequest = async (request, reply) => {
 	}
 
 	let allFilters = [];
-	let fieldsInvolved = [];
+	let allFiltersFields = [];
 
 	if (filter) {
 		const decodedFilter = rison.decode(filter);
 
-		fieldsInvolved.push(..._.keys(decodedFilter));
+		allFiltersFields.push(..._.keys(decodedFilter));
 		const filterQuery = makeQuery(decodedFilter);
 		allFilters.push(...filterQuery);
 
@@ -41,7 +41,7 @@ export const onRequest = async (request, reply) => {
 	if (stringsFilters) {
 		const decodedStringsFilters = rison.decode(stringsFilters);
 
-		fieldsInvolved.push(..._.flatMap(
+		allFiltersFields.push(..._.flatMap(
 			decodedStringsFilters,
 			_.getKey('field')
 		));
@@ -60,11 +60,11 @@ export const onRequest = async (request, reply) => {
 	}
 
 	// not needed currently, but allows for more flexibility in the future
-	fieldsInvolved = _.uniques(fieldsInvolved);
+	allFiltersFields = _.uniques(allFiltersFields);
 
 	const coverage = field
-		? await calculateCoverage(allFilters, fieldsInvolved, field, null)
-		: await calculateCoverage(allFilters, fieldsInvolved, field1, field2)
+		? await calculateCoverage(allFilters, allFiltersFields, field, null)
+		: await calculateCoverage(allFilters, allFiltersFields, field1, field2)
 
 	reply.coverage = coverage;
 	reply.noData = false;
