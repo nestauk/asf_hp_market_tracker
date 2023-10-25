@@ -7,16 +7,11 @@ const schema = _.index(fields, getId);
 
 export const makeQuery = _.pipe([
 	_.pairs,
-	_.reduceWith(
-		(acc, [key, value]) => [
-			...acc,
-			{
-				[schema[key].esType]: {
-					[schema[key].esKey || key]: value
-				}
+	_.mapWith(([key, value]) => ({
+			[schema[key].esType]: {
+				[schema[key].esKey || key]: value
 			}
-		],
-		[]
+		})
 	)
 ]);
 
@@ -24,7 +19,6 @@ const clauseToFilter = {
 	include: 'should',
 	exclude: 'must_not'
 }
-
 export const makeQueryFromStringsFilters = _.pipe([
 	_.mapWith(({clause, field, values}) => ({
 		bool: {
