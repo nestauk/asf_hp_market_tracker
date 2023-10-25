@@ -5,19 +5,31 @@ import {fields} from 'nesta_hpmt_shared/fields.js';
 
 const schema = _.index(fields, getId);
 
-export const makeQuery = filterRequest => {
-	const filter = _.reduce(
-		_.pairs(filterRequest),
-		(acc, [key, value]) => [
-			...acc,
-			{
-				[schema[key].esType]: {
-					[schema[key].esKey || key]: value
-				}
+export const getFilterQuery = _.pipe([
+	_.pairs,
+	_.mapWith(([key, value]) => ({
+			[schema[key].esType]: {
+				[schema[key].esKey || key]: value
 			}
-		],
-		[]
-	);
+		})
+	)
+]);
 
-	return { query: { bool: { filter } } };
-};
+const clauseToFilter = {
+	include: 'should',
+	exclude: 'must_not'
+}
+export const getStringsFiltersQuery = _.pipe([
+	_.mapWith(({clause, field, values}) => ({
+		bool: {
+			[clauseToFilter[clause]]: _.map(values, value => ({
+				wildcard: {
+					[field]: {
+						value: `*${value}*`,
+						case_insensitive: true
+					}
+				}
+			}))	
+		}
+	}))
+]);
