@@ -2,7 +2,7 @@ import * as _ from 'lamb';
 import rison from 'rison';
 
 import { minDocCount } from './conf.js';
-import { makeQuery, makeQueryFromStringsFilters } from './filter.js';
+import { getFilterQuery, getStringsFiltersQuery } from './filter.js';
 import { calculateCoverage } from './util.js';
 
 // eslint-disable-next-line consistent-return
@@ -30,7 +30,7 @@ export const onRequest = async (request, reply) => {
 		const decodedFilter = rison.decode(filter);
 
 		allFiltersFields.push(..._.keys(decodedFilter));
-		const filterQuery = makeQuery(decodedFilter);
+		const filterQuery = getFilterQuery(decodedFilter);
 		allFilters.push(...filterQuery);
 
 		request.originalFilter = decodedFilter;
@@ -47,7 +47,7 @@ export const onRequest = async (request, reply) => {
 		));
 		const stringsFiltersQuery = {
 			bool: {
-				must: makeQueryFromStringsFilters(decodedStringsFilters)
+				must: getStringsFiltersQuery(decodedStringsFilters)
 			}
 		}
 		allFilters.push(stringsFiltersQuery);

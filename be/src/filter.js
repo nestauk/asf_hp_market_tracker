@@ -5,7 +5,7 @@ import {fields} from 'nesta_hpmt_shared/fields.js';
 
 const schema = _.index(fields, getId);
 
-export const makeQuery = _.pipe([
+export const getFilterQuery = _.pipe([
 	_.pairs,
 	_.mapWith(([key, value]) => ({
 			[schema[key].esType]: {
@@ -19,7 +19,7 @@ const clauseToFilter = {
 	include: 'should',
 	exclude: 'must_not'
 }
-export const makeQueryFromStringsFilters = _.pipe([
+export const getStringsFiltersQuery = _.pipe([
 	_.mapWith(({clause, field, values}) => ({
 		bool: {
 			[clauseToFilter[clause]]: _.map(values, value => ({
