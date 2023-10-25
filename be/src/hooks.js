@@ -60,7 +60,7 @@ export const onRequest = async (request, reply) => {
 	}
 
 	// not needed currently, but allows for more flexibility in the future
-	allFiltersFields = _.uniques(allFiltersFields);
+	// allFiltersFields = _.uniques(allFiltersFields);
 
 	const coverage = field
 		? await calculateCoverage(allFilters, allFiltersFields, field, null)
