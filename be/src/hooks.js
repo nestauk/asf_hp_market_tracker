@@ -29,9 +29,9 @@ export const onRequest = async (request, reply) => {
 	if (filter) {
 		const decodedFilter = rison.decode(filter);
 
-		allFiltersFields.push(..._.keys(decodedFilter));
 		const filterQuery = getFilterQuery(decodedFilter);
 		allFilters.push(...filterQuery);
+		allFiltersFields.push(..._.keys(decodedFilter));
 
 		request.originalFilter = decodedFilter;
 	} else {
@@ -41,16 +41,16 @@ export const onRequest = async (request, reply) => {
 	if (stringsFilters) {
 		const decodedStringsFilters = rison.decode(stringsFilters);
 
-		allFiltersFields.push(..._.flatMap(
-			decodedStringsFilters,
-			_.getKey('field')
-		));
 		const stringsFiltersQuery = {
 			bool: {
 				must: getStringsFiltersQuery(decodedStringsFilters)
 			}
 		}
 		allFilters.push(stringsFiltersQuery);
+		allFiltersFields.push(..._.map(
+			decodedStringsFilters,
+			_.getKey('field')
+		));
 	}
 
 	if (allFilters.length) {
