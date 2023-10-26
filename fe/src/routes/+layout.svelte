@@ -29,6 +29,7 @@
 	} from '$lib/config';
 	import {isDev} from '$lib/env';
 	import {_isSmallScreen} from '$lib/stores/layout';
+	import {_pointerSupport} from '$lib/stores/pointer';
 	import {
 		_a11yMenuTheme,
 		_bannersTheme,
@@ -177,14 +178,14 @@
 		</section>
 	{/if}
 
-	{#if $_tooltip}
+	{#if $_tooltip && ($_pointerSupport.mouse || $_pointerSupport.touch)}
 		<Tooltip
-			geometry={$_isSmallScreen ? {safetyBottom: 30} : null}
+			geometry={$_pointerSupport.onlyTouch ? {safetyBottom: 30} : null}
 			on:closed={clearTooltip}
 			targetX={$_tooltip.x}
 			targetY={$_tooltip.y}
 			theme={$_tooltipTheme}
-			useBackdrop={$_isSmallScreen}
+			useBackdrop={$_pointerSupport.onlyTouch}
 		>
 			{#if $_tooltip.key}
 				{$_tooltip.key}

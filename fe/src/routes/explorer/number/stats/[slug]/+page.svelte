@@ -48,7 +48,7 @@
 	]);
 	const makeTreemapDomain = _.mapWith(treemapKeyAccessor);
 
-	const onLeafHovered = ({detail: {data, x, y}}) => {
+	const onLeafEntered = ({detail: {data, x, y}}) => {
 		$_tooltip = {
 			key: treemapKeyAccessor(data),
 			value: data.value,
@@ -119,7 +119,9 @@
 					{keyToColorLabelFn}
 					items={bins}
 					keyAccessor={treemapKeyAccessor}
-					on:leafTouchStarted={onLeafHovered}
+					on:leafExited={clearTooltip}
+					on:leafHovered={onLeafEntered}
+					on:leafTouchStarted={onLeafEntered}
 				/>
 			</GridRows>
 		</View>
@@ -151,8 +153,9 @@
 						{keyToColorLabelFn}
 						items={bins}
 						keyAccessor={treemapKeyAccessor}
-						on:leafHovered={onLeafHovered}
 						on:leafExited={clearTooltip}
+						on:leafHovered={onLeafEntered}
+						on:leafTouchStarted={onLeafEntered}
 					/>
 				</div>
 			</div>

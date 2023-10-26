@@ -104,8 +104,9 @@
 				safetyTop: 50,
 			}}
 			keyType='date'
-			on:areaTouchStarted
+			on:areaExited
 			on:areaHovered
+			on:areaTouchStarted
 			theme={{
 				...$_framesTheme,
 				curveStroke: avgTrendColor
@@ -131,8 +132,9 @@
 				safetyTop: 50,
 			}}
 			keyType='date'
-			on:areaHovered
 			on:areaExited
+			on:areaHovered
+			on:areaTouchStarted
 			theme={{
 				...$_framesTheme,
 				curveStroke: avgTrendColor

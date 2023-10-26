@@ -101,9 +101,9 @@
 		_.fromPairs
 	]);
 
-	const onBarHovered = ({detail: {subKey: key, value, x, y}}) => {
+	const onBarEntered = ({detail: {subKey, value, x, y}}) => {
 		$_tooltip = {
-			key,
+			key: subKey,
 			value,
 			x,
 			y,
@@ -183,7 +183,9 @@
 					extentsType={$_selection.stackedBarsExtents}
 					geometry={$_glyphGeometry}
 					groupSortBy={$_selection.stringsGeoSortBy}
-					on:barTouchStarted={onBarHovered}
+					on:barExited={clearTooltip}
+					on:barHovered={onBarEntered}
+					on:barTouchStarted={onBarEntered}
 					shouldResetScroll={true}
 					theme={$_stackedBarchartTheme}
 				/>
@@ -258,8 +260,9 @@
 					{stacks}
 					extentsType={$_selection.stackedBarsExtents}
 					groupSortBy={$_selection.stringsGeoSortBy}
-					on:barHovered={onBarHovered}
 					on:barExited={clearTooltip}
+					on:barHovered={onBarEntered}
+					on:barTouchStarted={onBarEntered}
 					shouldResetScroll={true}
 					theme={$_stackedBarchartTheme}
 				/>

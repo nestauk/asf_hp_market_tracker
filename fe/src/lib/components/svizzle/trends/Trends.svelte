@@ -103,9 +103,11 @@
 	/* frame event handlers */
 
 	const onFrameHovered = ({target, x, y}) => {
-		const payload = selectNearestDot({target, x, y});
+		const nearestDot = selectNearestDot({target, x, y});
 
-		dispatch('dotHovered', payload);
+		dispatch('dotHovered', {
+			...nearestDot
+		});
 	}
 	const onFrameExited = () => {
 		dispatch('dotExited');
@@ -113,9 +115,11 @@
 
 	const onFrameTouchStarted = ({target, targetTouches: [touch]}) => {
 		const {clientX: x, clientY: y} = touch;
-		const payload = selectNearestDot({target, x, y});
+		const nearestDot = selectNearestDot({target, x, y});
 
-		dispatch('dotTouchStarted', payload);
+		dispatch('dotTouchStarted', {
+			...nearestDot
+		});
 	}
 	const onFrameTouchEnded = () => {
 		dispatch('dotTouchEnded');

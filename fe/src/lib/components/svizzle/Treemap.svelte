@@ -82,12 +82,12 @@
 				role='none'
 				on:mousemove={({x, y}) => dispatch('leafHovered', {data, x, y})}
 				on:mouseout={({x, y}) => dispatch('leafExited', {data, x, y})}
+				on:touchend={() => dispatch('leafTouchEnded', {
+					data,
+				})}
 				on:touchstart|preventDefault={({targetTouches: [touch]}) => {
 					const {clientX: x, clientY: y} = touch;
 					dispatch('leafTouchStarted', {data, x, y})
-				}}
-				on:touchend={() => {
-					dispatch('leafTouchEnded', {data})
 				}}
 				transform='translate({x0},{y0})'
 			>

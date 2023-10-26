@@ -73,7 +73,7 @@
 	]);
 	const valueFormatFn = Math.round;
 
-	const onDotHovered = ({detail: {data, x, y}}) => {
+	const onDotEntered = ({detail: {data, x, y}}) => {
 		const {group, key, value} = data;
 		hero = data;
 		$_tooltip = {
@@ -92,7 +92,7 @@
 		clearTooltip();
 	}
 
-	const onAreaHovered = ({detail: {key, x, y}}) => {
+	const onAreaEntered = ({detail: {key, x, y}}) => {
 		$_tooltip = {key, x, y};
 	}
 
@@ -167,7 +167,9 @@
 							safetyTop: 50,
 						}}
 						keyType='date'
-						on:areaTouchStarted={onAreaHovered}
+						on:areaTouchStarted={onAreaEntered}
+						on:areaHovered={onAreaEntered}
+						on:areaExited={clearTooltip}
 						sorting={$_selection.categsStreamgraphsSorting}
 						theme={$_framesTheme}
 					/>
@@ -185,8 +187,9 @@
 						}}
 						keyToColorFn={groupToColorFn}
 						keyType='date'
-						on:dotTouchStarted={onDotHovered}
-						slot='col1'
+						on:dotHovered={onDotEntered}
+						on:dotExited={clearHeroAndTooltip}
+						on:dotTouchStarted={onDotEntered}
 						theme={{
 							...$_framesTheme,
 							curveStroke: $_currThemeVars['--colorBorderAux']
@@ -280,8 +283,9 @@
 								safetyTop: 50,
 							}}
 							keyType='date'
-							on:areaHovered={onAreaHovered}
+							on:areaHovered={onAreaEntered}
 							on:areaExited={clearTooltip}
+							on:areaTouchStarted={onAreaEntered}
 							sorting={$_selection.categsStreamgraphsSorting}
 							theme={$_framesTheme}
 						/>
@@ -299,9 +303,9 @@
 							}}
 							keyToColorFn={groupToColorFn}
 							keyType='date'
-							on:dotHovered={onDotHovered}
+							on:dotHovered={onDotEntered}
 							on:dotExited={clearHeroAndTooltip}
-							slot='col1'
+							on:dotTouchStarted={onDotEntered}
 							theme={{
 								...$_framesTheme,
 								curveStroke: $_currThemeVars['--colorBorderAux']

@@ -26,7 +26,7 @@
 
 	let heroKey;
 
-	const onLeafHovered = ({detail: {data, x, y}}) => {
+	const onLeafEntered = ({detail: {data, x, y}}) => {
 		$_tooltip = {
 			key: data.key,
 			value: valueAccessor(data),
@@ -108,7 +108,9 @@
 					{keyToColorFn}
 					{keyToColorLabelFn}
 					{valueAccessor}
-					on:leafTouchStarted={onLeafHovered}
+					on:leafExited={onLeafExited}
+					on:leafHovered={onLeafEntered}
+					on:leafTouchStarted={onLeafEntered}
 				/>
 			</GridRows>
 		</View>
@@ -139,8 +141,9 @@
 						{keyToColorFn}
 						{keyToColorLabelFn}
 						{valueAccessor}
-						on:leafHovered={onLeafHovered}
 						on:leafExited={onLeafExited}
+						on:leafHovered={onLeafEntered}
+						on:leafTouchStarted={onLeafEntered}
 					/>
 				</div>
 			</div>

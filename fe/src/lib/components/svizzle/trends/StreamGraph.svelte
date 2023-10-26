@@ -312,12 +312,16 @@
 							on:mouseout={({x, y}) => {
 								dispatch('areaExited', {key: p.category, x, y})
 							}}
-							on:touchstart|preventDefault={({targetTouches: [touch]}) => {
-								const {clientX: x, clientY: y} = touch;
-								dispatch('areaTouchStarted', {key: p.category, x, y})
-							}}
 							on:touchend={() => {
 								dispatch('areaTouchEnded', {key: p.category})
+							}}
+							on:touchstart|preventDefault={({targetTouches: [touch]}) => {
+								const {clientX: x, clientY: y} = touch;
+								dispatch('areaTouchStarted', {
+									key: p.category,
+									x,
+									y
+								})
 							}}
 							stroke={p.fill}
 						/>

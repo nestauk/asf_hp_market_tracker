@@ -217,17 +217,39 @@
 								fill={groupToColorFn(subKey)}
 								height={yScale.bandwidth()}
 								on:mousemove={({x, y}) => {
-									dispatch('barHovered', {key, subKey, value, x, y})
+									dispatch('barHovered', {
+										key,
+										subKey,
+										value,
+										x,
+										y
+									})
 								}}
 								on:mouseout={({x, y}) => {
-									dispatch('barExited', {key, subKey, value, x, y})
+									dispatch('barExited', {
+										key,
+										subKey,
+										value,
+										x,
+										y
+									})
 								}}
 								on:touchstart|preventDefault={({targetTouches: [touch]}) => {
 									const {clientX: x, clientY: y} = touch;
-									dispatch('barTouchStarted', {key, subKey, value, x, y})
+									dispatch('barTouchStarted', {
+										key,
+										subKey,
+										value,
+										x,
+										y
+									})
 								}}
 								on:touchend={() => {
-									dispatch('barTouchEnded', {key, subKey, value})
+									dispatch('barTouchEnded', {
+										key,
+										subKey,
+										value,
+									})
 								}}
 								width={barScale(value)}
 								x={barScale(start)}
