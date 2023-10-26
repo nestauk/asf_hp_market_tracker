@@ -1,9 +1,10 @@
 <script>
-	import {Link, Scroller} from '@svizzle/ui';
+	import {Scroller} from '@svizzle/ui';
 
 	import * as metricInfos from '$lib/_content/metrics/index.js';
 	import {scrollIntoViewIfTrue}
 		from '$lib/components/svizzle/ui/actions/scrollIntoView.js';
+	import Link from '$lib/components/svizzle/ui/Link.svelte';
 	import {metricGroups} from '$lib/data/metrics.js';
 	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {
