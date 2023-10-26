@@ -148,6 +148,9 @@
 		margin-left: 0.5em;
 		vertical-align: text-top;
 	}
+	button:focus-visible {
+		outline: var(--outline);
+	}
 
 	.info {
 		padding: 0.75em;

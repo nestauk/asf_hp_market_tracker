@@ -6,6 +6,7 @@
 		_currentMetric,
 		_searchParams,
 	} from '$lib/stores/navigation.js';
+	import {_linkTheme3} from '$lib/stores/theme.js';
 
 	$: ({id, type} = $_currentMetric);
 </script>
@@ -18,6 +19,7 @@
 		<Link
 			href='/explorer/{type}/geo/{id}?{$_searchParams}'
 			isBold={$_activeViewType === 'geo'}
+			theme={$_linkTheme3}
 		>
 			Geo
 		</Link>
@@ -29,6 +31,7 @@
 		<Link
 			href='/explorer/{type}/time/{id}?{$_searchParams}'
 			isBold={$_activeViewType === 'time'}
+			theme={$_linkTheme3}
 		>
 			Time
 		</Link>
@@ -40,6 +43,7 @@
 		<Link
 			href='/explorer/{type}/stats/{id}?{$_searchParams}'
 			isBold={$_activeViewType === 'stats'}
+			theme={$_linkTheme3}
 		>
 			Stats
 		</Link>

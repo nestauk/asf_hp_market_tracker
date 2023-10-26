@@ -2,6 +2,7 @@
 	import 'mapbox-gl/dist/mapbox-gl.css';
 
 	import geoViewport from '@mapbox/geo-viewport';
+	import {makeStyleVars} from '@svizzle/dom';
 	import mapboxgl from 'mapbox-gl';
 	import {createEventDispatcher, onMount, setContext} from 'svelte';
 	import {derived, writable} from 'svelte/store';
@@ -45,9 +46,16 @@
 	export let isInteractive = true;
 	export let reactiveLayersIds = [];
 	export let style;
+	export let theme;
 	export let visibleLayersIds = [];
 	export let withScaleControl = true;
 	export let withZoomControl = true;
+
+	const defaultTheme = {
+		outlineColor: 'black',
+		outlineStyle: 'solid',
+		outlineWidth: '1px',
+	}
 
 	$: isDblClickEnabled = isDblClickEnabled ?? true;
 	$: isAnimated = isAnimated ?? true;
@@ -57,6 +65,9 @@
 	$: _zoom = _zoom || writable(0);
 	$: visibleLayersIds = visibleLayersIds || [];
 	$: reactiveLayersIds = reactiveLayersIds || [];
+	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
+
+	$: mapStyle = makeStyleVars(theme)
 
 	/* local vars */
 
@@ -333,6 +344,7 @@
 		on:mouseenter={onMouseEnter}
 		on:mouseleave={onMouseLeave}
 		role='none'
+		style={mapStyle}
 	>
 		<div
 			bind:this={mapcontainer}
@@ -370,7 +382,7 @@
 	.Mapboxgl :global(.mapboxgl-ctrl-attrib-button:focus) {
 		box-shadow: none !important;
 		/* box-shadow: var(--focusShadow) !important; */
-		outline: var(--outline);
-		outline-offset: calc(var(--focusLineWidth) * -1);
+		outline: var(--outlineWidth) var(--outlineStyle) var(--outlineColor) !important;
+		outline-offset: calc(-1 * var(--outlineWidth)) !important;
 	}
 </style>

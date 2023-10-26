@@ -43,6 +43,7 @@
 		_barchartsTheme,
 		_currThemeVars,
 		_legendsTheme,
+		_mapboxTheme,
 		_regionKindTheme,
 		_xorNavigatorTheme,
 	} from '$lib/stores/theme.js';
@@ -277,6 +278,7 @@
 						on:mapFeaturesTouchStarted={onMapFeaturesHovered}
 						reactiveLayersIds={[regionType]}
 						style={$_mapStyle}
+						theme={$_mapboxTheme}
 						visibleLayersIds={['nuts21_0', regionType]}
 						withScaleControl={false}
 						withZoomControl={false}
@@ -306,6 +308,8 @@
 					{formatFn}
 					geometry={$_barchartGeometry}
 					items={currentItems}
+					on:entered={onBarEntered}
+					on:exited={clearHero}
 					shouldResetScroll={true}
 					theme={$_barchartsTheme}
 					valueToColorFn={colorScale}
@@ -375,6 +379,7 @@
 							on:exited={clearHero}
 							reactiveLayersIds={[regionType, `${regionType}_line`]}
 							style={$_mapStyle}
+							theme={$_mapboxTheme}
 							visibleLayersIds={['nuts21_0', regionType, `${regionType}_line`]}
 							withScaleControl={false}
 							withZoomControl={false}

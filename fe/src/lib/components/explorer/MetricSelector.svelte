@@ -11,6 +11,7 @@
 		_currentMetricId,
 		_searchParams,
 	} from '$lib/stores/navigation.js';
+	import {_linkTheme3} from '$lib/stores/theme.js';
 	import {_tooltip, clearTooltip} from '$lib/stores/tooltip.js';
 
 	$: makeOnMouseMove = id => $_isSmallScreen
@@ -31,7 +32,10 @@
 		<ul>
 			{#each value as {id, label, type}}
 				<li>
-					<Link href='/explorer/{type}/{$_activeViewType}/{id}?{$_searchParams}'>
+					<Link
+						href='/explorer/{type}/{$_activeViewType}/{id}?{$_searchParams}'
+						theme={$_linkTheme3}
+					>
 						<!-- svelte-ignore a11y-mouse-events-have-key-events -->
 						<div
 							class:selected={id === $_currentMetricId}

@@ -20,7 +20,11 @@
 	} from '$lib/config/map.js';
 	import {_mapStyle} from '$lib/stores/maps.js';
 	import {_selection} from '$lib/stores/navigation.js';
-	import {_currThemeVars, _xorNavigatorTheme} from '$lib/stores/theme.js';
+	import {
+		_currThemeVars,
+		_mapboxTheme,
+		_xorNavigatorTheme
+	} from '$lib/stores/theme.js';
 	import XorNavigator from '$lib/components/svizzle/ui/XorNavigator.svelte';
 	import {doPairItemsContainSameValues} from '$lib/utils/svizzle/utils.js';
 
@@ -169,6 +173,7 @@
 				isInteractive={true}
 				reactiveLayersIds={[regionType]}
 				style={$_mapStyle}
+				theme={$_mapboxTheme}
 				visibleLayersIds={['nuts21_0', regionType]}
 				withScaleControl={false}
 				withZoomControl={false}
@@ -265,10 +270,10 @@
 	}
 	.iconButton {
 		cursor: pointer;
-		padding-left: 1em;
 	}
 
 	.iconButton:focus-visible {
 		outline: var(--outline);
+		outline-offset: calc(-1 * var(--outlineWidth));
 	}
 </style>

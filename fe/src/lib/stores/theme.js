@@ -112,6 +112,15 @@ export const _legendsTheme = derived(
 	})
 );
 
+export const _mapboxTheme = derived(
+	_currThemeVars,
+	currThemeVars => ({
+		outlineColor: currThemeVars['--colorOutline'],
+		outlineStyle: currThemeVars['--outlineStyle'],
+		outlineWidth: currThemeVars['--outlineWidth'],
+	})
+);
+
 export const _pillTheme = derived(
 	_currThemeVars,
 	currThemeVars => ({
@@ -175,6 +184,9 @@ export const _xorNavigatorTheme = derived(
 		colorBackground: currThemeVars['--colorBackground'],
 		colorIcon: currThemeVars['--colorIcon'],
 		colorIconDisabled: currThemeVars['--colorIconDisabled'],
+		outlineColor: currThemeVars['--colorOutline'],
+		outlineStyle: currThemeVars['--outlineStyle'],
+		outlineWidth: currThemeVars['--outlineWidth'],
 		textColor: currThemeVars['--colorText'],
 	})
 );
@@ -186,6 +198,9 @@ export const _xorSelectorTheme = derived(
 		selectedColor: currThemeVars['--colorSelectedBackground'],
 		selectedTextColor: currThemeVars['--colorSelectedText'],
 		textColor: currThemeVars['--colorText'],
+		outlineColor: currThemeVars['--colorOutline'],
+		outlineStyle: currThemeVars['--outlineStyle'],
+		outlineWidth: currThemeVars['--outlineWidth'],
 	})
 );
 
@@ -244,6 +259,15 @@ export const _linkTheme2 = derived(
 	_currThemeVars,
 	currThemeVars => ({
 		color: currThemeVars['--colorIcon'],
+		outlineColor: currThemeVars['--colorOutline'],
+		outlineStyle: currThemeVars['--outlineStyle'],
+		outlineWidth: currThemeVars['--outlineWidth'],
+	})
+);
+
+export const _linkTheme3 = derived(
+	_currThemeVars,
+	currThemeVars => ({
 		outlineColor: currThemeVars['--colorOutline'],
 		outlineStyle: currThemeVars['--outlineStyle'],
 		outlineWidth: currThemeVars['--outlineWidth'],

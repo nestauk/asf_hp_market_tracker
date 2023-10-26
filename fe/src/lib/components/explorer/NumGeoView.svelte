@@ -36,6 +36,7 @@
 		_barchartsTheme,
 		_currThemeVars,
 		_legendsTheme,
+		_mapboxTheme,
 		_regionKindTheme,
 	} from '$lib/stores/theme.js';
 	import {_tooltip, clearTooltip} from '$lib/stores/tooltip.js';
@@ -212,6 +213,7 @@
 						isInteractive={false}
 						on:mapFeaturesTouchStarted={onMapFeaturesHovered}
 						reactiveLayersIds={[regionType]}
+						theme={$_mapboxTheme}
 						style={$_mapStyle}
 						visibleLayersIds={['nuts21_0', regionType]}
 						withScaleControl={false}
@@ -258,6 +260,8 @@
 					{title}
 					geometry={$_barchartGeometry}
 					items={barchartItems}
+					on:entered={onBarEntered}
+					on:exited={clearHero}	
 					shouldResetScroll={true}
 					theme={$_barchartsTheme}
 					valueToColorFn={colorScale}
@@ -321,6 +325,7 @@
 							on:exited={clearHero}
 							reactiveLayersIds={[regionType, `${regionType}_line`]}
 							style={$_mapStyle}
+							theme={$_mapboxTheme}
 							visibleLayersIds={['nuts21_0', regionType, `${regionType}_line`]}
 							withScaleControl={false}
 							withZoomControl={false}
