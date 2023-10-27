@@ -1,5 +1,5 @@
 <script>
-	import {BarchartVDiv} from '@svizzle/barchart';
+	// import {BarchartVDiv} from '@svizzle/barchart';
 	import {makeStyleVars} from '@svizzle/dom';
 	import {ColorBinsDiv} from '@svizzle/legend';
 	import {
@@ -20,6 +20,8 @@
 	import MetricTitle from '$lib/components/explorer/MetricTitle.svelte';
 	import SelectorRegionType
 		from '$lib/components/explorer/SelectorRegionType.svelte';
+	import BarchartVDiv
+		from '$lib/components/svizzle/barchart/BarchartVDiv.svelte';
 	import GridColumns from '$lib/components/svizzle/GridColumns.svelte';
 	import GridRows from '$lib/components/svizzle/GridRows.svelte';
 	import {setupGeometryObserver}

@@ -1,5 +1,5 @@
 <script>
-	import {BarchartVDiv} from '@svizzle/barchart';
+	// import {BarchartVDiv} from '@svizzle/barchart';
 	import {applyFnMap, getKey, getValue, isNotNil} from '@svizzle/utils';
 	import {hsl} from 'd3-color';
 	import {scaleOrdinal} from 'd3-scale';
@@ -7,6 +7,8 @@
 
 	import {page as _page} from '$app/stores';
 	import MetricTitle from '$lib/components/explorer/MetricTitle.svelte';
+	import BarchartVDiv
+		from '$lib/components/svizzle/barchart/BarchartVDiv.svelte';
 	import Grid2Columns from '$lib/components/svizzle/Grid2Columns.svelte';
 	import GridRows from '$lib/components/svizzle/GridRows.svelte';
 	import Treemap from '$lib/components/svizzle/Treemap.svelte';
