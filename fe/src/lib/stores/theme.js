@@ -274,6 +274,17 @@ export const _linkTheme3 = derived(
 	})
 );
 
+// MetricSelector uses `:focus-within` to show the outline so the Link
+// component doesn't need to set it
+export const _linkThemeMetricSelector = derived(
+	_currThemeVars,
+	currThemeVars => ({
+		outlineColor: 'none',
+		outlineStyle: 'none',
+		outlineWidth: '0',
+	})
+);
+
 export const _extLinkTheme = derived(
 	_currThemeVars,
 	currThemeVars => ({

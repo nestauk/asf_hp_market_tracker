@@ -1,10 +1,9 @@
 <script>
-	import {Scroller} from '@svizzle/ui';
+	import {Scroller, Link} from '@svizzle/ui';
 
 	import * as metricInfos from '$lib/_content/metrics/index.js';
 	import {scrollIntoViewIfTrue}
 		from '$lib/components/svizzle/ui/actions/scrollIntoView.js';
-	import Link from '$lib/components/svizzle/ui/Link.svelte';
 	import {metricGroups} from '$lib/data/metrics.js';
 	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {
@@ -12,7 +11,7 @@
 		_currentMetricId,
 		_searchParams,
 	} from '$lib/stores/navigation.js';
-	import {_linkTheme3} from '$lib/stores/theme.js';
+	import {_linkThemeMetricSelector} from '$lib/stores/theme.js';
 	import {_tooltip, clearTooltip} from '$lib/stores/tooltip.js';
 
 	$: makeOnMouseMove = id => $_isSmallScreen
@@ -35,7 +34,7 @@
 				<li>
 					<Link
 						href='/explorer/{type}/{$_activeViewType}/{id}?{$_searchParams}'
-						theme={$_linkTheme3}
+						theme={$_linkThemeMetricSelector}
 					>
 						<!-- svelte-ignore a11y-mouse-events-have-key-events -->
 						<div
@@ -67,6 +66,11 @@
 		background-color: var(--colorAux);
 		color: var(--colorAuxText);
 		cursor: pointer;
+	}
+
+	li:focus-within {
+		outline: var(--outline);
+		outline-offset: calc(-1 * var(--outlineWidth));
 	}
 	.item {
 		padding: 0.3em 1rem;
