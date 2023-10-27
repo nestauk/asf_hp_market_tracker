@@ -12,6 +12,9 @@
 		selectedColor: 'black',
 		selectedTextColor: 'white',
 		textColor: 'black',
+		outlineColor: 'black',
+		outlineStyle: 'solid',
+		outlineWidth: '1px',
 	}
 
 	export let theme = null;
@@ -114,5 +117,9 @@
 	span.selected {
 		background-color: var(--selectedColor);
 		color: var(--selectedTextColor);
+	}
+	span:focus-visible {
+		outline: var(--outlineWidth) var(--outlineStyle) var(--outlineColor);
+		outline-offset: calc(-1 * var(--outlineWidth));
 	}
 </style>

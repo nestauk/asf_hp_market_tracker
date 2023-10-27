@@ -8,6 +8,12 @@
 </script>
 
 <div class='ExplorerMedium'>
+	<nav class='colHeader metricsHeader'>
+		Choose the output
+	</nav>
+	<nav class='metrics'>
+		<MetricSelector />
+	</nav>
 	<section class='view'>
 		<ViewMedium>
 			<slot />
@@ -18,12 +24,6 @@
 	</nav>
 	<nav class='filters'>
 		<FiltersBar />
-	</nav>
-	<nav class='colHeader metricsHeader'>
-		Choose the output
-	</nav>
-	<nav class='metrics'>
-		<MetricSelector />
 	</nav>
 	<nav class='timeline'>
 		<Timeline />

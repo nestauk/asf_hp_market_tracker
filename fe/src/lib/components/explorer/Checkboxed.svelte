@@ -31,4 +31,9 @@
 		user-select: none;
 		width: 100%;
 	}
+
+	.Checkboxed:focus-visible {
+		outline: var(--outline);
+		outline-offset: calc(-1 * var(--outlineWidth));
+	}
 </style>

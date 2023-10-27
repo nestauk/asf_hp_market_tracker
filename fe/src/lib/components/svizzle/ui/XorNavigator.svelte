@@ -16,6 +16,9 @@
 		colorIcon: 'black',
 		colorIconDisabled: 'grey',
 		textColor: 'black',
+		outlineColor: 'black',
+		outlineStyle: 'solid',
+		outlineWidth: '1px',
 	}
 	const dispatch = createEventDispatcher();
 	const updateValue = val => {
@@ -120,5 +123,9 @@
 	}
 	button:disabled {
 		color: var(--colorIconDisabled);
+	}
+	button:focus-visible {
+		outline: var(--outlineWidth) var(--outlineStyle) var(--outlineColor);
+		outline-offset: calc(-1 * var(--outlineWidth));
 	}
 </style>
