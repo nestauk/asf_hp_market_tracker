@@ -70,13 +70,13 @@
 		<H2>Quality audits (lighthouse)</H2>
 		<menu class='tabs'>
 			<Ul>
-				
 				{#each reportNames as id}
 					<li>
 						{id}:
 						<A href={getLighthouseAuditUrl(id, 'themeLight')}>
 							light
 						</A>
+						|
 						<A href={getLighthouseAuditUrl(id, 'themeDark')}>
 							dark
 						</A>
@@ -88,13 +88,13 @@
 		<H2>Quality audits (Pa11y)</H2>
 		<menu class='tabs'>
 			<Ul>
-				
 				{#each reportNames as id}
 					<li>
-						{id}
+						{id}:
 						<A href={getPa11yAuditUrl(id, 'themeLight')}>
 							light
 						</A>
+						|
 						<A href={getPa11yAuditUrl(id, 'themeDark')}>
 							dark
 						</A>
