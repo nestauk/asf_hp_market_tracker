@@ -7,6 +7,9 @@ import Queue from 'queue-promise';
 import {lighthouseUrls} from '../../../fe/src/lib/config.js';
 import {urlBases} from '../config.js';
 
+const themeOverride = import.meta.env?.VITE_THEME_OVERRIDE;
+const fileSuffix = themeOverride ? `_${themeOverride}` : '';
+
 const queue = new Queue({
 	concurrent: 1
 });
@@ -51,7 +54,7 @@ const auditURL = async (id, url) => {
 		const reportHtml = runnerResult.report.replaceAll(urlBases.development, urlBases.production);
 	
 		// eslint-disable-next-line no-sync
-		fs.writeFileSync(`../fe/static/audits/lighthouse/${id}.html`, reportHtml);
+		fs.writeFileSync(`../fe/static/audits/lighthouse/${id}${fileSuffix}.html`, reportHtml);
 	
 		// `.lhr` is the Lighthouse Result as a JS object
 		console.log(

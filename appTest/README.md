@@ -10,7 +10,22 @@ The server must be runing in the background for the tests to run.
 
 ```
 npm i
+
+export VITE_THEME_OVERRIDE=themeLight
+
 cd fe
+npm run build
+npm run preview &
+
+cd ../appTest
+npm i
+npm run lighthouse
+npm run pa11y
+
+# terminate preview server to switch themes
+
+export VITE_THEME_OVERRIDE=themeDark
+cd ../
 npm run build
 npm run preview &
 

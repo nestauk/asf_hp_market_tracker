@@ -3,6 +3,7 @@ import * as _ from 'lamb';
 import {derived, writable} from 'svelte/store';
 
 import {makeSegmentToCssVar} from '$lib/utils/theme';
+import {themeOverride} from '$lib/env';
 
 export const _isThemeEditorActive = writable(false);
 
@@ -10,8 +11,11 @@ const prefersDarkTheme =
 	// eslint-disable-next-line no-undef
 	globalThis.matchMedia?.("(prefers-color-scheme: dark)").matches;
 
+	console.log('themeOverride', themeOverride);
 export const _themeName = writable(
-	prefersDarkTheme ? 'themeDark' : 'themeLight'
+	themeOverride
+		? themeOverride
+		: prefersDarkTheme ? 'themeDark' : 'themeLight'
 );
 
 export const toggleTheme = () => {
