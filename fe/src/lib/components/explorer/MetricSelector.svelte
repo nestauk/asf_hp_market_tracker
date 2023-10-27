@@ -41,7 +41,7 @@
 						<div
 							class:selected={id === $_currentMetricId}
 							class='item'
-							on:mousemove={$_pointerSupport.onlyTouch ? null : makeOnMouseMove(id)}
+							on:mousemove={$_pointerSupport.touchOnly ? null : makeOnMouseMove(id)}
 							on:mouseout={onMouseOut}
 							role='none'
 							use:scrollIntoViewIfTrue={id === $_currentMetricId}

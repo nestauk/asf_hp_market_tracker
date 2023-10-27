@@ -4,9 +4,9 @@ import * as _ from "lamb";
 export const _pointerSupport = writable({
 	both: false,
 	mouse: false,
-	onlyMouse: false,
-	onlyTouch: false,
+	mouseOnly: false,
 	touch: false,
+	touchOnly: false,
 });
 
 const optionsByBaseMediaQuery = {
@@ -62,8 +62,8 @@ const updateStore = () => {
 		touch,
 		mouse,
 		both: touch && mouse,
-		onlyTouch: touch && !mouse,
-		onlyMouse: !touch && mouse,
+		touchOnly: touch && !mouse,
+		mouseOnly: !touch && mouse,
 	});
 };
 

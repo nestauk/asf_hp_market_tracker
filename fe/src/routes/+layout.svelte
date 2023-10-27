@@ -180,12 +180,12 @@
 
 	{#if $_tooltip && ($_pointerSupport.mouse || $_pointerSupport.touch)}
 		<Tooltip
-			geometry={$_pointerSupport.onlyTouch ? {safetyBottom: 30} : null}
+			geometry={$_pointerSupport.touchOnly ? {safetyBottom: 30} : null}
 			on:closed={clearTooltip}
 			targetX={$_tooltip.x}
 			targetY={$_tooltip.y}
 			theme={$_tooltipTheme}
-			useBackdrop={$_pointerSupport.onlyTouch}
+			useBackdrop={$_pointerSupport.touchOnly}
 		>
 			{#if $_tooltip.key}
 				{$_tooltip.key}
