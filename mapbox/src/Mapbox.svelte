@@ -66,7 +66,6 @@
 	$: visibleLayersIds = visibleLayersIds || [];
 	$: reactiveLayersIds = reactiveLayersIds || [];
 	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
-
 	$: mapStyle = makeStyleVars(theme)
 
 	/* local vars */
