@@ -8,3 +8,5 @@ const beURLs = {
 	production: 'https://hpmt.be.production.dap-tools.uk'
 };
 export const selectedBeURL = beURLs[backendEnv];
+
+export const themeOverride = import.meta.env?.VITE_THEME_OVERRIDE;

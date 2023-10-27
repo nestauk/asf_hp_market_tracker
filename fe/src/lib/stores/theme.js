@@ -2,6 +2,7 @@ import {_isA11yDirty} from '@svizzle/ui';
 import * as _ from 'lamb';
 import {derived, writable} from 'svelte/store';
 
+import {themeOverride} from '$lib/env';
 import {makeSegmentToCssVar} from '$lib/utils/theme';
 
 export const _isThemeEditorActive = writable(false);
@@ -11,7 +12,7 @@ const prefersDarkTheme =
 	globalThis.matchMedia?.("(prefers-color-scheme: dark)").matches;
 
 export const _themeName = writable(
-	prefersDarkTheme ? 'themeDark' : 'themeLight'
+	themeOverride || (prefersDarkTheme ? 'themeDark' : 'themeLight')
 );
 
 export const toggleTheme = () => {
