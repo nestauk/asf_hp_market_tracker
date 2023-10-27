@@ -82,9 +82,9 @@
 
 <style>
 	a {
-		text-decoration: none;
 		display: inline-block;
-    	width: 100%;
+		text-decoration: none;
+		width: 100%;
 	}
 	a.underlined {
 		text-decoration: underline var(--color);
