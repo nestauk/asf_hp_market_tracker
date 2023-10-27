@@ -46,8 +46,8 @@
 	}
 	*/
 
-	const getLighthouseAuditUrl = id =>  `/audits/lighthouse/${id}.html`
-	const getPa11yAuditUrl = id =>  `/audits/pa11y/${id}.html`
+	const getLighthouseAuditUrl = (id, theme) =>  `/audits/lighthouse/${id}_${theme}.html`
+	const getPa11yAuditUrl = (id, theme) =>  `/audits/pa11y/${id}_${theme}.html`
 
 	onMount(() => {
 		// environment = Bowser.parse(window.navigator.userAgent);
@@ -73,8 +73,12 @@
 				
 				{#each reportNames as id}
 					<li>
-						<A href={getLighthouseAuditUrl(id)}>
-							{id}
+						{id}:
+						<A href={getLighthouseAuditUrl(id, 'themeLight')}>
+							light
+						</A>
+						<A href={getLighthouseAuditUrl(id, 'themeDark')}>
+							dark
 						</A>
 					</li>
 				{/each}
@@ -87,8 +91,12 @@
 				
 				{#each reportNames as id}
 					<li>
-						<A href={getPa11yAuditUrl(id)}>
-							{id}
+						{id}
+						<A href={getPa11yAuditUrl(id, 'themeLight')}>
+							light
+						</A>
+						<A href={getPa11yAuditUrl(id, 'themeDark')}>
+							dark
 						</A>
 					</li>
 				{/each}
