@@ -7,7 +7,7 @@ import Queue from 'queue-promise';
 import {lighthouseUrls} from '../../../fe/src/lib/config.js';
 import {urlBases} from '../config.js';
 
-const themeOverride = import.meta.env?.VITE_THEME_OVERRIDE;
+const themeOverride = process.env?.VITE_THEME_OVERRIDE;
 const fileSuffix = themeOverride ? `_${themeOverride}` : '';
 
 const queue = new Queue({
