@@ -12,9 +12,7 @@ const prefersDarkTheme =
 	globalThis.matchMedia?.("(prefers-color-scheme: dark)").matches;
 
 export const _themeName = writable(
-	themeOverride
-		? themeOverride
-		: prefersDarkTheme ? 'themeDark' : 'themeLight'
+	themeOverride || (prefersDarkTheme ? 'themeDark' : 'themeLight')
 );
 
 export const toggleTheme = () => {
