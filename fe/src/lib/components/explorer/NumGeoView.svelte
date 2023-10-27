@@ -260,8 +260,6 @@
 					{title}
 					geometry={$_barchartGeometry}
 					items={barchartItems}
-					on:entered={onBarEntered}
-					on:exited={clearHero}	
 					shouldResetScroll={true}
 					theme={$_barchartsTheme}
 					valueToColorFn={colorScale}

@@ -308,8 +308,6 @@
 					{formatFn}
 					geometry={$_barchartGeometry}
 					items={currentItems}
-					on:entered={onBarEntered}
-					on:exited={clearHero}
 					shouldResetScroll={true}
 					theme={$_barchartsTheme}
 					valueToColorFn={colorScale}
