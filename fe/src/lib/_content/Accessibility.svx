@@ -26,6 +26,7 @@
 ## Web Accessibility Statement
 
 ### General
+
 Nesta HPMT tool is committed to improving accessibility and usability for all
 users, including those relying on screen readers.
 
@@ -34,11 +35,13 @@ as charts and maps, are not fully accessible. We're working on implementing
 technology and measures to address these limitations.
 
 ### Disclaimer
+
 Our efforts to enhance accessibility are ongoing. While automated tests indicate
 AAA compliance, limitations in visual components may affect full accessibility.
 Your understanding is appreciated.
 
 ### Contact Us
-For concerns or suggestions about accessibility, contact us at 
+
+For concerns or suggestions about accessibility, contact us at
 [{contactEmail}](mailto:{contactEmail}). Specify the web page and issue for
 prompt remediation. Thank you for visiting.
