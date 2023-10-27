@@ -315,6 +315,7 @@
 <style>
 	.TimeLine {
 		height: 100%;
+		overflow: hidden;
 		width: 100%;
 		user-select: none;
 	}
