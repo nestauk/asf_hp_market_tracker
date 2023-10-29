@@ -161,25 +161,53 @@
 
 	/* filters navigator */
 
+	const stringsFiltersIds = [
+		'heat_pump_brands_models'
+	]
+	const fieldsByStringsFilters = {
+		heat_pump_brands_models: ['hp_id_brand', 'hp_id_model'],
+	}
+	const isIncluded = _.curry(_.isIn);
+
 	const resetFilter = id => {
-		const {filters: oldFilters} = $_selection;
+		if (stringsFiltersIds.includes(id)) {
+			const {stringsFilters: oldStringsFilters} = $_selection;
 
-		let newFilters;
-		if (id === 'installer_geo_region') {
-			newFilters = _.setIn(oldFilters, 'installerRegionNames', []);
-		} else if (id === 'property_geo_region') {
-			newFilters = _.setIn(oldFilters, 'propertyRegionNames', []);
+			let newStringsFilters = _.filterWith(
+				_.pipe([
+					_.getKey('field'),
+					_.not(isIncluded(fieldsByStringsFilters[id]))
+				])
+			)(oldStringsFilters);
+
+			if (!areEqual(oldStringsFilters, stringsFiltersIds)) {
+				explorerActor.send({
+					type: 'SELECTION_CHANGED',
+					newValues: {
+						stringsFilters: newStringsFilters,
+					}
+				});
+			}
 		} else {
-			newFilters = _.skipIn(oldFilters, [id]);
-		}
+			const {filters: oldFilters} = $_selection;
 
-		if (!areEqual(oldFilters, newFilters)) {
-			explorerActor.send({
-				type: 'SELECTION_CHANGED',
-				newValues: {
-					filters: newFilters,
-				}
-			});
+			let newFilters;
+			if (id === 'installer_geo_region') {
+				newFilters = _.setIn(oldFilters, 'installerRegionNames', []);
+			} else if (id === 'property_geo_region') {
+				newFilters = _.setIn(oldFilters, 'propertyRegionNames', []);
+			} else {
+				newFilters = _.skipIn(oldFilters, [id]);
+			}
+
+			if (!areEqual(oldFilters, newFilters)) {
+				explorerActor.send({
+					type: 'SELECTION_CHANGED',
+					newValues: {
+						filters: newFilters,
+					}
+				});
+			}
 		}
 	}
 
@@ -192,12 +220,14 @@
 			propertyRegionNames: [],
 			propertyRegionType: $_selection.filters.propertyRegionType,
 		}
+		const newStringsFilters = [];
 
 		if (!areEqual(oldFilters, newFilters)) {
 			explorerActor.send({
 				type: 'SELECTION_CHANGED',
 				newValues: {
 					filters: newFilters,
+					stringsFilters: newStringsFilters,
 				}
 			});
 		}
