@@ -59,11 +59,11 @@ const updateStore = () => {
 		matchesByType['any-hover'].hover;
 
 	_pointerSupport.set({
-		touch,
-		mouse,
 		both: touch && mouse,
-		touchOnly: touch && !mouse,
+		mouse,
 		mouseOnly: !touch && mouse,
+		touch,
+		touchOnly: touch && !mouse,
 	});
 };
 
