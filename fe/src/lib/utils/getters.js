@@ -14,4 +14,5 @@ export const getTermsBuckets = _.getPath('terms.buckets');
 /* rest */
 
 export const getEntity = _.getKey('entity');
+export const getField = _.getKey('field');
 export const getSelected = _.getKey('selected');

@@ -24,7 +24,7 @@
 	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {_currentMetric, _selection} from '$lib/stores/navigation.js';
 	import {_rangeSlidersTheme} from '$lib/stores/theme.js';
-	import {getSelected} from '$lib/utils/getters.js';
+	import {getField, getSelected} from '$lib/utils/getters.js';
 
 	/* numbers */
 
@@ -175,7 +175,7 @@
 
 			let newStringsFilters = _.filterWith(
 				_.pipe([
-					_.getKey('field'),
+					getField,
 					_.not(isIncluded(fieldsByStringsFilters[id]))
 				])
 			)(oldStringsFilters);

@@ -1,6 +1,6 @@
 <script>
 	import {makeStyleVars} from '@svizzle/dom';
-	import {isIterableEmpty, isIterableNotEmpty} from '@svizzle/utils';
+	import {getValues, isIterableEmpty, isIterableNotEmpty} from '@svizzle/utils';
 	import {Icon, X, XCircle} from '@svizzle/ui';
 	import * as _ from 'lamb';
 	import {createEventDispatcher} from 'svelte';
@@ -11,6 +11,7 @@
 	import {_selection} from '$lib/stores/navigation.js';
 	import {_filtersNavigatorTheme} from '$lib/stores/theme.js';
 	import {_tooltip, clearTooltip} from '$lib/stores/tooltip.js';
+	import {getField} from '$lib/utils/getters.js';
 
 	const dispatch = createEventDispatcher();
 
@@ -79,11 +80,11 @@
 		hp_id_brand: 'heat_pump_brands_models',
 		hp_id_model: 'heat_pump_brands_models',
 	}
-	const getFrom = _.curry(_.getIn)
+	const getFrom = _.curry(_.getIn);
 	const getActiveStringsFilters = _.pipe([
-		_.filterWith(_.pipe([_.getKey('values'), isIterableNotEmpty])),
-		_.flatMapWith(_.getKey('field')),
-		_.mapWith(getFrom(filtersByFields)),
+		_.filterWith(_.pipe([getValues, isIterableNotEmpty])),
+		_.mapWith(_.pipe([getField, getFrom(filtersByFields)])),
+		_.uniques
 	]);
 	$: activeFilterIds = [
 		...getActiveFilterIds($_selection.filters),
