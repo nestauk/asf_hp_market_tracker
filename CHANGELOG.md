@@ -1,3 +1,42 @@
+## 0.8.0
+
+Staging release ([milestone](https://github.com/nestauk/asf_hp_market_tracker/milestone/20?closed=1))
+
+### Features
+
+- Added filtering by brands and models (#492, #486, #501)
+
+### Improvements
+
+- Updated [a number of `@svizzle` packages](https://github.com/nestauk/svizzle/milestone/30)
+	(#479) to fix or enhance various things, mainly related to bar charts:
+	- fixed bar charts ellipsing
+	- bar charts now use shadows to communicate scrolling
+	- hovering bars dispatches the bar value too to improve some tooltips
+- Added touch support to `medium` screens and mouse support to `small` screens (#487)
+- `number/time`: formatted tooltips (#473)
+
+### Fixes
+
+- Filters navigator: disabled navigating to the timeline on `medium` screens (#478)
+- `number|category/geo`: cleared the tooltip when we exit from the barchart (#482)
+- Maps: made sure we hide the tooltip when we leave the pointer leaves the map (#485)
+- Filter bar: fixed the layout shifting slightly up when navigating to a filter (#497)
+
+### Accessibility
+
+- Tackled Svelte a11y warnings (#468)
+- Tackled Pa11y a11y warnings (#471)
+- Updated the accessibility statement (#496)
+- Updated a number of `@svizzle' packages to provide better a11y support (#479)
+- Added the ability to test dark mode (#498)
+- Added keyboard navigation themes (#488)
+
+## Tech debt
+
+- Removed the old CI/CD action
+
+
 ## 0.7.0
 
 Staging release ([milestone](https://github.com/nestauk/asf_hp_market_tracker/milestone/18?closed=1))
@@ -34,6 +73,7 @@ Staging release ([milestone](https://github.com/nestauk/asf_hp_market_tracker/mi
 ### Accessibility
 
 - Updated the Lighthouse auditing setup (#445)
+
 
 ## 0.6.0
 
