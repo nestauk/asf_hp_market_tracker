@@ -11,6 +11,7 @@
 		_currentMetricId,
 		_searchParams,
 	} from '$lib/stores/navigation.js';
+	import {_pointerSupport} from '$lib/stores/pointer.js';
 	import {_linkThemeMetricSelector} from '$lib/stores/theme.js';
 	import {_tooltip, clearTooltip} from '$lib/stores/tooltip.js';
 
@@ -40,7 +41,7 @@
 						<div
 							class:selected={id === $_currentMetricId}
 							class='item'
-							on:mousemove={makeOnMouseMove(id)}
+							on:mousemove={$_pointerSupport.touchOnly ? null : makeOnMouseMove(id)}
 							on:mouseout={onMouseOut}
 							role='none'
 							use:scrollIntoViewIfTrue={id === $_currentMetricId}

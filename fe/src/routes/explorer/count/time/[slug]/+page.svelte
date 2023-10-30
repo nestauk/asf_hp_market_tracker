@@ -47,7 +47,7 @@
 	}
 	const filterOutNils = _.filterWith(_.pipe([getValue, isNotNil]));
 
-	const onDotHovered = ({detail: {data, x, y}}) => {
+	const onDotEntered = ({detail: {data, x, y}}) => {
 		const {key, value} = data;
 		hero = data;
 		$_tooltip = {
@@ -132,7 +132,9 @@
 						safetyTop: 50,
 					}}
 					keyType='date'
-					on:dotTouchStarted={onDotHovered}
+					on:dotExited={clearHeroAndTooltip}
+					on:dotHovered={onDotEntered}
+					on:dotTouchStarted={onDotEntered}
 					theme={{
 						...$_framesTheme,
 						curveStroke: $_currThemeVars['--colorBorderAux']
@@ -185,8 +187,9 @@
 					safetyTop: 50,
 				}}
 				keyType='date'
-				on:dotHovered={onDotHovered}
 				on:dotExited={clearHeroAndTooltip}
+				on:dotHovered={onDotEntered}
+				on:dotTouchStarted={onDotEntered}
 				theme={{
 					...$_framesTheme,
 					curveStroke: $_currThemeVars['--colorBorderAux']

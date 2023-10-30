@@ -1,5 +1,5 @@
 <script>
-	import {BarchartVDiv} from '@svizzle/barchart';
+	// import {BarchartVDiv} from '@svizzle/barchart';
 	import {makeStyleVars} from '@svizzle/dom';
 	import {ColorBinsDiv} from '@svizzle/legend';
 	import {
@@ -20,6 +20,8 @@
 	import MetricTitle from '$lib/components/explorer/MetricTitle.svelte';
 	import SelectorRegionType
 		from '$lib/components/explorer/SelectorRegionType.svelte';
+	import BarchartVDiv
+		from '$lib/components/svizzle/barchart/BarchartVDiv.svelte';
 	import GridColumns from '$lib/components/svizzle/GridColumns.svelte';
 	import GridRows from '$lib/components/svizzle/GridRows.svelte';
 	import {setupGeometryObserver}
@@ -131,7 +133,7 @@
 		heroKey = null;
 	}
 
-	const onMapFeaturesHovered = ({detail: {features, x, y}}) => {
+	const onMapFeaturesEntered = ({detail: {features, x, y}}) => {
 		let item;
 		if (features.length > 0) {
 			const {properties: {[$_featureNameId]: featureName}} = features[0];
@@ -275,7 +277,8 @@
 						bounds={$_selectedBbox}
 						isAnimated={false}
 						isInteractive={false}
-						on:mapFeaturesTouchStarted={onMapFeaturesHovered}
+						on:mapFeaturesHovered={onMapFeaturesEntered}
+						on:mapFeaturesTouchStarted={onMapFeaturesEntered}
 						reactiveLayersIds={[regionType]}
 						style={$_mapStyle}
 						theme={$_mapboxTheme}
@@ -373,8 +376,9 @@
 							bounds={$_selectedBbox}
 							isAnimated={false}
 							isInteractive={false}
-							on:mapFeaturesHovered={onMapFeaturesHovered}
 							on:exited={clearHero}
+							on:mapFeaturesHovered={onMapFeaturesEntered}
+							on:mapFeaturesTouchStarted={onMapFeaturesEntered}
 							reactiveLayersIds={[regionType, `${regionType}_line`]}
 							style={$_mapStyle}
 							theme={$_mapboxTheme}

@@ -44,7 +44,7 @@
 		_.pipe([_.getPath('values.avg'), isNotNil])
 	);
 
-	const onDotHovered = ({detail: {data, x, y}}) => {
+	const onDotEntered = ({detail: {data, x, y}}) => {
 		const {key, value} = data;
 		hero = data;
 		$_tooltip = {
@@ -54,7 +54,7 @@
 			y,
 		};
 	};
-	const onAreaHovered = ({detail: {key, x, y}}) => {
+	const onAreaEntered = ({detail: {key, x, y}}) => {
 		$_tooltip = {key, x, y};
 	};
 
@@ -125,7 +125,9 @@
 						{axesLabels}
 						{items}
 						{valueFormatFn}
-						on:areaTouchStarted={onAreaHovered}
+						on:areaExited={clearTooltip}
+						on:areaHovered={onAreaEntered}
+						on:areaTouchStarted={onAreaEntered}
 					/>
 				{:else}
 					<Trends
@@ -140,7 +142,9 @@
 							safetyTop: 50,
 						}}
 						keyType='date'
-						on:dotTouchStarted={onDotHovered}
+						on:dotExited={clearHeroAndTooltip}
+						on:dotHovered={onDotEntered}
+						on:dotTouchStarted={onDotEntered}
 						theme={{
 							...$_framesTheme,
 							curveStroke: $_currThemeVars['--colorBorderAux']
@@ -180,8 +184,9 @@
 					{axesLabels}
 					{items}
 					{valueFormatFn}
-					on:areaHovered={onAreaHovered}
 					on:areaExited={clearTooltip}
+					on:areaHovered={onAreaEntered}
+					on:areaTouchStarted={onAreaEntered}
 			/>
 			{:else}
 				<Trends
@@ -196,8 +201,9 @@
 						safetyTop: 50,
 					}}
 					keyType='date'
-					on:dotHovered={onDotHovered}
 					on:dotExited={clearHeroAndTooltip}
+					on:dotHovered={onDotEntered}
+					on:dotTouchStarted={onDotEntered}
 					theme={{
 						...$_framesTheme,
 						curveStroke: $_currThemeVars['--colorBorderAux']
