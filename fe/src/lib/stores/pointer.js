@@ -27,6 +27,8 @@ const setMediaQueryListeners = () => {
 	const typeToOptions = _.pairs(optionsByMediaQuery);
 
 	_.forEach(typeToOptions, ([type, options]) => {
+		matchesByType[type] = {};
+
 		_.forEach(options, option => {
 			const mqList = matchMedia(`(${type}: ${option})`);
 
@@ -34,7 +36,7 @@ const setMediaQueryListeners = () => {
 			mqList.addEventListener('change', update);
 			mqListenersMap.set(mqList, update);
 
-			matchesByType[option] = mqList.matches;
+			matchesByType[type][option] = mqList.matches;
 		});
 	});
 }
