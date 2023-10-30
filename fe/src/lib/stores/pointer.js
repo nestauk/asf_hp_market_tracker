@@ -17,10 +17,10 @@ const optionsByBaseMediaQuery = {
 	pointer: ['coarse', 'fine', 'none'],
 };
 const optionsByMediaQuery = {
-	'pointer': optionsByBaseMediaQuery.pointer,
-	'any-pointer': optionsByBaseMediaQuery.pointer,
-	'hover': optionsByBaseMediaQuery.hover,
-	'any-hover': optionsByBaseMediaQuery.hover
+	'pointer': optionsByBaseMediaQuery.pointer, // primary device supporting pointer
+	'any-pointer': optionsByBaseMediaQuery.pointer, // secondary device supporting pointer
+	'hover': optionsByBaseMediaQuery.hover, // primary device supporting hover
+	'any-hover': optionsByBaseMediaQuery.hover // secondary device supporting hover
 };
 
 const setMediaQueryListeners = () => {
