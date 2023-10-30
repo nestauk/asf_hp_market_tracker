@@ -1,5 +1,5 @@
+import * as _ from 'lamb';
 import {writable} from 'svelte/store';
-import * as _ from "lamb";
 
 export const _pointerSupport = writable({
 	both: false,
@@ -9,11 +9,13 @@ export const _pointerSupport = writable({
 	touchOnly: false,
 });
 
+const mqListenersMap = new Map();
+let matchesByType = {};
+
 const optionsByBaseMediaQuery = {
 	hover: ['hover', 'none'],
 	pointer: ['coarse', 'fine', 'none'],
 };
-
 const optionsByMediaQuery = {
 	'pointer': optionsByBaseMediaQuery.pointer,
 	'any-pointer': optionsByBaseMediaQuery.pointer,
@@ -21,42 +23,38 @@ const optionsByMediaQuery = {
 	'any-hover': optionsByBaseMediaQuery.hover
 };
 
-const mediaQueryListeners = new Map();
+const setMediaQueryListeners = () => {
+	const typeToOptions = _.pairs(optionsByMediaQuery);
 
-const doMediaQueries = ([type, options]) => [
-	type,
-	_.pipe([
-		_.mapWith(option => {
-			const mq = matchMedia(`(${type}: ${option})`);
-			// Register new listener and store in map for later removal
-			mq.addEventListener('change', updateStore);
-			mediaQueryListeners.set(mq, updateStore);
-			return [option, mq.matches];
-		}),
-		_.fromPairs
-	])(options)
-];
+	_.forEach(typeToOptions, ([type, options]) => {
+		_.forEach(options, option => {
+			const mqList = matchMedia(`(${type}: ${option})`);
 
-const getMediaQueries = _.pipe([
-	_.pairs,
-	_.mapWith(doMediaQueries),
-	_.fromPairs
-]);
+			// register new listener and store in map for later removal
+			mqList.addEventListener('change', update);
+			mqListenersMap.set(mqList, update);
 
-const unregisterMediaQueryListeners = () => {
-	mediaQueryListeners.forEach((listener, mq) => {
-		mq.removeEventListener('change', listener);
+			matchesByType[option] = mqList.matches;
+		});
 	});
-	mediaQueryListeners.clear();
+}
+
+const resetMediaQueryListeners = () => {
+	mqListenersMap.forEach((listener, mqList) => {
+		mqList.removeEventListener('change', listener);
+	});
+	mqListenersMap.clear();
+	matchesByType = {};
 };
 
 const updateStore = () => {
-	unregisterMediaQueryListeners(); // Remove old listeners
+	const touch =
+		matchesByType.pointer.coarse ||
+		matchesByType['any-pointer'].coarse;
 
-	const results = getMediaQueries(optionsByMediaQuery);
-
-	const touch = results.pointer.coarse || results['any-pointer'].coarse;
-	const mouse = results.hover.hover || results['any-hover'].hover;
+	const mouse =
+		matchesByType.hover.hover ||
+		matchesByType['any-hover'].hover;
 
 	_pointerSupport.set({
 		touch,
@@ -67,5 +65,11 @@ const updateStore = () => {
 	});
 };
 
-// Initialize with the current media query state
-globalThis?.window && updateStore();
+const update = () => {
+	resetMediaQueryListeners();
+	setMediaQueryListeners();
+	updateStore();
+};
+
+// initialize with the current media query state
+globalThis?.window && update();
