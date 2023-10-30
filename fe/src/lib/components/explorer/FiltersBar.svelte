@@ -1,6 +1,11 @@
 <script>
 	import {Scroller} from '@svizzle/ui';
-	import {getKey, isObjEmpty, makeMergeAppliedFnMap} from '@svizzle/utils';
+	import {
+		getKey,
+		isObjEmpty,
+		makeIsIncluded,
+		makeMergeAppliedFnMap,
+	} from '@svizzle/utils';
 	import areEqual from 'just-compare';
 	import * as _ from 'lamb';
 
@@ -24,7 +29,7 @@
 	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {_currentMetric, _selection} from '$lib/stores/navigation.js';
 	import {_rangeSlidersTheme} from '$lib/stores/theme.js';
-	import {getSelected} from '$lib/utils/getters.js';
+	import {getField, getSelected} from '$lib/utils/getters.js';
 
 	/* numbers */
 
@@ -161,6 +166,30 @@
 
 	/* filters navigator */
 
+	const fieldsByStringsFilters = {
+		heat_pump_brands_models: ['hp_id_brand', 'hp_id_model'],
+	}
+	const resetStringFilter = id => {
+		const {stringsFilters: oldStringsFilters} = $_selection;
+
+		const removeFilterId = _.filterWith(
+			_.pipe([
+				getField,
+				_.not(makeIsIncluded(fieldsByStringsFilters[id]))
+			])
+		);
+		const newStringsFilters = removeFilterId(oldStringsFilters)
+
+		if (!areEqual(oldStringsFilters, newStringsFilters)) {
+			explorerActor.send({
+				type: 'SELECTION_CHANGED',
+				newValues: {
+					stringsFilters: newStringsFilters,
+				}
+			});
+		}
+	}
+
 	const resetFilter = id => {
 		const {filters: oldFilters} = $_selection;
 
@@ -192,12 +221,14 @@
 			propertyRegionNames: [],
 			propertyRegionType: $_selection.filters.propertyRegionType,
 		}
+		const newStringsFilters = [];
 
 		if (!areEqual(oldFilters, newFilters)) {
 			explorerActor.send({
 				type: 'SELECTION_CHANGED',
 				newValues: {
 					filters: newFilters,
+					stringsFilters: newStringsFilters,
 				}
 			});
 		}
@@ -208,8 +239,13 @@
 	const onSelectId = ({detail: id}) => {
 		activeFilterId = id;
 	}
+
 	const onResetId = ({detail: id}) => {
-		resetFilter(id);
+		if (['heat_pump_brands_models'].includes(id)) {
+			resetStringFilter(id);
+		} else {
+			resetFilter(id);
+		}
 	};
 
 	let navHeight;

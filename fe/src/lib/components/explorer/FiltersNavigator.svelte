@@ -1,6 +1,6 @@
 <script>
 	import {makeStyleVars} from '@svizzle/dom';
-	import {isIterableEmpty} from '@svizzle/utils';
+	import {getValues, isIterableEmpty, isIterableNotEmpty} from '@svizzle/utils';
 	import {Icon, X, XCircle} from '@svizzle/ui';
 	import * as _ from 'lamb';
 	import {createEventDispatcher} from 'svelte';
@@ -11,6 +11,7 @@
 	import {_selection} from '$lib/stores/navigation.js';
 	import {_filtersNavigatorTheme} from '$lib/stores/theme.js';
 	import {_tooltip, clearTooltip} from '$lib/stores/tooltip.js';
+	import {getField} from '$lib/utils/getters.js';
 
 	const dispatch = createEventDispatcher();
 
@@ -20,6 +21,7 @@
 			installation_date: 'Installation dates',
 			installer_geo_region: 'Installer regions',
 			property_geo_region: 'Property regions',
+			heat_pump_brands_models: 'Heat pump brands and models',
 		}[id];
 
 	/* hover */
@@ -74,7 +76,20 @@
 		_.skipIf(isIterableEmpty),
 		_.keys
 	]);
-	$: activeFilterIds = getActiveFilterIds($_selection.filters);
+ 	const filtersByFields = {
+		hp_id_brand: 'heat_pump_brands_models',
+		hp_id_model: 'heat_pump_brands_models',
+	}
+	const getFrom = _.curry(_.getIn);
+	const getActiveStringsFilters = _.pipe([
+		_.filterWith(_.pipe([getValues, isIterableNotEmpty])),
+		_.mapWith(_.pipe([getField, getFrom(filtersByFields)])),
+		_.uniques
+	]);
+	$: activeFilterIds = [
+		...getActiveFilterIds($_selection.filters),
+		...getActiveStringsFilters($_selection.stringsFilters),
+	];
 	$: hasFilters = activeFilterIds.length >= 1;
 	$: hasMultipleFilters = activeFilterIds.length >= 2;
 
