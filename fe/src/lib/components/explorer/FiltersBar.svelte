@@ -1,6 +1,11 @@
 <script>
 	import {Scroller} from '@svizzle/ui';
-	import {getKey, isObjEmpty, makeMergeAppliedFnMap} from '@svizzle/utils';
+	import {
+		getKey,
+		isObjEmpty,
+		makeIsIncluded,
+		makeMergeAppliedFnMap,
+	} from '@svizzle/utils';
 	import areEqual from 'just-compare';
 	import * as _ from 'lamb';
 
@@ -161,53 +166,49 @@
 
 	/* filters navigator */
 
-	const stringsFiltersIds = [
-		'heat_pump_brands_models'
-	]
 	const fieldsByStringsFilters = {
 		heat_pump_brands_models: ['hp_id_brand', 'hp_id_model'],
 	}
-	const isIncluded = _.curry(_.isIn);
+	const resetStringFilter = id => {
+		const {stringsFilters: oldStringsFilters} = $_selection;
+
+		const removeFilterId = _.filterWith(
+			_.pipe([
+				getField,
+				_.not(makeIsIncluded(fieldsByStringsFilters[id]))
+			])
+		);
+		const newStringsFilters = removeFilterId(oldStringsFilters)
+
+		if (!areEqual(oldStringsFilters, newStringsFilters)) {
+			explorerActor.send({
+				type: 'SELECTION_CHANGED',
+				newValues: {
+					stringsFilters: newStringsFilters,
+				}
+			});
+		}
+	}
 
 	const resetFilter = id => {
-		if (stringsFiltersIds.includes(id)) {
-			const {stringsFilters: oldStringsFilters} = $_selection;
+		const {filters: oldFilters} = $_selection;
 
-			let newStringsFilters = _.filterWith(
-				_.pipe([
-					getField,
-					_.not(isIncluded(fieldsByStringsFilters[id]))
-				])
-			)(oldStringsFilters);
-
-			if (!areEqual(oldStringsFilters, stringsFiltersIds)) {
-				explorerActor.send({
-					type: 'SELECTION_CHANGED',
-					newValues: {
-						stringsFilters: newStringsFilters,
-					}
-				});
-			}
+		let newFilters;
+		if (id === 'installer_geo_region') {
+			newFilters = _.setIn(oldFilters, 'installerRegionNames', []);
+		} else if (id === 'property_geo_region') {
+			newFilters = _.setIn(oldFilters, 'propertyRegionNames', []);
 		} else {
-			const {filters: oldFilters} = $_selection;
+			newFilters = _.skipIn(oldFilters, [id]);
+		}
 
-			let newFilters;
-			if (id === 'installer_geo_region') {
-				newFilters = _.setIn(oldFilters, 'installerRegionNames', []);
-			} else if (id === 'property_geo_region') {
-				newFilters = _.setIn(oldFilters, 'propertyRegionNames', []);
-			} else {
-				newFilters = _.skipIn(oldFilters, [id]);
-			}
-
-			if (!areEqual(oldFilters, newFilters)) {
-				explorerActor.send({
-					type: 'SELECTION_CHANGED',
-					newValues: {
-						filters: newFilters,
-					}
-				});
-			}
+		if (!areEqual(oldFilters, newFilters)) {
+			explorerActor.send({
+				type: 'SELECTION_CHANGED',
+				newValues: {
+					filters: newFilters,
+				}
+			});
 		}
 	}
 
@@ -238,8 +239,13 @@
 	const onSelectId = ({detail: id}) => {
 		activeFilterId = id;
 	}
+
 	const onResetId = ({detail: id}) => {
-		resetFilter(id);
+		if (['heat_pump_brands_models'].includes(id)) {
+			resetStringFilter(id);
+		} else {
+			resetFilter(id);
+		}
 	};
 
 	let navHeight;
