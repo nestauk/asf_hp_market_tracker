@@ -8,7 +8,11 @@ export const getHistogram = async (request, reply) => {
 		field,
 	} = request.query;
 
-	const interval = await getIntervalForBins(field, bins);
+	const interval = await getIntervalForBins(
+		field,
+		bins,
+		request.filter
+	);
 	request.meta = { interval };
 
 	const body = {
@@ -24,11 +28,7 @@ export const getHistogram = async (request, reply) => {
 		}
 	};
 
-	const result = await client.search({
-		body,
-		index
-	});
+	const result = await client.search({body, index});
 
 	reply.send(result.aggregations);
-
 };

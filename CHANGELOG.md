@@ -18,21 +18,22 @@ Staging release ([milestone](https://github.com/nestauk/asf_hp_market_tracker/mi
 
 ### Fixes
 
-- Filters navigator: disabled navigating to the timeline on `medium` screens (#478)
-- `number|category/geo`: cleared the tooltip when we exit from the barchart (#482)
-- Maps: made sure we hide the tooltip when we leave the pointer leaves the map (#485)
-- Filter bar: fixed the layout shifting slightly up when navigating to a filter (#497)
+- Filter bar:
+	- filters navigator: disabled navigating to the timeline on `medium` screens (#478)
+	- fixed the layout shifting slightly up when navigating to a filter (#497)
+- `number|category/geo`: cleared the tooltip when the pointer leaves the barchart (#482)
+- Maps: made sure we hide the tooltip when the pointer leaves the map (#485)
 
 ### Accessibility
 
 - Tackled Svelte a11y warnings (#468)
 - Tackled Pa11y a11y warnings (#471)
 - Updated the accessibility statement (#496)
-- Updated a number of `@svizzle' packages to provide better a11y support (#479)
+- Updated a number of `@svizzle` packages to provide better a11y support (#479)
 - Added the ability to test dark mode (#498)
 - Added keyboard navigation themes (#488)
 
-## Tech debt
+### Tech debt
 
 - Removed the old CI/CD action
 

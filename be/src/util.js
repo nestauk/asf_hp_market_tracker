@@ -3,9 +3,23 @@ import * as _ from 'lamb';
 import { index } from './conf.js';
 import { client, getDocumentCount } from './es.js';
 
-export const getIntervalForBins = async (field, bins) => {
-	const stats = await client.search({ index, body: { aggs: { stats_: { stats: { field } } } } });
+export const getIntervalForBins = async (field, bins, filter) => {
+	const stats = await client.search({
+		index,
+		body: {
+			...(filter ?? {}),
+			aggs: {
+				stats_: {
+					stats: {
+						field
+					}
+				}
+			}
+		},
+	});
+
 	const { min, max } = stats.aggregations.stats_;
+
 	return Math.max(Math.round((max - min) / (bins - 1)), 1);
 };
 

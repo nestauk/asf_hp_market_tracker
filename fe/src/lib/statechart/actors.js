@@ -14,7 +14,7 @@ export const queryViewData = ({viewQueryPath}) => query(viewQueryPath);
 const getQueryPromise = ({endpoint, params}) => {
 	const queryPath = `${endpoint}?${new URLSearchParams(params)}`;
 
-	return query(queryPath);;
+	return query(queryPath);
 }
 
 export const queryStaticData = () => {
@@ -41,8 +41,8 @@ export const queryStaticData = () => {
 		getQueryPromise({
 			endpoint: 'histogram',
 			params: {
-				bins: 10,
-				field,
+				bins: 20,
+				field
 			}
 		})
 	);
