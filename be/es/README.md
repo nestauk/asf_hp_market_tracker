@@ -49,7 +49,7 @@ It's usually easier to copy these commands to a configuration file, set the
 appropriate values, then `source pipeline.rc` or equivalent to quickly load in the
 environment variables.
 
-Change to `Logstash` directory
+Change to `Logstash` directory if it's not in the PATH:
 
 `cd /<path>/logstash-<version>`
 
@@ -59,7 +59,7 @@ the pipeline.
 
 Run executable pointing to the pipeline config in this directory
 
-`bin/logstash -f /<path_to_repo>/data/hpmt/pipeline.conf`
+`bin/logstash -f /<path_to_repo>/be/es/managedpipeline.conf`
 
 ### Troubleshooting
 
@@ -112,3 +112,41 @@ Also of note: If the passwords for any of the DBs change, you
 must ssh into the server and change the `{env}.rc` file,
 where `env` is the name of the environment whose DB's password
 has changed.
+
+## Copying an Elasticsearch index using Logstash
+
+To copy an index from a development or staging Elasticsearch server to a
+production Opensearch server, use the `be/es/copy_pipeline.conf` file. This 
+config file streamlines the process without requiring full ingestion scripts.
+
+### Required Environment Variables
+
+Set the following environment variables before running the Logstash pipeline:
+
+```sh
+# ElasticSearch source info
+export LOGSTASH_INPUT_DOMAIN=<source_domain>
+export LOGSTASH_INPUT_INDEX=<source_index>
+export LOGSTASH_INPUT_PASSWORD=<source_password>
+export LOGSTASH_INPUT_CERT=<cert_file_path>
+
+# Opensearch destination info
+export LOGSTASH_OUTPUT_DOMAIN=<destination_domain>
+export LOGSTASH_OUTPUT_INDEX=<destination_index>
+export LOGSTASH_OUTPUT_PASSWORD=<destination_password>
+```
+
+### Execution Steps
+
+1. Navigate to the Logstash installation directory:
+
+`cd /<path>/logstash-<version>`
+
+2. Run Logstash with the specified pipeline configuration:
+
+`bin/logstash -f /<path_to_repo>/be/es/copy_pipeline.conf`
+
+### Important Note
+
+If you plan to overwrite an existing index, ensure you remove it with an HTTP
+`DELETE`` request before executing the Logstash pipeline.
