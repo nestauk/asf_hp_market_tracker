@@ -132,9 +132,10 @@
 
 		/* color */
 
-		const colorScheme = groupIds.map((category, index) =>
-			interpolateColor(index / (groupIds.length - 1))
-		);
+		const range = groupIds.length === 1
+			? [0]
+			: _.range(0, 1, 1 / (groupIds.length - 1)).concat(1);
+		const colorScheme = _.map(range, interpolateColor);
 		groupToColorFn = scaleOrdinal().domain(groupIds).range(colorScheme);
 
 		/* legend */

@@ -24,6 +24,7 @@
 		from '$lib/components/svizzle/barchart/BarchartVDiv.svelte';
 	import GridColumns from '$lib/components/svizzle/GridColumns.svelte';
 	import GridRows from '$lib/components/svizzle/GridRows.svelte';
+	import KeysLegend from '$lib/components/svizzle/legend/KeysLegend.svelte';
 	import {setupGeometryObserver}
 		from '$lib/components/svizzle/ui/geometryObserver.js';
 	import View from '$lib/components/viewports/View.svelte';
@@ -175,8 +176,11 @@
 	let currentKey;
 	let doDraw = false;
 	let getFeatureState;
+	let isSingleValue;
 	let itemsIndex;
+	let keyToColorFn;
 	let legendBins;
+	let legendKeys;
 	let regionType;
 	let valuesToLabels;
 
@@ -200,10 +204,11 @@
 
 		/* color */
 
-		const colorScheme = _.map(
-			_.range(0, 1, 1 / (amountOfBins - 1)).concat(1),
-			interpolateColor
-		);
+		isSingleValue = domain[0] === domain[1];
+		const range = isSingleValue
+			? [0]
+			: _.range(0, 1, 1 / (amountOfBins - 1)).concat(1);
+		const colorScheme = _.map(range, interpolateColor);
 		colorScale = scaleQuantize().domain(domain).range(colorScheme);
 
 		/* legend */
@@ -217,6 +222,11 @@
 			_.zip(ranges, colorScheme),
 			makeWithKeys(['range', 'color'])
 		);
+
+		if (isSingleValue) {
+			legendKeys = [formatFn ? formatFn(domain[0]) : domain[0]];
+			keyToColorFn = _.always(colorScale(domain[0]));
+		}
 
 		/* navigator */
 
@@ -254,20 +264,29 @@
 			<GridRows rowLayout='min-content 4em 1fr min-content min-content'>
 				<MetricTitle />
 
-				<ColorBinsDiv
-					bins={legendBins}
-					flags={{
-						isVertical: false,
-						showTicksExtentOnly: true
-					}}
-					geometry={{
-						left: 50,
-						right: 50,
-					}}
-					padding=0
-					theme={$_legendsTheme}
-					ticksFormatFn={formatFn}
-				/>
+				{#if isSingleValue}
+					<div class='keysLegend'>
+						<KeysLegend
+							{keyToColorFn}
+							keys={legendKeys}
+						/>
+					</div>
+				{:else}
+					<ColorBinsDiv
+						bins={legendBins}
+						flags={{
+							isVertical: false,
+							showTicksExtentOnly: true
+						}}
+						geometry={{
+							left: 50,
+							right: 50,
+						}}
+						padding=0
+						theme={$_legendsTheme}
+						ticksFormatFn={formatFn}
+					/>
+				{/if}
 
 				<div class='map'>
 					<Mapbox
@@ -346,21 +365,30 @@
 				gap='1%'
 			>
 				<div class='col0'>
-					<div class='legend'>
-						<ColorBinsDiv
-							bins={legendBins}
-							flags={{
-								isVertical: true,
-							}}
-							geometry={{
-								left: 0,
-								right: 50,
-							}}
-							padding=0
-							theme={$_legendsTheme}
-							ticksFormatFn={formatFn}
-						/>
-					</div>
+					{#if isSingleValue}
+						<div class='keysLegend'>
+							<KeysLegend
+								{keyToColorFn}
+								keys={legendKeys}
+							/>
+						</div>
+					{:else}
+						<div class='legend'>
+							<ColorBinsDiv
+								bins={legendBins}
+								flags={{
+									isVertical: true,
+								}}
+								geometry={{
+									left: 0,
+									right: 50,
+								}}
+								padding=0
+								theme={$_legendsTheme}
+								ticksFormatFn={formatFn}
+							/>
+						</div>
+					{/if}
 				</div>
 
 				<div class='col1'>

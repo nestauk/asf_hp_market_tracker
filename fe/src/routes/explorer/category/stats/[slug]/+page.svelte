@@ -13,13 +13,13 @@
 	import GridRows from '$lib/components/svizzle/GridRows.svelte';
 	import Treemap from '$lib/components/svizzle/Treemap.svelte';
 	import View from '$lib/components/viewports/View.svelte';
-	import {interpolateColor} from '$lib/config/colors.js';
 	import {_barchartGeometry} from '$lib/stores/geometry.js';
 	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {_currentMetric} from '$lib/stores/navigation.js';
 	import {_barchartsTheme} from '$lib/stores/theme.js';
 	import {_tooltip, clearTooltip} from '$lib/stores/tooltip.js';
 	import {_isViewReady, _viewData} from '$lib/stores/view.js';
+	import {getItemsColorScheme} from '$lib/utils/color.js';
 	import {getDocCount} from '$lib/utils/getters.js';
 	import {sorters} from '$lib/utils/ordering.js';
 	import {pluckKeySorted} from '$lib/utils/svizzle/utils.js';
@@ -77,10 +77,7 @@
 
 		domain = pluckKeySorted(items);
 
-		const colorScheme = _.map(
-			domain,
-			(v, index) => interpolateColor(index / (domain.length - 1))
-		);
+		const colorScheme = getItemsColorScheme(domain);
 		keyToColorFn = scaleOrdinal().domain(domain).range(colorScheme);
 
 		const colorSchemeLabel = _.map(

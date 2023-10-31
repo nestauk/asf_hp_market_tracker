@@ -19,7 +19,6 @@
 	import KeysLegend from '$lib/components/svizzle/legend/KeysLegend.svelte';
 	import StreamGraph from '$lib/components/svizzle/trends/StreamGraph.svelte';
 	import Trends from '$lib/components/svizzle/trends/Trends.svelte';
-	import {interpolateColor} from '$lib/config/colors.js';
 	import {intervalToAxisLabel} from '$lib/config/labels.js';
 	import View from '$lib/components/viewports/View.svelte';
 	import {_isSmallScreen} from '$lib/stores/layout.js';
@@ -31,6 +30,7 @@
 	import {_currThemeVars, _framesTheme} from '$lib/stores/theme.js';
 	import {_tooltip, clearTooltip} from '$lib/stores/tooltip.js';
 	import {_isViewReady, _viewData} from '$lib/stores/view.js';
+	import {getItemsColorScheme} from '$lib/utils/color.js';
 	import {
 		getDocCount,
 		getKeyAsString,
@@ -135,10 +135,7 @@
 		points = getTrendsPoints(trends);
 		groups = getGroups(points);
 
-		const colorScheme = _.map(
-			groups,
-			(v, index) => interpolateColor(index / (groups.length - 1))
-		);
+		const colorScheme = getItemsColorScheme(groups);
 		groupToColorFn = scaleOrdinal().domain(groups).range(colorScheme);
 
 		doDraw = true;

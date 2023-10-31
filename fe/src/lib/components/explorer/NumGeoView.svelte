@@ -126,12 +126,11 @@
 
 		const domain = makeDomain(items);
 		isSingleValue = domain[0] === domain[1];
-		let binCount = isSingleValue ? 1 : amountOfBins;
 
-		const colorScheme = _.map(
-			_.range(0, 1, 1 / (binCount - 1)).concat(1),
-			interpolateColor
-		);
+		const range = isSingleValue
+			? [0]
+			: _.range(0, 1, 1 / (amountOfBins - 1)).concat(1);
+		const colorScheme = _.map(range, interpolateColor);
 		colorScale = scaleQuantize().domain(domain).range(colorScheme);
 
 		/* legend */
