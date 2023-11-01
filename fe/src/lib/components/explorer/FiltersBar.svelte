@@ -282,6 +282,7 @@
 								<ScrollIntoView
 									alignToTop={true}
 									doIt={metric.id === activeFilterId}
+									on:scrolled={() => activeFilterId = undefined}
 								>
 									{#if metric.id === 'installer_geo_region'}
 										<li>
