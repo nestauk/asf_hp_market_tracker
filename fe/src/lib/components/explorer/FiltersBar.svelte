@@ -240,7 +240,7 @@
 		activeFilterId = id;
 	}
 
-	const resetId = () => {
+	const resetActiveFilterId = () => {
 		activeFilterId = undefined;
 	}
 
@@ -286,7 +286,7 @@
 								<ScrollIntoView
 									alignToTop={true}
 									doIt={metric.id === activeFilterId}
-									on:scrolled={resetId}
+									on:scrolled={resetActiveFilterId}
 								>
 									{#if metric.id === 'installer_geo_region'}
 										<li>
