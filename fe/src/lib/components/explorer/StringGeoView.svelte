@@ -152,10 +152,7 @@
 {#if $_isSmallScreen}
 	{#if doDraw}
 		<View id='legend'>
-			<GridRows
-				alignContent='start'
-				rowLayout='min-content 1fr'
-			>
+			<GridRows rowLayout='min-content 1fr'>
 				<MetricTitle />
 
 				<Scroller>
@@ -243,8 +240,8 @@
 
 		{#if doDraw}
 			<GridColumns
-				colLayout='25% 75%'
-				gap='0.25em'
+				colLayout='25% 74%'
+				gap='1%'
 			>
 				<Scroller>
 					<KeysLegend

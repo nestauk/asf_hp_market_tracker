@@ -8,7 +8,7 @@
 
 	import {page as _page} from '$app/stores';
 	import MetricTitle from '$lib/components/explorer/MetricTitle.svelte';
-	import Grid2Columns from '$lib/components/svizzle/Grid2Columns.svelte';
+	import GridColumns from '$lib/components/svizzle/GridColumns.svelte';
 	import GridRows from '$lib/components/svizzle/GridRows.svelte';
 	import Treemap from '$lib/components/svizzle/Treemap.svelte';
 	import View from '$lib/components/viewports/View.svelte';
@@ -142,11 +142,11 @@
 			</GridRows>
 		</View>
 	{:else}
-		<Grid2Columns
-			percents={[70, 30]}
-			gap='0.5em'
+		<GridColumns
+			colLayout='69% 30%'
+			gap='1%'
 		>
-			<div slot='col0' class='col'>
+			<div class='col'>
 				<div class='treemap'>
 					<Treemap
 						{keyToColorFn}
@@ -159,7 +159,7 @@
 					/>
 				</div>
 			</div>
-			<div slot='col1' class='col'>
+			<div class='col'>
 				<div class='histogram'>
 					<HistogramDiv
 						{bins}
@@ -172,7 +172,7 @@
 					/>
 				</div>
 			</div>
-		</Grid2Columns>
+		</GridColumns>
 	{/if}
 {/if}
 
@@ -182,8 +182,8 @@
 		display: flex;
 		height: 100%;
 		justify-content: center;
-		width: 100%;
 		padding: 0;
+		width: 100%;
 	}
 	.histogram {
 		height: 100%;

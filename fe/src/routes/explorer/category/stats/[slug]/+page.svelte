@@ -9,7 +9,7 @@
 	import MetricTitle from '$lib/components/explorer/MetricTitle.svelte';
 	import BarchartVDiv
 		from '$lib/components/svizzle/barchart/BarchartVDiv.svelte';
-	import Grid2Columns from '$lib/components/svizzle/Grid2Columns.svelte';
+	import GridColumns from '$lib/components/svizzle/GridColumns.svelte';
 	import GridRows from '$lib/components/svizzle/GridRows.svelte';
 	import Treemap from '$lib/components/svizzle/Treemap.svelte';
 	import View from '$lib/components/viewports/View.svelte';
@@ -125,11 +125,11 @@
 			</GridRows>
 		</View>
 	{:else}
-		<Grid2Columns
-			percents={[70, 30]}
-			gap='0.5em'
+		<GridColumns
+			colLayout='69% 30%'
+			gap='1%'
 		>
-			<div slot='col0' class='col'>
+			<div class='col'>
 				<div class='treemap'>
 					<Treemap
 						{items}
@@ -142,7 +142,7 @@
 					/>
 				</div>
 			</div>
-			<div slot='col1' class='col'>
+			<div class='col'>
 				<div class='barchart'>
 					<BarchartVDiv
 						{keyToColorFn}
@@ -155,7 +155,7 @@
 					/>
 				</div>
 			</div>
-		</Grid2Columns>
+		</GridColumns>
 	{/if}
 {/if}
 

@@ -361,7 +361,7 @@
 				/>
 			</GridColumns>
 			<GridColumns
-				colLayout='10% 58% 30%'
+				colLayout='10% 59% 30%'
 				gap='1%'
 			>
 				<div class='col0'>
