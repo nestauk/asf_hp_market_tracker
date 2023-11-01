@@ -240,6 +240,10 @@
 		activeFilterId = id;
 	}
 
+	const resetId = () => {
+		activeFilterId = undefined;
+	}
+
 	const onResetId = ({detail: id}) => {
 		if (['heat_pump_brands_models'].includes(id)) {
 			resetStringFilter(id);
@@ -282,7 +286,7 @@
 								<ScrollIntoView
 									alignToTop={true}
 									doIt={metric.id === activeFilterId}
-									on:scrolled={() => activeFilterId = undefined}
+									on:scrolled={resetId}
 								>
 									{#if metric.id === 'installer_geo_region'}
 										<li>
