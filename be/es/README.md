@@ -8,21 +8,29 @@ version for your system.
 
 Download the JDBC driver
 
-`wget https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-j-8.0.31.tar.gz`
+```sh
+wget https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-j-8.0.31.tar.gz
+```
 
 Untar
 
-`tar -xvf /<path_to_jdbc_tarball>`
+```sh
+tar -xvf /<path_to_jdbc_tarball>
+```
 
 Install the `OpenSearch` version of `Logstash` (needed for AWS managed ES domains)
 
 (Check before that the link below is the latest version [here](https://opensearch.org/downloads.html))
 
-`wget https://artifacts.opensearch.org/logstash/logstash-oss-with-opensearch-output-plugin-8.4.0-linux-x64.tar.gz`
+```sh
+wget https://artifacts.opensearch.org/logstash/logstash-oss-with-opensearch-output-plugin-8.4.0-linux-x64.tar.gz
+```
 
 Untar
 
-`tar -xvf <path_to_logstash_tarball> -C <directory>`
+```sh
+tar -xvf <path_to_logstash_tarball> -C <directory>
+```
 
 Set environment variables
 
@@ -51,7 +59,9 @@ environment variables.
 
 Change to `Logstash` directory if it's not in the PATH:
 
-`cd /<path>/logstash-<version>`
+```sh
+cd /<path>/logstash-<version>
+```
 
 **N.B**: The pipeline expects an auto-increment column named `id` in order to be
 able to run, please ensure this exists on the input MySQL table before running
@@ -59,13 +69,17 @@ the pipeline.
 
 Run executable pointing to the pipeline config in this directory
 
-`bin/logstash -f /<path_to_repo>/be/es/managedpipeline.conf`
+```sh
+bin/logstash -f /<path_to_repo>/be/es/managed_pipeline.conf
+```
 
 ### Troubleshooting
 
 If the pipeline runs OK but you get a message like
 
-`The driver has not received any packets from the server.`
+```
+The driver has not received any packets from the server.
+```
 
 Make sure the instance you're running this pipeline from has permissions to
 access the DB, e.g. that the IP is listed in the allowed incoming requests in
@@ -93,7 +107,9 @@ The script does the following things:
     
 Usage:
 
-`npm run runLogstashPipeline -- test`
+```sh
+npm run runLogstashPipeline -- test`
+```
 
 This will create an idex named `test` on
 
@@ -106,7 +122,9 @@ overwritten if you specify an existing index.
 
 You can also specify a single domain by supplying a second argument:
 
-`npm run runLogstashPipeline -- test staging`
+```sh
+npm run runLogstashPipeline -- test staging
+```
 
 Also of note: If the passwords for any of the DBs change, you
 must ssh into the server and change the `{env}.rc` file,
@@ -140,13 +158,23 @@ export LOGSTASH_OUTPUT_PASSWORD=<destination_password>
 
 1. Navigate to the Logstash installation directory:
 
-`cd /<path>/logstash-<version>`
+```sh
+cd /<path>/logstash-<version>
+```
 
 2. Run Logstash with the specified pipeline configuration:
 
-`bin/logstash -f /<path_to_repo>/be/es/copy_pipeline.conf`
+```sh
+bin/logstash -f /<path_to_repo>/be/es/copy_pipeline.conf
+```
 
 ### Important Note
 
 If you plan to overwrite an existing index, ensure you remove it with an HTTP
-`DELETE`` request before executing the Logstash pipeline.
+`DELETE` request before executing the Logstash pipeline.
+
+You can do this with `curl` or a similar tool. Example:
+
+```sh
+curl -X DELETE "https://<domain>:<port>/<index_name>" -u "username:password" --insecure
+```
