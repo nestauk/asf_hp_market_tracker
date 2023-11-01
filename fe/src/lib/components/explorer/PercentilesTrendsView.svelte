@@ -1,5 +1,5 @@
 <script>
-	import {Scroller} from '@svizzle/ui';
+	// import {Scroller} from '@svizzle/ui';
 	import {scaleOrdinal} from 'd3-scale';
 	import * as _ from 'lamb';
 
@@ -7,6 +7,7 @@
 	import GridRows from '$lib/components/svizzle/GridRows.svelte';
 	import KeysLegend from '$lib/components/svizzle/legend/KeysLegend.svelte';
 	import StatsTrends from '$lib/components/svizzle/trends/StatsTrends.svelte';
+	import Scroller from '$lib/components/svizzle/ui/Scroller.svelte';
 	import {interpolateColor} from '$lib/config/colors.js';
 	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {_framesTheme} from '$lib/stores/theme.js';
@@ -63,6 +64,9 @@
 {#if $_isSmallScreen}
 	<GridRows rowLayout='1fr 3fr'>
 		<div class='smallLegend'>
+
+			<!-- average trend legend -->
+
 			<section class='legendAvg'>
 				<header class='h3'>
 					Trends
@@ -72,6 +76,9 @@
 					keys={['Average']}
 				/>
 			</section>
+
+			<!-- percentiles legend -->
+
 			<section class='legendPercent'>
 				<header
 					class='h3'
@@ -141,8 +148,11 @@
 			}}
 		/>
 
-		<Scroller>
+		<Scroller isCenteredVertically={true}>
 			<div class='legend'>
+
+				<!-- average trend legend -->
+
 				<section class='legendBlock'>
 					<header
 						class='h3'
@@ -155,6 +165,9 @@
 						keyToColorFn={_.always(avgTrendColor)}
 					/>
 				</section>
+
+				<!-- percentiles legend -->
+
 				<section class='legendBlock'>
 					<header
 						class='h3'
@@ -190,7 +203,7 @@
 
 	.smallLegend {
 		display: grid;
-		grid-template-areas:"legendAvg legendPercent";
+		grid-template-areas: 'legendAvg legendPercent';
 		grid-template-columns: 1fr 2fr;
 	}
 	.legendAvg {

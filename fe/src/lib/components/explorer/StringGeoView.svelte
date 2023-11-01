@@ -1,5 +1,5 @@
 <script>
-	import {CenteredView, Scroller} from '@svizzle/ui';
+	// import {Scroller} from '@svizzle/ui';
 	import {
 		arraySumWith,
 		getId,
@@ -24,6 +24,7 @@
 	import View from '$lib/components/viewports/View.svelte';
 	import GridColumns from '$lib/components/svizzle/GridColumns.svelte';
 	import GridRows from '$lib/components/svizzle/GridRows.svelte';
+	import Scroller from '$lib/components/svizzle/ui/Scroller.svelte';
 	import {interpolateColor} from '$lib/config/colors.js';
 	import {_glyphGeometry} from '$lib/stores/geometry.js';
 	import {_isSmallScreen} from '$lib/stores/layout.js';
@@ -155,16 +156,14 @@
 			<GridRows rowLayout='min-content 1fr'>
 				<MetricTitle />
 
-				<Scroller>
-					<CenteredView
-						backgroundColor={$_currThemeVars['--colorBackground']}
-						color={$_currThemeVars['--colorText']}
-					>
-						<KeysLegend
-							keys={groupIds}
-							keyToColorFn={groupToColorFn}
-						/>
-					</CenteredView>
+				<Scroller
+					isCenteredHorizontally={true}
+					isCenteredVertically={true}
+				>
+					<KeysLegend
+						keys={groupIds}
+						keyToColorFn={groupToColorFn}
+					/>
 				</Scroller>
 			</GridRows>
 		</View>
@@ -194,26 +193,25 @@
 			<GridRows rowLayout='min-content 1fr'>
 				<MetricTitle />
 
-				<Scroller>
-					<CenteredView
-						backgroundColor={$_currThemeVars['--colorBackground']}
-					>
-						<SelectorRegionType />
-						<SelectionXor
-							name='stringsGeoSortBy'
-							valuesToLabels={{
-								total: 'Total',
-								regionName: 'Region name'
-							}}
-						/>
-						<SelectionXor
-							name='stackedBarsExtents'
-							valuesToLabels={{
-								absolute: 'Absolute',
-								percent: 'Percent'
-							}}
-						/>
-					</CenteredView>
+				<Scroller
+					isCenteredHorizontally={true}
+					isCenteredVertically={true}
+				>
+					<SelectorRegionType />
+					<SelectionXor
+						name='stringsGeoSortBy'
+						valuesToLabels={{
+							total: 'Total',
+							regionName: 'Region name'
+						}}
+					/>
+					<SelectionXor
+						name='stackedBarsExtents'
+						valuesToLabels={{
+							absolute: 'Absolute',
+							percent: 'Percent'
+						}}
+					/>
 				</Scroller>
 			</GridRows>
 		</View>
@@ -243,7 +241,7 @@
 				colLayout='25% 74%'
 				gap='1%'
 			>
-				<Scroller>
+				<Scroller isCenteredVertically={true}>
 					<KeysLegend
 						keys={groupIds}
 						keyToColorFn={groupToColorFn}

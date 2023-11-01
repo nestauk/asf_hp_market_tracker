@@ -1,5 +1,5 @@
 <script>
-	import {Scroller} from '@svizzle/ui';
+	// import {Scroller} from '@svizzle/ui';
 	import {
 		arraySumWith,
 		getKey,
@@ -19,6 +19,7 @@
 	import KeysLegend from '$lib/components/svizzle/legend/KeysLegend.svelte';
 	import StreamGraph from '$lib/components/svizzle/trends/StreamGraph.svelte';
 	import Trends from '$lib/components/svizzle/trends/Trends.svelte';
+	import Scroller from '$lib/components/svizzle/ui/Scroller.svelte';
 	import {intervalToAxisLabel} from '$lib/config/labels.js';
 	import View from '$lib/components/viewports/View.svelte';
 	import {_isSmallScreen} from '$lib/stores/layout.js';
@@ -219,13 +220,14 @@
 			<GridRows rowLayout='min-content 1fr min-content'>
 				<MetricTitle />
 
-				<Scroller>
-					<div class='small_legend'>
-						<KeysLegend
-							keyToColorFn={groupToColorFn}
-							keys={groups}
-						/>
-					</div>
+				<Scroller
+					isCenteredHorizontally={true}
+					isCenteredVertically={true}
+				>
+					<KeysLegend
+						keyToColorFn={groupToColorFn}
+						keys={groups}
+					/>
 				</Scroller>
 
 				<FlexBar canWrap shouldWrapUp>
@@ -279,7 +281,7 @@
 				colLayout='79% 20%'
 				gap='1%'
 			>
-				<div class='col0'>
+				<div class='col'>
 					{#if showStreams}
 						<StreamGraph
 							{axesLabels}
@@ -325,7 +327,10 @@
 					{/if}
 				</div>
 
-				<Scroller>
+				<Scroller
+					isCenteredHorizontally={true}
+					isCenteredVertically={true}
+				>
 					<KeysLegend
 						keyToColorFn={groupToColorFn}
 						keys={groups}
@@ -337,14 +342,8 @@
 {/if}
 
 <style>
-	.col0 {
+	.col {
 		height: 100%;
 		width: 100%;
-	}
-
-	.small_legend {
-		width: 100%;
-		display: grid;
-		justify-content: center;
 	}
 </style>

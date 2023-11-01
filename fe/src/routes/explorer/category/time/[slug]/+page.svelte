@@ -1,5 +1,5 @@
 <script>
-	import {Scroller} from '@svizzle/ui';
+	// import {Scroller} from '@svizzle/ui';
 	import {
 		arraySumWith,
 		getKey,
@@ -19,6 +19,7 @@
 	import KeysLegend from '$lib/components/svizzle/legend/KeysLegend.svelte';
 	import StreamGraph from '$lib/components/svizzle/trends/StreamGraph.svelte';
 	import Trends from '$lib/components/svizzle/trends/Trends.svelte';
+	import Scroller from '$lib/components/svizzle/ui/Scroller.svelte';
 	import View from '$lib/components/viewports/View.svelte';
 	import {intervalToAxisLabel} from '$lib/config/labels.js';
 	import {_isSmallScreen} from '$lib/stores/layout.js';
@@ -225,13 +226,14 @@
 			<GridRows rowLayout='min-content 1fr'>
 				<MetricTitle />
 
-				<Scroller>
-					<div class='smallLegend'>
-						<KeysLegend
-							keyToColorFn={groupToColorFn}
-							keys={groups}
-						/>
-					</div>
+				<Scroller
+					isCenteredHorizontally={true}
+					isCenteredVertically={true}
+				>
+					<KeysLegend
+						keyToColorFn={groupToColorFn}
+						keys={groups}
+					/>
 				</Scroller>
 
 			</GridRows>
@@ -265,7 +267,7 @@
 				colLayout='84% 15%'
 				gap='1%'
 			>
-				<div class='col0'>
+				<div class='col'>
 					{#if $_selection.categsTimeGraph === 'streams'}
 						<StreamGraph
 							{axesLabels}
@@ -311,7 +313,7 @@
 					{/if}
 				</div>
 
-				<Scroller>
+				<Scroller isCenteredVertically={true}>
 					<KeysLegend
 						keyToColorFn={groupToColorFn}
 						keys={groups}
@@ -323,14 +325,8 @@
 {/if}
 
 <style>
-	.col0 {
+	.col {
 		height: 100%;
 		width: 100%;
-	}
-
-	.smallLegend {
-		width: 100%;
-		display: grid;
-		justify-content: center;
 	}
 </style>
