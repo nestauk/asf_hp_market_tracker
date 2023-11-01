@@ -1,4 +1,8 @@
 <script>
+	import {createEventDispatcher} from 'svelte';
+
+	const dispatch = createEventDispatcher();
+
 	export let alignToTop;
 	export let doIt;
 
@@ -9,6 +13,7 @@
 
 	$: if (element && doIt) {
 		element.scrollIntoView(alignToTop);
+		dispatch('scrolled');
 	}
 </script>
 
