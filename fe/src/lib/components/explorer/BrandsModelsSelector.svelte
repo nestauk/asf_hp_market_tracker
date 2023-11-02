@@ -274,6 +274,10 @@
 						{@const brandExpansions = brandExpansionsByName[brandName]}
 						{@const hasBrandDiscardedModels = isIterableNotEmpty(discardedModels)}
 						{@const hasBrandKeptModels = isIterableNotEmpty(keptModels)}
+						{@const discardedAction = brandExpansions.kept ? 'Hide' : 'Show'}
+						{@const discardedGlyph = brandExpansions.discarded ? ChevronUp : ChevronDown}
+						{@const keptGlyph = brandExpansions.kept ? ChevronUp : ChevronDown}
+						{@const keptAction = brandExpansions.kept ? 'Hide' : 'Show'}
 
 						<li>
 							<!-- brand -->
@@ -287,16 +291,16 @@
 								<!-- kept button -->
 								{#if hasBrandKeptModels}
 									<div
-										aria-label='Show included models for this brand'
+										aria-label='{keptAction} included models for this brand'
 										class='button kept'
 										on:click={makeToggleExpansion(brandName, 'kept')}
 										on:keydown={makeOnKeyDown(makeToggleExpansion(brandName, 'kept'))}
 										role='button'
 										tabindex='0'
-										title='Show included models for this brand'
+										title='{keptAction} included models for this brand'
 									>
 										<Icon
-											glyph={brandExpansions.kept ? ChevronUp : ChevronDown}
+											glyph={keptGlyph}
 											size=20
 										/>
 									</div>
@@ -305,16 +309,16 @@
 								<!-- discarded button -->
 								{#if hasBrandDiscardedModels}
 									<div
-										aria-label='Show excluded models for this brand'
+										aria-label='{discardedAction} excluded models for this brand'
 										class='button discarded'
 										on:click={makeToggleExpansion(brandName, 'discarded')}
 										on:keydown={makeOnKeyDown(makeToggleExpansion(brandName, 'discarded'))}
 										role='button'
 										tabindex='0'
-										title='Show excluded models for this brand'
+										title='{discardedAction} excluded models for this brand'
 									>
 										<Icon
-											glyph={brandExpansions.discarded ? ChevronUp : ChevronDown}
+											glyph={discardedGlyph}
 											size=20
 										/>
 									</div>
@@ -345,6 +349,8 @@
 						values: models
 					}}
 						{@const brandExpansions = brandExpansionsByName[brandName]}
+						{@const action = brandExpansions.discarded ? 'Hide' : 'Show'}
+						{@const glyph = brandExpansions.discarded ? ChevronUp : ChevronDown}
 
 						<li>
 
@@ -353,16 +359,16 @@
 							<div class='brand discarded'>
 								<div class='name'>{brandName}</div>
 								<div
-									aria-label='Show models for this brand'
+									aria-label='{action} models for this brand'
 									class='button'
 									on:click={makeToggleExpansion(brandName, 'discarded')}
 									on:keydown={makeOnKeyDown(makeToggleExpansion(brandName, 'discarded'))}
 									role='button'
 									tabindex='0'
-									title='Show models for this brand'
+									title='{action} models for this brand'
 								>
 									<Icon
-										glyph={brandExpansions.discarded ? ChevronUp : ChevronDown}
+										{glyph}
 										size=20
 									/>
 								</div>
@@ -450,8 +456,11 @@
 
 
 	ul.models > li {
-		padding: 0.25em 0;
+		padding: 0.25em 0 0.25em 0.5em;
 		margin: 0 0 0.25em 1em;
+	}
+	ul.models > li:first-child {
+		margin-top: 0.25em;
 	}
 
 	.button {
