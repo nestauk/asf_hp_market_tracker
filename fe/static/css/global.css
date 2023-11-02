@@ -162,13 +162,14 @@ a {
 	/* region filters */
 
 	--colorGeoFilterFillSelected: #555;
-	--colorGeoFilterStrokeSelected: orange;
+	--colorGeoFilterStrokeSelected: #ccc;
 
 	/* maps */
 
 	--colorMapFillNuts: #eee;
-	--colorMapStrokeSelected: #333;
 	--colorMapHeroStroke: #333;
+	--colorMapSea: #f8ffff;
+	--colorMapStrokeSelected: #333;
 
 	/* brands models */
 
@@ -261,14 +262,15 @@ a {
 
 	/* region filters */
 
-	--colorGeoFilterFillSelected: #555;
-	--colorGeoFilterStrokeSelected: orange;
+	--colorGeoFilterFillSelected: #999;
+	--colorGeoFilterStrokeSelected: #333;
 
 	/* maps */
 
-	--colorMapFillNuts: #eee;
-	--colorMapStrokeSelected: #333;
+	--colorMapFillNuts: #333;
 	--colorMapHeroStroke: white;
+	--colorMapSea: hsl(240,21%,9%);
+	--colorMapStrokeSelected: #333;
 
 	/* brands models */
 

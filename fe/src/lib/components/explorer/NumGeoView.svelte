@@ -207,22 +207,24 @@
 				{/if}
 
 				<div class='col1'>
-					<Mapbox
-						{_zoom}
-						{accessToken}
-						{getFeatureState}
-						bounds={$_selectedBbox}
-						isAnimated={false}
-						isInteractive={false}
-						on:mapFeaturesHovered={onMapFeaturesEntered}
-						on:mapFeaturesTouchStarted={onMapFeaturesEntered}
-						reactiveLayersIds={[regionType]}
-						theme={$_mapboxTheme}
-						style={$_mapStyle}
-						visibleLayersIds={['nuts21_0', regionType]}
-						withScaleControl={false}
-						withZoomControl={false}
-					/>
+					<div class='map'>
+						<Mapbox
+							{_zoom}
+							{accessToken}
+							{getFeatureState}
+							bounds={$_selectedBbox}
+							isAnimated={false}
+							isInteractive={false}
+							on:mapFeaturesHovered={onMapFeaturesEntered}
+							on:mapFeaturesTouchStarted={onMapFeaturesEntered}
+							reactiveLayersIds={[regionType]}
+							theme={$_mapboxTheme}
+							style={$_mapStyle}
+							visibleLayersIds={['nuts21_0', regionType]}
+							withScaleControl={false}
+							withZoomControl={false}
+						/>
+					</div>
 					<span style={regionKindStyle}>
 						{$_currentMetric.geoPrefix} regions
 					</span>
@@ -382,6 +384,7 @@
 		width: 100%;
 	}
 	.map {
+		background-color: var(--colorMapSea);
 		height: 100%;
 		position: relative;
 		width: 100%;

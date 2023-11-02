@@ -244,22 +244,22 @@
 	}
 
 	.map {
-		background-color: azure; /* sea */
-		border: thin solid lightgrey;
+		background-color: var(--colorMapSea);
+		border: var(--border);
 		height: var(--mapHeight);
 		width: 100%;
 	}
 
 	.hoveredRegion {
 		align-items: center;
-		color: var(--colorText); /* global theme */
+		color: var(--colorText);
 		display: flex;
 		justify-content: center;
 		min-height: 4em;
 		text-align: center;
 	}
 	.hoveredRegion.active {
-		color: var(--colorAuxText); /* global theme */
+		color: var(--colorAuxText);
 	}
 
 	li {

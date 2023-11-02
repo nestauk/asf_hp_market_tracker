@@ -460,6 +460,7 @@
 		width: 100%;
 	}
 	.map {
+		background-color: var(--colorMapSea);
 		height: 100%;
 		position: relative;
 		width: 100%;
