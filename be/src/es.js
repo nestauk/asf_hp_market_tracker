@@ -54,7 +54,7 @@ export const getXCompatibleCount = async options => {
 	return isOpenSearch ? result.body : result;
 };
 
-export const getDocumentCount = async filter => {
-	const {count} = await getXCompatibleCount({ body: filter, index });
+export const getDocumentCount = async body => {
+	const {count} = await getXCompatibleCount({ body, index });
 	return count;
 };
