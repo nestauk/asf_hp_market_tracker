@@ -6,7 +6,7 @@ export const getCount = async (request, reply) => {
 	const body = {
 		...request.filter,
 	};
-	let result = await getXCompatibleCount({
+	const result = await getXCompatibleCount({
 		body,
 		index
 	});
