@@ -21,4 +21,4 @@ export const regionTypeToFeatureNameId = {
 	msoa11: 'MSOA11NM',
 }
 
-export const heroRegionStrokeWidth = 2;
+export const heroRegionStrokeWidth = 1.5;

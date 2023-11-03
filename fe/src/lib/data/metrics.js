@@ -4,7 +4,8 @@ import * as _ from 'lamb';
 
 import {counts, fields} from 'nesta_hpmt_shared/index.js';
 
-const getEntity = _.getKey('entity');
+import {getEntity} from '$lib/utils/getters.js';
+
 const getMetrics = _.pipe([
 	_.filterWith(_.not(_.hasKey('use'))),
 	_.mapWith(

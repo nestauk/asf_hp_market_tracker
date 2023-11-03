@@ -170,7 +170,8 @@ a {
 
 	/* maps */
 
-	--colorMapFillNuts: #eee;
+	--colorMapFillNodata: #ddd;
+	--colorMapFillNuts: #efefef;
 	--colorMapHeroStroke: #333;
 	--colorMapSea: #f8ffff;
 	--colorMapStrokeSelected: #333;
@@ -275,6 +276,7 @@ a {
 
 	/* maps */
 
+	--colorMapFillNodata: #444;
 	--colorMapFillNuts: #333;
 	--colorMapHeroStroke: white;
 	--colorMapSea: hsl(240,21%,9%);

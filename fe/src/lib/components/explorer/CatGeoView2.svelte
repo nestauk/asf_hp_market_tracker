@@ -33,7 +33,7 @@
 		heroRegionStrokeWidth,
 		MAPBOXGL_ACCESSTOKEN as accessToken,
 	} from '$lib/config/map.js';
-	import regionsByType from '$lib/data/regions.js';
+	import {regionsByType} from '$lib/data/regions.js';
 	import {_barchartGeometry} from '$lib/stores/geometry.js';
 	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {
@@ -42,6 +42,7 @@
 		_zoom,
 	} from '$lib/stores/maps.js';
 	import {_currentMetric, _selection} from '$lib/stores/navigation.js';
+	import {_selectedRegionNamesIndex} from '$lib/stores/regions.js';
 	import {
 		_barchartsTheme,
 		_currThemeVars,
@@ -139,19 +140,29 @@
 		if (features.length > 0) {
 			const {properties: {[$_featureNameId]: featureName}} = features[0];
 			item = itemsIndex[featureName];
-		}
-		if (item) {
-			const {key, value} = item;
 
-			$_tooltip = {
-				key,
-				value: formatFn ? formatFn(value) : value,
-				x,
-				y,
-			};
+			if (item) {
+				const {key, value} = item;
 
-			// barchart
-			heroKey = key;
+				$_tooltip = {
+					key,
+					value: formatFn ? formatFn(value) : value,
+					x,
+					y,
+				};
+
+				// barchart
+				heroKey = key;
+			} else if (featureName) { // no tooltips on NUTS
+				clearHero(); // hovering selected -> non-selected
+				$_tooltip = {
+					key: featureName,
+					x,
+					y,
+				};
+			} else {
+				clearHero(); // hovering NI -> Ireland
+			}
 		} else {
 			clearHero();
 		}
@@ -248,7 +259,11 @@
 			const item = itemsIndex[featureName];
 			const isHero = heroKey === featureName;
 			const featureState = {
-				fill: item ? colorScale(getValue(item)) : null,
+				fill: item
+					? colorScale(getValue(item))
+					: $_selectedRegionNamesIndex[featureName]
+						? $_currThemeVars['--colorMapFillNodata']
+						: null,
 				lineWidth: isHero ? heroRegionStrokeWidth : null,
 				stroke: item ? $_currThemeVars['--colorMapStrokeSelected'] : null,
 			}

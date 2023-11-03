@@ -1,4 +1,4 @@
-import {allRegionTypes} from '$lib/utils/regions.js';
+import {allRegionTypes} from '$lib/data/regions.js';
 
 export const context = {
 	nextSearchParams: '',

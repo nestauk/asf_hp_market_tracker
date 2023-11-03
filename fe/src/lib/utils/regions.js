@@ -1,16 +1,42 @@
 import {isIterableNotEmpty} from '@svizzle/utils';
 import * as _ from 'lamb';
 
-// TBD, could be derived from `fe/src/lib/data/regions.json`
-export const allRegionTypes = [
-	'country21',
-	'itl21_1',
-	'itl21_2',
-	'itl21_3',
-	'lad21',
-	// 'lsoa11',
-	// 'msoa11',
-];
+import {allRegionsByType, allRegionTypes, hierarchy} from '$lib/data/regions.js';
+
+export const getDescendantsRegions = ({
+	parentRegionsType,
+	parentRegionsNames,
+	targetRegionType
+}) => {
+	const startIndex = _.findIndex(allRegionTypes, _.is(parentRegionsType));
+	const endIndex = _.findIndex(allRegionTypes, _.is(targetRegionType));
+	const typeSequence = _.slice(allRegionTypes, startIndex, endIndex + 1);
+
+	const selectedRegionsByType = {};
+
+	_.forEach(typeSequence, (curType, index) => {
+		let curRegionNames;
+
+		if (index === 0) {
+			curRegionNames = parentRegionsNames;
+		} else {
+			const prevType = typeSequence[index - 1];
+			const {childrenIdx} = selectedRegionsByType[prevType];
+			curRegionNames = _.map(childrenIdx, idx => hierarchy[idx].name);
+		}
+
+		const regions = _.filter(
+			allRegionsByType[curType],
+			region => curRegionNames.includes(region.name)
+		);
+		const childrenIdx = _.flatMap(regions, _.getKey('childrenIdx'));
+		selectedRegionsByType[curType] = {childrenIdx, regions}
+	});
+
+	const targetRegions = selectedRegionsByType[targetRegionType].regions;
+
+	return targetRegions;
+}
 
 export const getRegionsSelection = ({currentMetric, filters, regionType}) => {
 	const {geoPrefix} = currentMetric;
