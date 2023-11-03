@@ -1,15 +1,15 @@
 import { index } from '../conf.js';
-import { client, isOpenSearch } from '../es.js';
+import { getXCompatibleCount } from '../es.js';
 
 export const getCount = async (request, reply) => {
 
 	const body = {
 		...request.filter,
 	};
-	let result = await client.count({
+	let result = await getXCompatibleCount({
 		body,
 		index
 	});
 
-	reply.send(isOpenSearch ? result.body : result);
+	reply.send(result);
 };

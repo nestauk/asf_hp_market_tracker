@@ -49,9 +49,12 @@ if (esEnv === 'production') {
 
 	}(client.search));
 }
+export const getXCompatibleCount = async options => {
+	const result = await client.count(options);
+	return isOpenSearch ? result.body : result;
+};
 
 export const getDocumentCount = async filter => {
-	const result = await client.count({ index, body: filter });
-	const {count} = isOpenSearch ? result.body : result;
+	const {count} = await getXCompatibleCount({ body: filter, index });
 	return count;
 };
