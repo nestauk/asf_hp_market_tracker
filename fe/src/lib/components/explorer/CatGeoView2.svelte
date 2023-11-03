@@ -161,14 +161,16 @@
 		heroKey = key;
 
 		const centroid = regionsByType[regionType]?.regions[key]?.centroid;
-		const {x, y} = $_projectFn(centroid);
+		if (centroid) {
+			const {x, y} = $_projectFn(centroid);
 
-		$_tooltip = {
-			key,
-			value: displayValue,
-			x: $_mapGeometry.left + x,
-			y: $_mapGeometry.top + y,
-		};
+			$_tooltip = {
+				key,
+				value: displayValue,
+				x: $_mapGeometry.left + x,
+				y: $_mapGeometry.top + y,
+			};
+		}
 	}
 
 	let colorScale;
