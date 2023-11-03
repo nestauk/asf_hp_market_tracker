@@ -29,6 +29,8 @@ export const client = esEnv === 'production'
 		}
 	});
 
+export const isOpenSearch = esEnv === 'production';
+
 // override search function to match the ES client
 if (esEnv === 'production') {
 	client.search = (function(_super) {
@@ -49,6 +51,7 @@ if (esEnv === 'production') {
 }
 
 export const getDocumentCount = async filter => {
-	const { count } = await client.count({ index, body: filter });
+	const result = await client.count({ index, body: filter });
+	const {count} = isOpenSearch ? result.body : result;
 	return count;
 };
