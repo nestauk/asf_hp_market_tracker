@@ -55,6 +55,6 @@ export const getXCompatibleCount = async options => {
 };
 
 export const getDocumentCount = async body => {
-	const {count} = await getXCompatibleCount({ body, index });
+	const { count } = await getXCompatibleCount({ body, index });
 	return count;
 };
