@@ -6,11 +6,14 @@
 	import ViewsXor from '$lib/components/viewports/ViewsXor.svelte';
 	import {toolName} from '$lib/config.js';
 	import {explorerActor} from '$lib/statechart/index.js';
+    import {_staticData} from '$lib/stores/data';
 	import {_screenId} from '$lib/stores/layout.js';
 
 	explorerActor.send({type: 'MOUNTED'});
 
-	$: explorerActor.send({type: 'PAGE_CHANGED', page: $_page});
+	// TBD Machine states StaticData and ViewData are parallel but in practice
+	// ViewData cannot start before StaticData has finished loading.
+	$: $_staticData && explorerActor.send({type: 'PAGE_CHANGED', page: $_page});
 </script>
 
 <svelte:head>
