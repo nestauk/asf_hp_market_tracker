@@ -192,30 +192,6 @@
 				{height}
 				{width}
 			>
-				<!-- grid -->
-				<g class='grid'>
-					<g class='vertical'>
-						{#each keyTicks as [key]}
-							<line
-								x1={xScale(key)}
-								x2={xScale(key)}
-								y1={bbox.bly}
-								y2={bbox.try}
-							/>
-						{/each}
-					</g>
-					<g class='horizontal'>
-						{#each yTicks as value}
-							<line
-								x1={bbox.blx}
-								x2={bbox.trx}
-								y1={yScale(value)}
-								y2={yScale(value)}
-							/>
-						{/each}
-					</g>
-				</g>
-	
 				<!-- x-ticks -->
 				<g class='x-ticks'>
 					{#each keyTicks as [key, label]}
@@ -294,6 +270,30 @@
 						}}
 					/>
 				{/each}
+	
+				<!-- grid -->
+				<g class='grid'>
+					<g class='vertical'>
+						{#each keyTicks as [key]}
+							<line
+								x1={xScale(key)}
+								x2={xScale(key)}
+								y1={bbox.bly}
+								y2={bbox.try}
+							/>
+						{/each}
+					</g>
+					<g class='horizontal'>
+						{#each yTicks as value}
+							<line
+								x1={bbox.blx}
+								x2={bbox.trx}
+								y1={yScale(value)}
+								y2={yScale(value)}
+							/>
+						{/each}
+					</g>
+				</g>
 	
 				<!-- lines -->
 				{#each lines as {generator, key} (key)}
