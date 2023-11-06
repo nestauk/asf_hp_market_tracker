@@ -1,6 +1,6 @@
 <script>
 	import {makeStyleVars, toPx} from '@svizzle/dom';
-	import {MessageView, Scroller} from '@svizzle/ui';
+	import {MessageView, Scroller , setupResizeObserver} from '@svizzle/ui';
 	import {
 		applyFnMap,
 		arrayMaxWith,
@@ -29,6 +29,10 @@
 	import {linearScale} from 'yootils';
 
 	const dispatch = createEventDispatcher();
+	const {
+		_writable: _size,
+		resizeObserver: sizeObserver
+	} = setupResizeObserver();
 	const sortByValue = sortWith([getValue]);
 	const transparentColor = 'rgba(0,0,0,0)';
 
@@ -113,6 +117,7 @@
 	let scrollbarWidth;
 	let width;
 
+	$: ({inlineSize: width, blockSize: height} = $_size);
 	$: style = makeStyleVars({
 		...theme,
 		...getCssGeometry(geometry),
@@ -457,12 +462,11 @@
 
 			<!-- scrollable -->
 			<div
-				bind:clientHeight={height}
-				bind:clientWidth={width}
 				class:withrefs={refs && refs.length}
 				class='scrollable'
 				on:mouseleave={() => {hoveredKey = null}}
 				role='none'
+				use:sizeObserver
 			>
 				<Scroller
 					bind:outerScrollTop
