@@ -125,7 +125,7 @@ a {
 
 	/* charts */
 
-	--colorGrid: #0004;
+	--colorGrid: rgba(0, 0, 0, 0.2);
 
 	/* bar chart */
 
@@ -230,7 +230,7 @@ a {
 
 	/* charts */
 
-	--colorGrid: #FFF8;
+	--colorGrid: rgba(255, 255, 255, 0.6);
 
 	/* bar chart */
 
