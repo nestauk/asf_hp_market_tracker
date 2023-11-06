@@ -241,6 +241,7 @@
 	.RegionFilter {
 		display: grid;
 		width: 100%;
+		gap: 0.1rem;
 	}
 
 	.map {

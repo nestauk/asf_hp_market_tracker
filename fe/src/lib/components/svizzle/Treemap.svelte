@@ -82,6 +82,8 @@
 		{#each treemapLeaves
 			as {x0, x1, y0, y1, data: {data}}, i
 		}
+			{@const rectHeight = y1 > y0 ? y1 - y0 : 0}
+			{@const rectWidth = x1 > x0 ? x1 - x0 : 0}
 			<!-- svelte-ignore a11y-mouse-events-have-key-events -->
 			<g
 				role='none'
@@ -92,19 +94,19 @@
 					const {clientX: x, clientY: y} = touch;
 					dispatch('leafTouchStarted', {data, x, y})
 				}}
-				transform='translate({x0},{y0})'
+				transform='translate({x0 || 0},{y0 || 0})'
 			>
 				<rect
 					fill={keyToColorFn(keyAccessor(data))}
-					height={y1-y0}
+					height={rectHeight}
 					stroke-width={0.5}
 					stroke='var(--colorBorderAux)'
-					width={x1-x0}
+					width={rectWidth}
 				/>
 				<g
 					bind:this={textGroups[i]}
 					transform={!leavesChecks[i][0] && leavesChecks[i][1]
-						? `translate(0,${y1-y0}) rotate(-90)`
+						? `translate(0,${rectHeight}) rotate(-90)`
 						: ''
 					}
 					class:tooLarge={!leavesChecks[i][0] && !leavesChecks[i][1]}
@@ -113,8 +115,8 @@
 						dx={geometry.textPadding}
 						dy={geometry.textPadding}
 						fill={keyToColorLabelFn(keyAccessor(data))}
-						maxHeight={y1-y0}
-						maxWidth={x1-x0}
+						maxHeight={rectHeight}
+						maxWidth={rectWidth}
 					>{keyAccessor(data)}</text>
 					<text
 						dx={geometry.textPadding}
