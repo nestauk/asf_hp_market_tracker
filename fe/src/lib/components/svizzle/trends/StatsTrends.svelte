@@ -197,30 +197,6 @@
 				{height}
 				{width}
 			>
-				<!-- grid -->
-				<g class='grid'>
-					<g class='vertical'>
-						{#each keyTicks as [key]}
-							<line
-								x1={xScale(key)}
-								x2={xScale(key)}
-								y1={bbox.bly}
-								y2={bbox.try}
-							/>
-						{/each}
-					</g>
-					<g class='horizontal'>
-						{#each yTicks as value}
-							<line
-								x1={bbox.blx}
-								x2={bbox.trx}
-								y1={yScale(value)}
-								y2={yScale(value)}
-							/>
-						{/each}
-					</g>
-				</g>
-	
 				<!-- x-ticks -->
 				<g class='x-ticks'>
 					{#each keyTicks as [key, label]}
@@ -269,14 +245,6 @@
 					{/each}
 				</g>
 	
-				<!-- frame -->
-				<rect
-					x={bbox.blx}
-					y={bbox.try}
-					width={bbox.width}
-					height={bbox.height}
-				/>
-
 				<!-- areas -->
 				{#each areas as {color, generator, key, lowKey} (lowKey)}
 					<!-- svelte-ignore a11y-mouse-events-have-key-events -->
@@ -299,7 +267,7 @@
 						}}
 					/>
 				{/each}
-	
+
 				<!-- lines -->
 				{#each lines as {generator, key} (key)}
 					<path
@@ -309,7 +277,39 @@
 						stroke={keyToColorFn?.(key) ?? 'var(--curveStroke)'}
 					/>
 				{/each}
-	
+			
+				<!-- grid -->
+				<g class='grid'>
+					<g class='vertical'>
+						{#each keyTicks as [key]}
+							<line
+								x1={xScale(key)}
+								x2={xScale(key)}
+								y1={bbox.bly}
+								y2={bbox.try}
+							/>
+						{/each}
+					</g>
+					<g class='horizontal'>
+						{#each yTicks as value}
+							<line
+								x1={bbox.blx}
+								x2={bbox.trx}
+								y1={yScale(value)}
+								y2={yScale(value)}
+							/>
+						{/each}
+					</g>
+				</g>
+
+				<!-- frame -->
+				<rect
+					x={bbox.blx}
+					y={bbox.try}
+					width={bbox.width}
+					height={bbox.height}
+				/>
+
 			</svg>
 		{/if}
 	</div>

@@ -235,26 +235,6 @@
 				{height}
 				{width}
 			>
-				<!-- grid -->
-				<g class='grid'>
-					{#each keyTicks as [key]}
-						<line
-							x1={xScale(key)}
-							x2={xScale(key)}
-							y1={bbox.bly}
-							y2={bbox.try}
-						/>
-					{/each}
-					{#each yTicks as value}
-						<line
-							x1={bbox.blx}
-							x2={bbox.trx}
-							y1={yScale(value)}
-							y2={yScale(value)}
-						/>
-					{/each}
-				</g>
-
 				<!-- x-ticks -->
 				<g class='x-ticks'>
 					{#each keyTicks as [key, label]}
@@ -329,6 +309,26 @@
 								})
 							}}
 							stroke={p.fill}
+						/>
+					{/each}
+				</g>
+
+				<!-- grid -->
+				<g class='grid'>
+					{#each keyTicks as [key]}
+						<line
+							x1={xScale(key)}
+							x2={xScale(key)}
+							y1={bbox.bly}
+							y2={bbox.try}
+						/>
+					{/each}
+					{#each yTicks as value}
+						<line
+							x1={bbox.blx}
+							x2={bbox.trx}
+							y1={yScale(value)}
+							y2={yScale(value)}
 						/>
 					{/each}
 				</g>

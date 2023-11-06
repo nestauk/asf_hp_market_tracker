@@ -123,6 +123,10 @@ a {
 	--colorWarningBorder: darkorange;
 	--colorWarningText: white;
 
+	/* charts */
+
+	--colorGrid: rgba(0, 0, 0, 0.2);
+
 	/* bar chart */
 
 	--colorBarchartHeroItemBackground: var(--colorAux);
@@ -223,6 +227,10 @@ a {
 	--colorWarningBackground: rgb(117, 76, 0);
 	--colorWarningBorder: rgb(109, 60, 1);
 	--colorWarningText: #333;
+
+	/* charts */
+
+	--colorGrid: rgba(255, 255, 255, 0.6);
 
 	/* bar chart */
 
