@@ -84,7 +84,7 @@ export const _framesTheme = derived(
 	_currThemeVars,
 	currThemeVars => ({
 		frameStroke: currThemeVars['--colorBorder'],
-		gridStroke: currThemeVars['--colorBorder'],
+		gridStroke: currThemeVars['--colorGrid'],
 		gridStrokeDasharray: currThemeVars['--gridStrokeDasharray'],
 		textColor: currThemeVars['--colorText'],
 	})
