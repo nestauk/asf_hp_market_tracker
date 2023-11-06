@@ -240,14 +240,6 @@
 					{/each}
 				</g>
 	
-				<!-- frame -->
-				<rect
-					x={bbox.blx}
-					y={bbox.try}
-					width={bbox.width}
-					height={bbox.height}
-				/>
-
 				<!-- areas -->
 				{#each areas as {color, generator, key, lowKey} (lowKey)}
 					<!-- svelte-ignore a11y-mouse-events-have-key-events -->
@@ -270,7 +262,17 @@
 						}}
 					/>
 				{/each}
-	
+
+				<!-- lines -->
+				{#each lines as {generator, key} (key)}
+					<path
+						class='line'
+						d={generator(items)}
+						fill='none'
+						stroke={keyToColorFn?.(key) ?? 'var(--curveStroke)'}
+					/>
+				{/each}
+			
 				<!-- grid -->
 				<g class='grid'>
 					<g class='vertical'>
@@ -294,17 +296,15 @@
 						{/each}
 					</g>
 				</g>
-	
-				<!-- lines -->
-				{#each lines as {generator, key} (key)}
-					<path
-						class='line'
-						d={generator(items)}
-						fill='none'
-						stroke={keyToColorFn?.(key) ?? 'var(--curveStroke)'}
-					/>
-				{/each}
-	
+
+				<!-- frame -->
+				<rect
+					x={bbox.blx}
+					y={bbox.try}
+					width={bbox.width}
+					height={bbox.height}
+				/>
+
 			</svg>
 		{/if}
 	</div>
