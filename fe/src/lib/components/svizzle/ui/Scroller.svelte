@@ -51,7 +51,7 @@
 		shadowOpacityBottom = scrollBottom < 10
 			? scrollBottom / 10
 			: 1;
-		scrollbarWidth = offsetWidth - scrollWidth;
+		scrollbarWidth = offsetWidth > scrollWidth ? offsetWidth - scrollWidth : 0;
 		previousScrollTop = scrollTop;
 		if (outerScrollTop !== scrollTop) {
 			outerScrollTop = scrollTop;
