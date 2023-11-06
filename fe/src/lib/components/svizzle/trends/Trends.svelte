@@ -1,5 +1,6 @@
 <script>
 	import {makeStyleVars} from '@svizzle/dom';
+	import {setupResizeObserver} from '@svizzle/ui';
 	import {
 		arrayMaxWith,
 		arrayMinWith,
@@ -20,6 +21,10 @@
 	import {getDateTimeFormat} from './utils.js';
 
 	const dispatch = createEventDispatcher();
+	const {
+		_writable: _size,
+		resizeObserver: sizeObserver
+	} = setupResizeObserver();
 
 	const defaultGeometry = {
 		dotRadius: 2,
@@ -82,6 +87,7 @@
 
 	$: geometry = geometry ? {...defaultGeometry, ...geometry} : defaultGeometry;
 	$: labelsDy = Math.min(geometry.safetyBottom, geometry.safetyTop) / 2;
+	$: ({inlineSize: width, blockSize: height} = $_size);
 
 	/* quadtree */
 
@@ -254,9 +260,8 @@
 	class='Trends'
 >
 	<div
-		bind:clientHeight={height}
-		bind:clientWidth={width}
 		class='chart'
+		use:sizeObserver
 	>
 		{#if doDraw}
 

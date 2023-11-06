@@ -1,4 +1,5 @@
 <script>
+	import {setupResizeObserver} from '@svizzle/ui';
 	import {
 		arrayMaxWith,
 		arraySumWith,
@@ -24,6 +25,10 @@
 	import {getDateTimeFormat} from './utils.js';
 
 	const dispatch = createEventDispatcher();
+	const {
+		_writable: _size,
+		resizeObserver: sizeObserver
+	} = setupResizeObserver();
 
 	const defaultGeometry = {
 		safetyBottom: 20,
@@ -70,6 +75,7 @@
 	const labelsDx = 20;
 	$: geometry = geometry ? {...defaultGeometry, ...geometry} : defaultGeometry;
 	$: labelsDy = Math.min(geometry.safetyBottom, geometry.safetyTop) / 2;
+	$: ({inlineSize: width, blockSize: height} = $_size);
 
 	/* streams */
 
@@ -221,9 +227,8 @@
 	class='StreamGraph'
 	>
 	<div
-		bind:clientHeight={height}
-		bind:clientWidth={width}
 		class='chart'
+		use:sizeObserver
 	>
 		{#if doDraw}
 			<svg

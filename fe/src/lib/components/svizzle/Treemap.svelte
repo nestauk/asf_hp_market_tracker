@@ -1,4 +1,5 @@
 <script>
+	import {setupResizeObserver} from '@svizzle/ui';
 	import {getKey, getValue} from '@svizzle/utils';
 	import {hierarchy, stratify, treemap} from 'd3-hierarchy';
 	import * as _ from 'lamb';
@@ -22,8 +23,13 @@
 	};
 
 	const dispatch = createEventDispatcher();
+	const {
+		_writable: _size,
+		resizeObserver: sizeObserver
+	} = setupResizeObserver();
 	const stratifyData = stratify().path(_.identity);
 
+	$: ({inlineSize: treemapWidth, blockSize: treemapHeight} = $_size);
 	$: geometry = geometry ? {...defaultGeometry, ...geometry} : defaultGeometry;
 	$: getHierarchy = stratified =>
 		hierarchy(stratified)
@@ -66,9 +72,8 @@
 </script>
 
 <div
-	bind:clientHeight={treemapHeight}
-	bind:clientWidth={treemapWidth}
 	class='Treemap'
+	use:sizeObserver
 >
 	<svg
 		height={treemapHeight}
