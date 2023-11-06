@@ -82,8 +82,9 @@
 		{#each treemapLeaves
 			as {x0, x1, y0, y1, data: {data}}, i
 		}
-			{@const rectHeight = y1 > y0 ? y1 - y0 : 0}
-			{@const rectWidth = x1 > x0 ? x1 - x0 : 0}
+			{@const rectHeight = Math.max(y1 - y0, 0)}
+			{@const rectWidth = Math.max(x1 - x0, 0)}
+
 			<!-- svelte-ignore a11y-mouse-events-have-key-events -->
 			<g
 				role='none'
