@@ -29,6 +29,8 @@ export const client = esEnv === 'production'
 		}
 	});
 
+export const isOpenSearch = esEnv === 'production';
+
 // override search function to match the ES client
 if (esEnv === 'production') {
 	client.search = (function(_super) {
@@ -47,8 +49,12 @@ if (esEnv === 'production') {
 
 	}(client.search));
 }
+export const getXCompatibleCount = async options => {
+	const result = await client.count(options);
+	return isOpenSearch ? result.body : result;
+};
 
-export const getDocumentCount = async filter => {
-	const { count } = await client.count({ index, body: filter });
+export const getDocumentCount = async body => {
+	const { count } = await getXCompatibleCount({ body, index });
 	return count;
 };
