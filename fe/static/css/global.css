@@ -271,7 +271,7 @@ a {
 
 	/* region filters */
 
-	--colorGeoFilterFillSelected: #999;
+	--colorGeoFilterFillSelected: #fff;
 	--colorGeoFilterStrokeSelected: #333;
 
 	/* maps */

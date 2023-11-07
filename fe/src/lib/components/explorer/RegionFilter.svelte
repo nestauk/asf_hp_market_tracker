@@ -1,5 +1,5 @@
 <script>
-	import {Icon, XCircle} from '@svizzle/ui';
+	import {Icon, Scroller, XCircle} from '@svizzle/ui';
 	import {
 		isIterableEmpty,
 		isIterableNotEmpty,
@@ -7,6 +7,8 @@
 	} from '@svizzle/utils';
 	import * as _ from 'lamb';
 	import {createEventDispatcher} from 'svelte';
+
+	import {CustomControl, Mapbox} from '@svizzle/mapbox'; // workspace
 
 	import DismissOrApply from '$lib/components/explorer/DismissOrApply.svelte';
 	import FilterPaneBorder
@@ -18,6 +20,7 @@
 		MAPBOXGL_ACCESSTOKEN as accessToken,
 		regionTypeToFeatureNameId,
 	} from '$lib/config/map.js';
+	import {allRegionTypes} from '$lib/data/regions.js';
 	import {_mapStyle} from '$lib/stores/maps.js';
 	import {_selection} from '$lib/stores/navigation.js';
 	import {
@@ -26,9 +29,12 @@
 		_xorNavigatorTheme
 	} from '$lib/stores/theme.js';
 	import XorNavigator from '$lib/components/svizzle/ui/XorNavigator.svelte';
+	import {getName} from '$lib/utils/getters.js';
+	import {
+		getAncestorsRegions,
+		getDescendantsRegions,
+	} from '$lib/utils/regions.js';
 	import {doPairItemsContainSameValues} from '$lib/utils/svizzle/utils.js';
-
-	import {Mapbox} from '@svizzle/mapbox'; // workspace
 
 	export let id;
 	export let mapHeight = '300px';
@@ -76,17 +82,37 @@
 
 	/* region type change */
 
-	const onRegionTypeChange = ({detail}) => {
-		regionType = detail;
-		if (regionType === targetRegionType) {
-			regionNames = targetRegionNames;
+	const onRegionTypeChange = ({detail: selectedRegionType}) => {
+		const selectedRegionTypeIndex =
+			_.findIndex(allRegionTypes, _.is(selectedRegionType));
+		const regionTypeIndex =
+			_.findIndex(allRegionTypes, _.is(regionType));
+
+		let selectedRegions;
+		if (selectedRegionTypeIndex > regionTypeIndex) {
+			selectedRegions = getDescendantsRegions({
+				parentRegionsNames: regionNames,
+				parentRegionsType: regionType,
+				targetRegionType: selectedRegionType
+			});
 		} else {
-			regionNames = []; // TODO use the hierarchy to determine what's selected
+			selectedRegions = getAncestorsRegions({
+				childrenRegionType: regionType,
+				childrenRegionsNames: regionNames,
+				targetRegionType: selectedRegionType
+			});
 		}
+
+		regionNames = _.map(selectedRegions, getName);
+		regionType = selectedRegionType;
 	}
 
 	const toggleRegionName = name => {
 		regionNames = toggleItem(regionNames, name);
+	}
+
+	const resetRegions = () => {
+		regionNames = [];
 	}
 
 	/* map */
@@ -177,7 +203,13 @@
 				visibleLayersIds={['nuts21_0', regionType]}
 				withScaleControl={false}
 				withZoomControl={false}
-			/>
+			>
+				<CustomControl position='bottom-right'>
+					<button on:click={resetRegions}>
+						Select all
+					</button>
+				</CustomControl>
+			</Mapbox>
 		</div>
 
 		<!-- region type selector -->
@@ -200,31 +232,35 @@
 
 		<!-- list of regions -->
 
-		<ul>
-			{#if areAllRegionsSelected}
-				<li>
-					<span>All regions selected</span>
-				</li>
-			{:else}
-				{#each regionNames as name}
-					<li>
-						<span>{name}</span>
-						<div
-							class='iconButton'
-							on:click={makeDeselectRegionName(name)}
-							on:keydown={makeOnKeyDown(makeDeselectRegionName(name))}
-							role='button'
-							tabindex='0'
-						>
-							<Icon
-								glyph={XCircle}
-								size=20
-							/>
-						</div>
-					</li>
-				{/each}
-			{/if}
-		</ul>
+		<div class='regionsList'>
+			<Scroller>
+				<ul>
+					{#if areAllRegionsSelected}
+						<li>
+							<span>All regions selected</span>
+						</li>
+					{:else}
+						{#each regionNames as name}
+							<li>
+								<span>{name}</span>
+								<div
+									class='iconButton'
+									on:click={makeDeselectRegionName(name)}
+									on:keydown={makeOnKeyDown(makeDeselectRegionName(name))}
+									role='button'
+									tabindex='0'
+								>
+									<Icon
+										glyph={XCircle}
+										size=20
+									/>
+								</div>
+							</li>
+						{/each}
+					{/if}
+				</ul>
+			</Scroller>
+		</div>
 
 		<!-- confirmation buttons -->
 
@@ -263,6 +299,10 @@
 		color: var(--colorAuxText);
 	}
 
+	.regionsList {
+		max-height: 20em;
+	}
+
 	li {
 		align-items: center;
 		display: flex;
@@ -276,5 +316,14 @@
 	.iconButton:focus-visible {
 		outline: var(--outline);
 		outline-offset: calc(-1 * var(--outlineWidth));
+	}
+
+	button {
+		background-color: var(--colorBackground);
+		border: var(--border);
+		color: var(--colorText);
+		white-space: nowrap;
+		width: auto;
+		padding: 0 0.5rem;
 	}
 </style>
