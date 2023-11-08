@@ -160,6 +160,7 @@
 		grid-template-columns: 40% 60%;
 		grid-template-rows: 100%;
 		height: 100%;
+		overflow: hidden;
 		padding: 0.5em 1em;
 		width: 100%;
 	}
@@ -169,17 +170,20 @@
 	}
 	.justifyEnd {
 		justify-content: flex-end;
+		text-align: right;
 	}
 
 	.filteredStat {
 		border-right: var(--border);
 		grid-area: filteredStat;
 		justify-content: center;
+		overflow: hidden;
 		padding: 0 1em;
 	}
 	.filteredStat .amount {
 		align-items: baseline;
 		display: flex;
+		overflow: hidden;
 	}
 	.filteredStat .amount .number {
 		font-size: 2em;
@@ -187,6 +191,9 @@
 	}
 	.filteredStat .amount .label {
 		padding-left: 0.5em;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 
 	.coverage {
