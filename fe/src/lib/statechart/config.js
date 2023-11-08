@@ -1,3 +1,5 @@
+import {isDev} from '$lib/env.js';
+
 // https://stately.ai/registry/editor/ed39daf7-c390-45bd-8a86-9aefbeb8a736
 
 export const config = {
@@ -87,7 +89,7 @@ export const config = {
 											{
 												target: '#HPMT.PageInteractive.ViewData.Ready',
 												actions: [
-													'logViewData',
+													...(isDev ? ['logViewData'] : []),
 													'cacheViewData',
 													'updateViewDataStore'
 												]
@@ -133,7 +135,7 @@ export const config = {
 											{
 												target: '#HPMT.PageInteractive.StaticData.Ready',
 												actions: [
-													'logStaticData',
+													...(isDev ? ['logStaticData'] : []),
 													'updateStaticDataStore'
 												]
 											}

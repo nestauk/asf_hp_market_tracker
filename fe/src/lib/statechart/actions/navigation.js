@@ -131,7 +131,10 @@ export const navigateToNextParams = ctx => {
 	const url =
 		`${window.location.origin}${window.location.pathname}?${ctx.nextSearchParams}`;
 
-	// console.log('next url:', url);
+	// import {isDev} from '$lib/env.js';
+	// if (isDev) {
+	// 	console.log('next url:', url);
+	// }
 
 	goto(url, {
 		keepFocus: true,

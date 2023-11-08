@@ -13,6 +13,7 @@
 		from '$lib/components/explorer/medium/ViewSelectorMedium.svelte';
 	import View from '$lib/components/viewports/View.svelte';
 	import ViewsXor from '$lib/components/viewports/ViewsXor.svelte';
+	import {isDev} from '$lib/env.js';
 	import {explorerActor} from '$lib/statechart/index.js';
 	import {_selection} from '$lib/stores/navigation.js';
 	import {_currThemeVars} from '$lib/stores/theme.js';
@@ -37,8 +38,7 @@
 				? viewId //
 				: iconsIds[1]; // default
 
-	// keep this log on in production to know the specifics of a no data message
-	$: $_showMessage && console.log('[backend]:', $_viewDataMessage);
+	$: isDev && $_showMessage && console.log('[backend]:', $_viewDataMessage);
 
 	let filtered;
 	$: if ($_viewDataCoverage) {

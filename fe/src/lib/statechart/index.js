@@ -1,6 +1,7 @@
 import {createMachine, interpret} from 'xstate';
 
 import {browser} from '$app/environment';
+import {isDev} from '$lib/env.js';
 import {_isViewReady} from '$lib/stores/view.js';
 
 import * as actions from './actions/index.js';
@@ -18,16 +19,19 @@ export const explorerActor = interpret(machine).start();
 
 if (browser) {
 	explorerActor.subscribe((state, event) => {
-		// console.log('🤖🤖🤖', JSON.stringify(state.value));
-		// if (event) {console.log('🎈🎈🎈', event);}
-
 		const isViewStateReady = isViewReady(state.value);
 		_isViewReady.set(isViewStateReady);
-		console.log(
-			'_isViewReady',
-			isViewStateReady ? `🟩` : '⬛️',
-			JSON.stringify(state.value)
-		)
+
+		if (isDev) {
+			console.log(
+				'_isViewReady',
+				isViewStateReady ? `🟩` : '⬛️',
+				JSON.stringify(state.value)
+			);
+
+			// console.log('🤖🤖🤖', JSON.stringify(state.value));
+			// if (event) {console.log('🎈🎈🎈', event);
+		}
 	});
 
 	explorerActor.send({type: 'CLIENT_DETECTED'});

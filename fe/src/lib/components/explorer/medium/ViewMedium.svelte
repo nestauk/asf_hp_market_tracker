@@ -9,6 +9,7 @@
 	import Banner from '$lib/components/svizzle/Banner.svelte'
 	import Pill from '$lib/components/svizzle/ui/Pill.svelte'
 	import {noDataMessage} from '$lib/config/text.js';
+	import {isDev} from '$lib/env.js';
 	import {
 		_currentMetricId,
 		_currentMetricTitle,
@@ -31,8 +32,7 @@
 		isInfoBannerVisible = !isInfoBannerVisible;
 	};
 
-	// keep this log on in production to know the specifics of a no data message
-	$: $_showMessage && console.log('[backend]:', $_viewDataMessage);
+	$: isDev && $_showMessage && console.log('[backend]:', $_viewDataMessage);
 </script>
 
 <div class='ViewMedium'>
