@@ -1,6 +1,6 @@
 <script>
 	import {makeStyleVars, toPx} from '@svizzle/dom';
-	import {MessageView, Scroller , setupResizeObserver} from '@svizzle/ui';
+	import {MessageView, Scroller, setupResizeObserver} from '@svizzle/ui';
 	import {
 		applyFnMap,
 		arrayMaxWith,
@@ -123,7 +123,9 @@
 		...getCssGeometry(geometry),
 		refsHeightPx: toPx(refsHeight)
 	});
-	$: availableWidth = width - scrollbarWidth;
+	$: availableWidth = scrollbarWidth
+		? Math.max(width - scrollbarWidth, 0)
+		: width;
 	$: barPadding = geometry.glyphWidth;
 	$: labelValueDistance = 3 * barPadding;
 	$: itemHeight = geometry.glyphHeight + barHeight + 3 * barPadding;
@@ -285,8 +287,8 @@
 						: availableWidth - labelsMaxLengths.pos.value - labelValueDistance
 				: allNegatives ? availableWidth : 0,
 			valueX: crossesZero
-				? isNeg ? 0 : availableWidth
-				: allNegatives ? 0 : availableWidth,
+				? (isNeg ? 0 : availableWidth)
+				: (allNegatives ? 0 : availableWidth),
 			x,
 			y: idx * itemHeight,
 		}}
@@ -402,7 +404,7 @@
 			<h2>{title}</h2>
 		</header>
 	{/if}
-	<main class:titled={title} >
+	<main class:titled={title}>
 		{#if !items || items.length === 0}
 
 			<MessageView
@@ -417,7 +419,10 @@
 			<!-- ref labels -->
 			{#if refs.length}
 				<div class='refs'>
-					<svg width={availableWidth} height={refsHeight}>
+					<svg
+						height={refsHeight}
+						width={availableWidth}
+					>
 						{#each refsLayout as {
 							color,
 							dasharray,
@@ -472,8 +477,15 @@
 					bind:outerScrollTop
 					bind:scrollbarWidth
 				>
-					<svg width={availableWidth} height={svgHeight}>
-						<rect class='bkg' {width} height={svgHeight} />
+					<svg
+						height={svgHeight}
+						width={availableWidth}
+					>
+						<rect
+							class='bkg'
+							height={svgHeight}
+							width={availableWidth}
+						/>
 
 						<!-- refs lines -->
 						{#if refsLayout}
@@ -550,7 +562,7 @@
 										class:right={isValueAlignedRight}
 										class='value'
 										fill={textColor}
-										x={valueX - 2}
+										x={valueX}
 										y={textY}
 									>{displayValue}</text>
 								</g>

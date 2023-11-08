@@ -88,7 +88,6 @@
 		align-items: center;
 		display: grid;
 		grid-template-rows: min-content min-content;
-		padding: 0.1rem;
 		user-select: none;
 		height: 100%;
 	}

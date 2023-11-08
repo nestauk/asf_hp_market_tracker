@@ -89,7 +89,6 @@
 		display: grid;
 		grid-template-rows: min-content min-content;
 		height: 100%;
-		padding: 0.1rem;
 		user-select: none;
 		width: 100%;
 	}
