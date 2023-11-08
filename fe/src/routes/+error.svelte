@@ -1,4 +1,6 @@
 <script>
+	import {CenteredView, Scroller} from '@svizzle/ui';
+
 	import {page as _page} from '$app/stores';
 	import {toolName} from '$lib/config';
 	import {isDev} from '$lib/env';
@@ -15,32 +17,28 @@
 	>
 </svelte:head>
 
-<h1>{status}</h1>
+<CenteredView
+	backgroundColor='var(--backgroundColor)'
+	color='var(--colorText)'
+>
+	<h1>{status}: {error?.message || 'Message not defined'}</h1>
 
-<p>{error?.message || 'Message not defined'}</p>
+	<!-- TODO make this generic for all error codes -->
+	{#if status === 404}
+		<p>The page you navigated to doesn't seem to exist.</p>
+	{/if}
 
-{#if isDev && error?.stack}
-	<pre>{error?.stack}</pre>
-{/if}
+	{#if isDev && error?.stack}
+		<div class='stack'>
+			<Scroller>
+				<pre>{error?.stack}</pre>
+			</Scroller>
+		</div>
+	{/if}
+</CenteredView>
 
 <style>
-	h1, p {
-		margin: 0 auto;
-	}
-
-	h1 {
-		font-size: 2.8em;
-		font-weight: 700;
-		margin: 0 0 0.5em 0;
-	}
-
-	p {
-		margin: 1em auto;
-	}
-
-	@media (min-width: 480px) {
-		h1 {
-			font-size: 4em;
-		}
+	.stack {
+		max-height: 15em;
 	}
 </style>
