@@ -112,7 +112,6 @@ export const config = {
 					initial: 'Dirty',
 					states: {
 						Dirty: {
-							entry: 'showFiltersAndTimelineLoadingIcon',
 							initial: 'CheckStaticData',
 							states: {
 								CheckStaticData: {
@@ -122,8 +121,7 @@ export const config = {
 											cond: 'hasStaticData'
 										},
 										{
-											target: 'QueryingStaticData',
-											actions: 'generateStaticDataQueryFromFieldsMapping'
+											target: 'QueryingStaticData'
 										}
 									]
 								},
@@ -153,41 +151,9 @@ export const config = {
 								}
 							}
 						},
-						Ready: {
-							entry: [
-								'hideFiltersAndTimelineLoadingIcon',
-							]
-						}
+						Ready: {}
 					}
 				},
-				/*
-				History: {
-					initial: 'Saved',
-					states: {
-						Saved: {
-							on: {
-								EDITED: {
-									target: 'Editing',
-									actions: 'initEntry'
-								}
-							}
-						},
-						Editing: {
-							on: {
-								EDITED: {
-									target: 'Editing',
-									actions: 'updateEntry',
-									internal: false
-								},
-								COMMITTED: {
-									target: 'Saved',
-									actions: 'commitURL'
-								}
-							}
-						}
-					}
-				},
-				*/
 			},
 		}
 	}

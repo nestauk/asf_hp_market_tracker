@@ -1,6 +1,6 @@
 <script>
-	export let isDirty;
-	export let isEdited;
+	export let isDirty = false;
+	export let isEdited = false;
 </script>
 
 <div

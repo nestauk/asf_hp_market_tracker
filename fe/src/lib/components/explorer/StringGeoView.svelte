@@ -157,8 +157,8 @@
 				<MetricTitle />
 
 				<Scroller
-					isCenteredHorizontally={true}
-					isCenteredVertically={true}
+					alignHorizontally={true}
+					alignVertically={true}
 				>
 					<KeysLegend
 						keys={groupIds}
@@ -194,8 +194,8 @@
 				<MetricTitle />
 
 				<Scroller
-					isCenteredHorizontally={true}
-					isCenteredVertically={true}
+					alignHorizontally={true}
+					alignVertically={true}
 				>
 					<SelectorRegionType />
 					<SelectionXor
@@ -241,7 +241,7 @@
 				colLayout='25% 74%'
 				gap='1%'
 			>
-				<Scroller isCenteredVertically={true}>
+				<Scroller alignVertically={true}>
 					<KeysLegend
 						keys={groupIds}
 						keyToColorFn={groupToColorFn}

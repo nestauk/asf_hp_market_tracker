@@ -318,7 +318,6 @@
 												<header class='h3'>Brands & Models</header>
 												<BrandsModelsSelector
 													{selectedBrandsModels}
-													id='heat_pump_brands_models'
 													on:apply={onBrandsModelsChanged}
 												/>
 											</section>
@@ -364,7 +363,6 @@
 													<CategorySelector
 														categories={enhanceCategories(metric.values, queryValue || [])}
 														id={metric.id}
-														label={metric.label}
 														on:applied={makeOnCatsChanged(metric.id)}
 													/>
 												{/if}

@@ -49,9 +49,9 @@
 	export let config;
 	export let geometry;
 	export let items = defaultItems;
-	export let keyFilterFn;
+	export let keyFilterFn = null;
 	export let keyFormatFn = _.identity;
-	export let keyToColorFn;
+	export let keyToColorFn = null;
 	export let keyType;
 	export let theme = null;
 	export let valueFormatFn;
@@ -220,7 +220,7 @@
 						</g>
 					{/each}
 				</g>
-	
+
 				<!-- y-ticks -->
 				<g class='y-ticks'>
 					{#each yTicks as value}
@@ -244,7 +244,7 @@
 						</g>
 					{/each}
 				</g>
-	
+
 				<!-- areas -->
 				{#each areas as {color, generator, key, lowKey} (lowKey)}
 					<!-- svelte-ignore a11y-mouse-events-have-key-events -->
@@ -277,7 +277,7 @@
 						stroke={keyToColorFn?.(key) ?? 'var(--curveStroke)'}
 					/>
 				{/each}
-			
+
 				<!-- grid -->
 				<g class='grid'>
 					<g class='vertical'>

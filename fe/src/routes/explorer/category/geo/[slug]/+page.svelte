@@ -15,15 +15,6 @@
 	const keyAccessor2 = getKey;
 	const valueAccessor2 = getDocCount;
 
-	const filter = _.filterWith(_.pipe([valueAccessor, isNotNil]));
-	const makeDomain = _.pipe([filter, arr => extent(arr, valueAccessor)]);
-
-/* 	const makeBarchartItems = _.pipe([
-		filter,
-		_.mapWith(applyFnMap({key: getKey, value: valueAccessor})),
-		_.sortWith([_.sorterDesc(getValue)])
-	]);
- */
 	$: proceed =
 		$_isViewReady &&
 		$_currentMetric?.id === $_page.params.slug &&
@@ -42,7 +33,6 @@
 	{items}
 	{keyAccessor}
 	{keyAccessor2}
-	{makeDomain}
 	{valueAccessor}
 	{valueAccessor2}
 	formatFn={$_currentMetric?.formatFn}

@@ -221,8 +221,8 @@
 				<MetricTitle />
 
 				<Scroller
-					isCenteredHorizontally={true}
-					isCenteredVertically={true}
+					alignHorizontally={true}
+					alignVertically={true}
 				>
 					<KeysLegend
 						keyToColorFn={groupToColorFn}
@@ -328,8 +328,8 @@
 				</div>
 
 				<Scroller
-					isCenteredHorizontally={true}
-					isCenteredVertically={true}
+					alignHorizontally={true}
+					alignVertically={true}
 				>
 					<KeysLegend
 						keyToColorFn={groupToColorFn}

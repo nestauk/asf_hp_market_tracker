@@ -11,8 +11,8 @@
 		topShadowGeometry: 'inset 0px 12px 13px -13px',
 	};
 
-	export let isCenteredHorizontally;
-	export let isCenteredVertically;
+	export let alignHorizontally = false;
+	export let alignVertically = false;
 	export let outerScrollTop = 0;
 	export let scrollbarWidth = 0;
 	export let theme;
@@ -77,8 +77,8 @@
 <div
 	{style}
 	bind:this={scroller}
-	class:centeredHorizontally={isCenteredHorizontally}
-	class:centeredVertically={isCenteredVertically}
+	class:alignedHorizontally={alignHorizontally}
+	class:alignedVertically={alignVertically}
 	class:shadowBottom={hasBottomShadow}
 	class:shadowTop={hasTopShadow}
 	class='Scroller'
@@ -99,11 +99,11 @@
 		width: 100%;
 	}
 
-	.centeredHorizontally {
+	.alignedHorizontally {
 		display: grid;
 		justify-content: center;
 	}
-	.centeredVertically {
+	.alignedVertically {
 		align-items: center;
 		display: grid;
 	}

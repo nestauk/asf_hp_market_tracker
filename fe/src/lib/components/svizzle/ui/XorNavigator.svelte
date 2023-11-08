@@ -6,7 +6,7 @@
 	import {createEventDispatcher} from 'svelte';
 
 	export let currentValue;
-	export let label;
+	export let label = null;
 	export let theme;
 	export let valuesToLabels;
 

@@ -51,7 +51,7 @@
 	export let items;
 	export let makeBarchartItems;
 	export let makeDomain;
-	export let title;
+	export let title = null;
 	export let valueAccessor;
 
 	let _projectFn;

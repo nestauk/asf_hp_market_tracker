@@ -39,7 +39,7 @@
 	export let _zoom = null; // store
 	export let accessToken = null;
 	export let bounds;
-	export let eventsHandlers;
+	export let eventsHandlers = null;
 	export let getFeatureState;
 	export let isAnimated = true;
 	export let isDblClickEnabled = true;
@@ -78,8 +78,8 @@
 
 	/* updating layers */
 
-	const updateLayers = (layers_, reactiveLayersIds_, getFeatureState_) => {
-		if (!layers_) {
+	const updateLayers = (layers_, reactiveLayersIds_, getFeatureStateFn) => {
+		if (!layers_ || !getFeatureStateFn) {
 			return;
 		}
 		layers_.forEach(layer => {
@@ -87,7 +87,7 @@
 				map
 				.querySourceFeatures(layer.source, {sourceLayer: layer['source-layer']})
 				.forEach(feature => {
-					const state = getFeatureState_(feature);
+					const state = getFeatureStateFn(feature);
 					state && map.setFeatureState({
 						id: feature.id,
 						source: layer.source,

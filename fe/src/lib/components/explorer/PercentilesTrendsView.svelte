@@ -14,7 +14,7 @@
 
 	export let axesLabels;
 	export let items;
-	export let keyFormatFn;
+	export let keyFormatFn = null;
 	export let valueFormatFn;
 
 	$: items = items ?? [];
@@ -148,7 +148,7 @@
 			}}
 		/>
 
-		<Scroller isCenteredVertically={true}>
+		<Scroller alignVertically={true}>
 			<div class='legend'>
 
 				<!-- average trend legend -->

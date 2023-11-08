@@ -56,14 +56,14 @@
 	export let axesLabels;
 	export let geometry;
 	export let hero;
-	export let keyFilterFn;
+	export let keyFilterFn = null;
 	export let keyFormatFn = _.identity;
-	export let keyToColorFn;
+	export let keyToColorFn = null;
 	export let keyType;
 	export let preformatDate = _.identity;
 	export let theme = null;
 	export let trends;
-	export let trendType; // 'progressive' | 'cumulative'
+	export let trendType = 'progressive'; // | 'cumulative'
 	export let valueFormatFn;
 	export let yTicksCount = 10;
 
