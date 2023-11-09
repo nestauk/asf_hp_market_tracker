@@ -592,9 +592,10 @@
 
 <style>
 	.BarchartVDiv {
-		width: 100%;
-		height: 100%;
+		max-height: 100%;
+		overflow: hidden;
 		padding: var(--paddingPx);
+		width: 100%;
 	}
 
 	header {

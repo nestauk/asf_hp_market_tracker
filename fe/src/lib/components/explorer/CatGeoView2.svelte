@@ -437,19 +437,21 @@
 					</div>
 				</div>
 
-				<BarchartVDiv
-					{formatFn}
-					{heroKey}
-					geometry={$_barchartGeometry}
-					isInteractive={true}
-					items={currentItems}
-					on:entered={onBarEntered}
-					on:exited={clearHero}
-					shouldResetScroll={true}
-					shouldScrollToHeroKey={true}
-					theme={$_barchartsTheme}
-					valueToColorFn={colorScale}
-				/>
+				<div class='barchart'>
+					<BarchartVDiv
+						{formatFn}
+						{heroKey}
+						geometry={$_barchartGeometry}
+						isInteractive={true}
+						items={currentItems}
+						on:entered={onBarEntered}
+						on:exited={clearHero}
+						shouldResetScroll={true}
+						shouldScrollToHeroKey={true}
+						theme={$_barchartsTheme}
+						valueToColorFn={colorScale}
+					/>
+				</div>
 			</GridColumns>
 		{/if}
 	</GridRows>
@@ -488,5 +490,11 @@
 		padding: 0.1em 0.5em;
 		position: absolute;
 		right: 0;
+	}
+	.barchart {
+		align-content: center;
+		display: grid;
+		height: 100%;
+		width: 100%;
 	}
 </style>

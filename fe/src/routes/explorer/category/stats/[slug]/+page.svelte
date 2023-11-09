@@ -129,46 +129,37 @@
 			colLayout='69% 30%'
 			gap='1%'
 		>
-			<div class='col'>
-				<div class='treemap'>
-					<Treemap
-						{items}
-						{keyToColorFn}
-						{keyToColorLabelFn}
-						{valueAccessor}
-						on:leafExited={onLeafExited}
-						on:leafHovered={onLeafEntered}
-						on:leafTouchStarted={onLeafEntered}
-					/>
-				</div>
+			<div class='treemap'>
+				<Treemap
+					{items}
+					{keyToColorFn}
+					{keyToColorLabelFn}
+					{valueAccessor}
+					on:leafExited={onLeafExited}
+					on:leafHovered={onLeafEntered}
+					on:leafTouchStarted={onLeafEntered}
+				/>
 			</div>
-			<div class='col'>
-				<div class='barchart'>
-					<BarchartVDiv
-						{keyToColorFn}
-						{heroKey}
-						geometry={$_barchartGeometry}
-						items={barchartItems}
-						shouldResetScroll={true}
-						shouldScrollToHeroKey={true}
-						theme={$_barchartsTheme}
-					/>
-				</div>
+			<div class='barchart'>
+				<BarchartVDiv
+					{keyToColorFn}
+					{heroKey}
+					geometry={$_barchartGeometry}
+					items={barchartItems}
+					shouldResetScroll={true}
+					shouldScrollToHeroKey={true}
+					theme={$_barchartsTheme}
+				/>
 			</div>
 		</GridColumns>
 	{/if}
 {/if}
 
 <style>
-	.col {
-		align-items: center;
-		display: flex;
-		height: 100%;
-		justify-content: center;
-		width: 100%;
-		padding: 0;
-	}
 	.barchart {
+		align-content: center;
+		display: grid;
+		height: 100%;
 		width: 100%;
 	}
 	.treemap {
