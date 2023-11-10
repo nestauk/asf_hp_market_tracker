@@ -290,7 +290,7 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 					params = {
 						field: `${id}.keyword`,
 						// missing: 'Unknown',
-						size: ctx.selection.stringsTopCount
+						// size: ctx.selection.stringsTopCount
 					};
 					break;
 				case 'time':

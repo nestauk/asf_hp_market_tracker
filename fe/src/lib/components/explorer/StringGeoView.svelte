@@ -119,10 +119,9 @@
 	let legendBins;
 	let stacks;
 
-	$: cropGroups = _.take($_selection.stringsTopCount);
 	$: if (items?.length > 0) {
 		const allPoints = flattenItems(items);
-		const pointsByGroupId = cropGroups(getPointsByGroupId(allPoints));
+		const pointsByGroupId = getPointsByGroupId(allPoints);
 		const points = flattenGroups(pointsByGroupId);
 
 		groupIds = pluckKeySorted(pointsByGroupId);

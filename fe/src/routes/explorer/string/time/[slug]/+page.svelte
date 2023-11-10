@@ -101,7 +101,6 @@
 		clearTooltip();
 	}
 
-	$: cropTrends = _.take($_selection.stringsTopCount);
 	$: showStreams = $_selection.stringsTimeGraph === 'streams';
 	$: proceed =
 		$_isViewReady &&
@@ -132,7 +131,7 @@
 	$: if (proceed) {
 		const rawItems = $_viewData?.response.data.date_histogram?.buckets || [];
 		const allPoints = flattenItems(rawItems);
-		trends = cropTrends(getTrends(allPoints));
+		trends = getTrends(allPoints);
 		points = getTrendsPoints(trends);
 		groups = getGroups(points);
 

@@ -55,10 +55,8 @@
 		_.sortWith([_.sorterDesc(getValue)])
 	]);
 
-	$: isMetricLabelPlural = $_selection.stringsTopCount > 1;
 	$: metricLabel =
-		`${$_currentMetric.label.toLowerCase()}${isMetricLabelPlural ? 's' : ''}`;
-	$: barchartTitle = `Top ${$_selection.stringsTopCount} ${metricLabel}`;
+		`${$_currentMetric.label.toLowerCase()}s`;
 
 	$: proceed =
 		$_isViewReady &&
@@ -125,7 +123,6 @@
 					items={barchartItems}
 					shouldResetScroll={true}
 					theme={$_barchartsTheme}
-					title={barchartTitle}
 				/>
 			</GridRows>
 		</View>
@@ -157,7 +154,6 @@
 						shouldResetScroll={true}
 						shouldScrollToHeroKey={true}
 						theme={$_barchartsTheme}
-						title={barchartTitle}
 					/>
 				</div>
 			</div>
