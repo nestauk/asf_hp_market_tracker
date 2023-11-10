@@ -175,7 +175,7 @@
 			.align(geometry.barAlign)
 			.paddingOuter(geometry.paddingOuter)
 			.paddingInner(geometry.paddingInner);
-		
+
 		barHeight = yScale.bandwidth();
 		yStep = yScale.step();
 
@@ -232,7 +232,7 @@
 							class='key'
 							fill={theme.textColor}
 							stroke='white'
-							stroke-width=2
+							stroke-width=4
 							x={geometry.safetyLeft + geometry.labelHPadding}
 							y={yScale(key) + geometry.labelVPosition * yStep}
 						>
@@ -250,7 +250,7 @@
 						>
 							{sum}
 						</text>
-					
+
 					{/each}
 				</svg>
 			</Scroller>

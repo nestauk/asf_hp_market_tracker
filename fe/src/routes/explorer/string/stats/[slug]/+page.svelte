@@ -55,9 +55,6 @@
 		_.sortWith([_.sorterDesc(getValue)])
 	]);
 
-	$: metricLabel =
-		`${$_currentMetric.label.toLowerCase()}s`;
-
 	$: proceed =
 		$_isViewReady &&
 		$_currentMetric?.id === $_page.params.slug &&
