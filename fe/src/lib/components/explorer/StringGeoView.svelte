@@ -48,7 +48,7 @@
 
 	const axesLabels = [
 		{
-			areas: ['top'],
+			areas: ['bottom'],
 			label: 'Sum of the number of installations of selected brands in each region',
 		},
 		{

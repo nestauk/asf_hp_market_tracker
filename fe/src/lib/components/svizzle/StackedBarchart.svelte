@@ -230,6 +230,8 @@
 						<text
 							class='key'
 							fill={theme.textColor}
+							stroke='white'
+							stroke-width=2
 							x={geometry.safetyLeft}
 							y={yScale(key) + geometry.labelPosition * yStep}
 						>
@@ -240,6 +242,8 @@
 						<text
 							class='sum'
 							fill={theme.textColor}
+							stroke='white'
+							stroke-width=2
 							x={geometry.safetyLeft + width - geometry.safetyRight}
 							y={yScale(key) + geometry.labelPosition * yStep}
 						>
@@ -279,6 +283,7 @@
 	}
 	text {
 		pointer-events: none;
+		paint-order: stroke fill;
 	}
 	text.sum {
 		text-anchor: end;
