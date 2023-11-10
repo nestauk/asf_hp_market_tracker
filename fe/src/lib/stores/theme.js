@@ -151,7 +151,7 @@ export const _regionKindTheme = derived(
 export const _stackedBarchartTheme = derived(
 	_currThemeVars,
 	currThemeVars => ({
-		textColor: currThemeVars['--colorText'],
+		textColor: 'black',
 	})
 );
 

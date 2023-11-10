@@ -27,10 +27,12 @@
 	export let theme;
 
 	const defaultGeometry = {
+		barAlign: 0.2,
 		glyphHeight: 16,
 		glyphWidth: 8,
 		keyHeightEm: 3,
-		paddingInner: 0.9,
+		labelPosition: 0.8,
+		paddingInner: 0.2,
 		paddingOuter: 0.2,
 		safetyBottom: 8,
 		safetyLeft: 8,
@@ -82,6 +84,7 @@
 	let width;
 	let xScale;
 	let yScale;
+	let barHeight;
 
 	afterUpdate(() => {
 		if (shouldResetScroll && previousItems !== stacks) {
@@ -167,9 +170,13 @@
 		yScale = scaleBand()
 			.domain(allKeys)
 			.range([geometry.safetyTop, height - geometry.safetyBottom])
-			.align(1)
+			.align(geometry.barAlign)
 			.paddingOuter(geometry.paddingOuter)
 			.paddingInner(geometry.paddingInner);
+		
+		barHeight = yScale.bandwidth();
+
+		console.log('barHeight', barHeight)
 
 		doDraw = true;
 	}
@@ -189,33 +196,13 @@
 					{#each augmentedItems as {key, values, sum}}
 						{@const barScale = barsScaleByKey?.[key] || xScale}
 
-						<!-- label -->
-						<text
-							class='key'
-							fill={theme.textColor}
-							x={geometry.safetyLeft}
-							y={yScale(key) - 10}
-						>
-							{truncateToPx(key, availableLabelWidth, geometry.glyphWidth)}
-						</text>
-
-						<!-- number -->
-						<text
-							class='sum'
-							fill={theme.textColor}
-							x={geometry.safetyLeft + width - geometry.safetyRight}
-							y={yScale(key) - 10}
-						>
-							{sum}
-						</text>
-
 						<!-- bar rects -->
 						{#each values as {key: subKey, value, start}}
 							<!-- svelte-ignore a11y-mouse-events-have-key-events -->
 							<rect
 								role='none'
 								fill={groupToColorFn(subKey)}
-								height={yScale.bandwidth()}
+								height={barHeight}
 								on:mousemove={({x, y}) => {
 									dispatch('barHovered', {key, subKey, value, x, y})
 								}}
@@ -234,6 +221,27 @@
 								y={yScale(key)}
 							/>
 						{/each}
+
+						<!-- label -->
+						<text
+							class='key'
+							fill={theme.textColor}
+							x={geometry.safetyLeft}
+							y={yScale(key) + geometry.labelPosition * barHeight}
+						>
+							{truncateToPx(key, availableLabelWidth, geometry.glyphWidth)}
+						</text>
+
+						<!-- number -->
+						<text
+							class='sum'
+							fill={theme.textColor}
+							x={geometry.safetyLeft + width - geometry.safetyRight}
+							y={yScale(key) + geometry.labelPosition * barHeight}
+						>
+							{sum}
+						</text>
+					
 					{/each}
 				</svg>
 			</Scroller>
@@ -262,6 +270,9 @@
 		width: 100%;
 	}
 
+	text {
+		pointer-events: none;
+	}
 	text.sum {
 		text-anchor: end;
 	}
