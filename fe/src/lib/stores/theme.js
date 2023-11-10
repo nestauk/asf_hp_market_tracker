@@ -152,6 +152,7 @@ export const _stackedBarchartTheme = derived(
 	_currThemeVars,
 	currThemeVars => ({
 		textColor: 'black',
+		barBorderColor: currThemeVars['--colorBorder'],
 	})
 );
 

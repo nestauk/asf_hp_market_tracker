@@ -216,6 +216,8 @@
 								on:touchend={() => {
 									dispatch('barTouchEnded', {key, subKey, value})
 								}}
+								stroke={theme.barBorderColor}
+								stroke-width=1
 								width={barScale(value)}
 								x={barScale(start)}
 								y={yScale(key)}
@@ -270,6 +272,9 @@
 		width: 100%;
 	}
 
+	rect {
+		border: var(--barBorder)
+	}
 	text {
 		pointer-events: none;
 	}
