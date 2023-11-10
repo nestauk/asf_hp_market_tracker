@@ -18,6 +18,7 @@ import {
 	numericMetricsById,
 } from '$lib/data/metrics.js';
 import {_staticData} from '$lib/stores/data.js';
+import {_selection} from '$lib/stores/navigation.js';
 import {getEntity} from '$lib/utils/getters.js';
 import {pluckKeySorted} from '$lib/utils/svizzle/utils.js';
 
@@ -140,4 +141,21 @@ export const _installationDateExtent = derived(
 			getTimelinesExtent
 		])
 	)
+);
+
+export const _isDefaultInstallationDateExtent = derived(
+	[_installationDateExtent, _selection],
+	([installationDateExtent, {filters: {installation_date}}]) => {
+		let isDefaultInstallationDateExtent = true;
+
+		if (installationDateExtent) {
+			const {Min, Max} = installationDateExtent;
+
+			isDefaultInstallationDateExtent = installation_date
+				&& installation_date.gte === Min
+				&& installation_date.lte === Max;
+		}
+
+		return isDefaultInstallationDateExtent;
+	}
 );

@@ -6,6 +6,7 @@ import {assign} from 'xstate';
 
 import {goto} from '$app/navigation';
 import {metricById} from '$lib/data/metrics.js';
+import {_installationDateExtent} from '$lib/stores/filters.js';
 import {
 	_activeViewType,
 	_currentMetric,
@@ -76,14 +77,25 @@ export const navigateToFullSearchParams = ctx => {
 		}
 	);
 
+ 	const {filters} = ctx.selection;
+ 	const {installation_date} = filters;
+	const {minTime, maxTime} = installation_date || {};
+	const {Min: gte, Max: lte} = get(_installationDateExtent); // it fails here
+
+	const criteria = {
+		gte: minTime || gte,
+		lte: maxTime || lte,
+	};
+	filters.installation_date = criteria;
+
 	/* merge selection & parsedSearchParams: FIXME make this generic */
 
 	const newFilters = RISON.stringify({
-		...ctx.selection.filters,
+		...filters,
 		...parsedSearchParams.filters,
 	});
 
-	// these are arrays, we need a fn to merge properly
+	// FIXME these are arrays, we need a fn to merge properly
 	const newRegionTypes = RISON.stringify(
 		_.sort(_.uniques([
 			...ctx.selection.regionTypes,

@@ -23,7 +23,7 @@ export const config = {
 			}
 		},
 		PageInteractive: {
-			type: 'parallel',
+            type: 'parallel',
 			states: {
 				ViewData: {
 					initial: 'Dirty',
@@ -153,8 +153,8 @@ export const config = {
 						},
 						Ready: {}
 					}
-				},
-			},
+				}
+			}
 		}
 	}
 };

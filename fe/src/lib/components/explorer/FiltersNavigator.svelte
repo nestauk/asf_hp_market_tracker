@@ -7,6 +7,7 @@
 
 	import {makeOnKeyDown} from '$lib/components/svizzle/ui/handlers.js';
 	import {metricLabelById} from '$lib/data/metrics.js';
+	import {_isDefaultInstallationDateExtent} from '$lib/stores/filters.js';
 	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {_selection} from '$lib/stores/navigation.js';
 	import {_filtersNavigatorTheme} from '$lib/stores/theme.js';
@@ -86,8 +87,11 @@
 		_.mapWith(_.pipe([getField, getFrom(filtersByFields)])),
 		_.uniques
 	]);
-	$: activeFilterIds = [
-		...getActiveFilterIds($_selection.filters),
+	$: filters = $_isDefaultInstallationDateExtent
+		? _.skip(['installation_date'], $_selection.filters)
+		: $_selection.filters;
+	$: activeFilterIds =[
+		...getActiveFilterIds(filters),
 		...getActiveStringsFilters($_selection.stringsFilters),
 	];
 	$: hasFilters = activeFilterIds.length >= 1;

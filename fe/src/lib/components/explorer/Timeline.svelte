@@ -83,20 +83,12 @@
 		const minTime = min.getTime();
 		const maxTime = max.getTime();
 
-		const criteria = {};
-		if (minTime !== Min) {
-			criteria.gte = minTime;
-		}
-		if (maxTime !== Max) {
-			criteria.lte = maxTime;
-		}
+		const criteria = {
+			gte: minTime,
+			lte: maxTime
+		};
 
-		let newFilters;
-		if (isObjEmpty(criteria)) {
-			newFilters = _.skipIn(oldFilters, ['installation_date']);
-		} else {
-			newFilters = _.setIn(oldFilters, 'installation_date', criteria);
- 		}
+		const newFilters = _.setIn(oldFilters, 'installation_date', criteria);
 
 		if (!areEqual(oldFilters, newFilters)) {
 			explorerActor.send({

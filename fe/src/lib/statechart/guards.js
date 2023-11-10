@@ -46,7 +46,8 @@ export const hasFullSearchParams = ctx => {
 			_.has(parsedSearchParams.filters, 'installerRegionNames') &&
 			_.has(parsedSearchParams.filters, 'installerRegionType') &&
 			_.has(parsedSearchParams.filters, 'propertyRegionNames') &&
-			_.has(parsedSearchParams.filters, 'propertyRegionType');
+			_.has(parsedSearchParams.filters, 'propertyRegionType') &&
+			_.has(parsedSearchParams.filters, 'installation_date');
 	}
 
 	return pass;
