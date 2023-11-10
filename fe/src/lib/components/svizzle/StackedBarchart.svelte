@@ -31,7 +31,7 @@
 		glyphHeight: 16,
 		glyphWidth: 8,
 		keyHeightEm: 3,
-		labelPosition: 0.8,
+		labelPosition: 0.65,
 		paddingInner: 0.2,
 		paddingOuter: 0.2,
 		safetyBottom: 8,
@@ -84,6 +84,7 @@
 	let width;
 	let xScale;
 	let yScale;
+	let yStep;
 	let barHeight;
 
 	afterUpdate(() => {
@@ -175,6 +176,7 @@
 			.paddingInner(geometry.paddingInner);
 		
 		barHeight = yScale.bandwidth();
+		yStep = yScale.step();
 
 		console.log('barHeight', barHeight)
 
@@ -229,7 +231,7 @@
 							class='key'
 							fill={theme.textColor}
 							x={geometry.safetyLeft}
-							y={yScale(key) + geometry.labelPosition * barHeight}
+							y={yScale(key) + geometry.labelPosition * yStep}
 						>
 							{truncateToPx(key, availableLabelWidth, geometry.glyphWidth)}
 						</text>
@@ -239,7 +241,7 @@
 							class='sum'
 							fill={theme.textColor}
 							x={geometry.safetyLeft + width - geometry.safetyRight}
-							y={yScale(key) + geometry.labelPosition * barHeight}
+							y={yScale(key) + geometry.labelPosition * yStep}
 						>
 							{sum}
 						</text>
