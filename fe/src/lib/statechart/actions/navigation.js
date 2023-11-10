@@ -95,7 +95,7 @@ export const navigateToFullSearchParams = ctx => {
 		...parsedSearchParams.filters,
 	});
 
-	// these are arrays, we need a fn to merge properly
+	// FIXME these are arrays, we need a fn to merge properly
 	const newRegionTypes = RISON.stringify(
 		_.sort(_.uniques([
 			...ctx.selection.regionTypes,
