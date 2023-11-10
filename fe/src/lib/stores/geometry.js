@@ -15,6 +15,6 @@ export const _barchartGeometry = derived(
 	glyph => ({
 		glyphHeight: glyph?.height,
 		glyphWidth: glyph?.width,
-		padding: 0,
+		padding: 5, // FIXME can't be zero or values will overflow slightly
 	})
 );

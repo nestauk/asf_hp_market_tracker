@@ -125,9 +125,10 @@
 		...getCssGeometry(geometry),
 		refsHeightPx: toPx(refsHeight)
 	});
-	$: availableWidth = scrollbarWidth
-		? Math.max(width - scrollbarWidth, 0)
-		: width;
+	$: availableWidth = Math.max(
+		width - geometry.padding - scrollbarWidth ?? 0,
+		0
+	);
 	$: barPadding = geometry.glyphWidth;
 	$: labelValueDistance = 3 * barPadding;
 	$: itemHeight = geometry.glyphHeight + barHeight + 3 * barPadding;
@@ -592,9 +593,10 @@
 
 <style>
 	.BarchartVDiv {
-		width: 100%;
-		height: 100%;
+		max-height: 100%;
+		overflow: hidden;
 		padding: var(--paddingPx);
+		width: 100%;
 	}
 
 	header {

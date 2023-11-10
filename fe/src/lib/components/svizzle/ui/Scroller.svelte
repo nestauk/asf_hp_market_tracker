@@ -93,8 +93,8 @@
 <style>
 	.Scroller {
 		height: 100%;
-		overflow-x: hidden;
-		overflow: auto;
+		overflow-x: hidden; 
+		overflow-y: auto;
 		position: relative;
 		width: 100%;
 	}

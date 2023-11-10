@@ -171,11 +171,14 @@
 		display: flex;
 		height: 100%;
 		justify-content: center;
-		width: 100%;
 		padding: 0;
+		width: 100%;
 	}
 	.barchart {
+		align-content: center;
+		display: grid;
 		height: 100%;
+		overflow: hidden;
 		width: 100%;
 	}
 	.treemap {
