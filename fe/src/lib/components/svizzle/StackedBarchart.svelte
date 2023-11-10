@@ -31,7 +31,8 @@
 		glyphHeight: 16,
 		glyphWidth: 8,
 		keyHeightEm: 3,
-		labelPosition: 0.65,
+		labelVPosition: 0.65,
+		labelHPadding: 3,
 		paddingInner: 0.2,
 		paddingOuter: 0.2,
 		safetyBottom: 8,
@@ -232,8 +233,8 @@
 							fill={theme.textColor}
 							stroke='white'
 							stroke-width=2
-							x={geometry.safetyLeft}
-							y={yScale(key) + geometry.labelPosition * yStep}
+							x={geometry.safetyLeft + geometry.labelHPadding}
+							y={yScale(key) + geometry.labelVPosition * yStep}
 						>
 							{truncateToPx(key, availableLabelWidth, geometry.glyphWidth)}
 						</text>
@@ -244,8 +245,8 @@
 							fill={theme.textColor}
 							stroke='white'
 							stroke-width=2
-							x={geometry.safetyLeft + width - geometry.safetyRight}
-							y={yScale(key) + geometry.labelPosition * yStep}
+							x={geometry.safetyLeft + width - geometry.safetyRight - geometry.labelHPadding}
+							y={yScale(key) + geometry.labelVPosition * yStep}
 						>
 							{sum}
 						</text>
