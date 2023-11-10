@@ -143,14 +143,14 @@ export const _installationDateExtent = derived(
 	)
 );
 
-export const _isDefaultInstallationDate = derived(
-	[_selection, _installationDateExtent],
-	([{filters: {installation_date}}, installationDateExtent]) => {
+export const _isDefaultInstallationDateRange = derived(
+	[_installationDateExtent, _selection],
+	([installationDateExtent, {filters: {installation_date}}]) => {
 		let isDefaultInstallationDate = true;
 
 		if (installationDateExtent) {
 			const {Min, Max} = installationDateExtent;
-	
+
 			isDefaultInstallationDate = installation_date
 				&& installation_date.gte === Min
 				&& installation_date.lte === Max;
