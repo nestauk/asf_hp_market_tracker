@@ -125,9 +125,10 @@
 		...getCssGeometry(geometry),
 		refsHeightPx: toPx(refsHeight)
 	});
-	$: availableWidth = scrollbarWidth
-		? Math.max(width - scrollbarWidth, 0)
-		: width;
+	$: availableWidth = Math.max(
+		width - geometry.padding - scrollbarWidth ?? 0,
+		0
+	);
 	$: barPadding = geometry.glyphWidth;
 	$: labelValueDistance = 3 * barPadding;
 	$: itemHeight = geometry.glyphHeight + barHeight + 3 * barPadding;

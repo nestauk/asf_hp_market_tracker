@@ -15,6 +15,6 @@ export const _barchartGeometry = derived(
 	glyph => ({
 		glyphHeight: glyph?.height,
 		glyphWidth: glyph?.width,
-		padding: 0,
+		padding: 5,
 	})
 );
