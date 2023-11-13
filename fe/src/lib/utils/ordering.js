@@ -22,9 +22,9 @@ export const energyEfficiencyOrder = [
 	'Poor',
 	'Very Poor',
 ];
-export const energyRatingOrder = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
+const energyRatingOrder = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
 
-export const orderedCategoriesByFieldId = {
+const orderedCategoriesByFieldId = {
 	hp_feature_design: [
 		'Space heat and DHW',
 		'Space heat only',

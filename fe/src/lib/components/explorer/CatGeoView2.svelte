@@ -8,8 +8,10 @@
 		getKey,
 		getValue,
 		getValues,
+		isNumber,
 		makeArrayToObjectWith,
 		makeWithKeys,
+		objectToKeyValueArray,
 	} from '@svizzle/utils';
 	import {extent, pairs} from 'd3-array';
 	import {scaleQuantize} from 'd3-scale';
@@ -51,9 +53,9 @@
 		_regionKindTheme,
 		_xorNavigatorTheme,
 	} from '$lib/stores/theme.js';
-	import {getSorters} from '$lib/utils/ordering.js';
 	import {_tooltip, clearTooltip} from '$lib/stores/tooltip.js';
 	import {_selectedBbox} from '$lib/stores/view.js';
+	import {getSorters} from '$lib/utils/ordering.js';
 	import {pluckKey} from '$lib/utils/svizzle/utils.js';
 
 	export let amountOfBins = 5;
@@ -124,6 +126,14 @@
 		)
 	]);
 
+	// FIXME temporary due to a Lamb's bug
+	const arraySumWith2 = (accessor, initialValue = 0) =>
+		array => _.reduce(array, (acc, item) => {
+			const value = accessor(item);
+
+			return acc + (isNumber(value) ? value : 0);
+		}, initialValue);
+
 	/* handlers */
 
 	let heroKey;
@@ -184,6 +194,7 @@
 		}
 	}
 
+	let categoryBarchartItems;
 	let colorScale;
 	let currentItems;
 	let currentKey;
@@ -199,23 +210,38 @@
 
 	const onKeyChange = ({detail}) => {currentKey = detail};
 
+	const onClickedCategoryBar = ({detail: {key}}) => {
+		currentKey = key
+	}
+
 	$: regionType = $_selection.regionType;
 	$: regionKindStyle = makeStyleVars($_regionKindTheme);
 	$: sortItems = $_selection.categsGeoSortBy === 'regionName'
 		? _.sortWith([getKey])
 		: _.sortWith([_.sorterDesc(getItemSum)]);
 
-	$: sorter = getSorters($_currentMetric?.id).keySorter;
+	$: sorters = getSorters($_currentMetric?.id);
 	$: if (items?.length > 0) {
 
 		/* common */
 
 		const reshapedItems = sortItems(reshapeItems(items));
 		const itemsByInnerKey = indexByInnerKey(reshapedItems);
-		const categories = sorter(getInnerCategs(reshapedItems));
-		const domain = getOverallExtent(items);
+
+		/* categories */
+
+		const categories = sorters.keySorter(getInnerCategs(reshapedItems));
+
+		const getCategoryBarchartItems = _.pipe([
+			_.mapValuesWith(arraySumWith2(getValue)),
+			objectToKeyValueArray,
+			sorters.itemsSorter
+		]);
+		categoryBarchartItems = getCategoryBarchartItems(itemsByInnerKey);
 
 		/* color */
+
+		const domain = getOverallExtent(items);
 
 		isSingleValue = domain[0] === domain[1];
 		const range = isSingleValue
@@ -367,18 +393,29 @@
 {:else}
 	<GridRows rowLayout='min-content 1fr'>
 		{#if doDraw}
-			<GridColumns colLayout='min-content 1fr'>
+			<GridColumns colLayout='50% 50%'>
 				<SelectorRegionType/>
-				<XorNavigator
-					{valuesToLabels}
-					currentValue={currentKey}
-					label='Category'
-					on:changed={onKeyChange}
-					theme={$_xorNavigatorTheme}
-				/>
+
+				<div class='legend'>
+					<ColorBinsDiv
+						bins={legendBins}
+						flags={{
+							isVertical: false,
+							showTicksExtentOnly: true
+						}}
+						geometry={{
+							left: 50,
+							right: 50,
+						}}
+						padding=0
+						theme={$_legendsTheme}
+						ticksFormatFn={formatFn}
+					/>
+				</div>
 			</GridColumns>
+
 			<GridColumns
-				colLayout='10% 59% 30%'
+				colLayout='25% 44% 30%'
 				gap='1%'
 			>
 				<div class='col0'>
@@ -390,19 +427,17 @@
 							/>
 						</div>
 					{:else}
-						<div class='legend'>
-							<ColorBinsDiv
-								bins={legendBins}
-								flags={{
-									isVertical: true,
-								}}
-								geometry={{
-									left: 0,
-									right: 50,
-								}}
-								padding=0
-								theme={$_legendsTheme}
-								ticksFormatFn={formatFn}
+						<div class='barchart'>
+							<BarchartVDiv
+								{formatFn}
+								geometry={$_barchartGeometry}
+								heroKey={currentKey}
+								isInteractive={true}
+								items={categoryBarchartItems}
+								on:clicked={onClickedCategoryBar}
+								shouldResetScroll={true}
+								shouldScrollToHeroKey={true}
+								theme={$_barchartsTheme}
 							/>
 						</div>
 					{/if}
@@ -466,8 +501,10 @@
 		padding: 0;
 		width: 100%;
 	}
+
 	.legend {
-		height: 50%;
+		height: 100%;
+		max-height: 4em;
 		width: 100%;
 	}
 
