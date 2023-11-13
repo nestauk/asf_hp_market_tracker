@@ -1,4 +1,5 @@
 <script>
+	import {ColorBinsDiv} from '@svizzle/legend';
 	// import {Scroller} from '@svizzle/ui';
 	import {
 		arraySumWith,
@@ -6,10 +7,11 @@
 		getKey,
 		getValue,
 		getValues,
+		keyValueArrayToObject,
 		makeWithKeys,
 	} from '@svizzle/utils';
-	import {extent} from 'd3-array';
-	import {scaleOrdinal} from 'd3-scale';
+	import {extent, pairs} from 'd3-array';
+	import {scaleQuantize} from 'd3-scale';
 	import * as _ from 'lamb';
 
 	import KeysLegend
@@ -40,6 +42,8 @@
 		pluckKeySorted
 	} from '$lib/utils/svizzle/utils.js';
 
+	export let amountOfBins = 5;
+	export let formatFn;
 	export let items;
 	export let keyAccessor;
 	export let keyAccessor2;
@@ -90,6 +94,19 @@
 		_.sortWith([_.sorterDesc(getGroupSum)]),
 	]);
 
+	const getSumsById = _.pipe([
+		_.groupBy(getId),
+		objectToKeyValuesArray,
+		_.mapWith(
+			({key, values}) => ({
+				key,
+				value: arraySumWith
+				(_.identity)
+				(_.map(values, ({value}) => value))
+			})
+		)
+	]);
+
 	const getEnumeratedMapping = _.pipe([
 		_.zipWithIndex,
 		_.mapWith(_.collect([
@@ -111,12 +128,16 @@
 		};
 	};
 
+	let colorScale;
 	let doDraw = false;
 	let domain;
 	let groupIds;
 	let groupToColorFn;
+	let isSingleValue;
+	let keyToColorFn;
 	let labelsByCategory;
 	let legendBins;
+	let legendKeys;
 	let stacks;
 
 	$: if (items?.length > 0) {
@@ -128,22 +149,37 @@
 		labelsByCategory = getEnumeratedMapping(groupIds);
 
 		stacks = getStacks(points);
-		domain = extent(points, getValue);
+		const sumsById = getSumsById(points);
+		domain = extent(_.map(sumsById, getValue));
 
-		/* color */
+ 		/* color */
 
-		const range = groupIds.length === 1
+		isSingleValue = domain[0] === domain[1];
+		const range = isSingleValue
 			? [0]
-			: _.range(0, 1, 1 / (groupIds.length - 1)).concat(1);
+			: _.range(0, 1, 1 / (amountOfBins - 1)).concat(1);
 		const colorScheme = _.map(range, interpolateColor);
-		groupToColorFn = scaleOrdinal().domain(groupIds).range(colorScheme);
+		colorScale = scaleQuantize().domain(domain).range(colorScheme);
+
+		const groupsIndex = keyValueArrayToObject(sumsById)
+		groupToColorFn = group => colorScale(groupsIndex[group]);
 
 		/* legend */
 
+		const ranges = pairs([
+			domain[0],
+			...colorScale.thresholds(),
+			domain[1]
+		]);
 		legendBins = _.map(
-			_.zip(groupIds, colorScheme),
-			makeWithKeys(['groupIds', 'color'])
+			_.zip(ranges, colorScheme),
+			makeWithKeys(['range', 'color'])
 		);
+
+		if (isSingleValue) {
+			legendKeys = [formatFn ? formatFn(domain[0]) : domain[0]];
+			keyToColorFn = _.always(colorScale(domain[0]));
+		}
 
 		doDraw = true;
 	}
@@ -161,7 +197,6 @@
 				>
 					<KeysLegend
 						keys={groupIds}
-						keyToColorFn={groupToColorFn}
 					/>
 				</Scroller>
 			</GridRows>
@@ -237,15 +272,35 @@
 
 		{#if doDraw}
 			<GridColumns
-				colLayout='25% 74%'
+				colLayout='10% 68% 20%'
 				gap='1%'
 			>
-				<Scroller alignVertically={true}>
-					<KeysLegend
-						keys={groupIds}
-						keyToColorFn={groupToColorFn}
-					/>
-				</Scroller>
+				<div class='col0'>
+					{#if isSingleValue}
+						<div class='keysLegend'>
+							<KeysLegend
+								{keyToColorFn}
+								keys={legendKeys}
+							/>
+						</div>
+					{:else}
+						<div class='legend'>
+							<ColorBinsDiv
+								bins={legendBins}
+								flags={{
+									isVertical: true,
+								}}
+								geometry={{
+									left: 0,
+									right: 50,
+								}}
+								padding=0
+								theme={$_legendsTheme}
+								ticksFormatFn={formatFn}
+							/>
+						</div>
+					{/if}
+				</div>
 
 				<StackedBarchart
 					{axesLabels}
@@ -261,7 +316,29 @@
 					shouldResetScroll={true}
 					theme={$_stackedBarchartTheme}
 				/>
+
+				<Scroller alignVertically={true}>
+					<KeysLegend
+						keys={groupIds}
+					/>
+				</Scroller>
+
 			</GridColumns>
 		{/if}
 	</GridRows>
 {/if}
+<style>
+	.col0 {
+		align-items: center;
+		display: flex;
+		height: 100%;
+		justify-content: center;
+		padding: 0;
+		width: 100%;
+	}
+	.legend {
+		height: 50%;
+		width: 100%;
+	}
+
+</style>

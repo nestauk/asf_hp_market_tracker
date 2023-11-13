@@ -6,11 +6,13 @@
 <div class='KeysLegend'>
 	<ul>
 		{#each keys as key}
-			<li>
-				<span
-					class='dot'
-					style='background-color: {keyToColorFn(key)}'
-				/>
+			<li class:noColor={!keyToColorFn}>
+				{#if keyToColorFn}
+					<span
+						class='dot'
+						style='background-color: {keyToColorFn(key)}'
+					/>
+				{/if}
 				<span class='key'>{key}</span>
 			</li>
 		{/each}
@@ -32,6 +34,9 @@
 		grid-template-columns: min-content 1fr;
 		justify-items: start;
 		padding: 0.25em;
+	}
+	li.noColor {
+		grid-template-columns: 1fr;
 	}
 	.dot {
 		border-radius: 50%;

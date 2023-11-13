@@ -180,18 +180,6 @@
 		barHeight = yScale.bandwidth();
 		yStep = yScale.step();
 
-		const ai2 = _.map(augmentedItems, ({key, values, sum}) => ({
-			key,
-			values: _.map(values, ({key, value, start, end}) => ({
-				key,
-				value,
-				start: xScale(start),
-				end: xScale(end),
-			})),
-			sum,
-		}));
-		console.log('ai2', ai2)
-
 		doDraw = true;
 	}
 </script>
@@ -209,10 +197,10 @@
 				<svg {width} {height}>
 					{#each augmentedItems as {key, values, sum}}
 						{@const barScale = barsScaleByKey?.[key] || xScale}
-						{@const borderWidthValue = barScale.invert(2)}
+						{@const borderWidthValue = barScale.invert(2) - barScale.invert(0)}
 
 						<!-- bar rects -->
-						{#each values as {key: subKey, value, start}}
+						{#each values as {key: subKey, value, start, end}}
 							<!-- svelte-ignore a11y-mouse-events-have-key-events -->
 							<rect
 								role='none'
@@ -233,7 +221,7 @@
 								}}
 								stroke={theme.barBorderColor}
 								stroke-width={value > borderWidthValue ? 1 : 0}
-								width={barScale(value)}
+								width={barScale(end) - barScale(start)}
 								x={barScale(start)}
 								y={yScale(key)}
 							/>
@@ -253,7 +241,7 @@
 						<text
 							class='sum'
 							fill={theme.textColor}
-							x={geometry.safetyLeft + width - geometry.safetyRight - geometry.labelHPadding}
+							x={width - geometry.safetyRight - geometry.labelHPadding}
 							y={yScale(key) + geometry.labelVPosition * yStep}
 						>
 							{sum}
