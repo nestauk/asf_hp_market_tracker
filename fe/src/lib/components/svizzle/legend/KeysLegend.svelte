@@ -1,19 +1,57 @@
 <script>
+    import { makeStyleVars } from '@svizzle/dom';
+	import {createEventDispatcher} from 'svelte';
+
+	import ScrollIntoView from '$lib/components/svizzle/ui/ScrollIntoView.svelte';
+
+	export let heroKey;
 	export let keyToColorFn;
 	export let keys;
+	export let theme;
+
+	const defaultTheme = {
+		heroBackgroundColor: 'black',
+		heroTextColor: 'white',
+	};
+
+	const dispatch = createEventDispatcher();
+
+	const onMouseMove = key => {
+		dispatch('keyHovered', key);
+	}
+
+	const onMouseLeave = key => {
+		dispatch('keyExited', key);
+	}
+
+	$: style = makeStyleVars({
+		...defaultTheme,
+		...theme,
+	});
 </script>
 
-<div class='KeysLegend'>
-	<ul>
+<div
+	{style}
+	class='KeysLegend'
+>
+	<ul class:noDots={!keyToColorFn}>
 		{#each keys as key}
-			<li class:noColor={!keyToColorFn}>
+			<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+			<li
+				class:hero={key === heroKey}
+				on:mousemove={() => onMouseMove(key)}
+				on:mouseleave={() => onMouseLeave(key)}
+				tabindex='0'
+			>
 				{#if keyToColorFn}
 					<span
 						class='dot'
 						style='background-color: {keyToColorFn(key)}'
 					/>
 				{/if}
-				<span class='key'>{key}</span>
+				<ScrollIntoView doIt={key === heroKey} alignToTop>
+					<span class='key'>{key}</span>
+				</ScrollIntoView>
 			</li>
 		{/each}
 	</ul>
@@ -35,7 +73,7 @@
 		justify-items: start;
 		padding: 0.25em;
 	}
-	li.noColor {
+	ul.noDots li {
 		grid-template-columns: 1fr;
 	}
 	.dot {
@@ -46,5 +84,9 @@
 	}
 	.key {
 		word-break: break-word;
+	}
+	.hero {
+		background: var(--heroBackgroundColor);
+		color: var(--heroTextColor);
 	}
 </style>

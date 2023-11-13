@@ -22,6 +22,7 @@
 	export let groupIds;
 	export let groupSortBy;
 	export let groupToColorFn;
+	export let heroGroup;
 	export let shouldResetScroll;
 	export let stacks;
 	export let theme;
@@ -143,7 +144,6 @@
 	$: if (stacks && augmentItems) {
 		maxSum = getMaxSum(stacks);
 		augmentedItems = augmentItems(stacks);
-		console.log('augmentedItems', augmentedItems)
 		const maxSumStringLength = maxSum.toString().length;
 		maxSumPxLength = maxSumStringLength * geometry.glyphWidth;
 		availableLabelWidth =
@@ -203,25 +203,28 @@
 						{#each values as {key: subKey, value, start, end}}
 							<!-- svelte-ignore a11y-mouse-events-have-key-events -->
 							<rect
-								role='none'
+								class:hero={subKey === heroGroup}
 								fill={groupToColorFn(subKey)}
 								height={barHeight}
 								on:mousemove={({x, y}) => {
-									dispatch('barHovered', {key, subKey, value, x, y})
+									dispatch('barHovered', {key, subKey, value, x, y});
 								}}
 								on:mouseout={({x, y}) => {
-									dispatch('barExited', {key, subKey, value, x, y})
+									dispatch('barExited', {key, subKey, value, x, y});
 								}}
 								on:touchstart|preventDefault={({targetTouches: [touch]}) => {
 									const {clientX: x, clientY: y} = touch;
-									dispatch('barTouchStarted', {key, subKey, value, x, y})
+									dispatch('barTouchStarted', {key, subKey, value, x, y});
 								}}
 								on:touchend={() => {
-									dispatch('barTouchEnded', {key, subKey, value})
+									dispatch('barTouchEnded', {key, subKey, value});
 								}}
-								stroke={theme.barBorderColor}
-								stroke-width={value > borderWidthValue ? 1 : 0}
-								width={barScale(end) - barScale(start)}
+								role='none'
+								width={
+									barScale(end)
+									- barScale(start)
+									- Number(value > borderWidthValue)
+								}
 								x={barScale(start)}
 								y={yScale(key)}
 							/>
@@ -275,8 +278,9 @@
 		width: 100%;
 	}
 
-	rect {
-		border: var(--barBorder)
+	rect.hero {
+		stroke: red;
+		stroke-width: 2px;
 	}
 	text {
 		pointer-events: none;

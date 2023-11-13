@@ -119,6 +119,13 @@
 		_.fromPairs
 	]);
 
+	const clearHero = key => {
+		heroKey = null;
+	};
+	const setHero = key => {
+		heroKey = key;
+	};
+
 	const onBarEntered = ({detail: {subKey, value, x, y}}) => {
 		$_tooltip = {
 			key: subKey,
@@ -126,6 +133,12 @@
 			x,
 			y,
 		};
+		setHero(subKey);
+	};
+
+	const onBarExited = () => {
+		clearTooltip();
+		clearHero();
 	};
 
 	let colorScale;
@@ -133,6 +146,7 @@
 	let domain;
 	let groupIds;
 	let groupToColorFn;
+	let heroKey;
 	let isSingleValue;
 	let keyToColorFn;
 	let labelsByCategory;
@@ -310,7 +324,8 @@
 					{stacks}
 					extentsType={$_selection.stackedBarsExtents}
 					groupSortBy={$_selection.stringsGeoSortBy}
-					on:barExited={clearTooltip}
+					heroGroup={heroKey}
+					on:barExited={onBarExited}
 					on:barHovered={onBarEntered}
 					on:barTouchStarted={onBarEntered}
 					shouldResetScroll={true}
@@ -320,6 +335,10 @@
 				<Scroller alignVertically={true}>
 					<KeysLegend
 						keys={groupIds}
+						keyToColorFn={groupToColorFn}
+						{heroKey}
+						on:keyExited={({detail}) => clearHero(detail)}
+						on:keyHovered={({detail}) => setHero(detail)}
 					/>
 				</Scroller>
 
@@ -340,5 +359,4 @@
 		height: 50%;
 		width: 100%;
 	}
-
 </style>
