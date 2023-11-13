@@ -27,13 +27,13 @@
 	export let theme;
 
 	const defaultGeometry = {
-		barAlign: 0.2,
+		barAlign: 1.0,
 		glyphHeight: 16,
 		glyphWidth: 8,
 		keyHeightEm: 3,
-		labelVPosition: 0.65,
+		labelVPosition: -0.2,
 		labelHPadding: 3,
-		paddingInner: 0.2,
+		paddingInner: 0.7,
 		paddingOuter: 0.2,
 		safetyBottom: 8,
 		safetyLeft: 8,
@@ -143,6 +143,7 @@
 	$: if (stacks && augmentItems) {
 		maxSum = getMaxSum(stacks);
 		augmentedItems = augmentItems(stacks);
+		console.log('augmentedItems', augmentedItems)
 		const maxSumStringLength = maxSum.toString().length;
 		maxSumPxLength = maxSumStringLength * geometry.glyphWidth;
 		availableLabelWidth =
@@ -179,7 +180,17 @@
 		barHeight = yScale.bandwidth();
 		yStep = yScale.step();
 
-		console.log('barHeight', barHeight)
+		const ai2 = _.map(augmentedItems, ({key, values, sum}) => ({
+			key,
+			values: _.map(values, ({key, value, start, end}) => ({
+				key,
+				value,
+				start: xScale(start),
+				end: xScale(end),
+			})),
+			sum,
+		}));
+		console.log('ai2', ai2)
 
 		doDraw = true;
 	}
@@ -198,6 +209,7 @@
 				<svg {width} {height}>
 					{#each augmentedItems as {key, values, sum}}
 						{@const barScale = barsScaleByKey?.[key] || xScale}
+						{@const borderWidthValue = barScale.invert(2)}
 
 						<!-- bar rects -->
 						{#each values as {key: subKey, value, start}}
@@ -220,7 +232,7 @@
 									dispatch('barTouchEnded', {key, subKey, value})
 								}}
 								stroke={theme.barBorderColor}
-								stroke-width=1
+								stroke-width={value > borderWidthValue ? 1 : 0}
 								width={barScale(value)}
 								x={barScale(start)}
 								y={yScale(key)}
@@ -231,8 +243,6 @@
 						<text
 							class='key'
 							fill={theme.textColor}
-							stroke='white'
-							stroke-width=4
 							x={geometry.safetyLeft + geometry.labelHPadding}
 							y={yScale(key) + geometry.labelVPosition * yStep}
 						>
@@ -243,8 +253,6 @@
 						<text
 							class='sum'
 							fill={theme.textColor}
-							stroke='white'
-							stroke-width=2
 							x={geometry.safetyLeft + width - geometry.safetyRight - geometry.labelHPadding}
 							y={yScale(key) + geometry.labelVPosition * yStep}
 						>
