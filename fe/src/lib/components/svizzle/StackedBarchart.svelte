@@ -1,4 +1,5 @@
 <script>
+	import {makeStyleVars} from '@svizzle/dom';
 	import {setupResizeObserver, Scroller} from '@svizzle/ui';
 	import {
 		applyFnMap,
@@ -22,15 +23,19 @@
 	export let groupIds;
 	export let groupSortBy;
 	export let groupToColorFn;
+	export let heroGroup;
 	export let shouldResetScroll;
 	export let stacks;
 	export let theme;
 
 	const defaultGeometry = {
+		barAlign: 1.0,
 		glyphHeight: 16,
 		glyphWidth: 8,
 		keyHeightEm: 3,
-		paddingInner: 0.9,
+		labelVPosition: -0.2,
+		labelHPadding: 3,
+		paddingInner: 0.7,
 		paddingOuter: 0.2,
 		safetyBottom: 8,
 		safetyLeft: 8,
@@ -40,6 +45,8 @@
 
 	const defaultTheme = {
 		textColor: 'black',
+		heroStrokeColor: 'black',
+		heroStrokeWidth: '2px',
 	}
 
 	const dispatch = createEventDispatcher();
@@ -70,6 +77,7 @@
 	let allKeys;
 	let augmentedItems;
 	let availableLabelWidth;
+	let barHeight;
 	let barsScaleByKey;
 	let doDraw = false;
 	let height;
@@ -79,9 +87,11 @@
 	let previousItems;
 	let scrollbarWidth = 0;
 	let scrollTop;
+	let visibleItems;
 	let width;
 	let xScale;
 	let yScale;
+	let yStep;
 
 	afterUpdate(() => {
 		if (shouldResetScroll && previousItems !== stacks) {
@@ -92,8 +102,9 @@
 
 	$: axesLabels = axesLabels ?? [];
 
-	$: theme = {...defaultTheme, ...theme};
-	$: geometry = {...defaultGeometry, ...geometry};
+	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
+	$: style = makeStyleVars(theme);
+	$: geometry = geometry ? {...defaultGeometry, ...geometry} : defaultGeometry;
 	$: groupToColorFn = groupToColorFn || defaultBarColorFn;
 	$: groupSortBy = groupSortBy || 'total';
 	$: shouldResetScroll = shouldResetScroll || false;
@@ -167,15 +178,26 @@
 		yScale = scaleBand()
 			.domain(allKeys)
 			.range([geometry.safetyTop, height - geometry.safetyBottom])
-			.align(1)
+			.align(geometry.barAlign)
 			.paddingOuter(geometry.paddingOuter)
 			.paddingInner(geometry.paddingInner);
+
+		barHeight = yScale.bandwidth();
+		yStep = yScale.step();
+
+		visibleItems = _.filter(augmentedItems, ({key}) => {
+			const y = yScale(key);
+			return y + barHeight > scrollTop && y < scrollTop + height;
+		});
 
 		doDraw = true;
 	}
 </script>
 
-<div class='StackedBarchart'>
+<div
+	class='StackedBarchart'
+	{style}
+>
 	<div
 		class='chart'
 		use:sizeObserver
@@ -186,15 +208,50 @@
 				bind:scrollbarWidth
 			>
 				<svg {width} {height}>
-					{#each augmentedItems as {key, values, sum}}
+					{#each visibleItems as {key, values, sum}}
 						{@const barScale = barsScaleByKey?.[key] || xScale}
+						{@const borderWidthValue = barScale.invert(2) - barScale.invert(0)}
+
+						<!-- bar rects -->
+						{#each values as {key: subKey, value, start, end}}
+							<!-- svelte-ignore a11y-mouse-events-have-key-events -->
+							<rect
+								class:hero={subKey === heroGroup}
+								fill={groupToColorFn(subKey)}
+								height={barHeight}
+								on:mouseenter={({x, y}) => {
+									dispatch('barEntered', {key, subKey, value, x, y});
+								}}
+								on:mousemove={({x, y}) => {
+									dispatch('barHovered', {key, subKey, value, x, y});
+								}}
+								on:mouseleave={({x, y}) => {
+									dispatch('barExited', {key, subKey, value, x, y});
+								}}
+								on:touchstart|preventDefault={({targetTouches: [touch]}) => {
+									const {clientX: x, clientY: y} = touch;
+									dispatch('barTouchStarted', {key, subKey, value, x, y});
+								}}
+								on:touchend={() => {
+									dispatch('barTouchEnded', {key, subKey, value});
+								}}
+								role='none'
+								width={
+									barScale(end)
+									- barScale(start)
+									- Number(value > borderWidthValue)
+								}
+								x={barScale(start)}
+								y={yScale(key)}
+							/>
+						{/each}
 
 						<!-- label -->
 						<text
 							class='key'
 							fill={theme.textColor}
-							x={geometry.safetyLeft}
-							y={yScale(key) - 10}
+							x={geometry.safetyLeft + geometry.labelHPadding}
+							y={yScale(key) + geometry.labelVPosition * yStep}
 						>
 							{truncateToPx(key, availableLabelWidth, geometry.glyphWidth)}
 						</text>
@@ -203,37 +260,11 @@
 						<text
 							class='sum'
 							fill={theme.textColor}
-							x={geometry.safetyLeft + width - geometry.safetyRight}
-							y={yScale(key) - 10}
+							x={width - geometry.safetyRight - geometry.labelHPadding}
+							y={yScale(key) + geometry.labelVPosition * yStep}
 						>
 							{sum}
 						</text>
-
-						<!-- bar rects -->
-						{#each values as {key: subKey, value, start}}
-							<!-- svelte-ignore a11y-mouse-events-have-key-events -->
-							<rect
-								role='none'
-								fill={groupToColorFn(subKey)}
-								height={yScale.bandwidth()}
-								on:mousemove={({x, y}) => {
-									dispatch('barHovered', {key, subKey, value, x, y})
-								}}
-								on:mouseout={({x, y}) => {
-									dispatch('barExited', {key, subKey, value, x, y})
-								}}
-								on:touchstart|preventDefault={({targetTouches: [touch]}) => {
-									const {clientX: x, clientY: y} = touch;
-									dispatch('barTouchStarted', {key, subKey, value, x, y})
-								}}
-								on:touchend={() => {
-									dispatch('barTouchEnded', {key, subKey, value})
-								}}
-								width={barScale(value)}
-								x={barScale(start)}
-								y={yScale(key)}
-							/>
-						{/each}
 					{/each}
 				</svg>
 			</Scroller>
@@ -262,6 +293,14 @@
 		width: 100%;
 	}
 
+	rect.hero {
+		stroke: var(--heroStrokeColor);
+		stroke-width: var(--heroStrokeWidth);
+	}
+	text {
+		pointer-events: none;
+		paint-order: stroke fill;
+	}
 	text.sum {
 		text-anchor: end;
 	}
