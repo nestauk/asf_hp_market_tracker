@@ -1,5 +1,5 @@
 <script>
-	// import {Scroller} from '@svizzle/ui';
+	import {Scroller} from '@svizzle/ui';
 	import {scaleOrdinal} from 'd3-scale';
 	import * as _ from 'lamb';
 
@@ -7,7 +7,6 @@
 	import GridRows from '$lib/components/svizzle/GridRows.svelte';
 	import KeysLegend from '$lib/components/svizzle/legend/KeysLegend.svelte';
 	import StatsTrends from '$lib/components/svizzle/trends/StatsTrends.svelte';
-	import Scroller from '$lib/components/svizzle/ui/Scroller.svelte';
 	import {interpolateColor} from '$lib/config/colors.js';
 	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {_framesTheme} from '$lib/stores/theme.js';

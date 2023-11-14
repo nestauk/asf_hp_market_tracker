@@ -337,6 +337,7 @@
 		grid-template-rows: min-content 1fr min-content;
 	}
 	svg {
+		display: block;
 		height: 100%;
 		width: 100%;
 	}

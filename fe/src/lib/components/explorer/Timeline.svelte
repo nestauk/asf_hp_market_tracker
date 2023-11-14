@@ -312,6 +312,10 @@
 		user-select: none;
 	}
 
+	svg {
+		display: block;
+	}
+
 	.xTicks text {
 		fill: var(--colorText);
 		stroke: none;

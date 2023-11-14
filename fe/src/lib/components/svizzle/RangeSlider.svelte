@@ -224,6 +224,10 @@
 		width: 100%;
 	}
 
+	svg {
+		display: block;
+	}
+
 	.output {
 		display: flex;
 		justify-content: center;

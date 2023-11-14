@@ -262,6 +262,10 @@
 		width: 100%;
 	}
 
+	svg {
+		display: block;
+	}
+
 	text.sum {
 		text-anchor: end;
 	}

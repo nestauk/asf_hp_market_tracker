@@ -1,6 +1,6 @@
 <script>
 	import {makeStyleVars, toPx} from '@svizzle/dom';
-	import {MessageView, /* Scroller ,*/ setupResizeObserver} from '@svizzle/ui';
+	import {MessageView, Scroller, setupResizeObserver} from '@svizzle/ui';
 	import {
 		applyFnMap,
 		arrayMaxWith,
@@ -27,8 +27,6 @@
 		createEventDispatcher
 	} from 'svelte';
 	import {linearScale} from 'yootils';
-
-	import Scroller from '../ui/Scroller.svelte';
 
 	const dispatch = createEventDispatcher();
 	const {
@@ -597,6 +595,10 @@
 		overflow: hidden;
 		padding: var(--paddingPx);
 		width: 100%;
+	}
+
+	svg {
+		display: block;
 	}
 
 	header {

@@ -144,6 +144,7 @@
 		height: 100%;
 	}
 	svg {
+		display: block;
 		height: 100%;
 		width: 100%;
 	}

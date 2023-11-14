@@ -1,5 +1,5 @@
 <script>
-	// import {Scroller} from '@svizzle/ui';
+	import {Scroller} from '@svizzle/ui';
 	import {
 		arraySumWith,
 		getKey,
@@ -19,7 +19,6 @@
 	import KeysLegend from '$lib/components/svizzle/legend/KeysLegend.svelte';
 	import StreamGraph from '$lib/components/svizzle/trends/StreamGraph.svelte';
 	import Trends from '$lib/components/svizzle/trends/Trends.svelte';
-	import Scroller from '$lib/components/svizzle/ui/Scroller.svelte';
 	import View from '$lib/components/viewports/View.svelte';
 	import {intervalToAxisLabel} from '$lib/config/labels.js';
 	import {_isSmallScreen} from '$lib/stores/layout.js';

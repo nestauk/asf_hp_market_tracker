@@ -137,6 +137,10 @@
 		overflow: hidden;
 	}
 
+	svg {
+		display: block;
+	}
+
 	text {
 		dominant-baseline: hanging;
 		stroke: none;

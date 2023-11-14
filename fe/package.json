@@ -1,10 +1,10 @@
 {
 	"dependencies": {
-		"@svizzle/barchart": "^0.11.0",
+		"@svizzle/barchart": "^0.12.0",
 		"@svizzle/dom": "^0.7.2",
-		"@svizzle/histogram": "^0.6.6",
-		"@svizzle/legend": "^0.4.6",
-		"@svizzle/ui": "^0.11.0",
+		"@svizzle/histogram": "^0.6.7",
+		"@svizzle/legend": "^0.4.7",
+		"@svizzle/ui": "^0.12.0",
 		"@svizzle/utils": "^0.20.0",
 		"d3-array": "^3.2.4",
 		"d3-color": "^3.1.0",
@@ -20,7 +20,8 @@
 		"lamb": "^0.61.0",
 		"luxon": "^3.4.3",
 		"rison2": "^0.2.3",
-		"xstate": "^4.38.2"
+		"xstate": "^4.38.2",
+		"yootils": "^0.3.1"
 	},
 	"description": "Nesta HPMT frontend",
 	"devDependencies": {

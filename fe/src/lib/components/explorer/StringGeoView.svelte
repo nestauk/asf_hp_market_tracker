@@ -1,5 +1,5 @@
 <script>
-	// import {Scroller} from '@svizzle/ui';
+	import {Scroller} from '@svizzle/ui';
 	import {
 		arraySumWith,
 		getId,
@@ -24,7 +24,6 @@
 	import View from '$lib/components/viewports/View.svelte';
 	import GridColumns from '$lib/components/svizzle/GridColumns.svelte';
 	import GridRows from '$lib/components/svizzle/GridRows.svelte';
-	import Scroller from '$lib/components/svizzle/ui/Scroller.svelte';
 	import {interpolateColor} from '$lib/config/colors.js';
 	import {_glyphGeometry} from '$lib/stores/geometry.js';
 	import {_isSmallScreen} from '$lib/stores/layout.js';
