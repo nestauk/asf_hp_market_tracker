@@ -396,22 +396,20 @@
 			<GridColumns colLayout='50% 50%'>
 				<SelectorRegionType/>
 
-				<div class='legend'>
-					<ColorBinsDiv
-						bins={legendBins}
-						flags={{
-							isVertical: false,
-							showTicksExtentOnly: true
-						}}
-						geometry={{
-							left: 50,
-							right: 50,
-						}}
-						padding=0
-						theme={$_legendsTheme}
-						ticksFormatFn={formatFn}
-					/>
-				</div>
+				<ColorBinsDiv
+					bins={legendBins}
+					flags={{
+						isVertical: false,
+						showTicksExtentOnly: true
+					}}
+					geometry={{
+						left: 50,
+						right: 50,
+					}}
+					padding=0
+					theme={$_legendsTheme}
+					ticksFormatFn={formatFn}
+				/>
 			</GridColumns>
 
 			<GridColumns
@@ -499,12 +497,6 @@
 		height: 100%;
 		justify-content: center;
 		padding: 0;
-		width: 100%;
-	}
-
-	.legend {
-		height: 100%;
-		max-height: 4em;
 		width: 100%;
 	}
 
