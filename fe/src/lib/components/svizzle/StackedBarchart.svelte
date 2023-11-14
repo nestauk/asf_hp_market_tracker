@@ -77,6 +77,7 @@
 	let allKeys;
 	let augmentedItems;
 	let availableLabelWidth;
+	let barHeight;
 	let barsScaleByKey;
 	let doDraw = false;
 	let height;
@@ -86,11 +87,11 @@
 	let previousItems;
 	let scrollbarWidth = 0;
 	let scrollTop;
+	let visibleItems;
 	let width;
 	let xScale;
 	let yScale;
 	let yStep;
-	let barHeight;
 
 	afterUpdate(() => {
 		if (shouldResetScroll && previousItems !== stacks) {
@@ -184,6 +185,11 @@
 		barHeight = yScale.bandwidth();
 		yStep = yScale.step();
 
+		visibleItems = _.filter(augmentedItems, ({key}) => {
+			const y = yScale(key);
+			return y + barHeight > scrollTop && y < scrollTop + height;
+		});
+
 		doDraw = true;
 	}
 </script>
@@ -202,7 +208,7 @@
 				bind:scrollbarWidth
 			>
 				<svg {width} {height}>
-					{#each augmentedItems as {key, values, sum}}
+					{#each visibleItems as {key, values, sum}}
 						{@const barScale = barsScaleByKey?.[key] || xScale}
 						{@const borderWidthValue = barScale.invert(2) - barScale.invert(0)}
 
@@ -256,7 +262,6 @@
 						>
 							{sum}
 						</text>
-
 					{/each}
 				</svg>
 			</Scroller>
