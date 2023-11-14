@@ -1,4 +1,5 @@
 <script>
+	import {makeStyleVars} from '@svizzle/dom';
 	import {setupResizeObserver, Scroller} from '@svizzle/ui';
 	import {
 		applyFnMap,
@@ -44,6 +45,8 @@
 
 	const defaultTheme = {
 		textColor: 'black',
+		heroStrokeColor: 'black',
+		heroStrokeWidth: '2px',
 	}
 
 	const dispatch = createEventDispatcher();
@@ -98,8 +101,9 @@
 
 	$: axesLabels = axesLabels ?? [];
 
-	$: theme = {...defaultTheme, ...theme};
-	$: geometry = {...defaultGeometry, ...geometry};
+	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
+	$: style = makeStyleVars(theme);
+	$: geometry = geometry ? {...defaultGeometry, ...geometry} : defaultGeometry;
 	$: groupToColorFn = groupToColorFn || defaultBarColorFn;
 	$: groupSortBy = groupSortBy || 'total';
 	$: shouldResetScroll = shouldResetScroll || false;
@@ -184,7 +188,10 @@
 	}
 </script>
 
-<div class='StackedBarchart'>
+<div
+	class='StackedBarchart'
+	{style}
+>
 	<div
 		class='chart'
 		use:sizeObserver
@@ -279,8 +286,8 @@
 	}
 
 	rect.hero {
-		stroke: red;
-		stroke-width: 2px;
+		stroke: var(--heroStrokeColor);
+		stroke-width: var(--heroStrokeWidth);
 	}
 	text {
 		pointer-events: none;

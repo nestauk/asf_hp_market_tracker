@@ -139,6 +139,10 @@ a {
 	--colorBarchartSelectedItemBackground: #fff4e5;
 	--colorBarchartSelectedItemText: #333;
 
+	/* stacked bar chart */
+
+	--colorStrokeHero: black;
+
 	/* quick stats */
 
 	--colorStatsBorder: #333;
@@ -245,6 +249,10 @@ a {
 	--colorBarchartSelectedItemBackground: #002c66;
 	--colorBarchartSelectedItemText: white;
 
+	/* stacked bar chart */
+
+	--colorStrokeHero: white;
+	
 	/* quick stats */
 
 	--colorStatsBorder: white;

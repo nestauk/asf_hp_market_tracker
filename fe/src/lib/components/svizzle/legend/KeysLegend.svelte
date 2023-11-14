@@ -10,8 +10,9 @@
 	export let theme;
 
 	const defaultTheme = {
-		heroBackgroundColor: 'black',
-		heroTextColor: 'white',
+		heroBackgroundColor: 'inherit',
+		heroBorder: 'none',
+		heroTextColor: 'inherit',
 	};
 
 	const dispatch = createEventDispatcher();
@@ -49,7 +50,7 @@
 						style='background-color: {keyToColorFn(key)}'
 					/>
 				{/if}
-				<ScrollIntoView doIt={key === heroKey} alignToTop>
+				<ScrollIntoView doIt={key === heroKey}>
 					<span class='key'>{key}</span>
 				</ScrollIntoView>
 			</li>

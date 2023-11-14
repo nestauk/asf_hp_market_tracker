@@ -32,9 +32,10 @@
 	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {_selection} from '$lib/stores/navigation.js';
 	import {
+		_currThemeVars,
+		_keysLegendTheme,
 		_legendsTheme,
 		_stackedBarchartTheme,
-		_currThemeVars,
 	} from '$lib/stores/theme.js';
 	import {_tooltip, clearTooltip} from '$lib/stores/tooltip.js';
 	import {
@@ -339,6 +340,7 @@
 						{heroKey}
 						on:keyExited={({detail}) => clearHero(detail)}
 						on:keyHovered={({detail}) => setHero(detail)}
+						theme={$_keysLegendTheme}
 					/>
 				</Scroller>
 

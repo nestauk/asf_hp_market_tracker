@@ -102,6 +102,14 @@ export const _histogramsTheme = derived(
 	})
 );
 
+export const _keysLegendTheme = derived(
+	_currThemeVars,
+	currThemeVars => ({
+		heroBackgroundColor: currThemeVars['--colorAccentBackground'],
+		heroTextColor: currThemeVars['--colorAccentText'],
+	})
+);
+
 export const _legendsTheme = derived(
 	_currThemeVars,
 	currThemeVars => ({
@@ -152,7 +160,8 @@ export const _stackedBarchartTheme = derived(
 	_currThemeVars,
 	currThemeVars => ({
 		textColor: currThemeVars['--colorText'],
-		barBorderColor: currThemeVars['--colorBackground'],
+		heroStrokeColor: currThemeVars['--colorStrokeHero'],
+		heroStrokeWidth: currThemeVars['--outlineWidth'],
 	})
 );
 
