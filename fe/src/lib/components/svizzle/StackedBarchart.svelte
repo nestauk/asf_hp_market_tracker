@@ -219,10 +219,13 @@
 								class:hero={subKey === heroGroup}
 								fill={groupToColorFn(subKey)}
 								height={barHeight}
+								on:mouseenter={({x, y}) => {
+									dispatch('barEntered', {key, subKey, value, x, y});
+								}}
 								on:mousemove={({x, y}) => {
 									dispatch('barHovered', {key, subKey, value, x, y});
 								}}
-								on:mouseout={({x, y}) => {
+								on:mouseleave={({x, y}) => {
 									dispatch('barExited', {key, subKey, value, x, y});
 								}}
 								on:touchstart|preventDefault={({targetTouches: [touch]}) => {

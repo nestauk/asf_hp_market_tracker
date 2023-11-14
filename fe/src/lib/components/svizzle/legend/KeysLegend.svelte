@@ -17,10 +17,9 @@
 
 	const dispatch = createEventDispatcher();
 
-	const onMouseMove = key => {
-		dispatch('keyHovered', key);
+	const onMouseEnter = key => {
+		dispatch('keyEntered', key);
 	}
-
 	const onMouseLeave = key => {
 		dispatch('keyExited', key);
 	}
@@ -40,7 +39,7 @@
 			<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 			<li
 				class:hero={key === heroKey}
-				on:mousemove={() => onMouseMove(key)}
+				on:mouseenter={() => onMouseEnter(key)}
 				on:mouseleave={() => onMouseLeave(key)}
 				tabindex='0'
 			>

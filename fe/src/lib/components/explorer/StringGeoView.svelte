@@ -120,7 +120,7 @@
 		_.fromPairs
 	]);
 
-	const clearHero = key => {
+	const clearHero = () => {
 		heroKey = null;
 	};
 	const setHero = key => {
@@ -135,6 +135,14 @@
 			y,
 		};
 		setHero(subKey);
+	};
+	const onBarHovered = ({detail: {subKey, value, x, y}}) => {
+		$_tooltip = {
+			key: subKey,
+			value,
+			x,
+			y,
+		};
 	};
 
 	const onBarExited = () => {
@@ -210,9 +218,7 @@
 					alignHorizontally={true}
 					alignVertically={true}
 				>
-					<KeysLegend
-						keys={groupIds}
-					/>
+					<KeysLegend keys={groupIds} />
 				</Scroller>
 			</GridRows>
 		</View>
@@ -229,8 +235,9 @@
 					extentsType={$_selection.stackedBarsExtents}
 					geometry={$_glyphGeometry}
 					groupSortBy={$_selection.stringsGeoSortBy}
+					on:barEntered={onBarEntered}
 					on:barExited={clearTooltip}
-					on:barHovered={onBarEntered}
+					on:barHovered={onBarHovered}
 					on:barTouchStarted={onBarEntered}
 					shouldResetScroll={true}
 					theme={$_stackedBarchartTheme}
@@ -326,8 +333,9 @@
 					extentsType={$_selection.stackedBarsExtents}
 					groupSortBy={$_selection.stringsGeoSortBy}
 					heroGroup={heroKey}
+					on:barEntered={onBarEntered}
 					on:barExited={onBarExited}
-					on:barHovered={onBarEntered}
+					on:barHovered={onBarHovered}
 					on:barTouchStarted={onBarEntered}
 					shouldResetScroll={true}
 					theme={$_stackedBarchartTheme}
@@ -335,11 +343,11 @@
 
 				<Scroller alignVertically={true}>
 					<KeysLegend
+						{heroKey}
 						keys={groupIds}
 						keyToColorFn={groupToColorFn}
-						{heroKey}
-						on:keyExited={({detail}) => clearHero(detail)}
-						on:keyHovered={({detail}) => setHero(detail)}
+						on:keyEntered={({detail}) => setHero(detail)}
+						on:keyExited={clearHero}
 						theme={$_keysLegendTheme}
 					/>
 				</Scroller>
