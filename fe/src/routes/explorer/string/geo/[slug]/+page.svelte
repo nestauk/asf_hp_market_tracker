@@ -1,6 +1,5 @@
 <script>
 	import {getKey} from '@svizzle/utils';
-	import * as _ from 'lamb';
 
 	import {page as _page} from '$app/stores';
 	import StringGeoView from '$lib/components/explorer/StringGeoView.svelte';

@@ -28,6 +28,12 @@
 	import {_isViewReady, _viewData} from '$lib/stores/view.js';
 	import {getKeyAsString} from '$lib/utils/getters.js';
 
+	let doDraw = false;
+	let hero;
+	let items;
+	let trends;
+	let valueFormatFn = _.identity;
+
 	const keyAccessor = getKeyAsString;
 	const valueAccessor = _.pipe([
 		_.collect([_.getKey('stats'), _.getPath('percentiles.values')]),
@@ -74,20 +80,14 @@
 
 	$: axesLabels = [
 		{
-			areas: ['bottom'],
+			gridAreas: ['bottom'],
 			label: `Time (sampled ${intervalToAxisLabel[$_selection.interval]})`,
 		},
 		{
-			areas: ['left'],
+			gridAreas: ['left'],
 			label: $_currentMetricTitle,
 		},
 	];
-
-	let doDraw = false;
-	let hero;
-	let items;
-	let trends;
-	let valueFormatFn = _.identity;
 
 	$: !$_tooltip && clearHero();
 

@@ -14,7 +14,9 @@ const getBrandsModels = _.pipe([
 		({
 			key,
 			value: doc_count,
-			values: _.map(buckets, ({doc_count: value, key}) => ({key, value})),
+			values: _.map(buckets,
+				({doc_count: value, key: subKey}) => ({key: subKey, value})
+			),
 		})
 	),
 ]);

@@ -1,14 +1,10 @@
 <script>
-	import * as _ from 'lamb';
-
 	import {page as _page} from '$app/stores';
 	import MetricTitle from '$lib/components/explorer/MetricTitle.svelte';
 	import GridRows from '$lib/components/svizzle/GridRows.svelte';
 	import View from '$lib/components/viewports/View.svelte';
-	import {_viewCache} from '$lib/stores/data.js';
 	import {_currentMetric} from '$lib/stores/navigation.js';
 	import {_isSmallScreen} from '$lib/stores/layout.js';
-	import {_currThemeVars} from '$lib/stores/theme.js';
 	import {_isViewReady, _viewData} from '$lib/stores/view.js';
 	import {
 		getCardinalityValue,
@@ -47,14 +43,14 @@
 		switch ($_currentMetric.id) {
 			case 'hp_feature_power_capacity_sum':
 				items = [
-					{key: 'number', value: value},
+					{key: 'number', value},
 					{key: 'unitOfMeasure', value: unitOfMeasure},
 					{key: 'text', value: 'total power capacity for the current selection'},
 				];
 				break;
 			case 'hp_feature_power_generation_sum':
 				items = [
-					{key: 'number', value: value},
+					{key: 'number', value},
 					{key: 'unitOfMeasure', value: unitOfMeasure},
 					{
 						key: 'text',
@@ -64,7 +60,7 @@
 				break;
 			case 'installation_cost_sum':
 				items = [
-					{key: 'number', value: value},
+					{key: 'number', value},
 					{key: 'unitOfMeasure', value: unitOfMeasure},
 					{
 						key: 'text',
@@ -74,13 +70,13 @@
 				break;
 			case 'installations':
 				items = [
-					{key: 'number', value: value},
+					{key: 'number', value},
 					{key: 'text', value: 'installations for the current selection'},
 				];
 				break;
 			case 'installers_dropped_certifications':
 				items = [
-					{key: 'number', value: value},
+					{key: 'number', value},
 					{
 						key: 'text',
 						value: 'certifications expired for the current selection'
@@ -89,7 +85,7 @@
 				break;
 			case 'installers_new_certifications':
 				items = [
-					{key: 'number', value: value},
+					{key: 'number', value},
 					{
 						key: 'text',
 						value: 'new/renewed certifications for the current selection'
@@ -99,7 +95,7 @@
 			case 'installations_per_installer':
 				items = [
 					{key: 'text', value: 'Average of '},
-					{key: 'number', value: value},
+					{key: 'number', value},
 					{
 						key: 'text',
 						value: 'installations/installer for the current selection'
@@ -108,7 +104,7 @@
 				break;
 			case 'installers_certified':
 				items = [
-					{key: 'number', value: value},
+					{key: 'number', value},
 					{
 						key: 'text',
 						value: 'installers were certified for the current selection'
@@ -117,7 +113,7 @@
 				break;
 			case 'installers':
 				items = [
-					{key: 'number', value: value},
+					{key: 'number', value},
 					{
 						key: 'text',
 						value: 'installers installed heat pumps for the current selection'

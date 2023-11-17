@@ -6,7 +6,6 @@
 		getKey,
 		getValue,
 		getValues,
-		makeWithKeys,
 	} from '@svizzle/utils';
 	import {extent} from 'd3-array';
 	import {scaleOrdinal} from 'd3-scale';
@@ -28,11 +27,7 @@
 	import {_glyphGeometry} from '$lib/stores/geometry.js';
 	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {_selection} from '$lib/stores/navigation.js';
-	import {
-		_legendsTheme,
-		_stackedBarchartTheme,
-		_currThemeVars,
-	} from '$lib/stores/theme.js';
+	import {_stackedBarchartTheme} from '$lib/stores/theme.js';
 	import {_tooltip, clearTooltip} from '$lib/stores/tooltip.js';
 	import {
 		objectToKeyValuesArray,
@@ -47,11 +42,11 @@
 
 	const axesLabels = [
 		{
-			areas: ['top'],
+			gridAreas: ['top'],
 			label: 'Sum of the number of installations of selected brands in each region',
 		},
 		{
-			areas: ['left'],
+			gridAreas: ['left'],
 			label: 'Regions',
 		},
 	];
@@ -89,18 +84,6 @@
 		_.sortWith([_.sorterDesc(getGroupSum)]),
 	]);
 
-	const getEnumeratedMapping = _.pipe([
-		_.zipWithIndex,
-		_.mapWith(_.collect([
-			_.head,
-			_.pipe([
-				_.last,
-				_.add(1)
-			])
-		])),
-		_.fromPairs
-	]);
-
 	const onBarEntered = ({detail: {subKey, value, x, y}}) => {
 		$_tooltip = {
 			key: subKey,
@@ -114,8 +97,6 @@
 	let domain;
 	let groupIds;
 	let groupToColorFn;
-	let labelsByCategory;
-	let legendBins;
 	let stacks;
 
 	$: cropGroups = _.take($_selection.stringsTopCount);
@@ -125,7 +106,6 @@
 		const points = flattenGroups(pointsByGroupId);
 
 		groupIds = pluckKeySorted(pointsByGroupId);
-		labelsByCategory = getEnumeratedMapping(groupIds);
 
 		stacks = getStacks(points);
 		domain = extent(points, getValue);
@@ -137,13 +117,6 @@
 			: _.range(0, 1, 1 / (groupIds.length - 1)).concat(1);
 		const colorScheme = _.map(range, interpolateColor);
 		groupToColorFn = scaleOrdinal().domain(groupIds).range(colorScheme);
-
-		/* legend */
-
-		legendBins = _.map(
-			_.zip(groupIds, colorScheme),
-			makeWithKeys(['groupIds', 'color'])
-		);
 
 		doDraw = true;
 	}

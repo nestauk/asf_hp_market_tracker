@@ -1,4 +1,4 @@
-import {areAllTruthy, getLength, getKey, isNotNil} from '@svizzle/utils';
+import {areAllTruthy, getLength, getKey, trim} from '@svizzle/utils';
 import * as _ from 'lamb';
 
 /**

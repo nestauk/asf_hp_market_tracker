@@ -33,6 +33,11 @@
 		getStatsSum,
 	} from '$lib/utils/getters.js';
 
+	let doDraw = false;
+	let hero;
+	let trends;
+	let valueFormatFn;
+
 	const keyAccessor = getKeyAsString;
 	const valueAccessors = {
 		hp_feature_power_capacity_sum: getStatsSum,
@@ -66,11 +71,6 @@
 		clearTooltip();
 	}
 
-	let doDraw = false;
-	let hero;
-	let trends;
-	let valueFormatFn;
-
 	$: !$_tooltip && clearHero();
 
 	$: trendType = $_currentMetric.isCumulative
@@ -85,11 +85,11 @@
 
 	$: axesLabels = [
 		{
-			areas: ['bottom'],
+			gridAreas: ['bottom'],
 			label: `Time (sampled ${intervalToAxisLabel[$_selection.interval]})`,
 		},
 		{
-			areas: ['left'],
+			gridAreas: ['left'],
 			label: $_currentMetricTitle,
 		},
 	];

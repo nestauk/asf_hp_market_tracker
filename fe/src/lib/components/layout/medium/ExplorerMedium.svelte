@@ -1,6 +1,4 @@
 <script>
-	import * as _ from 'lamb';
-
 	import FiltersBar from '$lib/components/explorer/FiltersBar.svelte';
 	import MetricSelector from '$lib/components/explorer/MetricSelector.svelte';
 	import Timeline from '$lib/components/explorer/Timeline.svelte';

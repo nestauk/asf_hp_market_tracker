@@ -37,6 +37,7 @@
 		const label = idToLabel(id);
 		const key = `Scroll to: ${label}`;
 
+		// eslint-disable-next-line consistent-return
 		return ({x, y}) => {
 			$_tooltip = {key, x, y}
 		}
@@ -77,7 +78,7 @@
 		_.skipIf(isIterableEmpty),
 		_.keys
 	]);
- 	const filtersByFields = {
+	const filtersByFields = {
 		hp_id_brand: 'heat_pump_brands_models',
 		hp_id_model: 'heat_pump_brands_models',
 	}
@@ -184,7 +185,6 @@
 					<span class='label resetAll'>
 						Reset all filters
 					</span>
-					<!-- svelte-ignore a11y-click-events-have-key-events -->
 					<div
 						class='button marginLeft'
 						role='none'

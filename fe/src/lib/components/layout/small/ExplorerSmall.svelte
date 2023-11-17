@@ -29,6 +29,7 @@
 	$: [,, field_type, chart_type] = $_page.route.id.split('/');
 	$: icons = getTabsIcons(`${field_type}/${chart_type}`);
 	$: iconsIds = _.map(icons, getId);
+	// eslint-disable-next-line prefer-destructuring
 	$: viewId = $_selection.viewId;
 	$: viewId = ['filters', 'metrics'].includes(viewId)
 		? viewId

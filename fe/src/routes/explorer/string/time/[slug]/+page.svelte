@@ -22,11 +22,7 @@
 	import {intervalToAxisLabel} from '$lib/config/labels.js';
 	import View from '$lib/components/viewports/View.svelte';
 	import {_isSmallScreen} from '$lib/stores/layout.js';
-	import {
-		_currentMetric,
-		_currentMetricTitle,
-		_selection
-	} from '$lib/stores/navigation.js';
+	import {_currentMetric, _selection} from '$lib/stores/navigation.js';
 	import {_currThemeVars, _framesTheme} from '$lib/stores/theme.js';
 	import {_tooltip, clearTooltip} from '$lib/stores/tooltip.js';
 	import {_isViewReady, _viewData} from '$lib/stores/view.js';
@@ -38,6 +34,13 @@
 	} from '$lib/utils/getters.js';
 	import {objectToKeyValuesArray} from '$lib/utils/svizzle/utils.js';
 
+	let doDraw = false;
+	let groups;
+	let groupToColorFn;
+	let hero;
+	let points;
+	let trends;
+
 	const keyAccessor = getKeyAsString;
 	const valueAccessor = getTermsBuckets;
 	const keyAccessor2 = getKey;
@@ -48,7 +51,7 @@
 	const flattenItems = _.flatMapWith(
 		_.pipe([
 			_.collect([keyAccessor, valueAccessor]),
-			([key, points]) => _.map(points,
+			([key, pointsArray]) => _.map(pointsArray,
 				point => ({
 					group: keyAccessor2(point),
 					key,
@@ -110,21 +113,14 @@
 
 	$: axesLabels = [
 		{
-			areas: ['bottom'],
+			gridAreas: ['bottom'],
 			label: `Time (sampled ${intervalToAxisLabel[$_selection.interval]})`,
 		},
 		{
-			areas: ['left'],
+			gridAreas: ['left'],
 			label: 'Number of installations',
 		},
 	];
-
-	let doDraw = false;
-	let groups;
-	let groupToColorFn;
-	let hero;
-	let points;
-	let trends;
 
 	$: !$_tooltip && clearHero();
 

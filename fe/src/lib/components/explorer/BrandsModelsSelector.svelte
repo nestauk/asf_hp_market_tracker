@@ -30,18 +30,19 @@
 	export let selectedBrandsModels;
 
 	let brands;
-	let brandsInput;
 	let brandsClause;
+	let brandsInput;
+	let items = [];
 	let models;
-	let modelsInput;
 	let modelsClause;
+	let modelsInput;
 
 	const dispatch = createEventDispatcher();
 
 	const toLowerCase = _.invoke('toLowerCase');
 	const inputToStrings = _.condition(
 		isTrimmedNotEmpty,
-		_.pipe([toLowerCase, trim, makeTrimmedSplitBy(/\s+/g)]),
+		_.pipe([toLowerCase, trim, makeTrimmedSplitBy(/\s+/ug)]),
 		_.always([])
 	);
 	const keyContainsOneOf = stringsArray => isIterableEmpty(stringsArray)
@@ -63,25 +64,6 @@
 		modelsInput = models?.values?.length ? models.values.join(' ') : '';
 	};
 
-	const onApply = () => {
-		const allStringsArraysLength = brandsStrings.length + modelsStrings.length;
-		const stringsFilters = allStringsArraysLength > 0
-			? [
-				{
-					clause: brandsClause,
-					field: 'hp_id_brand',
-					values: brandsStrings
-				},
-				{
-					clause: modelsClause,
-					field: 'hp_id_model',
-					values: modelsStrings
-				}
-			]
-			: [];
-		dispatch('apply', stringsFilters);
-	};
-
 	$: selectedBrandsModels = selectedBrandsModels?.length
 		? selectedBrandsModels
 		: [
@@ -97,6 +79,7 @@
 			}
 		];
 
+	// eslint-disable-next-line no-unused-expressions, no-sequences
 	$: selectedBrandsModels, resetSelection();
 	$: brandsStrings = inputToStrings(brandsInput);
 	$: modelsStrings = inputToStrings(modelsInput);
@@ -116,7 +99,6 @@
 		$_staticData && getDefaultBrandExpansionsByName($_staticData.brandsModels);
 	$: brandExpansionsByName = defaultBrandExpansionsByName || {};
 
-	let items = [];
 	$: if ($_staticData) {
 		const partition = _.pipe([
 			_.partitionWith(keyContainsOneOf(brandsStrings)),
@@ -169,6 +151,25 @@
 			}
 		};
 	}
+
+	const onApply = () => {
+		const allStringsArraysLength = brandsStrings.length + modelsStrings.length;
+		const stringsFilters = allStringsArraysLength > 0
+			? [
+				{
+					clause: brandsClause,
+					field: 'hp_id_brand',
+					values: brandsStrings
+				},
+				{
+					clause: modelsClause,
+					field: 'hp_id_model',
+					values: modelsStrings
+				}
+			]
+			: [];
+		dispatch('apply', stringsFilters);
+	};
 </script>
 
 <FilterPaneBorder
@@ -346,7 +347,7 @@
 
 					{#each items[1] as {
 						key: brandName,
-						values: models
+						values: brandModels
 					}}
 						{@const brandExpansions = brandExpansionsByName[brandName]}
 						{@const action = brandExpansions.discarded ? 'Hide' : 'Show'}
@@ -378,7 +379,7 @@
 
 							{#if brandExpansions.discarded}
 								<ul class='models'>
-									{#each models as {key}}
+									{#each brandModels as {key}}
 										<li class='discarded'>{key}</li>
 									{/each}
 								</ul>

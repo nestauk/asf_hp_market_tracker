@@ -44,9 +44,7 @@
 
 	let bbox;
 	let bins;
-	let binsTicks;
 	let binWidth;
-	let isDraggingMin = false;
 	let layout;
 	let maxX;
 	let minX;
@@ -89,7 +87,6 @@
 	}
 
 	const createStartDragging = ({isMinKnob}) => event => {
-		isDraggingMin = isMinKnob;
 		event.target.onpointermove = isMinKnob ? handleMinDrag : handleMaxDrag;
 		event.target.setPointerCapture(event.pointerId);
 	}
@@ -132,8 +129,10 @@
 			scaleLinear()
 			.domain([Min, Max])
 			.range([geometry.safetyLeft + knobRadius, bbox.width]);
-		binWidth = xScale(getKey(items[1])) - xScale(getKey(items[0]));
-		binsTicks = xScale.ticks(items.length + 1);
+		binWidth = Math.max(
+			xScale(getKey(items[1])) - xScale(getKey(items[0])),
+			0
+		);
 
 		const [, dMax] = extent(items, getDocCount);
 		yScale = scaleLinear().domain([0, dMax]).range([0, bbox.height]);
@@ -147,9 +146,8 @@
 			const x = xScale(key);
 
 			return {
-				height: binHeight,
+				binHeight,
 				selected: x >= minX && x < maxX,
-				width: Math.max(0, binWidth),
 				x,
 				y: bbox.height - binHeight + geometry.safetyTop,
 			}
@@ -174,13 +172,13 @@
 			<!-- bins -->
 
 			<g class='bins'>
-				{#each bins as {height, selected, width, x, y}}
+				{#each bins as {binHeight, selected, x, y}}
 					<rect
-						{height}
-						{width}
 						{x}
 						{y}
 						class:selected
+						height={binHeight}
+						width={binWidth}
 					/>
 				{/each}
 			</g>

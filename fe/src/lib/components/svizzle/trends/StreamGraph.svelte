@@ -194,7 +194,7 @@
 		const xRange = [bbox.blx, bbox.trx];
 		if (keyType === 'date') {
 			const keyDomain = [_.head(allKeys), _.last(allKeys)];
-			const keyRankFn = key => (new Date(key)).getTime();
+			const keyRankFn = key => new Date(key).getTime();
 			const timeDomain = _.map(keyDomain, keyRankFn);
 			const timeScale = scaleTime().domain(timeDomain).range(xRange);
 
@@ -344,9 +344,9 @@
 		{/if}
 	</div>
 
-	{#each axesLabels as {label, areas}}
-		{#each areas as area}
-			<div class='{area} area'>
+	{#each axesLabels as {label, gridAreas}}
+		{#each gridAreas as gridArea}
+			<div class='{gridArea} area'>
 				{label}
 			</div>
 		{/each}

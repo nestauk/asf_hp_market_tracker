@@ -31,8 +31,6 @@
 	export let items;
 	export let keyAccessor;
 	export let keyAccessor2;
-	export let makeDomain;
-	export let title;
 	export let valueAccessor;
 	export let valueAccessor2;
 
@@ -176,16 +174,10 @@
 				/>
 			</GridColumns>
 		</div>
- 	{/if}
+	{/if}
 </div>
 
 <style>
-	.main {
-		display: grid;
-		grid-template-rows: min-content 1fr;
-		height: 100%;
-		overflow: hidden;
-	}
 	.threeRows {
 		display: grid;
 		gap: 1.5em;
@@ -200,11 +192,6 @@
 		height: 100%;
 		justify-content: center;
 		padding: 0;
-		width: 100%;
-	}
-	.col1 {
-		height: 100%;
-		overflow: hidden;
 		width: 100%;
 	}
 	.legend {

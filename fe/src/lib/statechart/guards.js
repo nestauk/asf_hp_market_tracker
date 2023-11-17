@@ -34,7 +34,7 @@ export const hasFullSearchParams = ctx => {
 		const parsedSearchParams = _.mapValues(
 			searchParams,
 			value => {
-				const dontParseIt = value === '' || isNotNaN(parseInt(value[0]));
+				const dontParseIt = value === '' || isNotNaN(parseInt(value[0], 10));
 				const result = dontParseIt ? value : RISON.parse(value);
 
 				return result;
@@ -59,6 +59,8 @@ const checkStaticData = _.allOf([
 	isNotNil,
 	_.hasKey('timelines')
 ]);
+
+// eslint-disable-next-line no-unused-vars
 export const hasStaticData = (ctx, {data}) => {
 	const staticData = get(_staticData);
 	const pass = checkStaticData(staticData);

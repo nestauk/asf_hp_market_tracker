@@ -42,7 +42,23 @@
 	);
 	const selectAll = _.mapWith(mergeObj({selected: true}));
 
-	const makeOnClick = key => async event => {
+	$: maxDocCount = getMaxDocCount(categories);
+	$: scale = scaleLinear().domain([0, maxDocCount]).range([0, 100]);
+
+	$: sortCategories = getSorters(id).itemsSorter;
+	$: getSortedInputsStates = _.pipe([getInputStatesCopy, sortCategories]);
+	$: sortedInputStates = getSortedInputsStates(categories);
+	$: indexedCats = _.index(categories, getKey);
+	$: checkDirty = (key, value) => indexedCats[key].selected !== value;
+	$: isDirty = _.someIn(
+		sortedInputStates,
+		({key, selected}) => checkDirty(key, selected)
+	);
+	$: isApplyDisabled = areAllDeselected(sortedInputStates);
+
+	/* events */
+
+	const makeOnClick = key => event => {
 		if (event.shiftKey) {
 			sortedInputStates = selectAll(sortedInputStates);
 		} else if (event.altKey) {
@@ -58,20 +74,6 @@
 	const onApply = () => {
 		dispatch('applied', getInputStatesCopy(sortedInputStates));
 	};
-
-	$: maxDocCount = getMaxDocCount(categories);
-	$: scale = scaleLinear().domain([0, maxDocCount]).range([0, 100]);
-
-	$: sortCategories = getSorters(id).itemsSorter;
-	$: getSortedInputsStates = _.pipe([getInputStatesCopy, sortCategories]);
-	$: sortedInputStates = getSortedInputsStates(categories);
-	$: indexedCats = _.index(categories, getKey);
-	$: checkDirty = (key, value) => indexedCats[key].selected !== value;
-	$: isDirty = _.someIn(
-		sortedInputStates,
-		({key, selected}) => checkDirty(key, selected)
-	);
-	$: isApplyDisabled = areAllDeselected(sortedInputStates);
 </script>
 
 <FilterPaneBorder

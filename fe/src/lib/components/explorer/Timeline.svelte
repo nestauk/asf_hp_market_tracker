@@ -1,6 +1,6 @@
 <script>
 	import {setupResizeObserver} from '@svizzle/ui';
-	import {getKey, isObjEmpty} from '@svizzle/utils';
+	import {getKey} from '@svizzle/utils';
 	import {extent} from 'd3-array';
 	import {scaleLinear, scaleUtc} from 'd3-scale';
 	import areEqual from 'just-compare';
@@ -15,6 +15,22 @@
 	import {getDocCount} from '$lib/utils/getters.js';
 
 	export let geometry;
+
+	let bbox;
+	let bins;
+	let binsTicks;
+	let binWidth;
+	let items;
+	let max;
+	let Max;
+	let maxX;
+	let min;
+	let Min;
+	let minX;
+	let proceed = false;
+	let xScale;
+	let xTicks;
+	let yScale;
 
 	const defaultGeometry = {
 		safetyBottom: 0,
@@ -98,22 +114,6 @@
 		}
 	}
 
-	let bbox;
-	let bins;
-	let binsTicks;
-	let binWidth;
-	let items;
-	let Max;
-	let max;
-	let maxX;
-	let Min;
-	let min;
-	let minX;
-	let proceed = false;
-	let xScale;
-	let xTicks;
-	let yScale;
-
 	$: geometry = geometry ? {...defaultGeometry, ...geometry} : defaultGeometry;
 	$: fontSize = geometry.safetyTop / 2;
 
@@ -122,7 +122,10 @@
 
 	$: if ($_installationDateExtent) {
 		items = $_staticData.timelines[$_selection.interval];
+
+		// eslint-disable-next-line prefer-destructuring
 		Max = $_installationDateExtent.Max;
+		// eslint-disable-next-line prefer-destructuring
 		Min = $_installationDateExtent.Min;
 	}
 
@@ -192,9 +195,8 @@
 			const x = xScale(key);
 
 			return {
-				height: binHeight,
+				binHeight,
 				selected: x >= minX && x < maxX,
-				width: binWidth,
 				x,
 				y: bbox.height - binHeight,
 			}
@@ -241,13 +243,13 @@
 				<!-- bins -->
 
 				<g class='bins'>
-					{#each bins as {height, selected, width, x, y}}
+					{#each bins as {binHeight, selected, x, y}}
 						<rect
-							{height}
-							{width}
 							{x}
 							{y}
 							class:selected
+							height={binHeight}
+							width={binWidth}
 						/>
 					{/each}
 				</g>

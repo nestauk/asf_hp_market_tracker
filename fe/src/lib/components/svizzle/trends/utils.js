@@ -27,8 +27,10 @@ export const getDateTimeFormat = tickDurationInSecs => {
 	let timeFormat;
 
 	if (!tickDurationInSecs) {
+		// eslint-disable-next-line prefer-destructuring
 		timeFormat = _.last(timeFormats)[1];
 	} else {
+		// eslint-disable-next-line prefer-destructuring
 		timeFormat = _.find(
 			timeFormats,
 			([maxSeconds]) => tickDurationInSecs >= maxSeconds

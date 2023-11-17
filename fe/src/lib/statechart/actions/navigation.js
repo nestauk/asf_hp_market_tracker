@@ -37,7 +37,7 @@ export const updateCtxSelectionFromPage = assign(ctx => {
 	const parsedSearchParams = _.mapValues(
 		searchParams,
 		value => {
-			const dontParseIt = value === '' || isNotNaN(parseInt(value[0]));
+			const dontParseIt = value === '' || isNotNaN(parseInt(value[0], 10));
 			const result = dontParseIt ? value : RISON.parse(value);
 
 			return result
@@ -70,15 +70,15 @@ export const navigateToFullSearchParams = ctx => {
 	const parsedSearchParams = _.mapValues(
 		searchParams,
 		value => {
-			const dontParseIt = value === '' || isNotNaN(parseInt(value[0]));
+			const dontParseIt = value === '' || isNotNaN(parseInt(value[0], 10));
 			const result = dontParseIt ? value : RISON.parse(value);
 
 			return result;
 		}
 	);
 
- 	const {filters} = ctx.selection;
- 	const {installation_date} = filters;
+	const {filters} = ctx.selection;
+	const {installation_date} = filters;
 	const {minTime, maxTime} = installation_date || {};
 	const {Min: gte, Max: lte} = get(_installationDateExtent); // it fails here
 

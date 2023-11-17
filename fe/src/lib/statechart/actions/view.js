@@ -33,6 +33,7 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 	const activeViewType = get(_activeViewType);
 	const {field, geoPrefix, id, type} = get(_currentMetric);
 
+	// eslint-disable-next-line prefer-destructuring
 	const regionType = ctx.selection.regionType;
 	const geoField = `${geoPrefix}_geo_region_${regionType}_name.keyword`;
 
@@ -330,11 +331,11 @@ export const generateQueryPathFromSelectionStores = assign(ctx => {
 		if (isIterableNotEmpty(installerRegionNames)) {
 			const installerGeoField = `installer_geo_region_${installerRegionType}_name`;
 			processedFilters[installerGeoField] = installerRegionNames;
-		};
+		}
 		if (isIterableNotEmpty(propertyRegionNames)) {
 			const propertyGeoField = `property_geo_region_${propertyRegionType}_name`;
 			processedFilters[propertyGeoField] = propertyRegionNames;
-		};
+		}
 
 		params.filter = RISON.stringify(processedFilters);
 	}

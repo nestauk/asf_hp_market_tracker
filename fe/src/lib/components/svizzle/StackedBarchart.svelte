@@ -164,7 +164,8 @@
 			? getBarsScaleByKey(augmentedItems)
 			: null;
 
-		yScale = scaleBand()
+		yScale =
+			scaleBand()
 			.domain(allKeys)
 			.range([geometry.safetyTop, height - geometry.safetyBottom])
 			.align(1)
@@ -240,9 +241,9 @@
 		{/if}
 	</div>
 
-	{#each axesLabels as {label, areas}}
-		{#each areas as area}
-			<div class='{area} area'>
+	{#each axesLabels as {label, gridAreas}}
+		{#each gridAreas as gridArea}
+			<div class='{gridArea} area'>
 				{label}
 			</div>
 		{/each}

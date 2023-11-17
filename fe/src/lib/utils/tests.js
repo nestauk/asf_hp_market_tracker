@@ -97,6 +97,6 @@ export const summarizeResults = platform => {
 	return {
 		tested: false,
 		passed: false,
-		notes: [`Untested platform.`],
+		notes: ['Untested platform.'],
 	};
 };

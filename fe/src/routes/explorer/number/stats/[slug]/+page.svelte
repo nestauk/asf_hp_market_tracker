@@ -24,18 +24,18 @@
 
 	/* histogram */
 
-	const getBins = ({items, interval, valueAccessor}) => {
-		let itemsPairs = pairs(items);
-		const lastItem = _.last(items);
+	const getBins = (items_, interval_, valueAccessor_) => {
+		let itemsPairs = pairs(items_);
+		const lastItem = _.last(items_);
 		let bins = _.map(
 			itemsPairs,
 			([item1, item2]) => ({
 				range: [item1.key, item2.key],
-				value: valueAccessor(item1)
+				value: valueAccessor_(item1)
 			})
 		).concat({
-			range: [lastItem.key, lastItem.key + interval],
-			value: valueAccessor(lastItem)
+			range: [lastItem.key, lastItem.key + interval_],
+			value: valueAccessor_(lastItem)
 		});
 
 		return bins;
@@ -83,7 +83,7 @@
 
 		/* histogram */
 
-		bins = getBins({items, interval, valueAccessor});
+		bins = getBins(items, interval, valueAccessor);
 		binsFill = _.map(bins, ({range}) => colorScale(range[0]));
 
 		/* treemap */

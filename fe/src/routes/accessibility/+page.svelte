@@ -12,7 +12,6 @@
 		lighthouseUrls,
 		toolName,
 	} from '$lib/config';
-	import {_currThemeVars, _extLinkTheme} from '$lib/stores/theme';
 	/*
 	import {
 		getTest,
@@ -125,7 +124,7 @@
 	}
 
 /*
- 	figure {
+	figure {
 		background: var(--colorWarningBackground);
 		border: thin solid var(--colorWarningBorder);
 		color: var(--colorWarningText);

@@ -14,7 +14,7 @@
 	"description": "Mapbox components and utils for Svelte.",
 	"devDependencies": {
 		"eslint": "^8.23.0",
-		"eslint-plugin-svelte3": "^4.0.0",
+		"eslint-plugin-svelte": "^2.35.0",
 		"svelte": "^4.2.0"
 	},
 	"engines": {

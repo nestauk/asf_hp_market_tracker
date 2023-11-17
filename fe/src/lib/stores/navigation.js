@@ -1,5 +1,4 @@
 import {decapitalize} from '@svizzle/utils';
-import * as _ from 'lamb';
 import {derived, writable} from 'svelte/store';
 
 import {

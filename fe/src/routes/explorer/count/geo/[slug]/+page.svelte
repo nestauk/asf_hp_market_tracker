@@ -6,7 +6,6 @@
 	import {page as _page} from '$app/stores';
 	import NumGeoView from '$lib/components/explorer/NumGeoView.svelte';
 	import {interpolateColor} from '$lib/config/colors.js';
-	import {_viewCache} from '$lib/stores/data.js';
 	import {_currentMetric} from '$lib/stores/navigation.js';
 	import {_isViewReady, _viewData} from '$lib/stores/view.js';
 	import {
@@ -35,7 +34,6 @@
 		$_viewData.page.route.id === $_page.route.id &&
 		$_viewData?.response.code === 200;
 
-	let doDraw = false;
 	let items;
 	let makeBarchartItems;
 	let makeDomain;
@@ -57,8 +55,6 @@
 		title = $_currentMetric.id === 'installations_per_installer'
 			? 'Average'
 			: null;
-
-		doDraw = true;
 	}
 </script>
 

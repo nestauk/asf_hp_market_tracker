@@ -23,7 +23,7 @@ export const config = {
 			}
 		},
 		PageInteractive: {
-            type: 'parallel',
+			type: 'parallel',
 			states: {
 				ViewData: {
 					initial: 'Dirty',
@@ -89,7 +89,7 @@ export const config = {
 											{
 												target: '#HPMT.PageInteractive.ViewData.Ready',
 												actions: [
-													...(isDev ? ['logViewData'] : []),
+													...isDev ? ['logViewData'] : [],
 													'cacheViewData',
 													'updateViewDataStore'
 												]
@@ -133,7 +133,7 @@ export const config = {
 											{
 												target: '#HPMT.PageInteractive.StaticData.Ready',
 												actions: [
-													...(isDev ? ['logStaticData'] : []),
+													...isDev ? ['logStaticData'] : [],
 													'updateStaticDataStore'
 												]
 											}

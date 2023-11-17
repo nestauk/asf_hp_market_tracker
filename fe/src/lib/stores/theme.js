@@ -9,7 +9,7 @@ export const _isThemeEditorActive = writable(false);
 
 const prefersDarkTheme =
 	// eslint-disable-next-line no-undef
-	globalThis.matchMedia?.("(prefers-color-scheme: dark)").matches;
+	globalThis.matchMedia?.('(prefers-color-scheme: dark)').matches;
 
 export const _themeName = writable(
 	themeOverride || (prefersDarkTheme ? 'themeDark' : 'themeLight')
@@ -278,7 +278,7 @@ export const _linkTheme3 = derived(
 // component doesn't need to set it
 export const _linkThemeMetricSelector = derived(
 	_currThemeVars,
-	currThemeVars => ({
+	() => ({
 		outlineColor: 'none',
 		outlineStyle: 'none',
 		outlineWidth: '0',

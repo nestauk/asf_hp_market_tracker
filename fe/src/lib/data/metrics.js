@@ -99,6 +99,7 @@ export const metricGroups = _.map(metricIdsGroups, transformValues({
 	value: _.mapWith(id => metricById[id])
 }));
 
+// eslint-disable-next-line prefer-destructuring
 export const defaultMetricId = metricIdsGroups[0].value[0];
 
 // TODO add function checking no fields have been forgotten (if (isDev))

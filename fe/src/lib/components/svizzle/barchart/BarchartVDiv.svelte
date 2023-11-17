@@ -81,8 +81,8 @@
 
 	export let barHeight = 4;
 	export let formatFn;
-	export let heroKey = null;
 	export let geometry;
+	export let heroKey = null;
 	export let isInteractive = false;
 	export let items = []; // {key, value}[]
 	export let keyToColor = null;
@@ -99,6 +99,14 @@
 	export let valueAccessor = null;
 	export let valueToColorFn = null;
 
+	let height;
+	let hoveredKey;
+	let outerScrollTop;
+	let previousItems;
+	let scrollbarWidth;
+	let wasNotResettingScroll;
+	let width;
+
 	// FIXME https://github.com/sveltejs/svelte/issues/4442
 	$: barHeight = barHeight || 4;
 	$: formatFn = formatFn ?? identity;
@@ -112,17 +120,7 @@
 	$: theme = theme ? {...defaultTheme, ...theme} : defaultTheme;
 	$: valueAccessor = valueAccessor || getValue;
 
-	let height;
-	let hoveredKey;
-	let scrollbarWidth;
-	let width;
-
 	$: ({inlineSize: width, blockSize: height} = $_size);
-	$: style = makeStyleVars({
-		...theme,
-		...getCssGeometry(geometry),
-		refsHeightPx: toPx(refsHeight)
-	});
 	$: availableWidth = Math.max(
 		width - geometry.padding - scrollbarWidth ?? 0,
 		0
@@ -288,8 +286,8 @@
 						: availableWidth - labelsMaxLengths.pos.value - labelValueDistance
 				: allNegatives ? availableWidth : 0,
 			valueX: crossesZero
-				? (isNeg ? 0 : availableWidth)
-				: (allNegatives ? 0 : availableWidth),
+				? isNeg ? 0 : availableWidth
+				: allNegatives ? 0 : availableWidth,
 			x,
 			y: idx * itemHeight,
 		}}
@@ -298,6 +296,10 @@
 
 	/* refs */
 
+	$: refHeight = geometry.padding + geometry.glyphHeight;
+	$: refsHeight =
+		refs && refs.length * (geometry.padding + refHeight) + geometry.padding
+		|| 0;
 	$: makeRefsLayout = pipe([
 		sortByValue,
 		mapWith((ref, idx) => {
@@ -332,16 +334,22 @@
 		})
 	]);
 	$: refsLayout = refs && refs.length && makeRefsLayout(refs);
-	$: refHeight = geometry.padding + geometry.glyphHeight;
-	$: refsHeight =
-		refs && refs.length * (geometry.padding + refHeight) + geometry.padding
-		|| 0;
+
+	/* style */
+
+	$: style = makeStyleVars({
+		...theme,
+		...getCssGeometry(geometry),
+		refsHeightPx: toPx(refsHeight)
+	});
 
 	/* scroll */
 
-	let outerScrollTop;
-	let previousItems;
-	let wasNotResettingScroll;
+	$: heroY =
+		shouldScrollToHeroKey
+		&& heroKey
+		&& barsByKey[heroKey]
+		&& barsByKey[heroKey].y;
 
 	const doScroll = () => {
 		const yAbs = -outerScrollTop + heroY;
@@ -365,12 +373,6 @@
 	$: if (wasNotResettingScroll && shouldResetScroll) {
 		outerScrollTop = 0;
 	}
-
-	$: heroY =
-		shouldScrollToHeroKey
-		&& heroKey
-		&& barsByKey[heroKey]
-		&& barsByKey[heroKey].y;
 
 	$: if (shouldScrollToHeroKey && heroKey) {
 		doScroll();
@@ -524,7 +526,7 @@
 								payload,
 								textColor,
 								valueX,
-							}, index (key)}
+							}, idx (key)}
 								<!-- eslint seems to throw whatever dynamic value we use -->
 								<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 								<g
@@ -537,7 +539,7 @@
 									on:touchstart={isInteractive && onMouseenter(payload)}
 									role={isInteractive ? 'button' : null}
 									tabindex={isInteractive ? 0 : -1}
-									transform='translate(0, {itemHeight * index})'
+									transform='translate(0, {itemHeight * idx})'
 								>
 									<rect
 										width={availableWidth}

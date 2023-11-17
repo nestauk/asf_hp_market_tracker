@@ -67,8 +67,19 @@
 	export let valueFormatFn;
 	export let yTicksCount = 10;
 
+	let bbox;
+	let doDraw = false;
+	let dotRadius;
 	let height;
+	let keyTicks;
+	let lineGenerator;
+	let quadTree;
 	let width;
+	let xScale;
+	let yDelta;
+	let yDomain;
+	let yScale;
+	let yTicks;
 
 	$: axesLabels = axesLabels ?? [];
 	$: keyFormatFn = keyFormatFn ?? _.identity;
@@ -134,9 +145,9 @@
 		trends = _.map(trends, ({key, values}) => {
 			const cumulativeValues = _.reduce(
 				values,
-				(acc, {key, value}) => {
+				(acc, {key: subKey, value}) => {
 					acc.sum += value;
-					acc.array.push({key, value: acc.sum});
+					acc.array.push({key: subKey, value: acc.sum});
 
 					return acc;
 				},
@@ -173,10 +184,6 @@
 		?	_.find(trends, _.pipe([getKey, _.is(hero.trendKey)]))?.values
 		: [];
 
-	let yDelta;
-	let yDomain;
-	let yTicks;
-
 	$: {
 		if (maxValueSign !== minValueSign) {
 			yDomain = [minValue, maxValue];
@@ -191,15 +198,6 @@
 		yTicks = inclusiveRange([...yDomain, yDelta / yTicksCount]);
 	}
 
-	let bbox;
-	let doDraw = false;
-	let dotRadius;
-	let keyTicks;
-	let lineGenerator;
-	let quadTree;
-	let xScale;
-	let yScale;
-
 	$: if (height && width) {
 		bbox = {
 			blx: geometry.safetyLeft,
@@ -213,7 +211,7 @@
 		const xRange = [bbox.blx, bbox.trx];
 		if (keyType === 'date') {
 			const keyDomain = [_.head(allKeys), _.last(allKeys)];
-			const keyRankFn = key => (new Date(key)).getTime();
+			const keyRankFn = key => new Date(key).getTime();
 			const timeDomain = _.map(keyDomain, keyRankFn);
 			const timeScale = scaleTime().domain(timeDomain).range(xRange);
 
@@ -241,12 +239,14 @@
 
 		yScale = scaleLinear().domain(yDomain).range([bbox.bly, bbox.try]);
 
-		lineGenerator = line()
+		lineGenerator =
+			line()
 			.x(d => xScale(getKey(d)))
 			.y(d => yScale(getValue(d)))
 			.curve(curveMonotoneX);
 
-		quadTree = quadtree()
+		quadTree =
+			quadtree()
 			.x(d => xScale(getKey(d)))
 			.y(d => yScale(getValue(d)))
 			.addAll(allData);
@@ -395,9 +395,9 @@
 		{/if}
 	</div>
 
-	{#each axesLabels as {label, areas}}
-		{#each areas as area}
-			<div class='{area} area'>
+	{#each axesLabels as {label, gridAreas}}
+		{#each gridAreas as gridArea}
+			<div class='{gridArea} area'>
 				{label}
 			</div>
 		{/each}

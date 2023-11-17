@@ -133,8 +133,13 @@
 		return featureState;
 	}
 
+	const onMouseLeave = event => {
+		hoveredRegionName = null;
+		event.target.getCanvas().style.cursor = '';
+	}
 	const onMouseMove = event => {
 		if (event.target.isPointOnSurface(event.point)) {
+			// eslint-disable-next-line prefer-destructuring
 			const hoveredFeature = _.filter(
 				event.target.queryRenderedFeatures(event.point),
 				({sourceLayer}) => sourceLayer === regionType
@@ -147,10 +152,6 @@
 	}
 	const onClick = () => {
 		hoveredRegionName && toggleRegionName(hoveredRegionName);
-	}
-	const onMouseLeave = event => {
-		hoveredRegionName = null;
-		event.target.getCanvas().style.cursor = '';
 	}
 
 	$: eventsHandlers = [

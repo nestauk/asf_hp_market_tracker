@@ -66,6 +66,19 @@
 	export let valueAccessor2;
 
 	let _projectFn;
+	let colorScale;
+	let currentItems;
+	let currentKey;
+	let doDraw = false;
+	let getFeatureState;
+	let heroKey;
+	let isSingleValue;
+	let itemsIndex;
+	let keyToColorFn;
+	let legendBins;
+	let legendKeys;
+	let regionType;
+	let valuesToLabels;
 
 	const {
 		_geometry: _mapGeometry,
@@ -126,8 +139,6 @@
 
 	/* handlers */
 
-	let heroKey;
-
 	const clearHero = () => {
 		clearTooltip();
 
@@ -138,6 +149,7 @@
 	const onMapFeaturesEntered = ({detail: {features, x, y}}) => {
 		let item;
 		if (features.length > 0) {
+			// eslint-disable-next-line prefer-destructuring
 			const {properties: {[$_featureNameId]: featureName}} = features[0];
 			item = itemsIndex[featureName];
 
@@ -184,21 +196,11 @@
 		}
 	}
 
-	let colorScale;
-	let currentItems;
-	let currentKey;
-	let doDraw = false;
-	let getFeatureState;
-	let isSingleValue;
-	let itemsIndex;
-	let keyToColorFn;
-	let legendBins;
-	let legendKeys;
-	let regionType;
-	let valuesToLabels;
+	const onKeyChange = ({detail}) => {
+		currentKey = detail;
+	};
 
-	const onKeyChange = ({detail}) => {currentKey = detail};
-
+	// eslint-disable-next-line prefer-destructuring
 	$: regionType = $_selection.regionType;
 	$: regionKindStyle = makeStyleVars($_regionKindTheme);
 	$: sortItems = $_selection.categsGeoSortBy === 'regionName'
@@ -246,6 +248,7 @@
 		valuesToLabels = getValuesToLabels(categories);
 
 		if (!categories.includes(currentKey)) {
+			// eslint-disable-next-line prefer-destructuring
 			currentKey = categories[0];
 		}
 

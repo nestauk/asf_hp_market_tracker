@@ -43,8 +43,8 @@
 					: `${lowKey.replace('.0', '')}%`;
 			const highKeyString =
 				['min', 'max'].includes(highKey)
-				? '100%'
-				: `${highKey.replace('.0', '')}%`;
+					? '100%'
+					: `${highKey.replace('.0', '')}%`;
 			const label = `${lowKeyString} - ${highKeyString}`;
 
 			return label;

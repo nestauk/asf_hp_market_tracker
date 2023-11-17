@@ -32,8 +32,12 @@ const setMediaQueryListeners = () => {
 		_.forEach(options, option => {
 			const mqList = matchMedia(`(${type}: ${option})`);
 
-			// register new listener and store in map for later removal
+			// register new listener
+			// eslint-disable-next-line no-use-before-define
 			mqList.addEventListener('change', update);
+
+			// store in map for later removal
+			// eslint-disable-next-line no-use-before-define
 			mqListenersMap.set(mqList, update);
 
 			matchesByType[type][option] = mqList.matches;
@@ -74,4 +78,5 @@ const update = () => {
 };
 
 // initialize with the current media query state
+// eslint-disable-next-line no-undef
 globalThis?.window && update();

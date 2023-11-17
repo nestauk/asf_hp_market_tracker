@@ -21,7 +21,6 @@
 	} from '$lib/stores/theme.js';
 	import {
 		_isViewLoading,
-		_isViewReady,
 		_showMessage,
 		_viewDataMessage
 	} from '$lib/stores/view.js';
@@ -30,6 +29,9 @@
 
 	const toggleInfoModal = () => {
 		isInfoBannerVisible = !isInfoBannerVisible;
+	};
+	const hideInfoModal = () => {
+		isInfoBannerVisible = false
 	};
 
 	$: isDev && $_showMessage && console.log('[backend]:', $_viewDataMessage);
@@ -97,7 +99,7 @@
 
 		{#if isInfoBannerVisible}
 			<Banner
-				on:close={() => isInfoBannerVisible = false}
+				on:close={hideInfoModal}
 				theme={$_bannersTheme}
 				width='50%'
 			>

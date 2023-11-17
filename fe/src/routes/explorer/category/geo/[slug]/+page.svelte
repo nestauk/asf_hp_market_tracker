@@ -1,7 +1,5 @@
 <script>
-	import {getKey, isNotNil} from '@svizzle/utils';
-	import {extent} from 'd3-array';
-	import * as _ from 'lamb';
+	import {getKey} from '@svizzle/utils';
 
 	import {page as _page} from '$app/stores';
 	import CatGeoView2 from '$lib/components/explorer/CatGeoView2.svelte';

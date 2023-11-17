@@ -131,7 +131,7 @@
 		const xRange = [bbox.blx, bbox.trx];
 		if (keyType === 'date') {
 			const keyDomain = [_.head(allKeys), _.last(allKeys)];
-			const keyRankFn = key => (new Date(key)).getTime();
+			const keyRankFn = key => new Date(key).getTime();
 			const timeDomain = _.map(keyDomain, keyRankFn);
 			const timeScale = scaleTime().domain(timeDomain).range(xRange);
 
@@ -158,7 +158,8 @@
 			config.areas,
 			([lowKey, highKey]) => ({
 				color: areaLowKeyToColor(lowKey),
-				generator: area()
+				generator:
+					area()
 					.x(getX)
 					.y0(_.pipe([getValues, _.getKey(lowKey), yScale]))
 					.y1(_.pipe([getValues, _.getKey(highKey), yScale]))
@@ -173,7 +174,8 @@
 			config.trends,
 			key => ({
 				key,
-				generator: line()
+				generator:
+					line()
 					.x(getX)
 					.y(_.pipe([getValues, _.getKey(key), yScale]))
 					.curve(curveMonotoneX)
@@ -314,9 +316,9 @@
 		{/if}
 	</div>
 
-	{#each axesLabels as {label, areas}}
-		{#each areas as area}
-			<div class='{area} area'>
+	{#each axesLabels as {label, gridAreas}}
+		{#each gridAreas as gridArea}
+			<div class='{gridArea} area'>
 				{label}
 			</div>
 		{/each}

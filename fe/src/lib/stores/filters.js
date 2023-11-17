@@ -115,6 +115,7 @@ const durations = {
 };
 const getTimeDomain = (buckets, intervalKey) => {
 	const timestamps = pluckKeySorted(buckets);
+	// eslint-disable-next-line prefer-destructuring
 	const firstBinStartMs = timestamps[0];
 	const lastBinStartDateTime = DateTime.fromMillis(_.last(timestamps));
 	const duration = durations[intervalKey];

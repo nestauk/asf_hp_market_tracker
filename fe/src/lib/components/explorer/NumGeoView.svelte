@@ -84,6 +84,7 @@
 	const onMapFeaturesEntered = ({detail: {features, x, y}}) => {
 		let item;
 		if (features.length > 0) {
+			// eslint-disable-next-line prefer-destructuring
 			const {properties: {[$_featureNameId]: featureName}} = features[0];
 			item = itemsIndex[featureName];
 
@@ -130,6 +131,7 @@
 		}
 	}
 
+	// eslint-disable-next-line prefer-destructuring
 	$: regionType = $_selection.regionType;
 	$: regionKindStyle = makeStyleVars($_regionKindTheme);
 	$: amountOfBins = amountOfBins || 5;

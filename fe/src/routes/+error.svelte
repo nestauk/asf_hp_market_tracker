@@ -5,7 +5,10 @@
 	import {toolName} from '$lib/config';
 	import {isDev} from '$lib/env';
 
+	// eslint-disable-next-line prefer-destructuring
 	$: status = $_page.status;
+
+	// eslint-disable-next-line prefer-destructuring
 	$: error = $_page.error;
 </script>
 

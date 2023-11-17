@@ -3,7 +3,7 @@
 
 	import {coverageTooltips} from '$lib/config/labels.js';
 	import {_tooltip, clearTooltip} from '$lib/stores/tooltip.js';
-	import {_viewData, _viewDataCoverage} from '$lib/stores/view.js';
+	import {_viewDataCoverage} from '$lib/stores/view.js';
 
 	const {
 		_writable: _coverageSize,

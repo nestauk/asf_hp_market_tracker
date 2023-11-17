@@ -118,56 +118,57 @@ const _lineLayerPaint = derived(
 const _lineLayers = derived(
 	_lineLayerPaint,
 	lineLayerPaint => [
-	{
-		id: 'country21_line',
-		source: 'protomaps',
-		'source-layer': 'country21',
-		type: 'line',
-		paint: lineLayerPaint
-	},
-	{
-		id: 'itl21_1_line',
-		source: 'protomaps',
-		'source-layer': 'itl21_1',
-		type: 'line',
-		paint: lineLayerPaint
-	},
-	{
-		id: 'itl21_2_line',
-		source: 'protomaps',
-		'source-layer': 'itl21_2',
-		type: 'line',
-		paint: lineLayerPaint
-	},
-	{
-		id: 'itl21_3_line',
-		source: 'protomaps',
-		'source-layer': 'itl21_3',
-		type: 'line',
-		paint: lineLayerPaint
-	},
-	{
-		id: 'lad21_line',
-		source: 'protomaps',
-		'source-layer': 'lad21',
-		type: 'line',
-		paint: lineLayerPaint
-	},
-	// {
-	// 	id: 'lsoa11_line',
-	// 	source: 'protomaps',
-	// 	'source-layer': 'lsoa11',
-	// 	type: 'line',
-	// 	paint: lineLayerPaint
-	// },
-	// {
-	// 	id: 'msoa11_line',
-	// 	source: 'protomaps',
-	// 	'source-layer': 'msoa11',
-	// 	type: 'line',
-	// 	paint: lineLayerPaint
-	// },
-]);
+		{
+			id: 'country21_line',
+			source: 'protomaps',
+			'source-layer': 'country21',
+			type: 'line',
+			paint: lineLayerPaint
+		},
+		{
+			id: 'itl21_1_line',
+			source: 'protomaps',
+			'source-layer': 'itl21_1',
+			type: 'line',
+			paint: lineLayerPaint
+		},
+		{
+			id: 'itl21_2_line',
+			source: 'protomaps',
+			'source-layer': 'itl21_2',
+			type: 'line',
+			paint: lineLayerPaint
+		},
+		{
+			id: 'itl21_3_line',
+			source: 'protomaps',
+			'source-layer': 'itl21_3',
+			type: 'line',
+			paint: lineLayerPaint
+		},
+		{
+			id: 'lad21_line',
+			source: 'protomaps',
+			'source-layer': 'lad21',
+			type: 'line',
+			paint: lineLayerPaint
+		},
+		// {
+		// 	id: 'lsoa11_line',
+		// 	source: 'protomaps',
+		// 	'source-layer': 'lsoa11',
+		// 	type: 'line',
+		// 	paint: lineLayerPaint
+		// },
+		// {
+		// 	id: 'msoa11_line',
+		// 	source: 'protomaps',
+		// 	'source-layer': 'msoa11',
+		// 	type: 'line',
+		// 	paint: lineLayerPaint
+		// },
+	]
+);
 
 export const _mapStyle = derived(
 	[_baseLayers, _fillLayers, _lineLayers],

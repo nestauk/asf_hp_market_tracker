@@ -105,7 +105,6 @@
 		height: 100%;
 		width: 100%;
 	}
-	.headerRow,
 	.valueRow {
 		display: grid;
 		grid-template-columns: repeat(var(--columns), 1fr);

@@ -18,6 +18,7 @@ export const machine = createMachine(
 export const explorerActor = interpret(machine).start();
 
 if (browser) {
+	// eslint-disable-next-line no-unused-vars
 	explorerActor.subscribe((state, event) => {
 		const isViewStateReady = isViewReady(state.value);
 		_isViewReady.set(isViewStateReady);
@@ -25,7 +26,7 @@ if (browser) {
 		if (isDev) {
 			console.log(
 				'_isViewReady',
-				isViewStateReady ? `🟩` : '⬛️',
+				isViewStateReady ? '🟩' : '⬛️',
 				JSON.stringify(state.value)
 			);
 
