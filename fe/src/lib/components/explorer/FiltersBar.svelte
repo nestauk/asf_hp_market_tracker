@@ -25,7 +25,7 @@
 	import {getRegionsSelection} from '$lib/utils/regions.js';
 	import {explorerActor} from '$lib/statechart/index.js';
 	import {_staticData} from '$lib/stores/data.js';
-	import {_filtersBar} from '$lib/stores/filters.js';
+	import {_filtersBar, _installationDateExtent} from '$lib/stores/filters.js';
 	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {_currentMetric, _selection} from '$lib/stores/navigation.js';
 	import {_rangeSlidersTheme} from '$lib/stores/theme.js';
@@ -216,6 +216,10 @@
 		const {filters: oldFilters} = $_selection;
 
 		const newFilters = {
+			installation_date: {
+				gte: $_installationDateExtent.Min,
+				lte: $_installationDateExtent.Max,
+			},
 			installerRegionNames: [],
 			installerRegionType: $_selection.filters.installerRegionType,
 			propertyRegionNames: [],

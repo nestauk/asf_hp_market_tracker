@@ -88,7 +88,7 @@
 		_.uniques
 	]);
 	$: filters = $_isDefaultInstallationDateExtent
-		? _.skip(['installation_date'], $_selection.filters)
+		? _.skipIn($_selection.filters, ['installation_date'])
 		: $_selection.filters;
 	$: activeFilterIds =[
 		...getActiveFilterIds(filters),
