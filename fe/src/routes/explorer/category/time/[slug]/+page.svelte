@@ -259,8 +259,8 @@
 
 		{#if doDraw}
 			<GridColumns
-				colLayout='84% 15%'
-				gap='1%'
+				colLayout='85fr 15fr'
+				gap='1em'
 			>
 				<div class='col'>
 					{#if $_selection.categsTimeGraph === 'streams'}
