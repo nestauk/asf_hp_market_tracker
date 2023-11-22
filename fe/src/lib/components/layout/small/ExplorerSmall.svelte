@@ -1,5 +1,5 @@
 <script>
-	import {CenteredView, LoadingView} from '@svizzle/ui';
+	import {CenteredView, LoadingView, View, ViewsXor} from '@svizzle/ui';
 	import {getId} from '@svizzle/utils'
 	import * as _ from 'lamb';
 
@@ -11,8 +11,6 @@
 	import InfoSmall from '$lib/components/explorer/small/InfoSmall.svelte';
 	import ViewSelectorMedium
 		from '$lib/components/explorer/medium/ViewSelectorMedium.svelte';
-	import View from '$lib/components/viewports/View.svelte';
-	import ViewsXor from '$lib/components/viewports/ViewsXor.svelte';
 	import {isDev} from '$lib/env.js';
 	import {explorerActor} from '$lib/statechart/index.js';
 	import {_selection} from '$lib/stores/navigation.js';

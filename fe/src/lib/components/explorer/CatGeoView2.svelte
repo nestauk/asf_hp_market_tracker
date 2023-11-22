@@ -1,7 +1,9 @@
 <script>
-	// import {BarchartVDiv} from '@svizzle/barchart';
+	import {BarchartVDiv} from '@svizzle/barchart';
 	import {makeStyleVars} from '@svizzle/dom';
 	import {ColorBinsDiv} from '@svizzle/legend';
+	import {Mapbox} from '@svizzle/mapbox';
+	import {View, XorNavigator} from '@svizzle/ui';
 	import {
 		applyFnMap,
 		arraySumWith,
@@ -10,25 +12,20 @@
 		getValues,
 		makeArrayToObjectWith,
 		makeWithKeys,
+		pluckKey,
 	} from '@svizzle/utils';
 	import {extent, pairs} from 'd3-array';
 	import {scaleQuantize} from 'd3-scale';
 	import * as _ from 'lamb';
 
-	import {Mapbox} from '@svizzle/mapbox'; // workspace
-
 	import MetricTitle from '$lib/components/explorer/MetricTitle.svelte';
 	import SelectorRegionType
 		from '$lib/components/explorer/SelectorRegionType.svelte';
-	import BarchartVDiv
-		from '$lib/components/svizzle/barchart/BarchartVDiv.svelte';
 	import GridColumns from '$lib/components/svizzle/GridColumns.svelte';
 	import GridRows from '$lib/components/svizzle/GridRows.svelte';
 	import KeysLegend from '$lib/components/svizzle/legend/KeysLegend.svelte';
 	import {setupGeometryObserver}
 		from '$lib/components/svizzle/ui/geometryObserver.js';
-	import View from '$lib/components/viewports/View.svelte';
-	import XorNavigator from '$lib/components/svizzle/ui/XorNavigator.svelte';
 	import {
 		heroRegionStrokeWidth,
 		MAPBOXGL_ACCESSTOKEN as accessToken,
@@ -54,7 +51,6 @@
 	import {getSorters} from '$lib/utils/ordering.js';
 	import {_tooltip, clearTooltip} from '$lib/stores/tooltip.js';
 	import {_selectedBbox} from '$lib/stores/view.js';
-	import {pluckKey} from '$lib/utils/svizzle/utils.js';
 
 	export let amountOfBins = 5;
 	export let formatFn;

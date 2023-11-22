@@ -1,8 +1,9 @@
 <script>
+	import {View} from '@svizzle/ui';
+
 	import {page as _page} from '$app/stores';
 	import MetricTitle from '$lib/components/explorer/MetricTitle.svelte';
 	import GridRows from '$lib/components/svizzle/GridRows.svelte';
-	import View from '$lib/components/viewports/View.svelte';
 	import {_currentMetric} from '$lib/stores/navigation.js';
 	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {_isViewReady, _viewData} from '$lib/stores/view.js';

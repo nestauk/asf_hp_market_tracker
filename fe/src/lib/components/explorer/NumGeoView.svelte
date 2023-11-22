@@ -1,26 +1,23 @@
 <script>
-	// import {BarchartVDiv} from '@svizzle/barchart';
+	import {BarchartVDiv} from '@svizzle/barchart';
 	import {makeStyleVars} from '@svizzle/dom';
 	import {ColorBinsDiv} from '@svizzle/legend';
+	import {Mapbox} from '@svizzle/mapbox';
+	import {View} from '@svizzle/ui';
 	import {getKey, makeWithKeys} from '@svizzle/utils';
 	import {pairs} from 'd3-array';
 	import {scaleQuantize} from 'd3-scale';
 	import * as _ from 'lamb';
 
-	import {Mapbox} from '@svizzle/mapbox'; // workspace
-
 	import FlexBar from '$lib/components/explorer/FlexBar.svelte';
 	import MetricTitle from '$lib/components/explorer/MetricTitle.svelte';
 	import SelectorRegionType
 		from '$lib/components/explorer/SelectorRegionType.svelte';
-	import BarchartVDiv
-		from '$lib/components/svizzle/barchart/BarchartVDiv.svelte';
 	import GridColumns from '$lib/components/svizzle/GridColumns.svelte';
 	import GridRows from '$lib/components/svizzle/GridRows.svelte';
 	import KeysLegend from '$lib/components/svizzle/legend/KeysLegend.svelte';
 	import {setupGeometryObserver}
 		from '$lib/components/svizzle/ui/geometryObserver.js';
-	import View from '$lib/components/viewports/View.svelte';
 	import {
 		heroRegionStrokeWidth,
 		MAPBOXGL_ACCESSTOKEN as accessToken,

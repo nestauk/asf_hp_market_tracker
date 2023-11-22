@@ -7,6 +7,7 @@
 		getValue,
 		getValues,
 		makeWithKeys,
+		pluckKey,
 	} from '@svizzle/utils';
 	import {extent, pairs} from 'd3-array';
 	import {scaleQuantize} from 'd3-scale';
@@ -23,7 +24,6 @@
 	import GridColumns from '$lib/components/svizzle/GridColumns.svelte';
 	import {_selection} from '$lib/stores/navigation.js';
 	import {_legendsTheme} from '$lib/stores/theme.js';
-	import {pluckKey} from '$lib/utils/svizzle/utils.js';
 
 	export let amountOfBins = 5;
 	export let formatFn;

@@ -1,5 +1,11 @@
 <script>
-	import {Icon, Scroller, XCircle} from '@svizzle/ui';
+	import {CustomControl, Mapbox} from '@svizzle/mapbox';
+	import {
+		Icon,
+		Scroller,
+		XCircle,
+		XorNavigator,
+	} from '@svizzle/ui';
 	import {
 		isIterableEmpty,
 		isIterableNotEmpty,
@@ -7,8 +13,6 @@
 	} from '@svizzle/utils';
 	import * as _ from 'lamb';
 	import {createEventDispatcher} from 'svelte';
-
-	import {CustomControl, Mapbox} from '@svizzle/mapbox'; // workspace
 
 	import DismissOrApply from '$lib/components/explorer/DismissOrApply.svelte';
 	import FilterPaneBorder
@@ -28,7 +32,6 @@
 		_mapboxTheme,
 		_xorNavigatorTheme
 	} from '$lib/stores/theme.js';
-	import XorNavigator from '$lib/components/svizzle/ui/XorNavigator.svelte';
 	import {getName} from '$lib/utils/getters.js';
 	import {
 		getAncestorsRegions,
@@ -55,10 +58,7 @@
 
 	$: isDirty =
 		regionType !== targetRegionType ||
-		!doPairItemsContainSameValues([
-			regionNames,
-			targetRegionNames
-		]);
+		!doPairItemsContainSameValues([regionNames, targetRegionNames]);
 
 	let isEdited;
 	$: if (id === 'installer_geo_region') {

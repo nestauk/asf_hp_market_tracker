@@ -1,5 +1,7 @@
 <script>
+	import {Treemap} from  '@svizzle/hierarchy';
 	import {HistogramDiv} from '@svizzle/histogram';
+	import {View} from '@svizzle/ui';
 	import {getKey} from '@svizzle/utils';
 	import {extent, pairs} from 'd3-array';
 	import {hsl} from 'd3-color';
@@ -10,8 +12,6 @@
 	import MetricTitle from '$lib/components/explorer/MetricTitle.svelte';
 	import GridColumns from '$lib/components/svizzle/GridColumns.svelte';
 	import GridRows from '$lib/components/svizzle/GridRows.svelte';
-	import Treemap from '$lib/components/svizzle/Treemap.svelte';
-	import View from '$lib/components/viewports/View.svelte';
 	import {interpolateColor} from '$lib/config/colors.js';
 	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {_currentMetric} from '$lib/stores/navigation.js';

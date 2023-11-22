@@ -1,5 +1,5 @@
 <script>
-	import {Icon, Info, Link, Send} from '@svizzle/ui';
+	import {Icon, HyperLink, Info, Send} from '@svizzle/ui';
 
 	import {
 		_currThemeVars,
@@ -18,7 +18,7 @@
 		<div role='none'>
 			<ul role='none'>
 				<li role='none'>
-					<Link
+					<HyperLink
 						href='/'
 						theme={{
 							...$_linkTheme0,
@@ -26,10 +26,10 @@
 						}}
 					>
 						Home
-					</Link>
+					</HyperLink>
 				</li>
 				<li role='none'>
-					<Link
+					<HyperLink
 						href='/methodology'
 						theme={{
 							...$_linkTheme0,
@@ -37,10 +37,10 @@
 						}}
 					>
 						Methodology
-					</Link>
+					</HyperLink>
 				</li>
 				<li role='none'>
-					<Link
+					<HyperLink
 						href='/guides'
 						theme={{
 							...$_linkTheme0,
@@ -48,10 +48,10 @@
 						}}
 					>
 						Guides
-					</Link>
+					</HyperLink>
 				</li>
 				<li role='none'>
-					<Link
+					<HyperLink
 						href='/explorer'
 						theme={{
 							...$_linkTheme0,
@@ -59,14 +59,14 @@
 						}}
 					>
 						Explorer
-					</Link>
+					</HyperLink>
 				</li>
 			</ul>
 		</div>
 		<div role='none'>
 			<ul role='none'>
 				<li role='none'>
-					<Link
+					<HyperLink
 						href='/feedback'
 						rel='prefetch'
 						theme={{
@@ -81,10 +81,10 @@
 							stroke={$_currThemeVars['--colorIcon']}
 							strokeWidth=1.5
 						/>
-					</Link>
+					</HyperLink>
 				</li>
 				<li role='none'>
-					<Link
+					<HyperLink
 						href='/info'
 						rel='prefetch'
 						theme={{
@@ -99,7 +99,7 @@
 							strokeWidth=1.5
 							stroke={$_currThemeVars['--colorIcon']}
 						/>
-					</Link>
+					</HyperLink>
 				</li>
 			</ul>
 		</div>

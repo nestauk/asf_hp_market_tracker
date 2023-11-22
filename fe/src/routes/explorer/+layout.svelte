@@ -1,9 +1,9 @@
 <script>
+	import {View, ViewsXor} from '@svizzle/ui';
+
 	import {page as _page} from '$app/stores';
 	import ExplorerMedium from '$lib/components/layout/medium/ExplorerMedium.svelte';
 	import ExplorerSmall from '$lib/components/layout/small/ExplorerSmall.svelte';
-	import View from '$lib/components/viewports/View.svelte';
-	import ViewsXor from '$lib/components/viewports/ViewsXor.svelte';
 	import {toolName} from '$lib/config.js';
 	import {explorerActor} from '$lib/statechart/index.js';
     import {_staticData} from '$lib/stores/data';

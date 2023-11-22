@@ -1,11 +1,12 @@
 <script>
-	import {Scroller} from '@svizzle/ui';
+	import {Scroller, View} from '@svizzle/ui';
 	import {
 		arraySumWith,
 		getId,
 		getKey,
 		getValue,
 		getValues,
+		objectToKeyValuesArray,
 	} from '@svizzle/utils';
 	import {extent} from 'd3-array';
 	import {scaleOrdinal} from 'd3-scale';
@@ -20,7 +21,6 @@
 	import SelectionXor from '$lib/components/explorer/SelectionXor.svelte';
 	import SelectorRegionType
 		from '$lib/components/explorer/SelectorRegionType.svelte';
-	import View from '$lib/components/viewports/View.svelte';
 	import GridColumns from '$lib/components/svizzle/GridColumns.svelte';
 	import GridRows from '$lib/components/svizzle/GridRows.svelte';
 	import {interpolateColor} from '$lib/config/colors.js';
@@ -29,10 +29,7 @@
 	import {_selection} from '$lib/stores/navigation.js';
 	import {_stackedBarchartTheme} from '$lib/stores/theme.js';
 	import {_tooltip, clearTooltip} from '$lib/stores/tooltip.js';
-	import {
-		objectToKeyValuesArray,
-		pluckKeySorted
-	} from '$lib/utils/svizzle/utils.js';
+	import {pluckKeySorted} from '$lib/utils/svizzle/utils.js';
 
 	export let items;
 	export let keyAccessor;

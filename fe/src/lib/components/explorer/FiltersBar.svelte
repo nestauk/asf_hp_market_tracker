@@ -1,12 +1,12 @@
 <script>
 	import {Scroller} from '@svizzle/ui';
 	import {
+		areEqual,
 		getKey,
 		isObjEmpty,
 		makeIsIncluded,
 		makeMergeAppliedFnMap,
 	} from '@svizzle/utils';
-	import areEqual from 'just-compare';
 	import * as _ from 'lamb';
 
 	import BrandsModelsSelector
@@ -52,7 +52,7 @@
 			newFilters = _.setIn(oldFilters, id, criteria);
 		}
 
-		if (!areEqual(oldFilters, newFilters)) {
+		if (!areEqual([oldFilters, newFilters])) {
 			explorerActor.send({
 				type: 'SELECTION_CHANGED',
 				newValues: {filters: newFilters}
@@ -87,7 +87,7 @@
 			newFilters = _.setIn(oldFilters, id, getSelectedCats(categories));
 		}
 
-		if (!areEqual(oldFilters, newFilters)) {
+		if (!areEqual([oldFilters, newFilters])) {
 			explorerActor.send({
 				type: 'SELECTION_CHANGED',
 				newValues: {filters: newFilters}
@@ -111,7 +111,7 @@
 			regionType: $_selection.regionType
 		});
 
-		if (!areEqual(oldFilters, newFilters)) {
+		if (!areEqual([oldFilters, newFilters])) {
 			explorerActor.send({
 				type: 'SELECTION_CHANGED',
 				newValues: {
@@ -138,7 +138,7 @@
 			regionType: $_selection.regionType
 		});
 
-		if (!areEqual(oldFilters, newFilters)) {
+		if (!areEqual([oldFilters, newFilters])) {
 			explorerActor.send({
 				type: 'SELECTION_CHANGED',
 				newValues: {
@@ -154,7 +154,7 @@
 	const onBrandsModelsChanged = ({detail: stringsFilters}) => {
 		const {stringsFilters: oldStringsFilters} = $_selection;
 
-		if (!areEqual(oldStringsFilters, stringsFilters)) {
+		if (!areEqual([oldStringsFilters, stringsFilters])) {
 			explorerActor.send({
 				type: 'SELECTION_CHANGED',
 				newValues: {
@@ -180,7 +180,7 @@
 		);
 		const newStringsFilters = removeFilterId(oldStringsFilters)
 
-		if (!areEqual(oldStringsFilters, newStringsFilters)) {
+		if (!areEqual([oldStringsFilters, newStringsFilters])) {
 			explorerActor.send({
 				type: 'SELECTION_CHANGED',
 				newValues: {
@@ -202,7 +202,7 @@
 			newFilters = _.skipIn(oldFilters, [id]);
 		}
 
-		if (!areEqual(oldFilters, newFilters)) {
+		if (!areEqual([oldFilters, newFilters])) {
 			explorerActor.send({
 				type: 'SELECTION_CHANGED',
 				newValues: {
@@ -227,7 +227,7 @@
 		}
 		const newStringsFilters = [];
 
-		if (!areEqual(oldFilters, newFilters)) {
+		if (!areEqual([oldFilters, newFilters])) {
 			explorerActor.send({
 				type: 'SELECTION_CHANGED',
 				newValues: {

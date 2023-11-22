@@ -1,4 +1,6 @@
 <script>
+	import {Trends} from '@svizzle/trends';
+	import {View} from '@svizzle/ui';
 	import {
 		applyFnMap,
 		getKey,
@@ -14,8 +16,6 @@
 	import SelectorInterval from '$lib/components/explorer/SelectorInterval.svelte';
 	import MetricTitle from '$lib/components/explorer/MetricTitle.svelte';
 	import GridRows from '$lib/components/svizzle/GridRows.svelte';
-	import Trends from '$lib/components/svizzle/trends/Trends.svelte';
-	import View from '$lib/components/viewports/View.svelte';
 	import {intervalToAxisLabel} from '$lib/config/labels.js';
 	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {

@@ -1,13 +1,18 @@
 <script>
-	import {CenteredView, Icon, Info, LoadingView} from '@svizzle/ui';
+	import {
+		Banner,
+		CenteredView,
+		Icon,
+		Info,
+		LoadingView,
+		Pill,
+	} from '@svizzle/ui';
 
 	import * as metricInfos from '$lib/_content/metrics/index.js';
 	import QuickStatsMedium
 		from '$lib/components/explorer/medium/QuickStatsMedium.svelte';
 	import ViewSelectorMedium
 		from '$lib/components/explorer/medium/ViewSelectorMedium.svelte';
-	import Banner from '$lib/components/svizzle/Banner.svelte'
-	import Pill from '$lib/components/svizzle/ui/Pill.svelte'
 	import {noDataMessage} from '$lib/config/text.js';
 	import {isDev} from '$lib/env.js';
 	import {

@@ -3,6 +3,7 @@
 		ChevronDown,
 		ChevronUp,
 		Icon,
+		Input,
 		Scroller,
 	} from '@svizzle/ui';
 	import {
@@ -22,7 +23,6 @@
 		from '$lib/components/explorer/FilterPaneBorder.svelte';
 	import DismissOrApply from '$lib/components/explorer/DismissOrApply.svelte';
 	import {makeOnKeyDown} from '$lib/components/svizzle/ui/handlers.js';
-	import Input from '$lib/components/svizzle/ui/Input.svelte';
 	import {_staticData} from '$lib/stores/data.js';
 	import {_selection} from '$lib/stores/navigation.js';
 	import {_searchInputTheme} from '$lib/stores/theme.js';

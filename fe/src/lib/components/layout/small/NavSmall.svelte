@@ -2,10 +2,10 @@
 	import {capitalize} from '@svizzle/utils';
 	import {
 		A11yPerson,
+		HyperLink,
 		Icon,
 		Info,
 		isServerSide,
-		Link,
 		Menu,
 		Moon,
 		Send,
@@ -111,26 +111,26 @@
 					class='sponsors'
 					role='none'
 				>
-					<Link
+					<HyperLink
 						href='https://www.nesta.org.uk/'
 						theme={$_linkTheme0}
 					>
 						<img src={logos.nesta} alt='Nesta' />
-					</Link>
+					</HyperLink>
 				</div>
 				<ul role='none'>
 					<li role='none'>
-						<Link
+						<HyperLink
 							ariaLabel='Change log'
 							href={changelogUrl}
 							type='external'
 							theme={$_extLinkTheme}
 						>
 							{version}
-						</Link>
+						</HyperLink>
 					</li>
 					<li role='none'>
-						<Link
+						<HyperLink
 							href='/info'
 							rel='prefetch'
 							theme={{
@@ -145,10 +145,10 @@
 								stroke={$_currThemeVars['--colorIcon']}
 								strokeWidth=1.5
 							/>
-						</Link>
+						</HyperLink>
 					</li>
 					<li role='none'>
-						<Link
+						<HyperLink
 							href='/feedback'
 							rel='prefetch'
 							theme={{
@@ -163,13 +163,13 @@
 								stroke={$_currThemeVars['--colorIcon']}
 								strokeWidth=1.5
 							/>
-						</Link>
+						</HyperLink>
 					</li>
 					<li
 						class='sectionStart'
 						role='none'
 					>
-						<Link
+						<HyperLink
 							href='/accessibility'
 							theme={{
 								...$_linkTheme0,
@@ -177,10 +177,10 @@
 							}}
 						>
 							Accessibility
-						</Link>
+						</HyperLink>
 					</li>
 					<li role='none'>
-						<Link
+						<HyperLink
 							href='/guides'
 							theme={{
 								...$_linkTheme0,
@@ -188,10 +188,10 @@
 							}}
 						>
 							Guides
-						</Link>
+						</HyperLink>
 					</li>
 					<li role='none'>
-						<Link
+						<HyperLink
 							href='/methodology'
 							theme={{
 								...$_linkTheme0,
@@ -199,10 +199,10 @@
 							}}
 						>
 							Methodology
-						</Link>
+						</HyperLink>
 					</li>
 					<li role='none'>
-						<Link
+						<HyperLink
 							href='/explorer'
 							theme={{
 								...$_linkTheme0,
@@ -210,10 +210,10 @@
 							}}
 						>
 							Explorer
-						</Link>
+						</HyperLink>
 					</li>
 					<li role='none'>
-						<Link
+						<HyperLink
 							href='/'
 							theme={{
 								...$_linkTheme0,
@@ -221,7 +221,7 @@
 							}}
 						>
 							Home
-						</Link>
+						</HyperLink>
 					</li>
 				</ul>
 			</menu>

@@ -1,9 +1,8 @@
 <script>
 	import {setupResizeObserver} from '@svizzle/ui';
-	import {getKey} from '@svizzle/utils';
+	import {areEqual, getKey} from '@svizzle/utils';
 	import {extent} from 'd3-array';
 	import {scaleLinear, scaleUtc} from 'd3-scale';
-	import areEqual from 'just-compare';
 	import * as _ from 'lamb';
 
 	import {explorerActor} from '$lib/statechart/index.js';
@@ -106,7 +105,7 @@
 
 		const newFilters = _.setIn(oldFilters, 'installation_date', criteria);
 
-		if (!areEqual(oldFilters, newFilters)) {
+		if (!areEqual([oldFilters, newFilters])) {
 			explorerActor.send({
 				type: 'SELECTION_CHANGED',
 				newValues: {filters: newFilters}

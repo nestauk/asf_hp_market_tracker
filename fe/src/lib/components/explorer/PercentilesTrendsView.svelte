@@ -1,4 +1,5 @@
 <script>
+	import {PercentilesTrends} from '@svizzle/trends';
 	import {Scroller} from '@svizzle/ui';
 	import {scaleOrdinal} from 'd3-scale';
 	import * as _ from 'lamb';
@@ -6,7 +7,6 @@
 	import GridColumns from '$lib/components/svizzle/GridColumns.svelte';
 	import GridRows from '$lib/components/svizzle/GridRows.svelte';
 	import KeysLegend from '$lib/components/svizzle/legend/KeysLegend.svelte';
-	import StatsTrends from '$lib/components/svizzle/trends/StatsTrends.svelte';
 	import {interpolateColor} from '$lib/config/colors.js';
 	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {_framesTheme} from '$lib/stores/theme.js';
@@ -96,7 +96,7 @@
 			</section>
 		</div>
 
-		<StatsTrends
+		<PercentilesTrends
 			{axesLabels}
 			{areaLowKeyToColor}
 			{items}
@@ -124,7 +124,7 @@
 		colLayout='85fr 15fr'
 		gap='1em'
 	>
-		<StatsTrends
+		<PercentilesTrends
 			{axesLabels}
 			{areaLowKeyToColor}
 			{items}

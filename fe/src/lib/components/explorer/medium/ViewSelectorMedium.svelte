@@ -1,5 +1,5 @@
 <script>
-	import {Link} from '@svizzle/ui';
+	import {HyperLink} from '@svizzle/ui';
 
 	import {
 		_activeViewType,
@@ -16,37 +16,37 @@
 		class='target'
 		class:selected={$_activeViewType === 'geo'}
 	>
-		<Link
+		<HyperLink
 			href='/explorer/{type}/geo/{id}?{$_searchParams}'
 			isBold={$_activeViewType === 'geo'}
 			theme={$_linkTheme3}
 		>
 			Geo
-		</Link>
+		</HyperLink>
 	</div>
 	<div
 		class='target'
 		class:selected={$_activeViewType === 'time'}
 	>
-		<Link
+		<HyperLink
 			href='/explorer/{type}/time/{id}?{$_searchParams}'
 			isBold={$_activeViewType === 'time'}
 			theme={$_linkTheme3}
 		>
 			Time
-		</Link>
+		</HyperLink>
 	</div>
 	<div
 		class='target'
 		class:selected={$_activeViewType === 'stats'}
 	>
-		<Link
+		<HyperLink
 			href='/explorer/{type}/stats/{id}?{$_searchParams}'
 			isBold={$_activeViewType === 'stats'}
 			theme={$_linkTheme3}
 		>
 			Stats
-		</Link>
+		</HyperLink>
 	</div>
 </nav>
 

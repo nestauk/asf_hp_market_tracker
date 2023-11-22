@@ -1,5 +1,5 @@
 <script>
-	import {_screen, ChevronLeft, ChevronRight, Icon, Link} from '@svizzle/ui';
+	import {_screen, ChevronLeft, ChevronRight, HyperLink, Icon} from '@svizzle/ui';
 	import {isNotNil} from '@svizzle/utils';
 	import * as _ from 'lamb';
 
@@ -28,7 +28,7 @@
 				<ul>
 					{#each segments as id}
 						<li class:selected={segment === id}>
-							<Link
+							<HyperLink
 								href='/feedback/{id}'
 								theme={{
 									...$_linkTheme0,
@@ -40,7 +40,7 @@
 								<span>
 									{titles[id]}
 								</span>
-							</Link>
+							</HyperLink>
 						</li>
 					{/each}
 				</ul>
@@ -51,7 +51,7 @@
 					</label>
 
 					<div>
-						<Link
+						<HyperLink
 							ariaLabel={hasPrevSegment ? 'Previous tab' : null}
 							href={hasPrevSegment && `/feedback/${prevSegment}`}
 							theme={{
@@ -62,10 +62,10 @@
 							}}
 						>
 							<Icon glyph={ChevronLeft} />
-						</Link>
+						</HyperLink>
 					</div>
 					<div>
-						<Link
+						<HyperLink
 							ariaLabel={hasNextSegment ? 'Next tab' : null}
 							href={hasNextSegment && `/feedback/${nextSegment}`}
 							theme={{
@@ -76,7 +76,7 @@
 							}}
 						>
 							<Icon glyph={ChevronRight} />
-						</Link>
+						</HyperLink>
 					</div>
 				</div>
 			{/if}

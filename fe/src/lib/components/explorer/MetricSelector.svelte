@@ -1,5 +1,5 @@
 <script>
-	import {Scroller, Link} from '@svizzle/ui';
+	import {Scroller, HyperLink} from '@svizzle/ui';
 
 	import * as metricInfos from '$lib/_content/metrics/index.js';
 	import {scrollIntoViewIfTrue}
@@ -33,7 +33,7 @@
 		<ul>
 			{#each value as {id, label, type}}
 				<li>
-					<Link
+					<HyperLink
 						href='/explorer/{type}/{$_activeViewType}/{id}?{$_searchParams}'
 						theme={$_linkThemeMetricSelector}
 					>
@@ -48,7 +48,7 @@
 						>
 							{label}
 						</div>
-					</Link>
+					</HyperLink>
 				</li>
 			{/each}
 		</ul>

@@ -1,26 +1,5 @@
 <script>
-	import {Link, LinkButton, ResponsiveFlex} from '@svizzle/ui';
-
-	import {contactEmail, toolName} from '$lib/config';
-	import {_currThemeVars, _linkTheme1} from '$lib/stores/theme';
-
-	const lighthouseUrl = 'https://developers.google.com/web/tools/lighthouse';
-	const openDyslexicUrl = 'https://opendyslexic.org/';
-	const osxMouseURL = 'https://support.apple.com/guide/mac-help/change-cursor-preferences-for-accessibility-mchl5bb12e1e/mac';
-	const pa11yUrl = 'https://pa11y.org/'
-	const screenReadersUrl = 'https://en.wikipedia.org/wiki/List_of_screen_readers';
-	const wcag21Url = 'https://www.w3.org/TR/WCAG21/';
-	const windowsMouseURL = 'https://support.microsoft.com/en-us/windows/change-mouse-settings-e81356a4-0e74-fe38-7d01-9d79fbf8712b';
-
-	$: theme = {
-		backgroundColor: $_currThemeVars['--colorLink']
-	};
-	$: linkTheme = {
-		color: $_currThemeVars['--colorLink'],
-		outlineColor: $_currThemeVars['--colorOutline'],
-		outlineStyle: $_currThemeVars['--focusLineStyle'],
-		outlineWidth: $_currThemeVars['--focusLineWidth'],
-	}
+	import {contactEmail} from '$lib/config';
 </script>
 
 ## Web accessibility statement

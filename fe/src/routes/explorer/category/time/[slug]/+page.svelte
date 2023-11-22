@@ -1,10 +1,12 @@
 <script>
-	import {Scroller} from '@svizzle/ui';
+	import {StreamGraph, Trends} from '@svizzle/trends';
+	import {Scroller, View} from '@svizzle/ui';
 	import {
 		arraySumWith,
 		getKey,
 		getValue,
 		getValues,
+		objectToKeyValuesArray,
 	} from '@svizzle/utils';
 	import {scaleOrdinal} from 'd3-scale';
 	import * as _ from 'lamb';
@@ -17,9 +19,6 @@
 	import GridColumns from '$lib/components/svizzle/GridColumns.svelte';
 	import GridRows from '$lib/components/svizzle/GridRows.svelte';
 	import KeysLegend from '$lib/components/svizzle/legend/KeysLegend.svelte';
-	import StreamGraph from '$lib/components/svizzle/trends/StreamGraph.svelte';
-	import Trends from '$lib/components/svizzle/trends/Trends.svelte';
-	import View from '$lib/components/viewports/View.svelte';
 	import {intervalToAxisLabel} from '$lib/config/labels.js';
 	import {_isSmallScreen} from '$lib/stores/layout.js';
 	import {_currentMetric, _selection} from '$lib/stores/navigation.js';
@@ -27,7 +26,6 @@
 	import {_tooltip, clearTooltip} from '$lib/stores/tooltip.js';
 	import {_isViewReady, _viewData} from '$lib/stores/view.js';
 	import {getItemsColorScheme} from '$lib/utils/color.js';
-	import {objectToKeyValuesArray} from '$lib/utils/svizzle/utils.js';
 	import {
 		getDocCount,
 		getKeyAsString,
