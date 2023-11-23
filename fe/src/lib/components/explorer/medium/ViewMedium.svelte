@@ -116,25 +116,25 @@
 		display: grid;
 		grid-template-rows: min-content 100%;
 		height: 100%;
-		width: 100%;
 		overflow: hidden;
+		width: 100%;
 	}
 
 	header {
 		align-items: center;
 		display: grid;
-		grid-template-columns: auto 1fr max-content;
 		gap: 1em;
+		grid-template-columns: auto 1fr max-content;
+		overflow: hidden;
 		padding: 0 1em;
 		width: 100%;
-		overflow: hidden;
 	}
 	h1 {
 		font-size: 1.5em;
-		width: 100%;
-		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
+		white-space: nowrap;
+		width: 100%;
 	}
 	header button {
 		justify-self: start;
@@ -149,9 +149,9 @@
 	}
 	.overlay {
 		height: 100%;
+		pointer-events: none;
 		position: absolute;
 		width: 100%;
-		pointer-events: none;
 	}
 
 	button {
