@@ -33,9 +33,9 @@ export const isOpenSearch = esEnv === 'production';
 
 // override search function to match the ES client
 if (esEnv === 'production') {
-	client.search = (function(_super) {
+	client.search = (function(super_) {
 		return async function() {
-			const result = await _super.apply(this, arguments);
+			const result = await super_.apply(this, arguments);
 
 			if ('body' in result) {
 				return result.body;

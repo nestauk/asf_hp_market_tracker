@@ -122,7 +122,7 @@
 
 	$: ({inlineSize: width, blockSize: height} = $_size);
 	$: availableWidth = Math.max(
-		width - geometry.padding - scrollbarWidth ?? 0,
+		width - scrollbarWidth ?? 0,
 		0
 	);
 	$: barPadding = geometry.glyphWidth;
@@ -298,7 +298,9 @@
 
 	$: refHeight = geometry.padding + geometry.glyphHeight;
 	$: refsHeight =
-		refs && refs.length * (geometry.padding + refHeight) + geometry.padding
+		refs &&
+		refs.length * (geometry.padding + refHeight) +
+		(refs.length > 0 ? geometry.padding : 0)
 		|| 0;
 	$: makeRefsLayout = pipe([
 		sortByValue,

@@ -381,8 +381,8 @@
 				/>
 			</GridColumns>
 			<GridColumns
-				colLayout='10% 59% 30%'
-				gap='1%'
+				colLayout='1fr 6fr 3fr'
+				gap='1em'
 			>
 				<div class='col0'>
 					{#if isSingleValue}

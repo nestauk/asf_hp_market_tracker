@@ -143,8 +143,8 @@
 		</View>
 	{:else}
 		<GridColumns
-			colLayout='69% 30%'
-			gap='1%'
+			colLayout='7fr 3fr'
+			gap='1em'
 		>
 			<div class='col'>
 				<div class='treemap'>

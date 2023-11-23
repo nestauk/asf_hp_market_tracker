@@ -210,8 +210,8 @@
 
 		{#if doDraw}
 			<GridColumns
-				colLayout='25% 74%'
-				gap='1%'
+				colLayout='25fr 75fr'
+				gap='1em'
 			>
 				<Scroller alignVertically={true}>
 					<KeysLegend

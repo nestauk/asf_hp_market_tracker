@@ -273,8 +273,8 @@
 
 		{#if doDraw}
 			<GridColumns
-				colLayout='79% 20%'
-				gap='1%'
+				colLayout='8fr 2fr'
+				gap='1em'
 			>
 				<div class='col'>
 					{#if showStreams}
