@@ -39,22 +39,22 @@
 
 <div class='ViewMedium'>
 	<header>
-		<h1>
+		<h1 title={$_currentMetricTitle}>
 			{$_currentMetricTitle}
-			{#if $_currentMetricId in metricInfos}
-				<button
-					aria-label='Metric info'
-					on:click={toggleInfoModal}
-				>
-					<Icon
-						glyph={Info}
-						size=30
-						stroke={$_currThemeVars['--colorIcon']}
-						strokeWidth=1.5
-					/>
-				</button>
-			{/if}
 		</h1>
+		{#if $_currentMetricId in metricInfos}
+			<button
+				aria-label='Metric info'
+				on:click={toggleInfoModal}
+			>
+				<Icon
+					glyph={Info}
+					size=30
+					stroke={$_currThemeVars['--colorIcon']}
+					strokeWidth=1.5
+				/>
+			</button>
+		{/if}
 		<ViewSelectorMedium />
 	</header>
 	<main>
@@ -114,19 +114,30 @@
 <style>
 	.ViewMedium {
 		display: grid;
-		grid-template-rows: 6% 94%;
+		grid-template-rows: min-content 100%;
 		height: 100%;
 		width: 100%;
+		overflow: hidden;
 	}
 
 	header {
 		align-items: center;
-		display: flex;
-		justify-content: space-between;
+		display: grid;
+		grid-template-columns: auto 1fr max-content;
+		gap: 1em;
 		padding: 0 1em;
+		width: 100%;
+		overflow: hidden;
 	}
 	h1 {
 		font-size: 1.5em;
+		width: 100%;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	header button {
+		justify-self: start;
 	}
 	main {
 		display: grid;
