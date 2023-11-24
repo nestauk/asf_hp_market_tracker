@@ -1,6 +1,6 @@
 <script>
 	import Privacy from '$lib/_content/info/Privacy.svx';
-	import {toolName} from '$lib/config';
+	import {toolName} from '$lib/config/app.js';
 </script>
 
 <svelte:head>

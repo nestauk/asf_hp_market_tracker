@@ -4,7 +4,7 @@ import pa11y from 'pa11y';
 import htmlReporter from 'pa11y-reporter-html';
 import Queue from 'queue-promise';
 
-import {lighthouseUrls} from '../../../fe/src/lib/config.js';
+import {lighthouseUrls} from '../../../fe/src/lib/config/testing.js';
 import {urlBases} from '../config.js';
 
 const themeOverride = process.env?.VITE_THEME_OVERRIDE;

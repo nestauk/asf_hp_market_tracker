@@ -2,8 +2,8 @@ import {_isA11yDirty} from '@svizzle/ui';
 import * as _ from 'lamb';
 import {derived, writable} from 'svelte/store';
 
-import {themeOverride} from '$lib/env';
-import {makeSegmentToCssVar} from '$lib/utils/theme';
+import {themeOverride} from '$lib/config/env.js';
+import {makeSegmentToCssVar} from '$lib/utils/theme.js';
 
 export const _isThemeEditorActive = writable(false);
 

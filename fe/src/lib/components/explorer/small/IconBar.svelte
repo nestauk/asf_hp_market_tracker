@@ -3,7 +3,7 @@
 	import {createEventDispatcher} from 'svelte';
 
 	import {makeOnKeyDown} from '$lib/components/svizzle/ui/handlers.js';
-	import {_getIconColor} from '$lib/stores/theme';
+	import {_getIconColor} from '$lib/stores/theme.js';
 
 	const dispatch = createEventDispatcher();
 

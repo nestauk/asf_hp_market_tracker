@@ -1,7 +1,7 @@
 <script>
 	import DataProcessing from '$lib/_content/methodology/DataProcessing.svx';
 
-	import {toolName} from '$lib/config';
+	import {toolName} from '$lib/config/app.js';
 </script>
 
 <svelte:head>

@@ -1,7 +1,7 @@
 <script>
 	import Geography from '$lib/_content/methodology/Geography.svx';
 
-	import {toolName} from '$lib/config';
+	import {toolName} from '$lib/config/app.js';
 </script>
 
 <svelte:head>

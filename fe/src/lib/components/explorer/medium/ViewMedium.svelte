@@ -14,7 +14,7 @@
 	import ViewSelectorMedium
 		from '$lib/components/explorer/medium/ViewSelectorMedium.svelte';
 	import {noDataMessage} from '$lib/config/text.js';
-	import {isDev} from '$lib/env.js';
+	import {isDev} from '$lib/config/env.js';
 	import {
 		_currentMetricId,
 		_currentMetricTitle,

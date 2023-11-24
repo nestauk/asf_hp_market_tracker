@@ -2,8 +2,8 @@
 	import {CenteredView, Scroller} from '@svizzle/ui';
 
 	import {page as _page} from '$app/stores';
-	import {toolName} from '$lib/config';
-	import {isDev} from '$lib/env';
+	import {toolName} from '$lib/config/app.js';
+	import {isDev} from '$lib/config/env.js';
 
 	// eslint-disable-next-line prefer-destructuring
 	$: status = $_page.status;

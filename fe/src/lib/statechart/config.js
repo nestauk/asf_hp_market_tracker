@@ -1,4 +1,4 @@
-import {isDev} from '$lib/env.js';
+import {isDev} from '$lib/config/env.js';
 
 // https://stately.ai/registry/editor/ed39daf7-c390-45bd-8a86-9aefbeb8a736
 
