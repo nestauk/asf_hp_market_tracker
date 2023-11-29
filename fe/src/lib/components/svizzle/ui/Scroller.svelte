@@ -2,7 +2,6 @@
 	import {makeStyleVars} from '@svizzle/dom';
 	import {color} from 'd3-color';
 
-	// import {setupResizeObserver} from './actions/resizeObserver.js';
 	import {setupResizeObserver} from '@svizzle/ui';
 
 	const defaultTheme = {

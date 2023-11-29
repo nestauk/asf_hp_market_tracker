@@ -4,9 +4,9 @@
 	import {page as _page} from '$app/stores';
 	import ExplorerMedium from '$lib/components/layout/medium/ExplorerMedium.svelte';
 	import ExplorerSmall from '$lib/components/layout/small/ExplorerSmall.svelte';
-	import {toolName} from '$lib/config.js';
+	import {toolName} from '$lib/config/app.js';
 	import {explorerActor} from '$lib/statechart/index.js';
-    import {_staticData} from '$lib/stores/data';
+    import {_staticData} from '$lib/stores/data.js';
 	import {_screenId} from '$lib/stores/layout.js';
 
 	explorerActor.send({type: 'MOUNTED'});

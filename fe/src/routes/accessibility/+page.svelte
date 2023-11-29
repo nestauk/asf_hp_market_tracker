@@ -8,10 +8,8 @@
 	import H2 from '$lib/components/mdsvex/h2.svelte';
 	import Ul from '$lib/components/mdsvex/ul.svelte';
 	// import P from '$lib/components/mdsvex/p.svelte';
-	import {
-		lighthouseUrls,
-		toolName,
-	} from '$lib/config';
+	import {toolName} from '$lib/config/app.js';
+	import {lighthouseUrls} from '$lib/config/testing.js';
 	/*
 	import {
 		getTest,
@@ -19,7 +17,7 @@
 		groupTests,
 		testResultsBaseURL,
 		summarizeResults
-	} from '$lib/utils/tests';
+	} from '$lib/utils/tests.js';
 	*/
 
 	import Accessibility from '$lib/_content/Accessibility.svx';

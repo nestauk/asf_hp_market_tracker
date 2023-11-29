@@ -23,13 +23,11 @@
 	import Nav from '$lib/components/layout/Nav.svelte';
 	import ThemeEditor from '$lib/components/layout/medium/ThemeEditor.svelte';
 	import Tooltip from '$lib/components/svizzle/ui/Tooltip.svelte';
-	import {
-		bannersDefaultFooterText,
-		fontsInfo,
-	} from '$lib/config';
-	import {isDev} from '$lib/env';
-	import {_isSmallScreen} from '$lib/stores/layout';
-	import {_pointerSupport} from '$lib/stores/pointer';
+	import {isDev} from '$lib/config/env.js';
+	import {fontsInfo} from '$lib/config/fonts.js';
+	import {bannersDefaultFooterText} from '$lib/config/text.js';
+	import {_isSmallScreen} from '$lib/stores/layout.js';
+	import {_pointerSupport} from '$lib/stores/pointer.js';
 	import {
 		_a11yMenuTheme,
 		_bannersTheme,
@@ -40,7 +38,7 @@
 		_themeVars,
 		_tooltipTheme,
 	} from '$lib/stores/theme'
-	import {_tooltip, clearTooltip} from '$lib/stores/tooltip';
+	import {_tooltip, clearTooltip} from '$lib/stores/tooltip.js';
 
 	import Privacy from '$lib/_content/info/PrivacyBanner.svx';
 

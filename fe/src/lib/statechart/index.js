@@ -1,7 +1,7 @@
 import {createMachine, interpret} from 'xstate';
 
 import {browser} from '$app/environment';
-import {isDev} from '$lib/env.js';
+import {isDev} from '$lib/config/env.js';
 import {_isViewReady} from '$lib/stores/view.js';
 
 import * as actions from './actions/index.js';

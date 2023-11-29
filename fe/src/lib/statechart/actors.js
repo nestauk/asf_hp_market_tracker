@@ -3,7 +3,7 @@ import * as _ from 'lamb';
 
 import {intervals} from '$lib/config/time.js';
 import {categoricalMetrics, numericMetrics} from '$lib/data/metrics.js';
-import {selectedBeURL} from '$lib/env.js';
+import {selectedBeURL} from '$lib/config/env.js';
 
 const query = queryPath =>
 	fetch(`${selectedBeURL}/${queryPath}`)

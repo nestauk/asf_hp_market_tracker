@@ -11,7 +11,7 @@
 	import InfoSmall from '$lib/components/explorer/small/InfoSmall.svelte';
 	import ViewSelectorMedium
 		from '$lib/components/explorer/medium/ViewSelectorMedium.svelte';
-	import {isDev} from '$lib/env.js';
+	import {isDev} from '$lib/config/env.js';
 	import {explorerActor} from '$lib/statechart/index.js';
 	import {_selection} from '$lib/stores/navigation.js';
 	import {_currThemeVars} from '$lib/stores/theme.js';

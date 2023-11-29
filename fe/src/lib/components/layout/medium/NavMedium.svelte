@@ -5,7 +5,7 @@
 		_currThemeVars,
 		_getNavLinkColor,
 		_linkTheme0,
-	} from '$lib/stores/theme';
+	} from '$lib/stores/theme.js';
 
 	export let segment;
 </script>

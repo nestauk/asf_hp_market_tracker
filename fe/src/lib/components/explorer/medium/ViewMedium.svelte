@@ -14,7 +14,7 @@
 	import ViewSelectorMedium
 		from '$lib/components/explorer/medium/ViewSelectorMedium.svelte';
 	import {noDataMessage} from '$lib/config/text.js';
-	import {isDev} from '$lib/env.js';
+	import {isDev} from '$lib/config/env.js';
 	import {
 		_currentMetricId,
 		_currentMetricTitle,
@@ -119,7 +119,7 @@
 <style>
 	.ViewMedium {
 		display: grid;
-		grid-template-rows: min-content 100%;
+		grid-template-rows: 8% 92%;
 		height: 100%;
 		overflow: hidden;
 		width: 100%;
