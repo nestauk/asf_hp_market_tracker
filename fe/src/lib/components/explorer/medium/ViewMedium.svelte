@@ -119,7 +119,7 @@
 <style>
 	.ViewMedium {
 		display: grid;
-		grid-template-rows: min-content 100%;
+		grid-template-rows: 8% 92%;
 		height: 100%;
 		overflow: hidden;
 		width: 100%;
